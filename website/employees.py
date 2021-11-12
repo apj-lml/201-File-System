@@ -1,3 +1,4 @@
+from genericpath import commonprefix
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -7,8 +8,7 @@ from datetime import datetime
 from .myhelper import allowed_file
 from werkzeug.utils import secure_filename
 import os, os.path
-from pathlib import Path
-
+import json
 ALLOWED_EXTENSIONS = {'pdf'}
 
 employees = Blueprint('employees', __name__)
@@ -123,3 +123,16 @@ def update_employee():
 					db.session.commit()
 
 	return redirect(request.referrer)
+
+@employees.route('delete-file', methods=['POST', 'GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def delete_file():
+	if request.method == "POST":
+		formdata  = json.loads(request.data)
+		my_file = Uploaded_File.query.get(formdata['file_id'])
+		print(my_file)
+		os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], my_file.file_name))
+		db.session.delete(my_file)
+		db.session.commit()
+	return jsonify('{message: File Deleted Successfully}')

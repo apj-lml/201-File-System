@@ -776,7 +776,7 @@
       document.getElementById("age").value = age;
 
     formElem.addEventListener("submit",(e)=>{
-      alert(213)
+
       e.preventDefault();
       let formData = new FormData(formElem);
       //formData.append('file',  input.files[0])
@@ -801,6 +801,13 @@
 
 function delete_file(e){
   alert(e.id)
+  fetch('/employees/delete-file',{
+    method: 'POST',
+    body: JSON.stringify({"file_id" : e.id})
+  })
+	.then(response => response.json())
+	.then(data => data)
+	.catch(err => console.error(err));
 }
 
 
