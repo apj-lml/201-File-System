@@ -1,0 +1,607 @@
+{% extends 'base.html' %}
+
+{% block title %} Sign Up {% endblock %}
+
+{%block cssperfile %} 
+  <style type="text/css">
+    label {
+      font: .75em sans-serif;
+    }
+    .card-title{
+      font:2em impact;
+    }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="row">
+  <div class="text-center">
+      <img class="mb-4" src="{{url_for('static', filename='img/signup.png')}}" alt="" width="172" height="172">
+  </div>
+</div>
+<div class="row">
+<div class="col">
+  <form enctype="multipart/form-data" id="signUp" action="#" method="POST" >
+    <div class="card mb-3 align-self-center">
+      <div class="card-body">
+      <h3 class="card-title">Account Setup</h3>
+        <div class="d-flex flex-column">
+          <div class="form-floating mb-3 p-1">
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+            <label for="email">Email Address</label>
+          </div>
+        </div>
+        <div class="d-flex flex-row"> 
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="password" class="form-control" id="password" name ="password" placeholder="Password">
+            <label for="password">Password</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="password" class="form-control" id="floatingPassword2" name ="floatingPassword2" placeholder="Password">
+            <label for="floatingPassword2">Confirm Password</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Personal Information</h3>
+      <div class="d-flex flex-row">
+        <div class="form-floating flex-fill mb-3 p-1">
+            <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number">
+            <label for="employee_id">Employee ID Number</label>
+          </div>
+      </div>
+        <div class="d-md-flex flex-row"> 
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name">
+            <label for="last_name">Last Name</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name">
+            <label for="first_name">First Name</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name">
+            <label for="middle_name">Middle Name</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension">
+            <label for="name_extn">Name Extension (eg. Jr., III)</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row"> 
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title">
+            <label for="last_name">Position Title</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade">
+            <label for="first_name">Salary Grade</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example">
+              <option value="Job Order">Job Order</option>
+              <option value="Permanent">Permanent</option>
+              <option value="Casual">Casual</option>
+              <option value="Coterminous">Coterminous</option>
+            </select>
+            <label for="middle_name">Employment Status</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <select class="form-select" id="section" name="section" aria-label="Floating label select example">
+                <option value="Administrative & Finance">Administrative & Finance</option>
+                <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Operation & Maintenance">Operation & Maintenance</option>
+                <option value="NISRIP">NISRIP</option>
+                <option value="CARP-IC">CARP-IC</option>
+                <option value="Detailed">Detailed</option>
+                <option value="N/A">N/A</option>
+              </select>
+            <label for="section">Section</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+                <select class="form-select" id="unit" name="unit" aria-label="Floating label select example">
+                <option value="Administrative Unit">Administrative Unit</option>
+                <option value="Finance Unit">Finance Unit</option>
+                <option value="Cashiering Unit">Cashiering Unit</option>
+                <option value="Property Unit">Property Unit</option>
+                <option value="Planning Unit">Planning Unit</option>
+                <option value="Design Unit">Design Unit</option>
+                <option value="Construction Unit">Construction Unit</option>
+                <option value="Institutional Development Unit">Institutional Development Unit</option>
+                <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
+                <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
+                <option value="Lower Agno RIS">Lower Agno RIS</option>
+                <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
+                <option value="N/A">N/A</option>
+              </select>
+            <label for="name_extn">Unit</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate">
+            <label for="birthdate">Birthdate</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="age" name ="age" placeholder="Age" disabled>
+            <label for="name_extn">Age</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth">
+            <label for="name_extn">Place of Birth</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <select class="form-select" id="sex" name="sex" aria-label="Floating label select example">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <label for="sex">Sex</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example">
+              <option value="Single">Single</option>
+              <option value="Widowed">Widowed</option>
+              <option value="Married">Married</option>
+              <option value="Separated">Separated</option>
+            </select>
+            <label for="civil_status">Civil Status</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)">
+            <label for="name_extn">Height(m)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)">
+            <label for="name_extn">Weight(kg)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type">
+            <label for="name_extn">Blood Type</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <select class="form-select" id="religion" name="religion" aria-label="Floating label select example">
+              <option value="Roman Catholic">Roman Catholic</option>
+              <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+              <option value="Baptist">Baptist</option>
+              <option value="Born Again Christian">Born Again Christian</option>
+              <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
+            </select>
+            <label for="religion">Religion</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents">
+            <label for="name_extn">Dependents</label>
+          </div>      
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No.">
+            <label for="mobile_no">Mobile No.</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No.">
+            <label for="telephone_no">Telephone No.</label>
+          </div>    
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS">
+            <label for="name_extn">GSIS</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig">
+            <label for="name_extn">Pag-ibig</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth">
+            <label for="name_extn">Philhealth</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS">
+            <label for="name_extn">SSS</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN">
+            <label for="name_extn">TIN</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No.">
+            <label for="name_extn">ATM Card No.</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID">
+            <label for="name_extn">UMID</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys">
+            <label for="name_extn">PhilSys</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <div class="form-floating">
+              <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example">
+                <option value="Filipino" selected>Filipino</option>
+                <option value="Dual Citizen">Dual Citizen</option>
+              </select>
+              <label for="floatingSelect">Citizenship</label>
+            </div>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="dual_citizenship" name ="dual_citizenship" placeholder="Dual Citizenship" disabled>
+            <label for="name_extn">Dual Citizenship</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled>
+            <label for="indicate_country">Indicate Country</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Upload Supporting Documents</h3>
+      <div class="d-md-flex flex-row">
+          <div class="flex-fill mb-3 p-1">
+            <label for="psa" class="form-label">Upload PSA</label>
+            <input class="form-control" type="file" id="psa" name="psa">
+          </div>
+          <div class="flex-fill mb-3 p-1">
+            <label for="nbi" class="form-label">Upload NBI</label>
+            <input class="form-control" type="file" id="nbi" name="nbi">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Permanent Address</h3>
+        <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="p_house_block_lot" name ="p_house_block_lot" placeholder="House/Block/Lot No." onchange="sameAsPermanent()">
+              <label for="p_house_block_lot">House/Block/Lot No.</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="p_street" name ="p_street" placeholder="Street" onchange="sameAsPermanent()">
+              <label for="p_street">Street</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="p_subdivision_village" name ="p_subdivision_village" placeholder="Subdivision/Village" onchange="sameAsPermanent()">
+              <label for="p_subdivision_village">Subdivision/Village</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()">
+              <label for="p_barangay">Barangay</label>
+            </div>
+          </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()">
+            <label for="p_city_municipality">City/Municipality</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()">
+            <label for="p_province">Province</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()">
+            <label for="p_zip_code">Zip Code</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Present Address</h3>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <div class="form-floating">
+              <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example">
+                <option value="Yes" selected>Yes</option>
+                <option value="No">No</option>
+              </select>
+              <label for="same_as_permanent">Same as permanent address</label>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." disabled>
+            <label for="pres_house_block_lot">House/Block/Lot No.</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" disabled>
+            <label for="pres_street">Street</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" disabled>
+            <label for="pres_subdivision_village">Subdivision/Village</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" disabled>
+            <label for="pres_barangay">Barangay</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">        
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" disabled>
+            <label for="pres_city_municipality">City/Municipality</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" disabled>
+            <label for="pres_province">Province</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" disabled>
+            <label for="pres_zip_code">Zip Code</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Educational Attainment</h3>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="highest_educational_attainment" name ="highest_educational_attainment" placeholder="House/Block/Lot No.">
+              <label for="highest_educational_attainment">Highest Educational Attainment</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Elementary Education</h3>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school">
+            <label for="elementary_school">Elementary School</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)">
+            <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)">
+            <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
+          </div>       
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level">
+            <label for="e_highest_level">Highest Level Attained</label>
+          </div>   
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Sholarship / Academic Honor">
+            <label for="e_scholarship_academic_honor">Sholarship / Academic Honor</label>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">High School</h3>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="high_school" name ="high_school" placeholder="high_school">
+            <label for="high_school">High School</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)">
+            <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)">
+            <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="hs_highest_level" name ="hs_highest_level" placeholder="Highest Level">
+            <label for="hs_highest_level">Highest Level Attained</label>
+          </div>   
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor">
+            <label for="hs_scholarship_academic_honor">Sholarship / Academic Honor</label>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Vocational / Trade Course</h3>
+          <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="v_school" name ="v_school" placeholder="School">
+            <label for="v_school">School</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="vocational_trade_course" name ="vocational_trade_course" placeholder="Vocational / Trade Course">
+            <label for="vocational_trade_course">Vocational / Trade Course</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="v_period_of_attendance_from" name ="v_period_of_attendance_from" placeholder="Period of Attendance (From)">
+            <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="v_period_of_attendance_to" name ="v_period_of_attendance_to" placeholder="Period of Attendance (To)">
+            <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="v_highest_level" name ="v_highest_level" placeholder="Highest Level">
+            <label for="v_highest_level">Highest Level Attained / Units Earned</label>
+          </div>   
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="v_scholarship_academic_honor" name ="v_scholarship_academic_honor" placeholder="Sholarship / Academic Honor">
+            <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">College</h3>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="c_school" name ="c_school" placeholder="c_school">
+            <label for="c_school">School</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="c_degree_course" name ="c_degree_course" placeholder="c_degree_course">
+            <label for="c_degree_course">Degree</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="c_period_of_attendance_from" name ="c_period_of_attendance_from" placeholder="Period of Attendance (From)">
+            <label for="c_period_of_attendance_from">Period of Attendance (From)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="c_period_of_attendance_to" name ="c_period_of_attendance_to" placeholder="Period of Attendance (To)">
+            <label for="c_period_of_attendance_to">Period of Attendance (To)</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="c_highest_level_units_earned" name ="c_highest_level_units_earned" placeholder="Highest Level">
+            <label for="c_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+          </div>   
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="c_scholarship_academic_honor" name ="c_scholarship_academic_honor" placeholder="Sholarship / Academic Honor">
+            <label for="c_scholarship_academic_honor">Sholarship / Academic Honor</label>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Masteral Degree</h3>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="gs_school" name ="gs_school" placeholder="School">
+              <label for="gs_school">School</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="gs_degree_course" name ="gs_degree_course" placeholder="Degree / Course">
+              <label for="gs_degree_course">Degree / Course</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="gs_period_of_attendance_from" name ="gs_period_of_attendance_from" placeholder="Period of Attendance (To)">
+              <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="gs_period_of_attendance_to" name ="gs_period_of_attendance_to" placeholder="Period of Attendance (To)">
+              <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+            </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="gs_highest_level_units_earned" name ="gs_highest_level_units_earned" placeholder="Highest Level">
+            <label for="gs_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+          </div>   
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor">
+            <label for="gs_scholarship_academic_honor">Sholarship / Academic Honor</label>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Doctoral Degree</h3>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School">
+              <label for="doc_school">School</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course">
+              <label for="doc_degree_course">Degree / Course</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)">
+              <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)">
+              <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+            </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="doc_highest_level_units_earned" name ="doc_highest_level_units_earned" placeholder="Highest Level">
+            <label for="doc_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Sholarship / Academic Honor">
+            <label for="doc_scholarship_academic_honor">Sholarship / Academic Honor</label>
+          </div>   
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Civil Service Eligibility</h3>
+        <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="cs_eligibility" name ="cs_eligibility" placeholder="Eligibility">
+              <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="cs_rating" name ="cs_rating" placeholder="Rating">
+              <label for="cs_rating">Rating (if applicable)</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" id="place_of_examination_conferment" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment">
+              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+            </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number">
+            <label for="license_no">License Number</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" id="date_of_validity" name ="date_of_validity" placeholder="Date of Validity">
+            <label for="date_of_validity">Date of Validity</label>
+          </div> 
+        </div>
+      </div>
+    </div>
+
+
+</div> <!--col-->
+</div> <!--row-->
+  <div class="row">
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+  </form>
+</div>
+{% endblock %}
+
+{%block scripts%}
+<script src="{{ url_for('static', filename='signup.js') }}"></script>
+{%endblock%}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{%block cssperfile %} 
+	<!-- Custom style for login -->
+	<link href="{{ url_for('static', filename='signin.css') }}" rel="stylesheet">
+	<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for login -->
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center">
+	<main class="form-signin">
+	  <form id="login_form" action="#" method="POST">
+	    <img class="mb-4" src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="172" height="172">
+	    <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+
+	    <div class="form-floating">
+	      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+	      <label for="floatingInput">Email address</label>
+	    </div>
+	    <div class="form-floating">
+	      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+	      <label for="floatingPassword">Password</label>
+	    </div>
+	    
+
+	    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+	    <div class="mb-3">
+	      <label>
+	        <a href="/signup"> Sign Up </a>
+	      </label>
+	    </div>
+	    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+	  </form>
+	</main>
+</div>
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+	document.getElementById("login_form").addEventListener("submit", function(e){
+  e.preventDefault()
+  var formElem = document.getElementById("login_form");
+  let loginData = new FormData(formElem);
+  
+  const data = {}
+  loginData.forEach((value, key) => (data[key] = value))
+
+  console.log(data)
+
+  fetch('/', {
+		method: 'POST',
+		body: JSON.stringify(data),
+	}).then((res)=>{
+
+		if (res.redirected) {
+			window.location.href = res.url
+		}else{
+			setTimeout(function() {
+			triggerToast(); 
+			setTimeout(()=>{
+				document.getElementById('toastBody').innerHTML = ""
+			},6000)
+		}, 450);
+
+		}
+		
+	})
+});
+</script>
+{%endblock%}

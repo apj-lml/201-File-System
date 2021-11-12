@@ -1,0 +1,23 @@
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask_login import current_user, login_user, logout_user, login_required
+#from flask.ext.principal import Principal, Permission, RoleNeed
+from flask_principal import Principal, Permission, RoleNeed
+
+views = Blueprint('views', __name__)
+
+admin_permission = Permission(RoleNeed('admin'))
+
+@views.errorhandler(403)
+def page_not_found(e):
+	session['redirected_from'] = request.url
+	return redirect(url_for('auth.login'))
+
+@views.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+	return render_template('dashboard.html')
+
+@views.route('/admin/dashboard', methods=['GET', 'POST'])
+@login_required
+@admin_permission.require(http_exception=403)
+def admin_dashboard():
+	return render_template('admin-dashboard.html')
