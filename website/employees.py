@@ -130,6 +130,7 @@ def update_employee():
 def delete_file():
 	if request.method == "POST":
 		formdata  = json.loads(request.data)
+		
 		my_file = Uploaded_File.query.get(formdata['file_id'])
 		print(my_file)
 		os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], my_file.file_name))
