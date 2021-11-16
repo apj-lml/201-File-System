@@ -21,12 +21,11 @@ def page_not_found(e):
 	return redirect(url_for('auth.login'))
 
 
-@employees.route('get-employees', methods=['POST', 'GET'])
+@employees.route('get-employees/<emp_id>', methods=['POST', 'GET'])
 @login_required
 @admin_permission.require(http_exception=403)
-def get_employees():
-	
-	if request.method == 'GET':
+def get_employees(emp_id):
+	if request.method == 'GET' and emp_id == "0" :
 		user = User.query.all()
 		column_keys = User.__table__.columns.keys()
 	# Temporary dictionary to keep the return value from table
@@ -39,53 +38,48 @@ def get_employees():
 			rows_dic.append(rows_dic_temp)
 			rows_dic_temp= {}
 		return jsonify(rows_dic)
+	#else:
+	# 	user = User.query.filter_by(id = emp_id)
+	# 	column_keys = User.__table__.columns.keys()
+	# # Temporary dictionary to keep the return value from table
+	# 	rows_dic_temp = {}
+	# 	rows_dic = []
+	# # Iterate through the returned output data set
+	# 	for row in user:
+	# 		for col in column_keys:
+	# 			rows_dic_temp[col] = getattr(row, col)
+	# 		rows_dic.append(rows_dic_temp)
+	# 		rows_dic_temp= {}
+	# 	return redirect(url_for('employees.my_profile',  user_profile = rows_dic))
 
-	return jsonify({})
-
-@employees.route('my-profile', methods=['POST', 'GET'])
+@employees.route('my-profile/<emp_id>', methods=['POST', 'GET'])
 @login_required
 @admin_permission.require(http_exception=403)
-def my_profile():
+def my_profile(emp_id):
 	
 	if request.method == 'GET':
-		user = User.query.filter_by(id = current_user.id)
-
-		column_keys = User.__table__.columns.keys()
-
-	# Temporary dictionary to keep the return value from table
-		rows_dic_temp = {}
-		rows_dic = []
-
-	# Iterate through the returned output data set
-		for row in user:
-			for col in column_keys:
-				rows_dic_temp[col] = getattr(row, col)
-			rows_dic.append(rows_dic_temp)
-			rows_dic_temp= {}
-		return render_template('employee_profile.html', user_profile = current_user)
+		user = User.query.get(emp_id)
+		#print(user.id)
+		
+		return render_template('employee_profile.html', user_profile = user)
 
 	return jsonify({})
 
 
-@employees.route('update-employee', methods=['POST', 'GET'])
+@employees.route('update-employee/<emp_id>', methods=['POST', 'GET'])
 @login_required
 @admin_permission.require(http_exception=403)
-def update_employee():
+def update_employee(emp_id):
 	formdata = request.form.to_dict()
-	files = request.files
-	user = db.session.query(User).get(current_user.id)
+
+	user = db.session.query(User).get(emp_id)
 
 	if formdata['date_of_validity'] != '':
 		formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
 	else:
 		formdata['date_of_validity'] = None
-	formdata['birthdate'] = datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
-	#code for automated update
-	for key, value in formdata.items(): 
-		setattr(user, key, value)
 
-	db.session.commit()
-	#end update
+	formdata['birthdate'] = datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
 	final_name = ''
 	for afile in request.files:
@@ -121,6 +115,14 @@ def update_employee():
 					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = current_user.id)
 					db.session.add(files_to_upload)
 					db.session.commit()
+
+	formdata.pop('employee_id')
+	#code for automated update
+	for key, value in formdata.items(): 
+		setattr(user, key, value)
+
+	db.session.commit()
+	#end update
 
 	return redirect(request.referrer)
 

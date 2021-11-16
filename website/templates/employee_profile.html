@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} My profile {% endblock %}
+{% block title %} Employee Profile {% endblock %}
 
 {%block cssperfile %} 
   <style>
@@ -98,7 +98,7 @@
         <li>
           <a href="/employees/my-profile" class="nav-link text-white active">
             <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-            My Profile
+            Profile
           </a>
           </li>
         <li>
@@ -107,18 +107,18 @@
           Reports
         </a>
         </li>
-        <li>
+        <!-- <li>
         <a href="#" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
           Products
         </a>
-        </li>
-        <li>
+        </li> -->
+        <!-- <li>
         <a href="#" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
           Customers
         </a>
-        </li>
+        </li> -->
       </ul>
       <hr>
       <div class="dropdown">
@@ -140,7 +140,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="text-center">
-          <h1>My Profile</h1>
+          <h1>Employee Profile</h1>
         </div>
       </div>
       <div class="row">
@@ -153,7 +153,7 @@
             </div> -->
             <div class="row">
             <div class="col">
-              <form enctype="multipart/form-data" id="update_form" action="/employees/update-employee" method="POST" autocomplete="off">
+              <form enctype="multipart/form-data" id="update_form" action="/employees/update-employee/{{user_profile.id}}" method="POST" autocomplete="off">
                 <!-- <div class="card mb-3 align-self-center">
                   <div class="card-body">
                   <h3 class="card-title">Account Setup</h3>
@@ -713,22 +713,24 @@
                       <input class="form-control" type="file" id="nbi" name="nbi">
                     </div>
                   </div>
-                  <div class="d-md-flex flex-row">
+                  <div class="container">
+                    <div class="row" style="max-width: 1000px;">
                   {% for file in current_user.uploaded_files %}
-                    <div class="flex-fill mb-3 p-1">
-                      <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                        <a href="{{file.file_path}}\{{file.file_name}}">
-                          <span class="d-inline-block text-truncate" style="max-width: 160px;">
-                            {{file.file_name}}
-                          </span>
-                        </a>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                    <!-- <div class="flex-fill mb-3 p-1"> -->
+                      <div class="col-md-4">
+                        <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
+                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                          <a href="{{file.file_path}}\{{file.file_name}}">
+                            <span class="">
+                              {{file.file_name}}
+                            </span>
+                          </a>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                        </div>
                       </div>
-                    </div>
-
-      
+                    <!-- </div> -->
                   {% endfor %}
+                    </div>
                     </div>
                   </div>
                 </div>
