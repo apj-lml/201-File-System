@@ -16,7 +16,60 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="50px" height="50px" class="d-inline-block align-text-center">
+      PIMO
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"><i class="bi bi-house-fill"></i>Home</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li> -->
+      </ul>
+      <!-- <ul class="navbar-nav navbar-right me-3">
+        <li class="nav-item dropdown ms-auto">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"  data-bs-toggle="dropdown" data-bs-target="#dropdownUser1" aria-controls="navbarNavDropdown" aria-expanded="false"  aria-label="Toggle navigation">
+            <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>APJ</strong>
+            </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown" id="dropdownUser1">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+
+      </ul> -->
+      <!-- <ul class="navbar-nav navbar-right me-3">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>APJ</strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+</nav>
+<div class="container-fluid mt-5 mb-5">
 <div class="row">
   <div class="text-center">
       <img class="mb-4" src="{{url_for('static', filename='img/signup.png')}}" alt="" width="172" height="172">
@@ -246,22 +299,6 @@
           <div class="form-floating flex-fill mb-3 p-1">
             <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled>
             <label for="indicate_country">Indicate Country</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-3">
-      <div class="card-body">
-      <h3 class="card-title">Upload Supporting Documents</h3>
-      <div class="d-md-flex flex-row">
-          <div class="flex-fill mb-3 p-1">
-            <label for="psa" class="form-label">Upload PSA</label>
-            <input class="form-control" type="file" id="psa" name="psa">
-          </div>
-          <div class="flex-fill mb-3 p-1">
-            <label for="nbi" class="form-label">Upload NBI</label>
-            <input class="form-control" type="file" id="nbi" name="nbi">
           </div>
         </div>
       </div>
@@ -577,7 +614,7 @@
             </div>
         </div>
         <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
+          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
             <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number">
             <label for="license_no">License Number</label>
           </div>
@@ -589,7 +626,21 @@
       </div>
     </div>
 
-
+    <div class="card mb-3">
+      <div class="card-body">
+      <h3 class="card-title">Upload Supporting Documents</h3>
+      <div class="d-md-flex flex-row">
+          <div class="flex-fill mb-3 p-1">
+            <label for="psa" class="form-label">Upload PSA</label>
+            <input class="form-control" type="file" id="psa" name="psa">
+          </div>
+          <div class="flex-fill mb-3 p-1">
+            <label for="nbi" class="form-label">Upload NBI</label>
+            <input class="form-control" type="file" id="nbi" name="nbi">
+          </div>
+        </div>
+      </div>
+    </div>
 </div> <!--col-->
 </div> <!--row-->
   <div class="row">
