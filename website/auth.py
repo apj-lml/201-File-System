@@ -75,7 +75,7 @@ def check_token():
 def signup():
 	if 'token-verified' in session:
 		if request.method == 'POST':
-			logout_user()
+			#logout_user()
 			#formdata = json.loads(request.data) <-- use this if receiving json request
 			formdata = request.form.to_dict()
 

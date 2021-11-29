@@ -64,6 +64,9 @@
   animation-name: slideIn;
 }
 
+body, html{
+  padding-top: 60px;
+}
   </style>
 
 
@@ -85,13 +88,13 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i>Profile</a>
+            <a class="nav-link active" aria-current="page" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
           </li>
         </ul>
         <!-- <ul class="navbar-nav navbar-right me-3">

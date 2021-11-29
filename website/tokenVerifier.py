@@ -53,9 +53,10 @@ def validate_token():
 	mytoken = formdata['mytoken']
 
 	if request.method == 'POST':
-		got_token = db.session.query(Token_Verifier).filter_by(token = mytoken).first()
+		got_token = db.session.query(Token_Verifier).filter_by(token = mytoken, status = 'active').first()
+		print(got_token)
 		if got_token:
-			#print(got_token.status)
+			print(got_token.status)
 			session['token-verified'] = True
 			return redirect(url_for('auth.signup'))
 		else:

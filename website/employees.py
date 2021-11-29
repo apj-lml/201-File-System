@@ -139,3 +139,11 @@ def delete_file():
 		db.session.delete(my_file)
 		db.session.commit()
 	return jsonify('{message: File Deleted Successfully}')
+
+@employees.route('service-record/<emp_id>', methods=['POST', 'GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def service_record(emp_id):
+	if request.method == "POST":
+		pass
+	return render_template('service_record.html')
