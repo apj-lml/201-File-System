@@ -25,11 +25,12 @@ def create_app():
 	from .auth import auth
 	from .views import views
 	from .employees import employees
+	from .tokenVerifier import tokenizer
 
 	app.register_blueprint(auth, url_prefix='/')
 	app.register_blueprint(views, url_prefix ='/')
 	app.register_blueprint(employees, url_prefix ='/employees')
-
+	app.register_blueprint(tokenizer, url_prefix = '/tokenizer')
 
 	from .models import User
 
@@ -57,6 +58,6 @@ def create_app():
 	return app
 
 def create_database(app):
-	if not path.exists('website/'+DB_NAME):
-		db.create_all(app=app)
-		print ('Database Created!')
+	#if not path.exists('website/'+DB_NAME):
+	db.create_all(app=app)
+	print ('Database Created!')

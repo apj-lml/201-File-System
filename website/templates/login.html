@@ -26,11 +26,12 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="container-fluid text-center">
-	<main class="form-signin">
+	<main class="shadow-lg form-signin rounded">
+		<img class="mb-4 img-fluid" id="nia-logo" src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="172" height="172">
 	  <form id="login_form" action="#" method="POST">
-	    <img class="mb-4" src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="172" height="172">
-	    <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+	    <h1 class="h3 mb-3 fw-bolder text-white">SIGN IN</h1>
 
 	    <div class="form-floating">
 	      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -43,12 +44,12 @@
 	    
 
 	    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-	    <div class="mb-3">
+	    <div class="mb-3 ms-auto">
 	      <label>
-	        <a href="/signup"> Sign Up </a>
+	        <a class="text-light" href="/check-token"> Sign Up </a>
 	      </label>
 	    </div>
-	    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+	    <p class="mt-5 mb-3 text-light">&copy; 2021</p>
 	  </form>
 	</main>
 </div>
@@ -64,25 +65,23 @@
   const data = {}
   loginData.forEach((value, key) => (data[key] = value))
 
-  console.log(data)
 
   fetch('/', {
 		method: 'POST',
 		body: JSON.stringify(data),
 	}).then((res)=>{
-
+		
+		//console.log(res.json())
 		if (res.redirected) {
+			triggerToast('Success!')
 			window.location.href = res.url
 		}else{
-			setTimeout(function() {
-			triggerToast(); 
-			setTimeout(()=>{
-				document.getElementById('toastBody').innerHTML = ""
-			},6000)
-		}, 450);
-
+			return res.json()
 		}
 		
+	})
+	.then(err_msg => {
+		triggerToast(err_msg);
 	})
 });
 </script>

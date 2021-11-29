@@ -9,13 +9,22 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #f5f5f5;
+  /* background-image: url("./img/building-bg.jpg"); */
+  background-image: url(./img/building-bg2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: blur(10px);
+
 }
 
 .form-signin {
   width: 100%;
-  max-width: 330px;
-  padding: 15px;
+  max-width: 460px;
+  padding: 25px;
   margin: auto;
+  /* border: 1px solid;
+  border-radius: 15px; */
 }
 
 .form-signin .checkbox {
@@ -36,4 +45,34 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+#nia-logo{
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  animation: rotate-logo-out 2s ease-in;
+}
+
+.form-signin:hover > #nia-logo{
+  animation: rotate-logo-in 2s ease-in;
+}
+
+@keyframes rotate-logo-in {
+  0%{
+     transform: rotateY(0deg);
+  }
+  100%{
+
+      transform: rotateY(360deg);
+  }
+}
+
+@keyframes rotate-logo-out {
+  0%{
+     transform: rotateY(360deg);
+  }
+  100%{
+      transform: rotateY(0deg);
+  }
 }

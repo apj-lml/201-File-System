@@ -102,9 +102,10 @@ class User(db.Model, UserMixin):
 
 	cs_eligibility = db.Column(db.String(150))
 	cs_rating = db.Column(db.String(150))
+	date_of_examination = db.Column(db.String(150))
 	place_of_examination_conferment = db.Column(db.String(150))
 	license_no = db.Column(db.String(150))
-	date_of_validity = db.Column(db.Date(), nullable = True)
+	date_of_validity = db.Column(db.String(150))
 	#date_of_validity = db.Column(db.Date(), default= datetime.strptime('1700-01-01', '%Y-%m-%d').date())
 	type_of_user = db.Column(db.String(150), default='user')
 	uploaded_files = db.relationship('Uploaded_File')
@@ -118,6 +119,12 @@ class Uploaded_File(db.Model, SerializerMixin):
 	file_path = db.Column(db.String(150))
 	file_tag = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Token_Verifier(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	token = db.Column(db.String(50))
+	status = db.Column(db.String(50), default = "active")
+	timestamp = db.Column(db.DateTime(timezone=True), default=func.now())
 
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)

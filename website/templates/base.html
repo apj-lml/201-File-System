@@ -4,11 +4,70 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}{% endblock %}</title>
-	<link href="{{ url_for('static', filename='bootstrap-5.0.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='bootstrap-5.1.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='datatables/datatables.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet">
 
+  <style>
+@media (min-width: 768px) {
+  .animate {
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+}
+.animate {
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: transform;
+    -webkit-opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    -webkit-opacity: 1;
+  }
+
+  0% {
+    -webkit-transform: translateY(1rem);
+    -webkit-opacity: 0;
+  }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+body, html{
+  padding-top: 60px;
+}
+  </style>
 
 
 	{% block cssperfile %}{% endblock %}
@@ -16,73 +75,61 @@
 </head>
 <!-- w-auto h-auto -->
 <body class="">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  {% if current_user.is_authenticated%}
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">
+        <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="50px" height="50px" class="d-inline-block align-text-center">
+        PIMO
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
           </li>
         </ul>
-        <li class="nav-item dropdown ms-auto">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Link
-          </a>
-          <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+        <!-- <ul class="navbar-nav navbar-right me-3">
+          <li class="nav-item dropdown ms-auto">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"  data-bs-toggle="dropdown" data-bs-target="#dropdownUser1" aria-controls="navbarNavDropdown" aria-expanded="false"  aria-label="Toggle navigation">
+              <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>APJ</strong>
+              </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown" id="dropdownUser1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </li>
+
+        </ul> -->
+        <ul class="navbar-nav navbar-right me-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>APJ</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
-
-<!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">PIMO</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          {% if current_user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{current_user.first_name}}
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      <div class="d-flex">
-        <a class="btn btn-outline-success" href="/logout">Logout</a>
-      </div>
-          {% endif %}
-    </div>
-  </div>
-</nav> -->
+  {%endif%}
 
 {% block content %}{% endblock %}
 
@@ -90,12 +137,12 @@
   <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header text-white bg-primary border-0">
       <!-- <img src="..." class="rounded me-2" alt="..."> -->
-      <strong class="me-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
+      <strong class="me-auto">Notice!</strong>
+      <!-- <small>11 mins ago</small> -->
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
     <div class="toast-body" id="toastBody">
-      {% with messages = get_flashed_messages(with_categories=true) %} 
+      <!-- {% with messages = get_flashed_messages(with_categories=true) %} 
       {% if messages %} 
         {% for category, message in messages %} 
           {% if category == 'error' %}
@@ -103,19 +150,21 @@
             {% endif %}
         {% endfor %} 
       {% endif %}
-      {% endwith %}
+      {% endwith %} -->
     </div>
   </div>
 </div>
 
-<script src="{{ url_for('static', filename='bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='datatables/datatables.min.js') }}"></script>
 <script type="text/javascript">
-  function triggerToast(){
-  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-  var toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl, 'autohide').show()
-  })
+  function triggerToast(err_msg){
+    document.getElementById('toastBody').innerHTML = ""
+    document.getElementById('toastBody').innerHTML = err_msg
+    var myAlert = document.getElementById('liveToast');//select id of toast
+    var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+    bsAlert.show();//show it
+
 }
 
 </script>

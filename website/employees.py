@@ -1,4 +1,3 @@
-from genericpath import commonprefix
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -112,15 +111,16 @@ def update_employee(emp_id):
 					file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
 
 					#saving upload info to database
-					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = current_user.id)
+					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
 					db.session.add(files_to_upload)
 					db.session.commit()
 
 	formdata.pop('employee_id')
 	#code for automated update
 	for key, value in formdata.items(): 
-		setattr(user, key, value)
-
+		 if type(value) is datetime.date:
+			 setattr(user, key, value.upper())
+			 print(value)
 	db.session.commit()
 	#end update
 
@@ -139,3 +139,11 @@ def delete_file():
 		db.session.delete(my_file)
 		db.session.commit()
 	return jsonify('{message: File Deleted Successfully}')
+
+@employees.route('service-record/<emp_id>', methods=['POST', 'GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def service_record(emp_id):
+	if request.method == "POST":
+		pass
+	return render_template('service_record.html')

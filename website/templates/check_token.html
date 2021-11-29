@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{%block cssperfile %} 
+	<!-- Custom style for login -->
+	<link href="{{ url_for('static', filename='signin.css') }}" rel="stylesheet">
+    <!-- Custom styles for login -->
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid text-center">
+	<main class="shadow-lg form-signin rounded">
+		<img class="mb-4 img-fluid" id="nia-logo" src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="172" height="172">
+	  <form class="needs-validation" id="token_form" action="#" method="POST" novalidate>
+	    <h1 class="h3 mb-3 fw-bolder text-white">VERIFY TOKEN</h1>
+	    <div class="form-floating">
+	      <input type="text" name="mytoken" class="form-control" id="mytoken" placeholder="Your token here.." minlength="7" required>
+	      <label for="floatingPassword" class="text-muted">Your token here..</label>
+		  <div class="valid-feedback">
+			Looks good!
+		  </div>
+		  <div class="invalid-feedback">
+			Your token is invalid. Please get your token at the Admin office.
+		  </div>
+	    </div>
+
+	    <hr>
+	    <button class="w-100 btn btn-lg btn-primary" type="submit">Verify</button>
+	    <div class="mb-3 ms-auto">
+	      <label>
+	        <a class="text-light" href="/"> Home </a>
+	      </label>
+	    </div>
+	    <p class="mt-5 mb-3 text-light">&copy; 2021</p>
+	  </form>
+	</main>
+</div>
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+	(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+
+
+  // Loop over them and prevent submission
+  
+})()
+var formElem = document.getElementById("token_form");
+formElem.addEventListener("submit" , (e)=>{
+  e.preventDefault()
+
+  let tokenData = new FormData(formElem);
+  
+  const data = {}
+  tokenData.forEach((value, key) => (data[key] = value))
+	//console.log(data)
+  fetch('/tokenizer/validate-token', {
+		method: 'POST',
+		body: JSON.stringify(data),
+	}).then((res)=>{
+		
+		//console.log(res.json())
+		if (res.redirected) {
+			window.location.href = res.url
+		}else{
+			return res.json()
+		}
+		
+	})
+	.then(err_msg => {
+		console.log(err_msg)
+		var forms = document.querySelectorAll('.needs-validation')
+		if (err_msg == "token-error"){
+			mytoken.classList.add('is-invalid')
+			mytoken.classList.remove('is-valid')
+			setTimeout(function(){
+				mytoken.classList.remove('is-invalid')
+			},8000);
+		}else{
+			mytoken.classList.add('is-valid')
+			mytoken.classList.remove('is-invalid')
+			setTimeout(function(){
+				mytoken.classList.remove('is-valid')
+			},8000);
+
+		}
+	})
+});
+</script>
+{%endblock%}
