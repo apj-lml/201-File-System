@@ -126,6 +126,18 @@ class Token_Verifier(db.Model, SerializerMixin):
 	status = db.Column(db.String(50), default = "active")
 	timestamp = db.Column(db.DateTime(timezone=True), default=func.now())
 
+class Service_Record(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	service_from = db.Column(db.String(50))
+	service_to = db.Column(db.String(50))
+	designation = db.Column(db.String(150))
+	status = db.Column(db.String(50))
+	salary = db.Column(db.String(50))
+	station_place = db.Column(db.String(50))
+	leave_wo_pay = db.Column(db.String(50))
+	separation_date = db.Column(db.String(50))
+	separation_cause = db.Column(db.String(50))
+
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import User, Uploaded_File
+from .models import Service_Record, User, Uploaded_File
 from . import db
 from datetime import datetime
 from .myhelper import allowed_file
@@ -145,5 +145,11 @@ def delete_file():
 @admin_permission.require(http_exception=403)
 def service_record(emp_id):
 	if request.method == "POST":
-		pass
+		formdata = request.form.to_dict()
+		if 'sf_present' in formdata:
+			formdata['service_to'] = 'Present'
+		new_service_record = Service_Record(**formdata)
+		db.session.add(new_service_record)
+		db.session.commit()
+
 	return render_template('service_record.html')
