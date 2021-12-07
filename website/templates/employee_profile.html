@@ -139,15 +139,8 @@
                         <label for="name_extn">Name Extension (eg. Jr., III)</label>
                       </div>
                     </div>
+                    <!-- TODO -->
                     <div class="d-md-flex flex-row"> 
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}">
-                        <label for="last_name">Position Title</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade" value="{{user_profile.salary_grade}}">
-                        <label for="first_name">Salary Grade</label>
-                      </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employement_status}}">
                           <option value="Job Order">Job Order</option>
@@ -158,7 +151,34 @@
                         </select>
                         <label for="middle_name">Employment Status</label>
                       </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}">
+                        <label for="last_name">Position Title</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade" value="{{user_profile.salary_grade}}">
+                        <label for="first_name">Salary Grade</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="step" name ="step" placeholder="Step" value="">
+                        <label for="step">Step</label>
+                      </div>
                     </div>
+                    <div class="d-md-flex flex-row"> 
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="">
+                        <label for="item_no">Item No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="">
+                        <label for="date_of_assumption">Date of Assumption to Duty</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="">
+                        <label for="date_of_assumption">Date of Last Step Increment</label>
+                      </div>
+                    </div>
+                    <!-- TODO -->
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}">
@@ -191,6 +211,23 @@
                           </select>
                         <label for="name_extn">Unit</label>
                       </div>
+                      <!-- TODO -->
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="">
+                        <label for="date_of_original_appointment">Date of Original Appointment</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate" value="">
+                        <label for="daily_rate">Daily Rate</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate" value="">
+                        <label for="monthly_rate">Monthly Rate</label>
+                      </div>
+
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
@@ -263,19 +300,19 @@
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}">
-                        <label for="name_extn">GSIS</label>
+                        <label for="name_extn">GSIS No.</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}">
-                        <label for="name_extn">Pag-ibig</label>
+                        <label for="name_extn">PAG-IBIG No.</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}">
-                        <label for="name_extn">Philhealth</label>
+                        <label for="name_extn">PHILHEALTH No.</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}">
-                        <label for="name_extn">SSS</label>
+                        <label for="name_extn">SSS No.</label>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
@@ -285,7 +322,7 @@
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" required>
-                        <label for="name_extn">ATM Card No.</label>
+                        <label for="name_extn">Landbank ATM Card No.</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}">

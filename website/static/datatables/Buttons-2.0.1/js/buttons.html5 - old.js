@@ -52,7 +52,7 @@ DataTable.Buttons.pdfMake = function (_) {
 	if ( ! _ ) {
 		return _pdfMake();
 	}
-	pdfmake = m_ake;
+	pdfmake = _;
 }
 
 DataTable.Buttons.jszip = function (_) {
@@ -386,7 +386,7 @@ function _addToZip( zip, obj ) {
 		// drop attributes
 		_ieExcel = _serialiser
 			.serializeToString(
-				$.parseXML( excelStrings['xl/worksheets/sheet1.xml'] )
+				( new window.DOMParser() ).parseFromString( excelStrings['xl/worksheets/sheet1.xml'], 'text/xml' )
 			)
 			.indexOf( 'xmlns:r' ) === -1;
 	}
@@ -675,7 +675,7 @@ var excelStrings = {
 			'<cellStyleXfs count="1">'+
 				'<xf numFmtId="0" fontId="0" fillId="0" borderId="0" />'+
 			'</cellStyleXfs>'+
-			'<cellXfs count="67">'+
+			'<cellXfs count="68">'+
 				'<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
 				'<xf numFmtId="0" fontId="1" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
 				'<xf numFmtId="0" fontId="2" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
@@ -755,6 +755,7 @@ var excelStrings = {
 				'<xf numFmtId="4" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
 				'<xf numFmtId="1" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
 				'<xf numFmtId="2" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
+				'<xf numFmtId="14" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
 			'</cellXfs>'+
 			'<cellStyles count="1">'+
 				'<cellStyle name="Normal" xfId="0" builtinId="0" />'+
@@ -771,17 +772,18 @@ var excelStrings = {
 // Ref: section 3.8.30 - built in formatters in open spreadsheet
 //   https://www.ecma-international.org/news/TC45_current_work/Office%20Open%20XML%20Part%204%20-%20Markup%20Language%20Reference.pdf
 var _excelSpecials = [
-	{ match: /^\-?\d+\.\d%$/,       style: 60, fmt: function (d) { return d/100; } }, // Precent with d.p.
-	{ match: /^\-?\d+\.?\d*%$/,     style: 56, fmt: function (d) { return d/100; } }, // Percent
-	{ match: /^\-?\$[\d,]+.?\d*$/,  style: 57 }, // Dollars
-	{ match: /^\-?£[\d,]+.?\d*$/,   style: 58 }, // Pounds
-	{ match: /^\-?€[\d,]+.?\d*$/,   style: 59 }, // Euros
-	{ match: /^\-?\d+$/,            style: 65 }, // Numbers without thousand separators
-	{ match: /^\-?\d+\.\d{2}$/,     style: 66 }, // Numbers 2 d.p. without thousands separators
-	{ match: /^\([\d,]+\)$/,        style: 61, fmt: function (d) { return -1 * d.replace(/[\(\)]/g, ''); } },  // Negative numbers indicated by brackets
-	{ match: /^\([\d,]+\.\d{2}\)$/, style: 62, fmt: function (d) { return -1 * d.replace(/[\(\)]/g, ''); } },  // Negative numbers indicated by brackets - 2d.p.
-	{ match: /^\-?[\d,]+$/,         style: 63 }, // Numbers with thousand separators
-	{ match: /^\-?[\d,]+\.\d{2}$/,  style: 64 }  // Numbers with 2 d.p. and thousands separators
+	{ match: /^\-?\d+\.\d%$/,               style: 60, fmt: function (d) { return d/100; } }, // Percent with d.p.
+	{ match: /^\-?\d+\.?\d*%$/,             style: 56, fmt: function (d) { return d/100; } }, // Percent
+	{ match: /^\-?\$[\d,]+.?\d*$/,          style: 57 }, // Dollars
+	{ match: /^\-?£[\d,]+.?\d*$/,           style: 58 }, // Pounds
+	{ match: /^\-?€[\d,]+.?\d*$/,           style: 59 }, // Euros
+	{ match: /^\-?\d+$/,                    style: 65 }, // Numbers without thousand separators
+	{ match: /^\-?\d+\.\d{2}$/,             style: 66 }, // Numbers 2 d.p. without thousands separators
+	{ match: /^\([\d,]+\)$/,                style: 61, fmt: function (d) { return -1 * d.replace(/[\(\)]/g, ''); } },  // Negative numbers indicated by brackets
+	{ match: /^\([\d,]+\.\d{2}\)$/,         style: 62, fmt: function (d) { return -1 * d.replace(/[\(\)]/g, ''); } },  // Negative numbers indicated by brackets - 2d.p.
+	{ match: /^\-?[\d,]+$/,                 style: 63 }, // Numbers with thousand separators
+	{ match: /^\-?[\d,]+\.\d{2}$/,          style: 64 },
+	{ match: /^[\d]{4}\-[\d]{2}\-[\d]{2}$/, style: 67, fmt: function (d) {return Math.round(25569 + (Date.parse(d) / (86400 * 1000)));}} //Date yyyy-mm-dd
 ];
 
 
@@ -960,7 +962,7 @@ DataTable.ext.buttons.csvHtml5 = {
 		}
 
 		if ( config.bom ) {
-			output = '\ufeff' + output;
+			output = String.fromCharCode(0xFEFF) + output;
 		}
 
 		_saveAs(
@@ -1061,7 +1063,9 @@ DataTable.ext.buttons.excelHtml5 = {
 				}
 
 				var originalContent = row[i];
-				row[i] = $.trim( row[i] );
+				row[i] = typeof row[i].trim === 'function'
+					? row[i].trim()
+					: row[i];
 
 				// Special number formatting options
 				for ( var j=0, jen=_excelSpecials.length ; j<jen ; j++ ) {
@@ -1174,17 +1178,7 @@ DataTable.ext.buttons.excelHtml5 = {
 
 		// Table itself
 		if ( config.header ) {
-			
-		    /* ----- BEGIN changed Code ----- */ 
-            var headerMatrix = _fnGetHeaders(dt);
-            for ( var rowIdx = 0;  rowIdx < headerMatrix.length;  rowIdx++ ) {
-                addRow( headerMatrix[rowIdx], rowPos );
-            }
-            /* ----- OLD Code that is replaced: ----- */    
-            //addRow( data.header, rowPos );
-            /* ----- END changed Code ----- */  
-            
-			//addRow( data.header, rowPos );
+			addRow( data.header, rowPos );
 			$('row:last c', rels).attr( 's', '2' ); // bold
 		}
 	
@@ -1197,17 +1191,7 @@ DataTable.ext.buttons.excelHtml5 = {
 		dataEndRow = rowPos;
 
 		if ( config.footer && data.footer ) {
-			
-			 /* ----- BEGIN changed Code ----- */ 
-            var footerMatrix = _fnGetFooters(dt);
-            for ( var rowIdx = 0;  rowIdx < footerMatrix.length;  rowIdx++ ) {
-                addRow( footerMatrix[rowIdx], rowPos );
-            }
-            /* ----- OLD Code that is replaced: ----- */    
-            //addRow( data.footer, rowPos);
-            /* ----- END changed Code ----- */  
-                        
-			
+			addRow( data.footer, rowPos);
 			$('row:last c', rels).attr( 's', '2' ); // bold
 		}
 
@@ -1477,118 +1461,3 @@ DataTable.ext.buttons.pdfHtml5 = {
 
 return DataTable.Buttons;
 }));
-
-
-
-var _fnGetHeaders = function(dt) {
-    var thRows = $(dt.header()[0]).children();
-    var numRows = thRows.length;
-    var matrix = [];
-
-    // Iterate over each row of the header and add information to matrix.
-    for ( var rowIdx = 0;  rowIdx < numRows;  rowIdx++ ) {
-        var $row = $(thRows[rowIdx]);
-
-        // Iterate over actual columns specified in this row.
-        var $ths = $row.children("th");
-        for ( var colIdx = 0;  colIdx < $ths.length;  colIdx++ )
-        {
-            var $th = $($ths.get(colIdx));
-            var colspan = $th.attr("colspan") || 1;
-            var rowspan = $th.attr("rowspan") || 1;
-            var colCount = 0;
-
-            // ----- add this cell's title to the matrix
-            if (matrix[rowIdx] === undefined) {
-                matrix[rowIdx] = [];  // create array for this row
-            }
-            // find 1st empty cell
-            for ( var j = 0;  j < (matrix[rowIdx]).length;  j++, colCount++ ) {
-                if ( matrix[rowIdx][j] === "PLACEHOLDER" ) {
-                    break;
-                }
-            }
-            var myColCount = colCount;
-            matrix[rowIdx][colCount++] = $th.text();
-
-            // ----- If title cell has colspan, add empty titles for extra cell width.
-            for ( var j = 1;  j < colspan;  j++ ) {
-                matrix[rowIdx][colCount++] = "";
-            }
-
-            // ----- If title cell has rowspan, add empty titles for extra cell height.
-            for ( var i = 1;  i < rowspan;  i++ ) {
-                var thisRow = rowIdx+i;
-                if ( matrix[thisRow] === undefined ) {
-                    matrix[thisRow] = [];
-                }
-                // First add placeholder text for any previous columns.                 
-                for ( var j = (matrix[thisRow]).length;  j < myColCount;  j++ ) {
-                    matrix[thisRow][j] = "PLACEHOLDER";
-                }
-                for ( var j = 0;  j < colspan;  j++ ) {  // and empty for my columns
-                    matrix[thisRow][myColCount+j] = "";
-                }
-            }
-        }
-    }
-
-    return matrix;
-};
-
-
-var _fnGetFooters = function(dt) {
-    var thRows = $(dt.footer()[0]).children();
-    var numRows = thRows.length;
-    var matrix = [];
-
-    // Iterate over each row of the header and add information to matrix.
-    for ( var rowIdx = 0;  rowIdx < numRows;  rowIdx++ ) {
-        var $row = $(thRows[rowIdx]);
-
-        // Iterate over actual columns specified in this row.
-        var $ths = $row.children("th");
-        for ( var colIdx = 0;  colIdx < $ths.length;  colIdx++ )
-        {
-            var $th = $($ths.get(colIdx));
-            var colspan = $th.attr("colspan") || 1;
-            var rowspan = $th.attr("rowspan") || 1;
-            var colCount = 0;
-
-            // ----- add this cell's title to the matrix
-            if (matrix[rowIdx] === undefined) {
-                matrix[rowIdx] = [];  // create array for this row
-            }
-            // find 1st empty cell
-            for ( var j = 0;  j < (matrix[rowIdx]).length;  j++, colCount++ ) {
-                if ( matrix[rowIdx][j] === "PLACEHOLDER" ) {
-                    break;
-                }
-            }
-            var myColCount = colCount;
-            matrix[rowIdx][colCount++] = $th.text();
-
-            // ----- If title cell has colspan, add empty titles for extra cell width.
-            for ( var j = 1;  j < colspan;  j++ ) {
-                matrix[rowIdx][colCount++] = "";
-            }
-
-            // ----- If title cell has rowspan, add empty titles for extra cell height.
-            for ( var i = 1;  i < rowspan;  i++ ) {
-                var thisRow = rowIdx+i;
-                if ( matrix[thisRow] === undefined ) {
-                    matrix[thisRow] = [];
-                }
-                // First add placeholder text for any previous columns.                 
-                for ( var j = (matrix[thisRow]).length;  j < myColCount;  j++ ) {
-                    matrix[thisRow][j] = "PLACEHOLDER";
-                }
-                for ( var j = 0;  j < colspan;  j++ ) {  // and empty for my columns
-                    matrix[thisRow][myColCount+j] = "";
-                }
-            }
-        }
-    }
-
-    return matrix;
-};

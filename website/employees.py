@@ -118,9 +118,9 @@ def update_employee(emp_id):
 	formdata.pop('employee_id')
 	#code for automated update
 	for key, value in formdata.items(): 
-		 if type(value) is datetime.date:
-			 setattr(user, key, value.upper())
-			 print(value)
+			if type(value) is datetime.date:
+				setattr(user, key, value.upper())
+				print(value)
 	db.session.commit()
 	#end update
 
@@ -144,12 +144,42 @@ def delete_file():
 @login_required
 @admin_permission.require(http_exception=403)
 def service_record(emp_id):
+	user = db.session.query(User).get(emp_id)
 	if request.method == "POST":
 		formdata = request.form.to_dict()
 		if 'sf_present' in formdata:
 			formdata['service_to'] = 'Present'
+			formdata.pop('sf_present')
+		formdata['user_id'] = emp_id
 		new_service_record = Service_Record(**formdata)
 		db.session.add(new_service_record)
 		db.session.commit()
+		return redirect(url_for('employees.service_record', emp_id = emp_id, user=user))
+	return render_template('service_record.html', emp_id = emp_id, user=user)
 
-	return render_template('service_record.html')
+
+@employees.route('get-service-record/<emp_id>', methods=['POST', 'GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def get_service_record(emp_id):
+	if request.method == "GET":
+
+		new_service_record = Service_Record.query.filter_by(user_id = emp_id).all()
+		column_keys = Service_Record.__table__.columns.keys()
+	# Temporary dictionary to keep the return value from table
+		rows_dic_temp = {}
+		rows_dic = []
+	# Iterate through the returned output data set
+		for row in new_service_record:
+			for col in column_keys:
+				rows_dic_temp[col] = getattr(row, col)
+			rows_dic.append(rows_dic_temp)
+			rows_dic_temp= {}
+			print(rows_dic)
+		return jsonify(rows_dic)
+
+	return render_template('service_record.html', emp_id = emp_id)
+
+@employees.context_processor
+def inject_today_date():
+    return {'today_date': datetime.utcnow()}

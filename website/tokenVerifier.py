@@ -16,13 +16,13 @@ def page_not_found(e):
 	return redirect(url_for('auth.login'))
 
 @tokenizer.route('add-token', methods=['POST', 'GET'])
-@login_required
-@admin_permission.require(http_exception=403)
+# @login_required
+# @admin_permission.require(http_exception=403)
 def add_token():
-	if request.method == 'POST' :
-		new_token = Token_Verifier(token = my_random_string(7))
-		db.session.add(new_token)
-		db.session.commit()
+	#if request.method == 'POST' :
+	new_token = Token_Verifier(token = my_random_string(7))
+	db.session.add(new_token)
+	db.session.commit()
 	return jsonify({})
 
 @tokenizer.route('get-token/<id>', methods=['POST', 'GET'])

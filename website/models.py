@@ -8,16 +8,25 @@ class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	timestamp = db.Column(db.DateTime(timezone=True), default=func.now())
 	employee_id = db.Column(db.Integer, unique=True, nullable=False)
-	email = db.Column(db.String(150), unique=True, nullable=False)
+	email = db.Column(db.String(150), unique=False, nullable=True)
 	password = db.Column(db.String(150), nullable=False)
 	last_name = db.Column(db.String(150))
 	first_name = db.Column(db.String(150))
 	middle_name = db.Column(db.String(150))
 	name_extn = db.Column(db.String(150))
 	#position_id = db.relationship("Position", back_populates="user", uselist = False)
+	employment_status = db.Column(db.String(150))
 	position_title = db.Column(db.String(150))
 	salary_grade = db.Column(db.String(150))
-	employment_status = db.Column(db.String(150))
+	step = db.Column(db.String(150))
+
+	item_no = db.Column(db.String(150))
+	date_of_assumption = db.Column(db.String(150))
+	date_of_last_step_increment = db.Column(db.String(150), nullable=True)
+	date_of_original_appointment = db.Column(db.String(150), nullable=True)
+	daily_rate = db.Column(db.Float(10, 2))
+	monthly_rate = db.Column(db.Float(10, 2))
+
 	section = db.Column(db.String(150))
 	unit = db.Column(db.String(150))
 	birthdate = db.Column(db.Date())
@@ -107,9 +116,10 @@ class User(db.Model, UserMixin):
 	license_no = db.Column(db.String(150))
 	date_of_validity = db.Column(db.String(150))
 	#date_of_validity = db.Column(db.Date(), default= datetime.strptime('1700-01-01', '%Y-%m-%d').date())
+
 	type_of_user = db.Column(db.String(150), default='user')
 	uploaded_files = db.relationship('Uploaded_File')
-
+	service_record = db.relationship('Service_Record')
 	# career_service = db.relationship('Career_Service')
 	# emergency_contact = db.relationship('Emergency_Contact')
 
@@ -135,8 +145,9 @@ class Service_Record(db.Model, SerializerMixin):
 	salary = db.Column(db.String(50))
 	station_place = db.Column(db.String(50))
 	leave_wo_pay = db.Column(db.String(50))
-	separation_date = db.Column(db.String(50))
-	separation_cause = db.Column(db.String(50))
+	separation_date = db.Column(db.String(50), nullable=True)
+	separation_cause = db.Column(db.String(50), nullable=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)

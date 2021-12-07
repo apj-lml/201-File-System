@@ -13,3 +13,4 @@ def my_random_string(string_length=10):
     random = random.upper() # Make all characters uppercase.
     #random = random.replace("-","") # Remove the UUID '-'.
     return random[0:string_length] # Return the random string.
+

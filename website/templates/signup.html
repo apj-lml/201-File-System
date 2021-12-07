@@ -126,28 +126,50 @@
             <label for="name_extn">Name Extension (eg. Jr., III)</label>
           </div>
         </div>
+        <!-- TODO -->
         <div class="d-md-flex flex-row"> 
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title">
-            <label for="last_name">Position Title</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade">
-            <label for="first_name">Salary Grade</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example">
+            <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="">
               <option value="Job Order">Job Order</option>
               <option value="Permanent">Permanent</option>
               <option value="Casual">Casual</option>
               <option value="Coterminous">Coterminous</option>
+              <option value="Separated">Separated</option>
             </select>
             <label for="middle_name">Employment Status</label>
           </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="">
+            <label for="last_name">Position Title</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade" value="">
+            <label for="first_name">Salary Grade</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="step" name ="step" placeholder="Step" value="">
+            <label for="step">Step</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="">
+            <label for="item_no">Item No.</label>
+          </div>
         </div>
+    
+        <div class="d-md-flex flex-row"> 
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="">
+            <label for="date_of_assumption">Date of Assumption to Duty</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="">
+            <label for="date_of_assumption">Date of Last Step Increment</label>
+          </div>
+        </div>
+        <!-- TODO -->
         <div class="d-md-flex flex-row">
           <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="section" name="section" aria-label="Floating label select example">
+            <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="">
                 <option value="Administrative & Finance">Administrative & Finance</option>
                 <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
                 <option value="Engineering">Engineering</option>
@@ -160,7 +182,7 @@
             <label for="section">Section</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="unit" name="unit" aria-label="Floating label select example">
+                <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="">
                 <option value="Administrative Unit">Administrative Unit</option>
                 <option value="Finance Unit">Finance Unit</option>
                 <option value="Cashiering Unit">Cashiering Unit</option>
@@ -177,6 +199,23 @@
               </select>
             <label for="name_extn">Unit</label>
           </div>
+          <!-- TODO -->
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="">
+            <label for="date_of_original_appointment">Date of Original Appointment</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate" value="">
+            <label for="daily_rate">Daily Rate</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate" value="">
+            <label for="monthly_rate">Monthly Rate</label>
+          </div>
+
         </div>
         <div class="d-md-flex flex-row">
           <div class="form-floating flex-fill mb-3 p-1">

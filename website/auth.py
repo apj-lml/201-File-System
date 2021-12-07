@@ -27,7 +27,7 @@ def login():
 		email = formdata['email']
 		password = formdata['password']
 
-		user = User.query.filter_by(email=email).first()
+		user = User.query.filter_by(employee_id=email).first()
 		if user:
 			if check_password_hash(user.password, password):
 				flash('Login successful', category = 'success')
@@ -46,7 +46,7 @@ def login():
 				session['error_msg'] = 'Incorrect username or password!'
 				return jsonify(session['error_msg'])
 		else:
-			session['error_msg'] = 'Email does not exist!'
+			session['error_msg'] = 'Employee ID number does not exist!'
 			return jsonify(session['error_msg'])
 	return render_template('login.html', user=current_user)
 
