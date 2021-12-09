@@ -120,3 +120,81 @@ document.getElementById("signUp").addEventListener("submit", function(e){
 	}).catch(console.error)
 });
 
+
+//code for submit eligibility in signup
+document.getElementById("add_eligibility_form_sign_up").addEventListener("submit", function(e){
+	e.preventDefault()
+
+	var formElem = document.getElementById("signUp");
+	let formData = new FormData(formElem);
+  
+	const data = {}
+	formData.forEach((value, key) => (data[key] = value))
+   
+	console.log(data)
+	fetch('/signup', {
+		  method: 'POST',
+		  body: formData
+	  }).then((res)=>{
+		  setTimeout(function() { 
+			  triggerToast(); 
+			  setTimeout(()=>{
+				  document.getElementById('toastBody').innerHTML = ""
+			  },6000)
+		  }, 450);
+		  
+	  }).catch(console.error)
+  });
+
+
+var cs_no_fields = document.getElementById('cs_no_fields');
+cs_no_fields.addEventListener('change',()=>{
+	var cs_fields = document.getElementById('cs_fields');
+	cs_fields.innerHTML = ``;
+	for(var x = 1; x < cs_no_fields.value; x++){
+		cs_fields.innerHTML += `
+		<hr>
+		<div class="card shadow-sm mb-3">
+        	<div class="card-body">
+				<div class="d-md-flex flex-row">
+				<div class="form-floating flex-fill mb-3 p-1">
+				<input type="text" class="form-control" name ="cs_eligibility[${x+1}]" placeholder="Eligibility">
+				<label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+				</div>
+				<div class="form-floating flex-fill mb-3 p-1">
+					<input type="date" class="form-control" name ="date_of_examination[${x+1}]" placeholder="Date of Examination">
+					<label for="date_of_examination">Date of Examination</label>
+				</div>
+			</div>
+			<div class="d-md-flex flex-row">
+				<div class="form-floating flex-fill mb-3 p-1">
+				<input type="text" class="form-control" name ="cs_rating[${x+1}]" placeholder="Rating">
+				<label for="cs_rating">Rating (if applicable)</label>
+				</div>
+				<div class="form-floating flex-fill mb-3 p-1">
+				<input type="text" class="form-control" name ="place_of_examination_conferment[${x+1}]" placeholder="Place of Examination / Conferment">
+				<label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+				</div>
+			</div>
+			<div class="d-md-flex flex-row">
+			<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+				<input type="text" class="form-control" name ="license_no[${x+1}]" placeholder="License Number">
+				<label for="license_no">License Number</label>
+			</div>
+			<div class="form-floating flex-fill mb-3 p-1">
+				<input type="date" class="form-control" name ="date_of_validity[${x+1}]" placeholder="Date of Validity">
+				<label for="date_of_validity">Date of Validity</label>
+			</div> 
+			
+			</div>
+			<div class="d-md-flex flex-row">
+            <div class="flex-fill mb-3 p-1">
+              <label for="psa" class="form-label">Upload Supporting Document</label>
+              <input class="form-control" type="file" id="cse[${x+1}]" name="cse[${x+1}]">
+            </div>
+          </div>
+		</div>
+	</div>
+		`
+	}
+});

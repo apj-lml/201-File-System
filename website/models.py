@@ -24,8 +24,10 @@ class User(db.Model, UserMixin):
 	date_of_assumption = db.Column(db.String(150))
 	date_of_last_step_increment = db.Column(db.String(150), nullable=True)
 	date_of_original_appointment = db.Column(db.String(150), nullable=True)
-	daily_rate = db.Column(db.Float(10, 2))
-	monthly_rate = db.Column(db.Float(10, 2))
+	daily_rate = db.Column(db.String(150), nullable=True)
+	monthly_rate = db.Column(db.String(150), nullable=True)
+	# daily_rate = db.Column(db.Float(10, 2))
+	# monthly_rate = db.Column(db.Float(10, 2))
 
 	section = db.Column(db.String(150))
 	unit = db.Column(db.String(150))
@@ -109,19 +111,29 @@ class User(db.Model, UserMixin):
 	doc_highest_level_units_earned = db.Column(db.String(150))
 	doc_scholarship_academic_honor = db.Column(db.String(150))
 
+	# cs_eligibility = db.Column(db.String(150))
+	# cs_rating = db.Column(db.String(150))
+	# date_of_examination = db.Column(db.String(150))
+	# place_of_examination_conferment = db.Column(db.String(150))
+	# license_no = db.Column(db.String(150))
+	# date_of_validity = db.Column(db.String(150))
+	#date_of_validity = db.Column(db.Date(), default= datetime.strptime('1700-01-01', '%Y-%m-%d').date())
+
+	type_of_user = db.Column(db.String(150), default='user')
+	uploaded_files = db.relationship('Uploaded_File')
+	service_record = db.relationship('Service_Record')
+	career_service = db.relationship('Career_Service')
+	# emergency_contact = db.relationship('Emergency_Contact')
+
+class Career_Service(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
 	cs_eligibility = db.Column(db.String(150))
 	cs_rating = db.Column(db.String(150))
 	date_of_examination = db.Column(db.String(150))
 	place_of_examination_conferment = db.Column(db.String(150))
 	license_no = db.Column(db.String(150))
 	date_of_validity = db.Column(db.String(150))
-	#date_of_validity = db.Column(db.Date(), default= datetime.strptime('1700-01-01', '%Y-%m-%d').date())
-
-	type_of_user = db.Column(db.String(150), default='user')
-	uploaded_files = db.relationship('Uploaded_File')
-	service_record = db.relationship('Service_Record')
-	# career_service = db.relationship('Career_Service')
-	# emergency_contact = db.relationship('Emergency_Contact')
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Uploaded_File(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -162,16 +174,6 @@ class Service_Record(db.Model, SerializerMixin):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	position_title = db.Column(db.String(150))
 # 	user_id = db.relationship('User', back_populates="position")
-
-# class Career_Service(db.Model):
-# 	id = db.Column(db.Integer, primary_key=True)
-# 	career_service = db.Column(db.String(150))
-# 	rating = db.Column(db.String(150))
-# 	date_of_examination = db.Column(db.String(150))
-# 	place_of_examination = db.Column(db.String(150))
-# 	license_no = db.Column(db.String(150))
-# 	date_of_validity = db.Column(db.String(150))
-# 	user_id = db.relationship('user.id')
 
 # class Emergency_Contact(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)

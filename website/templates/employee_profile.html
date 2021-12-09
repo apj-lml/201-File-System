@@ -646,33 +646,41 @@
                 </div>
                 <div class="card mb-3">
                   <div class="card-body">
-                    <h3 class="card-title">Civil Service Eligibility</h3>
-                    <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="cs_eligibility" name ="cs_eligibility" placeholder="Eligibility" value="{{user_profile.cs_eligibility}}">
-                          <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                    <h3 class="card-title">Civil Service Eligibility
+                      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#add_eligibility">Add</button>
+                    </h3> 
+                    {% for career_service in user_profile.career_service %}
+                    <div class="card shadow-sm mb-3">
+                      <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="cs_eligibility" name ="cs_eligibility" placeholder="Eligibility" value="{{career_service.cs_eligibility}}">
+                            <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="cs_rating" name ="cs_rating" placeholder="Rating" value="{{career_service.cs_rating}}">
+                            <label for="cs_rating">Rating (if applicable)</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="place_of_examination_conferment" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment" value="{{career_service.place_of_examination_conferment}}">
+                            <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number" value="{{career_service.license_no}}">
+                            <label for="license_no">License Number</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" id="date_of_validity" name ="date_of_validity" placeholder="Date of Validity" value="{{career_service.date_of_validity}}">
+                            <label for="date_of_validity">Date of Validity</label>
+                          </div> 
                         </div>
                       </div>
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="cs_rating" name ="cs_rating" placeholder="Rating" value="{{user_profile.cs_rating}}">
-                          <label for="cs_rating">Rating (if applicable)</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="place_of_examination_conferment" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment" value="{{user_profile.place_of_examination_conferment}}">
-                          <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
-                        </div>
                     </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number" value="{{user_profile.license_no}}">
-                        <label for="license_no">License Number</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" id="date_of_validity" name ="date_of_validity" placeholder="Date of Validity" value="{{user_profile.date_of_validity}}">
-                        <label for="date_of_validity">Date of Validity</label>
-                      </div> 
-                    </div>
+                    {% endfor %}
                   </div>
                 </div>
                 <div class="card mb-3">
@@ -709,7 +717,7 @@
                     </div>
                   </div>
                 </div>
-            
+              </form>
             </div> <!--col-->
             </div> <!--row-->
               <!-- <div class="row">
@@ -718,7 +726,7 @@
                 </div>
               </div> -->
             
-              </form>
+
             </div>
         </div>
   </div>
@@ -741,15 +749,88 @@
     </div>
   </div>
 
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="modal fade" id="add_eligibility" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_eligibility_label" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_eligibility_label">Add Civil Service Eligibility</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" name="add_eligibility_form" id="add_eligibility_form">
+          <input type="hidden" name="user_id" value="{{user_profile.id}}">
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="cs_eligibility" placeholder="Eligibility">
+              <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="date" class="form-control" name ="date_of_examination" placeholder="Date of Examination">
+              <label for="date_of_examination">Date of Examination</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="cs_rating" placeholder="Rating">
+              <label for="cs_rating">Rating (if applicable)</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment">
+              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+              <input type="text" class="form-control" name ="license_no" placeholder="License Number">
+              <label for="license_no">License Number</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="date" class="form-control" name ="date_of_validity" placeholder="Date of Validity">
+              <label for="date_of_validity">Date of Validity</label>
+            </div> 
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {%block scripts %}
 <script type="text/javascript">
   var formElem = document.getElementById("update_form");
 
-  function w_print(elemet){
-    window.print()
-  }
+  document.getElementById("add_eligibility_form").addEventListener('submit',(e)=>{
+    e.preventDefault()
+    var formElem = document.getElementById("add_eligibility_form");
+    let formData = new FormData(formElem);
+    //formData.append('file', input.files[0])
+
+    const data = {}
+    formData.forEach((value, key) => (data[key] = value))
+
+    console.log(data)
+    fetch('/cse/add-eligibility', {
+      method: 'POST',
+      body: formData
+    }).then((res)=>{
+      return res.json()
+    }).then(data => {
+      console.log(data)
+    })
+  })
+
+  
 
   function update_employee(){
     formElem.submit();

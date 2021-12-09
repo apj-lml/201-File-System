@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime, date
-from .models import User, Uploaded_File
+from .models import Career_Service, User, Uploaded_File
 from . import db
 import os, os.path
 import json
@@ -78,7 +78,8 @@ def signup():
 			#logout_user()
 			#formdata = json.loads(request.data) <-- use this if receiving json request
 			formdata = request.form.to_dict()
-
+			
+	
 			email = formdata['email']
 			password1 = formdata['password']
 			password2 = formdata['floatingPassword2']
@@ -93,27 +94,59 @@ def signup():
 
 			else:
 				formdata['password'] = generate_password_hash(password1)
-				if formdata['date_of_validity'] != '':
-					formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
-				else:
-					formdata['date_of_validity'] = None
+				# if formdata['date_of_validity'] != '':
+				# 	formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
+				# else:
+				# 	formdata['date_of_validity'] = None
 				formdata['birthdate'] = datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
-	#----------------popping unnecessary data before saving to database------------
+	# ---------------------------------------------------------------------------- #
+	#              popping unnecessary data before saving to database              #
+	# ---------------------------------------------------------------------------- #
+				new_formdata = formdata.copy()
+				cs_no_fields = new_formdata['cs_no_fields']
+				
+				# for x in range(1, int(cs_no_fields)+1):
+				# 	# print('HERE HEREEEEE!!!!!', x)
+				# 	formdata.pop('cs_eligibility['+str(x)+']')
+				# 	formdata.pop('cs_rating['+str(x)+']')
+				# 	formdata.pop('date_of_examination['+str(x)+']')
+				# 	formdata.pop('place_of_examination_conferment['+str(x)+']')
+				# 	formdata.pop('license_no['+str(x)+']')
+				# 	formdata.pop('date_of_validity['+str(x)+']')
+
+				# formdata.pop('cs_no_fields')
 				formdata.pop('floatingPassword2')
 				formdata.pop('same_as_permanent')
-	#--------------------------------end of popping------------------------------
-
-				# conv = lambda i:i or None
-				# converteddata = [conv(i) for i in formdata]
-				# print("The list after conversion of Empty Strings : " + str(converteddata))
-				
+	# ---------------------------------------------------------------------------- #
+	#                    saving employee info to the databse                       #
+	# ---------------------------------------------------------------------------- #
 				finaldata = User(**formdata)
 				db.session.add(finaldata)
 				db.session.flush()
 				db.session.commit()
+	# ---------------------------------------------------------------------------- #
+	#                              for cs eligibility                              #
+	# ---------------------------------------------------------------------------- #
+	# todo Ilipat ito sa csEligibility, gawan ng sariling form
 
-	#------------------this is for file upload--------------
+				# for x  in range(1, int(cs_no_fields)+1):
+				# 	new_formdata['cs_eligibility['+str(x)+']']
+				# 	new_formdata['cs_rating['+str(x)+']']
+				# 	new_formdata['date_of_examination['+str(x)+']']
+				# 	new_formdata['place_of_examination_conferment['+str(x)+']']
+				# 	new_formdata['license_no['+str(x)+']']
+				# 	new_formdata['date_of_validity['+str(x)+']']
+
+				# 	new_cs_eligibility = Career_Service(cs_eligibility = new_formdata['cs_eligibility['+str(x)+']'], cs_rating = new_formdata['cs_rating['+str(x)+']'],
+				# 		date_of_examination = new_formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = new_formdata['place_of_examination_conferment['+str(x)+']'],
+				# 		license_no = new_formdata['license_no['+str(x)+']'], date_of_validity = new_formdata['date_of_validity['+str(x)+']'], user_id = finaldata.id)
+				# 	db.session.add(new_cs_eligibility)
+				# 	db.session.flush()
+				# 	db.session.commit()
+	# ---------------------------------------------------------------------------- #
+	#                            this is for file upload                           #
+	# ---------------------------------------------------------------------------- #
 				final_name = ''
 				for afile in request.files:
 					file = request.files[afile]
@@ -141,7 +174,9 @@ def signup():
 							files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
 							db.session.add(files_to_upload)
 							db.session.commit()
-	#------------------end of file upload--------------------
+	# ---------------------------------------------------------------------------- #	
+	#                              end of file upload                              #
+	# ---------------------------------------------------------------------------- #
 		else:
 			return render_template('signup.html', user=current_user)
 		

@@ -633,42 +633,11 @@
         </div>
       </div>
     </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Civil Service Eligibility</h3>
-        <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="cs_eligibility" name ="cs_eligibility" placeholder="Eligibility">
-              <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
-            </div>
-          </div>
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="cs_rating" name ="cs_rating" placeholder="Rating">
-              <label for="cs_rating">Rating (if applicable)</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="place_of_examination_conferment" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment">
-              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
-            </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-            <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number">
-            <label for="license_no">License Number</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="date" class="form-control" id="date_of_validity" name ="date_of_validity" placeholder="Date of Validity">
-            <label for="date_of_validity">Date of Validity</label>
-          </div> 
-        </div>
-      </div>
-    </div>
 
     <div class="card mb-3">
       <div class="card-body">
       <h3 class="card-title">Upload Supporting Documents</h3>
-      <div class="d-md-flex flex-row">
+        <div class="d-md-flex flex-row">
           <div class="flex-fill mb-3 p-1">
             <label for="psa" class="form-label">Upload PSA</label>
             <input class="form-control" type="file" id="psa" name="psa">
@@ -680,18 +649,80 @@
         </div>
       </div>
     </div>
+  </form>
+<form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title">Civil Service Eligibility</h3>
+      <div class="d-md-flex flex-row">
+        <div class="form-floating flex-fill mb-3 p-1">
+          <input type="number" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10">
+          <label for="cs_no_fields">No. of Fields</label>
+        </div>
+      </div>
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility">
+            <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination">
+            <label for="date_of_examination">Date of Examination</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating">
+            <label for="cs_rating">Rating (if applicable)</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment">
+            <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+            <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number">
+            <label for="license_no">License Number</label>
+          </div>
+          <div class="form-floating flex-fill mb-3 p-1">
+            <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity">
+            <label for="date_of_validity">Date of Validity</label>
+          </div>
+        </div>
+        <div class="d-md-flex flex-row">
+          <div class="flex-fill mb-3 p-1">
+            <label for="psa" class="form-label">Upload Supporting Document</label>
+            <input class="form-control" type="file" id="cse[1]" name="cse[1]">
+          </div>
+        </div>
+      </div>
+      </div>
+      <div id="cs_fields"></div>
+    </div>
+  </div>
+</form>
 </div> <!--col-->
 </div> <!--row-->
   <div class="row">
     <div class="col">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-primary" id="submit_btn">Submit</button>
     </div>
   </div>
 
-  </form>
+
 </div>
 {% endblock %}
 
 {%block scripts%}
+<script type="text/javascript">
+  document.getElementById('submit_btn').addEventListener('click',(e)=>{
+    document.getElementById('add_eligibility_form_sign_up').submit();
+    document.getElementById('signUp').submit();
+
+  })
+</script>
 <script src="{{ url_for('static', filename='signup.js') }}"></script>
 {%endblock%}

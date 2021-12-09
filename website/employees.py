@@ -36,20 +36,9 @@ def get_employees(emp_id):
 				rows_dic_temp[col] = getattr(row, col)
 			rows_dic.append(rows_dic_temp)
 			rows_dic_temp= {}
+			# print(rows_dic)
 		return jsonify(rows_dic)
-	#else:
-	# 	user = User.query.filter_by(id = emp_id)
-	# 	column_keys = User.__table__.columns.keys()
-	# # Temporary dictionary to keep the return value from table
-	# 	rows_dic_temp = {}
-	# 	rows_dic = []
-	# # Iterate through the returned output data set
-	# 	for row in user:
-	# 		for col in column_keys:
-	# 			rows_dic_temp[col] = getattr(row, col)
-	# 		rows_dic.append(rows_dic_temp)
-	# 		rows_dic_temp= {}
-	# 	return redirect(url_for('employees.my_profile',  user_profile = rows_dic))
+
 
 @employees.route('my-profile/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -58,7 +47,7 @@ def my_profile(emp_id):
 	
 	if request.method == 'GET':
 		user = User.query.get(emp_id)
-		#print(user.id)
+		print(user)
 		
 		return render_template('employee_profile.html', user_profile = user)
 
@@ -73,10 +62,10 @@ def update_employee(emp_id):
 
 	user = db.session.query(User).get(emp_id)
 
-	if formdata['date_of_validity'] != '':
-		formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
-	else:
-		formdata['date_of_validity'] = None
+	# if formdata['date_of_validity'] != '':
+	# 	formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
+	# else:
+	# 	formdata['date_of_validity'] = None
 
 	formdata['birthdate'] = datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 

@@ -26,11 +26,15 @@ def create_app():
 	from .views import views
 	from .employees import employees
 	from .tokenVerifier import tokenizer
+	from .csEligibility import cse
+
 
 	app.register_blueprint(auth, url_prefix='/')
 	app.register_blueprint(views, url_prefix ='/')
 	app.register_blueprint(employees, url_prefix ='/employees')
 	app.register_blueprint(tokenizer, url_prefix = '/tokenizer')
+	app.register_blueprint(cse, url_prefix = '/cse')
+
 
 	from .models import User
 
