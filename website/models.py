@@ -120,10 +120,22 @@ class User(db.Model, UserMixin):
 	#date_of_validity = db.Column(db.Date(), default= datetime.strptime('1700-01-01', '%Y-%m-%d').date())
 
 	type_of_user = db.Column(db.String(150), default='user')
+	
 	uploaded_files = db.relationship('Uploaded_File')
 	service_record = db.relationship('Service_Record')
 	career_service = db.relationship('Career_Service')
+	vocational_course = db.relationship('Vocational_Course')
 	# emergency_contact = db.relationship('Emergency_Contact')
+
+class Vocational_Course(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	v_school = db.Column(db.String(150))
+	vocational_trade_course = db.Column(db.String(150))
+	v_period_of_attendance_from = db.Column(db.String(150))
+	v_period_of_attendance_to = db.Column(db.String(150))
+	v_highest_level = db.Column(db.String(150))
+	v_scholarship_academic_honor = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Career_Service(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

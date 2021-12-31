@@ -122,67 +122,67 @@ document.getElementById("signUp").addEventListener("submit", function(e){
 
 
 //code for submit eligibility in signup
-document.getElementById("add_eligibility_form_sign_up").addEventListener("submit", function(e){
-	e.preventDefault()
+// document.getElementById("add_eligibility_form_sign_up").addEventListener("submit", function(e){
+// 	e.preventDefault()
 
-	var formElem = document.getElementById("signUp");
-	let formData = new FormData(formElem);
+// 	var formElem = document.getElementById("signUp");
+// 	let formData = new FormData(formElem);
   
-	const data = {}
-	formData.forEach((value, key) => (data[key] = value))
+// 	const data = {}
+// 	formData.forEach((value, key) => (data[key] = value))
    
-	console.log(data)
-	fetch('/signup', {
-		  method: 'POST',
-		  body: formData
-	  }).then((res)=>{
-		  setTimeout(function() { 
-			  triggerToast(); 
-			  setTimeout(()=>{
-				  document.getElementById('toastBody').innerHTML = ""
-			  },6000)
-		  }, 450);
+// 	console.log(data)
+// 	fetch('/signup', {
+// 		  method: 'POST',
+// 		  body: formData
+// 	  }).then((res)=>{
+// 		  setTimeout(function() { 
+// 			  triggerToast(); 
+// 			  setTimeout(()=>{
+// 				  document.getElementById('toastBody').innerHTML = ""
+// 			  },6000)
+// 		  }, 450);
 		  
-	  }).catch(console.error)
-  });
+// 	  }).catch(console.error)
+//   });
 
 
 var cs_no_fields = document.getElementById('cs_no_fields');
-cs_no_fields.addEventListener('change',()=>{
+document.getElementById('add_cse_field').addEventListener('click',()=>{
 	var cs_fields = document.getElementById('cs_fields');
 	cs_fields.innerHTML = ``;
-	for(var x = 1; x < cs_no_fields.value; x++){
-		cs_fields.innerHTML += `
-		<hr>
-		<div class="card shadow-sm mb-3">
+	var x = cs_no_fields.value;
+	// for(var x = 1; x < cs_no_fields.value; x++){
+		cs_fields.insertAdjacentHTML("beforebegin",`
+		<div class="card shadow-sm mb-3" id=remove_cse${x}>
         	<div class="card-body">
 				<div class="d-md-flex flex-row">
 				<div class="form-floating flex-fill mb-3 p-1">
-				<input type="text" class="form-control" name ="cs_eligibility[${x+1}]" placeholder="Eligibility">
+				<input type="text" class="form-control" name ="cs_eligibility[${x}]" placeholder="Eligibility" form="signUp">
 				<label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
 				</div>
 				<div class="form-floating flex-fill mb-3 p-1">
-					<input type="date" class="form-control" name ="date_of_examination[${x+1}]" placeholder="Date of Examination">
+					<input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination" form="signUp">
 					<label for="date_of_examination">Date of Examination</label>
 				</div>
 			</div>
 			<div class="d-md-flex flex-row">
 				<div class="form-floating flex-fill mb-3 p-1">
-				<input type="text" class="form-control" name ="cs_rating[${x+1}]" placeholder="Rating">
+				<input type="text" class="form-control" name ="cs_rating[${x}]" placeholder="Rating" form="signUp">
 				<label for="cs_rating">Rating (if applicable)</label>
 				</div>
 				<div class="form-floating flex-fill mb-3 p-1">
-				<input type="text" class="form-control" name ="place_of_examination_conferment[${x+1}]" placeholder="Place of Examination / Conferment">
+				<input type="text" class="form-control" name ="place_of_examination_conferment[${x}]" placeholder="Place of Examination / Conferment" form="signUp">
 				<label for="place_of_examination_conferment">Place of Examination / Conferment</label>
 				</div>
 			</div>
 			<div class="d-md-flex flex-row">
 			<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-				<input type="text" class="form-control" name ="license_no[${x+1}]" placeholder="License Number">
+				<input type="text" class="form-control" name ="license_no[${x}]" placeholder="License Number" form="signUp">
 				<label for="license_no">License Number</label>
 			</div>
 			<div class="form-floating flex-fill mb-3 p-1">
-				<input type="date" class="form-control" name ="date_of_validity[${x+1}]" placeholder="Date of Validity">
+				<input type="date" class="form-control" name ="date_of_validity[${x}]" placeholder="Date of Validity" form="signUp">
 				<label for="date_of_validity">Date of Validity</label>
 			</div> 
 			
@@ -190,11 +190,57 @@ cs_no_fields.addEventListener('change',()=>{
 			<div class="d-md-flex flex-row">
             <div class="flex-fill mb-3 p-1">
               <label for="psa" class="form-label">Upload Supporting Document</label>
-              <input class="form-control" type="file" id="cse[${x+1}]" name="cse[${x+1}]">
+              <input class="form-control" type="file" id="cse[${x}]" name="cse[${x}]" form="signUp">
             </div>
           </div>
+		<a href="#" onclick="document.getElementById('cs_no_fields').value--;document.getElementById('remove_cse${x}').remove(); return false">Remove field</a>
 		</div>
 	</div>
-		`
-	}
+		`);
+	// }
+});
+
+document.getElementById('add_vocational_field').addEventListener('click',()=>{
+	var vocational_fields = document.getElementById('vocational_fields');
+	var vocational_no_fields = document.getElementById('vocational_no_fields');
+	vocational_fields.innerHTML = ``;
+	//  for(var x = 1; x < vocational_no_fields.value; x++){
+		var x = vocational_no_fields.value;
+		vocational_fields.insertAdjacentHTML("beforebegin",`
+			<div class="card shadow-sm mb-3" id=remove_vocational${x}>
+
+				<div class="card-body">
+					<div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" id="v_school[${x}]" name ="v_school[${x}]" placeholder="School" form="signUp">
+					<label for="v_school">School</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" id="vocational_trade_course[${x}]" name ="vocational_trade_course[${x}]" placeholder="Vocational / Trade Course" form="signUp">
+					<label for="vocational_trade_course">Vocational / Trade Course</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" id="v_period_of_attendance_from[${x}]" name ="v_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" form="signUp">
+					<label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" id="v_period_of_attendance_to[${x}]" name ="v_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" form="signUp">
+					<label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+					</div>
+				</div>
+				<div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" id="v_highest_level[${x}]" name ="v_highest_level[${x}]" placeholder="Highest Level" form="signUp">
+					<label for="v_highest_level">Highest Level Attained / Units Earned</label>
+					</div>   
+					<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" id="v_scholarship_academic_honor[${x}]" name ="v_scholarship_academic_honor[${x}]" placeholder="Scholarship / Academic Honor" form="signUp">
+					<label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
+					</div>  
+				</div>
+				<a href="#" onclick="document.getElementById('vocational_no_fields').value--;document.getElementById('remove_vocational${x}').remove(); return false">Remove field</a>
+				</div>
+			</div>
+		`);
+	//  }
 });

@@ -11,12 +11,18 @@ import json
 
 cse = Blueprint('cse', __name__)
 
+ALLOWED_EXTENSIONS = {'pdf'}
+
 admin_permission = Permission(RoleNeed('admin'))
 
 @cse.errorhandler(403)
 def page_not_found(e):
 	session['redirected_from'] = request.url
 	return redirect(url_for('auth.login'))
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # ---------------------------------------------------------------------------- #
 #                      Add eligibility from update profile                     #
@@ -49,5 +55,35 @@ def add_eligibility_sign_up():
             db.session.add(new_cs_eligibility)
             db.session.flush()
             db.session.commit()
+    # ---------------------------------------------------------------------------- #
+	#                            this is for file upload                           #
+	# ---------------------------------------------------------------------------- #
+            final_name = ''
+            for afile in request.files:
+                file = request.files[afile]
+
+                print(f'print file: {afile}')
+                if afile not in request.files:
+                    print('No file selected part')
+                    return redirect(request.url)
+
+                if not file and allowed_file(file.filename):
+                    print('Invalid file submitted')
+                    return redirect(request.url)
+                else:
+                    file_extension = file.filename.rsplit('.', 1)[1].lower()
+                    file_name = file.filename.rsplit('.', 1)[0]
+                    final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + round(datetime.time() * 1000) +'_' + file_name +'.'+file_extension)
+                    if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+                        print('path does not exist... creating path')
+                        os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                    else:
+                        print('path exist!')
+                        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+
+                        #saving upload info to database
+                        files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = current_user.id)
+                        db.session.add(files_to_upload)
+                        db.session.commit()
 
     return jsonify({})

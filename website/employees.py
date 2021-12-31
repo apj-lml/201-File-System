@@ -3,7 +3,8 @@ from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 from .models import Service_Record, User, Uploaded_File
 from . import db
-from datetime import datetime
+#from datetime import datetime
+import datetime
 from .myhelper import allowed_file
 from werkzeug.utils import secure_filename
 import os, os.path
@@ -67,7 +68,7 @@ def update_employee(emp_id):
 	# else:
 	# 	formdata['date_of_validity'] = None
 
-	formdata['birthdate'] = datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
+	formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
 	final_name = ''
 	for afile in request.files:
@@ -83,7 +84,7 @@ def update_employee(emp_id):
 				print('Invalid file submitted')
 				#return redirect(request.url)
 			else:
-				today_is = datetime.today().strftime('%Y-%m-%d-%H%M%S')
+				today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
 				file_extension = file.filename.rsplit('.', 1)[1].lower()
 				file_name = file.filename.rsplit('.', 1)[0]
 				final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + formdata['employee_id']+'_' + today_is +'_' + file_name +'.'+file_extension)
@@ -103,17 +104,20 @@ def update_employee(emp_id):
 					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
 					db.session.add(files_to_upload)
 					db.session.commit()
-
+	print(formdata)
 	formdata.pop('employee_id')
 	#code for automated update
 	for key, value in formdata.items(): 
-			if type(value) is datetime.date:
-				setattr(user, key, value.upper())
-				print(value)
+		if type(value) is str:
+			setattr(user, key, value.upper())
+			#print(value)
+		else:
+			setattr(user, key, value)
+			#print(value)
 	db.session.commit()
 	#end update
-
-	return redirect(request.referrer)
+	return jsonify({})
+	#return redirect(request.referrer)
 
 @employees.route('delete-file', methods=['POST', 'GET'])
 @login_required
@@ -171,4 +175,4 @@ def get_service_record(emp_id):
 
 @employees.context_processor
 def inject_today_date():
-    return {'today_date': datetime.utcnow()}
+    return {'today_date': datetime.datetime.utcnow()}

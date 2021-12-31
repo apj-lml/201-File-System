@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_user, logout_user, login_required
-from datetime import datetime, date
-from .models import Career_Service, User, Uploaded_File
+import datetime
+import time
+from .models import Career_Service, User, Uploaded_File, Vocational_Course
 from . import db
 import os, os.path
 import json
@@ -98,29 +99,44 @@ def signup():
 				# 	formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
 				# else:
 				# 	formdata['date_of_validity'] = None
-				formdata['birthdate'] = datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
+				formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
 	# ---------------------------------------------------------------------------- #
 	#              popping unnecessary data before saving to database              #
 	# ---------------------------------------------------------------------------- #
 				new_formdata = formdata.copy()
 				cs_no_fields = new_formdata['cs_no_fields']
-				
-				# for x in range(1, int(cs_no_fields)+1):
-				# 	# print('HERE HEREEEEE!!!!!', x)
-				# 	formdata.pop('cs_eligibility['+str(x)+']')
-				# 	formdata.pop('cs_rating['+str(x)+']')
-				# 	formdata.pop('date_of_examination['+str(x)+']')
-				# 	formdata.pop('place_of_examination_conferment['+str(x)+']')
-				# 	formdata.pop('license_no['+str(x)+']')
-				# 	formdata.pop('date_of_validity['+str(x)+']')
+				vocational_no_fields = new_formdata['vocational_no_fields']
 
-				# formdata.pop('cs_no_fields')
+				for y in range(1, int(vocational_no_fields)+1):
+					# print('HERE HEREEEEE!!!!!', x)
+					formdata.pop('v_school['+str(y)+']')
+					formdata.pop('vocational_trade_course['+str(y)+']')
+					formdata.pop('v_period_of_attendance_from['+str(y)+']')
+					formdata.pop('v_period_of_attendance_to['+str(y)+']')
+					formdata.pop('v_highest_level['+str(y)+']')
+					formdata.pop('v_scholarship_academic_honor['+str(y)+']')
+				
+				for x in range(1, int(cs_no_fields)+1):
+					# print('HERE HEREEEEE!!!!!', x)
+					formdata.pop('cs_eligibility['+str(x)+']')
+					formdata.pop('cs_rating['+str(x)+']')
+					formdata.pop('date_of_examination['+str(x)+']')
+					formdata.pop('place_of_examination_conferment['+str(x)+']')
+					formdata.pop('license_no['+str(x)+']')
+					formdata.pop('date_of_validity['+str(x)+']')
+
+				formdata.pop('cs_no_fields')
+				formdata.pop('vocational_no_fields')
 				formdata.pop('floatingPassword2')
 				formdata.pop('same_as_permanent')
 	# ---------------------------------------------------------------------------- #
 	#                    saving employee info to the databse                       #
 	# ---------------------------------------------------------------------------- #
+				#newDict = {k:v.upper() for k,v in formdata.items()}
+				# for k, v in formdata.items():
+				# 	formdata[k] = formdata.pop(k).upper()
+				#print(value)
 				finaldata = User(**formdata)
 				db.session.add(finaldata)
 				db.session.flush()
@@ -128,22 +144,41 @@ def signup():
 	# ---------------------------------------------------------------------------- #
 	#                              for cs eligibility                              #
 	# ---------------------------------------------------------------------------- #
-	# todo Ilipat ito sa csEligibility, gawan ng sariling form
 
-				# for x  in range(1, int(cs_no_fields)+1):
-				# 	new_formdata['cs_eligibility['+str(x)+']']
-				# 	new_formdata['cs_rating['+str(x)+']']
-				# 	new_formdata['date_of_examination['+str(x)+']']
-				# 	new_formdata['place_of_examination_conferment['+str(x)+']']
-				# 	new_formdata['license_no['+str(x)+']']
-				# 	new_formdata['date_of_validity['+str(x)+']']
+				for x  in range(1, int(cs_no_fields)+1):
+					new_formdata['cs_eligibility['+str(x)+']']
+					new_formdata['cs_rating['+str(x)+']']
+					new_formdata['date_of_examination['+str(x)+']']
+					new_formdata['place_of_examination_conferment['+str(x)+']']
+					new_formdata['license_no['+str(x)+']']
+					new_formdata['date_of_validity['+str(x)+']']
 
-				# 	new_cs_eligibility = Career_Service(cs_eligibility = new_formdata['cs_eligibility['+str(x)+']'], cs_rating = new_formdata['cs_rating['+str(x)+']'],
-				# 		date_of_examination = new_formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = new_formdata['place_of_examination_conferment['+str(x)+']'],
-				# 		license_no = new_formdata['license_no['+str(x)+']'], date_of_validity = new_formdata['date_of_validity['+str(x)+']'], user_id = finaldata.id)
-				# 	db.session.add(new_cs_eligibility)
-				# 	db.session.flush()
-				# 	db.session.commit()
+					new_cs_eligibility = Career_Service(cs_eligibility = new_formdata['cs_eligibility['+str(x)+']'], cs_rating = new_formdata['cs_rating['+str(x)+']'],
+						date_of_examination = new_formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = new_formdata['place_of_examination_conferment['+str(x)+']'],
+						license_no = new_formdata['license_no['+str(x)+']'], date_of_validity = new_formdata['date_of_validity['+str(x)+']'], user_id = finaldata.id)
+					db.session.add(new_cs_eligibility)
+					db.session.flush()
+					db.session.commit()
+
+	# ---------------------------------------------------------------------------- #
+	#                            for vocational courses                            #
+	# ---------------------------------------------------------------------------- #
+
+				for x  in range(1, int(vocational_no_fields)+1):
+					new_formdata['v_school['+str(x)+']']
+					new_formdata['vocational_trade_course['+str(x)+']']
+					new_formdata['v_period_of_attendance_from['+str(x)+']']
+					new_formdata['v_period_of_attendance_to['+str(x)+']']
+					new_formdata['v_highest_level['+str(x)+']']
+					new_formdata['v_scholarship_academic_honor['+str(x)+']']
+
+					new_cs_eligibility = Vocational_Course(v_school = new_formdata['v_school['+str(x)+']'], vocational_trade_course = new_formdata['vocational_trade_course['+str(x)+']'],
+						v_period_of_attendance_from = new_formdata['v_period_of_attendance_from['+str(x)+']'], v_period_of_attendance_to = new_formdata['v_period_of_attendance_to['+str(x)+']'],
+						v_highest_level = new_formdata['v_highest_level['+str(x)+']'], v_scholarship_academic_honor = new_formdata['v_scholarship_academic_honor['+str(x)+']'], user_id = finaldata.id)
+					db.session.add(new_cs_eligibility)
+					db.session.flush()
+					db.session.commit()
+
 	# ---------------------------------------------------------------------------- #
 	#                            this is for file upload                           #
 	# ---------------------------------------------------------------------------- #
@@ -162,7 +197,7 @@ def signup():
 					else:
 						file_extension = file.filename.rsplit('.', 1)[1].lower()
 						file_name = file.filename.rsplit('.', 1)[0]
-						final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + formdata['employee_id'] +'_' + file_name +'.'+file_extension)
+						final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
 						if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
 							print('path does not exist... creating path')
 							os.mkdir(current_app.config['UPLOAD_FOLDER'])
