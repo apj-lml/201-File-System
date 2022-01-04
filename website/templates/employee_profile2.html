@@ -1,0 +1,950 @@
+{% extends 'base.html' %}
+
+{% block title %} Employee Profile {% endblock %}
+
+{%block cssperfile %} 
+  <style>
+    body{
+      overflow-x: hidden;  
+    }
+    .hover-opacity{
+      opacity: .5;
+      transition: all 0.5s 0s ease;
+    }
+    .hover-opacity:hover{
+      opacity: 1;
+    }
+    @media print {
+    .myDivToPrint {
+        background-color: white;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 15px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+  </style>
+{% endblock %}
+
+{% block content %}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="bootstrap" viewBox="0 0 118 94">
+    <title>Bootstrap</title>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+  </symbol>
+  <symbol id="home" viewBox="0 0 16 16">
+    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+  </symbol>
+  <symbol id="speedometer2" viewBox="0 0 16 16">
+    <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+    <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+  </symbol>
+  <symbol id="table" viewBox="0 0 16 16">
+    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+  </symbol>
+  <symbol id="people-circle" viewBox="0 0 16 16">
+    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+  </symbol>
+  <symbol id="grid" viewBox="0 0 16 16">
+    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+  </symbol>
+  <symbol id="collection" viewBox="0 0 16 16">
+    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+  </symbol>
+  <symbol id="calendar3" viewBox="0 0 16 16">
+    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+  </symbol>
+  <symbol id="chat-quote-fill" viewBox="0 0 16 16">
+    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766a1.688 1.688 0 0 0-.227-.272 1.467 1.467 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.461 2.461 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.466 2.466 0 0 0-.228-.4 1.686 1.686 0 0 0-.227-.273 1.466 1.466 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+  </symbol>
+  <symbol id="cpu-fill" viewBox="0 0 16 16">
+    <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+    <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"/>
+  </symbol>
+  <symbol id="gear-fill" viewBox="0 0 16 16">
+    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+  </symbol>
+  <symbol id="speedometer" viewBox="0 0 16 16">
+    <path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+    <path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"/>
+  </symbol>
+  <symbol id="toggles2" viewBox="0 0 16 16">
+    <path d="M9.465 10H12a2 2 0 1 1 0 4H9.465c.34-.588.535-1.271.535-2 0-.729-.195-1.412-.535-2z"/>
+    <path d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm.535-10a3.975 3.975 0 0 1-.409-1H4a1 1 0 0 1 0-2h2.126c.091-.355.23-.69.41-1H4a2 2 0 1 0 0 4h2.535z"/>
+    <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+  </symbol>
+  <symbol id="tools" viewBox="0 0 16 16">
+    <path d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
+  </symbol>
+  <symbol id="chevron-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+  </symbol>
+  <symbol id="geo-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+  </symbol>
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+  </svg>
+
+
+  <div class="col-sm-12">
+    <div class="container myDivToPrint" id="myDivToPrint">
+      <div class="row">
+        <div class="col">
+          <div class="container-fluid">
+            <div class="d-flex justify-content-center flex-row">
+              <img class="img-fluid" src="{{url_for('static', filename='img/employee_profile.png')}}" alt="" width="400">
+            </div>
+            <div class="row">
+            <div class="col">
+              <form enctype="multipart/form-data" id="update_form" action="/employees/update-employee/{{user_profile.id}}" method="POST" autocomplete="off">
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Personal Information</h3>
+                  <div class="d-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}">
+                        <label for="employee_id">Employee ID Number</label>
+                      </div>
+                  </div>
+                    <div class="d-md-flex flex-row"> 
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}">
+                        <label for="last_name">Last Name</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}">
+                        <label for="first_name">First Name</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}">
+                        <label for="middle_name">Middle Name</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}">
+                        <label for="name_extn">Name Extension (eg. Jr., III)</label>
+                      </div>
+                    </div>
+                    <!-- TODO -->
+                    <div class="d-md-flex flex-row"> 
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employement_status}}">
+                          <option value="Job Order">Job Order</option>
+                          <option value="Permanent">Permanent</option>
+                          <option value="Casual">Casual</option>
+                          <option value="Coterminous">Coterminous</option>
+                          <option value="Separated">Separated</option>
+                        </select>
+                        <label for="middle_name">Employment Status</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}">
+                        <label for="last_name">Position Title</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade" value="{{user_profile.salary_grade}}">
+                        <label for="first_name">Salary Grade</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="step" name ="step" placeholder="Step" value="{{user_profile.step}}">
+                        <label for="step">Step</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row"> 
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no}}">
+                        <label for="item_no">Item No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}">
+                        <label for="date_of_assumption">Date of Assumption to Duty</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}">
+                        <label for="date_of_assumption">Date of Last Step Increment</label>
+                      </div>
+                    </div>
+                    <!-- TODO -->
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}">
+                            <option value="Administrative & Finance">Administrative & Finance</option>
+                            <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Operation & Maintenance">Operation & Maintenance</option>
+                            <option value="NISRIP">NISRIP</option>
+                            <option value="CARP-IC">CARP-IC</option>
+                            <option value="Detailed">Detailed</option>
+                            <option value="N/A">N/A</option>
+                          </select>
+                        <label for="section">Section</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                            <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}">
+                            <option value="Administrative Unit">Administrative Unit</option>
+                            <option value="Finance Unit">Finance Unit</option>
+                            <option value="Cashiering Unit">Cashiering Unit</option>
+                            <option value="Property Unit">Property Unit</option>
+                            <option value="Planning Unit">Planning Unit</option>
+                            <option value="Design Unit">Design Unit</option>
+                            <option value="Construction Unit">Construction Unit</option>
+                            <option value="Institutional Development Unit">Institutional Development Unit</option>
+                            <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
+                            <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
+                            <option value="Lower Agno RIS">Lower Agno RIS</option>
+                            <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
+                            <option value="N/A">N/A</option>
+                          </select>
+                        <label for="name_extn">Unit</label>
+                      </div>
+                      <!-- TODO -->
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}">
+                        <label for="date_of_original_appointment">Date of Original Appointment</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate" value="{{user_profile.daily_rate}}">
+                        <label for="daily_rate">Daily Rate</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate" value="{{user_profile.monthly_rate}}">
+                        <label for="monthly_rate">Monthly Rate</label>
+                      </div>
+
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}">
+                        <label for="birthdate">Birthdate</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="age" name ="age" placeholder="Age" disabled>
+                        <label for="name_extn">Age</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}">
+                        <label for="name_extn">Place of Birth</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}">
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                        <label for="sex">Sex</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}">
+                          <option value="Single">Single</option>
+                          <option value="Widowed">Widowed</option>
+                          <option value="Married">Married</option>
+                          <option value="Separated">Separated</option>
+                        </select>
+                        <label for="civil_status">Civil Status</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}">
+                        <label for="name_extn">Height(m)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}">
+                        <label for="name_extn">Weight(kg)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type" value="{{user_profile.blood_type}}">
+                        <label for="name_extn">Blood Type</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}">
+                          <option value="Roman Catholic">Roman Catholic</option>
+                          <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                          <option value="Baptist">Baptist</option>
+                          <option value="Born Again Christian">Born Again Christian</option>
+                          <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
+                        </select>
+                        <label for="religion">Religion</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}">
+                        <label for="name_extn">Dependents</label>
+                      </div>      
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No." value="{{user_profile.mobile_no}}">
+                        <label for="mobile_no">Mobile No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}">
+                        <label for="telephone_no">Telephone No.</label>
+                      </div>    
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}">
+                        <label for="name_extn">GSIS No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}">
+                        <label for="name_extn">PAG-IBIG No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}">
+                        <label for="name_extn">PHILHEALTH No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}">
+                        <label for="name_extn">SSS No.</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}">
+                        <label for="name_extn">TIN</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" required>
+                        <label for="name_extn">Landbank ATM Card No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}">
+                        <label for="name_extn">UMID</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}">
+                        <label for="name_extn">PhilSys</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <div class="form-floating">
+                          <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" value="{{user_profile.citizenship}}">
+                            <option value="Filipino" selected>Filipino</option>
+                            <option value="Dual Citizen">Dual Citizen</option>
+                          </select>
+                          <label for="floatingSelect">Citizenship</label>
+                        </div>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="dual_citizenship" name ="dual_citizenship" placeholder="Dual Citizenship" disabled value="{{user_profile.dual_citizenship}}">
+                        <label for="name_extn">Dual Citizenship</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled value="{{user_profile.indicate_country}}">
+                        <label for="indicate_country">Indicate Country</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>       
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Permanent Address</h3>
+                    <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="p_house_block_lot" name ="p_house_block_lot" placeholder="House/Block/Lot No." onchange="sameAsPermanent()" value="{{user_profile.p_house_block_lot}}">
+                          <label for="p_house_block_lot">House/Block/Lot No.</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="p_street" name ="p_street" placeholder="Street" onchange="sameAsPermanent()" value="{{user_profile.p_street}}">
+                          <label for="p_street">Street</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="p_subdivision_village" name ="p_subdivision_village" placeholder="Subdivision/Village" onchange="sameAsPermanent()" value="{{user_profile.p_subdivision_village}}">
+                          <label for="p_subdivision_village">Subdivision/Village</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" value="{{user_profile.p_barangay}}">
+                          <label for="p_barangay">Barangay</label>
+                        </div>
+                      </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" value="{{user_profile.p_city_municipality}}">
+                        <label for="p_city_municipality">City/Municipality</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" value="{{user_profile.p_province}}">
+                        <label for="p_province">Province</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" value="{{user_profile.p_zip_code}}"> 
+                        <label for="p_zip_code">Zip Code</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Present Address</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <div class="form-floating">
+                          <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example">
+                            <option value="Yes" selected>Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                          <label for="same_as_permanent">Same as permanent address</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." disabled value="{{user_profile.pres_house_block_lot}}">
+                        <label for="pres_house_block_lot">House/Block/Lot No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" disabled value="{{user_profile.pres_street}}">
+                        <label for="pres_street">Street</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" disabled value="{{user_profile.pres_subdivision_village}}">
+                        <label for="pres_subdivision_village">Subdivision/Village</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" disabled value="{{user_profile.pres_barangay}}">
+                        <label for="pres_barangay">Barangay</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">        
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" disabled value="{{user_profile.pres_city_municipality}}">
+                        <label for="pres_city_municipality">City/Municipality</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" disabled value="{{user_profile.pres_province}}">
+                        <label for="pres_province">Province</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" disabled value="{{user_profile.pres_zip_code}}">
+                        <label for="pres_zip_code">Zip Code</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Educational Attainment</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="highest_educational_attainment" name ="highest_educational_attainment" placeholder="House/Block/Lot No." value="{{user_profile.highest_educational_attainment}}">
+                          <label for="highest_educational_attainment">Highest Educational Attainment</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Elementary Education</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" value="{{user_profile.elementary_school}}">
+                        <label for="elementary_school">Elementary School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.e_period_of_attendance_from}}">
+                        <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}">
+                        <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
+                      </div>       
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level" value="{{user_profile.e_highest_level}}">
+                        <label for="e_highest_level">Highest Level Attained</label>
+                      </div>   
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.e_scholarship_academic_honor}}">
+                        <label for="e_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">High School</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="high_school" name ="high_school" placeholder="high_school" value="{{user_profile.high_school}}">
+                        <label for="high_school">High School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}">
+                        <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}">
+                        <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="hs_highest_level" name ="hs_highest_level" placeholder="Highest Level" value="{{user_profile.hs_highest_level}}">
+                        <label for="hs_highest_level">Highest Level Attained</label>
+                      </div>   
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.hs_scholarship_academic_honor}}">
+                        <label for="hs_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">Vocational / Trade Course</h3>
+                      <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_school" name ="v_school" placeholder="School" value="{{user_profile.v_school}}">
+                        <label for="v_school">School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="vocational_trade_course" name ="vocational_trade_course" placeholder="Vocational / Trade Course" value="{{user_profile.vocational_trade_course}}">
+                        <label for="vocational_trade_course">Vocational / Trade Course</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_period_of_attendance_from" name ="v_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.v_period_of_attendance_from}}">
+                        <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_period_of_attendance_to" name ="v_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.v_period_of_attendance_to}}">
+                        <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_highest_level" name ="v_highest_level" placeholder="Highest Level" value="{{user_profile.v_highest_level}}">
+                        <label for="v_highest_level">Highest Level Attained / Units Earned</label>
+                      </div>   
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_scholarship_academic_honor" name ="v_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.v_scholarship_academic_honor}}">
+                        <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">College</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="c_school" name ="c_school" placeholder="c_school" value="{{user_profile.c_school}}">
+                        <label for="c_school">School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="c_degree_course" name ="c_degree_course" placeholder="c_degree_course" value="{{user_profile.c_degree_course}}">
+                        <label for="c_degree_course">Degree</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="c_period_of_attendance_from" name ="c_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.c_period_of_attendance_from}}">
+                        <label for="c_period_of_attendance_from">Period of Attendance (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="c_period_of_attendance_to" name ="c_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.c_period_of_attendance_to}}">
+                        <label for="c_period_of_attendance_to">Period of Attendance (To)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="c_highest_level_units_earned" name ="c_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.c_highest_level_units_earned}}">
+                        <label for="c_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+                      </div>   
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="c_scholarship_academic_honor" name ="c_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.c_scholarship_academic_honor}}">
+                        <label for="c_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">Masteral Degree</h3>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="gs_school" name ="gs_school" placeholder="School" value="{{user_profile.gs_school}}">
+                          <label for="gs_school">School</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="gs_degree_course" name ="gs_degree_course" placeholder="Degree / Course" value="{{user_profile.gs_degree_course}}">
+                          <label for="gs_degree_course">Degree / Course</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="gs_period_of_attendance_from" name ="gs_period_of_attendance_from" placeholder="Period of Attendance (To)" value="{{user_profile.gs_period_of_attendance_from}}"> 
+                          <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="gs_period_of_attendance_to" name ="gs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.gs_period_of_attendance_to}}"> 
+                          <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                        </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_highest_level_units_earned" name ="gs_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.gs_highest_level_units_earned}}">
+                        <label for="gs_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+                      </div>   
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.gs_scholarship_academic_honor}}">
+                        <label for="gs_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">Doctoral Degree</h3>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School" value="{{user_profile.doc_school}}">
+                          <label for="doc_school">School</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course" value="{{user_profile.doc_degree_course}}">
+                          <label for="doc_degree_course">Degree / Course</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)" value="{{user_profile.doc_period_of_attendance_from}}">
+                          <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.doc_period_of_attendance_to}}">
+                          <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                        </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="doc_highest_level_units_earned" name ="doc_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.doc_highest_level_units_earned}}">
+                        <label for="doc_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.doc_scholarship_academic_honor}}">
+                        <label for="doc_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Upload Supporting Documents</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill mb-3 p-1">
+                      <label for="psa" class="form-label">Upload PSA</label>
+                      <input class="form-control" type="file" id="psa" name="psa">
+                    </div>
+                    <div class="flex-fill mb-3 p-1">
+                      <label for="nbi" class="form-label">Upload NBI</label>
+                      <input class="form-control" type="file" id="nbi" name="nbi">
+                    </div>
+                  </div>
+                  <div class="container">
+                    <div class="row" style="max-width: 1000px;">
+                  {% for file in user_profile.uploaded_files %}
+                    <!-- <div class="flex-fill mb-3 p-1"> -->
+                      <div class="col-md-4">
+                        <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
+                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                          <a href="{{file.file_path}}" target="_blank">
+                            <span class="">
+                              {{file.file_name}}
+                            </span>
+                          </a>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                        </div>
+                      </div>
+                    <!-- </div> -->
+                  {% endfor %}
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">Civil Service Eligibility
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#add_eligibility">Add</button>
+                  </h3> 
+                  {% for career_service in user_profile.career_service %}
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="cs_eligibility" name ="cs_eligibility" placeholder="Eligibility" value="{{career_service.cs_eligibility}}">
+                          <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="cs_rating" name ="cs_rating" placeholder="Rating" value="{{career_service.cs_rating}}">
+                          <label for="cs_rating">Rating (if applicable)</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="place_of_examination_conferment" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment" value="{{career_service.place_of_examination_conferment}}">
+                          <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number" value="{{career_service.license_no}}">
+                          <label for="license_no">License Number</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="date" class="form-control" id="date_of_validity" name ="date_of_validity" placeholder="Date of Validity" value="{{career_service.date_of_validity}}">
+                          <label for="date_of_validity">Date of Validity</label>
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div> <!--col-->
+            </div> <!--row-->
+              <!-- <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div> -->
+            
+
+            </div>
+        </div>
+  </div>
+</div>
+</div>
+
+  <div class="d-inline-flex">
+    <div class="card m-3 ms-auto shadow-lg hover-opacity fixed-bottom" style="width: 18rem; ">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title"><strong>Hey!</strong></h5>
+        <p class="card-text">
+          <div class="alert alert-warning" role="alert">
+            You can update or print your profile here!
+          </div>
+        </p>
+        <a href="#" class="btn btn-primary" onclick="update_employee()">Update</a>
+        <a href="#" class="btn btn-secondary" onclick="w_print(document.getElementsById('myDivToPrint'))">Print</a>
+      </div>
+    </div>
+  </div>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="modal fade" id="add_eligibility" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_eligibility_label" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_eligibility_label">Add Civil Service Eligibility</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" name="add_eligibility_form" id="add_eligibility_form" enctype="multipart/form-data">
+          <input type="hidden" name="user_id" value="{{user_profile.id}}">
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="cs_eligibility" placeholder="Eligibility">
+              <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="date" class="form-control" name ="date_of_examination" placeholder="Date of Examination">
+              <label for="date_of_examination">Date of Examination</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="cs_rating" placeholder="Rating">
+              <label for="cs_rating">Rating (if applicable)</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment">
+              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+              <input type="text" class="form-control" name ="license_no" placeholder="License Number">
+              <label for="license_no">License Number</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="date" class="form-control" name ="date_of_validity" placeholder="Date of Validity">
+              <label for="date_of_validity">Date of Validity</label>
+            </div> 
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <div class="flex-fill mb-3 p-1">
+                <label for="psa" class="form-label">Upload Supporting Document</label>
+                <input class="form-control" type="file" id="cse" name="cse">
+              </div>
+            </div> 
+          </div>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="add_eligibility" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_eligibility_label" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_eligibility_label">Add Vocational Course</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" name="add_eligibility_form" id="add_eligibility_form" enctype="multipart/form-data">
+          <input type="hidden" name="user_id" value="{{user_profile.id}}">
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="cs_eligibility" placeholder="Eligibility">
+              <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="date" class="form-control" name ="date_of_examination" placeholder="Date of Examination">
+              <label for="date_of_examination">Date of Examination</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="cs_rating" placeholder="Rating">
+              <label for="cs_rating">Rating (if applicable)</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="text" class="form-control" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment">
+              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+            </div>
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+              <input type="text" class="form-control" name ="license_no" placeholder="License Number">
+              <label for="license_no">License Number</label>
+            </div>
+            <div class="form-floating flex-fill mb-3 p-1">
+              <input type="date" class="form-control" name ="date_of_validity" placeholder="Date of Validity">
+              <label for="date_of_validity">Date of Validity</label>
+            </div> 
+          </div>
+          <div class="d-md-flex flex-row">
+            <div class="form-floating flex-fill mb-3 p-1">
+              <div class="flex-fill mb-3 p-1">
+                <label for="psa" class="form-label">Upload Supporting Document</label>
+                <input class="form-control" type="file" id="cse" name="cse">
+              </div>
+            </div> 
+          </div>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{%block scripts %}
+<script type="text/javascript">
+  var formElem = document.getElementById("update_form");
+
+  document.getElementById("add_eligibility_form").addEventListener('submit',(e)=>{
+    e.preventDefault()
+    var formElem = document.getElementById("add_eligibility_form");
+    let formData = new FormData(formElem);
+    //formData.append('file', input.files[0])
+
+    const data = {}
+    formData.forEach((value, key) => (data[key] = value))
+
+    console.log(data)
+    fetch('/cse/add-eligibility', {
+      method: 'POST',
+      body: formData
+    }).then((res)=>{
+      return res.json()
+    }).then(data => {
+      console.log(data)
+    })
+  })
+
+  function update_employee(){
+    formElem.submit();
+  }
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+
+    var dob = new Date(document.getElementById("birthdate").value);
+    var diff_ms = Date.now() - dob.getTime();
+    var age_dt = new Date(diff_ms); 
+    
+    var age = Math.abs(age_dt.getUTCFullYear() - 1970);
+      document.getElementById("age").value = age;
+
+    formElem.addEventListener("submit",(e)=>{
+
+      e.preventDefault();
+      let formData = new FormData(formElem);
+      //formData.append('file',  input.files[0])
+
+      const data = {}
+      formData.forEach((value, key) => (data[key] = value))
+    
+      // for (var i = 0; i < file_input.files.length; i++) {
+      // 	formData.append("files[]", document.getElementById('psa').files[i]);
+      // }
+      console.log(data)
+      fetch('/employees/update-employee', {
+        method: 'POST',
+        body: formData
+      }).then((res)=>{
+        console.log(res)
+        
+      }).catch(console.error)
+          });
+
+});
+
+function delete_file(e){
+  alert(e.id)
+  fetch('/employees/delete-file',{
+    method: 'POST',
+    body: JSON.stringify({"file_id" : e.id})
+  })
+	.then(response => response.json())
+	.then(data => data)
+	.catch(err => console.error(err));
+}
+
+
+</script>
+{%endblock%}

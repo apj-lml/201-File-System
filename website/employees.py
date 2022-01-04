@@ -48,7 +48,7 @@ def my_profile(emp_id):
 	
 	if request.method == 'GET':
 		user = User.query.get(emp_id)
-		print(user)
+		# print(user)
 		
 		return render_template('employee_profile.html', user_profile = user)
 
@@ -70,6 +70,9 @@ def update_employee(emp_id):
 
 	formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
+# ---------------------------------------------------------------------------- #
+#                              UPLOADING OF FILE                               #
+# ---------------------------------------------------------------------------- #
 	final_name = ''
 	for afile in request.files:
 		file = request.files[afile]
@@ -77,7 +80,7 @@ def update_employee(emp_id):
 		#print(f'print file: {afile}')
 		if file.filename == "":
 		#if afile not in request.files:
-			print('No file selected part')
+			print('No file selected')
 			#return redirect(request.url)
 		else:
 			if not file and allowed_file(file.filename):
@@ -104,20 +107,75 @@ def update_employee(emp_id):
 					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
 					db.session.add(files_to_upload)
 					db.session.commit()
-	print(formdata)
+# ---------------------------------------------------------------------------- #
+#                              END OF FILE UPLOAD                              #
+# ---------------------------------------------------------------------------- #
+
+
+	new_formdata = formdata.copy()
+	cs_no_fields = new_formdata['cs_no_fields']
+	vocational_no_fields = new_formdata['vocational_no_fields']
+	ld_no_fields = new_formdata['ld_no_fields']
+
+# ---------------------------------------------------------------------------- #
+#              popping unnecessary data before saving to database              #
+# ---------------------------------------------------------------------------- #
+	for z in range(1, int(ld_no_fields)+1):
+		# print('HERE HEREEEEE!!!!!', x)
+		formdata.pop('ld_program['+str(z)+']')
+		formdata.pop('ld_date_from['+str(z)+']')
+		formdata.pop('ld_date_to['+str(z)+']')
+		formdata.pop('ld_no_hours['+str(z)+']')
+		formdata.pop('ld_type['+str(z)+']')
+		formdata.pop('ld_sponsored_by['+str(z)+']')
+
+	for y in range(1, int(vocational_no_fields)+1):
+		# print('HERE HEREEEEE!!!!!', x)
+		formdata.pop('v_school['+str(y)+']')
+		formdata.pop('vocational_trade_course['+str(y)+']')
+		formdata.pop('v_period_of_attendance_from['+str(y)+']')
+		formdata.pop('v_period_of_attendance_to['+str(y)+']')
+		formdata.pop('v_highest_level['+str(y)+']')
+		formdata.pop('v_scholarship_academic_honor['+str(y)+']')
+	
+	for x in range(1, int(cs_no_fields)+1):
+		# print('HERE HEREEEEE!!!!!', x)
+		formdata.pop('cs_eligibility['+str(x)+']')
+		formdata.pop('cs_rating['+str(x)+']')
+		formdata.pop('date_of_examination['+str(x)+']')
+		formdata.pop('place_of_examination_conferment['+str(x)+']')
+		formdata.pop('license_no['+str(x)+']')
+		formdata.pop('date_of_validity['+str(x)+']')
+
+	formdata.pop('ld_no_fields')
+	formdata.pop('cs_no_fields')
+	formdata.pop('vocational_no_fields')
+	formdata.pop('floatingPassword2')
+	formdata.pop('same_as_permanent')
 	formdata.pop('employee_id')
+# ---------------------------------------------------------------------------- #
+#                         UPDATING OF EMPLOYEE PROFILE                         #
+# ---------------------------------------------------------------------------- #
+	print(formdata)
+	
 	#code for automated update
 	for key, value in formdata.items(): 
-		if type(value) is str:
-			setattr(user, key, value.upper())
+		#if type(value) is str:
+			#setattr(user, key, value.upper())
 			#print(value)
-		else:
-			setattr(user, key, value)
+		#else:
+		print(key, value)
+		setattr(user, key, value)
 			#print(value)
 	db.session.commit()
-	#end update
+
+# ---------------------------------------------------------------------------- #
+#                      END OF UPDATING OF EMPLOYEE PROFILE                     #
+# ---------------------------------------------------------------------------- #
+
 	return jsonify({})
 	#return redirect(request.referrer)
+
 
 @employees.route('delete-file', methods=['POST', 'GET'])
 @login_required

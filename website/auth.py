@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 from flask_login import current_user, login_user, logout_user, login_required
 import datetime
 import time
-from .models import Career_Service, User, Uploaded_File, Vocational_Course
+from .models import Career_Service, Learning_Development, User, Uploaded_File, Vocational_Course
 from . import db
 import os, os.path
 import json
@@ -101,12 +101,22 @@ def signup():
 				# 	formdata['date_of_validity'] = None
 				formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
-	# ---------------------------------------------------------------------------- #
-	#              popping unnecessary data before saving to database              #
-	# ---------------------------------------------------------------------------- #
 				new_formdata = formdata.copy()
 				cs_no_fields = new_formdata['cs_no_fields']
 				vocational_no_fields = new_formdata['vocational_no_fields']
+				ld_no_fields = new_formdata['ld_no_fields']
+
+	# ---------------------------------------------------------------------------- #
+	#              popping unnecessary data before saving to database              #
+	# ---------------------------------------------------------------------------- #
+				for z in range(1, int(ld_no_fields)+1):
+					# print('HERE HEREEEEE!!!!!', x)
+					formdata.pop('ld_program['+str(z)+']')
+					formdata.pop('ld_date_from['+str(z)+']')
+					formdata.pop('ld_date_to['+str(z)+']')
+					formdata.pop('ld_no_hours['+str(z)+']')
+					formdata.pop('ld_type['+str(z)+']')
+					formdata.pop('ld_sponsored_by['+str(z)+']')
 
 				for y in range(1, int(vocational_no_fields)+1):
 					# print('HERE HEREEEEE!!!!!', x)
@@ -125,7 +135,7 @@ def signup():
 					formdata.pop('place_of_examination_conferment['+str(x)+']')
 					formdata.pop('license_no['+str(x)+']')
 					formdata.pop('date_of_validity['+str(x)+']')
-
+				formdata.pop('ld_no_fields')
 				formdata.pop('cs_no_fields')
 				formdata.pop('vocational_no_fields')
 				formdata.pop('floatingPassword2')
@@ -145,7 +155,7 @@ def signup():
 	#                              for cs eligibility                              #
 	# ---------------------------------------------------------------------------- #
 
-				for x  in range(1, int(cs_no_fields)+1):
+				for x in range(1, int(cs_no_fields)+1):
 					new_formdata['cs_eligibility['+str(x)+']']
 					new_formdata['cs_rating['+str(x)+']']
 					new_formdata['date_of_examination['+str(x)+']']
@@ -164,18 +174,37 @@ def signup():
 	#                            for vocational courses                            #
 	# ---------------------------------------------------------------------------- #
 
-				for x  in range(1, int(vocational_no_fields)+1):
-					new_formdata['v_school['+str(x)+']']
-					new_formdata['vocational_trade_course['+str(x)+']']
-					new_formdata['v_period_of_attendance_from['+str(x)+']']
-					new_formdata['v_period_of_attendance_to['+str(x)+']']
-					new_formdata['v_highest_level['+str(x)+']']
-					new_formdata['v_scholarship_academic_honor['+str(x)+']']
+				for y in range(1, int(vocational_no_fields)+1):
+					new_formdata['v_school['+str(y)+']']
+					new_formdata['vocational_trade_course['+str(y)+']']
+					new_formdata['v_period_of_attendance_from['+str(y)+']']
+					new_formdata['v_period_of_attendance_to['+str(y)+']']
+					new_formdata['v_highest_level['+str(y)+']']
+					new_formdata['v_scholarship_academic_honor['+str(y)+']']
 
-					new_cs_eligibility = Vocational_Course(v_school = new_formdata['v_school['+str(x)+']'], vocational_trade_course = new_formdata['vocational_trade_course['+str(x)+']'],
-						v_period_of_attendance_from = new_formdata['v_period_of_attendance_from['+str(x)+']'], v_period_of_attendance_to = new_formdata['v_period_of_attendance_to['+str(x)+']'],
-						v_highest_level = new_formdata['v_highest_level['+str(x)+']'], v_scholarship_academic_honor = new_formdata['v_scholarship_academic_honor['+str(x)+']'], user_id = finaldata.id)
+					new_cs_eligibility = Vocational_Course(v_school = new_formdata['v_school['+str(y)+']'], vocational_trade_course = new_formdata['vocational_trade_course['+str(y)+']'],
+						v_period_of_attendance_from = new_formdata['v_period_of_attendance_from['+str(y)+']'], v_period_of_attendance_to = new_formdata['v_period_of_attendance_to['+str(y)+']'],
+						v_highest_level = new_formdata['v_highest_level['+str(y)+']'], v_scholarship_academic_honor = new_formdata['v_scholarship_academic_honor['+str(y)+']'], user_id = finaldata.id)
 					db.session.add(new_cs_eligibility)
+					db.session.flush()
+					db.session.commit()
+
+	# ---------------------------------------------------------------------------- #
+	#                         for Learning and Development                         #
+	# ---------------------------------------------------------------------------- #
+
+				for z in range(1, int(ld_no_fields)+1):
+					new_formdata['ld_program['+str(z)+']']
+					new_formdata['ld_date_from['+str(z)+']']
+					new_formdata['ld_date_to['+str(z)+']']
+					new_formdata['ld_no_hours['+str(z)+']']
+					new_formdata['ld_type['+str(z)+']']
+					new_formdata['ld_sponsored_by['+str(z)+']']
+
+					new_ld = Learning_Development(ld_program = new_formdata['ld_program['+str(z)+']'], ld_date_from = new_formdata['ld_date_from['+str(z)+']'],
+						ld_date_to = new_formdata['ld_date_to['+str(z)+']'], ld_no_hours = new_formdata['ld_no_hours['+str(z)+']'],
+						ld_type = new_formdata['ld_type['+str(z)+']'], ld_sponsored_by = new_formdata['ld_sponsored_by['+str(z)+']'], user_id = finaldata.id)
+					db.session.add(new_ld)
 					db.session.flush()
 					db.session.commit()
 
@@ -188,12 +217,12 @@ def signup():
 
 					print(f'print file: {afile}')
 					if afile not in request.files:
-						print('No file selected part')
-						return redirect(request.url)
+						print('No file selected')
+						#return redirect(request.url)
 
 					if not file and allowed_file(file.filename):
 						print('Invalid file submitted')
-						return redirect(request.url)
+						#return redirect(request.url)
 					else:
 						file_extension = file.filename.rsplit('.', 1)[1].lower()
 						file_name = file.filename.rsplit('.', 1)[0]

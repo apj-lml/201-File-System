@@ -78,7 +78,7 @@
 <div class="row">
 <div class="col">
   <form id="signUp" action="/auth/signup" method="POST" enctype="multipart/form-data" ></form>
-  <form id="vocational_course_form" action="/auth/signup" method="POST" enctype="multipart/form-data" ></form>
+  <!-- <form id="vocational_course_form" action="/auth/signup" method="POST" enctype="multipart/form-data" ></form> -->
     <div class="card mb-3 align-self-center">
       <div class="card-body">
       <h3 class="card-title">Account Setup</h3>
@@ -103,12 +103,6 @@
     <div class="card mb-3">
       <div class="card-body">
       <h3 class="card-title">Personal Information</h3>
-      <div class="d-flex flex-column">
-        <div class="form-floating mb-3 p-1">
-          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" form="signUp">
-          <label for="email">Email Address</label>
-        </div>
-      </div>
         <div class="d-md-flex flex-row"> 
           <div class="form-floating flex-fill mb-3 p-1">
             <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" form="signUp">
@@ -131,6 +125,7 @@
         <div class="d-md-flex flex-row"> 
           <div class="form-floating flex-fill mb-3 p-1">
             <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="" form="signUp">
+              <option class="" value="" selected disabled hidden>-</option>
               <option value="Job Order">Job Order</option>
               <option value="Permanent">Permanent</option>
               <option value="Casual">Casual</option>
@@ -144,11 +139,48 @@
             <label for="last_name">Position Title</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade" value="" form="signUp">
-            <label for="first_name">Salary Grade</label>
+            <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="" form="signUp">
+              <option class="" value="" selected disabled hidden>-</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+            </select>
+            <label for="salary_grade">Salary Grade</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="step" name ="step" placeholder="Step" value="" form="signUp">
+            <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="signUp">
+              <option class="" value="" selected disabled hidden>-</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
             <label for="step">Step</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
@@ -183,21 +215,14 @@
             <label for="section">Section</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="" form="signUp">
-                <option value="Administrative Unit">Administrative Unit</option>
-                <option value="Finance Unit">Finance Unit</option>
-                <option value="Cashiering Unit">Cashiering Unit</option>
-                <option value="Property Unit">Property Unit</option>
-                <option value="Planning Unit">Planning Unit</option>
-                <option value="Design Unit">Design Unit</option>
-                <option value="Construction Unit">Construction Unit</option>
-                <option value="Institutional Development Unit">Institutional Development Unit</option>
-                <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
-                <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
-                <option value="Lower Agno RIS">Lower Agno RIS</option>
-                <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
-                <option value="N/A">N/A</option>
-              </select>
+            <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="" form="signUp">
+              <option class="" value="" selected disabled hidden>-</option>
+              <option value="Administrative Unit">Administrative Unit</option>
+              <option value="Finance Unit">Finance Unit</option>
+              <option value="Cashiering Unit">Cashiering Unit</option>
+              <option value="Property Unit">Property Unit</option>
+              <option value="N/A">N/A</option>
+            </select>
             <label for="name_extn">Unit</label>
           </div>
           <!-- TODO -->
@@ -207,16 +232,14 @@
           </div>
         </div>
         <div class="d-md-flex flex-row">
-
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate" value="" form="signUp">
-            <label for="daily_rate">Daily Rate</label>
+            <input type="currency" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="" form="signUp" oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" >
+            <label for="daily_rate">Daily Rate (Php)</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate" value="" form="signUp">
-            <label for="monthly_rate">Monthly Rate</label>
+            <input type="currency" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="signUp" oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled>
+            <label for="monthly_rate">Monthly Rate (Php)</label>
           </div>
-
         </div>
         <div class="d-md-flex flex-row">
           <div class="form-floating flex-fill mb-3 p-1">
@@ -284,6 +307,12 @@
           <div class="form-floating flex-fill mb-3 p-1">
             <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." form="signUp">
             <label for="telephone_no">Telephone No.</label>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="form-floating mb-3 p-1">
+              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" form="signUp">
+              <label for="email">Email Address</label>
+            </div>
           </div>    
         </div>
         <div class="d-md-flex flex-row">
@@ -467,8 +496,8 @@
             <label for="e_highest_level">Highest Level Attained</label>
           </div>   
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" form="signUp">
-            <label for="e_scholarship_academic_honor">Sholarship / Academic Honor</label>
+            <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Shcolarship / Academic Honor" form="signUp">
+            <label for="e_scholarship_academic_honor">Shcolarship / Academic Honor</label>
           </div>  
         </div>
       </div>
@@ -496,8 +525,8 @@
             <label for="hs_highest_level">Highest Level Attained</label>
           </div>   
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" form="signUp">
-            <label for="hs_scholarship_academic_honor">Sholarship / Academic Honor</label>
+            <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
+            <label for="hs_scholarship_academic_honor">Scholarship / Academic Honor</label>
           </div>  
         </div>
       </div>
@@ -532,8 +561,8 @@
             <label for="v_highest_level">Highest Level Attained / Units Earned</label>
           </div>   
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Sholarship / Academic Honor" form="signUp">
-            <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
+            <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" form="signUp">
+            <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
           </div>  
         </div>
         </div>
@@ -606,8 +635,8 @@
             <label for="gs_highest_level_units_earned">Highest Level Attained / Units Earned</label>
           </div>   
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" form="signUp">
-            <label for="gs_scholarship_academic_honor">Sholarship / Academic Honor</label>
+            <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
+            <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
           </div> 
         </div>
       </div>
@@ -639,8 +668,8 @@
             <label for="doc_highest_level_units_earned">Highest Level Attained / Units Earned</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" form="signUp">
-            <label for="doc_scholarship_academic_honor">Sholarship / Academic Honor</label>
+            <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
+            <label for="doc_scholarship_academic_honor">Scholarship / Academic Honor</label>
           </div>   
         </div>
       </div>
@@ -700,7 +729,52 @@
         <button class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
       </div>
     </div>
-
+  </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title">Learning & Development</h3>
+        <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
+          <div class="card shadow-sm mb-3">
+            <div class="card-body">
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" form="signUp">
+                <label for="ld_program[1]">Interventions / Training Program</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" form="signUp">
+                <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" form="signUp">
+                <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
+              </div>
+            </div>
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" form="signUp">
+                <label for="ld_no_hours[1]">Number of Hours</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="text" class="form-control" name ="ld_type[1]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="signUp">
+                <label for="ld_type[1]">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
+              </div>
+            </div>
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" form="signUp">
+                <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div id="ld_fields"></div>
+    </div>
+    <div class="d-md-flex flex-row">
+      <div class="flex-fill mb-3 mx-4 p-1">
+        <button class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
+      </div>
+    </div>
   </div>
   <div class="card mb-3">
     <div class="card-body">
@@ -711,36 +785,40 @@
           <input class="form-control" type="file" id="psa" name="psa" form="signUp">
         </div>
         <div class="flex-fill mb-3 p-1">
-          <label for="nbi" class="form-label">Upload Marriage Certificate</label>
-          <input class="form-control" type="file" id="nbi" name="nbi" form="signUp">
+          <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
+          <input class="form-control" type="file" id="marriage_cert" name="marriage_cert" form="signUp">
         </div>
         <div class="flex-fill mb-3 p-1">
           <label for="cse" class="form-label">Upload Career Service Eligibility</label>
-          <input class="form-control" type="file" id="cse" name="cse" multiple>
+          <input class="form-control" type="file" id="cse" name="cse" form="signUp">
         </div>
       </div>
       <div class="d-md-flex flex-row">
         <div class="flex-fill mb-3 p-1">
-          <label for="cse" class="form-label">Upload Office ID</label>
-          <input class="form-control" type="file" id="cse" name="cse" multiple>
+          <label for="office_id" class="form-label">Upload Office ID</label>
+          <input class="form-control" type="file" id="office_id" name="office_id" form="signUp">
         </div>
         <div class="flex-fill mb-3 p-1">
-          <label for="cse" class="form-label">Upload Government Issued ID</label>
-          <input class="form-control" type="file" id="cse" name="cse" multiple>
+          <label for="govt_id" class="form-label">Upload Government Issued ID</label>
+          <input class="form-control" type="file" id="govt_id" name="govt_id" form="signUp">
         </div>
         <div class="flex-fill mb-3 p-1">
-          <label for="cse" class="form-label">Upload License</label>
-          <input class="form-control" type="file" id="cse" name="cse" multiple>
+          <label for="license" class="form-label">Upload License</label>
+          <input class="form-control" type="file" id="license" name="license" form="signUp">
         </div>
       </div>
       <div class="d-md-flex flex-row">
         <div class="flex-fill mb-3 p-1">
-          <label for="cse" class="form-label">Upload TOR</label>
-          <input class="form-control" type="file" id="cse" name="cse" multiple>
+          <label for="tor" class="form-label">Upload TOR</label>
+          <input class="form-control" type="file" id="tor" name="tor" form="signUp">
         </div>
         <div class="flex-fill mb-3 p-1">
-          <label for="cse" class="form-label">Upload Latest Appointment</label>
-          <input class="form-control" type="file" id="cse" name="cse" multiple>
+          <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
+          <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="signUp">
+        </div>
+        <div class="flex-fill mb-3 p-1">
+          <label for="ld_cert" class="form-label">Upload Learning & Development Certificate</label>
+          <input class="form-control" type="file" id="learning_development_cert" name="learning_development_cert" form="signUp">
         </div>
       </div>
     </div>
@@ -760,11 +838,44 @@
 
 {%block scripts%}
 <script type="text/javascript">
-  //document.getElementById('submit_btn').addEventListener('click',(e)=>{
-    // document.getElementById('add_eligibility_form_sign_up').submit();
-    // document.getElementById('signUp').submit();
-
-//  })
+        function sameAsPermanent(){
+        var citizenship = document.getElementById('same_as_permanent').value;
+        if(citizenship == 'Yes'){
+              document.getElementById('pres_house_block_lot').disabled = true;
+              document.getElementById('pres_street').disabled = true;
+              document.getElementById('pres_subdivision_village').disabled = true;
+              document.getElementById('pres_barangay').disabled = true;
+              document.getElementById('pres_city_municipality').disabled = true;
+              document.getElementById('pres_province').disabled = true;
+              document.getElementById('pres_zip_code').disabled = true;
+      
+              document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
+              document.getElementById('pres_street').value = document.getElementById('p_street').value;
+              document.getElementById('pres_subdivision_village').value = document.getElementById('p_subdivision_village').value;
+              document.getElementById('pres_barangay').value = document.getElementById('p_barangay').value;
+              document.getElementById('pres_city_municipality').value = document.getElementById('p_city_municipality').value;
+              document.getElementById('pres_province').value = document.getElementById('p_province').value;
+              document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
+          }else{
+              document.getElementById('pres_house_block_lot').removeAttribute('disabled');
+              document.getElementById('pres_street').removeAttribute('disabled');
+              document.getElementById('pres_subdivision_village').removeAttribute('disabled');
+              document.getElementById('pres_barangay').removeAttribute('disabled');
+              document.getElementById('pres_city_municipality').removeAttribute('disabled');
+              document.getElementById('pres_province').removeAttribute('disabled');
+              document.getElementById('pres_zip_code').removeAttribute('disabled');
+      
+              document.getElementById('pres_house_block_lot').value = ""
+              document.getElementById('pres_street').value = ""
+              document.getElementById('pres_subdivision_village').value = ""
+              document.getElementById('pres_barangay').value = ""
+              document.getElementById('pres_city_municipality').value = ""
+              document.getElementById('pres_province').value = ""
+              document.getElementById('pres_zip_code').value = ""
+          }
+      }
 </script>
 <script src="{{ url_for('static', filename='signup.js') }}"></script>
+<script src="{{ url_for('static', filename='form-validations.js') }}"></script>
+
 {%endblock%}

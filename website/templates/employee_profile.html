@@ -112,622 +112,778 @@
             <div class="row">
             <div class="col">
               <form enctype="multipart/form-data" id="update_form" action="/employees/update-employee/{{user_profile.id}}" method="POST" autocomplete="off">
-                <div class="card mb-3">
-                  <div class="card-body">
-                  <h3 class="card-title">Personal Information</h3>
-                  <div class="d-flex flex-row">
+              <div class="card mb-3 align-self-center">
+                <div class="card-body">
+                <h3 class="card-title">Account Setup</h3>
+                <div class="d-flex flex-row">
+                  <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}">
+                      <label for="employee_id">Employee ID Number</label>
+                    </div>
+                </div>
+                  <div class="d-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}">
-                        <label for="employee_id">Employee ID Number</label>
-                      </div>
-                  </div>
-                    <div class="d-md-flex flex-row"> 
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}">
-                        <label for="last_name">Last Name</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}">
-                        <label for="first_name">First Name</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}">
-                        <label for="middle_name">Middle Name</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}">
-                        <label for="name_extn">Name Extension (eg. Jr., III)</label>
-                      </div>
+                      <input type="password" class="form-control" id="password" name ="password" placeholder="Password" value="">
+                      <label for="password">Password</label>
                     </div>
-                    <!-- TODO -->
-                    <div class="d-md-flex flex-row"> 
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employement_status}}">
-                          <option value="Job Order">Job Order</option>
-                          <option value="Permanent">Permanent</option>
-                          <option value="Casual">Casual</option>
-                          <option value="Coterminous">Coterminous</option>
-                          <option value="Separated">Separated</option>
-                        </select>
-                        <label for="middle_name">Employment Status</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}">
-                        <label for="last_name">Position Title</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="salary_grade" name ="salary_grade" placeholder="Salary Grade" value="{{user_profile.salary_grade}}">
-                        <label for="first_name">Salary Grade</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="step" name ="step" placeholder="Step" value="{{user_profile.step}}">
-                        <label for="step">Step</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row"> 
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no}}">
-                        <label for="item_no">Item No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}">
-                        <label for="date_of_assumption">Date of Assumption to Duty</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}">
-                        <label for="date_of_assumption">Date of Last Step Increment</label>
-                      </div>
-                    </div>
-                    <!-- TODO -->
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}">
-                            <option value="Administrative & Finance">Administrative & Finance</option>
-                            <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Operation & Maintenance">Operation & Maintenance</option>
-                            <option value="NISRIP">NISRIP</option>
-                            <option value="CARP-IC">CARP-IC</option>
-                            <option value="Detailed">Detailed</option>
-                            <option value="N/A">N/A</option>
-                          </select>
-                        <label for="section">Section</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                            <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}">
-                            <option value="Administrative Unit">Administrative Unit</option>
-                            <option value="Finance Unit">Finance Unit</option>
-                            <option value="Cashiering Unit">Cashiering Unit</option>
-                            <option value="Property Unit">Property Unit</option>
-                            <option value="Planning Unit">Planning Unit</option>
-                            <option value="Design Unit">Design Unit</option>
-                            <option value="Construction Unit">Construction Unit</option>
-                            <option value="Institutional Development Unit">Institutional Development Unit</option>
-                            <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
-                            <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
-                            <option value="Lower Agno RIS">Lower Agno RIS</option>
-                            <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
-                            <option value="N/A">N/A</option>
-                          </select>
-                        <label for="name_extn">Unit</label>
-                      </div>
-                      <!-- TODO -->
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}">
-                        <label for="date_of_original_appointment">Date of Original Appointment</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate" value="{{user_profile.daily_rate}}">
-                        <label for="daily_rate">Daily Rate</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate" value="{{user_profile.monthly_rate}}">
-                        <label for="monthly_rate">Monthly Rate</label>
-                      </div>
-
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}">
-                        <label for="birthdate">Birthdate</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="age" name ="age" placeholder="Age" disabled>
-                        <label for="name_extn">Age</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}">
-                        <label for="name_extn">Place of Birth</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}">
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                        </select>
-                        <label for="sex">Sex</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}">
-                          <option value="Single">Single</option>
-                          <option value="Widowed">Widowed</option>
-                          <option value="Married">Married</option>
-                          <option value="Separated">Separated</option>
-                        </select>
-                        <label for="civil_status">Civil Status</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}">
-                        <label for="name_extn">Height(m)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}">
-                        <label for="name_extn">Weight(kg)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type" value="{{user_profile.blood_type}}">
-                        <label for="name_extn">Blood Type</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}">
-                          <option value="Roman Catholic">Roman Catholic</option>
-                          <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
-                          <option value="Baptist">Baptist</option>
-                          <option value="Born Again Christian">Born Again Christian</option>
-                          <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
-                        </select>
-                        <label for="religion">Religion</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}">
-                        <label for="name_extn">Dependents</label>
-                      </div>      
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No." value="{{user_profile.mobile_no}}">
-                        <label for="mobile_no">Mobile No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}">
-                        <label for="telephone_no">Telephone No.</label>
-                      </div>    
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}">
-                        <label for="name_extn">GSIS No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}">
-                        <label for="name_extn">PAG-IBIG No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}">
-                        <label for="name_extn">PHILHEALTH No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}">
-                        <label for="name_extn">SSS No.</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}">
-                        <label for="name_extn">TIN</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" required>
-                        <label for="name_extn">Landbank ATM Card No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}">
-                        <label for="name_extn">UMID</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}">
-                        <label for="name_extn">PhilSys</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <div class="form-floating">
-                          <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" value="{{user_profile.citizenship}}">
-                            <option value="Filipino" selected>Filipino</option>
-                            <option value="Dual Citizen">Dual Citizen</option>
-                          </select>
-                          <label for="floatingSelect">Citizenship</label>
-                        </div>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="dual_citizenship" name ="dual_citizenship" placeholder="Dual Citizenship" disabled value="{{user_profile.dual_citizenship}}">
-                        <label for="name_extn">Dual Citizenship</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled value="{{user_profile.indicate_country}}">
-                        <label for="indicate_country">Indicate Country</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>       
-                <div class="card mb-3">
-                  <div class="card-body">
-                  <h3 class="card-title">Permanent Address</h3>
-                    <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="p_house_block_lot" name ="p_house_block_lot" placeholder="House/Block/Lot No." onchange="sameAsPermanent()" value="{{user_profile.p_house_block_lot}}">
-                          <label for="p_house_block_lot">House/Block/Lot No.</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="p_street" name ="p_street" placeholder="Street" onchange="sameAsPermanent()" value="{{user_profile.p_street}}">
-                          <label for="p_street">Street</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="p_subdivision_village" name ="p_subdivision_village" placeholder="Subdivision/Village" onchange="sameAsPermanent()" value="{{user_profile.p_subdivision_village}}">
-                          <label for="p_subdivision_village">Subdivision/Village</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" value="{{user_profile.p_barangay}}">
-                          <label for="p_barangay">Barangay</label>
-                        </div>
-                      </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" value="{{user_profile.p_city_municipality}}">
-                        <label for="p_city_municipality">City/Municipality</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" value="{{user_profile.p_province}}">
-                        <label for="p_province">Province</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" value="{{user_profile.p_zip_code}}"> 
-                        <label for="p_zip_code">Zip Code</label>
-                      </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="password" class="form-control" id="floatingPassword2" name ="floatingPassword2" placeholder="Password" value="">
+                      <label for="floatingPassword2">Confirm Password</label>
                     </div>
                   </div>
                 </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                  <h3 class="card-title">Present Address</h3>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <div class="form-floating">
-                          <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example">
-                            <option value="Yes" selected>Yes</option>
-                            <option value="No">No</option>
-                          </select>
-                          <label for="same_as_permanent">Same as permanent address</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." disabled value="{{user_profile.pres_house_block_lot}}">
-                        <label for="pres_house_block_lot">House/Block/Lot No.</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" disabled value="{{user_profile.pres_street}}">
-                        <label for="pres_street">Street</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" disabled value="{{user_profile.pres_subdivision_village}}">
-                        <label for="pres_subdivision_village">Subdivision/Village</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" disabled value="{{user_profile.pres_barangay}}">
-                        <label for="pres_barangay">Barangay</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">        
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" disabled value="{{user_profile.pres_city_municipality}}">
-                        <label for="pres_city_municipality">City/Municipality</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" disabled value="{{user_profile.pres_province}}">
-                        <label for="pres_province">Province</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" disabled value="{{user_profile.pres_zip_code}}">
-                        <label for="pres_zip_code">Zip Code</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            
-                <div class="card mb-3">
-                  <div class="card-body">
-                  <h3 class="card-title">Educational Attainment</h3>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="highest_educational_attainment" name ="highest_educational_attainment" placeholder="House/Block/Lot No." value="{{user_profile.highest_educational_attainment}}">
-                          <label for="highest_educational_attainment">Highest Educational Attainment</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            
-                <div class="card mb-3">
-                  <div class="card-body">
-                  <h3 class="card-title">Elementary Education</h3>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" value="{{user_profile.elementary_school}}">
-                        <label for="elementary_school">Elementary School</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.e_period_of_attendance_from}}">
-                        <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}">
-                        <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
-                      </div>       
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level" value="{{user_profile.e_highest_level}}">
-                        <label for="e_highest_level">Highest Level Attained</label>
-                      </div>   
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.e_scholarship_academic_honor}}">
-                        <label for="e_scholarship_academic_honor">Sholarship / Academic Honor</label>
-                      </div>  
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h3 class="card-title">High School</h3>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="high_school" name ="high_school" placeholder="high_school" value="{{user_profile.high_school}}">
-                        <label for="high_school">High School</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}">
-                        <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}">
-                        <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="hs_highest_level" name ="hs_highest_level" placeholder="Highest Level" value="{{user_profile.hs_highest_level}}">
-                        <label for="hs_highest_level">Highest Level Attained</label>
-                      </div>   
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.hs_scholarship_academic_honor}}">
-                        <label for="hs_scholarship_academic_honor">Sholarship / Academic Honor</label>
-                      </div>  
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h3 class="card-title">Vocational / Trade Course</h3>
-                      <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="v_school" name ="v_school" placeholder="School" value="{{user_profile.v_school}}">
-                        <label for="v_school">School</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="vocational_trade_course" name ="vocational_trade_course" placeholder="Vocational / Trade Course" value="{{user_profile.vocational_trade_course}}">
-                        <label for="vocational_trade_course">Vocational / Trade Course</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="v_period_of_attendance_from" name ="v_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.v_period_of_attendance_from}}">
-                        <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="v_period_of_attendance_to" name ="v_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.v_period_of_attendance_to}}">
-                        <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="v_highest_level" name ="v_highest_level" placeholder="Highest Level" value="{{user_profile.v_highest_level}}">
-                        <label for="v_highest_level">Highest Level Attained / Units Earned</label>
-                      </div>   
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="v_scholarship_academic_honor" name ="v_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.v_scholarship_academic_honor}}">
-                        <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
-                      </div>  
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h3 class="card-title">College</h3>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="c_school" name ="c_school" placeholder="c_school" value="{{user_profile.c_school}}">
-                        <label for="c_school">School</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="c_degree_course" name ="c_degree_course" placeholder="c_degree_course" value="{{user_profile.c_degree_course}}">
-                        <label for="c_degree_course">Degree</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="c_period_of_attendance_from" name ="c_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.c_period_of_attendance_from}}">
-                        <label for="c_period_of_attendance_from">Period of Attendance (From)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="c_period_of_attendance_to" name ="c_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.c_period_of_attendance_to}}">
-                        <label for="c_period_of_attendance_to">Period of Attendance (To)</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="c_highest_level_units_earned" name ="c_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.c_highest_level_units_earned}}">
-                        <label for="c_highest_level_units_earned">Highest Level Attained / Units Earned</label>
-                      </div>   
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="c_scholarship_academic_honor" name ="c_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.c_scholarship_academic_honor}}">
-                        <label for="c_scholarship_academic_honor">Sholarship / Academic Honor</label>
-                      </div>  
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h3 class="card-title">Masteral Degree</h3>
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="gs_school" name ="gs_school" placeholder="School" value="{{user_profile.gs_school}}">
-                          <label for="gs_school">School</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="gs_degree_course" name ="gs_degree_course" placeholder="Degree / Course" value="{{user_profile.gs_degree_course}}">
-                          <label for="gs_degree_course">Degree / Course</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="gs_period_of_attendance_from" name ="gs_period_of_attendance_from" placeholder="Period of Attendance (To)" value="{{user_profile.gs_period_of_attendance_from}}"> 
-                          <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="gs_period_of_attendance_to" name ="gs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.gs_period_of_attendance_to}}"> 
-                          <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
-                        </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gs_highest_level_units_earned" name ="gs_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.gs_highest_level_units_earned}}">
-                        <label for="gs_highest_level_units_earned">Highest Level Attained / Units Earned</label>
-                      </div>   
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.gs_scholarship_academic_honor}}">
-                        <label for="gs_scholarship_academic_honor">Sholarship / Academic Honor</label>
-                      </div> 
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h3 class="card-title">Doctoral Degree</h3>
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School" value="{{user_profile.doc_school}}">
-                          <label for="doc_school">School</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course" value="{{user_profile.doc_degree_course}}">
-                          <label for="doc_degree_course">Degree / Course</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)" value="{{user_profile.doc_period_of_attendance_from}}">
-                          <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.doc_period_of_attendance_to}}">
-                          <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
-                        </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="doc_highest_level_units_earned" name ="doc_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.doc_highest_level_units_earned}}">
-                        <label for="doc_highest_level_units_earned">Highest Level Attained / Units Earned</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Sholarship / Academic Honor" value="{{user_profile.doc_scholarship_academic_honor}}">
-                        <label for="doc_scholarship_academic_honor">Sholarship / Academic Honor</label>
-                      </div>   
-                    </div>
-                  </div>
-                </div>
-                <div class="card mb-3">
-                  <div class="card-body">
-                  <h3 class="card-title">Upload Supporting Documents</h3>
-                  <div class="d-md-flex flex-row">
-                    <div class="flex-fill mb-3 p-1">
-                      <label for="psa" class="form-label">Upload PSA</label>
-                      <input class="form-control" type="file" id="psa" name="psa">
-                    </div>
-                    <div class="flex-fill mb-3 p-1">
-                      <label for="nbi" class="form-label">Upload NBI</label>
-                      <input class="form-control" type="file" id="nbi" name="nbi">
-                    </div>
-                  </div>
-                  <div class="container">
-                    <div class="row" style="max-width: 1000px;">
-                  {% for file in user_profile.uploaded_files %}
-                    <!-- <div class="flex-fill mb-3 p-1"> -->
-                      <div class="col-md-4">
-                        <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                          <a href="{{file.file_path}}" target="_blank">
-                            <span class="">
-                              {{file.file_name}}
-                            </span>
-                          </a>
-                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
-                        </div>
-                      </div>
-                    <!-- </div> -->
-                  {% endfor %}
-                    </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+              </div>
               <div class="card mb-3">
                 <div class="card-body">
-                  <h3 class="card-title">Civil Service Eligibility
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#add_eligibility">Add</button>
-                  </h3> 
-                  {% for career_service in user_profile.career_service %}
+                <h3 class="card-title">Personal Information</h3>
+                  <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}">
+                      <label for="last_name">Last Name</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}">
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}">
+                      <label for="middle_name">Middle Name</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}">
+                      <label for="name_extn">Name Extension (eg. Jr., III)</label>
+                    </div>
+                  </div>
+                  <!-- TODO -->
+                  <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}">
+                    
+                        <option value="Job Order">Job Order</option>
+                        <option value="Permanent">Permanent</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Coterminous">Coterminous</option>
+                        <option value="Separated">Separated</option>
+                      </select>
+                      <label for="middle_name">Employment Status</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" >
+                      <label for="last_name">Position Title</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" >
+            
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                      </select>
+                      <label for="salary_grade">Salary Grade</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="{{user_profile.step}}" >
+                        
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                      </select>
+                      <label for="step">Step</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no}}" >
+                      <label for="item_no">Item No.</label>
+                    </div>
+                  </div>
+              
+                  <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" >
+                      <label for="date_of_assumption">Date of Assumption to Duty</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" >
+                      <label for="date_of_assumption">Date of Last Step Increment</label>
+                    </div>
+                  </div>
+                  <!-- TODO -->
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" >
+                          <option value="Administrative & Finance">Administrative & Finance</option>
+                          <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
+                          <option value="Engineering">Engineering</option>
+                          <option value="Operation & Maintenance">Operation & Maintenance</option>
+                          <option value="NISRIP">NISRIP</option>
+                          <option value="CARP-IC">CARP-IC</option>
+                          <option value="Detailed">Detailed</option>
+                          <option value="N/A">N/A</option>
+                        </select>
+                      <label for="section">Section</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" >
+                       
+                        <option value="Administrative Unit">Administrative Unit</option>
+                        <option value="Finance Unit">Finance Unit</option>
+                        <option value="Cashiering Unit">Cashiering Unit</option>
+                        <option value="Property Unit">Property Unit</option>
+                        <option value="N/A">N/A</option>
+                      </select>
+                      <label for="name_extn">Unit</label>
+                    </div>
+                    <!-- TODO -->
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}" >
+                      <label for="date_of_original_appointment">Date of Original Appointment</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="currency" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate}}"  oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" >
+                      <label for="daily_rate">Daily Rate (Php)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="currency" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate}}"  oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled>
+                      <label for="monthly_rate">Monthly Rate (Php)</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}">
+                      <label for="birthdate">Birthdate</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="age" name ="age" placeholder="Age" disabled value="{{user_profile.age}}">
+                      <label for="name_extn">Age</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}"> 
+                      <label for="name_extn">Place of Birth</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                      <label for="sex">Sex</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}">
+                        <option value="Single">Single</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                      </select>
+                      <label for="civil_status">Civil Status</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}">
+                      <label for="name_extn">Height(m)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}">
+                      <label for="name_extn">Weight(kg)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type" value="{{user_profile.blood_type}}">
+                      <label for="name_extn">Blood Type</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}">
+                        <option value="Roman Catholic">Roman Catholic</option>
+                        <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                        <option value="Baptist">Baptist</option>
+                        <option value="Born Again Christian">Born Again Christian</option>
+                        <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
+                      </select>
+                      <label for="religion">Religion</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}">
+                      <label for="name_extn">Dependents</label>
+                    </div>      
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No." value="{{user_profile.mobile_no}}">
+                      <label for="mobile_no">Mobile No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}">
+                      <label for="telephone_no">Telephone No.</label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <div class="form-floating mb-3 p-1">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="{{user_profile.email}}">
+                        <label for="email">Email Address</label>
+                      </div>
+                    </div>    
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}">
+                      <label for="name_extn">GSIS</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}">
+                      <label for="name_extn">Pag-ibig</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}">
+                      <label for="name_extn">Philhealth</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}">
+                      <label for="name_extn">SSS</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}">
+                      <label for="name_extn">TIN</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}">
+                      <label for="name_extn">ATM Card No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}">
+                      <label for="name_extn">UMID</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}">
+                      <label for="name_extn">PhilSys</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating">
+                        <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" value="{{user_profile.citizenship}}">
+                          <option value="Filipino" selected>Filipino</option>
+                          <option value="Dual Citizen">Dual Citizen</option>
+                        </select>
+                        <label for="floatingSelect">Citizenship</label>
+                      </div>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="dual_citizenship" name ="dual_citizenship" placeholder="Dual Citizenship" disabled value="{{user_profile.dual_citizenship}}">
+                      <label for="name_extn">Dual Citizenship</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled value="{{user_profile.indicate_country}}">
+                      <label for="indicate_country">Indicate Country</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Permanent Address</h3>
+                  <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_house_block_lot" name ="p_house_block_lot" placeholder="House/Block/Lot No." onchange="sameAsPermanent()" value="{{user_profile.p_house_block_lot}}"> 
+                        <label for="p_house_block_lot">House/Block/Lot No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_street" name ="p_street" placeholder="Street" onchange="sameAsPermanent()" value="{{user_profile.p_street}}">
+                        <label for="p_street">Street</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_subdivision_village" name ="p_subdivision_village" placeholder="Subdivision/Village" onchange="sameAsPermanent()" value="{{user_profile.p_subdivision_village}}">
+                        <label for="p_subdivision_village">Subdivision/Village</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" value="{{user_profile.p_barangay}}">
+                        <label for="p_barangay">Barangay</label>
+                      </div>
+                    </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" value="{{user_profile.p_city_municipality}}">
+                      <label for="p_city_municipality">City/Municipality</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" value="{{user_profile.p_province}}">
+                      <label for="p_province">Province</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" value="{{user_profile.p_zip_code}}">
+                      <label for="p_zip_code">Zip Code</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Present Address</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating">
+                        <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example">
+                          <option value="Yes" selected>Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                        <label for="same_as_permanent">Same as permanent address</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." disabled value="{{user_profile.pres_house_block_lot}}">
+                      <label for="pres_house_block_lot">House/Block/Lot No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" disabled value="{{user_profile.pres_street}}">
+                      <label for="pres_street">Street</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" disabled value="{{user_profile.pres_subdivision_village}}">
+                      <label for="pres_subdivision_village">Subdivision/Village</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" disabled value="{{user_profile.pres_barangay}}">
+                      <label for="pres_barangay">Barangay</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">        
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" disabled value="{{user_profile.pres_city_municipality}}">
+                      <label for="pres_city_municipality">City/Municipality</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" disabled value="{{user_profile.pres_province}}">
+                      <label for="pres_province">Province</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" disabled value="{{user_profile.pres_zip_code}}">
+                      <label for="pres_zip_code">Zip Code</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Educational Attainment</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="highest_educational_attainment" name ="highest_educational_attainment" placeholder="House/Block/Lot No." value="{{user_profile.highest_educational_attainment}}">
+                        <label for="highest_educational_attainment">Highest Educational Attainment</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Elementary Education</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" value="{{user_profile.elementary_school}}">
+                      <label for="elementary_school">Elementary School</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.e_period_of_attendance_from}}">
+                      <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}">
+                      <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
+                    </div>       
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level" value="{{user_profile.e_highest_level}}">
+                      <label for="e_highest_level">Highest Level Attained</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.e_scholarship_academic_honor}}">
+                      <label for="e_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">High School</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="high_school" name ="high_school" placeholder="high_school" value="{{user_profile.high_school}}">
+                      <label for="high_school">High School</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}">
+                      <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}">
+                      <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="hs_highest_level" name ="hs_highest_level" placeholder="Highest Level" value="{{user_profile.hs_highest_level}}">
+                      <label for="hs_highest_level">Highest Level Attained</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.hs_scholarship_academic_honor}}">
+                      <label for="hs_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">Vocational / Trade Course</h3>
+                  <input type="text" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10"  value="1" value="{{user_profile.vocational_course|length}}">
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" >
+                      <label for="v_school">School</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" >
+                      <label for="vocational_trade_course">Vocational / Trade Course</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" >
+                      <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" >
+                      <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="v_highest_level[1]" name ="v_highest_level[1]" placeholder="Highest Level" >
+                      <label for="v_highest_level">Highest Level Attained / Units Earned</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" >
+                      <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div>  
+                  </div>
+                  </div>
+                </div>
+                  <div id="vocational_fields"></div>
+                </div>
+                <div class="d-md-flex flex-row">
+                  <div class="flex-fill mb-3 mx-4 p-1">
+                    <button class="btn btn-success btn-sm" id="add_vocational_field" onclick="document.getElementById('vocational_no_fields').value++">Add</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">College</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="c_school" name ="c_school" placeholder="c_school" value="{{user_profile.c_school}}">
+                      <label for="c_school">School</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="c_degree_course" name ="c_degree_course" placeholder="c_degree_course" value="{{user_profile.c_degree_course}}">
+                      <label for="c_degree_course">Degree</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="c_period_of_attendance_from" name ="c_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.c_period_of_attendance_from}}">
+                      <label for="c_period_of_attendance_from">Period of Attendance (From)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="c_period_of_attendance_to" name ="c_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.c_period_of_attendance_to}}">
+                      <label for="c_period_of_attendance_to">Period of Attendance (To)</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="c_highest_level_units_earned" name ="c_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.c_highest_level_units_earned}}">
+                      <label for="c_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="c_scholarship_academic_honor" name ="c_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.c_scholarship_academic_honor}}">
+                      <label for="c_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">Masteral Degree</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_school" name ="gs_school" placeholder="School" value="{{user_profile.gs_school}}">
+                        <label for="gs_school">School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_degree_course" name ="gs_degree_course" placeholder="Degree / Course" value="{{user_profile.gs_degree_course}}">
+                        <label for="gs_degree_course">Degree / Course</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_period_of_attendance_from" name ="gs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.gs_period_of_attendance_from}}">
+                        <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_period_of_attendance_to" name ="gs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.gs_period_of_attendance_to}}">
+                        <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                      </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="gs_highest_level_units_earned" name ="gs_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.gs_highest_level_units_earned}}">
+                      <label for="gs_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.gs_scholarship_academic_honor}}">
+                      <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">Doctoral Degree</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School" value="{{user_profile.doc_school}}">
+                        <label for="doc_school">School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course" value="{{user_profile.doc_degree_course}}">
+                        <label for="doc_degree_course">Degree / Course</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)" value="{{user_profile.doc_period_of_attendance_from}}">
+                        <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.doc_period_of_attendance_to}}">
+                        <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                      </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="doc_highest_level_units_earned" name ="doc_highest_level_units_earned" placeholder="Highest Level" value="{{user_profile.doc_highest_level_units_earned}}">
+                      <label for="doc_highest_level_units_earned">Highest Level Attained / Units Earned</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.doc_scholarship_academic_honor}}">
+                      <label for="doc_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div>   
+                  </div>
+                </div>
+              </div>
+          
+          
+            <!-- </form> -->
+          <!-- <form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data"> -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title">Civil Service Eligibility</h3>
+                  <input type="text" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10"  value="1" value="{{user_profile.vocational_course|length}}">
+                    <div class="card shadow-sm mb-3">
+                      <div class="card-body">
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="cs_eligibility" name ="cs_eligibility" placeholder="Eligibility" value="{{career_service.cs_eligibility}}">
+                          <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" >
                           <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" >
+                          <label for="date_of_examination">Date of Examination</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="cs_rating" name ="cs_rating" placeholder="Rating" value="{{career_service.cs_rating}}">
+                          <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" >
                           <label for="cs_rating">Rating (if applicable)</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="place_of_examination_conferment" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment" value="{{career_service.place_of_examination_conferment}}">
+                          <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" >
                           <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="license_no" name ="license_no" placeholder="License Number" value="{{career_service.license_no}}">
+                        <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                          <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number" >
                           <label for="license_no">License Number</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" id="date_of_validity" name ="date_of_validity" placeholder="Date of Validity" value="{{career_service.date_of_validity}}">
+                          <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" >
                           <label for="date_of_validity">Date of Validity</label>
-                        </div> 
+                        </div>
+                      </div>
+                      <!-- <div class="d-md-flex flex-row">
+                        <div class="flex-fill mb-3 p-1">
+                          <label for="psa" class="form-label">Upload Supporting Document</label>
+                          <input class="form-control" type="file" id="cse[1]" name="cse[1]" >
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                <div id="cs_fields"></div>
+              </div>
+              <div class="d-md-flex flex-row">
+                <div class="flex-fill mb-3 mx-4 p-1">
+                  <button class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title">Learning & Development</h3>
+                  <input type="text" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.vocational_course|length}}">
+                    <div class="card shadow-sm mb-3">
+                      <div class="card-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" >
+                          <label for="ld_program[1]">Interventions / Training Program</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" >
+                          <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" >
+                          <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" >
+                          <label for="ld_no_hours[1]">Number of Hours</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" name ="ld_type[1]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" >
+                          <label for="ld_type[1]">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                          <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" >
+                          <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  {% endfor %}
+                <div id="ld_fields"></div>
+              </div>
+              <div class="d-md-flex flex-row">
+                <div class="flex-fill mb-3 mx-4 p-1">
+                  <button class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
                 </div>
               </div>
-            </div> <!--col-->
-            </div> <!--row-->
-              <!-- <div class="row">
-                <div class="col">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </div> -->
-            
-
             </div>
+            <div class="card mb-3">
+              <div class="card-body">
+              <h3 class="card-title">Upload Supporting Documents</h3>
+                <div class="d-md-flex flex-row">
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
+                    <input class="form-control" type="file" id="psa" name="psa" >
+                  </div>
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
+                    <input class="form-control" type="file" id="marriage_cert" name="marriage_cert" >
+                  </div>
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="cse" class="form-label">Upload Career Service Eligibility</label>
+                    <input class="form-control" type="file" id="cse" name="cse" >
+                  </div>
+                </div>
+                <div class="d-md-flex flex-row">
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="office_id" class="form-label">Upload Office ID</label>
+                    <input class="form-control" type="file" id="office_id" name="office_id" >
+                  </div>
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="govt_id" class="form-label">Upload Government Issued ID</label>
+                    <input class="form-control" type="file" id="govt_id" name="govt_id" >
+                  </div>
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="license" class="form-label">Upload License</label>
+                    <input class="form-control" type="file" id="license" name="license" >
+                  </div>
+                </div>
+                <div class="d-md-flex flex-row">
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="tor" class="form-label">Upload TOR</label>
+                    <input class="form-control" type="file" id="tor" name="tor" >
+                  </div>
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
+                    <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" >
+                  </div>
+                  <div class="flex-fill mb-3 p-1">
+                    <label for="ld_cert" class="form-label">Upload Learning & Development Certificate</label>
+                    <input class="form-control" type="file" id="learning_development_cert" name="learning_development_cert" >
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row" style="max-width: 1500px;">
+                {% for file in user_profile.uploaded_files %}
+                  <!-- <div class="flex-fill mb-3 p-1"> -->
+                    <div class="col-md-4">
+                      <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                        <a href="{{file.file_path}}" target="_blank">
+                          <span class="">
+                            {{file.file_name}}
+                          </span>
+                        </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                      </div>
+                    </div>
+                  <!-- </div> -->
+                {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- </form> -->
+          </div> <!--col-->
+          </div> <!--row-->
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn btn-primary m-4" id="submit_btn" >Submit</button>
+              </div>
+            </div>
+          </form>
         </div>
   </div>
 </div>
@@ -796,12 +952,11 @@
           <div class="d-md-flex flex-row">
             <div class="form-floating flex-fill mb-3 p-1">
               <div class="flex-fill mb-3 p-1">
-                <label for="psa" class="form-label">Upload Supporting Document</label>
+                <label for="psa" class="form-label">Upload Supporting Documentssss</label>
                 <input class="form-control" type="file" id="cse" name="cse">
               </div>
             </div> 
           </div>
-          
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -812,64 +967,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="add_eligibility" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add_eligibility_label" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="add_eligibility_label">Add Vocational Course</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="#" method="POST" name="add_eligibility_form" id="add_eligibility_form" enctype="multipart/form-data">
-          <input type="hidden" name="user_id" value="{{user_profile.id}}">
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" name ="cs_eligibility" placeholder="Eligibility">
-              <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="date" class="form-control" name ="date_of_examination" placeholder="Date of Examination">
-              <label for="date_of_examination">Date of Examination</label>
-            </div>
-          </div>
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" name ="cs_rating" placeholder="Rating">
-              <label for="cs_rating">Rating (if applicable)</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" name ="place_of_examination_conferment" placeholder="Place of Examination / Conferment">
-              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
-            </div>
-          </div>
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-              <input type="text" class="form-control" name ="license_no" placeholder="License Number">
-              <label for="license_no">License Number</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="date" class="form-control" name ="date_of_validity" placeholder="Date of Validity">
-              <label for="date_of_validity">Date of Validity</label>
-            </div> 
-          </div>
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <div class="flex-fill mb-3 p-1">
-                <label for="psa" class="form-label">Upload Supporting Document</label>
-                <input class="form-control" type="file" id="cse" name="cse">
-              </div>
-            </div> 
-          </div>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
 
 {% endblock %}
 

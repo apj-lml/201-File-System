@@ -1,90 +1,7 @@
-window.addEventListener('load', function() {
-	//code to restrict max date of birthdate
-    var dtToday = new Date();
 
-    var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
-
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
-
-    var maxDate = year + '-' + month + '-' + day;    
-    document.getElementById('birthdate').max = maxDate;
-})
-
-
-function sameAsPermanent(){
-	var citizenship = document.getElementById('same_as_permanent').value;
-	if(citizenship == 'Yes'){
-				document.getElementById('pres_house_block_lot').disabled = true;
-				document.getElementById('pres_street').disabled = true;
-				document.getElementById('pres_subdivision_village').disabled = true;
-				document.getElementById('pres_barangay').disabled = true;
-				document.getElementById('pres_city_municipality').disabled = true;
-				document.getElementById('pres_province').disabled = true;
-				document.getElementById('pres_zip_code').disabled = true;
-
-				document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
-				document.getElementById('pres_street').value = document.getElementById('p_street').value;
-				document.getElementById('pres_subdivision_village').value = document.getElementById('p_subdivision_village').value;
-				document.getElementById('pres_barangay').value = document.getElementById('p_barangay').value;
-				document.getElementById('pres_city_municipality').value = document.getElementById('p_city_municipality').value;
-				document.getElementById('pres_province').value = document.getElementById('p_province').value;
-				document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
-		}else{
-				document.getElementById('pres_house_block_lot').removeAttribute('disabled');
-				document.getElementById('pres_street').removeAttribute('disabled');
-				document.getElementById('pres_subdivision_village').removeAttribute('disabled');
-				document.getElementById('pres_barangay').removeAttribute('disabled');
-				document.getElementById('pres_city_municipality').removeAttribute('disabled');
-				document.getElementById('pres_province').removeAttribute('disabled');
-				document.getElementById('pres_zip_code').removeAttribute('disabled');
-
-				document.getElementById('pres_house_block_lot').value = ""
-				document.getElementById('pres_street').value = ""
-				document.getElementById('pres_subdivision_village').value = ""
-				document.getElementById('pres_barangay').value = ""
-				document.getElementById('pres_city_municipality').value = ""
-				document.getElementById('pres_province').value = ""
-				document.getElementById('pres_zip_code').value = ""
-		}
-}
-
-
-document.getElementById("same_as_permanent").addEventListener("change", function(e){
-		sameAsPermanent();
-});
-
-
-document.getElementById("birthdate").addEventListener('change',()=>{
-
-	var dob = new Date(document.getElementById("birthdate").value);
-	var diff_ms = Date.now() - dob.getTime();
-    var age_dt = new Date(diff_ms); 
-  
-    var age = Math.abs(age_dt.getUTCFullYear() - 1970);
-    document.getElementById("age").value = age;
-});
-
-
-document.getElementById("citizenship").addEventListener("change", function(e){
-		var citizenship = document.getElementById('citizenship').value;
-		//alert(citizenship)
-		if(citizenship == 'Filipino'){
-				document.getElementById('dual_citizenship').disabled = true;
-				document.getElementById('indicate_country').disabled = true;
-		}else{
-				document.getElementById('dual_citizenship').removeAttribute('disabled');
-				document.getElementById('indicate_country').removeAttribute('disabled');	
-		}
-});
-
-
-
-//code for submit
+/* -------------------------------------------------------------------------- */
+/*                               code for submit                              */
+/* -------------------------------------------------------------------------- */
 document.getElementById("signUp").addEventListener("submit", function(e){
   e.preventDefault()
   var file_input = document.getElementById('psa');
@@ -93,18 +10,12 @@ document.getElementById("signUp").addEventListener("submit", function(e){
   	alert("No file selected")
   }
 
-//console.log(file_input.files)
-
   var formElem = document.getElementById("signUp");
   let formData = new FormData(formElem);
-  //formData.append('file',  input.files[0])
 
   const data = {}
   formData.forEach((value, key) => (data[key] = value))
  
-  // for (var i = 0; i < file_input.files.length; i++) {
-  // 	formData.append("files[]", document.getElementById('psa').files[i]);
-  // }
   console.log(data)
   fetch('/signup', {
 		method: 'POST',
@@ -120,33 +31,9 @@ document.getElementById("signUp").addEventListener("submit", function(e){
 	}).catch(console.error)
 });
 
-
-//code for submit eligibility in signup
-// document.getElementById("add_eligibility_form_sign_up").addEventListener("submit", function(e){
-// 	e.preventDefault()
-
-// 	var formElem = document.getElementById("signUp");
-// 	let formData = new FormData(formElem);
-  
-// 	const data = {}
-// 	formData.forEach((value, key) => (data[key] = value))
-   
-// 	console.log(data)
-// 	fetch('/signup', {
-// 		  method: 'POST',
-// 		  body: formData
-// 	  }).then((res)=>{
-// 		  setTimeout(function() { 
-// 			  triggerToast(); 
-// 			  setTimeout(()=>{
-// 				  document.getElementById('toastBody').innerHTML = ""
-// 			  },6000)
-// 		  }, 450);
-		  
-// 	  }).catch(console.error)
-//   });
-
-
+/* -------------------------------------------------------------------------- */
+/*                           code for dynamic fields                          */
+/* -------------------------------------------------------------------------- */
 var cs_no_fields = document.getElementById('cs_no_fields');
 document.getElementById('add_cse_field').addEventListener('click',()=>{
 	var cs_fields = document.getElementById('cs_fields');
@@ -184,15 +71,8 @@ document.getElementById('add_cse_field').addEventListener('click',()=>{
 			<div class="form-floating flex-fill mb-3 p-1">
 				<input type="date" class="form-control" name ="date_of_validity[${x}]" placeholder="Date of Validity" form="signUp">
 				<label for="date_of_validity">Date of Validity</label>
-			</div> 
-			
 			</div>
-			<div class="d-md-flex flex-row">
-            <div class="flex-fill mb-3 p-1">
-              <label for="psa" class="form-label">Upload Supporting Document</label>
-              <input class="form-control" type="file" id="cse[${x}]" name="cse[${x}]" form="signUp">
-            </div>
-          </div>
+			</div>
 		<a href="#" onclick="document.getElementById('cs_no_fields').value--;document.getElementById('remove_cse${x}').remove(); return false">Remove field</a>
 		</div>
 	</div>
@@ -241,6 +121,53 @@ document.getElementById('add_vocational_field').addEventListener('click',()=>{
 				<a href="#" onclick="document.getElementById('vocational_no_fields').value--;document.getElementById('remove_vocational${x}').remove(); return false">Remove field</a>
 				</div>
 			</div>
+		`);
+	//  }
+});
+
+document.getElementById('add_ld_field').addEventListener('click',()=>{
+	var vocational_fields = document.getElementById('ld_fields');
+	var vocational_no_fields = document.getElementById('ld_no_fields');
+	vocational_fields.innerHTML = ``;
+	//  for(var x = 1; x < vocational_no_fields.value; x++){
+		var x = vocational_no_fields.value;
+		vocational_fields.insertAdjacentHTML("beforebegin",`
+		<div class="card shadow-sm mb-3" id=remove_ld${x}>
+			<div class="card-body">
+				<div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" name ="ld_program[${x}]" placeholder="Interventions/Training Program" form="signUp">
+						<label for="ld_program">Interventions / Training Program</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="date" class="form-control" name ="ld_date_from[${x}]" placeholder="Inclusive Date of Attendance From" form="signUp">
+						<label for="ld_date_from">Inclusive Date of Attendance From</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="date" class="form-control" name ="ld_date_to[${x}]" placeholder="Inclusive Date of Attendance To" form="signUp">
+						<label for="ld_date_to">Inclusive Date of Attendance To</label>
+					</div>
+					</div>
+					<div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="number" class="form-control" name ="ld_no_hours[${x}]" placeholder="Rating" form="signUp">
+						<label for="ld_no_hours">Number of Hours</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" name ="ld_type[${x}]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="signUp">
+						<label for="ld_type">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
+					</div>
+					</div>
+					<div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						<input type="text" class="form-control" name ="ld_sponsored_by[${x}]" placeholder="Conducted / Sponsored By" form="signUp">
+						<label for="license_no">Conducted / Sponsored By</label>
+					</div>
+				</div>
+				<a href="#" onclick="document.getElementById('ld_no_fields').value--;document.getElementById('remove_ld${x}').remove(); return false">Remove field</a>
+			</div>
+		</div>
+
 		`);
 	//  }
 });

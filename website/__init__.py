@@ -17,6 +17,7 @@ def create_app():
 	app.config['SECRET_KEY'] = '201 File System Key'
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+	app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024    # 50 Mb limit
 	#app.config["CACHE_TYPE"] = "null"
 	# change to "redis" and restart to cache again
 

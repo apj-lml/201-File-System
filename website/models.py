@@ -173,6 +173,16 @@ class Service_Record(db.Model, SerializerMixin):
 	separation_cause = db.Column(db.String(50), nullable=True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Learning_Development(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	ld_program = db.Column(db.String(50))
+	ld_date_from = db.Column(db.String(50))
+	ld_date_to = db.Column(db.String(50))
+	ld_no_hours = db.Column(db.String(50))
+	ld_type = db.Column(db.String(50))
+	ld_sponsored_by = db.Column(db.String(50))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))
