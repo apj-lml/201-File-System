@@ -125,6 +125,8 @@ class User(db.Model, UserMixin):
 	service_record = db.relationship('Service_Record')
 	career_service = db.relationship('Career_Service')
 	vocational_course = db.relationship('Vocational_Course')
+	learning_development = db.relationship('Learning_Development')
+
 	# emergency_contact = db.relationship('Emergency_Contact')
 
 class Vocational_Course(db.Model, SerializerMixin):

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Service_Record, User, Uploaded_File
+from .models import Career_Service, Learning_Development, Service_Record, User, Uploaded_File, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -112,66 +112,118 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 
 
-	new_formdata = formdata.copy()
-	cs_no_fields = new_formdata['cs_no_fields']
-	vocational_no_fields = new_formdata['vocational_no_fields']
-	ld_no_fields = new_formdata['ld_no_fields']
+	formdata = formdata.copy()
+
+	# cs_no_fields = formdata['cs_no_fields']
+	cs_update_no_fields = formdata['cs_update_no_fields']
+
+
+	vocational_no_fields = formdata['vocational_no_fields']
+	vocational_no_update_fields = formdata['vocational_no_update_fields']
+
+	ld_no_fields = formdata['ld_no_fields']
+	ld_update_no_fields = formdata['ld_update_no_fields']
+
 
 # ---------------------------------------------------------------------------- #
 #              popping unnecessary data before saving to database              #
 # ---------------------------------------------------------------------------- #
-	for z in range(1, int(ld_no_fields)+1):
-		# print('HERE HEREEEEE!!!!!', x)
-		formdata.pop('ld_program['+str(z)+']')
-		formdata.pop('ld_date_from['+str(z)+']')
-		formdata.pop('ld_date_to['+str(z)+']')
-		formdata.pop('ld_no_hours['+str(z)+']')
-		formdata.pop('ld_type['+str(z)+']')
-		formdata.pop('ld_sponsored_by['+str(z)+']')
+	# for key, value in formdata.items(): 
+	# 	print(key,value)
 
-	for y in range(1, int(vocational_no_fields)+1):
-		# print('HERE HEREEEEE!!!!!', x)
-		formdata.pop('v_school['+str(y)+']')
-		formdata.pop('vocational_trade_course['+str(y)+']')
-		formdata.pop('v_period_of_attendance_from['+str(y)+']')
-		formdata.pop('v_period_of_attendance_to['+str(y)+']')
-		formdata.pop('v_highest_level['+str(y)+']')
-		formdata.pop('v_scholarship_academic_honor['+str(y)+']')
+	# for z in range(1, int(ld_update_no_fields)+1):
+	# 	formdata.pop('ld_program['+str(z)+']')
+	# 	formdata.pop('ld_date_from['+str(z)+']')
+	# 	formdata.pop('ld_date_to['+str(z)+']')
+	# 	formdata.pop('ld_no_hours['+str(z)+']')
+	# 	formdata.pop('ld_type['+str(z)+']')
+	# 	formdata.pop('ld_sponsored_by['+str(z)+']')
+
+	# for y in range(1, int(vocational_no_update_fields)+1):
+	# 	formdata.pop('v_school['+str(y)+']')
+	# 	formdata.pop('vocational_trade_course['+str(y)+']')
+	# 	formdata.pop('v_period_of_attendance_from['+str(y)+']')
+	# 	formdata.pop('v_period_of_attendance_to['+str(y)+']')
+	# 	formdata.pop('v_highest_level['+str(y)+']')
+	# 	formdata.pop('v_scholarship_academic_honor['+str(y)+']')
+		# formdata.pop('vocational_no_update_fields['+str(y)+']')
+
 	
-	for x in range(1, int(cs_no_fields)+1):
-		# print('HERE HEREEEEE!!!!!', x)
-		formdata.pop('cs_eligibility['+str(x)+']')
-		formdata.pop('cs_rating['+str(x)+']')
-		formdata.pop('date_of_examination['+str(x)+']')
-		formdata.pop('place_of_examination_conferment['+str(x)+']')
-		formdata.pop('license_no['+str(x)+']')
-		formdata.pop('date_of_validity['+str(x)+']')
+	# for x in range(1, int(cs_update_no_fields)+1):
+	# 	formdata.pop('cs_eligibility['+str(x)+']')
+	# 	formdata.pop('cs_rating['+str(x)+']')
+	# 	formdata.pop('date_of_examination['+str(x)+']')
+	# 	formdata.pop('place_of_examination_conferment['+str(x)+']')
+	# 	formdata.pop('license_no['+str(x)+']')
+	# 	formdata.pop('date_of_validity['+str(x)+']')
 
 	formdata.pop('ld_no_fields')
-	formdata.pop('cs_no_fields')
+	# formdata.pop('cs_no_fields')
 	formdata.pop('vocational_no_fields')
 	formdata.pop('floatingPassword2')
 	formdata.pop('same_as_permanent')
 	formdata.pop('employee_id')
+
+# ---------------------------------------------------------------------------- #
+#                                CAPITALIZE DATA                               #
+# ---------------------------------------------------------------------------- #
+	for k,v in formdata.items():
+		if type(v) is str:
+			formdata.update({k: v.upper()})
+		else:
+			formdata.update({k: v})
+		# print(k, v)
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF EMPLOYEE PROFILE                         #
 # ---------------------------------------------------------------------------- #
-	print(formdata)
+	#print(formdata)
 	
 	#code for automated update
 	for key, value in formdata.items(): 
-		#if type(value) is str:
-			#setattr(user, key, value.upper())
-			#print(value)
-		#else:
-		print(key, value)
+		# if type(value) is str:
+		# 	setattr(user, key, value.upper())
+		# else:
 		setattr(user, key, value)
-			#print(value)
+		# print(key, value)
+
 	db.session.commit()
 
 # ---------------------------------------------------------------------------- #
-#                      END OF UPDATING OF EMPLOYEE PROFILE                     #
+#                         UPDATING OF VOCATIONAL COURSE                        #
 # ---------------------------------------------------------------------------- #
+
+	for xy in range(1, int(vocational_no_update_fields)+1):
+		
+		vocational_course = Vocational_Course.query.filter_by(id = formdata['v_id['+str(xy)+']'])
+		vocational_course.update(dict(v_school = formdata['v_school['+str(xy)+']'].upper(), vocational_trade_course = formdata['vocational_trade_course['+str(xy)+']'].upper(), v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(xy)+']'].upper(),
+			v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']'].upper(), v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(), v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper()))
+
+
+		db.session.commit()
+# ---------------------------------------------------------------------------- #
+#                                UPDATING OF CSE                               #
+# ---------------------------------------------------------------------------- #
+	for xy in range(1, int(cs_update_no_fields)+1):
+		
+		cse = Career_Service.query.filter_by(id = formdata['cse_id['+str(xy)+']'])
+		cse.update(dict(cs_eligibility = formdata['cs_eligibility['+str(xy)+']'].upper(), cs_rating = formdata['cs_rating['+str(xy)+']'].upper(), date_of_examination = formdata['date_of_examination['+str(xy)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(xy)+']'].upper(),
+			license_no = formdata['license_no['+str(xy)+']'].upper(), date_of_validity = formdata['date_of_validity['+str(xy)+']']))
+
+		db.session.commit()
+
+# ---------------------------------------------------------------------------- #
+#                        UPDATE LEARNING AND DEVELOPMENT                       #
+# ---------------------------------------------------------------------------- #
+	for xy in range(1, int(ld_update_no_fields)+1):
+		print("SOMETING IN HERE")
+		
+		ld = Learning_Development.query.filter_by(id = formdata['ld_id['+str(xy)+']'])
+		ld.update(dict(ld_program = formdata['ld_program['+str(xy)+']'].upper(), ld_date_from = formdata['ld_date_from['+str(xy)+']'].upper(), ld_date_to = formdata['ld_date_to['+str(xy)+']'], ld_no_hours = formdata['ld_no_hours['+str(xy)+']'],
+			ld_type = formdata['ld_type['+str(xy)+']'].upper(), ld_sponsored_by = formdata['ld_sponsored_by['+str(xy)+']'].upper()))
+
+
+		db.session.commit()
+
 
 	return jsonify({})
 	#return redirect(request.referrer)
@@ -230,6 +282,32 @@ def get_service_record(emp_id):
 		return jsonify(rows_dic)
 
 	return render_template('service_record.html', emp_id = emp_id)
+
+@employees.route('add-update-cse/<emp_id>', methods=['POST', 'GET'])
+@login_required
+@admin_permission.require(http_exception=403)
+def add_update_cse(emp_id):
+	if request.method == "POST":
+		formdata = request.form.to_dict()
+		cs_no_fields = formdata["cs_no_fields"]
+
+		for x in range(1, int(cs_no_fields)+1):
+			formdata['cs_eligibility['+str(x)+']']
+			formdata['cs_rating['+str(x)+']']
+			formdata['date_of_examination['+str(x)+']']
+			formdata['place_of_examination_conferment['+str(x)+']']
+			formdata['license_no['+str(x)+']']
+			formdata['date_of_validity['+str(x)+']']
+
+			new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
+				date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
+				license_no = formdata['license_no['+str(x)+']'], date_of_validity = formdata['date_of_validity['+str(x)+']'], user_id = emp_id)
+			db.session.add(new_cs_eligibility)
+			db.session.flush()
+			db.session.commit()
+
+	return "ok", 200
+
 
 @employees.context_processor
 def inject_today_date():

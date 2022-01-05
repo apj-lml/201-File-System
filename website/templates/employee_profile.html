@@ -102,7 +102,7 @@
 
 
   <div class="col-sm-12">
-    <div class="container myDivToPrint" id="myDivToPrint">
+    <div class="container" id="myDivToPrint">
       <div class="row">
         <div class="col">
           <div class="container-fluid">
@@ -111,6 +111,10 @@
             </div>
             <div class="row">
             <div class="col">
+              <form id="add_cse_form" action="/employees/add-update-cse/{{user_profile.id}}" method="POST"></form>
+              <form id="add_vocational_form" action="/employees/add-update-vocational/{{user_profile.id}}" method="POST"></form>
+              <form id="add_ld_form" action="/employees/add-update-ld/{{user_profile.id}}" method="POST"></form>
+
               <form enctype="multipart/form-data" id="update_form" action="/employees/update-employee/{{user_profile.id}}" method="POST" autocomplete="off">
               <div class="card mb-3 align-self-center">
                 <div class="card-body">
@@ -158,7 +162,7 @@
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}">
-                    
+                        <option class="" value="{{user_profile.employment_status}}" selected disabled hidden>{{user_profile.employment_status}}</option>
                         <option value="Job Order">Job Order</option>
                         <option value="Permanent">Permanent</option>
                         <option value="Casual">Casual</option>
@@ -173,7 +177,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" >
-            
+                        <option class="" value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -204,7 +208,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="{{user_profile.step}}" >
-                        
+                        <option class="" value="{{user_profile.step}}" selected disabled hidden>{{user_profile.step}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -236,6 +240,7 @@
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" >
+                          <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option>
                           <option value="Administrative & Finance">Administrative & Finance</option>
                           <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
                           <option value="Engineering">Engineering</option>
@@ -249,7 +254,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" >
-                       
+                        <option class="" value="{{user_profile.unit}}" selected disabled hidden>{{user_profile.unit}}</option>
                         <option value="Administrative Unit">Administrative Unit</option>
                         <option value="Finance Unit">Finance Unit</option>
                         <option value="Cashiering Unit">Cashiering Unit</option>
@@ -289,6 +294,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}">
+                        <option class="" value="{{user_profile.sex}}" selected disabled hidden>{{user_profile.sex}}</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                       </select>
@@ -296,6 +302,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}">
+                        <option class="" value="{{user_profile.civil_status}}" selected disabled hidden>{{user_profile.civil_status}}</option>
                         <option value="Single">Single</option>
                         <option value="Widowed">Widowed</option>
                         <option value="Married">Married</option>
@@ -450,8 +457,9 @@
                     <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
                         <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example">
-                          <option value="Yes" selected>Yes</option>
-                          <option value="No">No</option>
+                            <option value="YES" {{ "selected" if user_profile.pres_house_block_lot or user_profile.pres_street or user_profile.pres_barangay or user_profile.pres_province else "" }}>YES</option>
+                            <option value="NO"  {{ "" if user_profile.pres_house_block_lot or user_profile.pres_street or user_profile.pres_barangay or user_profile.pres_province else "selected" }}>NO</option>
+                          
                         </select>
                         <label for="same_as_permanent">Same as permanent address</label>
                       </div>
@@ -459,33 +467,33 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." disabled value="{{user_profile.pres_house_block_lot}}">
+                      <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." {{ "" if user_profile.pres_house_block_lot else "disabled" }} value="{{user_profile.pres_house_block_lot}}">
                       <label for="pres_house_block_lot">House/Block/Lot No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" disabled value="{{user_profile.pres_street}}">
+                      <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" {{ "" if user_profile.pres_street else "disabled" }} value="{{user_profile.pres_street}}">
                       <label for="pres_street">Street</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" disabled value="{{user_profile.pres_subdivision_village}}">
+                      <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" {{ "" if user_profile.pres_subdivision_village else "disabled" }} value="{{user_profile.pres_subdivision_village}}">
                       <label for="pres_subdivision_village">Subdivision/Village</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" disabled value="{{user_profile.pres_barangay}}">
+                      <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" {{ "" if user_profile.pres_barangay else "disabled" }} value="{{user_profile.pres_barangay}}">
                       <label for="pres_barangay">Barangay</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">        
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" disabled value="{{user_profile.pres_city_municipality}}">
+                      <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" {{ "" if user_profile.pres_city_municipality else "disabled" }} value="{{user_profile.pres_city_municipality}}">
                       <label for="pres_city_municipality">City/Municipality</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" disabled value="{{user_profile.pres_province}}">
+                      <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" {{ "" if user_profile.pres_province else "disabled" }} value="{{user_profile.pres_province}}">
                       <label for="pres_province">Province</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" disabled value="{{user_profile.pres_zip_code}}">
+                      <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" {{ "" if user_profile.pres_zip_code else "disabled" }} value="{{user_profile.pres_zip_code}}">
                       <label for="pres_zip_code">Zip Code</label>
                     </div>
                   </div>
@@ -565,46 +573,55 @@
                 </div>
               </div>
               <div class="card mb-3">
+
                 <div class="card-body">
                   <h3 class="card-title">Vocational / Trade Course</h3>
-                  <input type="text" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10"  value="1" value="{{user_profile.vocational_course|length}}">
+                  <input type="text" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0" >
+                  <input type="text" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}">
+                  {% set count_update_vocational = namespace(value=1) %}
+                  {% for vocational in user_profile.vocational_course %}
+                  
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
-                  <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" >
-                      <label for="v_school">School</label>
-                    </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" >
-                      <label for="vocational_trade_course">Vocational / Trade Course</label>
-                    </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" >
-                      <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
-                    </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" >
-                      <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
-                    </div>
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_highest_level[1]" name ="v_highest_level[1]" placeholder="Highest Level" >
-                      <label for="v_highest_level">Highest Level Attained / Units Earned</label>
-                    </div>   
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" >
-                      <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
-                    </div>  
-                  </div>
+                     <input type="text" name="v_id[{{count_update_vocational.value}}]" value="{{count_update_vocational.value}}">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="v_school[{{count_update_vocational.value}}]" name ="v_school[{{count_update_vocational.value}}]" placeholder="School" value="{{vocational.v_school}}">
+                            <label for="v_school">School</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="vocational_trade_course[{{count_update_vocational.value}}]" name ="vocational_trade_course[{{count_update_vocational.value}}]" placeholder="Vocational / Trade Course" value="{{vocational.vocational_trade_course}}">
+                            <label for="vocational_trade_course">Vocational / Trade Course</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="v_period_of_attendance_from[{{count_update_vocational.value}}]" name ="v_period_of_attendance_from[{{count_update_vocational.value}}]" placeholder="Period of Attendance (From)" value="{{vocational.v_period_of_attendance_from}}">
+                            <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="v_period_of_attendance_to[{{count_update_vocational.value}}]" name ="v_period_of_attendance_to[{{count_update_vocational.value}}]" placeholder="Period of Attendance (To)" value="{{vocational.v_period_of_attendance_to}}">
+                            <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="v_highest_level[{{count_update_vocational.value}}]" name ="v_highest_level[{{count_update_vocational.value}}]" placeholder="Highest Level" value="{{vocational.v_highest_level}}">
+                            <label for="v_highest_level">Highest Level Attained / Units Earned</label>
+                          </div>   
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="v_scholarship_academic_honor[{{count_update_vocational.value}}]" name ="v_scholarship_academic_honor[{{count_update_vocational.value}}]" placeholder="Scholarship / Academic Honor" value="{{vocational.v_scholarship_academic_honor}}">
+                            <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                          </div>  
+                        </div>
                   </div>
                 </div>
+                {% set count_update_vocational.value = count_update_vocational.value+1 %}
+                {%endfor%}
                   <div id="vocational_fields"></div>
                 </div>
+
                 <div class="d-md-flex flex-row">
                   <div class="flex-fill mb-3 mx-4 p-1">
-                    <button class="btn btn-success btn-sm" id="add_vocational_field" onclick="document.getElementById('vocational_no_fields').value++">Add</button>
+                    <button type="button" class="btn btn-success btn-sm" id="add_vocational_field" onclick="document.getElementById('vocational_no_fields').value++">Add</button>
                   </div>
                 </div>
               </div>
@@ -714,98 +731,110 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Civil Service Eligibility</h3>
-                  <input type="text" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10"  value="1" value="{{user_profile.vocational_course|length}}">
-                    <div class="card shadow-sm mb-3">
-                      <div class="card-body">
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" >
-                          <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                  <input type="text" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="0" form="add_cse_form">
+                  <input type="text" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.career_service|length}}">
+                  {% set count_update_cse = namespace(value=1) %}
+                    {% for cse in user_profile.career_service %}
+                      <div class="card shadow-sm mb-3">
+                      <input type="text" id="cse_id[{{count_update_cse.value}}]" name="cse_id[{{count_update_cse.value}}]" value="{{cse.id}}">
+                        <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="cs_eligibility[{{count_update_cse.value}}]" placeholder="Eligibility" value="{{cse.cs_eligibility}}">
+                            <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" placeholder="Date of Examination" value="{{cse.date_of_examination}}">
+                            <label for="date_of_examination">Date of Examination</label>
+                          </div>
                         </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" >
-                          <label for="date_of_examination">Date of Examination</label>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="cs_rating[{{count_update_cse.value}}]" placeholder="Rating" value="{{cse.cs_rating}}">
+                            <label for="cs_rating">Rating (if applicable)</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="place_of_examination_conferment[{{count_update_cse.value}}]" placeholder="Place of Examination / Conferment" value="{{cse.place_of_examination_conferment}}">
+                            <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+                          </div>
                         </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                            <input type="text" class="form-control" name ="license_no[{{count_update_cse.value}}]" placeholder="License Number" value="{{cse.license_no}}">
+                            <label for="license_no">License Number</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_validity[{{count_update_cse.value}}]" placeholder="Date of Validity" value="{{cse.date_of_validity}}">
+                            <label for="date_of_validity">Date of Validity</label>
+                          </div>
+                        </div>
+                        <!-- <div class="d-md-flex flex-row">
+                          <div class="flex-fill mb-3 p-1">
+                            <label for="psa" class="form-label">Upload Supporting Document</label>
+                            <input class="form-control" type="file" id="cse[1]" name="cse[1]" >
+                          </div>
+                        </div> -->
                       </div>
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" >
-                          <label for="cs_rating">Rating (if applicable)</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" >
-                          <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
-                        </div>
-                      </div>
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                          <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number" >
-                          <label for="license_no">License Number</label>
-                        </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" >
-                          <label for="date_of_validity">Date of Validity</label>
-                        </div>
-                      </div>
-                      <!-- <div class="d-md-flex flex-row">
-                        <div class="flex-fill mb-3 p-1">
-                          <label for="psa" class="form-label">Upload Supporting Document</label>
-                          <input class="form-control" type="file" id="cse[1]" name="cse[1]" >
-                        </div>
-                      </div> -->
                     </div>
-                  </div>
+                    {% set count_update_cse.value = count_update_cse.value + 1 %}
+                  {% endfor %}
                 <div id="cs_fields"></div>
               </div>
               <div class="d-md-flex flex-row">
                 <div class="flex-fill mb-3 mx-4 p-1">
-                  <button class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
+                  <button type="button" class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
                 </div>
               </div>
             </div>
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Learning & Development</h3>
-                  <input type="text" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.vocational_course|length}}">
+                  <input type="text" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" value="0">
+                  <input type="text" class="form-control" id="ld_update_no_fields" name ="ld_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.learning_development|length}}">
+                  {% set count_update_ld = namespace(value=1) %}
+                  {% for ld in user_profile.learning_development %}
+                  <input type="text" name="ld_id[{{ count_update_ld.value }}]" id="ld_id[{{ count_update_ld.value }}]" value="{{ld.id}}">
                     <div class="card shadow-sm mb-3">
                       <div class="card-body">
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" >
+                          <input type="text" class="form-control" name ="ld_program[{{ count_update_ld.value }}]" placeholder="Interventions/Training Program" value="{{ld.ld_program}}">
                           <label for="ld_program[1]">Interventions / Training Program</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" >
+                          <input type="date" class="form-control" name ="ld_date_from[{{ count_update_ld.value }}]" placeholder="Inclusive Date of Attendance From" value="{{ld.ld_date_from}}">
                           <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" >
+                          <input type="date" class="form-control" name ="ld_date_to[{{ count_update_ld.value }}]" placeholder="Inclusive Date of Attendance To" value="{{ld.ld_date_to}}">
                           <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" >
+                          <input type="number" class="form-control" name ="ld_no_hours[{{ count_update_ld.value }}]" placeholder="Rating" value="{{ld.ld_no_hours}}">
                           <label for="ld_no_hours[1]">Number of Hours</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="ld_type[1]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" >
+                          <input type="text" class="form-control" name ="ld_type[{{ count_update_ld.value }}]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" value="{{ld.ld_type}}">
                           <label for="ld_type[1]">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                          <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" >
+                          <input type="text" class="form-control" name ="ld_sponsored_by[{{ count_update_ld.value }}]" placeholder="Conducted / Sponsored By" value="{{ld.ld_sponsored_by}}">
                           <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
                         </div>
                       </div>
                     </div>
                   </div>
+                  {% set count_update_ld.value = count_update_ld.value + 1 %}
+                  {% endfor %}
                 <div id="ld_fields"></div>
               </div>
               <div class="d-md-flex flex-row">
                 <div class="flex-fill mb-3 mx-4 p-1">
-                  <button class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
+                  <button type="button" class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
                 </div>
               </div>
             </div>
@@ -878,11 +907,11 @@
           <!-- </form> -->
           </div> <!--col-->
           </div> <!--row-->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col">
                 <button type="submit" class="btn btn-primary m-4" id="submit_btn" >Submit</button>
               </div>
-            </div>
+            </div> -->
           </form>
         </div>
   </div>
@@ -949,14 +978,14 @@
               <label for="date_of_validity">Date of Validity</label>
             </div> 
           </div>
-          <div class="d-md-flex flex-row">
+          <!-- <div class="d-md-flex flex-row">
             <div class="form-floating flex-fill mb-3 p-1">
               <div class="flex-fill mb-3 p-1">
                 <label for="psa" class="form-label">Upload Supporting Documentssss</label>
                 <input class="form-control" type="file" id="cse" name="cse">
               </div>
             </div> 
-          </div>
+          </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -971,31 +1000,32 @@
 {% endblock %}
 
 {%block scripts %}
+<script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 <script type="text/javascript">
   var formElem = document.getElementById("update_form");
 
-  document.getElementById("add_eligibility_form").addEventListener('submit',(e)=>{
-    e.preventDefault()
-    var formElem = document.getElementById("add_eligibility_form");
-    let formData = new FormData(formElem);
-    //formData.append('file', input.files[0])
+  // document.getElementById("add_eligibility_form").addEventListener('submit',(e)=>{
+  //   e.preventDefault()
+  //   var formElem = document.getElementById("add_eligibility_form");
+  //   let formData = new FormData(formElem);
 
-    const data = {}
-    formData.forEach((value, key) => (data[key] = value))
+  //   const data = {}
+  //   formData.forEach((value, key) => (data[key] = value))
 
-    console.log(data)
-    fetch('/cse/add-eligibility', {
-      method: 'POST',
-      body: formData
-    }).then((res)=>{
-      return res.json()
-    }).then(data => {
-      console.log(data)
-    })
-  })
+  //   console.log(data)
+  //   fetch('/cse/add-eligibility', {
+  //     method: 'POST',
+  //     body: formData
+  //   }).then((res)=>{
+  //     return res.json()
+  //   }).then(data => {
+
+  //   })
+  // })
 
   function update_employee(){
-    formElem.submit();
+    document.getElementById("add_cse_form").submit();
+     formElem.submit();
   }
 
   document.addEventListener("DOMContentLoaded", function(event) {
