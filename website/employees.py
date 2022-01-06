@@ -160,8 +160,8 @@ def update_employee(emp_id):
 	formdata.pop('ld_no_fields')
 	# formdata.pop('cs_no_fields')
 	formdata.pop('vocational_no_fields')
-	formdata.pop('floatingPassword2')
-	formdata.pop('same_as_permanent')
+	# formdata.pop('floatingPassword2')
+	# formdata.pop('same_as_permanent')
 	formdata.pop('employee_id')
 
 # ---------------------------------------------------------------------------- #
