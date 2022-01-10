@@ -31,11 +31,11 @@ def add_eligibility(emp_id):
         cs_no_fields = formdata["cs_no_fields"]
 
         for x in range(1, int(cs_no_fields)+1):
-            formdata['cs_eligibility['+str(x)+']']
-            formdata['cs_rating['+str(x)+']']
-            formdata['date_of_examination['+str(x)+']']
-            formdata['place_of_examination_conferment['+str(x)+']']
-            formdata['date_of_validity['+str(x)+']']
+            # formdata['cs_eligibility['+str(x)+']']
+            # formdata['cs_rating['+str(x)+']']
+            # formdata['date_of_examination['+str(x)+']']
+            # formdata['place_of_examination_conferment['+str(x)+']']
+            # formdata['date_of_validity['+str(x)+']']
 
             new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
 				date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
@@ -44,4 +44,4 @@ def add_eligibility(emp_id):
             db.session.flush()
             db.session.commit()
             
-    return "ok", 200
+    return "im not ok", 200

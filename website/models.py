@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
 	date_of_assumption = db.Column(db.String(150))
 	date_of_last_step_increment = db.Column(db.String(150), nullable=True)
 	date_of_original_appointment = db.Column(db.String(150), nullable=True)
+	date_hired_in_nia = db.Column(db.String(150), nullable=True)
 	daily_rate = db.Column(db.String(150), nullable=True)
 	monthly_rate = db.Column(db.String(150), nullable=True)
 	# daily_rate = db.Column(db.Float(10, 2))

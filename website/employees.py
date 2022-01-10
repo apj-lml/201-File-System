@@ -118,10 +118,10 @@ def update_employee(emp_id):
 	cs_update_no_fields = formdata['cs_update_no_fields']
 
 
-	vocational_no_fields = formdata['vocational_no_fields']
+	#vocational_no_fields = formdata['vocational_no_fields']
 	vocational_no_update_fields = formdata['vocational_no_update_fields']
 
-	ld_no_fields = formdata['ld_no_fields']
+	#ld_no_fields = formdata['ld_no_fields']
 	ld_update_no_fields = formdata['ld_update_no_fields']
 
 
@@ -159,7 +159,7 @@ def update_employee(emp_id):
 
 	formdata.pop('ld_no_fields')
 	# formdata.pop('cs_no_fields')
-	formdata.pop('vocational_no_fields')
+	#formdata.pop('vocational_no_fields')
 	# formdata.pop('floatingPassword2')
 	# formdata.pop('same_as_permanent')
 	formdata.pop('employee_id')
@@ -287,24 +287,24 @@ def get_service_record(emp_id):
 @login_required
 @admin_permission.require(http_exception=403)
 def add_update_cse(emp_id):
-	if request.method == "POST":
-		formdata = request.form.to_dict()
-		cs_no_fields = formdata["cs_no_fields"]
+	# if request.method == "POST":
+	# 	formdata = request.form.to_dict()
+	# 	cs_no_fields = formdata["cs_no_fields"]
 
-		for x in range(1, int(cs_no_fields)+1):
-			formdata['cs_eligibility['+str(x)+']']
-			formdata['cs_rating['+str(x)+']']
-			formdata['date_of_examination['+str(x)+']']
-			formdata['place_of_examination_conferment['+str(x)+']']
-			formdata['license_no['+str(x)+']']
-			formdata['date_of_validity['+str(x)+']']
+	# 	for x in range(1, int(cs_no_fields)+1):
+	# 		formdata['cs_eligibility['+str(x)+']']
+	# 		formdata['cs_rating['+str(x)+']']
+	# 		formdata['date_of_examination['+str(x)+']']
+	# 		formdata['place_of_examination_conferment['+str(x)+']']
+	# 		formdata['license_no['+str(x)+']']
+	# 		formdata['date_of_validity['+str(x)+']']
 
-			new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
-				date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
-				license_no = formdata['license_no['+str(x)+']'], date_of_validity = formdata['date_of_validity['+str(x)+']'], user_id = emp_id)
-			db.session.add(new_cs_eligibility)
-			db.session.flush()
-			db.session.commit()
+	# 		new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
+	# 			date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
+	# 			license_no = formdata['license_no['+str(x)+']'], date_of_validity = formdata['date_of_validity['+str(x)+']'], user_id = emp_id)
+	# 		db.session.add(new_cs_eligibility)
+	# 		db.session.flush()
+	# 		db.session.commit()
 
 	return "ok", 200
 

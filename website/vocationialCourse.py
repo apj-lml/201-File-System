@@ -21,26 +21,27 @@ def page_not_found(e):
 # ---------------------------------------------------------------------------- #
 #                   ADD VOCATIONAL COURSE IN EMPLOYEE PROFILE                  #
 # ---------------------------------------------------------------------------- #
-@vocation.route('add-eligibility/<emp_id>', methods=['POST', 'GET'])
+@vocation.route('add-vocational/<emp_id>', methods=['POST', 'GET'])
 @login_required
 @admin_permission.require(http_exception=403)
 def add_eligibility(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
-        cs_no_fields = formdata["cs_no_fields"]
+        vocational_no_fields = formdata["vocational_no_fields"]
 
-        for x in range(1, int(cs_no_fields)+1):
-            formdata['cs_eligibility['+str(x)+']']
-            formdata['cs_rating['+str(x)+']']
-            formdata['date_of_examination['+str(x)+']']
-            formdata['place_of_examination_conferment['+str(x)+']']
-            formdata['date_of_validity['+str(x)+']']
-
-            new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
-				date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
-				license_no = formdata['license_no['+str(x)+']'], date_of_validity = formdata['date_of_validity['+str(x)+']'], user_id = emp_id)
+        for x in range(1, int(vocational_no_fields)+1):
+            formdata['v_school['+str(x)+']']
+            formdata['vocational_trade_course['+str(x)+']']
+            formdata['v_period_of_attendance_from['+str(x)+']']
+            formdata['v_period_of_attendance_to['+str(x)+']']
+            formdata['v_highest_level['+str(x)+']']
+            formdata['v_scholarship_academic_honor['+str(x)+']']
+            
+            new_cs_eligibility = Career_Service(v_school = formdata['v_school['+str(x)+']'], vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
+				v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'], v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
+				v_highest_level = formdata['v_highest_level['+str(x)+']'], v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'], user_id = emp_id)
             db.session.add(new_cs_eligibility)
             db.session.flush()
             db.session.commit()
             
-    return "ok", 200
+    return "vocation ok", 200

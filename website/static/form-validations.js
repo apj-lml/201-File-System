@@ -107,18 +107,28 @@
 
         var d_rate = document.getElementById("daily_rate");
         var m_rate = document.getElementById("monthly_rate");
-        
+        var step = document.getElementById("step");
+        var item_no = document.getElementById("item_no");
+        var date_of_last_step_increment = document.getElementById("date_of_last_step_increment");
+      
         m_rate.disabled = false;
-
+        d_rate.disabled = false;
+        step.disabled = false;
+        item_no.disabled = false;
+        date_of_last_step_increment.disabled = false;
       
         if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
           m_rate.disabled = true;
           //parseFloat('100,000.00'.replace(/,/g, ''))
           var temp_m_rate = parseFloat(d_rate.value.replace(/,/g, '')) * 22;
           m_rate.value = temp_m_rate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          step.disabled = true;
+          item_no.disabled = true;
+          date_of_last_step_increment.disabled = true;
         }
         else{
           m_rate.value = ""
+          d_rate.disabled = true;
         }
       }
 
@@ -147,6 +157,7 @@
           <option value="Design Unit">Design Unit</option>
           <option value="Construction Unit">Construction Unit</option>
           <option value="Institutional Development Unit">Institutional Development Unit</option>
+          <option value="Equipment Unit">Equipment Unit</option>
           <option value="N/A">N/A</option>
         `;
       }

@@ -88,7 +88,6 @@
           var x = vocational_no_fields.value;
           vocational_fields.insertAdjacentHTML("beforebegin",`
               <div class="card shadow-sm mb-3" id=remove_vocational${x}>
-  
                   <div class="card-body">
                       <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">

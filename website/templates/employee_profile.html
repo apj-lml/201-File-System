@@ -111,8 +111,8 @@
             </div>
             <div class="row">
             <div class="col">
-              <form id="add_cse_form" action="/employees/add-update-cse/{{user_profile.id}}" method="POST"></form>
-              <form id="add_vocational_form" action="/employees/add-update-vocational/{{user_profile.id}}" method="POST"></form>
+              <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" onsubmit="" method="POST"></form>
+              <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
               <form id="add_ld_form" action="/employees/add-update-ld/{{user_profile.id}}" method="POST"></form>
                                                           <!-- /employees/update-employee/{{current_user.id}}  -->
               <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
@@ -576,7 +576,7 @@
 
                 <div class="card-body">
                   <h3 class="card-title">Vocational / Trade Course</h3>
-                  <input type="text" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="update_form">
+                  <input type="text" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="add_vocational_form">
                   <input type="text" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
                   {% set count_update_vocational = namespace(value=1) %}
                   {% for vocational in user_profile.vocational_course %}
@@ -879,8 +879,8 @@
                     <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
                   </div>
                   <div class="flex-fill mb-3 p-1">
-                    <label for="ld_cert" class="form-label">Upload Learning & Development Certificate</label>
-                    <input class="form-control" type="file" id="learning_development_cert" name="learning_development_cert" form="update_form">
+                    <label for="ld_cert" class="form-label">Upload COVID-19 Vaccination Card</label>
+                    <input class="form-control" type="file" id="covid_vax" name="covid_vax" form="update_form">
                   </div>
                 </div>
                 <div class="container">
@@ -1032,7 +1032,7 @@
     //        SUBMIT OF UPDATE FORM       //
     //------------------------------------//
     document.getElementById("update_form").addEventListener("submit",(e)=>{
-      alert("something here")
+      alert("update form")
       e.preventDefault();
       let formData = new FormData(formElem);
       //formData.append('file',  input.files[0])
@@ -1041,18 +1041,41 @@
       formData.forEach((value, key) => (data[key] = value))
     
       console.log(data)
-      fetch('/employees/update-employee/{{current_user.id}}', {
+      fetch('/employees/update-employee/{{user_profile.id}}', {
         method: 'POST',
         body: formData
       }).then((res)=>{
         if (res.status == 200){
+          // console.log(document.forms[0])
           document.getElementById("add_cse_form").submit();
+          document.getElementById("add_vocational_form").submit();
+
         }
         
-      }).catch(console.error);
+      });
 
           }); 
 
+  document.getElementById("add_cse_form").addEventListener("submit", (e)=>{
+    e.preventDefault();
+    alert("pumasok ba sa cse form");
+      let formData = new FormData(document.getElementById("add_cse_form"));
+      //formData.append('file',  input.files[0])
+
+      const data = {}
+      formData.forEach((value, key) => (data[key] = value))
+    
+      console.log(data)
+      fetch('/cse/add-eligibility/{{user_profile.id}}', {
+        method: 'POST',
+        body: formData
+      }).then((res)=>{
+        if (res.status == 200){
+          //document.getElementById("add_vocational_form").submit();
+        }
+        
+      })
+  })
 
   document.addEventListener("DOMContentLoaded", function(event) {
 
