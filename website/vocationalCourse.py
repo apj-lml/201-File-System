@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Career_Service, Service_Record, User, Uploaded_File
+from .models import Vocational_Course
 from . import db
 from datetime import datetime
 from .myhelper import allowed_file
@@ -37,7 +37,7 @@ def add_eligibility(emp_id):
             formdata['v_highest_level['+str(x)+']']
             formdata['v_scholarship_academic_honor['+str(x)+']']
             
-            new_cs_eligibility = Career_Service(v_school = formdata['v_school['+str(x)+']'], vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
+            new_cs_eligibility = Vocational_Course(v_school = formdata['v_school['+str(x)+']'], vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
 				v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'], v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
 				v_highest_level = formdata['v_highest_level['+str(x)+']'], v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'], user_id = emp_id)
             db.session.add(new_cs_eligibility)

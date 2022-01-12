@@ -28,13 +28,16 @@ def create_app():
 	from .employees import employees
 	from .tokenVerifier import tokenizer
 	from .csEligibility import cse
-
+	from .vocationalCourse import vocation
+	from .learningDevelopment import ld
 
 	app.register_blueprint(auth, url_prefix='/')
 	app.register_blueprint(views, url_prefix ='/')
 	app.register_blueprint(employees, url_prefix ='/employees')
 	app.register_blueprint(tokenizer, url_prefix = '/tokenizer')
 	app.register_blueprint(cse, url_prefix = '/cse')
+	app.register_blueprint(vocation, url_prefix = '/vocation')
+	app.register_blueprint(ld, url_prefix = '/ld')
 
 
 	from .models import User

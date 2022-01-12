@@ -113,7 +113,6 @@
             <div class="col">
               <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" onsubmit="" method="POST"></form>
               <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
-              <form id="add_ld_form" action="/employees/add-update-ld/{{user_profile.id}}" method="POST"></form>
                                                           <!-- /employees/update-employee/{{current_user.id}}  -->
               <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
               <div class="card mb-3 align-self-center">
@@ -576,14 +575,14 @@
 
                 <div class="card-body">
                   <h3 class="card-title">Vocational / Trade Course</h3>
-                  <input type="text" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="add_vocational_form">
-                  <input type="text" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
+                  <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="add_vocational_form">
+                  <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
                   {% set count_update_vocational = namespace(value=1) %}
                   {% for vocational in user_profile.vocational_course %}
                   
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
-                     <input type="text" name="v_id[{{count_update_vocational.value}}]" value="{{count_update_vocational.value}}" form="update_form">
+                     <input type="hidden" name="v_id[{{count_update_vocational.value}}]" value="{{count_update_vocational.value}}" form="update_form">
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
                             <input type="text" class="form-control" id="v_school[{{count_update_vocational.value}}]" name ="v_school[{{count_update_vocational.value}}]" placeholder="School" value="{{vocational.v_school}}" form="update_form">
@@ -816,8 +815,8 @@
                           <label for="ld_no_hours[1]">Number of Hours</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="ld_type[{{ count_update_ld.value }}]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" value="{{ld.ld_type}}" form="update_form">
-                          <label for="ld_type[1]">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
+                          <input type="text" class="form-control" name ="ld_type[{{ count_update_ld.value }}]" placeholder="Type of Learning & Development (Ex. Managerial, Supervisory, Technical)" value="{{ld.ld_type}}" form="update_form">
+                          <label for="ld_type[1]">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
@@ -1046,36 +1045,70 @@
         body: formData
       }).then((res)=>{
         if (res.status == 200){
-          // console.log(document.forms[0])
-          document.getElementById("add_cse_form").submit();
-          document.getElementById("add_vocational_form").submit();
+          //-- ----------------------------------------------------------------------- -->
+          //--                           SUBMIT OF CSE FORM                            -->
+          //-- ----------------------------------------------------------------------- -->
+          let formData2 = new FormData(document.getElementById("add_cse_form"));
+          //formData.append('file',  input.files[0])
 
+          const data2 = {}
+          formData2.forEach((value, key) => (data2[key] = value))
+        
+          console.log(data2)
+          fetch('/cse/add-eligibility/{{user_profile.id}}', {
+            method: 'POST',
+            body: formData2
+          }).then((res)=>{
+            if (res.status == 200){
+
+             //-- ----------------------------------------------------------------------- -->
+             //--                        SUBMIT OF VOCATIONAL FORM                        -->
+             //-- ----------------------------------------------------------------------- -->
+             let formData3 = new FormData(document.getElementById("add_vocational_form"));
+              //formData.append('file',  input.files[0])
+
+              const data3 = {}
+              formData3.forEach((value, key) => (data3[key] = value))
+            
+              console.log(data3)
+              fetch('/vocation/add-vocational/{{user_profile.id}}', {
+                method: 'POST',
+                body: formData3
+              }).then((res)=>{
+                if (res.status == 200){
+                  console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                }
+                
+              })//END VOCATIONAL
+            }
+            
+          })//END CSE
         }
         
       });
 
           }); 
 
-  document.getElementById("add_cse_form").addEventListener("submit", (e)=>{
-    e.preventDefault();
-    alert("pumasok ba sa cse form");
-      let formData = new FormData(document.getElementById("add_cse_form"));
-      //formData.append('file',  input.files[0])
+  // document.getElementById("add_cse_form").addEventListener("submit", (e)=>{
+  //   e.preventDefault();
+  //   alert("pumasok ba sa cse form");
+  //     let formData = new FormData(document.getElementById("add_cse_form"));
+  //     //formData.append('file',  input.files[0])
 
-      const data = {}
-      formData.forEach((value, key) => (data[key] = value))
+  //     const data = {}
+  //     formData.forEach((value, key) => (data[key] = value))
     
-      console.log(data)
-      fetch('/cse/add-eligibility/{{user_profile.id}}', {
-        method: 'POST',
-        body: formData
-      }).then((res)=>{
-        if (res.status == 200){
-          //document.getElementById("add_vocational_form").submit();
-        }
+  //     console.log(data)
+  //     fetch('/cse/add-eligibility/{{user_profile.id}}', {
+  //       method: 'POST',
+  //       body: formData
+  //     }).then((res)=>{
+  //       if (res.status == 200){
+  //         document.getElementById("add_vocational_form").submit();
+  //       }
         
-      })
-  })
+  //     })
+  // })
 
   document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -1086,7 +1119,7 @@
     var age = Math.abs(age_dt.getUTCFullYear() - 1970);
       document.getElementById("age").value = age;
 
-});
+  });
 
 
 

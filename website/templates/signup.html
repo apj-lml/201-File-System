@@ -224,11 +224,11 @@
         <div class="d-md-flex flex-row">
         
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="currency" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="" form="signUp" oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" >
+            <input type="currency" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="" form="signUp" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" >
             <label for="daily_rate">Daily Rate (Php)</label>
           </div>
           <div class="form-floating flex-fill mb-3 p-1">
-            <input type="currency" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="signUp" oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled>
+            <input type="currency" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="signUp" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled>
             <label for="monthly_rate">Monthly Rate (Php)</label>
           </div>
         </div>
@@ -764,6 +764,52 @@
   <div class="card mb-3">
     <div class="card-body">
       <h3 class="card-title">Learning & Development</h3>
+        <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
+          <div class="card shadow-sm mb-3">
+            <div class="card-body">
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" form="signUp">
+                <label for="ld_program[1]">Interventions / Training Program</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" form="signUp">
+                <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" form="signUp">
+                <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
+              </div>
+            </div>
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" form="signUp">
+                <label for="ld_no_hours[1]">Number of Hours</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="text" class="form-control" name ="ld_type[1]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="signUp">
+                <label for="ld_type[1]">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
+              </div>
+            </div>
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" form="signUp">
+                <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div id="ld_fields"></div>
+    </div>
+    <div class="d-md-flex flex-row">
+      <div class="flex-fill mb-3 mx-4 p-1">
+        <button class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title">COVID-19 Vaccine</h3>
         <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
           <div class="card shadow-sm mb-3">
             <div class="card-body">

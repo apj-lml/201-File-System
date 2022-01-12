@@ -21,3 +21,9 @@ def dashboard():
 @admin_permission.require(http_exception=403)
 def admin_dashboard():
 	return render_template('admin-dashboard.html')
+
+@views.route('/learning-development/<emp_id>', methods=['GET', 'POST'])
+@login_required
+@admin_permission.require(http_exception=403)
+def learning_development(emp_id):
+	return render_template('learning_development.html', emp_id = emp_id)

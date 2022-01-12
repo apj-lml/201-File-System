@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+
+{% block title %} Learning and Development {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container">
+	
+	<div class="row mb-3">
+		<!-- <div class="col-sm-12">
+			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
+		</div> -->
+		<div class="card mb-3">
+			<div class="card-body">
+				<!-- <h3 class="card-title">Learning & Development</h3> -->
+				<form id="add_ld_form" action="/employees/add-update-ld/{{emp_id}}" method="POST"></form>
+					<h3 class="card-title">Learning & Development</h3>
+					  <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_ld_form" value="1">
+						<div class="card shadow-sm mb-3">
+						  <div class="card-body">
+						  <div class="d-md-flex flex-row">
+							<div class="form-floating flex-fill mb-3 p-1">
+							  <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" form="add_ld_form">
+							  <label for="ld_program[1]">Interventions / Training Program</label>
+							</div>
+							<div class="form-floating flex-fill mb-3 p-1">
+							  <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" form="add_ld_form">
+							  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
+							</div>
+							<div class="form-floating flex-fill mb-3 p-1">
+							  <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" form="add_ld_form">
+							  <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
+							</div>
+						  </div>
+						  <div class="d-md-flex flex-row">
+							<div class="form-floating flex-fill mb-3 p-1">
+							  <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" form="add_ld_form">
+							  <label for="ld_no_hours[1]">Number of Hours</label>
+							</div>
+							<div class="form-floating flex-fill mb-3 p-1">
+							  <input type="text" class="form-control" name ="ld_type[1]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form">
+							  <label for="ld_type[1]">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
+							</div>
+						  </div>
+						  <div class="d-md-flex flex-row">
+							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+							  <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" form="add_ld_form">
+							  <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
+							</div>
+						  </div>
+						  <div class="col-sm-12 text-center">
+							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
+						</div>
+						</div>
+						
+					  </div>
+				
+				  <div class="card shadow-sm mb-3">
+					<div class="card-body">
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-striped" id="ld_table" width = "100%">
+									<thead class="">
+									<tr>
+										<th scope="col">Seminar</th>
+										<th scope="col">Inclusive Date (From)</th>
+										<th scope="col">Inclusive Date (To)</th>
+										<th scope="col">No. of Training Hours</th>
+										<th scope="col">Type</th>
+										<th scope="col">Sponsored By</th>
+										<th scope="col">Controls</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card shadow-sm mb-3">
+					<div class="card-body">
+					  <h3 class="card-title">Attachments</h3>
+						<div class="d-md-flex flex-row">
+						  <div class="form-floating flex-fill mb-3 p-1">
+							<input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School" form="signUp">
+							<label for="doc_school">School</label>
+						  </div>
+						  <div class="form-floating flex-fill mb-3 p-1">
+							<input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course" form="signUp">
+							<label for="doc_degree_course">Degree / Course</label>
+						  </div>
+						  <div class="form-floating flex-fill mb-3 p-1">
+							<input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)" form="signUp">
+							<label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+						  </div>
+						  <div class="form-floating flex-fill mb-3 p-1">
+							<input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
+							<label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+						  </div>
+					  </div>
+					</div>
+				  </div>
+
+			</div>
+		</div>
+	</div>
+
+</main>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+	<div class="modal-dialog modal-dialog-scrollable modal-lg">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Add Service Record</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form enctype="multipart/form-data" id="add_service_record" action="/ld/service-record/{{current_user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+				<div class="d-sm-flex flex-row"> 
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
+					  <label for="service_from">Service From</label>
+					  <div class="valid-feedback">
+						Looks good!
+					  </div>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="date" class="form-control" id="service_to" name ="service_to" placeholder="Service To" value="" required>
+					  <label for="first_name">Service To</label>
+					  <div class="valid-feedback">
+						Looks good!
+					  </div>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					  <div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="sf_present" name="sf_present" value = "Present">
+						<label class="form-check-label" for="sf_present">
+						  PRESENT
+						</label>
+					  </div>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row"> 
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="text" class="form-control" id="designation" name ="designation" placeholder="Designation" value="" required>
+					  <label for="designation">Designation</label>
+					  <div class="valid-feedback">
+						Looks good!
+					  </div>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<select class="form-select" id="status" name="status" aria-label="Floating label select example" value="">
+							<option value="Job Order">Job Order</option>
+							<option value="Permanent">Permanent</option>
+							<option value="Casual">Casual</option>
+							<option value="Coterminous">Coterminous</option>
+							<option value="Separated">Separated</option>
+						</select>
+						<label for="middle_name">Employment Status</label>
+
+						<div class="valid-feedback">
+							Looks good!
+						  </div>
+						  <div class="invalid-feedback">
+							This is required.
+						  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="number" class="form-control" id="salary" name ="salary" placeholder="Salary" value="" required>
+					  <label for="salary">Salary</label>
+					  <div class="valid-feedback">
+						Looks good!
+					  </div>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" id="station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
+						<label for="designation">Station/ Place of Assignment</label>
+						<div class="valid-feedback">
+							Looks good!
+						  </div>
+						  <div class="invalid-feedback">
+							This is required.
+						  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="text" class="form-control" id="leave_wo_pay" name ="leave_wo_pay" placeholder="Leave W/O Pay" value="None">
+					  <label for="salary">Leave W/O Pay</label>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="date" class="form-control" id="separation_date" name ="separation_date" placeholder="Separation Date" value="">
+						<label for="designation">Separation Date</label>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
+					  <label for="salary">Separation Cause</label>
+					</div>
+				</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary">Save Record</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+
+	var products_table = $('#ld_table').DataTable( {
+		language: {
+            searchBuilder: {
+				add: `Add Filter`
+            }
+        },
+		bSortCellsTop: true,
+		// bLengthChange: true,
+		scrollX: true,
+		// responsive: true,
+		// colReorder: true,
+        // dom: 'QBfrtip',
+		
+		dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'B><'col-sm-4 col-md-4'f>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		buttons: [
+			
+				{
+					extend: 'print',
+					customize: function ( win ) {
+						$(win.document.body)
+							.css( 'font-size', '10pt' )
+							.prepend(
+								'<img src="../static/img/nia-logo.png" style="position:absolute; top:0; left:0;" />'
+							);
+	
+						$(win.document.body).find( 'table' )
+							.addClass( 'compact text-center' )
+							.css( 'font-size', 'inherit' );
+					},
+					exportOptions: {
+						columns: [':visible']
+					}
+            	},
+					{
+					text: 'Copy',
+					extend: 'copyHtml5',
+					exportOptions: {
+						columns: [':visible']
+					}
+				},
+				{
+					text: 'Excel',
+					extend: 'excelHtml5',
+					exportOptions: {
+						columns: [':visible']
+					}
+				},
+				{
+					text: 'PDF',
+					extend: 'pdfHtml5',
+					exportOptions: {
+						columns: [':visible']
+					}
+				},
+        ],
+        "ajax": {
+            "method" : "GET",
+            "url": "/ld/get-learning-and-development/{{emp_id}}",
+            "dataSrc": ""
+        },
+
+        "columns": [
+			{ "data": "ld_program"},
+			{ "data": "ld_date_from"},
+			{ "data": "ld_date_to"},
+			{ "data": "ld_no_hours"},
+			{ "data": "ld_type"},
+			{ "data": "ld_sponsored_by"},
+            {
+              data: null,
+			  searchable: false,
+              render: function ( data, type, row ) {
+                return `
+				<div class="d-sm-flex flex-row">
+					<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_product(this)">
+						<i class="bi bi-trash"></i>
+					</a>
+				</div>`;
+              }
+            }
+        ]
+    } );
+
+})()
+
+
+	// fetch('/employees/service-record', {
+    //     method: 'POST',
+    //     body: formData
+    //   }).then((res)=>{
+    //     return res.json() 
+    //   }).then(data => {
+	// 	console.log(data)
+	//   })
+	//   .catch(console.error)
+
+
+</script>
+{%endblock%}

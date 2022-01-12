@@ -102,7 +102,7 @@
 /* -------------------------------------------------------------------------- */
 /*                            end of currency input                           */
 /* -------------------------------------------------------------------------- */
-      function myrate(){
+      function employment_status(){
         var emp_stauts = document.getElementById("employment_status").value;
 
         var d_rate = document.getElementById("daily_rate");
@@ -116,12 +116,16 @@
         step.disabled = false;
         item_no.disabled = false;
         date_of_last_step_increment.disabled = false;
-      
+
+        m_rate.value = "";
+        d_rate.value = "";
+        step.value = "";
+        item_no.value = "";
+        date_of_last_step_increment.value = "";
+
         if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
           m_rate.disabled = true;
           //parseFloat('100,000.00'.replace(/,/g, ''))
-          var temp_m_rate = parseFloat(d_rate.value.replace(/,/g, '')) * 22;
-          m_rate.value = temp_m_rate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
           step.disabled = true;
           item_no.disabled = true;
           date_of_last_step_increment.disabled = true;
@@ -130,9 +134,23 @@
           m_rate.value = ""
           d_rate.disabled = true;
         }
+
+        // myrate()
+      }
+      function myrate(){
+
+        var d_rate = document.getElementById("daily_rate");
+        var m_rate = document.getElementById("monthly_rate");
+        var emp_stauts = document.getElementById("employment_status").value;
+
+        if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
+          //parseFloat('100,000.00'.replace(/,/g, ''))
+          var temp_m_rate = parseFloat(d_rate.value.replace(/,/g, '')) * 22;
+          m_rate.value = temp_m_rate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        }
       }
 
-    document.getElementById("employment_status").addEventListener("change", myrate);
+    document.getElementById("employment_status").addEventListener("change", employment_status);
 
 
     document.getElementById("daily_rate").addEventListener("keyup", myrate);

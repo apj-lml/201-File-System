@@ -22,9 +22,10 @@ class User(db.Model, UserMixin):
 
 	item_no = db.Column(db.String(150))
 	date_of_assumption = db.Column(db.String(150))
+	original_station = db.Column(db.String(150))
+	date_hired_in_nia = db.Column(db.String(150), nullable=True)
 	date_of_last_step_increment = db.Column(db.String(150), nullable=True)
 	date_of_original_appointment = db.Column(db.String(150), nullable=True)
-	date_hired_in_nia = db.Column(db.String(150), nullable=True)
 	daily_rate = db.Column(db.String(150), nullable=True)
 	monthly_rate = db.Column(db.String(150), nullable=True)
 	# daily_rate = db.Column(db.Float(10, 2))
@@ -186,6 +187,15 @@ class Learning_Development(db.Model, SerializerMixin):
 	ld_sponsored_by = db.Column(db.String(50))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Vaccine(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	vac_id_no = db.Column(db.String(50))
+	vac_brand = db.Column(db.String(50))
+	vac_place = db.Column(db.String(50))
+	vac_first_dose = db.Column(db.String(50))
+	vac_second_dose = db.Column(db.String(50))
+	booster_brand = db.Column(db.String(50))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))
