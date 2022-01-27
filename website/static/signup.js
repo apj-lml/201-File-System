@@ -20,7 +20,9 @@ document.getElementById("signUp").addEventListener("submit", function(e){
   fetch('/signup', {
 		method: 'POST',
 		body: formData
-	}).then((res)=>{
+	}).then((res)=>res.json())
+	.then((data)=>{
+		console.log(data.value)
 		setTimeout(function() { 
 			triggerToast(); 
 			setTimeout(()=>{
@@ -28,7 +30,8 @@ document.getElementById("signUp").addEventListener("submit", function(e){
 			},6000)
 		}, 450);
 		
-	}).catch(console.error)
+		console.log(data)
+	})
 });
 
 /* -------------------------------------------------------------------------- */
@@ -124,7 +127,9 @@ document.getElementById('add_vocational_field').addEventListener('click',()=>{
 		`);
 	//  }
 });
-
+/* -------------------------------------------------------------------------- */
+/*                          Learning and development                          */
+/* -------------------------------------------------------------------------- */
 document.getElementById('add_ld_field').addEventListener('click',()=>{
 	var vocational_fields = document.getElementById('ld_fields');
 	var vocational_no_fields = document.getElementById('ld_no_fields');
@@ -154,7 +159,12 @@ document.getElementById('add_ld_field').addEventListener('click',()=>{
 						<label for="ld_no_hours">Number of Hours</label>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
-						<input type="text" class="form-control" name ="ld_type[${x}]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="signUp">
+					<select class="form-select" id="ld_type[1]" name="ld_type[${x}]" aria-label="Floating label select example" value="" form="signUp">
+					<option value="Managerial">Managerial</option>
+					<option value="Supervisory">Supervisory</option>
+					<option value="Technical">Technical</option>
+					<option value="N/A">N/A</option>
+				  </select>
 						<label for="ld_type">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
 					</div>
 					</div>
@@ -165,6 +175,57 @@ document.getElementById('add_ld_field').addEventListener('click',()=>{
 					</div>
 				</div>
 				<a href="#" onclick="document.getElementById('ld_no_fields').value--;document.getElementById('remove_ld${x}').remove(); return false">Remove field</a>
+			</div>
+		</div>
+
+		`);
+	//  }
+});
+
+/* -------------------------------------------------------------------------- */
+/*                                   Vaccine                                  */
+/* -------------------------------------------------------------------------- */
+
+document.getElementById('add_vac_field').addEventListener('click',()=>{
+	var vocational_fields = document.getElementById('vac_fields');
+	var vocational_no_fields = document.getElementById('vac_no_fields');
+	vocational_fields.innerHTML = ``;
+	//  for(var x = 1; x < vocational_no_fields.value; x++){
+		var x = vocational_no_fields.value;
+		vocational_fields.insertAdjacentHTML("beforebegin",`
+		<div class="card shadow-sm mb-3">
+			<div class="card-body">
+				<div class="d-md-flex flex-row">
+				<div class="form-floating flex-fill mb-3 p-1">
+					<select class="form-select" id="vac_type[${x}]" name="vac_type[${x}]" aria-label="Floating label select example" value="" form="signUp">
+					<option value="COVID-19 Vaccine">COVID-19 Vaccine</option>
+					<option value="COVID-19 Vaccine (Booster)">COVID-19 Vaccine (Booster)</option>
+					<option value="Flu Vaccine">Flu Vaccine</option>
+					<option value="N/A">N/A</option>
+					</select>
+					<label for="vac_type[1]">Vaccine Type</label>
+				</div>
+				<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" name ="vac_id_no[${x}]" placeholder="Vaccine ID no." form="signUp">
+					<label for="vac_id_no[1]">Vaccine ID no.</label>
+				</div>
+				<div class="form-floating flex-fill mb-3 p-1">
+					<input type="date" class="form-control" name ="vac_brand[${x}]" placeholder="Vaccine Brand" form="signUp">
+					<label for="vac_brand[1]">Vaccine Brand</label>
+				</div>
+				</div>
+				<div class="d-md-flex flex-row">
+				<div class="form-floating flex-fill mb-3 p-1">
+					<input type="text" class="form-control" name ="vac_place[${x}]" placeholder="Place of Vaccine" form="signUp">
+					<label for="vac_place[1]">Place of Vaccine</label>
+				</div>
+				</div>
+				<div class="d-md-flex flex-row">
+				<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+					<input type="date" class="form-control" name ="vac_date[${x}]" placeholder="Date of Vaccination" form="signUp">
+					<label for="vac_date[1]">Date of Vaccination</label>
+				</div>
+				</div>
 			</div>
 		</div>
 
