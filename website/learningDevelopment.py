@@ -19,12 +19,12 @@ def page_not_found(e):
 	return redirect(url_for('auth.login'))
 
 # ---------------------------------------------------------------------------- #
-#                   ADD VOCATIONAL COURSE IN EMPLOYEE PROFILE                  #
+#                                    GET L&D                                   #
 # ---------------------------------------------------------------------------- #
 @ld.route('get-learning-and-development/<emp_id>', methods=['POST', 'GET'])
 @login_required
 @admin_permission.require(http_exception=403)
-def add_eligibility(emp_id):
+def get_learning_and_development(emp_id):
     if request.method == "GET":
         get_ld = Learning_Development.query.filter_by(user_id = emp_id).all()
         column_keys = Learning_Development.__table__.columns.keys()
@@ -41,8 +41,25 @@ def add_eligibility(emp_id):
 
         return jsonify(rows_dic)
 
+    # if request.method == "POST":
+        
+    #     return "ok", 200
+ # ---------------------------------------------------------------------------- #
+
+
+
+ # ---------------------------------------------------------------------------- #
+ #                                    ADD L&D                                   #
+ # ---------------------------------------------------------------------------- #
+@ld.route('add-learning-and-development/<emp_id>', methods=['POST', 'GET'])
+@login_required
+def add_learning_and_development(emp_id):
+    formdata = request.form.to_dict()
+    print('DATA', formdata)
     if request.method == "POST":
+        formdata['user_id'] = emp_id
+        new_ld = Learning_Development(**formdata)
+        db.session.add(new_ld)
+        db.session.commit()
         
-        return "ok", 200
-            
-        
+        return jsonify()

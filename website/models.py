@@ -1,3 +1,7 @@
+# from email.policy import default
+from email.policy import default
+from time import timezone
+from tkinter.tix import Tree
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -70,7 +74,7 @@ class User(db.Model, UserMixin):
 	pres_city_municipality = db.Column(db.String(150))
 	pres_province = db.Column(db.String(150))
 	pres_zip_code = db.Column(db.String(150))
-	highest_educational_attainment = db.Column(db.String(150))
+	# highest_educational_attainment = db.Column(db.String(150))
 
 	elementary_school = db.Column(db.String(150))
 	e_period_of_attendance_from = db.Column(db.String(150))
@@ -185,19 +189,38 @@ class Learning_Development(db.Model, SerializerMixin):
 	ld_no_hours = db.Column(db.String(50))
 	ld_type = db.Column(db.String(50))
 	ld_sponsored_by = db.Column(db.String(50))
+	ld_attachment = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Vaccine(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
-	vac_type = db.Column(db.String(50))
+
 	vac_id_no = db.Column(db.String(50))
 	vac_brand = db.Column(db.String(50))
 	vac_place = db.Column(db.String(50))
-	# vac_num_of_dose = db.Column(db.String(50))
-	vac_date = db.Column(db.String(50))
-	# vac_first_dose = db.Column(db.String(50))
-	# vac_second_dose = db.Column(db.String(50))
+	vac_first_dose = db.Column(db.String(50))
+	vac_second_dose = db.Column(db.String(50))
+
+	booster_id_no = db.Column(db.String(50))
+	booster_brand = db.Column(db.String(50))
+	booster_place = db.Column(db.String(50))
+	booster_date = db.Column(db.Date())
+
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Family_Background(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	fb_last_name = db.Column(db.String(50))
+	fb_first_name = db.Column(db.String(50))
+	fb_middle_name = db.Column(db.String(50))
+	fb_name_ext = db.Column(db.String(50))
+	fb_occupation = db.Column(db.String(50))
+	fb_employer_business_name = db.Column(db.String(50))
+	fb_business_address = db.Column(db.String(50))
+	fb_employer_business_name = db.Column(db.String(50))
+	fb_date_of_birth = db.Column(db.String(50))
+	fb_relationship = db.Column(db.String(50))
+
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))

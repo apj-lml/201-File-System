@@ -64,44 +64,33 @@
               document.getElementById('indicate_country').removeAttribute('disabled');	
           }
       });
-/* -------------------------------------------------------------------------- */
-/*                               currency input                               */
-/* -------------------------------------------------------------------------- */
-      // var currencyInput = document.querySelector('input[type="currency"]')
-      // var currency = 'PHP' 
+      function activate_booster_shot(){
+        var booster_id_no = document.getElementById('booster_id_no');
+        var booster_brand = document.getElementById('booster_brand');
+        var booster_place = document.getElementById('booster_place');
+        var booster_date = document.getElementById('booster_date');
+        var booster_shot = document.getElementById('do_you_have_booster');
 
-      // onBlur({target:currencyInput})
+        if (booster_shot.value == "YES"){
+          booster_id_no.disabled = false;
+          booster_brand.disabled = false;
+          booster_place.disabled = false;
+          booster_date.disabled = false;
+        }else{
+          booster_id_no.disabled = true;
+          booster_brand.disabled = true;
+          booster_place.disabled = true;
+          booster_date.disabled = true;
 
-      // currencyInput.addEventListener('focus', onFocus)
-      // currencyInput.addEventListener('blur', onBlur)
-
-      // function localStringToNumber( s ){
-      //   return Number(String(s).replace(/[^0-9.-]+/g,""))
-      // }
-
-      // function onFocus(e){
-      //   console.log(currencyInput);
-      //   var value = e.target.value;
-      //   e.target.value = value ? localStringToNumber(value) : ''
-      // }
-
-      // function onBlur(e){
-      //   var value = e.target.value
-
-      //   var options = {
-      //       maximumFractionDigits : 2,
-      //       currency              : currency,
-      //       style                 : "currency",
-      //       currencyDisplay       : "symbol"
-      //   }
+          booster_id_no.value = "N/A";
+          booster_brand.value = "N/A";
+          booster_place.value = "N/A";
+          booster_date.value = "N/A";
         
-      //   e.target.value = (value || value === 0) 
-      //     ? localStringToNumber(value).toLocaleString(undefined, options)
-      //     : ''
-      // }
-/* -------------------------------------------------------------------------- */
-/*                            end of currency input                           */
-/* -------------------------------------------------------------------------- */
+          }
+        }
+      document.getElementById('do_you_have_booster').addEventListener('change', activate_booster_shot);
+
       function employment_status(){
         var emp_stauts = document.getElementById("employment_status").value;
 
@@ -109,26 +98,26 @@
         var m_rate = document.getElementById("monthly_rate");
         var step = document.getElementById("step");
         var item_no = document.getElementById("item_no");
-        var date_of_last_step_increment = document.getElementById("date_of_last_step_increment");
+        //var date_of_last_step_increment = document.getElementById("date_of_last_step_increment");
       
         m_rate.disabled = false;
         d_rate.disabled = false;
         step.disabled = false;
         item_no.disabled = false;
-        date_of_last_step_increment.disabled = false;
+        //date_of_last_step_increment.disabled = false;
 
         m_rate.value = "";
         d_rate.value = "";
         step.value = "";
         item_no.value = "";
-        date_of_last_step_increment.value = "";
+        //date_of_last_step_increment.value = "";
 
         if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
           m_rate.disabled = true;
           //parseFloat('100,000.00'.replace(/,/g, ''))
           step.disabled = true;
           item_no.disabled = true;
-          date_of_last_step_increment.disabled = true;
+          //date_of_last_step_increment.disabled = true;
         }
         else{
           m_rate.value = ""

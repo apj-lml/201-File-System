@@ -24,43 +24,50 @@
 		<div class="card mb-3">
 			<div class="card-body">
 				<!-- <h3 class="card-title">Learning & Development</h3> -->
-				<form id="add_ld_form" action="/employees/add-update-ld/{{emp_id}}" method="POST"></form>
+				<form id="add_ld_form" action="#" method="POST"></form>
 					<h3 class="card-title">Learning & Development</h3>
-					  <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_ld_form" value="1">
+					  <!-- <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_ld_form" value="1"> -->
 						<div class="card shadow-sm mb-3">
 						  <div class="card-body">
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" form="add_ld_form">
+							  <input type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form">
 							  <label for="ld_program[1]">Interventions / Training Program</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" form="add_ld_form">
+							  <input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form">
 							  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" form="add_ld_form">
+							  <input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form">
 							  <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
 							</div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" form="add_ld_form">
+							  <input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form">
 							  <label for="ld_no_hours[1]">Number of Hours</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="ld_type[1]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form">
+							  <input type="text" class="form-control" name ="ld_type" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form">
 							  <label for="ld_type[1]">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
 							</div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" form="add_ld_form">
+							  <input type="text" class="form-control" name ="ld_sponsored_by" placeholder="Conducted / Sponsored By" form="add_ld_form">
 							  <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
 							</div>
 						  </div>
+						  <div class="d-md-flex flex-row">
+							<div class="flex-fill mb-3">
+								<label for="ld_attachment">Attachment</label>
+								<input type="file" class="form-control" id="ld_attachment" name ="ld_attachment" form="add_ld_form" required>
+							  </div>
+						  </div>
+
 						  <div class="col-sm-12 text-center">
-							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
+							<button type="submit" class="btn btn-primary" form="add_ld_form">Submit</button>
 						</div>
 						</div>
 						
@@ -96,22 +103,8 @@
 					<div class="card-body">
 					  <h3 class="card-title">Attachments</h3>
 						<div class="d-md-flex flex-row">
-						  <div class="form-floating flex-fill mb-3 p-1">
-							<input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School" form="signUp">
-							<label for="doc_school">School</label>
-						  </div>
-						  <div class="form-floating flex-fill mb-3 p-1">
-							<input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course" form="signUp">
-							<label for="doc_degree_course">Degree / Course</label>
-						  </div>
-						  <div class="form-floating flex-fill mb-3 p-1">
-							<input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)" form="signUp">
-							<label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
-						  </div>
-						  <div class="form-floating flex-fill mb-3 p-1">
-							<input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
-							<label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
-						  </div>
+
+
 					  </div>
 					</div>
 				  </div>
@@ -122,7 +115,7 @@
 
 </main>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
 	<div class="modal-dialog modal-dialog-scrollable modal-lg">
 	  <div class="modal-content">
 		<div class="modal-header">
@@ -236,12 +229,33 @@
 		</div>
 	  </div>
 	</div>
-  </div>
+  </div> -->
 
 {% endblock %}
 
 {%block scripts%}
 <script type="text/javascript">
+	///ld/add-learning-and-development/{{emp_id}}
+	document.getElementById('add_ld_form').addEventListener('submit', (e)=>{
+		e.preventDefault();
+		var formElem = document.getElementById("add_ld_form");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+		console.log(data)
+		fetch('/ld/add-learning-and-development/{{emp_id}}', {
+				method: 'POST',
+				body: formData
+			}).then((res)=>{
+				return res.json();
+			}).then((data)=>{
+					triggerToast(data); //this is the returned error message
+					document.getElementById('add_ld_form').reset();
+			})
+
+	});
 (function () {
   'use strict'
 

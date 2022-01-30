@@ -235,7 +235,8 @@
 
 
       </div>
-      <div class="d-md-flex flex-row"> 
+
+      <!-- <div class="d-md-flex flex-row"> 
 
         <div class="form-floating flex-fill mb-3 p-1">
           <input type="text" class="form-control" id="original_station" name ="original_station" placeholder="Item No." value="" form="signUp">
@@ -258,7 +259,7 @@
           <label for="date_of_assumption">Date of Last Step Increment</label>
         </div>
 
-      </div>
+      </div> -->
 
 
         <div class="d-md-flex flex-row">
@@ -490,7 +491,7 @@
       </div>
     </div>
 
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
       <div class="card-body">
       <h3 class="card-title">Educational Attainment</h3>
         <div class="d-md-flex flex-row">
@@ -502,11 +503,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="card mb-3">
       <div class="card-body">
-      <h3 class="card-title">Elementary Education</h3>
+      <h3 class="card-title">Elementary</h3>
         <div class="d-md-flex flex-row">
           <div class="form-floating flex-fill mb-3 p-1">
             <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" form="signUp">
@@ -761,6 +762,7 @@
       </div>
     </div>
   </div>
+<!-- 
   <div class="card mb-3">
     <div class="card-body">
       <h3 class="card-title">Learning & Development</h3>
@@ -811,55 +813,117 @@
         <button class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
       </div>
     </div>
-  </div>
+  </div> -->
+
   <div class="card mb-3">
     <div class="card-body">
-      <h3 class="card-title">Vaccine</h3>
-        <input type="hidden" class="form-control" id="vac_no_fields" name ="vac_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
+      <h3 class="card-title">COVID-19 Vaccine</h3>
+        <!-- <input type="hidden" class="form-control" id="vac_no_fields" name ="vac_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1"> -->
           <div class="card shadow-sm mb-3">
             <div class="card-body">
-            <div class="d-md-flex flex-row">
+              <div class="d-md-flex flex-row">
+                <div class="form-floating flex-fill mb-3 p-1">
+                  <input type="text" class="form-control" name ="vac_id_no" placeholder="Vaccine ID no." form="signUp">
+                  <label for="vac_id_no">Vaccine ID no.</label>
+                </div>
+                <div class="form-floating flex-fill mb-3 p-1">
+                  <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="" form="signUp">
+                    <option class="" value="" selected disabled hidden>-</option>
+                    <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                    <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                    <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                    <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                    <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                    <option value="SINOPHARM">SINOPHARM</option>
+                    <option value="COVILO">COVILO</option>
+                    <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                    <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                    <option value="COVOVAX">COVOVAX</option>
+                  </select>
+                  <label for="vac_brand">Vaccine Brand</label>
+                </div>
+              </div>
+              <div class="d-md-flex flex-row">
+                <div class="form-floating flex-fill mb-3 p-1">
+                  <input type="text" class="form-control" name ="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="signUp">
+                  <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
+                </div>
+              </div>
+              <div class="d-md-flex flex-row">
+                <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                  <input type="date" class="form-control" name ="vac_first_dose" placeholder="Date of First Dose" form="signUp">
+                  <label for="vac_date">Date of First Dose</label>
+                </div>
+                <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                  <input type="date" class="form-control" name ="vac_second_dose" placeholder="Date of Second Dose" form="signUp">
+                  <label for="vac_date">Date of Second Dose</label>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <div class="d-md-flex flex-row col-sm-4">
               <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="vac_type[1]" name="vac_type[1]" aria-label="Floating label select example" value="" form="signUp">
-                  <option value="COVID-19 Vaccine">COVID-19 Vaccine</option>
-                  <option value="COVID-19 Vaccine (Booster)">COVID-19 Vaccine (Booster)</option>
-                  <option value="Flu Vaccine">Flu Vaccine</option>
-                  <option value="N/A">N/A</option>
+                <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="" form="signUp">
+                  <option value="NO" selected>NO</option>
+                  <option value="YES">YES</option>
                 </select>
-                <label for="vac_type[1]">Vaccine Type</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="vac_id_no[1]" placeholder="Vaccine ID no." form="signUp">
-                <label for="vac_id_no[1]">Vaccine ID no.</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="date" class="form-control" name ="vac_brand[1]" placeholder="Vaccine Brand" form="signUp">
-                <label for="vac_brand[1]">Vaccine Brand</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="vac_place[1]" placeholder="Place of Vaccine" form="signUp">
-                <label for="vac_place[1]">Place of Vaccine</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                <input type="date" class="form-control" name ="vac_date[1]" placeholder="Date of Vaccination" form="signUp">
-                <label for="vac_date[1]">Date of Vaccination</label>
+                <label for="do_you_have_booster">Do You have Booster Shot?</label>
               </div>
             </div>
           </div>
         </div>
-      <div id="vac_fields"></div>
+
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="signUp" value="N/A" disabled>
+                <label for="booster_id_no">Booster Shot ID no.</label>
+              </div>
+              <div class="form-floating flex-fill mb-3 p-1">
+                <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" value="" form="signUp" value="N/A" disabled>
+                    <option class="" value="" selected disabled hidden>-</option>
+                    <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                    <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                    <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                    <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                    <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                    <option value="SINOPHARM">SINOPHARM</option>
+                    <option value="COVILO">COVILO</option>
+                    <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                    <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                    <option value="COVOVAX">COVOVAX</option>
+                </select>
+                <label for="booster_brand">Vaccine Brand</label>
+              </div>
+            </div>
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="signUp" value="N/A" disabled>
+                <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
+              </div>
+            </div>
+            <div class="d-md-flex flex-row">
+              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="signUp" value="N/A" disabled>
+                <label for="booster_date">Date of Booster Shot</label>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- <div id="vac_fields"></div> -->
     </div>
-    <div class="d-md-flex flex-row">
+    <!-- <div class="d-md-flex flex-row">
       <div class="flex-fill mb-3 mx-4 p-1">
         <button class="btn btn-success btn-sm" id="add_vac_field" onclick="document.getElementById('vac_no_fields').value++">Add</button>
       </div>
-    </div>
+    </div> -->
   </div>
-  <div class="card mb-3">
+
+  <!-- <div class="card mb-3">
     <div class="card-body">
     <h3 class="card-title">Upload Supporting Documents</h3>
       <div class="d-md-flex flex-row">
@@ -905,7 +969,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 <!-- </form> -->
 </div> <!--col-->
 </div> <!--row-->

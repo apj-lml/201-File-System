@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app, session
+from sqlalchemy import null
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import current_user, login_user, logout_user, login_required
@@ -45,10 +46,10 @@ def login():
 			else:
 				#flash('Incorrect password, try again', category='error')
 				#session['error_msg'] = 'Incorrect username or password!'
-				return "Incorrect password, try again"
+				return jsonify("Incorrect password, try again")
 		else:
 			#session['error_msg'] = 'Employee ID number does not exist!'
-			return "Employee ID number does not exist!"
+			return jsonify("Employee ID number does not exist!")
 	return render_template('login.html', user=current_user)
 
 
@@ -83,39 +84,68 @@ def signup():
 			employee_id = formdata['employee_id']
 			password1 = formdata['password']
 			password2 = formdata['floatingPassword2']
-
 			user = User.query.filter_by(employee_id=employee_id).first()
 			if user:
-				#flash('User already exists', category = 'error')
-				return jsonify('User already exists'), 200
+				return jsonify('User already exists')
 			elif password1 != password2:
-				flash('Password does not match', category = 'error')
-				return 'Password Error', 200
+				return jsonify('Password does not match')
 
 			else:
 				formdata['password'] = generate_password_hash(password1)
-				# if formdata['date_of_validity'] != '':
-				# 	formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
-				# else:
-				# 	formdata['date_of_validity'] = None
 				formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
 				new_formdata = formdata.copy()
 				cs_no_fields = new_formdata['cs_no_fields']
 				vocational_no_fields = new_formdata['vocational_no_fields']
-				ld_no_fields = new_formdata['ld_no_fields']
-				vac_no_fields = new_formdata['vac_no_fields']
+				# ld_no_fields = new_formdata['ld_no_fields']
+				# vac_no_fields = new_formdata['vac_no_fields']
+
+	# ---------------------------------------------------------------------------- #
+	#                               COVID-19 VACCINE                               #
+	# ---------------------------------------------------------------------------- #
+				if 'booster_id_no' in formdata and formdata['booster_id_no'] != "" and 'booster_brand' in formdata and formdata['booster_brand'] != "" and 'booster_date' in formdata and formdata['booster_date'] != "":
+					new_vaccine = Vaccine(vac_id_no = formdata['vac_id_no'], vac_brand = formdata['vac_brand'], vac_place = formdata['vac_place'],
+									vac_first_dose = formdata['vac_first_dose'], vac_second_dose = formdata['vac_second_dose'], booster_id_no = formdata['booster_id_no'],
+									booster_brand = formdata['booster_brand'], booster_place = formdata['booster_place'],
+									booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
+									)
+					# print('if pumasok')
+				else:
+					new_vaccine = Vaccine(vac_id_no = formdata['vac_id_no'], vac_brand = formdata['vac_brand'], vac_place = formdata['vac_place'],
+									vac_first_dose = formdata['vac_first_dose'], vac_second_dose = formdata['vac_second_dose'], booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date()
+									)
+					# print('else pumasok')
+				db.session.add(new_vaccine)
+				db.session.commit()
+	# ---------------------------------------------------------------------------- #
+
+
 	# ---------------------------------------------------------------------------- #
 	#              popping unnecessary data before saving to database              #
 	# ---------------------------------------------------------------------------- #
-				for z in range(1, int(ld_no_fields)+1):
-					# print('HERE HEREEEEE!!!!!', x)
-					formdata.pop('ld_program['+str(z)+']')
-					formdata.pop('ld_date_from['+str(z)+']')
-					formdata.pop('ld_date_to['+str(z)+']')
-					formdata.pop('ld_no_hours['+str(z)+']')
-					formdata.pop('ld_type['+str(z)+']')
-					formdata.pop('ld_sponsored_by['+str(z)+']')
+
+				formdata.pop('vac_id_no')
+				formdata.pop('vac_brand')
+				formdata.pop('vac_place')
+				formdata.pop('vac_first_dose')
+				formdata.pop('vac_second_dose')
+				# formdata.pop('booster_date')
+				
+				if 'booster_id_no' in formdata and formdata['booster_id_no'] is not None and 'booster_brand' in formdata and formdata['booster_brand'] is not None and 'booster_date' in formdata and formdata['booster_date'] is not None:
+					formdata.pop('booster_id_no')
+					formdata.pop('booster_brand')
+					formdata.pop('booster_place')
+					formdata.pop('booster_date')
+
+
+				# for z in range(1, int(ld_no_fields)+1):
+				# 	# print('HERE HEREEEEE!!!!!', x)
+				# 	formdata.pop('ld_program['+str(z)+']')
+				# 	formdata.pop('ld_date_from['+str(z)+']')
+				# 	formdata.pop('ld_date_to['+str(z)+']')
+				# 	formdata.pop('ld_no_hours['+str(z)+']')
+				# 	formdata.pop('ld_type['+str(z)+']')
+				# 	formdata.pop('ld_sponsored_by['+str(z)+']')
 
 				for y in range(1, int(vocational_no_fields)+1):
 					# print('HERE HEREEEEE!!!!!', x)
@@ -135,20 +165,20 @@ def signup():
 					formdata.pop('license_no['+str(x)+']')
 					formdata.pop('date_of_validity['+str(x)+']')
 
-				for x in range(1, int(vac_no_fields)+1):
-					# print('HERE HEREEEEE!!!!!', x)
-					formdata.pop('vac_type['+str(x)+']')
-					formdata.pop('vac_id_no['+str(x)+']')
-					formdata.pop('vac_brand['+str(x)+']')
-					formdata.pop('vac_place['+str(x)+']')
-					formdata.pop('vac_date['+str(x)+']')
+				# for x in range(1, int(vac_no_fields)+1):
+				# 	# print('HERE HEREEEEE!!!!!', x)
+				# 	formdata.pop('vac_type['+str(x)+']')
+				# 	formdata.pop('vac_id_no['+str(x)+']')
+				# 	formdata.pop('vac_brand['+str(x)+']')
+				# 	formdata.pop('vac_place['+str(x)+']')
+				# 	formdata.pop('vac_date['+str(x)+']')
 
-				formdata.pop('ld_no_fields')
+				# formdata.pop('ld_no_fields')
 				formdata.pop('cs_no_fields')
 				formdata.pop('vocational_no_fields')
 				formdata.pop('floatingPassword2')
 				formdata.pop('same_as_permanent')
-				formdata.pop('vac_no_fields')
+				# formdata.pop('vac_no_fields')
 	# ---------------------------------------------------------------------------- #
 	#                    saving employee info to the databse                       #
 	# ---------------------------------------------------------------------------- #
@@ -201,67 +231,60 @@ def signup():
 	# ---------------------------------------------------------------------------- #
 	#                         for Learning and Development                         #
 	# ---------------------------------------------------------------------------- #
-				for z in range(1, int(ld_no_fields)+1):
-					# new_formdata['ld_program['+str(z)+']']
-					# new_formdata['ld_date_from['+str(z)+']']
-					# new_formdata['ld_date_to['+str(z)+']']
-					# new_formdata['ld_no_hours['+str(z)+']']
-					# new_formdata['ld_type['+str(z)+']']
-					# new_formdata['ld_sponsored_by['+str(z)+']']
-
-					new_ld = Learning_Development(ld_program = new_formdata['ld_program['+str(z)+']'], ld_date_from = new_formdata['ld_date_from['+str(z)+']'],
-						ld_date_to = new_formdata['ld_date_to['+str(z)+']'], ld_no_hours = new_formdata['ld_no_hours['+str(z)+']'],
-						ld_type = new_formdata['ld_type['+str(z)+']'], ld_sponsored_by = new_formdata['ld_sponsored_by['+str(z)+']'], user_id = finaldata.id)
-					db.session.add(new_ld)
-					db.session.flush()
-					db.session.commit()
+				# for z in range(1, int(ld_no_fields)+1):
+				# 	new_ld = Learning_Development(ld_program = new_formdata['ld_program['+str(z)+']'], ld_date_from = new_formdata['ld_date_from['+str(z)+']'],
+				# 		ld_date_to = new_formdata['ld_date_to['+str(z)+']'], ld_no_hours = new_formdata['ld_no_hours['+str(z)+']'],
+				# 		ld_type = new_formdata['ld_type['+str(z)+']'], ld_sponsored_by = new_formdata['ld_sponsored_by['+str(z)+']'], user_id = finaldata.id)
+				# 	db.session.add(new_ld)
+				# 	db.session.flush()
+				# 	db.session.commit()
 
 # ---------------------------------------------------------------------------- #
 #                                  Vaccination                                 #
 # ---------------------------------------------------------------------------- #
-				for zx in range(1, int(vac_no_fields)+1):
-					new_vac = Vaccine(vac_type = new_formdata['vac_type['+str(zx)+']'], vac_id_no = new_formdata['vac_id_no['+str(zx)+']'],
-						vac_brand = new_formdata['vac_brand['+str(zx)+']'], vac_place = new_formdata['vac_place['+str(zx)+']'],
-						vac_date = new_formdata['vac_date['+str(zx)+']'], user_id = finaldata.id)
-					db.session.add(new_vac)
-					db.session.flush()
-					db.session.commit()
+				# for zx in range(1, int(vac_no_fields)+1):
+				# 	new_vac = Vaccine(vac_type = new_formdata['vac_type['+str(zx)+']'], vac_id_no = new_formdata['vac_id_no['+str(zx)+']'],
+				# 		vac_brand = new_formdata['vac_brand['+str(zx)+']'], vac_place = new_formdata['vac_place['+str(zx)+']'],
+				# 		vac_date = new_formdata['vac_date['+str(zx)+']'], user_id = finaldata.id)
+				# 	db.session.add(new_vac)
+				# 	db.session.flush()
+				# 	db.session.commit()
 
 # ---------------------------------------------------------------------------- #
 #                            this is for file upload                           #
 # ---------------------------------------------------------------------------- #
-				final_name = ''
-				for afile in request.files:
-					file = request.files[afile]
+				# final_name = ''
+				# for afile in request.files:
+				# 	file = request.files[afile]
 
-					print(f'print file: {afile}')
-					if afile not in request.files:
-						print('No file selected')
-						#return redirect(request.url)
+				# 	print(f'print file: {afile}')
+				# 	if afile not in request.files:
+				# 		print('No file selected')
+				# 		#return redirect(request.url)
 
-					if not file and allowed_file(file.filename):
-						print('Invalid file submitted')
-						#return redirect(request.url)
-					else:
-						file_extension = file.filename.rsplit('.', 1)[1].lower()
-						file_name = file.filename.rsplit('.', 1)[0]
-						final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
-						if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
-							print('path does not exist... creating path')
-							os.mkdir(current_app.config['UPLOAD_FOLDER'])
-						else:
-							print('path exist!')
-							file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+				# 	if not file and allowed_file(file.filename):
+				# 		print('Invalid file submitted')
+				# 		#return redirect(request.url)
+				# 	else:
+				# 		file_extension = file.filename.rsplit('.', 1)[1].lower()
+				# 		file_name = file.filename.rsplit('.', 1)[0]
+				# 		final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
+				# 		if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+				# 			print('path does not exist... creating path')
+				# 			os.mkdir(current_app.config['UPLOAD_FOLDER'])
+				# 		else:
+				# 			print('path exist!')
+				# 			file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
 
-							#saving upload info to database
-							files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
-							db.session.add(files_to_upload)
-							db.session.commit()
+				# 			#saving upload info to database
+				# 			files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
+				# 			db.session.add(files_to_upload)
+				# 			db.session.commit()
 	# ---------------------------------------------------------------------------- #	
 	#                              end of file upload                              #
 	# ---------------------------------------------------------------------------- #
 		else:
-			return render_template('signup.html', user=current_user)
+			return render_template('signup.html')
 		
 	return redirect(url_for('auth.login'))
 	
