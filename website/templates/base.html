@@ -90,9 +90,12 @@
           <li class="nav-item">
             <a class="nav-link disabled" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
           </li>
+          {% if current_user.type_of_user == 'admin' %}
           <li class="nav-item">
             <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
           </li>
+          {% endif %}
+
           <li class="nav-item">
             <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
           </li>

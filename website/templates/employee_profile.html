@@ -115,27 +115,31 @@
               <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
                                                           <!-- /employees/update-employee/{{current_user.id}}  -->
               <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
-              <div class="card mb-3 align-self-center">
-                <div class="card-body">
-                <h3 class="card-title">Account Setup</h3>
-                <div class="d-flex flex-row">
-                  <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form">
-                      <label for="employee_id">Employee ID Number</label>
-                    </div>
-                </div>
-                  <div class="d-flex flex-row"> 
+
+              {% if current_user.type_of_user %}
+                <div class="card mb-3 align-self-center">
+                  <div class="card-body">
+                  <h3 class="card-title">Account Setup</h3>
+                  <div class="d-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="password" class="form-control" id="password" name ="password" placeholder="Password" value="">
-                      <label for="password">Password</label>
-                    </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="password" class="form-control" id="floatingPassword2" name ="floatingPassword2" placeholder="Password" value="">
-                      <label for="floatingPassword2">Confirm Password</label>
+                        <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form">
+                        <label for="employee_id">Employee ID Number</label>
+                      </div>
+                  </div>
+                    <div class="d-flex flex-row"> 
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="password" class="form-control" id="password" name ="password" placeholder="Password" value="">
+                        <label for="password">Password</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="password" class="form-control" id="floatingPassword2" name ="floatingPassword2" placeholder="Password" value="">
+                        <label for="floatingPassword2">Confirm Password</label>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              {% endif %}
+
               <div class="card mb-3">
                 <div class="card-body">
                 <h3 class="card-title">Personal Information</h3>
@@ -270,11 +274,11 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="currency" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate}}"  oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form">
+                      <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate}}"  oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form">
                       <label for="daily_rate">Daily Rate (Php)</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="currency" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate}}"  oninput="this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled form="update_form">
+                      <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate}}"  oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled form="update_form">
                       <label for="monthly_rate">Monthly Rate (Php)</label>
                     </div>
                   </div>
@@ -498,7 +502,7 @@
                   </div>
                 </div>
               </div>
-          
+<!--           
               <div class="card mb-3">
                 <div class="card-body">
                 <h3 class="card-title">Educational Attainment</h3>
@@ -511,11 +515,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
           
               <div class="card mb-3">
                 <div class="card-body">
-                <h3 class="card-title">Elementary Education</h3>
+                <h3 class="card-title">Elementary</h3>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" value="{{user_profile.elementary_school}}" form="update_form">
@@ -785,7 +789,123 @@
                 </div>
               </div>
             </div>
+
+
             <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title">COVID-19 Vaccine</h3>
+                  <!-- <input type="hidden" class="form-control" id="vac_no_fields" name ="vac_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1"> -->
+                  {% for vax in user_profile.vaccine %}
+                  <div class="card shadow-sm mb-3">
+                      <div class="card-body">
+                        <input type="text" class="form-control" name ="vac_id" placeholder="ID" form="update_form" value="{{vax.id}}">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="vac_id_no" placeholder="Vaccine ID no." value="{{vax.vac_id_no}}" form="update_form">
+                            <label for="vac_id_no">Vaccine ID no.</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="{{vax.vac_brand}}" form="update_form">
+                              <option value="{{vax.vac_brand}}" selected hidden>{{vax.vac_brand}}</option>
+                              <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                              <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                              <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                              <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                              <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                              <option value="SINOPHARM">SINOPHARM</option>
+                              <option value="COVILO">COVILO</option>
+                              <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                              <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                              <option value="COVOVAX">COVOVAX</option>
+                            </select>
+                            <label for="vac_brand">Vaccine Brand</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="update_form" value="{{vax.vac_place}}">
+                            <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                            <input type="date" class="form-control" name ="vac_first_dose" placeholder="Date of First Dose" form="update_form" value="{{vax.vac_first_dose}}">
+                            <label for="vac_date">Date of First Dose</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                            <input type="date" class="form-control" name ="vac_second_dose" placeholder="Date of Second Dose" form="update_form" value="{{vax.vac_second_dose}}">
+                            <label for="vac_date">Date of Second Dose</label>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+          
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <div class="d-md-flex flex-row col-sm-4">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="">
+                            {% if vax.booster_id_no and vax.booster_brand %}
+                            <option value="YES" selected disabled hidden>YES</option>
+                            {% else %}
+                            <option value="NO" selected disabled hidden>NO</option>
+                            {% endif %}
+                            <option value="NO">NO</option>
+                            <option value="YES">YES</option>
+                          </select>
+                          <label for="do_you_have_booster">Do You have Booster Shot?</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="update_form" value="{{vax.booster_id_no}}" disabled>
+                          <label for="booster_id_no">Booster Shot ID no.</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" form="update_form" value="{{vax.booster_brand}}" disabled>
+                              <option value="{{vax.booster_brand}}" selected hidden>{{vax.booster_brand}}</option>
+                              <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                              <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                              <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                              <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                              <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                              <option value="SINOPHARM">SINOPHARM</option>
+                              <option value="COVILO">COVILO</option>
+                              <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                              <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                              <option value="COVOVAX">COVOVAX</option>
+                          </select>
+                          <label for="booster_brand">Vaccine Brand</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="update_form" value="{{vax.booster_place}}" disabled>
+                          <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                          <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="update_form" value="{{vax.booster_date}}" disabled>
+                          <label for="booster_date">Date of Booster Shot</label>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                {% endfor %}
+              </div>
+              <!-- <div class="d-md-flex flex-row">
+                <div class="flex-fill mb-3 mx-4 p-1">
+                  <button class="btn btn-success btn-sm" id="add_vac_field" onclick="document.getElementById('vac_no_fields').value++">Add</button>
+                </div>
+              </div> -->
+            </div>
+            <!-- <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Learning & Development</h3>
                   <input type="text" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="update_form">
@@ -836,73 +956,80 @@
                   <button type="button" class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
                 </div>
               </div>
-            </div>
+            </div> -->
+
             <div class="card mb-3">
               <div class="card-body">
               <h3 class="card-title">Upload Supporting Documents</h3>
-                <div class="d-md-flex flex-row">
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
-                    <input class="form-control" type="file" id="psa" name="psa" form="update_form">
-                  </div>
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
-                    <input class="form-control" type="file" id="marriage_cert" name="marriage_cert" form="update_form">
-                  </div>
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="cse" class="form-label">Upload Career Service Eligibility</label>
-                    <input class="form-control" type="file" id="cse" name="cse" form="update_form">
-                  </div>
-                </div>
-                <div class="d-md-flex flex-row">
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="office_id" class="form-label">Upload Office ID</label>
-                    <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
-                  </div>
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="govt_id" class="form-label">Upload Government Issued ID</label>
-                    <input class="form-control" type="file" id="govt_id" name="govt_id" form="update_form">
-                  </div>
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="license" class="form-label">Upload License</label>
-                    <input class="form-control" type="file" id="license" name="license" form="update_form">
-                  </div>
-                </div>
-                <div class="d-md-flex flex-row">
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="tor" class="form-label">Upload TOR</label>
-                    <input class="form-control" type="file" id="tor" name="tor" form="update_form">
-                  </div>
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
-                    <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
-                  </div>
-                  <div class="flex-fill mb-3 p-1">
-                    <label for="ld_cert" class="form-label">Upload COVID-19 Vaccination Card</label>
-                    <input class="form-control" type="file" id="covid_vax" name="covid_vax" form="update_form">
+              <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
+                        <input class="form-control" type="file" id="psa" name="psa" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
+                        <input class="form-control" type="file" id="marriage_cert" name="marriage_cert" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="cse" class="form-label">Upload Career Service Eligibility</label>
+                        <input class="form-control" type="file" id="cse" name="cse" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="office_id" class="form-label">Upload Office ID</label>
+                        <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="govt_id" class="form-label">Upload Government Issued ID</label>
+                        <input class="form-control" type="file" id="govt_id" name="govt_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="license" class="form-label">Upload License</label>
+                        <input class="form-control" type="file" id="license" name="license" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="tor" class="form-label">Upload TOR</label>
+                        <input class="form-control" type="file" id="tor" name="tor" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
+                        <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload COVID-19 Vaccination Card</label>
+                        <input class="form-control" type="file" id="covid_vax" name="covid_vax" form="update_form">
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="container">
                   <div class="row" style="max-width: 1500px;">
-                {% for file in user_profile.uploaded_files %}
-                  <!-- <div class="flex-fill mb-3 p-1"> -->
-                    <div class="col-md-4">
-                      <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                        <a href="{{file.file_path}}" target="_blank">
-                          <span class="">
-                            {{file.file_name}}
-                          </span>
-                        </a>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                  {% for file in user_profile.uploaded_files %}
+                    <!-- <div class="flex-fill mb-3 p-1"> -->
+                      <div class="col-md-4">
+                        <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
+                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                          <a href="{{file.file_path}}" target="_blank">
+                            <span class="">
+                              {{file.file_name}}
+                            </span>
+                          </a>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                        </div>
                       </div>
-                    </div>
-                  <!-- </div> -->
-                {% endfor %}
+                    <!-- </div> -->
+                  {% endfor %}
                   </div>
                 </div>
               </div>
             </div>
+
+
           <!-- </form> -->
           </div> <!--col-->
           </div> <!--row-->
@@ -929,7 +1056,7 @@
         </p>
         <button class="btn btn-primary" type="submit" form="update_form">Update</button>
         <!-- <a href="#" class="btn btn-primary" onclick="update_employee()">Update</a> -->
-        <a href="#" class="btn btn-secondary" onclick="w_print(document.getElementsById('myDivToPrint'))">Print</a>
+        <a href="#" class="btn btn-secondary disabled" onclick="w_print(document.getElementsById('myDivToPrint'))">Print</a>
       </div>
     </div>
   </div>
@@ -1001,7 +1128,44 @@
 
 {%block scripts %}
 <script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
+<script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 <script type="text/javascript">
+    function sameAsPermanent(){
+        var citizenship = document.getElementById('same_as_permanent').value;
+        if(citizenship == 'Yes'){
+              document.getElementById('pres_house_block_lot').disabled = true;
+              document.getElementById('pres_street').disabled = true;
+              document.getElementById('pres_subdivision_village').disabled = true;
+              document.getElementById('pres_barangay').disabled = true;
+              document.getElementById('pres_city_municipality').disabled = true;
+              document.getElementById('pres_province').disabled = true;
+              document.getElementById('pres_zip_code').disabled = true;
+      
+              document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
+              document.getElementById('pres_street').value = document.getElementById('p_street').value;
+              document.getElementById('pres_subdivision_village').value = document.getElementById('p_subdivision_village').value;
+              document.getElementById('pres_barangay').value = document.getElementById('p_barangay').value;
+              document.getElementById('pres_city_municipality').value = document.getElementById('p_city_municipality').value;
+              document.getElementById('pres_province').value = document.getElementById('p_province').value;
+              document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
+          }else{
+              document.getElementById('pres_house_block_lot').removeAttribute('disabled');
+              document.getElementById('pres_street').removeAttribute('disabled');
+              document.getElementById('pres_subdivision_village').removeAttribute('disabled');
+              document.getElementById('pres_barangay').removeAttribute('disabled');
+              document.getElementById('pres_city_municipality').removeAttribute('disabled');
+              document.getElementById('pres_province').removeAttribute('disabled');
+              document.getElementById('pres_zip_code').removeAttribute('disabled');
+      
+              document.getElementById('pres_house_block_lot').value = ""
+              document.getElementById('pres_street').value = ""
+              document.getElementById('pres_subdivision_village').value = ""
+              document.getElementById('pres_barangay').value = ""
+              document.getElementById('pres_city_municipality').value = ""
+              document.getElementById('pres_province').value = ""
+              document.getElementById('pres_zip_code').value = ""
+          }
+      }
   var formElem = document.getElementById("update_form");
 
   // document.getElementById("add_eligibility_form").addEventListener('submit',(e)=>{
@@ -1031,7 +1195,7 @@
     //        SUBMIT OF UPDATE FORM       //
     //------------------------------------//
     document.getElementById("update_form").addEventListener("submit",(e)=>{
-      alert("update form")
+      //alert("update form")
       e.preventDefault();
       let formData = new FormData(formElem);
       //formData.append('file',  input.files[0])

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Career_Service, Learning_Development, Service_Record, User, Uploaded_File, Vocational_Course
+from .models import Career_Service, Learning_Development, Service_Record, User, Uploaded_File, Vaccine, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -43,11 +43,15 @@ def get_employees(emp_id):
 
 @employees.route('my-profile/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+# @admin_permission.require(http_exception=403)
 def my_profile(emp_id):
 	
 	if request.method == 'GET':
-		user = User.query.get(emp_id)
+		print("EMPLOYEE ID: ", emp_id)
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "PAGE NOT FOUND", 404
+		else:
+			user = User.query.get(emp_id)
 		# print(user)
 		
 		return render_template('employee_profile.html', user_profile = user)
@@ -122,7 +126,7 @@ def update_employee(emp_id):
 	vocational_no_update_fields = formdata['vocational_no_update_fields']
 
 	#ld_no_fields = formdata['ld_no_fields']
-	ld_update_no_fields = formdata['ld_update_no_fields']
+	# ld_update_no_fields = formdata['ld_update_no_fields']
 
 
 # ---------------------------------------------------------------------------- #
@@ -157,7 +161,7 @@ def update_employee(emp_id):
 	# 	formdata.pop('license_no['+str(x)+']')
 	# 	formdata.pop('date_of_validity['+str(x)+']')
 
-	formdata.pop('ld_no_fields')
+	# formdata.pop('ld_no_fields')
 	# formdata.pop('cs_no_fields')
 	#formdata.pop('vocational_no_fields')
 	# formdata.pop('floatingPassword2')
@@ -188,15 +192,35 @@ def update_employee(emp_id):
 
 	db.session.commit()
 
+
+# ---------------------------------------------------------------------------- #
+#                         UPDATING OF COVID-19 VACCINE                         #
+# ---------------------------------------------------------------------------- #
+	select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+	select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+								vac_brand = formdata['vac_brand'], 
+								vac_place = formdata['vac_place'],
+								vac_first_dose = formdata['vac_first_dose'], 
+								vac_second_dose = formdata['vac_second_dose'], 
+								booster_id_no = formdata['booster_id_no'],
+								booster_brand = formdata['booster_brand'], 
+								booster_place = formdata['booster_place'],
+								booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
+								))
+
+
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF VOCATIONAL COURSE                        #
 # ---------------------------------------------------------------------------- #
-
 	for xy in range(1, int(vocational_no_update_fields)+1):
 		
 		vocational_course = Vocational_Course.query.filter_by(id = formdata['v_id['+str(xy)+']'])
-		vocational_course.update(dict(v_school = formdata['v_school['+str(xy)+']'].upper(), vocational_trade_course = formdata['vocational_trade_course['+str(xy)+']'].upper(), v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(xy)+']'].upper(),
-			v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']'].upper(), v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(), v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper()))
+		vocational_course.update(dict(v_school = formdata['v_school['+str(xy)+']'].upper(), 
+								vocational_trade_course = formdata['vocational_trade_course['+str(xy)+']'].upper(), 
+								v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(xy)+']'].upper(),
+								v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']'].upper(),
+								v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(), 
+								v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper()))
 
 
 		db.session.commit()
@@ -206,27 +230,31 @@ def update_employee(emp_id):
 	for xy in range(1, int(cs_update_no_fields)+1):
 		
 		cse = Career_Service.query.filter_by(id = formdata['cse_id['+str(xy)+']'])
-		cse.update(dict(cs_eligibility = formdata['cs_eligibility['+str(xy)+']'].upper(), cs_rating = formdata['cs_rating['+str(xy)+']'].upper(), date_of_examination = formdata['date_of_examination['+str(xy)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(xy)+']'].upper(),
-			license_no = formdata['license_no['+str(xy)+']'].upper(), date_of_validity = formdata['date_of_validity['+str(xy)+']']))
+		cse.update(dict(cs_eligibility = formdata['cs_eligibility['+str(xy)+']'].upper(), 
+						cs_rating = formdata['cs_rating['+str(xy)+']'].upper(), 
+						date_of_examination = formdata['date_of_examination['+str(xy)+']'], 
+						place_of_examination_conferment = formdata['place_of_examination_conferment['+str(xy)+']'].upper(),
+						license_no = formdata['license_no['+str(xy)+']'].upper(), 
+						date_of_validity = formdata['date_of_validity['+str(xy)+']']))
 
 		db.session.commit()
 
 # ---------------------------------------------------------------------------- #
 #                        UPDATE LEARNING AND DEVELOPMENT                       #
 # ---------------------------------------------------------------------------- #
-	for xy in range(1, int(ld_update_no_fields)+1):
-		print("SOMETING IN HERE")
+	# for xy in range(1, int(ld_update_no_fields)+1):
+	# 	print("SOMETING IN HERE")
 		
-		ld = Learning_Development.query.filter_by(id = formdata['ld_id['+str(xy)+']'])
-		ld.update(dict(ld_program = formdata['ld_program['+str(xy)+']'].upper(), ld_date_from = formdata['ld_date_from['+str(xy)+']'].upper(), ld_date_to = formdata['ld_date_to['+str(xy)+']'], ld_no_hours = formdata['ld_no_hours['+str(xy)+']'],
-			ld_type = formdata['ld_type['+str(xy)+']'].upper(), ld_sponsored_by = formdata['ld_sponsored_by['+str(xy)+']'].upper()))
+	# 	ld = Learning_Development.query.filter_by(id = formdata['ld_id['+str(xy)+']'])
+	# 	ld.update(dict(ld_program = formdata['ld_program['+str(xy)+']'].upper(), ld_date_from = formdata['ld_date_from['+str(xy)+']'].upper(), ld_date_to = formdata['ld_date_to['+str(xy)+']'], ld_no_hours = formdata['ld_no_hours['+str(xy)+']'],
+	# 		ld_type = formdata['ld_type['+str(xy)+']'].upper(), ld_sponsored_by = formdata['ld_sponsored_by['+str(xy)+']'].upper()))
 
 
-		db.session.commit()
+	# 	db.session.commit()
 
 
 	return jsonify({})
-	#return redirect(request.referrer)
+
 
 
 @employees.route('delete-file', methods=['POST', 'GET'])

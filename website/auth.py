@@ -100,23 +100,7 @@ def signup():
 				# ld_no_fields = new_formdata['ld_no_fields']
 				# vac_no_fields = new_formdata['vac_no_fields']
 
-	# ---------------------------------------------------------------------------- #
-	#                               COVID-19 VACCINE                               #
-	# ---------------------------------------------------------------------------- #
-				if 'booster_id_no' in formdata and formdata['booster_id_no'] != "" and 'booster_brand' in formdata and formdata['booster_brand'] != "" and 'booster_date' in formdata and formdata['booster_date'] != "":
-					new_vaccine = Vaccine(vac_id_no = formdata['vac_id_no'], vac_brand = formdata['vac_brand'], vac_place = formdata['vac_place'],
-									vac_first_dose = formdata['vac_first_dose'], vac_second_dose = formdata['vac_second_dose'], booster_id_no = formdata['booster_id_no'],
-									booster_brand = formdata['booster_brand'], booster_place = formdata['booster_place'],
-									booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
-									)
-					# print('if pumasok')
-				else:
-					new_vaccine = Vaccine(vac_id_no = formdata['vac_id_no'], vac_brand = formdata['vac_brand'], vac_place = formdata['vac_place'],
-									vac_first_dose = formdata['vac_first_dose'], vac_second_dose = formdata['vac_second_dose'], booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date()
-									)
-					# print('else pumasok')
-				db.session.add(new_vaccine)
-				db.session.commit()
+
 	# ---------------------------------------------------------------------------- #
 
 
@@ -227,6 +211,24 @@ def signup():
 					db.session.add(new_cs_eligibility)
 					db.session.flush()
 					db.session.commit()
+
+	# ---------------------------------------------------------------------------- #
+	#                               COVID-19 VACCINE                               #
+	# ---------------------------------------------------------------------------- #
+				if 'booster_id_no' in new_formdata and new_formdata['booster_id_no'] != "" and 'booster_brand' in new_formdata and new_formdata['booster_brand'] != "" and 'booster_date' in new_formdata and new_formdata['booster_date'] != "":
+					new_vaccine = Vaccine(vac_id_no = new_formdata['vac_id_no'], vac_brand = new_formdata['vac_brand'], vac_place = new_formdata['vac_place'],
+									vac_first_dose = new_formdata['vac_first_dose'], vac_second_dose = new_formdata['vac_second_dose'], booster_id_no = new_formdata['booster_id_no'],
+									booster_brand = new_formdata['booster_brand'], booster_place = new_formdata['booster_place'],
+									booster_date = datetime.datetime.strptime(new_formdata['booster_date'], '%Y-%m-%d').date(), user_id = finaldata.id
+									)
+					# print('if pumasok')
+				else:
+					new_vaccine = Vaccine(vac_id_no = new_formdata['vac_id_no'], vac_brand = new_formdata['vac_brand'], vac_place = new_formdata['vac_place'],
+									vac_first_dose = new_formdata['vac_first_dose'], vac_second_dose = new_formdata['vac_second_dose'], booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date(), user_id = finaldata.id
+									)
+					# print('else pumasok')
+				db.session.add(new_vaccine)
+				db.session.commit()
 
 	# ---------------------------------------------------------------------------- #
 	#                         for Learning and Development                         #

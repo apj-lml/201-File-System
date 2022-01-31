@@ -32,8 +32,11 @@
           if(day < 10)
               day = '0' + day.toString();
       
-          var maxDate = year + '-' + month + '-' + day;    
+          var maxDate = year + '-' + month + '-' + day;
           document.getElementById('birthdate').max = maxDate;
+
+
+          activate_booster_shot();
       })
       
     
@@ -82,10 +85,10 @@
           booster_place.disabled = true;
           booster_date.disabled = true;
 
-          booster_id_no.value = "N/A";
-          booster_brand.value = "N/A";
-          booster_place.value = "N/A";
-          booster_date.value = "N/A";
+          booster_id_no.value = "";
+          booster_brand.value = "";
+          booster_place.value = "";
+          booster_date.value = "";
         
           }
         }
@@ -135,7 +138,10 @@
         if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
           //parseFloat('100,000.00'.replace(/,/g, ''))
           var temp_m_rate = parseFloat(d_rate.value.replace(/,/g, '')) * 22;
-          m_rate.value = temp_m_rate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          m_rate.value = temp_m_rate.toLocaleString('en-US')
+        }else if (emp_stauts == "Permanent" || "Cotermenous"){
+          var temp_d_rate = parseFloat(m_rate.value.replace(/,/g, '')) / 22;
+          d_rate.value = temp_d_rate.toLocaleString('en-US')
         }
       }
 

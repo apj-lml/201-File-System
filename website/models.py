@@ -1,5 +1,5 @@
 # from email.policy import default
-from email.policy import default
+#from email.policy import default
 from time import timezone
 from tkinter.tix import Tree
 from . import db
@@ -10,7 +10,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
-	timestamp = db.Column(db.DateTime(timezone=True), default=func.now())
+	timestamp = db.Column(db.DateTime(timezone=True), server_default=func.now())
 	employee_id = db.Column(db.Integer, unique=True, nullable=False)
 	email = db.Column(db.String(150), unique=False, nullable=True)
 	password = db.Column(db.String(150), nullable=False)
@@ -132,6 +132,8 @@ class User(db.Model, UserMixin):
 	career_service = db.relationship('Career_Service')
 	vocational_course = db.relationship('Vocational_Course')
 	learning_development = db.relationship('Learning_Development')
+	vaccine = db.relationship('Vaccine')
+
 
 	# emergency_contact = db.relationship('Emergency_Contact')
 

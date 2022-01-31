@@ -124,49 +124,48 @@
       //  }
   });
   
-  document.getElementById('add_ld_field').addEventListener('click',()=>{
-      var vocational_fields = document.getElementById('ld_fields');
-      var vocational_no_fields = document.getElementById('ld_no_fields');
-      vocational_fields.innerHTML = ``;
-      //  for(var x = 1; x < vocational_no_fields.value; x++){
-          var x = vocational_no_fields.value;
-          vocational_fields.insertAdjacentHTML("beforebegin",`
-          <div class="card shadow-sm mb-3" id=remove_ld${x}>
-              <div class="card-body">
-                  <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="ld_program[${x}]" placeholder="Interventions/Training Program" form="add_ld_form">
-                          <label for="ld_program">Interventions / Training Program</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" name ="ld_date_from[${x}]" placeholder="Inclusive Date of Attendance From" form="add_ld_form">
-                          <label for="ld_date_from">Inclusive Date of Attendance From</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="date" class="form-control" name ="ld_date_to[${x}]" placeholder="Inclusive Date of Attendance To" form="add_ld_form">
-                          <label for="ld_date_to">Inclusive Date of Attendance To</label>
-                      </div>
-                      </div>
-                      <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="number" class="form-control" name ="ld_no_hours[${x}]" placeholder="Rating" form="add_ld_form">
-                          <label for="ld_no_hours">Number of Hours</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="ld_type[${x}]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form">
-                          <label for="ld_type">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
-                      </div>
-                      </div>
-                      <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                          <input type="text" class="form-control" name ="ld_sponsored_by[${x}]" placeholder="Conducted / Sponsored By" form="add_ld_form">
-                          <label for="license_no">Conducted / Sponsored By</label>
-                      </div>
-                  </div>
-                  <a href="#" onclick="document.getElementById('ld_no_fields').value--;document.getElementById('remove_ld${x}').remove(); return false">Remove field</a>
-              </div>
-          </div>
+//   document.getElementById('add_ld_field').addEventListener('click',()=>{
+//       var vocational_fields = document.getElementById('ld_fields');
+//       var vocational_no_fields = document.getElementById('ld_no_fields');
+//       vocational_fields.innerHTML = ``;
+//           var x = vocational_no_fields.value;
+//           vocational_fields.insertAdjacentHTML("beforebegin",`
+//           <div class="card shadow-sm mb-3" id=remove_ld${x}>
+//               <div class="card-body">
+//                   <div class="d-md-flex flex-row">
+//                       <div class="form-floating flex-fill mb-3 p-1">
+//                           <input type="text" class="form-control" name ="ld_program[${x}]" placeholder="Interventions/Training Program" form="add_ld_form">
+//                           <label for="ld_program">Interventions / Training Program</label>
+//                       </div>
+//                       <div class="form-floating flex-fill mb-3 p-1">
+//                           <input type="date" class="form-control" name ="ld_date_from[${x}]" placeholder="Inclusive Date of Attendance From" form="add_ld_form">
+//                           <label for="ld_date_from">Inclusive Date of Attendance From</label>
+//                       </div>
+//                       <div class="form-floating flex-fill mb-3 p-1">
+//                           <input type="date" class="form-control" name ="ld_date_to[${x}]" placeholder="Inclusive Date of Attendance To" form="add_ld_form">
+//                           <label for="ld_date_to">Inclusive Date of Attendance To</label>
+//                       </div>
+//                       </div>
+//                       <div class="d-md-flex flex-row">
+//                       <div class="form-floating flex-fill mb-3 p-1">
+//                           <input type="number" class="form-control" name ="ld_no_hours[${x}]" placeholder="Rating" form="add_ld_form">
+//                           <label for="ld_no_hours">Number of Hours</label>
+//                       </div>
+//                       <div class="form-floating flex-fill mb-3 p-1">
+//                           <input type="text" class="form-control" name ="ld_type[${x}]" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form">
+//                           <label for="ld_type">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
+//                       </div>
+//                       </div>
+//                       <div class="d-md-flex flex-row">
+//                       <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+//                           <input type="text" class="form-control" name ="ld_sponsored_by[${x}]" placeholder="Conducted / Sponsored By" form="add_ld_form">
+//                           <label for="license_no">Conducted / Sponsored By</label>
+//                       </div>
+//                   </div>
+//                   <a href="#" onclick="document.getElementById('ld_no_fields').value--;document.getElementById('remove_ld${x}').remove(); return false">Remove field</a>
+//               </div>
+//           </div>
   
-          `);
-      //  }
-  });
+//           `);
+
+//   });
