@@ -24,7 +24,7 @@ def page_not_found(e):
 # ---------------------------------------------------------------------------- #
 @cse.route('add-eligibility/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+# @admin_permission.require(http_exception=403)
 def add_eligibility(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()

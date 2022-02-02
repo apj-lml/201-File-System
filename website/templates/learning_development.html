@@ -31,26 +31,26 @@
 						  <div class="card-body">
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form">
+							  <input type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form" required>
 							  <label for="ld_program[1]">Interventions / Training Program</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form">
+							  <input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form" required>
 							  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form">
+							  <input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form" required>
 							  <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
 							</div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form">
+							  <input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required>
 							  <label for="ld_no_hours[1]">Number of Hours</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="ld_type" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form">
-							  <label for="ld_type[1]">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
+							  <input type="text" class="form-control" name ="ld_type" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form" required>
+							  <label for="ld_type[1]" style="font-size: 12px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
 							</div>
 						  </div>
 						  <div class="d-md-flex flex-row">
@@ -61,7 +61,7 @@
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="flex-fill mb-3">
-								<label for="ld_attachment">Attachment</label>
+								<label for="ld_attachment">Attachment (Only PDF files are allowed)</label>
 								<input type="file" class="form-control" id="ld_attachment" name ="ld_attachment" form="add_ld_form" required>
 							  </div>
 						  </div>
@@ -103,7 +103,26 @@
 					<div class="card-body">
 					  <h3 class="card-title">Attachments</h3>
 						<div class="d-md-flex flex-row">
-
+							
+							<div class="container">
+								<div class="row" style="max-width: 1500px;">
+								{% for ld_attachment in user_profile.learning_development %}
+								  <!-- <div class="flex-fill mb-3 p-1"> -->
+									<div class="col-md-12">
+									  <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
+										<i class="bi bi-file-pdf"></i>
+										<a href="{{ld_attachment.ld_attachment}}" target="_blank">
+										  <span class="">
+											{{ld_attachment.ld_attachment_file_name}}
+										  </span>
+										</a>
+										<!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{ld_attachment.id}}" onclick="delete_file(this)"></button> -->
+									  </div>
+									</div>
+								  <!-- </div> -->
+								{% endfor %}
+								</div>
+							  </div>
 
 					  </div>
 					</div>
@@ -114,122 +133,6 @@
 	</div>
 
 </main>
-
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-	<div class="modal-dialog modal-dialog-scrollable modal-lg">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title">Add Service Record</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<form enctype="multipart/form-data" id="add_service_record" action="/ld/service-record/{{current_user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
-				<div class="d-sm-flex flex-row"> 
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
-					  <label for="service_from">Service From</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="date" class="form-control" id="service_to" name ="service_to" placeholder="Service To" value="" required>
-					  <label for="first_name">Service To</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					  <div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="sf_present" name="sf_present" value = "Present">
-						<label class="form-check-label" for="sf_present">
-						  PRESENT
-						</label>
-					  </div>
-					</div>
-				</div>
-				<div class="d-sm-flex flex-row"> 
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="text" class="form-control" id="designation" name ="designation" placeholder="Designation" value="" required>
-					  <label for="designation">Designation</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="status" name="status" aria-label="Floating label select example" value="">
-							<option value="Job Order">Job Order</option>
-							<option value="Permanent">Permanent</option>
-							<option value="Casual">Casual</option>
-							<option value="Coterminous">Coterminous</option>
-							<option value="Separated">Separated</option>
-						</select>
-						<label for="middle_name">Employment Status</label>
-
-						<div class="valid-feedback">
-							Looks good!
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
-					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="number" class="form-control" id="salary" name ="salary" placeholder="Salary" value="" required>
-					  <label for="salary">Salary</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-						<input type="text" class="form-control" id="station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
-						<label for="designation">Station/ Place of Assignment</label>
-						<div class="valid-feedback">
-							Looks good!
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
-					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="text" class="form-control" id="leave_wo_pay" name ="leave_wo_pay" placeholder="Leave W/O Pay" value="None">
-					  <label for="salary">Leave W/O Pay</label>
-					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-						<input type="date" class="form-control" id="separation_date" name ="separation_date" placeholder="Separation Date" value="">
-						<label for="designation">Separation Date</label>
-					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
-					  <label for="salary">Separation Cause</label>
-					</div>
-				</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Save Record</button>
-		</form>
-		</div>
-	  </div>
-	</div>
-  </div> -->
 
 {% endblock %}
 
@@ -249,10 +152,21 @@
 				method: 'POST',
 				body: formData
 			}).then((res)=>{
+				if (res.status == 413){
+					triggerToast("The selected file exceeds maximum limit size of 50MB."); 
+				}else if (res.status == 406){
+					// return res.json();
+					// do nothong
+				}else{
+					document.getElementById('add_ld_form').reset();
+
+				}
 				return res.json();
+
 			}).then((data)=>{
 					triggerToast(data); //this is the returned error message
-					document.getElementById('add_ld_form').reset();
+					var table = $('#ld_table').DataTable();
+					table.ajax.reload();
 			})
 
 	});
@@ -275,7 +189,7 @@
       }, false)
     })
 
-	var products_table = $('#ld_table').DataTable( {
+	var ld_table = $('#ld_table').DataTable( {
 		language: {
             searchBuilder: {
 				add: `Add Filter`

@@ -116,7 +116,7 @@
                                                           <!-- /employees/update-employee/{{current_user.id}}  -->
               <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
 
-              {% if current_user.type_of_user %}
+              {% if current_user.type_of_user == 'admin' %}
                 <div class="card mb-3 align-self-center">
                   <div class="card-body">
                   <h3 class="card-title">Account Setup</h3>
@@ -143,6 +143,14 @@
               <div class="card mb-3">
                 <div class="card-body">
                 <h3 class="card-title">Personal Information</h3>
+                {% if current_user.type_of_user == 'user' %}
+                <div class="d-md-flex flex-row"> 
+                  <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form">
+                    <label for="last_name">Employee ID Number</label>
+                  </div>
+                </div>
+                {% endif %}
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form">
@@ -728,7 +736,9 @@
                 </div>
               </div>
           
-          
+<!-- ----------------------------------------------------------------------- -->
+<!--                                   CSE                                   -->
+<!-- ----------------------------------------------------------------------- -->
             <!-- </form> -->
           <!-- <form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data"> -->
             <div class="card mb-3">
@@ -790,120 +800,262 @@
               </div>
             </div>
 
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 VACCINE                                 -->
+<!-- ----------------------------------------------------------------------- -->
 
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">COVID-19 Vaccine</h3>
-                  <!-- <input type="hidden" class="form-control" id="vac_no_fields" name ="vac_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1"> -->
+                {% if user_profile.vaccine%}
+                
                   {% for vax in user_profile.vaccine %}
-                  <div class="card shadow-sm mb-3">
-                      <div class="card-body">
-                        <input type="text" class="form-control" name ="vac_id" placeholder="ID" form="update_form" value="{{vax.id}}">
-                        <div class="d-md-flex flex-row">
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" name ="vac_id_no" placeholder="Vaccine ID no." value="{{vax.vac_id_no}}" form="update_form">
-                            <label for="vac_id_no">Vaccine ID no.</label>
-                          </div>
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="{{vax.vac_brand}}" form="update_form">
-                              <option value="{{vax.vac_brand}}" selected hidden>{{vax.vac_brand}}</option>
-                              <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
-                              <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
-                              <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
-                              <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
-                              <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
-                              <option value="SINOPHARM">SINOPHARM</option>
-                              <option value="COVILO">COVILO</option>
-                              <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
-                              <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
-                              <option value="COVOVAX">COVOVAX</option>
-                            </select>
-                            <label for="vac_brand">Vaccine Brand</label>
-                          </div>
-                        </div>
-                        <div class="d-md-flex flex-row">
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" name ="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="update_form" value="{{vax.vac_place}}">
-                            <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
-                          </div>
-                        </div>
-                        <div class="d-md-flex flex-row">
-                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                            <input type="date" class="form-control" name ="vac_first_dose" placeholder="Date of First Dose" form="update_form" value="{{vax.vac_first_dose}}">
-                            <label for="vac_date">Date of First Dose</label>
-                          </div>
-                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                            <input type="date" class="form-control" name ="vac_second_dose" placeholder="Date of Second Dose" form="update_form" value="{{vax.vac_second_dose}}">
-                            <label for="vac_date">Date of Second Dose</label>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-          
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
                       <div class="d-md-flex flex-row col-sm-4">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="">
-                            {% if vax.booster_id_no and vax.booster_brand %}
+                          <select class="form-select" id="are_you_covid_vac" name="" aria-label="Floating label select example" value="">
+                            {% if vax.vac_brand and vax.vac_first_dose %}
                             <option value="YES" selected disabled hidden>YES</option>
                             {% else %}
                             <option value="NO" selected disabled hidden>NO</option>
                             {% endif %}
-                            <option value="NO">NO</option>
                             <option value="YES">YES</option>
+                            <option value="NO">NO</option>
                           </select>
-                          <label for="do_you_have_booster">Do You have Booster Shot?</label>
+                          <label for="are_you_covid_vac">Are you COVID-19 Vaccinated?</label>
                         </div>
                       </div>
                     </div>
                   </div>
-          
+
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                          <input type="text" class="form-control" name ="vac_id" id="vac_id" placeholder="ID" form="update_form" value="{{vax.id}}">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="vac_id_no" id="vac_id_no" placeholder="Vaccine ID no." value="{{vax.vac_id_no}}" form="update_form">
+                              <label for="vac_id_no">Vaccine ID no.</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="{{vax.vac_brand}}" form="update_form">
+                                <option value="{{vax.vac_brand}}" selected hidden>{{vax.vac_brand}}</option>
+                                <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                                <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                                <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                                <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                                <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                                <option value="SINOPHARM">SINOPHARM</option>
+                                <option value="COVILO">COVILO</option>
+                                <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                                <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                                <option value="COVOVAX">COVOVAX</option>
+                              </select>
+                              <label for="vac_brand">Vaccine Brand</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="update_form" value="{{vax.vac_place}}">
+                              <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                              <input type="date" class="form-control" name ="vac_first_dose" id="vac_first_dose" placeholder="Date of First Dose" form="update_form" value="{{vax.vac_first_dose}}">
+                              <label for="vac_date">Date of First Dose</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                              <input type="date" class="form-control" name ="vac_second_dose" id="vac_second_dose" placeholder="Date of Second Dose" form="update_form" value="{{vax.vac_second_dose}}">
+                              <label for="vac_date">Date of Second Dose</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+            
+
+                    <!-- ----------------------------------------------------------------------- -->
+                    <!--                              BOOSTER SHOT                               -->
+                    <!-- ----------------------------------------------------------------------- -->
+                    <div class="card shadow-sm mb-3">
+                      <div class="card-body">
+                        <div class="d-md-flex flex-row col-sm-4">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="">
+                              {% if vax.booster_id_no and vax.booster_brand %}
+                              <option value="YES" selected disabled hidden>YES</option>
+                              {% else %}
+                              <option value="NO" selected disabled hidden>NO</option>
+                              {% endif %}
+                              <option value="YES">YES</option>
+                              <option value="NO">NO</option>
+                            </select>
+                            <label for="do_you_have_booster">Do You have Booster Shot?</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-3">
+                      <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="update_form" value="{{vax.booster_id_no}}" disabled>
+                            <label for="booster_id_no">Booster Shot ID no.</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" form="update_form" value="{{vax.booster_brand}}" disabled>
+                                <option value="{{vax.booster_brand}}" selected hidden>{{vax.booster_brand}}</option>
+                                <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                                <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                                <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                                <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                                <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                                <option value="SINOPHARM">SINOPHARM</option>
+                                <option value="COVILO">COVILO</option>
+                                <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                                <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                                <option value="COVOVAX">COVOVAX</option>
+                            </select>
+                            <label for="booster_brand">Vaccine Brand</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="update_form" value="{{vax.booster_place}}" disabled>
+                            <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                            <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="update_form" value="{{vax.booster_date}}" disabled>
+                            <label for="booster_date">Date of Booster Shot</label>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                   {% endfor %}
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                            IF NO VACCINE YET                            -->
+      <!-- ----------------------------------------------------------------------- -->
+                  {% else %}
+                  <form action="#" method="POST" name="vaccine_form" id="vaccine_form"></form>
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
+                      <div class="d-md-flex flex-row col-sm-4">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <select class="form-select" id="are_you_covid_vac" name="" aria-label="Floating label select example" value="">
+                            <option value="YES">YES</option>
+                            <option value="NO" selected>NO</option>
+                          </select>
+                          <label for="are_you_covid_vac">Are you COVID-19 Vaccinated?</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <input type="text" class="form-control" name ="vac_id" id="vac_id" placeholder="ID" value="" form="vaccine_form">
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="update_form" value="{{vax.booster_id_no}}" disabled>
-                          <label for="booster_id_no">Booster Shot ID no.</label>
+                          <input type="text" class="form-control" name ="vac_id_no" id="vac_id_no" placeholder="Vaccine ID no." value="" form="vaccine_form">
+                          <label for="vac_id_no">Vaccine ID no.</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" form="update_form" value="{{vax.booster_brand}}" disabled>
-                              <option value="{{vax.booster_brand}}" selected hidden>{{vax.booster_brand}}</option>
-                              <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
-                              <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
-                              <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
-                              <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
-                              <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
-                              <option value="SINOPHARM">SINOPHARM</option>
-                              <option value="COVILO">COVILO</option>
-                              <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
-                              <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
-                              <option value="COVOVAX">COVOVAX</option>
+                          <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="" form="vaccine_form">
+                            <option value="" selected hidden disabled>-</option>
+                            <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                            <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                            <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                            <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                            <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                            <option value="SINOPHARM">SINOPHARM</option>
+                            <option value="COVILO">COVILO</option>
+                            <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                            <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                            <option value="COVOVAX">COVOVAX</option>
                           </select>
-                          <label for="booster_brand">Vaccine Brand</label>
+                          <label for="vac_brand">Vaccine Brand</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="update_form" value="{{vax.booster_place}}" disabled>
-                          <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
+                          <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="vaccine_form" value="">
+                          <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                          <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="update_form" value="{{vax.booster_date}}" disabled>
-                          <label for="booster_date">Date of Booster Shot</label>
+                          <input type="date" class="form-control" name ="vac_first_dose" id="vac_first_dose" placeholder="Date of First Dose" form="vaccine_form" value="">
+                          <label for="vac_date">Date of First Dose</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                          <input type="date" class="form-control" name ="vac_second_dose" id="vac_second_dose" placeholder="Date of Second Dose" form="vaccine_form" value="">
+                          <label for="vac_date">Date of Second Dose</label>
                         </div>
                       </div>
                     </div>
                 </div>
-                {% endfor %}
-              </div>
-              <!-- <div class="d-md-flex flex-row">
-                <div class="flex-fill mb-3 mx-4 p-1">
-                  <button class="btn btn-success btn-sm" id="add_vac_field" onclick="document.getElementById('vac_no_fields').value++">Add</button>
+        
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row col-sm-4">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="">
+                          <option value="NO">NO</option>
+                          <option value="YES">YES</option>
+                        </select>
+                        <label for="do_you_have_booster">Do You have Booster Shot?</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div> -->
+                <!-- ----------------------------------------------------------------------- -->
+                <!--                              BOOSTER SHOT                               -->
+                <!-- ----------------------------------------------------------------------- -->
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="vaccine_form" value="" disabled>
+                        <label for="booster_id_no">Booster Shot ID no.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" form="vaccine_form" value="" disabled>
+                            <option value="" selected hidden disabled>-</option>
+                            <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
+                            <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
+                            <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
+                            <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
+                            <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
+                            <option value="SINOPHARM">SINOPHARM</option>
+                            <option value="COVILO">COVILO</option>
+                            <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
+                            <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
+                            <option value="COVOVAX">COVOVAX</option>
+                        </select>
+                        <label for="booster_brand">Vaccine Brand</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="vaccine_form" value="" disabled>
+                        <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                        <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="vaccine_form" value="" disabled>
+                        <label for="booster_date">Date of Booster Shot</label>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+
+                  {% endif %}
+
+              </div>
             </div>
             <!-- <div class="card mb-3">
               <div class="card-body">
@@ -1240,7 +1392,33 @@
                 body: formData3
               }).then((res)=>{
                 if (res.status == 200){
-                  console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                  
+                  if(document.getElementById('vac_id').value == ""){
+                    
+                    //-- ----------------------------------------------------------------------- -->
+                    //--                           SUBMIT OF VACCINE FORM                        -->
+                    //-- ----------------------------------------------------------------------- -->
+                    let formData4 = new FormData(document.getElementById("vaccine_form"));
+                      //formData.append('file',  input.files[0])
+
+                      const data4 = {}
+                      formData4.forEach((value, key) => (data3[key] = value));
+                    
+                      fetch('/vaccine/add-vaccine/{{user_profile.id}}', {
+                        method: 'POST',
+                        body: formData4
+                      }).then((res)=>{
+                        if (res.status == 200){
+                          console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                          return res.json()
+                        }
+                        
+                      }).then((data)=>{
+                  //<!-- ----------------- make this not refresh after submit ------------------ -->
+                        // document.getElementById('vac_id').value = data.id
+                        window.location.reload();
+                      });//END VACCINE
+                  }
                 }
                 
               })//END VOCATIONAL

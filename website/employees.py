@@ -61,7 +61,7 @@ def my_profile(emp_id):
 
 @employees.route('update-employee/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+# @admin_permission.require(http_exception=403)
 def update_employee(emp_id):
 	formdata = request.form.to_dict()
 
@@ -115,57 +115,18 @@ def update_employee(emp_id):
 #                              END OF FILE UPLOAD                              #
 # ---------------------------------------------------------------------------- #
 
-
 	formdata = formdata.copy()
 
-	# cs_no_fields = formdata['cs_no_fields']
 	cs_update_no_fields = formdata['cs_update_no_fields']
 
-
-	#vocational_no_fields = formdata['vocational_no_fields']
 	vocational_no_update_fields = formdata['vocational_no_update_fields']
-
-	#ld_no_fields = formdata['ld_no_fields']
-	# ld_update_no_fields = formdata['ld_update_no_fields']
 
 
 # ---------------------------------------------------------------------------- #
 #              popping unnecessary data before saving to database              #
 # ---------------------------------------------------------------------------- #
-	# for key, value in formdata.items(): 
-	# 	print(key,value)
 
-	# for z in range(1, int(ld_update_no_fields)+1):
-	# 	formdata.pop('ld_program['+str(z)+']')
-	# 	formdata.pop('ld_date_from['+str(z)+']')
-	# 	formdata.pop('ld_date_to['+str(z)+']')
-	# 	formdata.pop('ld_no_hours['+str(z)+']')
-	# 	formdata.pop('ld_type['+str(z)+']')
-	# 	formdata.pop('ld_sponsored_by['+str(z)+']')
 
-	# for y in range(1, int(vocational_no_update_fields)+1):
-	# 	formdata.pop('v_school['+str(y)+']')
-	# 	formdata.pop('vocational_trade_course['+str(y)+']')
-	# 	formdata.pop('v_period_of_attendance_from['+str(y)+']')
-	# 	formdata.pop('v_period_of_attendance_to['+str(y)+']')
-	# 	formdata.pop('v_highest_level['+str(y)+']')
-	# 	formdata.pop('v_scholarship_academic_honor['+str(y)+']')
-		# formdata.pop('vocational_no_update_fields['+str(y)+']')
-
-	
-	# for x in range(1, int(cs_update_no_fields)+1):
-	# 	formdata.pop('cs_eligibility['+str(x)+']')
-	# 	formdata.pop('cs_rating['+str(x)+']')
-	# 	formdata.pop('date_of_examination['+str(x)+']')
-	# 	formdata.pop('place_of_examination_conferment['+str(x)+']')
-	# 	formdata.pop('license_no['+str(x)+']')
-	# 	formdata.pop('date_of_validity['+str(x)+']')
-
-	# formdata.pop('ld_no_fields')
-	# formdata.pop('cs_no_fields')
-	#formdata.pop('vocational_no_fields')
-	# formdata.pop('floatingPassword2')
-	# formdata.pop('same_as_permanent')
 	formdata.pop('employee_id')
 
 # ---------------------------------------------------------------------------- #
@@ -184,30 +145,34 @@ def update_employee(emp_id):
 	
 	#code for automated update
 	for key, value in formdata.items(): 
-		# if type(value) is str:
-		# 	setattr(user, key, value.upper())
-		# else:
 		setattr(user, key, value)
-		# print(key, value)
-
 	db.session.commit()
 
 
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF COVID-19 VACCINE                         #
 # ---------------------------------------------------------------------------- #
-	select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
-	select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
-								vac_brand = formdata['vac_brand'], 
-								vac_place = formdata['vac_place'],
-								vac_first_dose = formdata['vac_first_dose'], 
-								vac_second_dose = formdata['vac_second_dose'], 
-								booster_id_no = formdata['booster_id_no'],
-								booster_brand = formdata['booster_brand'], 
-								booster_place = formdata['booster_place'],
-								booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
-								))
-
+	if 'vac_id' in formdata and 'booster_id_no' in formdata and 'booster_brand' in formdata:
+		select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+		select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+									vac_brand = formdata['vac_brand'], 
+									vac_place = formdata['vac_place'],
+									vac_first_dose = formdata['vac_first_dose'], 
+									vac_second_dose = formdata['vac_second_dose'], 
+									booster_id_no = formdata['booster_id_no'],
+									booster_brand = formdata['booster_brand'], 
+									booster_place = formdata['booster_place'],
+									booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
+									))
+	else:
+		print("ASDSADDSAADSDSAADSDSA")
+		select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+		select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+									vac_brand = formdata['vac_brand'], 
+									vac_place = formdata['vac_place'],
+									vac_first_dose = formdata['vac_first_dose'], 
+									vac_second_dose = formdata['vac_second_dose']
+									))
 
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF VOCATIONAL COURSE                        #
@@ -253,7 +218,7 @@ def update_employee(emp_id):
 	# 	db.session.commit()
 
 
-	return jsonify({})
+	return 'HELLO WORLD', 200
 
 
 

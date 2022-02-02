@@ -133,7 +133,7 @@ class User(db.Model, UserMixin):
 	vocational_course = db.relationship('Vocational_Course')
 	learning_development = db.relationship('Learning_Development')
 	vaccine = db.relationship('Vaccine')
-
+	familyBg = db.relationship('Family_Background')
 
 	# emergency_contact = db.relationship('Emergency_Contact')
 
@@ -192,6 +192,8 @@ class Learning_Development(db.Model, SerializerMixin):
 	ld_type = db.Column(db.String(50))
 	ld_sponsored_by = db.Column(db.String(50))
 	ld_attachment = db.Column(db.String(150))
+	ld_attachment_file_name = db.Column(db.String(100))
+
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Vaccine(db.Model, SerializerMixin):
@@ -219,10 +221,12 @@ class Family_Background(db.Model, SerializerMixin):
 	fb_occupation = db.Column(db.String(50))
 	fb_employer_business_name = db.Column(db.String(50))
 	fb_business_address = db.Column(db.String(50))
-	fb_employer_business_name = db.Column(db.String(50))
+	fb_contact_no = db.Column(db.String(50))
 	fb_date_of_birth = db.Column(db.String(50))
+	fb_maiden_name = db.Column(db.String(50))
 	fb_relationship = db.Column(db.String(50))
-
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))

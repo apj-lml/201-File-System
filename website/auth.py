@@ -100,7 +100,6 @@ def signup():
 				# ld_no_fields = new_formdata['ld_no_fields']
 				# vac_no_fields = new_formdata['vac_no_fields']
 
-
 	# ---------------------------------------------------------------------------- #
 
 
@@ -121,16 +120,6 @@ def signup():
 					formdata.pop('booster_place')
 					formdata.pop('booster_date')
 
-
-				# for z in range(1, int(ld_no_fields)+1):
-				# 	# print('HERE HEREEEEE!!!!!', x)
-				# 	formdata.pop('ld_program['+str(z)+']')
-				# 	formdata.pop('ld_date_from['+str(z)+']')
-				# 	formdata.pop('ld_date_to['+str(z)+']')
-				# 	formdata.pop('ld_no_hours['+str(z)+']')
-				# 	formdata.pop('ld_type['+str(z)+']')
-				# 	formdata.pop('ld_sponsored_by['+str(z)+']')
-
 				for y in range(1, int(vocational_no_fields)+1):
 					# print('HERE HEREEEEE!!!!!', x)
 					formdata.pop('v_school['+str(y)+']')
@@ -149,14 +138,6 @@ def signup():
 					formdata.pop('license_no['+str(x)+']')
 					formdata.pop('date_of_validity['+str(x)+']')
 
-				# for x in range(1, int(vac_no_fields)+1):
-				# 	# print('HERE HEREEEEE!!!!!', x)
-				# 	formdata.pop('vac_type['+str(x)+']')
-				# 	formdata.pop('vac_id_no['+str(x)+']')
-				# 	formdata.pop('vac_brand['+str(x)+']')
-				# 	formdata.pop('vac_place['+str(x)+']')
-				# 	formdata.pop('vac_date['+str(x)+']')
-
 				# formdata.pop('ld_no_fields')
 				formdata.pop('cs_no_fields')
 				formdata.pop('vocational_no_fields')
@@ -166,10 +147,7 @@ def signup():
 	# ---------------------------------------------------------------------------- #
 	#                    saving employee info to the databse                       #
 	# ---------------------------------------------------------------------------- #
-				#newDict = {k:v.upper() for k,v in formdata.items()}
-				# for k, v in formdata.items():
-				# 	formdata[k] = formdata.pop(k).upper()
-				#print(value)
+
 				finaldata = User(**formdata)
 				db.session.add(finaldata)
 				db.session.flush()
@@ -179,12 +157,6 @@ def signup():
 	# ---------------------------------------------------------------------------- #
 
 				for x in range(1, int(cs_no_fields)+1):
-					# new_formdata['cs_eligibility['+str(x)+']']
-					# new_formdata['cs_rating['+str(x)+']']
-					# new_formdata['date_of_examination['+str(x)+']']
-					# new_formdata['place_of_examination_conferment['+str(x)+']']
-					# new_formdata['license_no['+str(x)+']']
-					# new_formdata['date_of_validity['+str(x)+']']
 
 					new_cs_eligibility = Career_Service(cs_eligibility = new_formdata['cs_eligibility['+str(x)+']'], cs_rating = new_formdata['cs_rating['+str(x)+']'],
 						date_of_examination = new_formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = new_formdata['place_of_examination_conferment['+str(x)+']'],
@@ -198,12 +170,6 @@ def signup():
 	# ---------------------------------------------------------------------------- #
 
 				for y in range(1, int(vocational_no_fields)+1):
-					# new_formdata['v_school['+str(y)+']']
-					# new_formdata['vocational_trade_course['+str(y)+']']
-					# new_formdata['v_period_of_attendance_from['+str(y)+']']
-					# new_formdata['v_period_of_attendance_to['+str(y)+']']
-					# new_formdata['v_highest_level['+str(y)+']']
-					# new_formdata['v_scholarship_academic_honor['+str(y)+']']
 
 					new_cs_eligibility = Vocational_Course(v_school = new_formdata['v_school['+str(y)+']'], vocational_trade_course = new_formdata['vocational_trade_course['+str(y)+']'],
 						v_period_of_attendance_from = new_formdata['v_period_of_attendance_from['+str(y)+']'], v_period_of_attendance_to = new_formdata['v_period_of_attendance_to['+str(y)+']'],
@@ -229,62 +195,6 @@ def signup():
 					# print('else pumasok')
 				db.session.add(new_vaccine)
 				db.session.commit()
-
-	# ---------------------------------------------------------------------------- #
-	#                         for Learning and Development                         #
-	# ---------------------------------------------------------------------------- #
-				# for z in range(1, int(ld_no_fields)+1):
-				# 	new_ld = Learning_Development(ld_program = new_formdata['ld_program['+str(z)+']'], ld_date_from = new_formdata['ld_date_from['+str(z)+']'],
-				# 		ld_date_to = new_formdata['ld_date_to['+str(z)+']'], ld_no_hours = new_formdata['ld_no_hours['+str(z)+']'],
-				# 		ld_type = new_formdata['ld_type['+str(z)+']'], ld_sponsored_by = new_formdata['ld_sponsored_by['+str(z)+']'], user_id = finaldata.id)
-				# 	db.session.add(new_ld)
-				# 	db.session.flush()
-				# 	db.session.commit()
-
-# ---------------------------------------------------------------------------- #
-#                                  Vaccination                                 #
-# ---------------------------------------------------------------------------- #
-				# for zx in range(1, int(vac_no_fields)+1):
-				# 	new_vac = Vaccine(vac_type = new_formdata['vac_type['+str(zx)+']'], vac_id_no = new_formdata['vac_id_no['+str(zx)+']'],
-				# 		vac_brand = new_formdata['vac_brand['+str(zx)+']'], vac_place = new_formdata['vac_place['+str(zx)+']'],
-				# 		vac_date = new_formdata['vac_date['+str(zx)+']'], user_id = finaldata.id)
-				# 	db.session.add(new_vac)
-				# 	db.session.flush()
-				# 	db.session.commit()
-
-# ---------------------------------------------------------------------------- #
-#                            this is for file upload                           #
-# ---------------------------------------------------------------------------- #
-				# final_name = ''
-				# for afile in request.files:
-				# 	file = request.files[afile]
-
-				# 	print(f'print file: {afile}')
-				# 	if afile not in request.files:
-				# 		print('No file selected')
-				# 		#return redirect(request.url)
-
-				# 	if not file and allowed_file(file.filename):
-				# 		print('Invalid file submitted')
-				# 		#return redirect(request.url)
-				# 	else:
-				# 		file_extension = file.filename.rsplit('.', 1)[1].lower()
-				# 		file_name = file.filename.rsplit('.', 1)[0]
-				# 		final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
-				# 		if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
-				# 			print('path does not exist... creating path')
-				# 			os.mkdir(current_app.config['UPLOAD_FOLDER'])
-				# 		else:
-				# 			print('path exist!')
-				# 			file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
-
-				# 			#saving upload info to database
-				# 			files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
-				# 			db.session.add(files_to_upload)
-				# 			db.session.commit()
-	# ---------------------------------------------------------------------------- #	
-	#                              end of file upload                              #
-	# ---------------------------------------------------------------------------- #
 		else:
 			return render_template('signup.html')
 		

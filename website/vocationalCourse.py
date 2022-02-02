@@ -23,8 +23,8 @@ def page_not_found(e):
 # ---------------------------------------------------------------------------- #
 @vocation.route('add-vocational/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
-def add_eligibility(emp_id):
+# @admin_permission.require(http_exception=403)
+def add_vocational(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         vocational_no_fields = formdata["vocational_no_fields"]
@@ -37,10 +37,10 @@ def add_eligibility(emp_id):
             formdata['v_highest_level['+str(x)+']']
             formdata['v_scholarship_academic_honor['+str(x)+']']
             
-            new_cs_eligibility = Vocational_Course(v_school = formdata['v_school['+str(x)+']'], vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
+            new_vocational = Vocational_Course(v_school = formdata['v_school['+str(x)+']'], vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
 				v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'], v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
 				v_highest_level = formdata['v_highest_level['+str(x)+']'], v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'], user_id = emp_id)
-            db.session.add(new_cs_eligibility)
+            db.session.add(new_vocational)
             db.session.flush()
             db.session.commit()
             

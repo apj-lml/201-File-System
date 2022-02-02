@@ -37,6 +37,7 @@
 
 
           activate_booster_shot();
+          activate_covid_vac();
       })
       
     
@@ -92,7 +93,40 @@
         
           }
         }
+
+      function activate_covid_vac(){
+        var vac_id_no = document.getElementById('vac_id_no');
+        var vac_brand = document.getElementById('vac_brand');
+        var vac_place = document.getElementById('vac_place');
+        var vac_first_dose = document.getElementById('vac_first_dose');
+        var vac_second_dose = document.getElementById('vac_second_dose');
+        var are_you_covid_vac = document.getElementById('are_you_covid_vac');
+
+        if (are_you_covid_vac.value == "YES"){
+          vac_id_no.disabled = false;
+          vac_brand.disabled = false;
+          vac_place.disabled = false;
+          vac_first_dose.disabled = false;
+          vac_second_dose.disabled = false;
+        }else{
+          vac_id_no.disabled = true;
+          vac_brand.disabled = true;
+          vac_place.disabled = true;
+          vac_first_dose.disabled = true;
+          vac_second_dose.disabled = true;
+
+          vac_id_no.value = "";
+          vac_brand.value = "";
+          vac_place.value = "";
+          vac_first_dose.value = "";
+          vac_second_dose.value = "";
+        
+          }
+        }
+
       document.getElementById('do_you_have_booster').addEventListener('change', activate_booster_shot);
+      document.getElementById('are_you_covid_vac').addEventListener('change', activate_covid_vac);
+
 
       function employment_status(){
         var emp_stauts = document.getElementById("employment_status").value;

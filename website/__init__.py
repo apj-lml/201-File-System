@@ -30,6 +30,9 @@ def create_app():
 	from .csEligibility import cse
 	from .vocationalCourse import vocation
 	from .learningDevelopment import ld
+	from .vaccination import vaccine
+	from .familyBg import familyBg
+
 
 	app.register_blueprint(auth, url_prefix='/')
 	app.register_blueprint(views, url_prefix ='/')
@@ -38,6 +41,8 @@ def create_app():
 	app.register_blueprint(cse, url_prefix = '/cse')
 	app.register_blueprint(vocation, url_prefix = '/vocation')
 	app.register_blueprint(ld, url_prefix = '/ld')
+	app.register_blueprint(vaccine, url_prefix = '/vaccine')
+	app.register_blueprint(familyBg, url_prefix = '/familyBg')
 
 
 	from .models import User
