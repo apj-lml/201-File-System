@@ -36,8 +36,7 @@
           document.getElementById('birthdate').max = maxDate;
 
 
-          activate_booster_shot();
-          activate_covid_vac();
+          employment_status()
       })
       
     
@@ -68,64 +67,6 @@
               document.getElementById('indicate_country').removeAttribute('disabled');	
           }
       });
-      function activate_booster_shot(){
-        var booster_id_no = document.getElementById('booster_id_no');
-        var booster_brand = document.getElementById('booster_brand');
-        var booster_place = document.getElementById('booster_place');
-        var booster_date = document.getElementById('booster_date');
-        var booster_shot = document.getElementById('do_you_have_booster');
-
-        if (booster_shot.value == "YES"){
-          booster_id_no.disabled = false;
-          booster_brand.disabled = false;
-          booster_place.disabled = false;
-          booster_date.disabled = false;
-        }else{
-          booster_id_no.disabled = true;
-          booster_brand.disabled = true;
-          booster_place.disabled = true;
-          booster_date.disabled = true;
-
-          booster_id_no.value = "";
-          booster_brand.value = "";
-          booster_place.value = "";
-          booster_date.value = "";
-        
-          }
-        }
-
-      function activate_covid_vac(){
-        var vac_id_no = document.getElementById('vac_id_no');
-        var vac_brand = document.getElementById('vac_brand');
-        var vac_place = document.getElementById('vac_place');
-        var vac_first_dose = document.getElementById('vac_first_dose');
-        var vac_second_dose = document.getElementById('vac_second_dose');
-        var are_you_covid_vac = document.getElementById('are_you_covid_vac');
-
-        if (are_you_covid_vac.value == "YES"){
-          vac_id_no.disabled = false;
-          vac_brand.disabled = false;
-          vac_place.disabled = false;
-          vac_first_dose.disabled = false;
-          vac_second_dose.disabled = false;
-        }else{
-          vac_id_no.disabled = true;
-          vac_brand.disabled = true;
-          vac_place.disabled = true;
-          vac_first_dose.disabled = true;
-          vac_second_dose.disabled = true;
-
-          vac_id_no.value = "";
-          vac_brand.value = "";
-          vac_place.value = "";
-          vac_first_dose.value = "";
-          vac_second_dose.value = "";
-        
-          }
-        }
-
-      document.getElementById('do_you_have_booster').addEventListener('change', activate_booster_shot);
-      document.getElementById('are_you_covid_vac').addEventListener('change', activate_covid_vac);
 
 
       function employment_status(){
@@ -137,10 +78,10 @@
         var item_no = document.getElementById("item_no");
         //var date_of_last_step_increment = document.getElementById("date_of_last_step_increment");
       
-        m_rate.disabled = false;
-        d_rate.disabled = false;
+        m_rate.readOnly = false;
+        d_rate.readOnly = false;
         step.disabled = false;
-        item_no.disabled = false;
+        item_no.readOnly = false;
         //date_of_last_step_increment.disabled = false;
 
         m_rate.value = "";
@@ -149,16 +90,16 @@
         item_no.value = "";
         //date_of_last_step_increment.value = "";
 
-        if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
-          m_rate.disabled = true;
+        if(emp_stauts == "JOB ORDER" || emp_stauts == "CASUAL"){
+          m_rate.readOnly = true;
           //parseFloat('100,000.00'.replace(/,/g, ''))
           step.disabled = true;
-          item_no.disabled = true;
+          item_no.readOnly = true;
           //date_of_last_step_increment.disabled = true;
         }
         else{
           m_rate.value = ""
-          d_rate.disabled = true;
+          d_rate.readOnly = true;
         }
 
         // myrate()
@@ -169,11 +110,11 @@
         var m_rate = document.getElementById("monthly_rate");
         var emp_stauts = document.getElementById("employment_status").value;
 
-        if(emp_stauts == "Job Order" || emp_stauts == "Casual"){
+        if(emp_stauts == "JOB ORDER" || emp_stauts == "CASUAL"){
           //parseFloat('100,000.00'.replace(/,/g, ''))
           var temp_m_rate = parseFloat(d_rate.value.replace(/,/g, '')) * 22;
           m_rate.value = temp_m_rate.toLocaleString('en-US')
-        }else if (emp_stauts == "Permanent" || "Cotermenous"){
+        }else if (emp_stauts == "PERMANENT" || "COTERMINOUS"){
           var temp_d_rate = parseFloat(m_rate.value.replace(/,/g, '')) / 22;
           d_rate.value = temp_d_rate.toLocaleString('en-US')
         }

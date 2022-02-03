@@ -38,3 +38,10 @@ def learning_development(emp_id):
 def family_background(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('family_bg.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/covid-vaccine/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def covid_vaccine(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('vaccination.html', emp_id = emp_id, user_profile = user)

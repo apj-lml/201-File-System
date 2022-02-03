@@ -819,15 +819,28 @@
     <div class="card-body">
       <h3 class="card-title">COVID-19 Vaccine</h3>
         <!-- <input type="hidden" class="form-control" id="vac_no_fields" name ="vac_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1"> -->
-          <div class="card shadow-sm mb-3">
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <div class="d-md-flex flex-row col-sm-4">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <select class="form-select" id="are_you_covid_vac" name="" aria-label="Floating label select example" value="">
+                  <option value="YES">YES</option>
+                  <option value="NO">NO</option>
+                </select>
+                <label for="are_you_covid_vac">Are you COVID-19 Vaccinated?</label>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="card shadow-sm mb-3">
             <div class="card-body">
               <div class="d-md-flex flex-row">
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control" name ="vac_id_no" placeholder="Vaccine ID no." form="signUp">
+                  <input type="text" class="form-control" name ="vac_id_no" id="vac_id_no" placeholder="Vaccine ID no." form="signUp">
                   <label for="vac_id_no">Vaccine ID no.</label>
                 </div>
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="" form="signUp">
+                  <select class="form-select" id="vac_brand" name="vac_brand" id="vac_brand" aria-label="Floating label select example" value="" form="signUp">
                     <option class="" value="" selected disabled hidden>-</option>
                     <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
                     <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
@@ -845,17 +858,17 @@
               </div>
               <div class="d-md-flex flex-row">
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control" name ="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="signUp">
+                  <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="signUp">
                   <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
                 </div>
               </div>
               <div class="d-md-flex flex-row">
                 <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                  <input type="date" class="form-control" name ="vac_first_dose" placeholder="Date of First Dose" form="signUp">
+                  <input type="date" class="form-control" name ="vac_first_dose" id="vac_first_dose" placeholder="Date of First Dose" form="signUp">
                   <label for="vac_date">Date of First Dose</label>
                 </div>
                 <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                  <input type="date" class="form-control" name ="vac_second_dose" placeholder="Date of Second Dose" form="signUp">
+                  <input type="date" class="form-control" name ="vac_second_dose" id="vac_second_dose" placeholder="Date of Second Dose" form="signUp">
                   <label for="vac_date">Date of Second Dose</label>
                 </div>
               </div>
@@ -1024,5 +1037,7 @@
 </script>
 <script src="{{ url_for('static', filename='signup.js') }}"></script>
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
+<script src="{{ url_for('static', filename='vaccine-validations.js') }}"></script>
+
 
 {%endblock%}

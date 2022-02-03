@@ -67,11 +67,6 @@ def update_employee(emp_id):
 
 	user = db.session.query(User).get(emp_id)
 
-	# if formdata['date_of_validity'] != '':
-	# 	formdata['date_of_validity'] = datetime.strptime(formdata['date_of_validity'], '%Y-%m-%d').date()
-	# else:
-	# 	formdata['date_of_validity'] = None
-
 	formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
 # ---------------------------------------------------------------------------- #
@@ -149,30 +144,6 @@ def update_employee(emp_id):
 	db.session.commit()
 
 
-# ---------------------------------------------------------------------------- #
-#                         UPDATING OF COVID-19 VACCINE                         #
-# ---------------------------------------------------------------------------- #
-	if 'vac_id' in formdata and 'booster_id_no' in formdata and 'booster_brand' in formdata:
-		select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
-		select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
-									vac_brand = formdata['vac_brand'], 
-									vac_place = formdata['vac_place'],
-									vac_first_dose = formdata['vac_first_dose'], 
-									vac_second_dose = formdata['vac_second_dose'], 
-									booster_id_no = formdata['booster_id_no'],
-									booster_brand = formdata['booster_brand'], 
-									booster_place = formdata['booster_place'],
-									booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
-									))
-	else:
-		print("ASDSADDSAADSDSAADSDSA")
-		select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
-		select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
-									vac_brand = formdata['vac_brand'], 
-									vac_place = formdata['vac_place'],
-									vac_first_dose = formdata['vac_first_dose'], 
-									vac_second_dose = formdata['vac_second_dose']
-									))
 
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF VOCATIONAL COURSE                        #

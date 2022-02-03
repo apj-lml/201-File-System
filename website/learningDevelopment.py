@@ -86,7 +86,7 @@ def add_learning_and_development(emp_id):
             else:
                 file_extension = file.filename.rsplit('.', 1)[1].lower()
                 file_name = file.filename.rsplit('.', 1)[0]
-                final_name = secure_filename(afile+'_'+ get_user.last_name+'_'+get_user.first_name + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
+                final_name = secure_filename(formdata['ld_program'] + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
                 if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
                     print('path does not exist... creating path')
                     os.mkdir(current_app.config['UPLOAD_FOLDER'])

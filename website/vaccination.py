@@ -63,3 +63,33 @@ def add_vaccine(user_id):
         db.session.flush()
         db.session.commit()
     return jsonify({'id': new_vaccine.id})
+
+@vaccine.route('update-vaccine/<user_id>', methods=['POST', 'GET'])
+@login_required
+def update_vaccine(user_id):
+    formdata = request.form.to_dict()
+   
+    if 'vac_id' in formdata:
+        if 'booster_id_no' in formdata and 'booster_brand' in formdata:
+            print (formdata)
+            select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+            select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+                                        vac_brand = formdata['vac_brand'], 
+                                        vac_place = formdata['vac_place'],
+                                        vac_first_dose = formdata['vac_first_dose'], 
+                                        vac_second_dose = formdata['vac_second_dose'], 
+                                        booster_id_no = formdata['booster_id_no'],
+                                        booster_brand = formdata['booster_brand'], 
+                                        booster_place = formdata['booster_place'],
+                                        booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
+                                        ))
+        else:
+            select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+            select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+                                        vac_brand = formdata['vac_brand'], 
+                                        vac_place = formdata['vac_place'],
+                                        vac_first_dose = formdata['vac_first_dose'], 
+                                        vac_second_dose = formdata['vac_second_dose']
+                                        ))
+    db.session.commit()
+    return jsonify('Successfully Updated!'), 200
