@@ -136,7 +136,7 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF EMPLOYEE PROFILE                         #
 # ---------------------------------------------------------------------------- #
-	#print(formdata)
+	print(formdata)
 	
 	#code for automated update
 	for key, value in formdata.items(): 

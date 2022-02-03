@@ -36,7 +36,7 @@
           document.getElementById('birthdate').max = maxDate;
 
 
-          employment_status()
+          // employment_status()
       })
       
     
@@ -124,6 +124,8 @@
 
 
     document.getElementById("daily_rate").addEventListener("keyup", myrate);
+    document.getElementById("monthly_rate").addEventListener("keyup", myrate);
+
 
 
     document.getElementById("section").addEventListener("change", (e)=>{

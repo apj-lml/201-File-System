@@ -218,8 +218,8 @@
                       <label for="salary_grade">Salary Grade</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="{{user_profile.step}}" form="update_form">
-                        <option class="" value="{{user_profile.step}}" selected hidden>{{user_profile.step}}</option>
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form">
+                        <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -232,7 +232,7 @@
                       <label for="step">Step</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no}}" form="update_form">
+                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else 'N/A'}}" form="update_form">
                       <label for="item_no">Item No.</label>
                     </div>
                   </div>
@@ -587,8 +587,49 @@
 
                 <div class="card-body">
                   <h3 class="card-title">Vocational / Trade Course</h3>
-                  <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="add_vocational_form">
                   <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
+                  
+                  {% if user_profile.vocational_course  %}
+                  <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="add_vocational_form">
+                  
+                  {% else %}
+                  <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="1"  form="add_vocational_form">
+                  
+                  <div class="card shadow-sm mb-3" id=remove_vocational1>
+                    <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" form="add_vocational_form">
+                        <label for="v_school">School</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" form="add_vocational_form">
+                        <label for="vocational_trade_course">Vocational / Trade Course</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form">
+                        <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form">
+                        <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                        </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_highest_level[1]" name ="v_highest_level[1]" placeholder="Highest Level" form="add_vocational_form">
+                        <label for="v_highest_level">Highest Level Attained / Units Earned</label>
+                        </div>   
+                        <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" form="add_vocational_form">
+                        <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
+                        </div>  
+                    </div>
+                    </div>
+                </div>
+                  
+                  {% endif %}
+                  
                   {% set count_update_vocational = namespace(value=1) %}
                   {% for vocational in user_profile.vocational_course %}
                   
