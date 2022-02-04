@@ -195,7 +195,7 @@ def update_employee(emp_id):
 
 @employees.route('delete-file', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+#@admin_permission.require(http_exception=403)
 def delete_file():
 	if request.method == "POST":
 		formdata  = json.loads(request.data)
@@ -209,7 +209,7 @@ def delete_file():
 
 @employees.route('service-record/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+#@admin_permission.require(http_exception=403)
 def service_record(emp_id):
 	user = db.session.query(User).get(emp_id)
 	if request.method == "POST":
@@ -227,7 +227,7 @@ def service_record(emp_id):
 
 @employees.route('get-service-record/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+#@admin_permission.require(http_exception=403)
 def get_service_record(emp_id):
 	if request.method == "GET":
 
@@ -249,7 +249,7 @@ def get_service_record(emp_id):
 
 @employees.route('add-update-cse/<emp_id>', methods=['POST', 'GET'])
 @login_required
-@admin_permission.require(http_exception=403)
+#@admin_permission.require(http_exception=403)
 def add_update_cse(emp_id):
 	# if request.method == "POST":
 	# 	formdata = request.form.to_dict()

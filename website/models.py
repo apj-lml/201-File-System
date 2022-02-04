@@ -80,26 +80,30 @@ class User(db.Model, UserMixin):
 	e_period_of_attendance_from = db.Column(db.String(150))
 	e_period_of_attendance_to = db.Column(db.String(150))
 	e_highest_level = db.Column(db.String(150))
+	e_highest_grade_year_units = db.Column(db.String(150))
 	e_scholarship_academic_honor = db.Column(db.String(150))
 
 	high_school = db.Column(db.String(150))
 	hs_period_of_attendance_from = db.Column(db.String(150))
 	hs_period_of_attendance_to = db.Column(db.String(150))
 	hs_highest_level = db.Column(db.String(150))
+	hs_highest_grade_year_units = db.Column(db.String(150))
 	hs_scholarship_academic_honor = db.Column(db.String(150))
 
-	v_school = db.Column(db.String(150))
-	vocational_trade_course = db.Column(db.String(150))
-	v_period_of_attendance_from = db.Column(db.String(150))
-	v_period_of_attendance_to = db.Column(db.String(150))
-	v_highest_level = db.Column(db.String(150))
-	v_scholarship_academic_honor = db.Column(db.String(150))
+	# v_school = db.Column(db.String(150))
+	# vocational_trade_course = db.Column(db.String(150))
+	# v_period_of_attendance_from = db.Column(db.String(150))
+	# v_period_of_attendance_to = db.Column(db.String(150))
+	# v_highest_level = db.Column(db.String(150))
+
+	# v_scholarship_academic_honor = db.Column(db.String(150))
 
 	c_school = db.Column(db.String(150))
 	c_degree_course = db.Column(db.String(150))
 	c_period_of_attendance_from = db.Column(db.String(150))
 	c_period_of_attendance_to = db.Column(db.String(150))
 	c_highest_level_units_earned = db.Column(db.String(150))
+	c_highest_grade_year_units = db.Column(db.String(150))
 	c_scholarship_academic_honor = db.Column(db.String(150))
 
 	#graduate_studies = db.Column(db.String(150))
@@ -108,6 +112,7 @@ class User(db.Model, UserMixin):
 	gs_period_of_attendance_from = db.Column(db.String(150))
 	gs_period_of_attendance_to = db.Column(db.String(150))
 	gs_highest_level_units_earned = db.Column(db.String(150))
+	gs_highest_grade_year_units = db.Column(db.String(150))
 	gs_scholarship_academic_honor = db.Column(db.String(150))
 
 	doc_school = db.Column(db.String(150))
@@ -115,6 +120,7 @@ class User(db.Model, UserMixin):
 	doc_period_of_attendance_from = db.Column(db.String(150))
 	doc_period_of_attendance_to = db.Column(db.String(150))
 	doc_highest_level_units_earned = db.Column(db.String(150))
+	doc_highest_grade_year_units = db.Column(db.String(150))
 	doc_scholarship_academic_honor = db.Column(db.String(150))
 
 	# cs_eligibility = db.Column(db.String(150))
@@ -144,6 +150,7 @@ class Vocational_Course(db.Model, SerializerMixin):
 	v_period_of_attendance_from = db.Column(db.String(150))
 	v_period_of_attendance_to = db.Column(db.String(150))
 	v_highest_level = db.Column(db.String(150))
+	v_highest_grade_year_units = db.Column(db.String(150))
 	v_scholarship_academic_honor = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

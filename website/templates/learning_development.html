@@ -48,10 +48,19 @@
 							  <input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required>
 							  <label for="ld_no_hours[1]">Number of Hours</label>
 							</div>
-							<div class="form-floating flex-fill mb-3 p-1">
+							<!-- <div class="form-floating flex-fill mb-3 p-1">
 							  <input type="text" class="form-control" name ="ld_type" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form" required>
 							  <label for="ld_type[1]" style="font-size: 12px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
-							</div>
+							</div> -->
+							<div class="form-floating flex-fill mb-3 p-1">
+								<label for="ld_type[1]" style="font-size: 11px;">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical, etc.)</label>
+								<select class="form-select" id="ld_type[1]" name="ld_type[1]" aria-label="Floating label select example" value="" form="add_ld_form">
+								  <option value="Managerial">Managerial</option>
+								  <option value="Supervisory">Supervisory</option>
+								  <option value="Technical">Technical</option>
+								  <option value="Foundation">Foundation</option>
+								</select>
+							  </div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">

@@ -88,7 +88,7 @@
             <a class="nav-link" aria-current="page" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> Profile</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link disabled" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
+            <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
           </li>
           {% if current_user.type_of_user == 'admin' %}
           <li class="nav-item">
@@ -138,7 +138,7 @@
 
 {% block content %}{% endblock %}
 
-<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+<div class="position-fixed bottom-0 start-0 p-3 " style="z-index: 11">
   <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header text-white bg-primary border-0">
       <!-- <img src="..." class="rounded me-2" alt="..."> -->

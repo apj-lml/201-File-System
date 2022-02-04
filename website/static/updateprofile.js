@@ -91,29 +91,29 @@
                   <div class="card-body">
                       <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_school[${x}]" name ="v_school[${x}]" placeholder="School" form="add_vocational_form">
+                      <input type="text" class="form-control" id="v_school[${x}]" name ="v_school[${x}]" placeholder="School" form="add_vocational_form" required>
                       <label for="v_school">School</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="vocational_trade_course[${x}]" name ="vocational_trade_course[${x}]" placeholder="Vocational / Trade Course" form="add_vocational_form">
+                      <input type="text" class="form-control" id="vocational_trade_course[${x}]" name ="vocational_trade_course[${x}]" placeholder="Vocational / Trade Course" form="add_vocational_form" required>
                       <label for="vocational_trade_course">Vocational / Trade Course</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_period_of_attendance_from[${x}]" name ="v_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" form="add_vocational_form">
+                      <input type="text" class="form-control" id="v_period_of_attendance_from[${x}]" name ="v_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" form="add_vocational_form" required>
                       <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_period_of_attendance_to[${x}]" name ="v_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" form="add_vocational_form">
+                      <input type="text" class="form-control" id="v_period_of_attendance_to[${x}]" name ="v_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" form="add_vocational_form" required>
                       <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
                       </div>
                   </div>
                   <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_highest_level[${x}]" name ="v_highest_level[${x}]" placeholder="Highest Level" form="add_vocational_form">
+                      <input type="text" class="form-control" id="v_highest_level[${x}]" name ="v_highest_level[${x}]" placeholder="Highest Level" form="add_vocational_form" required>
                       <label for="v_highest_level">Highest Level Attained / Units Earned</label>
                       </div>   
                       <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="v_scholarship_academic_honor[${x}]" name ="v_scholarship_academic_honor[${x}]" placeholder="Scholarship / Academic Honor" form="add_vocational_form">
+                      <input type="text" class="form-control" id="v_scholarship_academic_honor[${x}]" name ="v_scholarship_academic_honor[${x}]" placeholder="Scholarship / Academic Honor" form="add_vocational_form" required>
                       <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
                       </div>  
                   </div>
