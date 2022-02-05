@@ -140,6 +140,8 @@ class User(db.Model, UserMixin):
 	learning_development = db.relationship('Learning_Development')
 	vaccine = db.relationship('Vaccine')
 	familyBg = db.relationship('Family_Background')
+	college = db.relationship('College')
+
 
 	# emergency_contact = db.relationship('Emergency_Contact')
 
@@ -232,6 +234,17 @@ class Family_Background(db.Model, SerializerMixin):
 	fb_date_of_birth = db.Column(db.String(50))
 	fb_maiden_name = db.Column(db.String(50))
 	fb_relationship = db.Column(db.String(50))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class College(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	c_school = db.Column(db.String(150))
+	c_degree_course = db.Column(db.String(150))
+	c_period_of_attendance_from = db.Column(db.String(150))
+	c_period_of_attendance_to = db.Column(db.String(150))
+	c_highest_level_units_earned = db.Column(db.String(150))
+	c_highest_grade_year_units = db.Column(db.String(150))
+	c_scholarship_academic_honor = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	
 # class Graduate_Study(db.Model):

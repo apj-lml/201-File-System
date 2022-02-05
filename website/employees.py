@@ -1,7 +1,8 @@
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Career_Service, Learning_Development, Service_Record, User, Uploaded_File, Vaccine, Vocational_Course
+from .models import Career_Service, College, Learning_Development, Service_Record, User, Uploaded_File, Vaccine, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -9,6 +10,8 @@ from .myhelper import allowed_file
 from werkzeug.utils import secure_filename
 import os, os.path
 import json
+from werkzeug.security import generate_password_hash, check_password_hash
+
 ALLOWED_EXTENSIONS = {'pdf'}
 
 employees = Blueprint('employees', __name__)
@@ -113,6 +116,8 @@ def update_employee(emp_id):
 	formdata = formdata.copy()
 
 	cs_update_no_fields = formdata['cs_update_no_fields']
+	college_no_update_fields = formdata['college_no_update_fields']
+
 
 	vocational_no_update_fields = formdata['vocational_no_update_fields']
 
@@ -172,6 +177,24 @@ def update_employee(emp_id):
 						place_of_examination_conferment = formdata['place_of_examination_conferment['+str(xy)+']'].upper(),
 						license_no = formdata['license_no['+str(xy)+']'].upper(), 
 						date_of_validity = formdata['date_of_validity['+str(xy)+']']))
+
+		db.session.commit()
+
+# ---------------------------------------------------------------------------- #
+#                                UPDATING OF CSE                               #
+# ---------------------------------------------------------------------------- #
+	for xy in range(1, int(college_no_update_fields)+1):
+		
+		college = College.query.filter_by(id = formdata['college_id['+str(xy)+']'])
+		college.update(dict(
+						c_school = formdata['c_school['+str(xy)+']'].upper(), 
+						c_degree_course = formdata['c_degree_course['+str(xy)+']'], 
+						c_period_of_attendance_from = formdata['c_period_of_attendance_from['+str(xy)+']'].upper(),
+						c_period_of_attendance_to = formdata['c_period_of_attendance_to['+str(xy)+']'].upper(), 
+						c_highest_level_units_earned = formdata['c_highest_level_units_earned['+str(xy)+']'].upper(),
+						c_highest_grade_year_units = formdata['c_highest_grade_year_units['+str(xy)+']'].upper(),
+						c_scholarship_academic_honor = formdata['c_scholarship_academic_honor['+str(xy)+']'].upper(),
+						))
 
 		db.session.commit()
 
@@ -272,6 +295,26 @@ def add_update_cse(emp_id):
 
 	return "ok", 200
 
+@employees.route('update-password/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def update_password(emp_id):
+	if request.method == "POST":
+		formdata = request.form.to_dict()
+		user = User.query.get(emp_id)
+		print (user.password)
+
+		if not check_password_hash(user.password, formdata['current_password']):
+			return jsonify('Wrong password submitted!'), 403
+		elif len(formdata['new_password']) < 5:
+			return jsonify('New password should be greater than 5 characters!'), 403
+		elif formdata['new_password'] != formdata['confirm_password']:
+			return jsonify('Passwords does not match.'), 403
+		else:
+			user.password = generate_password_hash(formdata['new_password'])
+			db.session.commit()
+			return jsonify('Successfully changed your password!')
+	return "ok", 200
 
 @employees.context_processor
 def inject_today_date():

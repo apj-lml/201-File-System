@@ -23,6 +23,10 @@ def create_app():
 
 	db.init_app(app)
 	
+	# ---------------------------------------------------------------------------- #
+	#                            BULEPRINT REGISTRATION                            #
+	# ---------------------------------------------------------------------------- #
+
 	from .auth import auth
 	from .views import views
 	from .employees import employees
@@ -32,6 +36,8 @@ def create_app():
 	from .learningDevelopment import ld
 	from .vaccination import vaccine
 	from .familyBg import familyBg
+	from .college import college
+
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -43,7 +49,9 @@ def create_app():
 	app.register_blueprint(ld, url_prefix = '/ld')
 	app.register_blueprint(vaccine, url_prefix = '/vaccine')
 	app.register_blueprint(familyBg, url_prefix = '/familyBg')
+	app.register_blueprint(college, url_prefix = '/college')
 
+	# ---------------------------- END OF REGISTRATION --------------------------- #
 
 	from .models import User
 

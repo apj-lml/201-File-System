@@ -45,3 +45,10 @@ def family_background(emp_id):
 def covid_vaccine(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('vaccination.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/change-password/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def change_password(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('change_password.html', emp_id = emp_id, user_profile = user)

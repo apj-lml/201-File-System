@@ -73,13 +73,71 @@
                   <label for="date_of_validity">Date of Validity</label>
               </div>
               </div>
-          <a href="#" onclick="document.getElementById('cs_no_fields').value--;document.getElementById('remove_cse${x}').remove(); return false">Remove field</a>
+          <a href="#" onclick="document.getElementById('cs_no_fields').value--;document.getElementById('remove_cse${x}').remove(); return false">Remove</a>
           </div>
       </div>
           `);
       // }
   });
   
+
+  var college_no_fields = document.getElementById('college_no_fields');
+  document.getElementById('add_college_field').addEventListener('click',()=>{
+      var cs_fields = document.getElementById('college_fields');
+      cs_fields.innerHTML = ``;
+      var x = college_no_fields.value;
+      // for(var x = 1; x < cs_no_fields.value; x++){
+          cs_fields.insertAdjacentHTML("beforebegin",`
+          <div class="card shadow-sm mb-3" id=remove_college${x}>
+            <div class="card-body">
+                <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="c_school[${x}]" name ="c_school[${x}]" placeholder="c_school[${x}]" value="" form="add_college_form">
+                    <label for="c_school[1]">School</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="c_degree_course[${x}]" name ="c_degree_course[${x}]" placeholder="c_degree_course[${x}]" value="" form="add_college_form">
+                    <label for="c_degree_course[1]">Degree</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <select class="form-select" id="c_highest_level_units_earned[${x}]" name="c_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_college_form">
+                        <option class="" value="-" selected disabled hidden>-</option>
+                        <option value="GRADUATED">GRADUATED</option>
+                        <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                        <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                    </select>
+                    <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                    </div>
+
+                </div>
+                <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="c_period_of_attendance_from[${x}]" name ="c_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)">
+                    <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="c_period_of_attendance_to[${x}]" name ="c_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)">
+                    <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                    </div>
+                </div>
+                <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="c_highest_grade_year_units[${x}]" name ="c_highest_grade_year_units[${x}]" placeholder="Highest Level" value="" form="add_college_form">
+                    <label for="c_highest_grade_year_units[1]">Units Earned</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="c_scholarship_academic_honor[${x}]" name ="c_scholarship_academic_honor[${x}]" placeholder="Scholarship / Academic Honor" value="" form="add_college_form">
+                    <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
+                    </div>  
+                </div>
+                <a href="#" onclick="document.getElementById('college_no_fields').value--;document.getElementById('remove_college${x}').remove(); return false">Remove</a>
+            </div>
+            </div>
+          `);
+      // }
+  });
+
+
   document.getElementById('add_vocational_field').addEventListener('click',()=>{
       var vocational_fields = document.getElementById('vocational_fields');
       var vocational_no_fields = document.getElementById('vocational_no_fields');
@@ -117,7 +175,7 @@
                       <label for="v_scholarship_academic_honor">Sholarship / Academic Honor</label>
                       </div>  
                   </div>
-                  <a href="#" onclick="document.getElementById('vocational_no_fields').value--;document.getElementById('remove_vocational${x}').remove(); return false">Remove field</a>
+                  <a href="#" onclick="document.getElementById('vocational_no_fields').value--;document.getElementById('remove_vocational${x}').remove(); return false">Remove</a>
                   </div>
               </div>
           `);

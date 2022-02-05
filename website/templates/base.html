@@ -84,21 +84,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> Profile</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
-          </li>
-          {% if current_user.type_of_user == 'admin' %}
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
-          </li>
-          {% endif %}
-
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
-          </li> -->
           <ul class="navbar-nav navbar-right me-3">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,8 +92,8 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> My Profile</a></li>
                 <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-people-fill"></i> Family Background</a></li>
-                <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li>
-                <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"><i class="bi-bandaid"></i> COVID-19 Vaccination</a></li>
+                <!-- <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li> -->
+                <!-- <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"><i class="bi-bandaid"></i> COVID-19 Vaccination</a></li> -->
                 
 
                 <li><hr class="dropdown-divider"></li>
@@ -116,6 +101,33 @@
               </ul>
             </li>
           </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="bi-bandaid"></i> COVID-19 Vaccination</a>
+          </li>
+          {% if current_user.type_of_user == 'admin' %}
+          <ul class="navbar-nav navbar-right me-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-key"></i> Admin Access
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
+                <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
+                 <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Others</a></li>
+              </ul>
+            </li>
+          </ul>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
+          </li> -->
+          {% endif %}
         </ul>
         <ul class="navbar-nav navbar-right me-3">
           <li class="nav-item dropdown">
@@ -124,10 +136,10 @@
               <strong>{{current_user.first_name.0}}{{current_user.middle_name.0}}{{current_user.last_name.0}}</strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Change Password</a></li>
+              <li><a class="dropdown-item" href="/change-password/{{current_user.id}}"><i class="bi bi-shield-lock"></i> Change Password</a></li>
               <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
           </li>
         </ul>

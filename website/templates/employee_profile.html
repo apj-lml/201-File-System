@@ -136,6 +136,8 @@
             <div class="col">
               <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" onsubmit="" method="POST"></form>
               <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
+              <form id="add_college_form" action="/college/add-college/{{user_profile.id}}" method="POST" ></form>
+
                                                           <!-- /employees/update-employee/{{current_user.id}}  -->
               <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
 
@@ -768,56 +770,139 @@
                     <button type="button" class="btn btn-success btn-sm" id="add_vocational_field" onclick="document.getElementById('vocational_no_fields').value++">Add</button>
                   </div>
                 </div>
+              </div>
 
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                 COLLEGE                                 -->
                 <!-- ----------------------------------------------------------------------- -->
-              </div>
-              <div class="card mb-3">
-                <div class="card-body">
-                  <h3 class="card-title">College</h3>
-                  <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="c_school" name ="c_school" placeholder="c_school" value="{{user_profile.c_school}}" form="update_form">
-                      <label for="c_school">School</label>
-                    </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="c_degree_course" name ="c_degree_course" placeholder="c_degree_course" value="{{user_profile.c_degree_course}}" form="update_form">
-                      <label for="c_degree_course">Degree</label>
-                    </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="c_highest_level_units_earned" name="c_highest_level_units_earned" aria-label="Floating label select example" value="{{user_profile.c_highest_level_units_earned}}" form="update_form">
-                        <option class="" value="{{user_profile.c_highest_level_units_earned}}" selected disabled hidden>{{user_profile.c_highest_level_units_earned}}</option>
-                        <option value="GRADUATED">GRADUATED</option>
-                        <option value="UNDERGRADUATE">UNDERGRADUATE</option>
-                        <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
-                      </select>
-                      <label for="hs_highest_level">Highest Level Attained</label>
+                <input type="text" name="college_no_update_fields" id="college_no_update_fields" value="{{user_profile.college|length}}" form="update_form">
+
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">College</h3>
+                    {%if user_profile.college %}
+                    <input type="text" name="college_no_fields" id="college_no_fields" value="0" form="add_college_form">
+                    {% set count_update_college = namespace(value=1) %}
+                    {% for college in user_profile.college %}
+                      <div class="card shadow-sm mb-3" id=remove_vocational>
+                       <input type="text" name="college_id[{{count_update_college.value}}]" id="college_id[{{count_update_college.value}}]" value="{{college.id}}" form="update_form">
+
+                        <div class="card-body">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_school[{{count_update_college.value}}]" name ="c_school[{{count_update_college.value}}]" placeholder="" value="{{college.c_school if college.c_school is not none else 'N/A' }}" form="update_form">
+                              <label for="c_school[1]">School</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_degree_course[{{count_update_college.value}}]" name ="c_degree_course[{{count_update_college.value}}]" placeholder="" value="{{college.c_degree_course if college.c_degree_course is not none else 'N/A'}}" form="update_form">
+                              <label for="c_degree_course[1]">Degree</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="c_highest_level_units_earned[{{count_update_college.value}}]" name="c_highest_level_units_earned[{{count_update_college.value}}]" aria-label="Floating label select example" value="{{college.c_highest_level_units_earned if college.c_highest_level_units_earned is not none else 'N/A'}}" form="update_form">
+                                <option value="GRADUATED">GRADUATED</option>
+                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                              </select>
+                              <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                            </div>
+  
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_period_of_attendance_from[{{count_update_college.value}}]" name ="c_period_of_attendance_from[{{count_update_college.value}}]" placeholder="Period of Attendance (From)" value="{{college.c_period_of_attendance_from if college.c_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                              <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_period_of_attendance_to[{{count_update_college.value}}]" name ="c_period_of_attendance_to[{{count_update_college.value}}]" placeholder="Period of Attendance (To)" value="{{college.c_period_of_attendance_to if college.c_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                              <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_highest_grade_year_units[{{count_update_college.value}}]" name ="c_highest_grade_year_units[{{count_update_college.value}}]" placeholder="Highest Level" value="{{college.c_highest_grade_year_units if college.c_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
+                              <label for="c_highest_grade_year_units[1]">Units Earned</label>
+                            </div>   
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_scholarship_academic_honor[{{count_update_college.value}}]" name ="c_scholarship_academic_honor[{{count_update_college.value}}]" placeholder="Scholarship / Academic Honor" value="{{college.c_scholarship_academic_honor if college.c_scholarship_academic_honor is not none else 'N/A'}}" form="update_form">
+                              <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
+                            </div>  
+                          </div>
+                      </div>
                     </div>
 
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="c_period_of_attendance_from" name ="c_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.c_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
-                      <label for="c_period_of_attendance_from">Period of Attendance (From)</label>
+                    <!-- <div id="college_fields"></div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 mx-4 p-1">
+                        <button type="button" class="btn btn-success btn-sm" id="add_college_field" onclick="document.getElementById('college_no_fields').value++">Add</button>
+                      </div>
+                    </div> -->
+          
+                {% set count_update_college.value = count_update_college.value+1 %}
+                {% endfor %}
+                {%else%}
+                <!-- ----------------------------------------------------------------------- -->
+                <!--                  KUNG WALA PANG LAMAN ITO ANG LALABAS                   -->
+                <!-- ----------------------------------------------------------------------- -->
+                <input type="text" name="college_no_fields" id="college_no_fields" value="1" form="add_college_form">
+                      <div class="card shadow-sm mb-3" id=remove_vocational1>
+                        <div class="card-body">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_school[1]" name ="c_school[1]" placeholder="c_school[1]" value="" form="add_college_form">
+                              <label for="c_school[1]">School</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_degree_course[1]" name ="c_degree_course[1]" placeholder="c_degree_course[1]" value="" form="add_college_form">
+                              <label for="c_degree_course[1]">Degree</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]" aria-label="Floating label select example" value="" form="add_college_form" required>
+                                <option class="" value="-" selected disabled hidden>-</option>
+                                <option value="GRADUATED">GRADUATED</option>
+                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                              </select>
+                              <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                            </div>
+  
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)">
+                              <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)">
+                              <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_highest_grade_year_units[1]" name ="c_highest_grade_year_units[1]" placeholder="Highest Level" value="" form="add_college_form">
+                              <label for="c_highest_grade_year_units[1]">Units Earned</label>
+                            </div>   
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="c_scholarship_academic_honor[1]" name ="c_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="" form="add_college_form">
+                              <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
+                            </div>  
+                          </div>
+                      </div>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="c_period_of_attendance_to" name ="c_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.c_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
-                      <label for="c_period_of_attendance_to">Period of Attendance (To)</label>
+                    
+
+                {% endif %}
+                <div id="college_fields"></div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 mx-4 p-1">
+                        <button type="button" class="btn btn-success btn-sm" id="add_college_field" onclick="document.getElementById('college_no_fields').value++">Add</button>
+                      </div>
                     </div>
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="c_highest_grade_year_units" name ="c_highest_grade_year_units" placeholder="Highest Level" value="{{user_profile.c_highest_grade_year_units if user_profile.c_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
-                      <label for="c_highest_grade_year_units">Units Earned</label>
-                    </div>   
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="c_scholarship_academic_honor" name ="c_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.c_scholarship_academic_honor}}" form="update_form">
-                      <label for="c_scholarship_academic_honor">Scholarship / Academic Honor</label>
-                    </div>  
-                  </div>
-                </div>
               </div>
+            </div>
+              <!-- ----------------------------------------------------------------------- -->
+              <!--                                MASTERAL                                 -->
+              <!-- ----------------------------------------------------------------------- -->
               <div class="card mb-3">
                 <div class="card-body">
                   <h3 class="card-title">Masteral Degree</h3>
@@ -1054,7 +1139,7 @@
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload UMID ID</label>
-                        <input class="form-control" type="file" id="umid" name="umid" form="update_form">
+                        <input class="form-control" type="file" id="umid_id" name="umid_id" form="update_form">
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
@@ -1064,21 +1149,21 @@
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload PhilHealth ID</label>
-                        <input class="form-control" type="file" id="philhealth" name="philhealth" form="update_form">
+                        <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload TIN ID</label>
-                        <input class="form-control" type="file" id="tin" name="tin" form="update_form">
+                        <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="tor" class="form-label">Upload National ID</label>
-                        <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
+                        <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
-                        <input class="form-control" type="file" id="philhealth" name="philhealth" form="update_form">
+                        <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Latest Appointment</label>
@@ -1088,7 +1173,7 @@
                     <div class="d-md-flex flex-row col-md-4">
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Latest Notice of Step Increment</label>
-                        <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
+                        <input class="form-control" type="file" id="latest_notice_of_step_increment" name="latest_notice_of_step_increment" form="update_form">
                       </div>
                     </div>
                   </div>
@@ -1268,10 +1353,24 @@
                 method: 'POST',
                 body: formData3
               }).then((res)=>{
-                if (res.status == 200){
+               // <!-- ----------------------------------------------------------------------- -->
+                //<!--                           SUBMIT COLLEGE FORM                           -->
+               // <!-- ----------------------------------------------------------------------- -->
+               let formData4 = new FormData(document.getElementById("add_college_form"));
+              //formData.append('file',  input.files[0])
 
-                }
-                
+              const data4 = {}
+              formData4.forEach((value, key) => (data4[key] = value))
+            
+              console.log(data3)
+              fetch('/college/add-college/{{user_profile.id}}', {
+                method: 'POST',
+                body: formData4
+              }).then((res)=>{
+
+              });//END COLLEGE FORM
+
+
               })//END VOCATIONAL
             }
             
