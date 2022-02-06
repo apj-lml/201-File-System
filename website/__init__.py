@@ -37,7 +37,9 @@ def create_app():
 	from .vaccination import vaccine
 	from .familyBg import familyBg
 	from .college import college
-
+	from .masteral import masteral
+	from .doctoral import doctoral
+	from .shirt import shirt
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -50,6 +52,11 @@ def create_app():
 	app.register_blueprint(vaccine, url_prefix = '/vaccine')
 	app.register_blueprint(familyBg, url_prefix = '/familyBg')
 	app.register_blueprint(college, url_prefix = '/college')
+	app.register_blueprint(masteral, url_prefix = '/masteral')
+	app.register_blueprint(doctoral, url_prefix = '/doctoral')
+
+	app.register_blueprint(shirt, url_prefix = '/shirt')
+
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #
 

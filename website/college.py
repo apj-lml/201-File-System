@@ -20,7 +20,7 @@ def page_not_found(e):
 	return redirect(url_for('auth.login'))
 
 # ---------------------------------------------------------------------------- #
-#                      Add eligibility from update profile                     #
+#                          Add COLLEGE from update profile                     #
 # ---------------------------------------------------------------------------- #
 @college.route('add-college/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -29,7 +29,15 @@ def add_college(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         college_no_fields = formdata["college_no_fields"]
-
+# ---------------------------------------------------------------------------- #
+#                                CAPITALIZE DATA                               #
+# ---------------------------------------------------------------------------- #
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+# ---------------------------------------------------------------------------- #
         for x in range(1, int(college_no_fields)+1):
             # formdata['cs_eligibility['+str(x)+']']
             # formdata['cs_rating['+str(x)+']']
@@ -51,3 +59,18 @@ def add_college(emp_id):
             db.session.commit()
             
     return "ok", 200
+
+ # ---------------------------------------------------------------------------- #
+ #                             DELETE COLLEGE                                   #
+ # ---------------------------------------------------------------------------- #
+@college.route('delete-college', methods=['POST', 'GET'])
+@login_required
+def delete_college():
+	if request.method == "POST":
+		formdata  = json.loads(request.data)
+		
+		data = College.query.get(formdata['id'])
+
+		db.session.delete(data)
+		db.session.commit()
+	return jsonify('File Deleted Successfully')

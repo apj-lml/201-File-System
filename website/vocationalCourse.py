@@ -30,18 +30,35 @@ def add_vocational(emp_id):
         vocational_no_fields = formdata["vocational_no_fields"]
 
         for x in range(1, int(vocational_no_fields)+1):
-            formdata['v_school['+str(x)+']']
-            formdata['vocational_trade_course['+str(x)+']']
-            formdata['v_period_of_attendance_from['+str(x)+']']
-            formdata['v_period_of_attendance_to['+str(x)+']']
-            formdata['v_highest_level['+str(x)+']']
-            formdata['v_scholarship_academic_honor['+str(x)+']']
             
-            new_vocational = Vocational_Course(v_school = formdata['v_school['+str(x)+']'], vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
-				v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'], v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
-				v_highest_level = formdata['v_highest_level['+str(x)+']'], v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'], user_id = emp_id)
+            new_vocational = Vocational_Course(
+                v_school = formdata['v_school['+str(x)+']'],
+                vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'],
+				v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'],
+                v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
+				v_highest_level = formdata['v_highest_level['+str(x)+']'],
+                v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(x)+']'],
+                v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'],
+                user_id = emp_id)
+
             db.session.add(new_vocational)
             db.session.flush()
             db.session.commit()
             
     return "vocation ok", 200
+
+
+ # ---------------------------------------------------------------------------- #
+ #                          DELETE VOCATIONAL                                   #
+ # ---------------------------------------------------------------------------- #
+@vocation.route('delete-vocational', methods=['POST', 'GET'])
+@login_required
+def delete_learning_and_development():
+	if request.method == "POST":
+		formdata  = json.loads(request.data)
+		
+		voc = Vocational_Course.query.get(formdata['id'])
+
+		db.session.delete(voc)
+		db.session.commit()
+	return jsonify('File Deleted Successfully')

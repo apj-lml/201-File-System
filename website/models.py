@@ -90,47 +90,6 @@ class User(db.Model, UserMixin):
 	hs_highest_grade_year_units = db.Column(db.String(150))
 	hs_scholarship_academic_honor = db.Column(db.String(150))
 
-	# v_school = db.Column(db.String(150))
-	# vocational_trade_course = db.Column(db.String(150))
-	# v_period_of_attendance_from = db.Column(db.String(150))
-	# v_period_of_attendance_to = db.Column(db.String(150))
-	# v_highest_level = db.Column(db.String(150))
-
-	# v_scholarship_academic_honor = db.Column(db.String(150))
-
-	c_school = db.Column(db.String(150))
-	c_degree_course = db.Column(db.String(150))
-	c_period_of_attendance_from = db.Column(db.String(150))
-	c_period_of_attendance_to = db.Column(db.String(150))
-	c_highest_level_units_earned = db.Column(db.String(150))
-	c_highest_grade_year_units = db.Column(db.String(150))
-	c_scholarship_academic_honor = db.Column(db.String(150))
-
-	#graduate_studies = db.Column(db.String(150))
-	gs_school = db.Column(db.String(150))
-	gs_degree_course = db.Column(db.String(150))
-	gs_period_of_attendance_from = db.Column(db.String(150))
-	gs_period_of_attendance_to = db.Column(db.String(150))
-	gs_highest_level_units_earned = db.Column(db.String(150))
-	gs_highest_grade_year_units = db.Column(db.String(150))
-	gs_scholarship_academic_honor = db.Column(db.String(150))
-
-	doc_school = db.Column(db.String(150))
-	doc_degree_course = db.Column(db.String(150))
-	doc_period_of_attendance_from = db.Column(db.String(150))
-	doc_period_of_attendance_to = db.Column(db.String(150))
-	doc_highest_level_units_earned = db.Column(db.String(150))
-	doc_highest_grade_year_units = db.Column(db.String(150))
-	doc_scholarship_academic_honor = db.Column(db.String(150))
-
-	# cs_eligibility = db.Column(db.String(150))
-	# cs_rating = db.Column(db.String(150))
-	# date_of_examination = db.Column(db.String(150))
-	# place_of_examination_conferment = db.Column(db.String(150))
-	# license_no = db.Column(db.String(150))
-	# date_of_validity = db.Column(db.String(150))
-	#date_of_validity = db.Column(db.Date(), default= datetime.strptime('1700-01-01', '%Y-%m-%d').date())
-
 	type_of_user = db.Column(db.String(150), default='user')
 	
 	uploaded_files = db.relationship('Uploaded_File')
@@ -141,6 +100,11 @@ class User(db.Model, UserMixin):
 	vaccine = db.relationship('Vaccine')
 	familyBg = db.relationship('Family_Background')
 	college = db.relationship('College')
+	shirt = db.relationship('Shirt')
+	masteral = db.relationship('Masteral')
+	doctoral = db.relationship('Doctoral')
+
+
 
 
 	# emergency_contact = db.relationship('Emergency_Contact')
@@ -246,7 +210,38 @@ class College(db.Model, SerializerMixin):
 	c_highest_grade_year_units = db.Column(db.String(150))
 	c_scholarship_academic_honor = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Masteral(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	gs_school = db.Column(db.String(150))
+	gs_degree_course = db.Column(db.String(150))
+	gs_period_of_attendance_from = db.Column(db.String(150))
+	gs_period_of_attendance_to = db.Column(db.String(150))
+	gs_highest_level_units_earned = db.Column(db.String(150))
+	gs_highest_grade_year_units = db.Column(db.String(150))
+	gs_scholarship_academic_honor = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Doctoral(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	doc_school = db.Column(db.String(150))
+	doc_degree_course = db.Column(db.String(150))
+	doc_period_of_attendance_from = db.Column(db.String(150))
+	doc_period_of_attendance_to = db.Column(db.String(150))
+	doc_highest_level_units_earned = db.Column(db.String(150))
+	doc_highest_grade_year_units = db.Column(db.String(150))
+	doc_scholarship_academic_honor = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Others(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	polo_shirt_size = db.Column(db.String(50))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	
+class Shirt(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	polo_shirt_size = db.Column(db.String(50))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))

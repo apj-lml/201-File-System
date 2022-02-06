@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %} Change Password {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container">
+	
+	<div class="row mb-3">
+		<!-- <div class="col-sm-12">
+			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
+		</div> -->
+		<div class="card mb-3">
+			<div class="card-body">
+				<form id="add_polo_form" action="#" method="POST"></form>
+				<input type="hidden" name="add_or_update" id="add_or_update" value="{{'update' if user_profile.shirt else 'add'}}" form="add_polo_form">
+					<h3 class="card-title">Shirt Size</h3>
+					<div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <div class="form-floating flex-fill mb-3 p-1">
+                                    <select class="form-select" id="polo_shirt_size" name="polo_shirt_size" aria-label="Floating label select example" value="" form="add_polo_form" required >
+                                      {% if user_profile.shirt %}
+										<option value="{{user_profile.shirt[0].polo_shirt_size }}" selected disabled hidden>{{user_profile.shirt[0].polo_shirt_size }}</option>
+										{% else %}
+										<option value="" selected disabled hidden>-</option>
+										{% endif %}
+                                      <option value="SMALL(S)">SMALL (S)</option>
+                                      <option value="MEDIUM (M)">MEDIUM (M)</option>
+                                      <option value="LARGE (L)">LARGE (L)</option>
+                                      <option value="EXTRA LARGE (XL)">EXTRA LARGE (XL)</option>
+                                      <option value="DOUBLE EXTRA LARGE (XXL)">DOUBLE EXTRA LARGE (XXL)</option>
+                                      <option value="TRIPLE EXTRA LARGE (XXXL)">TRIpPLE EXTRA LARGE (XXXL)</option>
+                                    </select>
+                                    <label for="polo_shirt_size">Shirt Size</label>
+                                  </div>
+								  <div class="col-sm-12 text-center">
+									<button type="submit" class="btn btn-primary" form="add_polo_form">Submit</button>
+								</div>
+								</div>
+
+                        </div>
+						<h3 class="card-title">Shirt Design</h3>
+						<div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <div class="form-floating flex-fill mb-3 p-1">
+                                    <img src="https://via.placeholder.com/300x300.png?text=SHIRT+FRONT" class="rounded float-start img-fluid shadow p-3 m-2" alt="...">
+									<img src="https://via.placeholder.com/300x300.png?text=SHIRT+BACK" class="rounded img-fluid shadow p-3 m-2" alt="...">
+                                  </div>
+                            </div>
+                        </div>
+			</div>
+		</div>
+	</div>
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+	///ld/add-learning-and-development/{{emp_id}}
+	document.getElementById('add_polo_form').addEventListener('submit', (e)=>{
+		e.preventDefault();
+		var formElem = document.getElementById("add_polo_form"); 
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+		console.log(data)
+		fetch('/shirt/add-shirt-size/{{user_profile.id}}', {
+				method: 'POST',
+				body: formData
+			}).then((res)=>{
+				if (res.status == 200){
+					document.getElementById('add_polo_form').reset();
+				}
+				return res.json();
+
+			}).then((data)=>{
+					//triggerToast(data); //this is the returned error message
+					window.location.reload();
+			})
+
+	});
+
+
+
+
+</script>
+{%endblock%}

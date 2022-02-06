@@ -8,7 +8,8 @@
   <link href="{{ url_for('static', filename='datatables/datatables.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet">
-
+  <!-- fontawesome -->
+  <script src="https://kit.fontawesome.com/dce3348e0b.js" crossorigin="anonymous"></script> 
   <style>
 @media (min-width: 768px) {
   .animate {
@@ -92,12 +93,18 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> My Profile</a></li>
                 <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-people-fill"></i> Family Background</a></li>
+                <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-collection"></i> Work Experience</a></li>
+                <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
+                <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-pen"></i> Other Information</a></li>
+                <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-question-octagon"></i> Questions</a></li>
+
+
                 <!-- <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li> -->
                 <!-- <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"><i class="bi-bandaid"></i> COVID-19 Vaccination</a></li> -->
                 
 
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Others</a></li>
+                <li><a class="dropdown-item disabled" href="#"><i class="bi bi-printer"></i> Print Preview</a></li>
               </ul>
             </li>
           </ul>
@@ -108,8 +115,43 @@
             <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="bi-bandaid"></i> COVID-19 Vaccination</a>
+            <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> COVID-19 Vaccination</a>
           </li>
+          <ul class="navbar-nav navbar-right me-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-box-seam"></i> Others
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> T-Shirt Sizes</a></li>
+                <!-- <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li> -->
+                 <!-- <li><hr class="dropdown-divider"></li> -->
+                <!-- <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li> -->
+              </ul>
+            </li>
+          </ul>
+          
+          <!-- <ul class="navbar-nav navbar-right me-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-key"></i> Admin Access
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
+                <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
+                 <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li>
+              </ul>
+            </li>
+          </ul> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
+          </li> -->
+          {% endif %}
+        </ul>
+        
+        <ul class="navbar-nav navbar-right me-3">
+
           {% if current_user.type_of_user == 'admin' %}
           <ul class="navbar-nav navbar-right me-3">
             <li class="nav-item dropdown">
@@ -120,16 +162,12 @@
                 <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
                 <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
                  <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Others</a></li>
+                <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li>
               </ul>
             </li>
           </ul>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
-          </li> -->
           {% endif %}
-        </ul>
-        <ul class="navbar-nav navbar-right me-3">
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
@@ -142,11 +180,15 @@
               <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
           </li>
+
         </ul>
+
+
+
       </div>
     </div>
   </nav>
-  {%endif%}
+
 
 {% block content %}{% endblock %}
 

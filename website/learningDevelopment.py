@@ -81,7 +81,7 @@ def add_learning_and_development(emp_id):
                 #return redirect(request.url)
 
             if not allowed_file(file.filename):
-                return jsonify('Invalid file submitted'), 406
+                return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
                 #return redirect(request.url)
             else:
                 file_extension = file.filename.rsplit('.', 1)[1].lower()
@@ -107,3 +107,19 @@ def add_learning_and_development(emp_id):
         db.session.commit()
         
         return jsonify('Successfully Added')
+
+ # ---------------------------------------------------------------------------- #
+ #                                 DELETE L&D                                   #
+ # ---------------------------------------------------------------------------- #
+@ld.route('delete-ld', methods=['POST', 'GET'])
+@login_required
+def delete_learning_and_development():
+	if request.method == "POST":
+		formdata  = json.loads(request.data)
+		
+		ld = Learning_Development.query.get(formdata['ld_id'])
+
+		os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], ld.ld_attachment_file_name))
+		db.session.delete(ld)
+		db.session.commit()
+	return jsonify('File Deleted Successfully')

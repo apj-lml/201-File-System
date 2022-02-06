@@ -40,6 +40,8 @@
           var vac_first_dose = document.getElementById('vac_first_dose');
           var vac_second_dose = document.getElementById('vac_second_dose');
           var are_you_covid_vac = document.getElementById('are_you_covid_vac');
+          var vaccine_card = document.getElementById('vaccine_card');
+
   
           if (are_you_covid_vac.value == "YES"){
             vac_id_no.disabled = false;
@@ -47,18 +49,24 @@
             vac_place.disabled = false;
             vac_first_dose.disabled = false;
             vac_second_dose.disabled = false;
+            vaccine_card.disabled = false;
+
           }else{
             vac_id_no.disabled = true;
             vac_brand.disabled = true;
             vac_place.disabled = true;
             vac_first_dose.disabled = true;
             vac_second_dose.disabled = true;
+            vaccine_card.disabled = true;
+
   
             vac_id_no.value = "";
             vac_brand.value = "";
             vac_place.value = "";
             vac_first_dose.value = "";
             vac_second_dose.value = "";
+            vaccine_card.value = "";
+
           
             }
           }

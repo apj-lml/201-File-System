@@ -234,36 +234,34 @@
     });
 
 
-    function graduated(highest_attained, v_period_of_attendance_from, v_period_of_attendance_to, v_highest_grade_year_units, v_scholarship_academic_honor){
 
-    }
 
-    document.getElementById('e_highest_level').addEventListener('change',(e)=>{
-      //console.log(e.target.value)
-      if(e.target.value == 'GRADUATED'){
-        document.getElementById('e_highest_grade_year_units').disabled = true;
-        document.getElementById('e_scholarship_academic_honor').readOnly = false;
-        document.getElementById('e_period_of_attendance_from').value = ""
+    // document.getElementById('e_highest_level').addEventListener('change',(e)=>{
+    //   //console.log(e.target.value)
+    //   if(e.target.value == 'GRADUATED'){
+    //     document.getElementById('e_highest_grade_year_units').disabled = true;
+    //     document.getElementById('e_scholarship_academic_honor').readOnly = false;
+    //     document.getElementById('e_period_of_attendance_from').value = ""
 
-        document.getElementById('e_period_of_attendance_to').value = ""
-        document.getElementById('e_period_of_attendance_to').readOnly = false
+    //     document.getElementById('e_period_of_attendance_to').value = ""
+    //     document.getElementById('e_period_of_attendance_to').readOnly = false
 
-      }else if(e.target.value == "CURRENTLY ENROLLED"){
-        document.getElementById('e_highest_grade_year_units').disabled = true;
-        document.getElementById('e_scholarship_academic_honor').readOnly = true;
-        document.getElementById('e_period_of_attendance_to').readOnly = true;
-        document.getElementById('e_period_of_attendance_to').value = "PRESENT"
-        document.getElementById('e_period_of_attendance_from').value = ""
+    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
+    //     document.getElementById('e_highest_grade_year_units').disabled = true;
+    //     document.getElementById('e_scholarship_academic_honor').readOnly = true;
+    //     document.getElementById('e_period_of_attendance_to').readOnly = true;
+    //     document.getElementById('e_period_of_attendance_to').value = "PRESENT"
+    //     document.getElementById('e_period_of_attendance_from').value = ""
 
-      }else{
-        document.getElementById('e_period_of_attendance_to').readOnly = false;
-        document.getElementById('e_period_of_attendance_to').value = ""
-        document.getElementById('e_period_of_attendance_from').value = ""
+    //   }else{
+    //     document.getElementById('e_period_of_attendance_to').readOnly = false;
+    //     document.getElementById('e_period_of_attendance_to').value = ""
+    //     document.getElementById('e_period_of_attendance_from').value = ""
 
-        document.getElementById('e_highest_grade_year_units').disabled = false;
-        document.getElementById('e_scholarship_academic_honor').readOnly = true;
-      }
-    });
+    //     document.getElementById('e_highest_grade_year_units').disabled = false;
+    //     document.getElementById('e_scholarship_academic_honor').readOnly = true;
+    //   }
+    // });
 
     document.getElementById('hs_highest_level').addEventListener('change',(e)=>{
       // console.log(e.target.value)
@@ -292,86 +290,86 @@
       }
     });
 
-    document.getElementById('c_highest_level_units_earned').addEventListener('change',(e)=>{
-      // console.log(e.target.value)
-      if(e.target.value == 'GRADUATED'){
-        document.getElementById('c_highest_grade_year_units').disabled = true;
-        document.getElementById('c_scholarship_academic_honor').readOnly = false;
-        document.getElementById('c_period_of_attendance_from').value = ""
+    // document.getElementById('c_highest_level_units_earned').addEventListener('change',(e)=>{
+    //   // console.log(e.target.value)
+    //   if(e.target.value == 'GRADUATED'){
+    //     document.getElementById('c_highest_grade_year_units').disabled = true;
+    //     document.getElementById('c_scholarship_academic_honor').readOnly = false;
+    //     document.getElementById('c_period_of_attendance_from').value = ""
 
-        document.getElementById('c_period_of_attendance_to').value = ""
-        document.getElementById('c_period_of_attendance_to').readOnly = false
+    //     document.getElementById('c_period_of_attendance_to').value = ""
+    //     document.getElementById('c_period_of_attendance_to').readOnly = false
 
-      }else if(e.target.value == "CURRENTLY ENROLLED"){
-        document.getElementById('c_highest_grade_year_units').disabled = true;
-        document.getElementById('c_scholarship_academic_honor').readOnly = true;
-        document.getElementById('c_period_of_attendance_to').readOnly = true;
-        document.getElementById('c_period_of_attendance_to').value = "PRESENT"
-        document.getElementById('c_period_of_attendance_from').value = ""
+    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
+    //     document.getElementById('c_highest_grade_year_units').disabled = true;
+    //     document.getElementById('c_scholarship_academic_honor').readOnly = true;
+    //     document.getElementById('c_period_of_attendance_to').readOnly = true;
+    //     document.getElementById('c_period_of_attendance_to').value = "PRESENT"
+    //     document.getElementById('c_period_of_attendance_from').value = ""
 
-      }else{
-        document.getElementById('c_period_of_attendance_to').readOnly = false;
-        document.getElementById('c_period_of_attendance_to').value = ""
-        document.getElementById('c_period_of_attendance_from').value = ""
+    //   }else{
+    //     document.getElementById('c_period_of_attendance_to').readOnly = false;
+    //     document.getElementById('c_period_of_attendance_to').value = ""
+    //     document.getElementById('c_period_of_attendance_from').value = ""
 
-        document.getElementById('c_highest_grade_year_units').disabled = false;
-        document.getElementById('c_scholarship_academic_honor').readOnly = true;
-      }
-    });
+    //     document.getElementById('c_highest_grade_year_units').disabled = false;
+    //     document.getElementById('c_scholarship_academic_honor').readOnly = true;
+    //   }
+    // });
 
-    document.getElementById('gs_highest_level_units_earned').addEventListener('change',(e)=>{
-      // console.log(e.target.value)
-      if(e.target.value == 'GRADUATED'){
-        document.getElementById('gs_highest_grade_year_units').disabled = true;
-        document.getElementById('gs_scholarship_academic_honor').readOnly = false;
-        document.getElementById('gs_period_of_attendance_from').value = ""
+    // document.getElementById('gs_highest_level_units_earned').addEventListener('change',(e)=>{
+    //   // console.log(e.target.value)
+    //   if(e.target.value == 'GRADUATED'){
+    //     document.getElementById('gs_highest_grade_year_units').disabled = true;
+    //     document.getElementById('gs_scholarship_academic_honor').readOnly = false;
+    //     document.getElementById('gs_period_of_attendance_from').value = ""
 
-        document.getElementById('gs_period_of_attendance_to').value = ""
-        document.getElementById('gs_period_of_attendance_to').readOnly = false
+    //     document.getElementById('gs_period_of_attendance_to').value = ""
+    //     document.getElementById('gs_period_of_attendance_to').readOnly = false
 
-      }else if(e.target.value == "CURRENTLY ENROLLED"){
-        document.getElementById('gs_highest_grade_year_units').disabled = true;
-        document.getElementById('gs_scholarship_academic_honor').readOnly = true;
-        document.getElementById('gs_period_of_attendance_to').readOnly = true;
-        document.getElementById('gs_period_of_attendance_to').value = "PRESENT"
-        document.getElementById('gs_period_of_attendance_from').value = ""
+    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
+    //     document.getElementById('gs_highest_grade_year_units').disabled = true;
+    //     document.getElementById('gs_scholarship_academic_honor').readOnly = true;
+    //     document.getElementById('gs_period_of_attendance_to').readOnly = true;
+    //     document.getElementById('gs_period_of_attendance_to').value = "PRESENT"
+    //     document.getElementById('gs_period_of_attendance_from').value = ""
 
-      }else{
-        document.getElementById('gs_period_of_attendance_to').readOnly = false;
-        document.getElementById('gs_period_of_attendance_to').value = ""
-        document.getElementById('gs_period_of_attendance_from').value = ""
+    //   }else{
+    //     document.getElementById('gs_period_of_attendance_to').readOnly = false;
+    //     document.getElementById('gs_period_of_attendance_to').value = ""
+    //     document.getElementById('gs_period_of_attendance_from').value = ""
 
-        document.getElementById('gs_highest_grade_year_units').disabled = false;
-        document.getElementById('gs_scholarship_academic_honor').readOnly = true;
-      }
-    });
+    //     document.getElementById('gs_highest_grade_year_units').disabled = false;
+    //     document.getElementById('gs_scholarship_academic_honor').readOnly = true;
+    //   }
+    // });
 
-    document.getElementById('doc_highest_level_units_earned').addEventListener('change',(e)=>{
-      // console.log(e.target.value)
-      if(e.target.value == 'GRADUATED'){
-        document.getElementById('doc_highest_grade_year_units').disabled = true;
-        document.getElementById('doc_scholarship_academic_honor').readOnly = false;
-        document.getElementById('doc_period_of_attendance_from').value = ""
+    // document.getElementById('doc_highest_level_units_earned').addEventListener('change',(e)=>{
+    //   // console.log(e.target.value)
+    //   if(e.target.value == 'GRADUATED'){
+    //     document.getElementById('doc_highest_grade_year_units').disabled = true;
+    //     document.getElementById('doc_scholarship_academic_honor').readOnly = false;
+    //     document.getElementById('doc_period_of_attendance_from').value = ""
 
-        document.getElementById('doc_period_of_attendance_to').value = ""
-        document.getElementById('doc_period_of_attendance_to').readOnly = false
+    //     document.getElementById('doc_period_of_attendance_to').value = ""
+    //     document.getElementById('doc_period_of_attendance_to').readOnly = false
 
-      }else if(e.target.value == "CURRENTLY ENROLLED"){
-        document.getElementById('doc_highest_grade_year_units').disabled = true;
-        document.getElementById('doc_scholarship_academic_honor').readOnly = true;
-        document.getElementById('doc_period_of_attendance_to').readOnly = true;
-        document.getElementById('doc_period_of_attendance_to').value = "PRESENT"
-        document.getElementById('doc_period_of_attendance_from').value = ""
+    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
+    //     document.getElementById('doc_highest_grade_year_units').disabled = true;
+    //     document.getElementById('doc_scholarship_academic_honor').readOnly = true;
+    //     document.getElementById('doc_period_of_attendance_to').readOnly = true;
+    //     document.getElementById('doc_period_of_attendance_to').value = "PRESENT"
+    //     document.getElementById('doc_period_of_attendance_from').value = ""
 
-      }else{
-        document.getElementById('doc_period_of_attendance_to').readOnly = false;
-        document.getElementById('doc_period_of_attendance_to').value = ""
-        document.getElementById('doc_period_of_attendance_from').value = ""
+    //   }else{
+    //     document.getElementById('doc_period_of_attendance_to').readOnly = false;
+    //     document.getElementById('doc_period_of_attendance_to').value = ""
+    //     document.getElementById('doc_period_of_attendance_from').value = ""
 
-        document.getElementById('doc_highest_grade_year_units').disabled = false;
-        document.getElementById('doc_scholarship_academic_honor').readOnly = true;
-      }
-    });
+    //     document.getElementById('doc_highest_grade_year_units').disabled = false;
+    //     document.getElementById('doc_scholarship_academic_honor').readOnly = true;
+    //   }
+    // });
 
 
   })()

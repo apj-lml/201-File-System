@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Career_Service, College, Learning_Development, Service_Record, User, Uploaded_File, Vaccine, Vocational_Course
+from .models import Career_Service, College, Doctoral, Learning_Development, Masteral, Service_Record, User, Uploaded_File, Vaccine, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -117,9 +117,9 @@ def update_employee(emp_id):
 
 	cs_update_no_fields = formdata['cs_update_no_fields']
 	college_no_update_fields = formdata['college_no_update_fields']
-
-
+	masteral_no_update_fields = formdata['masteral_no_update_fields']
 	vocational_no_update_fields = formdata['vocational_no_update_fields']
+	doctoral_no_update_fields = formdata['doctoral_no_update_fields']
 
 
 # ---------------------------------------------------------------------------- #
@@ -149,7 +149,6 @@ def update_employee(emp_id):
 	db.session.commit()
 
 
-
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF VOCATIONAL COURSE                        #
 # ---------------------------------------------------------------------------- #
@@ -160,7 +159,8 @@ def update_employee(emp_id):
 								vocational_trade_course = formdata['vocational_trade_course['+str(xy)+']'].upper(), 
 								v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(xy)+']'].upper(),
 								v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']'].upper(),
-								v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(), 
+								v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(),
+                				v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(xy)+']'],
 								v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper()))
 
 
@@ -181,7 +181,7 @@ def update_employee(emp_id):
 		db.session.commit()
 
 # ---------------------------------------------------------------------------- #
-#                                UPDATING OF CSE                               #
+#                            UPDATING OF COLLEGE                               #
 # ---------------------------------------------------------------------------- #
 	for xy in range(1, int(college_no_update_fields)+1):
 		
@@ -194,6 +194,42 @@ def update_employee(emp_id):
 						c_highest_level_units_earned = formdata['c_highest_level_units_earned['+str(xy)+']'].upper(),
 						c_highest_grade_year_units = formdata['c_highest_grade_year_units['+str(xy)+']'].upper(),
 						c_scholarship_academic_honor = formdata['c_scholarship_academic_honor['+str(xy)+']'].upper(),
+						))
+
+		db.session.commit()
+
+# ---------------------------------------------------------------------------- #
+#                           UPDATING OF MASTERAL                               #
+# ---------------------------------------------------------------------------- #
+	for xy in range(1, int(masteral_no_update_fields)+1):
+		
+		masteral = Masteral.query.filter_by(id = formdata['gs_id['+str(xy)+']'])
+		masteral.update(dict(
+						gs_school = formdata['gs_school['+str(xy)+']'].upper(), 
+						gs_degree_course = formdata['gs_degree_course['+str(xy)+']'], 
+						gs_period_of_attendance_from = formdata['gs_period_of_attendance_from['+str(xy)+']'].upper(),
+						gs_period_of_attendance_to = formdata['gs_period_of_attendance_to['+str(xy)+']'].upper(), 
+						gs_highest_level_units_earned = formdata['gs_highest_level_units_earned['+str(xy)+']'].upper(),
+						gs_highest_grade_year_units = formdata['gs_highest_grade_year_units['+str(xy)+']'].upper(),
+						gs_scholarship_academic_honor = formdata['gs_scholarship_academic_honor['+str(xy)+']'].upper(),
+						))
+
+		db.session.commit()
+
+# ---------------------------------------------------------------------------- #
+#                           UPDATING OF DOCTORAL                               #
+# ---------------------------------------------------------------------------- #
+	for xy in range(1, int(doctoral_no_update_fields)+1):
+		
+		doctoral = Doctoral.query.filter_by(id = formdata['doctoral_id['+str(xy)+']'])
+		doctoral.update(dict(
+						doc_school = formdata['doc_school['+str(xy)+']'].upper(), 
+						doc_degree_course = formdata['doc_degree_course['+str(xy)+']'], 
+						doc_period_of_attendance_from = formdata['doc_period_of_attendance_from['+str(xy)+']'].upper(),
+						doc_period_of_attendance_to = formdata['doc_period_of_attendance_to['+str(xy)+']'].upper(), 
+						doc_highest_level_units_earned = formdata['doc_highest_level_units_earned['+str(xy)+']'].upper(),
+						doc_highest_grade_year_units = formdata['doc_highest_grade_year_units['+str(xy)+']'].upper(),
+						doc_scholarship_academic_honor = formdata['doc_scholarship_academic_honor['+str(xy)+']'].upper(),
 						))
 
 		db.session.commit()

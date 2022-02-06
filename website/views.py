@@ -52,3 +52,10 @@ def covid_vaccine(emp_id):
 def change_password(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('change_password.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/tshirt-sizes/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def others(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('t_shirt_sizes.html', emp_id = emp_id, user_profile = user)
