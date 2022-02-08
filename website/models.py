@@ -2,6 +2,7 @@
 #from email.policy import default
 from time import timezone
 from tkinter.tix import Tree
+
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -103,9 +104,7 @@ class User(db.Model, UserMixin):
 	shirt = db.relationship('Shirt')
 	masteral = db.relationship('Masteral')
 	doctoral = db.relationship('Doctoral')
-
-
-
+	work_experience = db.relationship('Work_Experience')
 
 	# emergency_contact = db.relationship('Emergency_Contact')
 
@@ -181,7 +180,7 @@ class Vaccine(db.Model, SerializerMixin):
 	booster_id_no = db.Column(db.String(50))
 	booster_brand = db.Column(db.String(50))
 	booster_place = db.Column(db.String(50))
-	booster_date = db.Column(db.Date())
+	booster_date = db.Column(db.String(50))
 
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -242,6 +241,22 @@ class Shirt(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	polo_shirt_size = db.Column(db.String(50))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Work_Experience(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	date_from = db.Column(db.String(50))
+	date_to = db.Column(db.String(50))
+	position_title = db.Column(db.String(50))
+	department_agency_office_company = db.Column(db.String(50))
+	# immediate_supervisor = db.Column(db.String(50))
+	monthly_salary = db.Column(db.String(50))
+	sg = db.Column(db.String(50))
+	step = db.Column(db.String(50))
+	status_of_appointment = db.Column(db.String(50))
+	govt_service = db.Column(db.String(50))
+
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 # class Graduate_Study(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
 # 	graduate_studies = db.Column(db.String(150))

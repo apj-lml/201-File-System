@@ -56,6 +56,13 @@ def change_password(emp_id):
 @views.route('/tshirt-sizes/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
-def others(emp_id):
+def shirt_size(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('t_shirt_sizes.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/work-experience/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def work_experience(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('work_experience.html', emp_id = emp_id, user_profile = user)

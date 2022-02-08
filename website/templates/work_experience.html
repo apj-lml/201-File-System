@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% block title %} Work Experience {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid">
+    
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                         WORK EXPERIENCE                                 -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="row mb-3">
+    <div class="card mb-3">
+        <div class="card-body">
+          <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
+          <form action="#" method="POST" name="work_experience_form" id="work_experience_form" enctype="multipart/form-data"></form>
+              <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="work_experience_form">
+                        <label for="date_from">Inclusive Date (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="work_experience_form">
+                        <label for="date_to">Inclusive Date (To)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" value="" form="work_experience_form">
+                        <label for="date_from">Position Title</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="department_agency_office_company" id="department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="work_experience_form">
+                        <label for="date_to">Department / Office / Agency / Company</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" form="work_experience_form">
+                        <label for="date_to">Monthly Salary</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="sg" name="sg" aria-label="Floating label select example" value="" form="work_experience_form">
+                          <option value="N" selected>N/A</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                          <option value="24">24</option>
+                          <option value="25">25</option>
+                          <option value="26">26</option>
+                        </select>
+                        <label for="sg">Salary / Job / Pay Grade</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="work_experience_form">
+                          <option value="N" selected>N/A</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                        </select>
+                        <label for="step">Step</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="work_experience_form">
+                          <option value="N/A" selected hidden>N/A</option>
+                          <option value="PERMANENT">PERMANENT</option>
+                          <option value="COTERMINOUS">COTERMINOUS</option>
+                          <option value="CASUAL">CASUAL</option>
+                          <option value="JOB ORDER">JOB ORDER</option>
+                          <option value="REGULAR">REGULAR</option>
+                          <option value="CONTRACTUAL">CONTRACTUAL</option>
+                        </select>
+                        <label for="status_of_appointment">Status of Appointment</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="govt_service" name="govt_service" aria-label="Floating label select example" value="" form="work_experience_form">
+                          <option value="Y">YES</option>
+                          <option value="N">NO</option>
+                        </select>
+                        <label for="govt_service">Government Service</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Sumbit</button>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="col-sm-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped text-center nowrap" id="work_experience_table" width = "100%">
+                        <thead class="">
+                        <tr class="align-middle">
+                          <th colspan="2">Inclusive Dates</th>
+                          <th  rowspan="2">Position Title</th>
+                          <th  rowspan="2">Department / Office / Agency / Company</th>
+                          <th  rowspan="2">Monthly Salary</th>
+                          <th  rowspan="2">Salary / Job / Pay Grade</th>
+                          <th  rowspan="2">Status of Appointment</th>
+                          <th  rowspan="2">Government Service</th>
+                          <th  rowspan="2">Controls</th>
+                        </tr>
+                        <tr class="align-middle">
+                          <th> (From)</th>
+                          <th> (To)</th>
+  
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {# if user_profile.work_experience is not none #}
+                            {% for work_experience in user_profile.work_experience %}
+                              <tr>
+                                <td>{{work_experience.date_from}}</td>
+                                <td>{{work_experience.date_to}}</td>
+                                <td>{{work_experience.position_title}}</td>
+                                <td>{{work_experience.department_agency_office_company}}</td>
+                                <td>{{work_experience.monthly_salary}}</td>
+                                {% if work_experience.sg == 'N' %}
+                                <td>N</td>
+                                {% else %}
+                                <td>{{work_experience.sg}} - {{work_experience.step}}</td>
+                                {% endif %}
+                                <td>{{work_experience.status_of_appointment}}</td>
+                                <td>{{work_experience.govt_service}}</td>
+                                <td><div class="d-sm-flex flex-row">
+                                  <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{work_experience.id}}" onclick = "delete_ld(this)">
+                                    <i class="bi bi-trash"></i>
+                                  </a>
+                                </div></td>
+                              </tr>
+                            {% endfor %}
+                          {# endif #}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- <button type="submit" id="update_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Update</button> -->
+        </div>
+    </div>
+	</div>
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+   window.addEventListener('load',()=>{ 
+
+    $('#work_experience_table').DataTable({
+
+      language: {
+            searchBuilder: {
+                title: ``,
+				add: `Add Filter`
+            }
+        },
+        dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+    });
+
+
+        document.getElementById('work_experience_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                   SUBMIT OF WORK EXPERIENCE FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/workExperience/add-work-experience/{{user_profile.id}}'
+            
+            let formData4 = new FormData(document.getElementById("work_experience_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                // window.location.reload();
+
+                });//END VACCINE
+
+             
+    })
+});
+
+
+
+</script>
+{%endblock%}

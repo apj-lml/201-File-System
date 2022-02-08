@@ -5,7 +5,10 @@ from os import path
 import os
 from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 
+# from flask_babel import Babel
+
 db = SQLAlchemy()
+# babel = Babel()
 
 DB_NAME = 'employeeinformation.db'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +21,9 @@ def create_app():
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024    # 50 Mb limit
+	# app.config.from_pyfile('mysettings.cfg')
+	
+	# babel.init_app(babel)
 	#app.config["CACHE_TYPE"] = "null"
 	# change to "redis" and restart to cache again
 
@@ -40,6 +46,8 @@ def create_app():
 	from .masteral import masteral
 	from .doctoral import doctoral
 	from .shirt import shirt
+	from .workExperience import workExperience
+
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -54,11 +62,12 @@ def create_app():
 	app.register_blueprint(college, url_prefix = '/college')
 	app.register_blueprint(masteral, url_prefix = '/masteral')
 	app.register_blueprint(doctoral, url_prefix = '/doctoral')
-
 	app.register_blueprint(shirt, url_prefix = '/shirt')
+	app.register_blueprint(workExperience, url_prefix = '/workExperience')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #
+
 
 	from .models import User
 
@@ -84,6 +93,7 @@ def create_app():
 			identity.provides.add(RoleNeed(str(current_user.type_of_user)))
 
 	return app
+
 
 
 

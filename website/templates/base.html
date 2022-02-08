@@ -93,10 +93,12 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> My Profile</a></li>
                 <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-people-fill"></i> Family Background</a></li>
-                <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-collection"></i> Work Experience</a></li>
+                <li><a class="dropdown-item" href="/work-experience/{{current_user.id}}"><i class="bi bi-journals"></i> Work Experience</a></li>
                 <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
                 <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-pen"></i> Other Information</a></li>
                 <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-question-octagon"></i> Questions</a></li>
+                <li><a class="dropdown-item disabled" href="/family-background/{{current_user.id}}"><i class="bi bi-person-video2"></i> Character References</a></li>
+
 
 
                 <!-- <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li> -->
@@ -123,7 +125,7 @@
                 <i class="bi bi-box-seam"></i> Others
               </a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> T-Shirt Sizes</a></li>
+                <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
                 <!-- <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li> -->
                  <!-- <li><hr class="dropdown-divider"></li> -->
                 <!-- <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li> -->
@@ -147,7 +149,6 @@
           <!-- <li class="nav-item">
             <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
           </li> -->
-          {% endif %}
         </ul>
         
         <ul class="navbar-nav navbar-right me-3">
@@ -182,7 +183,7 @@
           </li>
 
         </ul>
-
+      {% endif %}
 
 
       </div>

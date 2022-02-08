@@ -25,7 +25,7 @@
 			<div class="card-body">
 				<form id="add_polo_form" action="#" method="POST"></form>
 				<input type="hidden" name="add_or_update" id="add_or_update" value="{{'update' if user_profile.shirt else 'add'}}" form="add_polo_form">
-					<h3 class="card-title">Shirt Size</h3>
+					<h3 class="card-title"><i class="fas fa-tshirt"></i> Shirt Size</h3>
 					<div class="card shadow-sm mb-3">
                             <div class="card-body">
                                 <div class="form-floating flex-fill mb-3 p-1">
@@ -35,22 +35,27 @@
 										{% else %}
 										<option value="" selected disabled hidden>-</option>
 										{% endif %}
+									<option value="EXTRA SMALL(XS)">EXTRA SMALL (XS)</option>
                                       <option value="SMALL(S)">SMALL (S)</option>
                                       <option value="MEDIUM (M)">MEDIUM (M)</option>
                                       <option value="LARGE (L)">LARGE (L)</option>
                                       <option value="EXTRA LARGE (XL)">EXTRA LARGE (XL)</option>
-                                      <option value="DOUBLE EXTRA LARGE (XXL)">DOUBLE EXTRA LARGE (XXL)</option>
-                                      <option value="TRIPLE EXTRA LARGE (XXXL)">TRIpPLE EXTRA LARGE (XXXL)</option>
+                                      <option value="2XL">2XL</option>
+									  <option value="3XL">3XL</option>
+                                      <option value="4XL">4XL</option>
+                                      <option value="5XL">5XL</option>
+                                      <option value="CUSTOMIZED">CUSTOMIZED</option>
+
                                     </select>
                                     <label for="polo_shirt_size">Shirt Size</label>
                                   </div>
 								  <div class="col-sm-12 text-center">
-									<button type="submit" class="btn btn-primary" form="add_polo_form">Submit</button>
+									<button type="submit" class="btn btn-primary" form="add_polo_form">SAVE</button>
 								</div>
 								</div>
 
                         </div>
-						<h3 class="card-title">Shirt Design</h3>
+						<!-- <h3 class="card-title">Shirt Design</h3>
 						<div class="card shadow-sm mb-3">
                             <div class="card-body">
                                 <div class="form-floating flex-fill mb-3 p-1">
@@ -58,7 +63,7 @@
 									<img src="https://via.placeholder.com/300x300.png?text=SHIRT+BACK" class="rounded img-fluid shadow p-3 m-2" alt="...">
                                   </div>
                             </div>
-                        </div>
+                        </div> -->
 			</div>
 		</div>
 	</div>
@@ -89,8 +94,8 @@
 				return res.json();
 
 			}).then((data)=>{
-					//triggerToast(data); //this is the returned error message
-					window.location.reload();
+					triggerToast(data); //this is the returned error message
+					//window.location.reload();
 			})
 
 	});
