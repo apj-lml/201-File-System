@@ -47,6 +47,8 @@ def create_app():
 	from .doctoral import doctoral
 	from .shirt import shirt
 	from .workExperience import workExperience
+	from .voluntaryWork import voluntaryWork
+	from .otherInformation import otherInformation
 
 
 
@@ -64,6 +66,8 @@ def create_app():
 	app.register_blueprint(doctoral, url_prefix = '/doctoral')
 	app.register_blueprint(shirt, url_prefix = '/shirt')
 	app.register_blueprint(workExperience, url_prefix = '/workExperience')
+	app.register_blueprint(voluntaryWork, url_prefix = '/voluntaryWork')
+	app.register_blueprint(otherInformation, url_prefix = '/otherInformation')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

@@ -104,6 +104,9 @@ class User(db.Model, UserMixin):
 	masteral = db.relationship('Masteral')
 	doctoral = db.relationship('Doctoral')
 	work_experience = db.relationship('Work_Experience')
+	voluntary_work = db.relationship('Voluntary_Work')
+	other_information = db.relationship('Other_Information')
+
 
 	# emergency_contact = db.relationship('Emergency_Contact')
 
@@ -256,14 +259,21 @@ class Work_Experience(db.Model, SerializerMixin):
 
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-# class Graduate_Study(db.Model):
-# 	id = db.Column(db.Integer, primary_key=True)
-# 	graduate_studies = db.Column(db.String(150))
-# 	school = db.Column(db.String(150))
-# 	degree_course = db.Column(db.String(150))
-# 	period_of_attendance_to = db.Column(db.String(150))
-# 	highest_level_units_earned = db.Column(db.String(150))
-# 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+class Voluntary_Work(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name_of_organization = db.Column(db.String(150))
+	address = db.Column(db.String(150))
+	date_from = db.Column(db.String(150))
+	date_to = db.Column(db.String(150))
+	no_hours = db.Column(db.String(150))
+	position = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Other_Information(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	description = db.Column(db.String(150))
+	type = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 # class Position(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)

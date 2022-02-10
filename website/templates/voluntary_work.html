@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+
+{% block title %} Work Experience {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid">
+    
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                            VOLUNTARY WORK                               -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="row mb-3">
+    <div class="card mb-3">
+        <div class="card-body">
+          <h3 class="card-title"><i class="bi bi-person-workspace"></i> Voluntary Work</h3>
+          <form action="#" method="POST" name="voluntary_work_form" id="voluntary_work_form" enctype="multipart/form-data"></form>
+              <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="name_of_organization" id="name_of_organization" placeholder="Name of Organization" value="" form="voluntary_work_form">
+                        <label for="date_from">Name of Organization</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="address" id="address" placeholder="Address of Organization" value="" form="voluntary_work_form">
+                        <label for="date_from">Address of Organization</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="voluntary_work_form">
+                        <label for="date_from">Inclusive Date (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="voluntary_work_form">
+                        <label for="date_to">Inclusive Date (To)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="number" class="form-control" name ="no_hours" id="no_hours" placeholder="No. of Hours" value="" form="voluntary_work_form">
+                        <label for="department_agency_office_company">No. of Hours</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="position" id="position" placeholder="Position" value="" form="voluntary_work_form">
+                        <label for="date_from">Position</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="voluntary_work_form">Sumbit</button>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="col-sm-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped text-center nowrap" id="voluntary_work_table" width = "100%">
+                        <thead class="">
+                        <tr class="align-middle">
+                          <th  rowspan="2">Name & Address of Organization</th>
+                          <th colspan="2">Inclusive Dates</th>
+                          <th  rowspan="2" >No. of Hours</th>
+                          <th  rowspan="2">Position / Nature of Work</th>
+                          <th  rowspan="2">Controls</th>
+                        </tr>
+                        <tr class="align-middle">
+                          <th> (From)</th>
+                          <th> (To)</th>
+  
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {# if user_profile.voluntary_work is not none #}
+                            {% for voluntary_work in user_profile.voluntary_work %}
+                              <tr>
+                                <td>{{voluntary_work.name_of_organization}}</td>
+                                <td>{{voluntary_work.date_from}}</td>
+                                <td>{{voluntary_work.date_to}}</td>
+                                <td>{{voluntary_work.no_hours}}</td>
+                                <td>{{voluntary_work.position}}</td>
+                                <td class="text-center"><div class="d-sm-flex flex-row text-center">
+                                  <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{voluntary_work.id}}" onclick = "delete_voluntary_work(this)">
+                                    <i class="bi bi-trash"></i>
+                                  </a>
+                                  <a class="btn btn-primary btn-sm m-2" title="View" id="{{voluntary_work.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_voluntary_work(this)">
+                                    <i class="bi bi-eye"></i>
+                                  </a>
+                                </div></td>
+                              </tr>
+                            {% endfor %}
+                          {# endif #}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- <button type="submit" id="update_covid_btn" class="btn btn-primary btn-sm" form="voluntary_work_form">Update</button> -->
+        </div>
+    </div>
+	</div>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewExpModal">Edit Work Experience</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
+                <form action="#" method="POST" name="update_voluntary_work_form" id="update_voluntary_work_form" enctype="multipart/form-data"></form>
+                <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_voluntary_work_form">
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="name_of_organization" id="update_name_of_organization" placeholder="Name of Organization" value="" form="update_voluntary_work_form">
+                        <label for="date_from">Name of Organization</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="address" id="update_address" placeholder="Address of Organization" value="" form="update_voluntary_work_form">
+                        <label for="date_from">Address of Organization</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_from" id="update_date_from" placeholder="Inclusive Date (From)" value="" form="update_voluntary_work_form">
+                        <label for="date_from">Inclusive Date (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_to" id="update_date_to" placeholder="Inclusive Date (To)" value="" form="update_voluntary_work_form">
+                        <label for="date_to">Inclusive Date (To)</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="no_hours" id="update_no_hours" placeholder="No. of Hours" value="" form="update_voluntary_work_form">
+                        <label for="department_agency_office_company">No. of Hours</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="position" id="update_position" placeholder="Position" value="" form="update_voluntary_work_form">
+                        <label for="date_from">Position</label>
+                      </div>
+                    </div>
+<!-- 
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="update_voluntary_work_form">Sumbit</button>
+                    </div> -->
+
+                  </div>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="update_voluntary_work_form">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+  function delete_voluntary_work(el){
+    fetch('/voluntaryWork/delete-voluntary-work',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// triggerToast(data)
+			window.location.reload()
+		});
+  }
+
+  function view_voluntary_work(el){
+    fetch('/voluntaryWork/view-voluntary-work',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// console.log(data)
+      document.getElementById('update_id').value = data[0].id;
+      document.getElementById('update_name_of_organization').value = data[0].name_of_organization;
+      document.getElementById('update_address').value = data[0].address;
+      document.getElementById('update_no_hours').value = data[0].no_hours;
+      document.getElementById('update_date_from').value = data[0].date_from;
+      document.getElementById('update_date_to').value = data[0].date_to;
+      document.getElementById('update_position').value = data[0].position;
+		});
+  }
+
+
+   window.addEventListener('load',()=>{ 
+
+    $('#voluntary_work_table').DataTable({
+      responsive: true,
+      language: {
+            searchBuilder: {
+                title: ``,
+				add: `Add Filter`
+            }
+        },
+        dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+    });
+
+      document.getElementById('update_voluntary_work_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            let formData1 = new FormData(document.getElementById("update_voluntary_work_form"));
+          
+            const data1 = {}
+            formData1.forEach((value, key) => (data1[key] = value));
+            console.log(data1)
+            fetch('/voluntaryWork/save-voluntary-work', {
+                method: 'POST',
+                body: formData1
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SAVED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#voluntary_work_table').DataTable().ajax.reload()
+                  // document.getElementById('update_voluntary_work_form').reset()
+                  // window.location.reload()
+
+                });//END
+            });
+
+        document.getElementById('voluntary_work_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                    SUBMIT OF VOLUNTARY WORK FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/voluntaryWork/add-voluntary-work/{{user_profile.id}}'
+            
+            let formData4 = new FormData(document.getElementById("voluntary_work_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#voluntary_work_table').DataTable().ajax.reload()
+                  // document.getElementById('voluntary_work_form').reset()
+                  // window.location.reload()
+
+                });//END
+
+             
+    })
+});
+
+
+
+</script>
+{%endblock%}

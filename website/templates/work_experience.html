@@ -44,11 +44,11 @@
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" name ="department_agency_office_company" id="department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="work_experience_form">
-                        <label for="date_to">Department / Office / Agency / Company</label>
+                        <label for="department_agency_office_company" style="font-size: 12px">Department / Office / Agency / Company</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" form="work_experience_form">
-                        <label for="date_to">Monthly Salary</label>
+                        <input type="number" class="form-control" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" form="work_experience_form">
+                        <label for="monthly_salary">Monthly Salary</label>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
@@ -133,7 +133,7 @@
                         <tr class="align-middle">
                           <th colspan="2">Inclusive Dates</th>
                           <th  rowspan="2">Position Title</th>
-                          <th  rowspan="2">Department / Office / Agency / Company</th>
+                          <th  rowspan="2" >Department / Office / Agency / Company</th>
                           <th  rowspan="2">Monthly Salary</th>
                           <th  rowspan="2">Salary / Job / Pay Grade</th>
                           <th  rowspan="2">Status of Appointment</th>
@@ -162,9 +162,12 @@
                                 {% endif %}
                                 <td>{{work_experience.status_of_appointment}}</td>
                                 <td>{{work_experience.govt_service}}</td>
-                                <td><div class="d-sm-flex flex-row">
-                                  <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{work_experience.id}}" onclick = "delete_ld(this)">
+                                <td class="text-center"><div class="d-sm-flex flex-row text-center">
+                                  <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{work_experience.id}}" onclick = "delete_work_experience(this)">
                                     <i class="bi bi-trash"></i>
+                                  </a>
+                                  <a class="btn btn-primary btn-sm m-2" title="View" id="{{work_experience.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_work_experience(this)">
+                                    <i class="bi bi-eye"></i>
                                   </a>
                                 </div></td>
                               </tr>
@@ -181,7 +184,131 @@
         </div>
     </div>
 	</div>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewExpModal">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
+                <form action="#" method="POST" name="update_work_experience_form" id="update_work_experience_form" enctype="multipart/form-data"></form>
+                <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_work_experience_form">
 
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="date" class="form-control" name ="date_from" id="update_date_from" placeholder="Inclusive Date (From)" value="" form="update_work_experience_form">
+                              <label for="update_date_from">Inclusive Date (From)</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="date" class="form-control" name ="date_to" id="update_date_to" placeholder="Inclusive Date (To)" value="" form="update_work_experience_form">
+                              <label for="date_to">Inclusive Date (To)</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="position_title" id="update_position_title" placeholder="Position Title" value="" form="update_work_experience_form">
+                              <label for="date_from">Position Title</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="department_agency_office_company" id="update_department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="update_work_experience_form">
+                              <label for="date_to" style="font-size: 12px">Department / Office / Agency / Company</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="number" class="form-control" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" value="" form="update_work_experience_form">
+                              <label for="date_to">Monthly Salary</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="update_sg" name="sg" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                                <option value="N" selected>N/A</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                              </select>
+                              <label for="sg">Salary / Job / Pay Grade</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="update_step" name="step" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                                <option value="N" selected>N/A</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                              </select>
+                              <label for="step">Step</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="update_status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                                <option value="N/A" selected hidden>N/A</option>
+                                <option value="PERMANENT">PERMANENT</option>
+                                <option value="COTERMINOUS">COTERMINOUS</option>
+                                <option value="CASUAL">CASUAL</option>
+                                <option value="JOB ORDER">JOB ORDER</option>
+                                <option value="REGULAR">REGULAR</option>
+                                <option value="CONTRACTUAL">CONTRACTUAL</option>
+                              </select>
+                              <label for="status_of_appointment">Status of Appointment</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="update_govt_service" name="govt_service" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                                <option value="Y">YES</option>
+                                <option value="N">NO</option>
+                              </select>
+                              <label for="govt_service">Government Service</label>
+                            </div>
+                          </div>
+                          <!-- <div class="col-sm-12 text-center">
+                            <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Sumbit</button>
+                          </div> -->
+      
+                        </div>
+                    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="update_work_experience_form">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </main>
 
 {% endblock %}
@@ -189,10 +316,46 @@
 {%block scripts%}
 
 <script type="text/javascript">
+  function delete_work_experience(el){
+    fetch('/workExperience/delete-work-experience',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// triggerToast(data)
+			window.location.reload()
+		});
+  }
+
+  function view_work_experience(el){
+    fetch('/workExperience/view-work-experience',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// console.log(data)
+      document.getElementById('update_id').value = data[0].id;
+      document.getElementById('update_date_from').value = data[0].date_from;
+      document.getElementById('update_date_to').value = data[0].date_to;
+      document.getElementById('update_position_title').value = data[0].position_title;
+      document.getElementById('update_department_agency_office_company').value = data[0].department_agency_office_company;
+      document.getElementById('update_monthly_salary').value = data[0].monthly_salary;
+      document.getElementById('update_sg').value = data[0].sg;
+      document.getElementById('update_step').value = data[0].step;
+      document.getElementById('update_status_of_appointment').value = data[0].status_of_appointment;
+      document.getElementById('update_govt_service').value = data[0].govt_service;
+
+
+		});
+  }
+
+
    window.addEventListener('load',()=>{ 
 
     $('#work_experience_table').DataTable({
-
+      responsive: true,
       language: {
             searchBuilder: {
                 title: ``,
@@ -204,6 +367,30 @@
 				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
     });
 
+      document.getElementById('update_work_experience_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            let formData1 = new FormData(document.getElementById("update_work_experience_form"));
+          
+            const data1 = {}
+                formData1.forEach((value, key) => (data1[key] = value));
+            console.log(data1)
+            fetch('/workExperience/save-work-experience', {
+                method: 'POST',
+                body: formData1
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#work_experience_table').DataTable().ajax.reload()
+                  // document.getElementById('update_work_experience_form').reset()
+                  // window.location.reload()
+
+                });//END
+            });
 
         document.getElementById('work_experience_form').addEventListener('submit',(e)=>{
             e.preventDefault();
@@ -229,9 +416,11 @@
                 
                 }).then((data)=>{
 
-                // window.location.reload();
+                  // $('#work_experience_table').DataTable().ajax.reload()
+                  document.getElementById('work_experience_form').reset()
+                  window.location.reload()
 
-                });//END VACCINE
+                });//END
 
              
     })

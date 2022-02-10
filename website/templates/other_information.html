@@ -1,0 +1,498 @@
+{% extends 'base.html' %}
+
+{% block title %} Other Information {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid">
+    
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                          Other Information                              -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="row mb-3">
+    <div class="card mb-3">
+        <div class="card-body">
+          <h3 class="card-title"><i class="bi bi-box-seam"></i> Other Information</h3>
+          <form action="#" method="POST" name="other_information_form" id="other_information_form" enctype="multipart/form-data"></form>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="col-sm-12 row">
+                        <div class="col-lg-4">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-striped text-center nowrap" id="hobbies_table" width = "100%">
+                                <thead class="">
+                                <tr class="align-middle">
+                                  <th>Special Skills & Hobbies</th>
+                                  <th>Controls</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for other_information in user_profile.other_information %}
+                                        {% if other_information.type == 'HOBBIES' %}
+                                            <tr>
+                                                <td>{{other_information.description}}</td>
+                                                <td class="text-center">
+                                                    <div class="d-sm-flex flex-row text-center">
+                                                        <a class="btn btn-primary btn-sm m-2" title="View" id="{{other_information.id}}" data-bs-toggle="modal" data-bs-target="#viewOtherInformationModal" onclick = "view_other_information(this)">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                        <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{other_information.id}}" onclick = "delete_other_information(this)">
+                                                            <i class="bi bi-trash"></i>
+                                                        </a>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#hobbiesModal">Add Special Skills & Hobbies</button>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-striped text-center nowrap" id="recognition_table" width = "100%">
+                                <thead class="">
+                                <tr class="align-middle">
+                                  <th>Non-Academic Distinctions / Recognition</th>
+                                  <th>Controls</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for other_information in user_profile.other_information %}
+                                        {% if other_information.type == 'RECOGNITION' %}
+                                            <tr>
+                                                <td>{{other_information.description}}</td>
+                                                <td class="text-center">
+                                                    <div class="d-sm-flex flex-row text-center">
+                                                        <a class="btn btn-primary btn-sm m-2" title="View" id="{{other_information.id}}" data-bs-toggle="modal" data-bs-target="#viewOtherInformationModal" onclick = "view_other_information(this)">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                        <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{other_information.id}}" onclick = "delete_other_information(this)">
+                                                            <i class="bi bi-trash"></i>
+                                                        </a>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#recognitionModal">Add Non-Academic Distinctions / Recognition</button>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="table-responsive">
+                              <table class="table table-bordered table-striped text-center nowrap" id="membership_table" width = "100%">
+                                <thead class="">
+                                <tr class="align-middle">
+                                  <th>Membership in Association / Organization</th>
+                                  <th>Controls</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for other_information in user_profile.other_information %}
+                                        {% if other_information.type == 'MEMBERSHIP' %}
+                                            <tr>
+                                                <td>{{other_information.description}}</td>
+                                                <td class="text-center">
+                                                    <div class="d-sm-flex flex-row text-center">
+                                                        <a class="btn btn-primary btn-sm m-2" title="Edit" id="{{other_information.id}}" data-bs-toggle="modal" data-bs-target="#viewOtherInformationModal" onclick = "view_other_information(this)">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
+                                                        <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{other_information.id}}" onclick = "delete_other_information(this)">
+                                                            <i class="bi bi-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#membershipModal">Add Membership in Association / Organization</button>
+                            </div>
+                          </div>
+                    </div>
+
+
+                </div>
+              </div>
+
+            <!-- <button type="submit" id="update_covid_btn" class="btn btn-primary btn-sm" form="other_information_form">Update</button> -->
+        </div>
+    </div>
+	</div>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="modal fade" id="viewOtherInformationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewOtherInformationModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewOtherInformationModal">Special Hobbies</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title"><i class="fa-solid fa-chess-board"></i> Add Special Skills / Hobbies</h3>
+                  <input type="text" name="id" id="udpate_id">
+                  <form action="#" method="POST" name="update_other_information" id="update_other_information" enctype="multipart/form-data"></form>
+                  <input type="text" class="form-control" name ="type" id="update_type" placeholder="" value="" form="update_other_information">
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" name ="description" id="update_description" placeholder="Special Skill / Hobby" value="" form="update_other_information">
+                          <label for="date_from">Special Skill / Hobby</label>
+                        </div>
+                      </div>
+  
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="update_other_information">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="hobbiesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewExpModal">Special Hobbies</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title"><i class="fa-solid fa-chess-board"></i> Add Special Skills / Hobbies</h3>
+                  <form action="#" method="POST" name="add_hobbies_form" id="add_hobbies_form" enctype="multipart/form-data"></form>
+                  <input type="text" class="form-control" name ="type" id="type" placeholder="" value="hobbies" form="add_hobbies_form">
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_hobbies_form">
+                          <label for="date_from">Special Skill / Hobby</label>
+                        </div>
+                      </div>
+  
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="add_hobbies_form">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+  <div class="modal fade" id="recognitionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="recognitionModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recognitionModal">Non-Academic Distinctions / Recognition</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title"><i class="bi bi-journals"></i> Add Non-Academic Distinctions / Recognition</h3>
+                  <form action="#" method="POST" name="add_recognition_form" id="add_recognition_form" enctype="multipart/form-data"></form>
+                  <input type="text" class="form-control" name ="type" id="type" placeholder="" value="recognition" form="add_recognition_form">
+                  <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_recognition_form">
+                          <label for="date_from">Non-Academic Distinctions / Recognition</label>
+                        </div>
+                      </div>
+  
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="add_recognition_form">Save</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="membershipModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="membershipModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="membershipModal">Membership in Association / Organization</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                      <h3 class="card-title"><i class="bi bi-journals"></i> Add Membership in Association / Organization</h3>
+                      <form action="#" method="POST" name="add_membership_form" id="add_membership_form" enctype="multipart/form-data"></form>
+                      <input type="text" class="form-control" name ="type" id="type" placeholder="" value="membership" form="add_membership_form">
+                      <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_membership_form">
+                              <label for="date_from">Membership in Association / Organization</label>
+                            </div>
+                          </div>
+      
+                        </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="add_membership_form">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+  </main>
+
+
+
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+  function delete_other_information(el){
+    fetch('/otherInformation/delete-other-information', {
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// triggerToast(data)
+			window.location.reload()
+		});
+  }
+
+  function view_other_information(el){
+    fetch('/otherInformation/view-voluntary-work',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// console.log(data)
+      document.getElementById('update_id').value = data[0].id;
+      document.getElementById('update_description').value = data[0].update_description;
+      document.getElementById('update_type').value = data[0].update_type;
+		});
+  }
+
+
+   window.addEventListener('load',()=>{ 
+//<!-- ----------------------------------------------------------------------- -->
+//<!--                                 TABLES                                  -->
+//<!-- ----------------------------------------------------------------------- -->
+    $('#hobbies_table').DataTable({
+      responsive: true,
+      dom: 'Bftrip',
+      language: {
+            searchBuilder: {
+                title: ``,
+				add: `Add Filter`
+            }
+        },
+        dom: ``,
+    });
+
+    $('#recognition_table').DataTable({
+      responsive: true,
+      dom: 'Bftrip',
+      language: {
+            searchBuilder: {
+                title: ``,
+				add: `Add Filter`
+            }
+        },
+        dom: ``,
+    });
+
+    $('#membership_table').DataTable({
+      responsive: true,
+      dom: 'Bftrip',
+      language: {
+            searchBuilder: {
+                title: ``,
+				add: `Add Filter`
+            }
+        },
+        dom: ``,
+    });
+        
+    //   document.getElementById('update_other_information_form').addEventListener('submit',(e)=>{
+    //         e.preventDefault();
+    //         let formData1 = new FormData(document.getElementById("update_other_information_form"));
+          
+    //         const data1 = {}
+    //         formData1.forEach((value, key) => (data1[key] = value));
+    //         console.log(data1)
+    //         fetch('/voluntaryWork/save-voluntary-work', {
+    //             method: 'POST',
+    //             body: formData1
+    //             }).then((res)=>{
+    //             if (res.status == 200){
+    //                 console.log("SUCCESSFULY SAVED ALL DATA")
+    //                 return res.json()
+    //             }
+                
+    //             }).then((data)=>{
+
+
+    //             });
+    //         });
+        
+        
+
+    document.getElementById('add_hobbies_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                 SUBMIT OF other information FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/otherInformation/add-other-information/{{user_profile.id}}'
+            
+            let formData4 = new FormData(document.getElementById("add_hobbies_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#voluntary_work_table').DataTable().ajax.reload()
+                  // document.getElementById('other_information_form').reset()
+                  // window.location.reload()
+
+                });//END            
+    })
+
+    document.getElementById('add_recognition_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                 SUBMIT OF other information FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/otherInformation/add-other-information/{{user_profile.id}}'
+            
+            let formData4 = new FormData(document.getElementById("add_recognition_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#voluntary_work_table').DataTable().ajax.reload()
+                  // document.getElementById('other_information_form').reset()
+                  // window.location.reload()
+
+                });//END            
+    })
+
+    document.getElementById('add_membership_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                 SUBMIT OF other information FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/otherInformation/add-other-information/{{user_profile.id}}'
+            
+            let formData4 = new FormData(document.getElementById("add_membership_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#voluntary_work_table').DataTable().ajax.reload()
+                  // document.getElementById('other_information_form').reset()
+                  // window.location.reload()
+
+                });//END            
+    })
+
+
+
+});
+
+
+
+</script>
+{%endblock%}

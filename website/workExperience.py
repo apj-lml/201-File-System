@@ -48,15 +48,56 @@ def add_work_experience(emp_id):
 
 
  # ---------------------------------------------------------------------------- #
- #                          DELETE VOCATIONAL                                   #
+ #                                 DELETE WES                                   #
  # ---------------------------------------------------------------------------- #
-@workExperience.route('delete-vocational', methods=['POST', 'GET'])
+@workExperience.route('delete-work-experience', methods=['POST', 'GET'])
 @login_required
-def delete_learning_and_development():
+def delete_work_experience():
 	if request.method == "POST":
 		formdata  = json.loads(request.data)
-		voc = Work_Experience.query.get(formdata['id'])
+		we = Work_Experience.query.get(formdata['work_exp_id'])
 
-		db.session.delete(voc)
+		db.session.delete(we)
 		db.session.commit()
-	return jsonify('File Deleted Successfully')
+	return jsonify('Work Experience Deleted Successfully')
+
+ # ---------------------------------------------------------------------------- #
+ #                                    GET WES                                   #
+ # ---------------------------------------------------------------------------- #
+@workExperience.route('view-work-experience', methods=['POST', 'GET'])
+@login_required
+def view_work_experience():
+	if request.method == "POST":
+		formdata  = json.loads(request.data)
+		get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).all()
+		column_keys = Work_Experience.__table__.columns.keys()
+	# Temporary dictionary to keep the return value from table
+		rows_dic_temp = {}
+		rows_dic = []
+	# Iterate through the returned output data set
+		for row in get_we:
+			for col in column_keys:
+				rows_dic_temp[col] = getattr(row, col)
+			rows_dic.append(rows_dic_temp)
+			rows_dic_temp= {}
+			print(rows_dic)
+		return jsonify(rows_dic)
+
+ # ---------------------------------------------------------------------------- #
+ #                                   Save WES                                   #
+ # ---------------------------------------------------------------------------- #
+@workExperience.route('save-work-experience', methods=['POST', 'GET'])
+@login_required
+def update_work_experience():
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+        get_we = Work_Experience.query.get(formdata['id'])
+        formdata.pop('id')
+
+        #code for automated update
+        print(formdata)
+        for key, value in formdata.items(): 
+            setattr(get_we, key, value)
+        db.session.commit()
+
+        return jsonify('Successfully Saved Changes.')
