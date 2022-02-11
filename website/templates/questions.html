@@ -1,0 +1,521 @@
+{% extends 'base.html' %}
+
+{% block title %} Questions {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+	
+	<div class="row mb-3">
+		<div class="card mb-3">
+			<div class="card-body">
+				<form id="add_polo_form" action="#" method="POST"></form>
+					<h3 class="card-title"><i class="bi bi-question-diamond"></i> Questions</h3>
+                    <form action="#" method="POST" id="questions_form" name="questions_form"></form>
+					<div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating flex-fill p-1">
+                                    <!-- <input type="text" name="q1" id="q1" value="q1"> -->
+                                    <p>	Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of bureau or office or to the person who has immediate supervision over you in the Office, Bureau or Department where you will be apppointed,</p>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class="">a. within the third degree? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[1]" id="a1c1" value="" form="questions_form" onchange="show_if_yes('a1c3', false)">
+                                                    <label class="form-check-label" for="a1c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[1]" id="a1c2" value="NO" checked form="questions_form" onchange="show_if_yes('a1c3', true)">
+                                                    <label class="form-check-label" for="a1c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a1c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a1c1').value=this.value" disabled>
+                                                    <label for="a1">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class="">b. within the fourth degree (for Local Government Unit - Career Employees)? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[2]" id="a2c1" value="" form="questions_form" onchange="show_if_yes('a2c3', false)">
+                                                    <label class="form-check-label" for="a2c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[2]" id="a2c2" value="NO" checked form="questions_form" onchange="show_if_yes('a2c3', true)">
+                                                    <label class="form-check-label" for="a2c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a2c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a2c1').value=this.value" disabled>
+                                                    <label for="a2c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div><!-- END -->
+
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating flex-fill p-1">
+                                    <!-- <input type="text" name="q1" id="q1" value="q1"> -->
+                                    <p>	Are you related by consanguinity or affinity to any of the following :</p>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class="">a. Have you ever been found guilty of any administrative offense? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[3]" id="a3c1" value="" form="questions_form" onchange="show_if_yes('a3c3', false)">
+                                                    <label class="form-check-label" for="a3c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[3]" id="a3c2" value="NO" checked form="questions_form" onchange="show_if_yes('a1c3', true)">
+                                                    <label class="form-check-label" for="a3c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a3c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a3c1').value=this.value" disabled>
+                                                    <label for="a1">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class="">b. Have you been criminally charged before any court? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[4]" id="a4c1" value="" form="questions_form" onchange="show_if_yes('a4c3', false)">
+                                                    <label class="form-check-label" for="a4c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[4]" id="a4c2" value="NO" checked form="questions_form" onchange="show_if_yes('a4c3', true)">
+                                                    <label class="form-check-label" for="a4c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a4c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a4c1').value=this.value" disabled>
+                                                    <label for="a4c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div><!-- END -->
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating col-sm-6">
+                                    <p class="">Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal? </p>
+                                </div>
+                                <div class="form-floating col-sm-6">
+                                    <div class="d-flex flex-row">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="answer[5]" id="a5c1" value="" form="questions_form" onchange="show_if_yes('a5c3', false)">
+                                            <label class="form-check-label" for="a5c1">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="answer[5]" id="a5c2" value="NO" checked form="questions_form" onchange="show_if_yes('a5c3', true)">
+                                            <label class="form-check-label" for="a5c2">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    <div class="d-flex flex-row">
+                                        <div class="form-floating flex-fill mb-3 p-1">
+                                            <input type="text" class="form-control" id="a5c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a5c1').value=this.value" disabled>
+                                            <label for="a5c3">If YES, give details:</label>
+                                          </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating col-sm-6">
+                                    <p class="">Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal? </p>
+                                </div>
+                                <div class="form-floating col-sm-6">
+                                    <div class="d-flex flex-row">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="answer[6]" id="a6c1" value="" form="questions_form" onchange="show_if_yes('a6c3', false)">
+                                            <label class="form-check-label" for="a2c1">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="answer[6]" id="a6c2" value="NO" checked form="questions_form" onchange="show_if_yes('a6c3', true)">
+                                            <label class="form-check-label" for="a6c2">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    <div class="d-flex flex-row">
+                                        <div class="form-floating flex-fill mb-3 p-1">
+                                            <input type="text" class="form-control" id="a6c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a6c1').value=this.value" disabled>
+                                            <label for="a6c3">If YES, give details:</label>
+                                          </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating col-sm-6">
+                                    <p class="">Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</p>
+                                </div>
+                                <div class="form-floating col-sm-6">
+                                    <div class="d-flex flex-row">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="answer[7]" id="a7c1" value="" form="questions_form" onchange="show_if_yes('a7c3', false)">
+                                            <label class="form-check-label" for="a7c1">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="answer[7]" id="a7c2" value="NO" checked form="questions_form" onchange="show_if_yes('a7c3', true)">
+                                            <label class="form-check-label" for="a7c2">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    <div class="d-flex flex-row">
+                                        <div class="form-floating flex-fill mb-3 p-1">
+                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a7c1').value=this.value" disabled>
+                                            <label for="a7c3">If YES, give details:</label>
+                                          </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating flex-fill p-1">
+                                    <!-- <input type="text" name="q1" id="q1" value="q1"> -->
+                                    <p>	Are you related by consanguinity or affinity to any of the following :</p>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class=""> a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a8c1" value="" form="questions_form" onchange="show_if_yes('a8c3', false)">
+                                                    <label class="form-check-label" for="a8c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a8c2" value="NO" checked form="questions_form" onchange="show_if_yes('a8c3', true)">
+                                                    <label class="form-check-label" for="a8c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a8c1').value=this.value" disabled>
+                                                    <label for="a8c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class=""> b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[9]" id="a9c1" value="" form="questions_form" onchange="show_if_yes('a9c3', false)">
+                                                    <label class="form-check-label" for="a9c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[9]" id="a9c2" value="NO" checked form="questions_form" onchange="show_if_yes('a9c3', true)">
+                                                    <label class="form-check-label" for="a9c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a9c1').value=this.value" disabled>
+                                                    <label for="a9c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div><!-- END -->
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating col-sm-6">
+                                    <p class=""> Have you acquired the status of an immigrant or permanent resident of another country? </p>
+                                </div>
+                                <div class="form-floating col-sm-6">
+                                    <div class="d-flex flex-row">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="answer[10]" id="a10c1" value="" form="questions_form" onchange="show_if_yes('a10c3', false)">
+                                            <label class="form-check-label" for="a10c1">
+                                                Yes
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="answer[10]" id="a10c2" value="NO" checked form="questions_form" onchange="show_if_yes('a10c3', true)">
+                                            <label class="form-check-label" for="a10c2">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    <div class="d-flex flex-row">
+                                        <div class="form-floating flex-fill mb-3 p-1">
+                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a10c1').value=this.value" disabled>
+                                            <label for="a10c3">If YES, give details:</label>
+                                          </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                                <div class="form-floating flex-fill p-1">
+                                    <!-- <input type="text" name="q1" id="q1" value="q1"> -->
+                                    <p>	Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons
+                                        (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following
+                                        items:</p>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class=""> a. Are you a member of any indigenous group? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a11c1" value="" form="questions_form" onchange="show_if_yes('a11c3', false)">
+                                                    <label class="form-check-label" for="a11c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a11c2" value="NO" checked form="questions_form" onchange="show_if_yes('a11c3', true)">
+                                                    <label class="form-check-label" for="a11c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a11c1').value=this.value" disabled>
+                                                    <label for="a11c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class=""> b. Are you differently abled? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a12c1" value="" form="questions_form" onchange="show_if_yes('a12c3', false)">
+                                                    <label class="form-check-label" for="a12c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a12c2" value="NO" checked form="questions_form" onchange="show_if_yes('a12c3', true)">
+                                                    <label class="form-check-label" for="a12c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a12c1').value=this.value" disabled>
+                                                    <label for="a12c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-md-flex flex-row">
+                                        <div class="form-floating col-sm-6">
+                                            <p class=""> c. Are you a solo parent? </p>
+                                        </div>
+                                        <div class="form-floating col-sm-6">
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="radio" name="answer[13]" id="a13c1" value="" form="questions_form" onchange="show_if_yes('a13c3', false)">
+                                                    <label class="form-check-label" for="a13c1">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="answer[13]" id="a13c2" value="NO" checked form="questions_form" onchange="show_if_yes('a13c3', true)">
+                                                    <label class="form-check-label" for="a13c2">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                            <div class="d-flex flex-row">
+                                                <div class="form-floating flex-fill mb-3 p-1">
+                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="" form="questions_form" oninput="document.getElementById('a13c1').value=this.value" disabled>
+                                                    <label for="a13c3">If YES, give details:</label>
+                                                  </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div><!-- END -->
+                    <div class="d-flex flex-row">
+                    <button class="btn btn-primary flex-fill" type="submit" form="questions_form">Save</button>
+
+                    </div>
+		</div>
+	</div>
+           
+		</div>
+	</div>
+</div>
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+	///ld/add-learning-and-development/{{emp_id}}
+    function show_if_yes(id, is_disabled){
+        document.getElementById(id).disabled = is_disabled;
+    }
+	document.getElementById('questions_form').addEventListener('submit', (e)=>{
+		e.preventDefault();
+		var formElem = document.getElementById("questions_form"); 
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+		console.log(data)
+		fetch('/questions/add-answers/{{user_profile.id}}', {
+				method: 'POST',
+				body: formData
+			}).then((res)=>{
+				if (res.status == 200){
+					// document.getElementById('add_polo_form').reset();
+				}
+				return res.json();
+
+			}).then((data)=>{
+					triggerToast(data); //this is the returned error message
+					//window.location.reload();
+			})
+
+	});
+
+
+
+
+</script>
+{%endblock%}

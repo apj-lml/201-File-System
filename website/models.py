@@ -259,7 +259,7 @@ class Work_Experience(db.Model, SerializerMixin):
 
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-class Voluntary_Work(db.Model):
+class Voluntary_Work(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	name_of_organization = db.Column(db.String(150))
 	address = db.Column(db.String(150))
@@ -269,10 +269,16 @@ class Voluntary_Work(db.Model):
 	position = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-class Other_Information(db.Model):
+class Other_Information(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	description = db.Column(db.String(150))
 	type = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Questions(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	question = db.Column(db.String(150))
+	answer = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 # class Position(db.Model):

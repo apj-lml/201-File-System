@@ -80,3 +80,10 @@ def voluntary_work(emp_id):
 def other_information(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('other_information.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/questions/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def questions(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('questions.html', emp_id = emp_id, user_profile = user)

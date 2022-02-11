@@ -5,11 +5,11 @@ from werkzeug.utils import secure_filename
 from flask_login import current_user, login_user, logout_user, login_required
 import datetime
 import time
-from .models import Career_Service, Learning_Development, User, Uploaded_File, Vaccine, Vocational_Course
+from .models import Career_Service, User, Vaccine, Vocational_Course
 from . import db
 import os, os.path
 import json
-from flask_principal import Principal, identity_changed, Identity, AnonymousIdentity
+from flask_principal import identity_changed, Identity, AnonymousIdentity
 
 ALLOWED_EXTENSIONS = {'pdf'}
 
