@@ -177,7 +177,7 @@
                   <!-- TODO -->
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form">
+                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.employment_status}}" selected disabled hidden>{{user_profile.employment_status}}</option>
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
@@ -188,11 +188,11 @@
                       <label for="middle_name">Employment Status</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form">
+                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="last_name">Position Title</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form">
+                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -223,7 +223,7 @@
                       <label for="salary_grade">Salary Grade</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form">
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -237,25 +237,25 @@
                       <label for="step">Step</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else 'N/A'}}" form="update_form">
-                      <label for="item_no">Item No.</label>
+                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else 'N/A'}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="item_no" >Item No.</label>
                     </div>
                   </div>
               
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form">
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="date_of_assumption">Date of Assumption to Duty</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" form="update_form">
+                      <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}> 
                       <label for="date_of_assumption">Date of Last Step Increment</label>
                     </div>
                   </div>
                   <!-- TODO -->
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" form="update_form">
+                      <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                           <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option>
                           <option value="Administrative & Finance">Administrative & Finance</option>
                           <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
@@ -269,7 +269,7 @@
                       <label for="section">Section</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" form="update_form">
+                      <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.unit}}" selected disabled hidden>{{user_profile.unit}}</option>
                         <option value="Administrative Unit">Administrative Unit</option>
                         <option value="Finance Unit">Finance Unit</option>
@@ -281,17 +281,17 @@
                     </div>
                     <!-- TODO -->
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}" form="update_form">
+                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="date_of_original_appointment">Date of Original Appointment</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate}}"  oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" required>
+                      <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate if user_profile.daily_rate is not none else 'N/A'}}"  oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="daily_rate">Daily Rate (Php)</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate}}" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" required>
+                      <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate if user_profile.monthly_rate is not none else 'N/A'}}" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="monthly_rate">Monthly Rate (Php)</label>
                     </div>
                   </div>
@@ -377,11 +377,11 @@
                       <label for="name_extn">GSIS</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form">
+                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" readonly>
                       <label for="name_extn">Pag-ibig</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form">
+                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" readonly>
                       <label for="name_extn">Philhealth</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -391,15 +391,15 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form">
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" readonly>
                       <label for="name_extn">TIN</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
+                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form" readonly>
                       <label for="name_extn">ATM Card No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form">
+                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" >
                       <label for="name_extn">UMID</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -1335,6 +1335,7 @@
                   <div class="row" style="max-width: 1500px;">
                   {% for file in user_profile.uploaded_files %}
                     <!-- <div class="flex-fill mb-3 p-1"> -->
+                      {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' %}
                       <div class="col-md-12">
                         <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
                           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
@@ -1346,6 +1347,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
                         </div>
                       </div>
+                      {% endif %}
                     <!-- </div> -->
                   {% endfor %}
                   </div>

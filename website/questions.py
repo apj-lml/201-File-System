@@ -26,10 +26,26 @@ def add_answers(emp_id):
         formdata = request.form.to_dict()
         print(formdata)
         for xy in range(1, 13 + 1):
-            finaldata = Questions(answer = formdata['answer['+str(xy)+']'], user_id = emp_id)
+            finaldata = Questions(question = formdata['q'+str(xy)], answer = formdata['answer['+str(xy)+']'], user_id = emp_id)
             db.session.add(finaldata)
             db.session.commit()
         return jsonify('Successfully Added Answers')
+
+    return 'ok', 200
+
+@questions.route('update-answers/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def update_answers(emp_id):
+    if request.method == "POST":
+
+        formdata = request.form.to_dict()
+        print(formdata)
+        for xy in range(1, 13 + 1):
+            select_q = Questions.query.get(formdata['id'+str(xy)])
+            select_q.answer = formdata['answer['+str(xy)+']']
+            db.session.commit()
+        return jsonify('Successfully Updated Answers')
 
     return 'ok', 200
     

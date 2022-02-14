@@ -69,12 +69,12 @@ def delete_other_information():
  # ---------------------------------------------------------------------------- #
  #                                    GET VW                                   #
  # ---------------------------------------------------------------------------- #
-@otherInformation.route('view-voluntary-work', methods=['POST', 'GET'])
+@otherInformation.route('edit-other-information', methods=['POST', 'GET'])
 @login_required
-def view_other_information():
+def edit_other_information():
     if request.method == "POST":
         formdata  = json.loads(request.data)
-        get_we = Other_Information.query.filter_by(id = formdata['work_exp_id']).all()
+        get_we = Other_Information.query.filter_by(id = formdata['id']).all()
         column_keys = Other_Information.__table__.columns.keys()
     # Temporary dictionary to keep the return value from table
         rows_dic_temp = {}
@@ -91,9 +91,9 @@ def view_other_information():
  # ---------------------------------------------------------------------------- #
  #                                   Save VW                                   #
  # ---------------------------------------------------------------------------- #
-@otherInformation.route('save-voluntary-work', methods=['POST', 'GET'])
+@otherInformation.route('save-other-information', methods=['POST', 'GET'])
 @login_required
-def update_Other_Information():
+def update_other_information():
     if request.method == "POST":
         formdata = request.form.to_dict()
         get_we = Other_Information.query.get(formdata['id'])

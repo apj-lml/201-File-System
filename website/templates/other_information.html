@@ -156,23 +156,9 @@
         <div class="modal-body">
           <div class="row mb-3">
             <div class="card mb-3">
-                <div class="card-body">
-                  <h3 class="card-title"><i class="fa-solid fa-chess-board"></i> Add Special Skills / Hobbies</h3>
-                  <input type="text" name="id" id="udpate_id">
-                  <form action="#" method="POST" name="update_other_information" id="update_other_information" enctype="multipart/form-data"></form>
-                  <input type="text" class="form-control" name ="type" id="update_type" placeholder="" value="" form="update_other_information">
-                  <div class="card shadow-sm mb-3">
-                    <div class="card-body">
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="description" id="update_description" placeholder="Special Skill / Hobby" value="" form="update_other_information">
-                          <label for="date_from">Special Skill / Hobby</label>
-                        </div>
-                      </div>
-  
-                    </div>
-                </div>
-        </div>
+              <div class="card-body" id="edit_modal_body">
+                
+            </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary" form="update_other_information">Save</button>
@@ -197,7 +183,7 @@
                 <div class="card-body">
                   <h3 class="card-title"><i class="fa-solid fa-chess-board"></i> Add Special Skills / Hobbies</h3>
                   <form action="#" method="POST" name="add_hobbies_form" id="add_hobbies_form" enctype="multipart/form-data"></form>
-                  <input type="text" class="form-control" name ="type" id="type" placeholder="" value="hobbies" form="add_hobbies_form">
+                  <input type="hidden" class="form-control" name ="type" id="type" placeholder="" value="hobbies" form="add_hobbies_form">
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
                       <div class="d-md-flex flex-row">
@@ -234,7 +220,7 @@
                 <div class="card-body">
                   <h3 class="card-title"><i class="bi bi-journals"></i> Add Non-Academic Distinctions / Recognition</h3>
                   <form action="#" method="POST" name="add_recognition_form" id="add_recognition_form" enctype="multipart/form-data"></form>
-                  <input type="text" class="form-control" name ="type" id="type" placeholder="" value="recognition" form="add_recognition_form">
+                  <input type="hidden" class="form-control" name ="type" id="type" placeholder="" value="recognition" form="add_recognition_form">
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
                       <div class="d-md-flex flex-row">
@@ -271,7 +257,7 @@
                     <div class="card-body">
                       <h3 class="card-title"><i class="bi bi-journals"></i> Add Membership in Association / Organization</h3>
                       <form action="#" method="POST" name="add_membership_form" id="add_membership_form" enctype="multipart/form-data"></form>
-                      <input type="text" class="form-control" name ="type" id="type" placeholder="" value="membership" form="add_membership_form">
+                      <input type="hidden" class="form-control" name ="type" id="type" placeholder="" value="membership" form="add_membership_form">
                       <div class="card shadow-sm mb-3">
                         <div class="card-body">
                           <div class="d-md-flex flex-row">
@@ -304,6 +290,19 @@
 {%block scripts%}
 
 <script type="text/javascript">
+
+  // function edit_other_information(el){
+  //   fetch('/otherInformation/view-other-information', {
+	// 	method: 'POST',
+	// 	body: JSON.stringify({"id" : el.id})
+	// })
+	// 	.then(response => response.json())
+	// 	.then(data => {
+	// 		// triggerToast(data)
+	// 		console.log(data)
+	// 	});
+  // }
+
   function delete_other_information(el){
     fetch('/otherInformation/delete-other-information', {
 		method: 'POST',
@@ -317,18 +316,76 @@
   }
 
   function view_other_information(el){
-    fetch('/otherInformation/view-voluntary-work',{
+    document.getElementById('viewOtherInformationModal').addEventListener('shown.bs.modal', function () {
+    fetch('/otherInformation/edit-other-information',{
 		method: 'POST',
-		body: JSON.stringify({"work_exp_id" : el.id})
+		body: JSON.stringify({"id" : el.id})
 	})
 		.then(response => response.json())
 		.then(data => {
-			// console.log(data)
-      document.getElementById('update_id').value = data[0].id;
-      document.getElementById('update_description').value = data[0].update_description;
-      document.getElementById('update_type').value = data[0].update_type;
+			 console.log(data)
+      var id = data[0].id;
+      var description  = data[0].description;
+      var type = data[0].type;
+      document.getElementById('edit_modal_body').innerHTML  = `
+            <h3 class="card-title"><i class="bi bi-bicycle"></i> Add Special Skills / Hobbies</h3>
+                <form action="#" method="POST" name="update_other_information" id="update_other_information" enctype="multipart/form-data"></form>
+                <input type="hidden" name="id" id="udpate_id" value="${id}" form="update_other_information">
+                <input type="hidden" class="form-control" name ="type" id="update_type" placeholder="" value="${type}" form="update_other_information">
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="description" id="update_description" placeholder="Special Skill / Hobby" value="${description}" form="update_other_information">
+                        <label for="date_from">Special Skill / Hobby</label>
+                      </div>
+                    </div>
+
+                  </div>
+              </div>
+      
+      `;
+
+
+      document.getElementById('update_other_information').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                 SUBMIT OF other information FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/otherInformation/save-other-information'
+            
+            let formData4 = new FormData(document.getElementById("update_other_information"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+
+                  // $('#voluntary_work_table').DataTable().ajax.reload()
+                  // document.getElementById('other_information_form').reset()
+                   window.location.reload()
+
+                });//END            
+    })
+
+
 		});
+})
   }
+
+  document.getElementById('viewOtherInformationModal').addEventListener('hidden.bs.modal', function () {
+    document.getElementById('edit_modal_body').innerHTML  = ``;
+  });
 
 
    window.addEventListener('load',()=>{ 
@@ -421,7 +478,7 @@
 
                   // $('#voluntary_work_table').DataTable().ajax.reload()
                   // document.getElementById('other_information_form').reset()
-                  // window.location.reload()
+                  window.location.reload()
 
                 });//END            
     })
@@ -452,7 +509,7 @@
 
                   // $('#voluntary_work_table').DataTable().ajax.reload()
                   // document.getElementById('other_information_form').reset()
-                  // window.location.reload()
+                  window.location.reload()
 
                 });//END            
     })
@@ -483,7 +540,7 @@
 
                   // $('#voluntary_work_table').DataTable().ajax.reload()
                   // document.getElementById('other_information_form').reset()
-                  // window.location.reload()
+                  window.location.reload()
 
                 });//END            
     })

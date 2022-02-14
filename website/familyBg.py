@@ -46,7 +46,7 @@ def add_family_background(emp_id):
         if request.method == "POST":
             formdata = request.form.to_dict()
 
-            for xy in range(1, 4 + 1):
+            for xy in range(1, int(formdata['family_count']) + 1):
                 # try:
 
                 

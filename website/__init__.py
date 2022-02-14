@@ -50,6 +50,7 @@ def create_app():
 	from .voluntaryWork import voluntaryWork
 	from .otherInformation import otherInformation
 	from .questions import questions
+	from .characterReference import characterReference
 
 
 
@@ -70,6 +71,7 @@ def create_app():
 	app.register_blueprint(voluntaryWork, url_prefix = '/voluntaryWork')
 	app.register_blueprint(otherInformation, url_prefix = '/otherInformation')
 	app.register_blueprint(questions, url_prefix = '/questions')
+	app.register_blueprint(characterReference, url_prefix = '/characterReference')
 
 
 
