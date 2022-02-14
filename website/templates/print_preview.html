@@ -54,7 +54,7 @@
                 <p class="mt-0 pt-0 mb-0 pb-0" style="font-size: 14px;">Print legibly. Tick appropriate boxes (  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">   ) and use separate sheet if necessary. Indicate N/A if not applicable.  <strong>NOT ABBREVIATE.</strong> </p>
             </div>
             <div class="col-sm-1 bg-header border border-dark border-2 border-bottom-0">
-                <p class="mt-0 pt-0 mb-0 pb-0 pe-0 me-0" style="font-family: Arial Narrow; font-size: 14px;">1. CS ID No.</p>
+                <p class="mt-0 pt-0 mb-0 pb-0 pe-0 me-0 my-font">1. CS ID No.</p>
             </div>
             <div class="col-sm-3 border border-dark border-2 border-start-0 border-end-0 border-bottom-0">
                 <p class="mt-0 pt-0 mb-0 pb-0 pe-0 me-0 text-end" style="font-family: Arial Narrow; font-size: 14px;"> (Do not fill up. For CSC use only)</p>
@@ -76,20 +76,20 @@
 <div class="row border border-dark border-2 border-bottom-0 border-top-0">
     <div class="col-sm-3 bg-light">
         <div class="row bg-light h-100">
-            <div class="col-sm-12">
-                <p class="h-100" style="font-family: Arial Narrow; font-size: 15px;"><span>2.</span> SURNAME</p>
+            <div class="col-sm-12 p-0">
+                <p class="h-100 my-font"><span>2.</span> SURNAME</p>
             </div>
-            <div class="col-sm-12">
-                <p class="h-100 ps-4" style="font-family: Arial Narrow; font-size: 15px;"> FIRST NAME</p>
+            <div class="col-sm-12 p-0">
+                <p class="h-100 ps-4 my-font"> FIRST NAME</p>
             </div>
-            <div class="col-sm-12">
-                <p class="h-100 ps-4" style="font-family: Arial Narrow; font-size: 15px;"> MIDDLE NAME</p>
+            <div class="col-sm-12 p-0">
+                <p class="h-100 ps-4 my-font"> MIDDLE NAME</p>
             </div>
         </div>
     </div>
     <div class="col-sm-9">
         <div class="row h-100">
-            <div class="col-sm-12">
+            <div class="col-sm-12 p-0">
                 <p class="fw-bold border-start border-bottom border-dark border-1 h-100 ps-2">{{user_profile.last_name}}</p>
             </div>
             <div class="col-sm-7 p-0">
@@ -101,83 +101,83 @@
             <div class="col-sm-2 p-0">
                 <p class="text-start fw-bold border-start-0 border-bottom border-dark border-1 h-100 ps-2" >{{user_profile.name_extn if user_profile.name_ext is not none else 'N/A'}}</p>
             </div>
-            <div class="col-sm-12">
-                <p class="fw-bold border-start border-bottom border-dark border-1 h-100 ps-2">{{user_profile.middle_name}}</p>
+            <div class="col-sm-12 p-0">
+                <p class="fw-bold border-start border-bottom-0 border-dark border-1 h-100 ps-2">{{user_profile.middle_name}}</p>
             </div>
         </div>
     </div>
 </div>
-
-<!-- ----------------------------------------------------------------------- -->
-<!--                                 SURNAME                                 -->
-<!-- ----------------------------------------------------------------------- -->
 <div class="row border border-dark border-2 border-bottom-0">
-    <div class="col-sm-2 p-0 m-0 bg-light">
-        <p class="ps-2 h-100" style="font-family: Arial Narrow; font-size: 15px;"><span>2.</span> SURNAME</p>
-    </div>
-    <div class="col-sm-10 p-0 m-0" >
-        <p class="ps-2 fw-bold border-start border-bottom border-dark border-1 h-100">{{user_profile.last_name}}</p>
-    </div>
-</div>
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                               FIRST NAME                                -->
-    <!-- ----------------------------------------------------------------------- -->
-<div class="row border border-dark border-2 border-bottom-0 border-top-0">
-    <div class="col-sm-2 p-0 m-0 bg-light">
-        <p class="ps-2 ms-4 my-font"> FIRST NAME</p>
-    </div>
-    <div class="col-sm-7 p-0 m-0">
-        <p class="ps-2 fw-bold border-start border-bottom border-dark border-1 h-100 ">{{user_profile.first_name}}</p>
-    </div>
-    <div class="col-sm-2 p-0 m-0 bg-light">
-        <p class="text-start my-font border-start border-bottom border-dark border-1 h-100 ps-2" > NAME EXTENSION (JR., SR)</p>
-    </div>
-    <div class="col-sm-1 p-0 m-0 bg-light">
-        <p class="text-start fw-bold border-start-0 border-bottom border-dark border-1 h-100 ps-2" >{{user_profile.name_extn if user_profile.name_ext is not none else 'N/A'}}</p>
-    </div>
-</div>
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                               MIDDLE NAME                               -->
-    <!-- ----------------------------------------------------------------------- -->
-<div class="row border border-dark border-2 border-bottom-0 border-top-0">
-    <div class="col-sm-2 p-0 m-0  bg-light">
-        <p class="ps-2 ms-4 my-font">MIDDLE NAME</p>
-    </div>
-    <div class="col-sm-10 p-0 m-0 align-middle">
-        <p class="ps-2 fw-bold h-100 border-start border-bottom-0 border-dark border-1 h-100" >{{user_profile.middle_name if user_profile.middle_name is not none else 'N/A'}}</p>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-sm-5">
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                                   DOB                                   -->
-    <!-- ----------------------------------------------------------------------- -->
-        <div class="row border border-dark border-2 border-bottom-0">
-            <div class="col-sm-5 p-0 m-0  bg-light">
-                <p class="ps-2 my-font"><span>3.</span> DATE OF BIRTH</p>
+    <div class="col-sm-3 bg-light">
+        <div class="row bg-light h-100">
+            <div class="col-sm-12 p-0">
+                <p class=" my-font h-100"><span>3.</span> DATE OF BIRTH (mm/dd/yyyy)</p>
+                <!-- <p class="ps-4 my-font"> (mm/dd/yyyy)</p> -->
             </div>
-            <div class="col-sm-7 p-0 m-0 bg-light">
-                <p class="ps-2 fw-bold h-100 border-start border-bottom-0 border-dark border-1 h-100" >{{user_profile.birthdate.strftime('%m/%d/%Y')}}</p>
+            <div class="col-sm-12 p-0 border-dark border-1 border-top">
+                <p class="h-100 my-font"><span>4.</span> PLACE OF BIRTH</p>
+            </div>
+            <div class="col-sm-12 p-0 border-dark border-1 border-top">
+                <p class="h-100 my-font"><span>5.</span> SEX</p>
             </div>
         </div>
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                                   POB                                   -->
-    <!-- ----------------------------------------------------------------------- -->
-
-        <div class="row border border-dark border-2 border-bottom-0">
-            <div class="col-sm-2 p-0 m-0 bg-light">
-                <p class="ps-2 my-font"><span>4.</span> PLACE OF BIRTH</p>
-            </div>
-            <div class="col-sm-10 p-0 m-0 bg-light">
-                <p class="ps-2 fw-bold h-100 border-start border-bottom-0 border-dark border-1 h-100" >{{user_profile.place_of_birth}}</p>
-            </div>
-        </div>
-        
     </div>
-    <div class="col-sm-7"></div>
+    <div class="col-sm-9">
+        <div class="row h-100">
+
+            <div class="col-sm-3 p-0">
+                <p class="fw-bold border-start border-bottom h-100 border-dark border-1 border-top-0 ps-2 p-0">{{user_profile.birthdate.strftime('%m/%d/%Y')}}</p>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2"><span>16. </span>CITIZENSHIP</p>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="row">
+                    <div class="col-sm-4 p-0 ps-5"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked> <label class="my-font">Filipino</label></div>
+                    <div class="col-sm-8 p-0"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="my-font">Dual Citizenship</label></div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 p-0">
+                <p class="fw-bold border-start border-bottom-0 border-dark border-1 h-100 ps-2">{{user_profile.place_of_birth}}</p>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2 text-center">If holder of  dual citizenship, </p>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="row text-end">
+                    <div class="col-sm-6 p-0 ps-5 text-end">
+                        <input class="form-check-input my-font" type="checkbox" value="" id="flexCheckDefault" checked><label class="my-font">by birth</label> 
+                    </div>
+                    <div class="col-sm-6 p-0 pe-5">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="my-font">by naturalization</label>
+                    </div>
+                    <!-- <div class="col-sm-12">
+                        Pls. indicate country:
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-sm-3 p-0">
+                <p class="fw-bold border-start border-bottom-0 border-top border-dark border-1 h-100 ps-2">{{user_profile.sex}}</p>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2 text-center">please indicate the details. </p>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="row">
+                    <div class="col-sm-12 p-0 ps-4">
+                        <p class="text-center my-font">Please indicate country: </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>
+
 
 
 

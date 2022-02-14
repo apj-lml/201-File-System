@@ -313,7 +313,7 @@
 	function add_child(){
 		document.getElementById('family_count').value ++;
 		var x = document.getElementById('family_count').value
-		document.getElementById('add_child').innerHTML =`
+		document.getElementById('add_child').insertAdjacentElement('beforebegin', `
 		<div class="card shadow-sm mb-3">
 							<div class="card-body">
 								<input type="hidden" class="form-control" name ="fb_relationship[${x}]" placeholder="" form="family_bg_form" value="CHILD" required>
@@ -343,7 +343,7 @@
 									</div>
 								</div>
 							</div>
-		`;
+		`);
 	}
 	document.getElementById('family_bg_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
