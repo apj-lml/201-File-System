@@ -24,24 +24,24 @@
 					<h3 class="card-title"><i class="bi bi-question-diamond"></i> Questions</h3>
                     <form action="#" method="POST" id="questions_form" name="questions_form"></form>
                     {% if user_profile.questions %}
-                    <input type="text" name="add_update" id="add_update" value="update" form="questions_form">
-                    <input type="text" name="id1" id="id1" value="{{user_profile.questions[0].id if user_profile.questions[0].question == 'q1'}}" form="questions_form">
-                    <input type="text" name="id2" id="id2" value="{{user_profile.questions[1].id if user_profile.questions[1].question == 'q2'}}" form="questions_form">
-                    <input type="text" name="id3" id="id3" value="{{user_profile.questions[2].id if user_profile.questions[2].question == 'q3'}}" form="questions_form">
-                    <input type="text" name="id4" id="id4" value="{{user_profile.questions[3].id if user_profile.questions[3].question == 'q4'}}" form="questions_form">
-                    <input type="text" name="id5" id="id5" value="{{user_profile.questions[4].id if user_profile.questions[4].question == 'q5'}}" form="questions_form">
-                    <input type="text" name="id6" id="id6" value="{{user_profile.questions[5].id if user_profile.questions[5].question == 'q6'}}" form="questions_form">
-                    <input type="text" name="id7" id="id7" value="{{user_profile.questions[6].id if user_profile.questions[6].question == 'q7'}}" form="questions_form">
-                    <input type="text" name="id8" id="id8" value="{{user_profile.questions[7].id if user_profile.questions[7].question == 'q8'}}" form="questions_form">
-                    <input type="text" name="id9" id="id9" value="{{user_profile.questions[8].id if user_profile.questions[8].question == 'q9'}}" form="questions_form">
-                    <input type="text" name="id10" id="id10" value="{{user_profile.questions[9].id if user_profile.questions[9].question == 'q10'}}" form="questions_form">
-                    <input type="text" name="id11" id="id11" value="{{user_profile.questions[10].id if user_profile.questions[10].question == 'q11'}}" form="questions_form">
-                    <input type="text" name="id12" id="id12" value="{{user_profile.questions[11].id if user_profile.questions[11].question == 'q12'}}" form="questions_form">
-                    <input type="text" name="id13" id="id13" value="{{user_profile.questions[12].id if user_profile.questions[12].question == 'q13'}}" form="questions_form">
+                    <input type="hidden" name="add_update" id="add_update" value="update" form="questions_form">
+                    <input type="hidden" name="id1" id="id1" value="{{user_profile.questions[0].id if user_profile.questions[0].question == 'q1'}}" form="questions_form">
+                    <input type="hidden" name="id2" id="id2" value="{{user_profile.questions[1].id if user_profile.questions[1].question == 'q2'}}" form="questions_form">
+                    <input type="hidden" name="id3" id="id3" value="{{user_profile.questions[2].id if user_profile.questions[2].question == 'q3'}}" form="questions_form">
+                    <input type="hidden" name="id4" id="id4" value="{{user_profile.questions[3].id if user_profile.questions[3].question == 'q4'}}" form="questions_form">
+                    <input type="hidden" name="id5" id="id5" value="{{user_profile.questions[4].id if user_profile.questions[4].question == 'q5'}}" form="questions_form">
+                    <input type="hidden" name="id6" id="id6" value="{{user_profile.questions[5].id if user_profile.questions[5].question == 'q6'}}" form="questions_form">
+                    <input type="hidden" name="id7" id="id7" value="{{user_profile.questions[6].id if user_profile.questions[6].question == 'q7'}}" form="questions_form">
+                    <input type="hidden" name="id8" id="id8" value="{{user_profile.questions[7].id if user_profile.questions[7].question == 'q8'}}" form="questions_form">
+                    <input type="hidden" name="id9" id="id9" value="{{user_profile.questions[8].id if user_profile.questions[8].question == 'q9'}}" form="questions_form">
+                    <input type="hidden" name="id10" id="id10" value="{{user_profile.questions[9].id if user_profile.questions[9].question == 'q10'}}" form="questions_form">
+                    <input type="hidden" name="id11" id="id11" value="{{user_profile.questions[10].id if user_profile.questions[10].question == 'q11'}}" form="questions_form">
+                    <input type="hidden" name="id12" id="id12" value="{{user_profile.questions[11].id if user_profile.questions[11].question == 'q12'}}" form="questions_form">
+                    <input type="hidden" name="id13" id="id13" value="{{user_profile.questions[12].id if user_profile.questions[12].question == 'q13'}}" form="questions_form">
 
 
                     {% else %}
-                    <input type="text" name="add_update" id="add_update" value="add" form="questions_form">
+                    <input type="hidden" name="add_update" id="add_update" value="add" form="questions_form">
                     {% endif %}
 
                     {% if user_profile.questions%}
@@ -56,7 +56,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q1" id="q1" value="q1" form="questions_form">
+                                    <input type="hidden" name="q1" id="q1" value="q1" form="questions_form">
                                     <p class="">a. within the third degree? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -88,7 +88,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q2" id="q2" value="q2" form="questions_form">
+                                    <input type="hidden" name="q2" id="q2" value="q2" form="questions_form">
                                     <p class="">b. within the fourth degree (for Local Government Unit - Career Employees)? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -131,7 +131,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q3" id="q3" value="q3" form="questions_form">
+                                    <input type="hidden" name="q3" id="q3" value="q3" form="questions_form">
                                     <p class="">a. Have you ever been found guilty of any administrative offense? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -163,7 +163,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q4" id="q4" value="q4" form="questions_form">
+                                    <input type="hidden" name="q4" id="q4" value="q4" form="questions_form">
                                     <p class="">b. Have you been criminally charged before any court? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -197,7 +197,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="text" name="q5" id="q5" value="q5" form="questions_form">
+                                    <input type="hidden" name="q5" id="q5" value="q5" form="questions_form">
                                     <p class="">Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal? </p>
                                 </div>
                                 <div class="form-floating col-sm-6">
@@ -229,7 +229,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="text" name="q6" id="q6" value="q6" form="questions_form">
+                                    <input type="hidden" name="q6" id="q6" value="q6" form="questions_form">
                                     <p class="">Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal? </p>
                                 </div>
                                 <div class="form-floating col-sm-6">
@@ -261,7 +261,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="text" name="q7" id="q7" value="q7" form="questions_form">
+                                    <input type="hidden" name="q7" id="q7" value="q7" form="questions_form">
                                     <p class="">Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</p>
                                 </div>
                                 <div class="form-floating col-sm-6">
@@ -301,7 +301,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q8" id="q8" value="q8" form="questions_form">
+                                    <input type="hidden" name="q8" id="q8" value="q8" form="questions_form">
                                     <p class=""> a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -333,7 +333,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                            <input type="text" name="q9" id="q9" value="q9" form="questions_form">
+                                            <input type="hidden" name="q9" id="q9" value="q9" form="questions_form">
                                             <p class=""> b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -367,7 +367,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="text" name="q10" id="q10" value="q10" form="questions_form">
+                                    <input type="hidden" name="q10" id="q10" value="q10" form="questions_form">
                                     <p class=""> Have you acquired the status of an immigrant or permanent resident of another country? </p>
                                 </div>
                                 <div class="form-floating col-sm-6">
@@ -399,7 +399,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating flex-fill p-1">
-                                    <input type="text" name="q11" id="q11" value="q11" form="questions_form">
+                                    <input type="hidden" name="q11" id="q11" value="q11" form="questions_form">
                                     <p>	Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons
                                         (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following
                                         items:</p>
@@ -440,7 +440,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                             <input type="text" name="q12" id="q12" value="q12" form="questions_form">
+                                             <input type="hidden" name="q12" id="q12" value="q12" form="questions_form">
                                             <p class=""> b. Are you differently abled? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -461,7 +461,7 @@
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
                                                     <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12' and user_profile.questions[11].answer != 'NO'}}" {{'disabled' if user_profile.questions[11].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a12c1').value=this.value">
-                                                    <label for="a12c3">If YES, give details:</label>
+                                                    <label for="a12c3">If YES, please specify ID No.:</label>
                                                   </div>
                                             </div> 
                                         </div>
@@ -472,7 +472,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q13" id="q13" value="q13" form="questions_form">
+                                    <input type="hidden" name="q13" id="q13" value="q13" form="questions_form">
                                     <p class=""> c. Are you a solo parent? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -493,7 +493,7 @@
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
                                                     <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="{{user_profile.questions[12].answer if user_profile.questions[12].question == 'q13' and user_profile.questions[12].answer != 'NO'}}" {{'disabled' if user_profile.questions[12].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a13c1').value=this.value">
-                                                    <label for="a13c3">If YES, give details:</label>
+                                                    <label for="a13c3">If YES, please specify ID No.:</label>
                                                   </div>
                                             </div> 
                                         </div>
@@ -930,7 +930,7 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="text" name="q13" id="q13" value="q13" form="questions_form">
+                                    <input type="hidden" name="q13" id="q13" value="q13" form="questions_form">
                                     <p class=""> c. Are you a solo parent? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
@@ -951,7 +951,7 @@
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
                                                     <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a13c1').value=this.value">
-                                                    <label for="a13c3">If YES, give details:</label>
+                                                    <label for="a13c3">If YES, please specify ID no.:</label>
                                                   </div>
                                             </div> 
                                         </div>

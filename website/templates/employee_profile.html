@@ -151,26 +151,26 @@
                 <h3 class="card-title">Personal Information</h3>
                 <div class="d-md-flex flex-row"> 
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form">
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                     <label for="last_name">Employee ID Number</label>
                   </div>
                 </div>
 
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form">
+                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="last_name">Last Name</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form">
+                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="first_name">First Name</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form">
+                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="middle_name">Middle Name</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form">
+                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="name_extn">Name Extension (eg. Jr., III)</label>
                     </div>
                   </div>
@@ -182,7 +182,7 @@
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
                         <option value="CASUAL">CASUAL</option>
-                        <option value="COTERMINOUS">COTERMINOUS</option>
+                        <option value="COTERMINOUS - CARP-IC">COTERMINOUS - CARP-IC</option>
                         <option value="SEPARATED">SEPARATED</option>
                       </select>
                       <label for="middle_name">Employment Status</label>
@@ -297,7 +297,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form">
+                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="birthdate">Birthdate</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -305,11 +305,11 @@
                       <label for="name_extn">Age</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}" form="update_form"> 
+                      <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}> 
                       <label for="name_extn">Place of Birth</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}" form="update_form">
+                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.sex}}" selected disabled hidden>{{user_profile.sex}}</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -352,7 +352,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form">
-                      <label for="name_extn">Dependents</label>
+                      <label for="name_extn">No. of Dependent/s</label>
                     </div>      
                   </div>
                   <div class="d-md-flex flex-row">
