@@ -1192,6 +1192,8 @@
                                 <label for="date_of_validity">Date of Validity</label>
                               </div>
                             </div>
+                  <a href="#" onclick="delete_school_record(document.getElementById('cse_id[{{count_update_cse.value}}]').value, '/cse/delete-cse'); return false">Remove</a>
+                          
                           </div>
                         </div>
                       {% set count_update_cse.value = count_update_cse.value + 1 %}
@@ -1380,12 +1382,12 @@
         </div>
         <p class="card-text">
           <div class="alert alert-warning" role="alert">
-            You can update or print your profile here!
+            You can update profile here!
           </div>
         </p>
         <div class="text-end">
           <button class="btn btn-primary" type="submit" form="update_form">Update</button>
-          <a href="#" class="btn btn-secondary disabled" onclick="print()">Print</a>
+          <!-- <a href="#" class="btn btn-secondary disabled" onclick="print()">Print</a> -->
         </div>
 
       </div>
@@ -1580,7 +1582,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                           method: 'POST',
                           body: formData6
                         }).then((res)=>{
-                            
+                            if(res.status == 200){
+                              window.location.reload();
+                            }
                           
                         });//END DOCTORAL FORM
 

@@ -44,4 +44,16 @@ def add_eligibility(emp_id):
             db.session.flush()
             db.session.commit()
             
-    return "im not ok", 200
+    return "im ok", 200
+
+@cse.route('delete-cse', methods=['POST', 'GET'])
+@login_required
+def delete_cse():
+	if request.method == "POST":
+		formdata  = json.loads(request.data)
+		
+		data = Career_Service.query.get(formdata['id'])
+
+		db.session.delete(data)
+		db.session.commit()
+	return jsonify('Civil Service Eligibility Deleted Successfully')

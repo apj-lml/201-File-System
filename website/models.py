@@ -108,6 +108,7 @@ class User(db.Model, UserMixin):
 	other_information = db.relationship('Other_Information')
 	questions = db.relationship('Questions')
 	character_reference = db.relationship('Character_Reference')
+	emergency_contact = db.relationship('Emergency_Contact')
 
 
 	# emergency_contact = db.relationship('Emergency_Contact')
@@ -289,6 +290,17 @@ class Character_Reference(db.Model, SerializerMixin):
 	first_name = db.Column(db.String(100))
 	middle_name = db.Column(db.String(100))
 	name_ext = db.Column(db.String(100))
+	address = db.Column(db.String(150))
+	contact_no = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Emergency_Contact(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	last_name = db.Column(db.String(100))
+	first_name = db.Column(db.String(100))
+	middle_name = db.Column(db.String(100))
+	name_ext = db.Column(db.String(100))
+	relationship = db.Column(db.String(50))
 	address = db.Column(db.String(150))
 	contact_no = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

@@ -185,6 +185,7 @@
 					triggerToast(data); //this is the returned error message
 					var table = $('#ld_table').DataTable();
 					table.ajax.reload();
+					window.location.reload();
 			})
 
 	});

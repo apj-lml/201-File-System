@@ -40,14 +40,20 @@ def add_other_information(emp_id):
 
         formdata['user_id'] = emp_id
         formdata = {k:v.upper() for k,v in formdata.items()}
-        # for key, value in formdata.items(): 
-        #     setattr(formdata, key, value.upper())
- 
-        new_work_exp = Other_Information(**formdata)
+        count_other_information = Other_Information.query.filter_by(type = formdata['type'], user_id = emp_id).count()
+        # print ('---------------------', formdata['type'])
+        if count_other_information < 5:
+            
+            # for key, value in formdata.items(): 
+            #     setattr(formdata, key, value.upper())
+    
+            new_work_exp = Other_Information(**formdata)
 
-        db.session.add(new_work_exp)
-        db.session.flush()
-        db.session.commit()
+            db.session.add(new_work_exp)
+            db.session.flush()
+            db.session.commit()
+        else:
+            return jsonify("You can only add up to five (5) inputs only!"), 200
             
     return jsonify("Successfully Added Other Information!"), 200
 

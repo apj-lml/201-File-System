@@ -101,3 +101,10 @@ def character_reference(emp_id):
 def print_preview(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('print_preview.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/emergency-contact/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def emergency_contact(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('emergency_contact.html', emp_id = emp_id, user_profile = user)

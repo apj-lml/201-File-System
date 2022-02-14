@@ -38,12 +38,12 @@ def add_shirt_size(emp_id):
             db.session.add(finaldata)
             db.session.flush()
             db.session.commit()
-            return jsonify('Successgully Added Shirt Size')
+            return jsonify('Successfully Added Shirt Size')
 
         else:
             user.polo_shirt_size = formdata['polo_shirt_size']
             db.session.commit()
-            return jsonify('Successgully Updated Shirt Size')
+            return jsonify('Successfully Updated Shirt Size')
         
     return 'ok', 200
     

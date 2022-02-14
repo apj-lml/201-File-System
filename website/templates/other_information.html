@@ -174,14 +174,14 @@
     <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="viewExpModal">Special Hobbies</h5>
+          <h5 class="modal-title" id="viewExpModal">Add Special Hobbies</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="row mb-3">
             <div class="card mb-3">
                 <div class="card-body">
-                  <h3 class="card-title"><i class="fa-solid fa-chess-board"></i> Add Special Skills / Hobbies</h3>
+                  <h3 class="card-title"><i class="bi bi-bicycle"></i> Special Skills / Hobbies</h3>
                   <form action="#" method="POST" name="add_hobbies_form" id="add_hobbies_form" enctype="multipart/form-data"></form>
                   <input type="hidden" class="form-control" name ="type" id="type" placeholder="" value="hobbies" form="add_hobbies_form">
                   <div class="card shadow-sm mb-3">
@@ -327,8 +327,16 @@
       var id = data[0].id;
       var description  = data[0].description;
       var type = data[0].type;
+      var title = "";
+      if (type == "HOBBIES"){
+        title = "Add Special Skills / Hobbies";
+      }else if (type == "RECOGNITION") {
+        title = "Non-Academic Distinctions / Recognition";
+      }else{
+        title = "Membership in Association / Organization";
+      }
       document.getElementById('edit_modal_body').innerHTML  = `
-            <h3 class="card-title"><i class="bi bi-bicycle"></i> Add Special Skills / Hobbies</h3>
+            <h3 class="card-title"><i class="bi bi-pencil-square"></i> ${title}</h3>
                 <form action="#" method="POST" name="update_other_information" id="update_other_information" enctype="multipart/form-data"></form>
                 <input type="hidden" name="id" id="udpate_id" value="${id}" form="update_other_information">
                 <input type="hidden" class="form-control" name ="type" id="update_type" placeholder="" value="${type}" form="update_other_information">
@@ -478,7 +486,8 @@
 
                   // $('#voluntary_work_table').DataTable().ajax.reload()
                   // document.getElementById('other_information_form').reset()
-                  window.location.reload()
+                  triggerToast(data);
+                  // window.location.reload()
 
                 });//END            
     })
