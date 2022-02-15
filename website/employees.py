@@ -85,8 +85,9 @@ def update_employee(emp_id):
 			print('No file selected')
 			#return redirect(request.url)
 		else:
-			if not file and allowed_file(file.filename):
+			if not allowed_file(file.filename):
 				print('Invalid file submitted')
+				return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
 				#return redirect(request.url)
 			else:
 				today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')

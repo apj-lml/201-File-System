@@ -52,7 +52,7 @@
                               </div>
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
 							  <input type="text" class="form-control" name ="address" placeholder="Address" form="add_emergency_contact_form">
-							  <label for="address">Full Address</label>
+							  <label for="address">Complete Address</label>
 							</div>
                             <div class="form-floating flex-fill mb-3 p-1 col-md-6">
                                 <input type="tel" class="form-control" name ="contact_no" placeholder="09277799422" form="add_emergency_contact_form" pattern="[0-9]{11}" required>
@@ -77,8 +77,8 @@
 										<th scope="col">Full Name</th>
 										<!-- <th scope="col">First Name</th>
 										<th scope="col">Middle Name</th> -->
-										<th scope="col">Name Extension</th>
-										<th scope="col">Address</th>
+										<!-- <th scope="col">Name Extension</th> -->
+										<th scope="col">Complete Address</th>
 										<th scope="col">Contact Number</th>
 										<th scope="col">Controls</th>
 									</tr>
@@ -166,17 +166,18 @@
 
             {"data": null,
                 render: function ( data, type, row ) {
-                    if (data.middle_name == null){
+					if (!data.middle_name){
                         var middle_name = ''
                     }else{
-                        var middle_name = data.middle_name[0] + '.'
+                        var middle_name = data.middle_name[0]
+						middle_name = middle_name.concat('.')
                     }
                 return `
-				${data.last_name} ${ middle_name ?? ''} ${data.first_name} ${data.name_ext ?? ''}
+				${data.first_name} ${ middle_name ?? ''} ${data.last_name} ${data.name_ext ?? ''}
                 `;
               }
              },
-			{ "data": "name_ext"},
+			// { "data": "name_ext"},
 			{ "data": "address"},
 			{ "data": "contact_no"},
             {

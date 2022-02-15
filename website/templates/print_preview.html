@@ -125,7 +125,7 @@
     <div class="col-sm-9">
         <div class="row h-100">
 
-            <div class="col-sm-3 p-0">
+            <div class="col-sm-3 p-0" style="height: 40px;">
                 <p class="fw-bold border-start border-bottom h-100 border-dark border-1 border-top-0 ps-2 p-0">{{user_profile.birthdate.strftime('%m/%d/%Y')}}</p>
             </div>
             <div class="col-sm-3 p-0">
@@ -138,8 +138,8 @@
                 </div>
             </div>
 
-            <div class="col-sm-3 p-0">
-                <p class="fw-bold border-start border-bottom-0 border-dark border-1 h-100 ps-2">{{user_profile.place_of_birth}}</p>
+            <div class="col-sm-3 p-0" >
+                <p class="fw-bold border-start border-bottom-0 border-dark border-1 h-100 ps-2" >{{user_profile.place_of_birth}}</p>
             </div>
             <div class="col-sm-3 p-0">
                 <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2 text-center">If holder of  dual citizenship, </p>
@@ -158,8 +158,15 @@
                 </div>
             </div>
 
-            <div class="col-sm-3 p-0">
-                <p class="fw-bold border-start border-bottom-0 border-top border-dark border-1 h-100 ps-2">{{user_profile.sex}}</p>
+            <div class="col-sm-3 p-0" >
+                <div class="row" >
+                    <div class="col-sm-6">
+                        <p class="fw-bold ps-2"><input type="checkbox" {{ 'checked' if user_profile.sex == 'MALE' }}> Male</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="fw-bold ps-2"><input type="checkbox" {{ 'checked' if user_profile.sex == 'FEMALE' }}> Female</p>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-3 p-0">
                 <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2 text-center">please indicate the details. </p>
@@ -169,7 +176,9 @@
                     <div class="col-sm-12 p-0 ps-4">
                         <p class="text-center my-font">Please indicate country: </p>
                     </div>
-
+                    <div class="col-sm-12 p-0 ps-4">
+                        <p class="text-center fw-bold">Philippines </p>
+                    </div>
                 </div>
             </div>
 
@@ -178,6 +187,12 @@
     </div>
 </div>
 
+
+<div class="row border border-dark border-2 border-bottom-0">
+    <div class="col-sm-3">
+        
+    </div>
+</div>
 
 
 

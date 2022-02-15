@@ -29,7 +29,7 @@ def add_answers(emp_id):
             finaldata = Questions(question = formdata['q'+str(xy)], answer = formdata['answer['+str(xy)+']'], user_id = emp_id)
             db.session.add(finaldata)
             db.session.commit()
-        return jsonify('Successfully Added Answers')
+        return jsonify('Successfully Updated Answers')
 
     return 'ok', 200
 

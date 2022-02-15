@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="container">
+<main class="container mt-3">
 	
 	<div class="row mb-3">
 		<!-- <div class="col-sm-12">
@@ -42,7 +42,7 @@
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_form" value="" required>
+									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_form" value="{{ user_profile.familyBg[0].fb_last_name if user_profile.familyBg and user_profile.familyBg[0].fb_relationship == 'SPOUSE' }}" required>
 									<label for="fb_last_name[1]">Last Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
@@ -202,7 +202,7 @@
 		var spouse_mn = document.getElementById('spouse_mn');
 		var spouse_ne = document.getElementById('spouse_ne');
 		var spouse_oc = document.getElementById('spouse_oc');
-		// var spouse_eb = document.getElementById('spouse_bn');
+		var spouse_eb = document.getElementById('spouse_bn');
 		var spouse_ba = document.getElementById('spouse_ba');
 		var spouse_cn = document.getElementById('spouse_cn');
 		if(value == 'NO'){

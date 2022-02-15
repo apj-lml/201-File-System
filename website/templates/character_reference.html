@@ -48,7 +48,7 @@
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
 							  <input type="text" class="form-control" name ="address" placeholder="Address" form="add_character_reference_form">
-							  <label for="address">Full Address</label>
+							  <label for="address">Address</label>
 							</div>
                             <div class="form-floating flex-fill mb-3 p-1 col-md-6">
                                 <input type="tel" class="form-control" name ="contact_no" placeholder="09277799422" form="add_character_reference_form" pattern="[0-9]{11}">
@@ -70,10 +70,11 @@
 								<table class="table table-striped" id="character_ref_table" width = "100%">
 									<thead class="">
 									<tr>
-										<th scope="col">Last Name</th>
+										<th scope="col">Full Name</th>
+										<!-- <th scope="col">Last Name</th>
 										<th scope="col">First Name</th>
 										<th scope="col">Middle Name</th>
-										<th scope="col">Name Extension</th>
+										<th scope="col">Name Extension</th> -->
 										<th scope="col">Address</th>
 										<th scope="col">Contact Number</th>
 										<th scope="col">Controls</th>
@@ -91,29 +92,12 @@
 
 				<div class="card shadow-sm mb-3">
 					<div class="card-body">
-					  <h3 class="card-title">Attachments</h3>
+					  <h3 class="card-title"> <i class="bi bi-person-bounding-box"></i> Person Administering Oath</h3>
 						<div class="d-md-flex flex-row">
-							
-							<div class="container">
-								<div class="row" style="max-width: 1500px;">
-								{% for ld_attachment in user_profile.learning_development %}
-								  <!-- <div class="flex-fill mb-3 p-1"> -->
-									<div class="col-md-12">
-									  <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-										<i class="bi bi-file-pdf"></i>
-										<a href="{{ld_attachment.ld_attachment}}" target="_blank">
-										  <span class="">
-											{{ld_attachment.ld_attachment_file_name}}
-										  </span>
-										</a>
-										<!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{ld_attachment.id}}" onclick="delete_file(this)"></button> -->
-									  </div>
-									</div>
-								  <!-- </div> -->
-								{% endfor %}
-								</div>
-							  </div>
-
+							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                                <input type="tel" class="form-control" name ="contact_no" value="ENGR. GERTRUDES A. VIADO" placeholder="NAME OF PERSON ADMINISTERING OATH" readonly>
+                                <label for="contact_no"> Name of Person Administering Oath</label>
+                              </div>
 					  </div>
 					</div>
 				  </div>
@@ -235,10 +219,24 @@
         },
 
         "columns": [
-			{ "data": "last_name"},
-			{ "data": "first_name"},
-			{ "data": "middle_name"},
-			{ "data": "name_ext"},
+			// { "data": "last_name"},
+			// { "data": "first_name"},
+			// { "data": "middle_name"},
+			// { "data": "name_ext"},
+			{"data": null,
+                render: function ( data, type, row ) {
+					console.log(data.middle_name)
+                    if (!data.middle_name){
+                        var middle_name = ''
+                    }else{
+                        var middle_name = data.middle_name[0]
+						middle_name = middle_name.concat('.')
+                    }
+                return `
+				${data.first_name} ${ middle_name ?? ''} ${data.last_name} ${data.name_ext ?? ''}
+                `;
+              }
+             },
 			{ "data": "address"},
 			{ "data": "contact_no"},
             {

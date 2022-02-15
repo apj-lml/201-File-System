@@ -182,7 +182,7 @@
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
                         <option value="CASUAL">CASUAL</option>
-                        <option value="COTERMINOUS - CARP-IC">COTERMINOUS - CARP-IC</option>
+                        <option value="COTERMINOUS">COTERMINOUS - CARP-IC</option>
                         <option value="SEPARATED">SEPARATED</option>
                       </select>
                       <label for="middle_name">Employment Status</label>
@@ -1325,12 +1325,47 @@
                         <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
                       </div>
                     </div>
-                    <div class="d-md-flex flex-row col-md-4">
+                    <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Latest Notice of Step Increment</label>
                         <input class="form-control" type="file" id="latest_notice_of_step_increment" name="latest_notice_of_step_increment" form="update_form">
                       </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Memorandum/Designation</label>
+                        <input class="form-control" type="file" id="memorandum_designation" name="memorandum_designation" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Latest IPCR</label>
+                        <input class="form-control" type="file" id="ipcr" name="ipcr" form="update_form">
+                      </div>
                     </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Latest SALN</label>
+                        <input class="form-control" type="file" id="saln" name="saln" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Medical Records</label>
+                        <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Latest Oath of Office</label>
+                        <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Latest Assumption to Duty</label>
+                        <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Latest Position Description Form</label>
+                        <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload TESDA National Certificate (NC)</label>
+                        <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form">
+                      </div>
                   </div>
                 </div>
                 <div class="container">
@@ -1584,6 +1619,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                         }).then((res)=>{
                             if(res.status == 200){
                               window.location.reload();
+                              
                             }
                           
                         });//END DOCTORAL FORM
@@ -1598,7 +1634,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
             
           })//END CSE
         }
-        
+        return res.json();
+      }).then((data)=>{
+        triggerToast(data)
       });
 
           }); 
@@ -1651,7 +1689,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 }
 
 function delete_file(e){
-  alert(e.id)
+  // alert(e.id)
   fetch('/employees/delete-file',{
     method: 'POST',
     body: JSON.stringify({"file_id" : e.id})
