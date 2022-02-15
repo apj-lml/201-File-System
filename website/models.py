@@ -175,13 +175,11 @@ class Learning_Development(db.Model, SerializerMixin):
 
 class Vaccine(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
-
 	vac_id_no = db.Column(db.String(50))
 	vac_brand = db.Column(db.String(50))
 	vac_place = db.Column(db.String(50))
 	vac_first_dose = db.Column(db.String(50))
 	vac_second_dose = db.Column(db.String(50))
-
 	booster_id_no = db.Column(db.String(50))
 	booster_brand = db.Column(db.String(50))
 	booster_place = db.Column(db.String(50))

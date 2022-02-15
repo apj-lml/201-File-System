@@ -18,8 +18,8 @@ admin_permission = Permission(RoleNeed('admin'))
 
 @familyBg.errorhandler(403)
 def page_not_found(e):
-	session['redirected_from'] = request.url
-	return redirect(url_for('auth.login'))
+    session['redirected_from'] = request.url
+    return redirect(url_for('auth.login'))
 
 # def allowed_file(filename):
 #     return '.' in filename and \
@@ -118,4 +118,34 @@ def add_family_background(emp_id):
 
 
 
-        return jsonify('Successfully submitted')
+        return jsonify('Successfully Saved Family Background')
+
+# ---------------------------------------------------------------------------- #
+#                                 ADD FAMILY BG                                #
+# ---------------------------------------------------------------------------- #
+@familyBg.route('update-familyBg/<emp_id>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def update_family_background(emp_id):
+
+    formdata = request.form.to_dict()
+
+    for xy in range(1, int(formdata['child_count'])+5):
+    
+        masteral = Masteral.query.filter_by(id = formdata['gs_id['+str(xy)+']'])
+        masteral.update(dict(
+                        fb_last_name = fb_last_name,
+                        fb_first_name = fb_first_name,
+                        fb_middle_name = fb_middle_name,
+                        fb_name_ext = fb_name_ext,
+                        fb_occupation = fb_occupation,
+                        fb_employer_business_name = fb_employer_business_name,
+                        fb_business_address = fb_business_address,
+                        fb_contact_no = fb_contact_no,
+                        fb_date_of_birth = fb_date_of_birth,
+                        fb_maiden_name = fb_maiden_name,
+                        fb_relationship = fb_relationship,
+                        ))
+
+    db.session.commit()
+    return "Successfully Updated Family Background"
