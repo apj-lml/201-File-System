@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block title %} Print Preview {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	body{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .bg-header{
+        background-color: gray;
+
+    }
+    p>span{
+        margin-left: 3px;
+        margin-right: 6px;
+    }
+    .my-font{
+        font-family: Arial Narrow; 
+        font-size: 15px;
+    }
+    p{
+        margin-bottom: 3px;
+    }
+</style>
+
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+	
+<div class="row border border-dark border-2 border-bottom-0 p-0">
+    <div class="col-12 text-start">
+        <p class="p-0 m-0"><strong><i>CS Form No. 212</i></strong></p>
+        <p><strong><i><small>Revised 2017</small></i></strong></p>
+
+    </div>
+    <div class="col-12 text-center">
+        <h2 class="fw-bolder mb-4" style="font-family: Arial Black; font-size: 36px;" >PERSONAL DATA SHEET</h2>
+    </div>
+    <div class="col-12 text-start mb-3">
+        <p class="fw-bold fst-italic" style="font-size: 14px;">WARNING: Any misrepresentation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminal case/s against the person concerned.</p>
+    </div>
+
+    <div class="col-12 text-start">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="fw-bold fst-italic mb-0 pb-0" style="font-size: 14px;">READ THE ATTACHED GUIDE TO FILLING OUT THE PERSONAL DATA SHEET (PDS) BEFORE ACCOMPLISHING THE PDS FORM.</p>
+            </div>
+            <div class="col-sm-8">
+                <p class="mt-0 pt-0 mb-0 pb-0" style="font-size: 14px;">Print legibly. Tick appropriate boxes (  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">   ) and use separate sheet if necessary. Indicate N/A if not applicable.  <strong>NOT ABBREVIATE.</strong> </p>
+            </div>
+            <div class="col-sm-1 bg-header border border-dark border-2 border-bottom-0">
+                <p class="mt-0 pt-0 mb-0 pb-0 pe-0 me-0 my-font">1. CS ID No.</p>
+            </div>
+            <div class="col-sm-3 border border-dark border-2 border-start-0 border-end-0 border-bottom-0">
+                <p class="mt-0 pt-0 mb-0 pb-0 pe-0 me-0 text-end" style="font-family: Arial Narrow; font-size: 14px;"> (Do not fill up. For CSC use only)</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row border border-dark border-1 border-bottom">
+    <div class="col-sm-12 p-0 m-0">
+        <p class="fst-italic fw-bold text-white bg-header ps-2 p-0 m-0 h-100">I. PERSONAL INFORMATION</p>
+    </div>
+</div>
+<!-- ----------------------------------------------------------------------- -->
+<!--                              END OF HEADER                              -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="row border border-dark border-2 border-bottom-0 border-top-0">
+    <div class="col-sm-3 bg-light">
+        <div class="row bg-light h-100">
+            <div class="col-sm-12 p-0">
+                <p class="h-100 my-font"><span>2.</span> SURNAME</p>
+            </div>
+            <div class="col-sm-12 p-0">
+                <p class="h-100 ps-4 my-font"> FIRST NAME</p>
+            </div>
+            <div class="col-sm-12 p-0">
+                <p class="h-100 ps-4 my-font"> MIDDLE NAME</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="row h-100">
+            <div class="col-sm-12 p-0">
+                <p class="fw-bold border-start border-bottom border-dark border-1 h-100 ps-2">{{user_profile.last_name}}</p>
+            </div>
+            <div class="col-sm-7 p-0">
+                <p class="fw-bold border-start border-bottom border-dark border-1 h-100 ps-2">{{user_profile.first_name}}</p>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font border-start border-bottom border-dark border-1 h-100 ps-2" >NAME EXTENSION (JR., SR)</p>
+            </div>
+            <div class="col-sm-2 p-0">
+                <p class="text-start fw-bold border-start-0 border-bottom border-dark border-1 h-100 ps-2" >{{user_profile.name_extn if user_profile.name_ext is not none else 'N/A'}}</p>
+            </div>
+            <div class="col-sm-12 p-0">
+                <p class="fw-bold border-start border-bottom-0 border-dark border-1 h-100 ps-2">{{user_profile.middle_name}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row border border-dark border-2 border-bottom-0">
+    <div class="col-sm-3 bg-light">
+        <div class="row bg-light h-100">
+            <div class="col-sm-12 p-0">
+                <p class=" my-font h-100"><span>3.</span> DATE OF BIRTH (mm/dd/yyyy)</p>
+                <!-- <p class="ps-4 my-font"> (mm/dd/yyyy)</p> -->
+            </div>
+            <div class="col-sm-12 p-0 border-dark border-1 border-top">
+                <p class="h-100 my-font"><span>4.</span> PLACE OF BIRTH</p>
+            </div>
+            <div class="col-sm-12 p-0 border-dark border-1 border-top">
+                <p class="h-100 my-font"><span>5.</span> SEX</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="row h-100">
+
+            <div class="col-sm-3 p-0" style="height: 40px;">
+                <p class="fw-bold border-start border-bottom h-100 border-dark border-1 border-top-0 ps-2 p-0">{{user_profile.birthdate.strftime('%m/%d/%Y')}}</p>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2"><span>16. </span>CITIZENSHIP</p>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="row">
+                    <div class="col-sm-4 p-0 ps-5"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked> <label class="my-font">Filipino</label></div>
+                    <div class="col-sm-8 p-0"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="my-font">Dual Citizenship</label></div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 p-0" >
+                <p class="fw-bold border-start border-bottom-0 border-dark border-1 h-100 ps-2" >{{user_profile.place_of_birth}}</p>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2 text-center">If holder of  dual citizenship, </p>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="row text-end">
+                    <div class="col-sm-6 p-0 ps-5 text-end">
+                        <input class="form-check-input my-font" type="checkbox" value="" id="flexCheckDefault" checked><label class="my-font">by birth</label> 
+                    </div>
+                    <div class="col-sm-6 p-0 pe-5">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="my-font">by naturalization</label>
+                    </div>
+                    <!-- <div class="col-sm-12">
+                        Pls. indicate country:
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-sm-3 p-0" >
+                <div class="row" >
+                    <div class="col-sm-6">
+                        <p class="fw-bold ps-2"><input type="checkbox" {{ 'checked' if user_profile.sex == 'MALE' }}> Male</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="fw-bold ps-2"><input type="checkbox" {{ 'checked' if user_profile.sex == 'FEMALE' }}> Female</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 p-0">
+                <p class="my-font bg-light border-start border-end border-bottom-0 border-dark border-1 h-100 ps-2 text-center">please indicate the details. </p>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="row">
+                    <div class="col-sm-12 p-0 ps-4">
+                        <p class="text-center my-font">Please indicate country: </p>
+                    </div>
+                    <div class="col-sm-12 p-0 ps-4">
+                        <p class="text-center fw-bold">Philippines </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row border border-dark border-2 border-bottom-0">
+    <div class="col-sm-3">
+        
+    </div>
+</div>
+
+
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+
+</script>
+{%endblock%}

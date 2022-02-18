@@ -709,7 +709,7 @@
                   
                   <div class="card shadow-sm mb-3">
                     <div class="card-body">
-                     <input type="text" name="v_id[{{count_update_vocational.value}}]" id="v_id[{{count_update_vocational.value}}]" value="{{vocational.id}}" form="update_form">
+                     <input type="hidden" name="v_id[{{count_update_vocational.value}}]" id="v_id[{{count_update_vocational.value}}]" value="{{vocational.id}}" form="update_form">
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
                             <input type="text" class="form-control" id="v_school[{{count_update_vocational.value}}]" name ="v_school[{{count_update_vocational.value}}]" placeholder="School" value="{{vocational.v_school}}" form="update_form">
@@ -1253,7 +1253,176 @@
             <div class="card mb-3">
               <div class="card-body">
               <h3 class="card-title">Upload Supporting Documents</h3>
+
               <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill mb-3 p-1">
+                      <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
+                      <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
+                    </div>
+                    <div class="flex-fill mb-3 p-1">
+                      <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
+                      <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="transcript_of_records" class="form-label">Upload Transcript of Records</label>
+                        <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="diploma" class="form-label">Upload Diploma</label>
+                        <input class="form-control" type="file" id="diploma" name="diploma" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="tesda_nc" class="form-label">Upload TESDA National Certificate (NC)</label>
+                        <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="career_service_eligibility" class="form-label">Upload Career Service Eligibility</label>
+                        <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="prc_license" class="form-label">Upload PRC License</label>
+                        <input class="form-control" type="file" id="prc_license" name="prc_license" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="driver_license" class="form-label">Upload Driver's License</label>
+                        <input class="form-control" type="file" id="driver_license" name="driver_license" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="security_guard_license" class="form-label">Upload Security Guard License</label>
+                        <input class="form-control" type="file" id="security_guard_license" name="security_guard_license" form="update_form">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="office_id" class="form-label">Upload Office ID</label>
+                        <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="gsis_id" class="form-label">Upload GSIS UMID ID</label>
+                        <input class="form-control" type="file" id="gsis_id" name="gsis_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="philhealth_id" class="form-label">Upload PhilHealth ID</label>
+                        <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="loyalty_card_plus" class="form-label">Upload Loyalty Card Plus ID</label>
+                        <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="sss_umid_id" class="form-label">Upload SSS UMID ID</label>
+                        <input class="form-control" type="file" id="sss_umid_id" name="sss_umid_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="tin_id" class="form-label">Upload TIN ID</label>
+                        <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="national_id" class="form-label">Upload National ID</label>
+                        <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="solo_parent_id" class="form-label">Upload Solo Parent ID</label>
+                        <input class="form-control" type="file" id="solo_parent_id" name="solo_parent_id" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="pwd_id" class="form-label">Upload PWD ID</label>
+                        <input class="form-control" type="file" id="pwd_id" name="pwd_id" form="update_form">
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="atm_card" class="form-label">Upload ATM Card</label>
+                        <input class="form-control" type="file" id="atm_card" name="atm_card" form="update_form">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
+                        <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_position_description_form" class="form-label">Upload Latest Position Description Form</label>
+                        <input class="form-control" type="file" id="latest_position_description_form" name="latest_position_description_form" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_oath_of_office" class="form-label">Upload Latest Oath of Office</label>
+                        <input class="form-control" type="file" id="latest_oath_of_office" name="latest_oath_of_office" form="update_form">
+                      </div>
+                    </div>
+
+                    <div class="d-md-flex flex-row">
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="latest_assumption_to_duty" class="form-label">Upload Latest Assumption to Duty</label>
+                        <input class="form-control" type="file" id="latest_assumption_to_duty" name="latest_assumption_to_duty" form="update_form">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="card-title">Uploaded Files</h3>
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    
+                    <div class="container">
+                      <div class="row" style="max-width: 1500px;">
+                      {% for file in user_profile.uploaded_files %}
+                        <!-- <div class="flex-fill mb-3 p-1"> -->
+                          {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' %}
+                          <div class="col-md-12">
+                            <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
+                              <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                              <a href="{{file.file_path}}\{{file.file_name}}" target="_blank">
+                                <span class="">
+                                  {{file.file_name}}
+                                </span>
+                              </a>
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                            </div>
+                          </div>
+                          {% endif %}
+                        <!-- </div> -->
+                      {% endfor %}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              <!-- <div class="card shadow-sm mb-3">
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
@@ -1271,7 +1440,7 @@
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
-                        <label for="office_id" class="form-label">Upload Transcript of Records</label>
+                        <label for="transcript_of_records" class="form-label">Upload Transcript of Records</label>
                         <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form">
                       </div>
                       <div class="flex-fill mb-3 p-1">
@@ -1367,29 +1536,9 @@
                         <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form">
                       </div>
                   </div>
-                </div>
-                <div class="container">
-                  <div class="row" style="max-width: 1500px;">
-                  {% for file in user_profile.uploaded_files %}
-                    <!-- <div class="flex-fill mb-3 p-1"> -->
-                      {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' %}
-                      <div class="col-md-12">
-                        <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                          <a href="{{file.file_path}}\{{file.file_name}}" target="_blank">
-                            <span class="">
-                              {{file.file_name}}
-                            </span>
-                          </a>
-                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
-                        </div>
-                      </div>
-                      {% endif %}
-                    <!-- </div> -->
-                  {% endfor %}
-                  </div>
-                </div>
-              </div>
+                </div> -->
+                
+              <!-- </div> shadow container end-->
             </div>
 
 
