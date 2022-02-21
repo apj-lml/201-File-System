@@ -132,19 +132,19 @@ def update_family_background(emp_id):
 
     for xy in range(1, int(formdata['child_count'])+5):
     
-        masteral = Masteral.query.filter_by(id = formdata['gs_id['+str(xy)+']'])
-        masteral.update(dict(
-                        fb_last_name = fb_last_name,
-                        fb_first_name = fb_first_name,
-                        fb_middle_name = fb_middle_name,
-                        fb_name_ext = fb_name_ext,
-                        fb_occupation = fb_occupation,
-                        fb_employer_business_name = fb_employer_business_name,
-                        fb_business_address = fb_business_address,
-                        fb_contact_no = fb_contact_no,
-                        fb_date_of_birth = fb_date_of_birth,
-                        fb_maiden_name = fb_maiden_name,
-                        fb_relationship = fb_relationship,
+        familyBg = Family_Background.query.filter_by(id = formdata['gs_id['+str(xy)+']'])
+        familyBg.update(dict(
+                        fb_last_name = formdata['fb_last_name'],
+                        fb_first_name = formdata['fb_first_name'],
+                        fb_middle_name = formdata['fb_middle_name'],
+                        fb_name_ext = formdata['fb_name_ext'],
+                        fb_occupation = formdata['fb_occupation'],
+                        fb_employer_business_name = formdata['fb_employer_business_name'],
+                        fb_business_address = formdata['fb_business_address'],
+                        fb_contact_no = formdata['fb_contact_no'],
+                        fb_date_of_birth = formdata['fb_date_of_birth'],
+                        fb_maiden_name = formdata['fb_maiden_name'],
+                        fb_relationship = formdata['fb_relationship'],
                         ))
 
     db.session.commit()
