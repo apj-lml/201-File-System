@@ -10,6 +10,7 @@ from .myhelper import allowed_file
 from werkzeug.utils import secure_filename
 import json
 import os, os.path
+# import pprint
 
 familyBg = Blueprint('familyBg', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -109,8 +110,11 @@ def add_family_background(emp_id):
                 fb_relationship = fb_relationship,
                 user_id = emp_id
                     )
-                db.session.add(new_family_bg)
-                db.session.commit()
+
+                if fb_last_name is not None and fb_first_name is not None:
+                    print('lname and fname are required')
+                    db.session.add(new_family_bg)
+                    db.session.commit()
 
                 # except KeyError as e:
                 #     print(e)
@@ -118,7 +122,7 @@ def add_family_background(emp_id):
 
 
 
-        return jsonify('Successfully Saved Family Background')
+        return jsonify('Successfully Saved Family Background - add')
 
 # ---------------------------------------------------------------------------- #
 #                                 ADD FAMILY BG                                #
@@ -129,23 +133,89 @@ def add_family_background(emp_id):
 def update_family_background(emp_id):
 
     formdata = request.form.to_dict()
-
+    # print('UPDATE FAMILY BG: ', formdata)
+    pprint(formdata)
     for xy in range(1, int(formdata['child_count'])+5):
-    
-        familyBg = Family_Background.query.filter_by(id = formdata['gs_id['+str(xy)+']'])
+        if 'id['+str(xy)+']' in formdata:
+            id = formdata['id['+str(xy)+']']
+        else:
+            id = None
+        if 'fb_last_name['+str(xy)+']' in formdata:
+            fb_last_name = formdata['fb_last_name['+str(xy)+']']
+        else:
+            fb_last_name = None
+        if 'fb_first_name['+str(xy)+']' in formdata:
+            fb_first_name = formdata['fb_first_name['+str(xy)+']']
+        else:
+            fb_first_name = None
+        if 'fb_middle_name['+str(xy)+']' in formdata:
+            fb_middle_name = formdata['fb_middle_name['+str(xy)+']']
+        else:
+            fb_middle_name = None
+        if 'fb_name_ext['+str(xy)+']' in formdata:
+            fb_name_ext = formdata['fb_name_ext['+str(xy)+']']
+        else:
+            fb_name_ext = None
+        if 'fb_occupation['+str(xy)+']' in formdata:
+            fb_occupation = formdata['fb_occupation['+str(xy)+']']
+        else:
+            fb_occupation = None
+        if 'fb_employer_business_name['+str(xy)+']' in formdata:
+            fb_employer_business_name = formdata['fb_employer_business_name['+str(xy)+']']
+        else:
+            fb_employer_business_name = None
+        if 'fb_business_address['+str(xy)+']' in formdata:
+            fb_business_address = formdata['fb_business_address['+str(xy)+']']
+        else:
+            fb_business_address = None
+        if 'fb_contact_no['+str(xy)+']' in formdata:
+            fb_contact_no = formdata['fb_contact_no['+str(xy)+']']
+        else:
+            fb_contact_no = None
+        if 'fb_date_of_birth['+str(xy)+']' in formdata:
+            fb_date_of_birth = formdata['fb_date_of_birth['+str(xy)+']']
+        else:
+            fb_date_of_birth = None
+        if 'fb_maiden_name['+str(xy)+']' in formdata:
+            fb_maiden_name = formdata['fb_maiden_name['+str(xy)+']']
+        else:
+            fb_maiden_name = None
+        if 'fb_relationship['+str(xy)+']' in formdata:
+            fb_relationship = formdata['fb_relationship['+str(xy)+']']
+        else:
+            fb_relationship = None
+            
+        familyBg = Family_Background.query.filter_by(id = id)
         familyBg.update(dict(
-                        fb_last_name = formdata['fb_last_name'],
-                        fb_first_name = formdata['fb_first_name'],
-                        fb_middle_name = formdata['fb_middle_name'],
-                        fb_name_ext = formdata['fb_name_ext'],
-                        fb_occupation = formdata['fb_occupation'],
-                        fb_employer_business_name = formdata['fb_employer_business_name'],
-                        fb_business_address = formdata['fb_business_address'],
-                        fb_contact_no = formdata['fb_contact_no'],
-                        fb_date_of_birth = formdata['fb_date_of_birth'],
-                        fb_maiden_name = formdata['fb_maiden_name'],
-                        fb_relationship = formdata['fb_relationship'],
+                        fb_last_name = fb_last_name,
+                        fb_first_name = fb_first_name,
+                        fb_middle_name = fb_middle_name,
+                        fb_name_ext = fb_name_ext,
+                        fb_occupation = fb_occupation,
+                        fb_employer_business_name = fb_employer_business_name,
+                        fb_business_address = fb_business_address,
+                        fb_contact_no = fb_contact_no,
+                        fb_date_of_birth = fb_date_of_birth,
+                        fb_maiden_name = fb_maiden_name,
+                        fb_relationship = fb_relationship,
                         ))
 
     db.session.commit()
-    return "Successfully Updated Family Background"
+    return jsonify("Successfully Updated Family Background")
+
+
+# ---------------------------------------------------------------------------- #
+#                                 ADD FAMILY BG                                #
+# ---------------------------------------------------------------------------- #
+@familyBg.route('delete-familyBg/<emp_id>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def delete_family_background(emp_id):
+    formdata  = json.loads(request.data)
+		
+    delete_child = Family_Background.query.get(formdata['id'])
+
+    db.session.delete(delete_child)
+    db.session.commit()
+
+    return jsonify('Child Removed!')

@@ -35,11 +35,10 @@
 						<div class="card shadow-sm mb-3">
 						<div class="card-body">
 							<h5 class="card-title">Spouse's Information</h5> 
-							<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_form" value="SPOUSE" required>
-							<input type="hidden" class="form-control" name ="family_count" id ="family_count" value="4" form="family_bg_form" value="SPOUSE" required>
+							
 							<div class="d-md-flex flex-row">
 								<div class="form-floating mb-3 p-1 col-sm-4">
-									<select class="form-select" id="is_spouse" aria-label="Floating label select example" form="family_bg_form" onchange="activate_spouse(this.value)">
+									<select class="form-select" id="is_spouse" aria-label="Floating label select example" onchange="activate_spouse(this.value)">
 										<option value="YES">YES</option>
 										<option value="NO">NO</option>
 									  </select>
@@ -49,49 +48,58 @@
 							{% if user_profile.familyBg %}
 								{% for spouse in user_profile.familyBg %}
 									{% if spouse.fb_relationship == 'SPOUSE' %}
+
+								<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_update_form" value="SPOUSE" required>
+								<input type="hidden" class="form-control" name ="family_count" id ="" value="4" form="family_bg_update_form" required>
+
+									<input type="hidden" class="form-control" name ="id[1]" id="id[1]" placeholder="ID" form="family_bg_update_form" value="{{spouse.id}}" required>
+							
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_form" {{ 'form="family_bg_form"' if spouse.fb_last_name is not none else 'form="family_bg_update_form"' }}  value="{{spouse.fb_last_name}}" required>
+									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_update_form" value="{{spouse.fb_last_name}}" required>
 									<label for="fb_last_name[1]">Last Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_first_name[1]" id="spouse_fn" placeholder="First Name" form="family_bg_form" value="{{spouse.fb_first_name}}" required>
+									<input type="text" class="form-control" name ="fb_first_name[1]" id="spouse_fn" placeholder="First Name" form="family_bg_update_form" value="{{spouse.fb_first_name}}" required>
 									<label for="fb_first_name[1]">First Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_form" value="{{spouse.fb_middle_name}}" required>
+									<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse.fb_middle_name}}" required>
 									<label for="fb_middle_name[1]">Middle Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_form" value="{{spouse.fb_name_ext}}" required>
+									<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse.fb_name_ext}}" required>
 									<label for="fb_name_ext[1]">Name Extension</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_form" value="{{spouse.fb_occupation}}" required>
+								<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_update_form" value="{{spouse.fb_occupation}}" required>
 								<label for="fb_occupation[1]">Occupation</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_form" value="{{spouse.fb_employer_business_name}}" required>
+									<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_update_form" value="{{spouse.fb_employer_business_name}}" required>
 									<label for="fb_employer_business_name[1]">Employer / Business Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-								<input type="text" class="form-control" name ="fb_business_address[1]" id="spouse_ba" placeholder="Employer / Business Address" form="family_bg_form" value="{{spouse.fb_business_address}}">
+								<input type="text" class="form-control" name ="fb_business_address[1]" id="spouse_ba" placeholder="Employer / Business Address" form="family_bg_update_form" value="{{spouse.fb_business_address}}">
 								<label for="fb_business_address[1]">Employer / Business Address</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_form" value="{{spouse.fb_contact_no}}">
+									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_update_form" value="{{spouse.fb_contact_no}}">
 									<label for="fb_contact_no[1]">Employer / Business Contact No.</label>
 								</div>
 							</div>
 							{% endif %}
 								{% endfor %}
-								{% else %}
+
+							{% else %}
+							<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_form" value="SPOUSE" required>
+							<input type="hidden" class="form-control" name ="family_count" id ="family_count" value="4" form="family_bg_form" required>
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_form" value="" required>
@@ -140,13 +148,14 @@
 					  <div class="card shadow-sm mb-3">
 						<div class="card-body">
 						  <h5 class="card-title">Parents' Information</h5>  
-						  <input type="hidden" class="form-control" name ="fb_relationship[2]" placeholder="" form="family_bg_form" value="FATHER" required>
 						  
 							<div class="d-md-flex flex-row">
 								{% if user_profile.familyBg %}
 								{% for father in user_profile.familyBg %}
 									{% if father.fb_relationship == 'FATHER' %}
-									<input type="text" value="{{father.id}}" form="family_bg_update_form">
+								<input type="hidden" class="form-control" name ="fb_relationship[2]" placeholder="" form="family_bg_update_form" value="FATHER" required>
+
+									<input type="hidden" value="{{father.id}}" name="id[2]" form="family_bg_update_form">
 										<div class="form-floating flex-fill mb-3 p-1">
 											<input type="text" class="form-control" name ="fb_last_name[2]" placeholder="Last Name" form="family_bg_update_form" value="{{father.fb_last_name}}" required>
 											<label for="fb_last_name">Father's Last Name</label>
@@ -167,6 +176,8 @@
 									{% endif %}
 								{% endfor %}
 								{% else %}
+								<input type="hidden" class="form-control" name ="fb_relationship[2]" placeholder="" form="family_bg_form" value="FATHER" required>
+
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="text" class="form-control" name ="fb_last_name[2]" placeholder="Last Name" form="family_bg_form" value="" required>
 										<label for="fb_last_name">Father's Last Name</label>
@@ -185,12 +196,13 @@
 									</div>
 								{% endif %}
 							</div>
-								<input type="hidden" class="form-control" name ="fb_relationship[3]" placeholder="" form="family_bg_form" value="MOTHER" required>
 								<div class="d-md-flex flex-row">
 								{% if user_profile.familyBg %}
 								{% for mother in user_profile.familyBg %}
 									{% if mother.fb_relationship == 'MOTHER' %}
-									<input type="text" value="{{mother.id}}" form="family_bg_update_form">
+								<input type="hidden" class="form-control" name ="fb_relationship[3]" placeholder="" form="family_bg_update_form" value="MOTHER" required>
+
+									<input type="hidden" value="{{mother.id}}" name="id[3]" form="family_bg_update_form">
 
 									<div class="form-floating flex-fill mb-3 p-1">
 										
@@ -212,6 +224,8 @@
 									{% endif %}
 								{% endfor %}
 								{% else %}
+								<input type="hidden" class="form-control" name ="fb_relationship[3]" placeholder="" form="family_bg_form" value="MOTHER" required>
+
 								<div class="form-floating flex-fill mb-3 p-1">
 									<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="" form="family_bg_form"  value="" required>
 									<label for="fb_maiden_name">Mother's Maiden Name</label>
@@ -238,79 +252,135 @@
 					<div class="card shadow-sm mb-3">
 						<div class="card-body">
 						  <h5 class="card-title">Children's Information</h5>
+						  {% set child_count = namespace(value=0) %}
+
 						  {% if user_profile.familyBg %}
 
-						  {% set child_count = namespace(value=0) %}
+						  {% set field_count = namespace(value=4) %}
+						  {% set no_child = namespace(value=0) %}
 
 						  {% for child in user_profile.familyBg %}
 
-							  {% if child.fb_relationship == 'CHILD' %}
-								<div class="card shadow-sm mb-3">
-									<div class="card-body">
-										<input type="hidden" class="form-control" name ="fb_relationship[4]" placeholder="" form="family_bg_update_form" value="CHILD" required>
-											<div class="d-md-flex flex-row">
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_last_name[4]" placeholder="Last Name" form="family_bg_update_form" value="{{child.fb_last_name}}" required>
-													<label for="fb_last_name">Last Name</label>
+							{% if child_count.value == 0 %}
+
+									{% if no_child.value == 0 %}
+									<div class="card shadow-sm mb-3">
+										<div class="card-body">
+											<input type="hidden" class="form-control" name ="fb_relationship[4]" placeholder="" form="family_bg_form" value="CHILD" required>
+												<div class="d-md-flex flex-row">
+													<div class="form-floating flex-fill mb-3 p-1">
+														<input type="text" class="form-control" name ="fb_last_name[4]" placeholder="Last Name" form="family_bg_form" required>
+														<label for="fb_last_name">Last Name</label>
+													</div>
+													<div class="form-floating flex-fill mb-3 p-1">
+														<input type="text" class="form-control" name ="fb_first_name[4]" placeholder="First Name" form="family_bg_form" required>
+														<label for="fb_first_name">First Name</label>
+													</div>
+													<div class="form-floating flex-fill mb-3 p-1">
+														<input type="text" class="form-control" name ="fb_middle_name[4]" placeholder="Middle Name" form="family_bg_form" required>
+														<label for="fb_middle_name">Middle Name</label>
+													</div>
+													<div class="form-floating flex-fill mb-3 p-1">
+														<input type="text" class="form-control" name ="fb_name_ext[4]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_form" required>
+														<label for="fb_name_ext">Name Extension (Jr., Sr., II, III)</label>
+													</div>
 												</div>
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_first_name[4]" placeholder="First Name" form="family_bg_update_form" value="{{child.fb_first_name}}" required>
-													<label for="fb_first_name">First Name</label>
-												</div>
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_middle_name[4]" placeholder="Middle Name" form="family_bg_update_form" value="{{child.fb_middle_name}}" required>
-													<label for="fb_middle_name">Middle Name</label>
-												</div>
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_name_ext[4]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_update_form" value="{{child.fb_name_ext}}" required>
-													<label for="fb_name_ext">Name Extension (Jr., Sr., II, III)</label>
-												</div>
-											</div>
-											<div class="d-md-flex flex-row">
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="date" class="form-control" name ="fb_date_of_birth[4]" placeholder="Date of Birth" form="family_bg_update_form" value="{{child.fb_date_of_birth}}" required>
-													<label for="fb_date_of_birth">Date of Birth</label>
-												</div>
-											</div>
-										</div>
-									</div>
-									{% set child_count.value = child_count.value+1 %}
-							{% endif %}
-								{% endfor %}
-						  <input type="text" value="{{child_count.value}}" id="child_count" form="family_bg_form">
-									
-								{% else %}
-								<div class="card shadow-sm mb-3">
-									<div class="card-body">
-										<input type="hidden" class="form-control" name ="fb_relationship[4]" placeholder="" form="family_bg_form" value="CHILD" required>
-											<div class="d-md-flex flex-row">
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_last_name[4]" placeholder="Last Name" form="family_bg_form" required>
-													<label for="fb_last_name">Last Name</label>
-												</div>
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_first_name[4]" placeholder="First Name" form="family_bg_form" required>
-													<label for="fb_first_name">First Name</label>
-												</div>
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_middle_name[4]" placeholder="Middle Name" form="family_bg_form" required>
-													<label for="fb_middle_name">Middle Name</label>
-												</div>
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="text" class="form-control" name ="fb_name_ext[4]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_form" required>
-													<label for="fb_name_ext">Name Extension (Jr., Sr., II, III)</label>
-												</div>
-											</div>
-											<div class="d-md-flex flex-row">
-												<div class="form-floating flex-fill mb-3 p-1">
-													<input type="date" class="form-control" name ="fb_date_of_birth[4]" placeholder="Date of Birth" form="family_bg_form">
-													<label for="fb_date_of_birth">Date of Birth</label>
+												<div class="d-md-flex flex-row">
+													<div class="form-floating flex-fill mb-3 p-1">
+														<input type="date" class="form-control" name ="fb_date_of_birth[4]" placeholder="Date of Birth" form="family_bg_form">
+														<label for="fb_date_of_birth">Date of Birth</label>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+										{% endif %}
+								
+								{% set no_child.value = no_child.value+1 %}
 								{% endif %}
 
+
+							  {% if child.fb_relationship == 'CHILD' %}
+							  {% set child_count.value = child_count.value+1 %}
+							  {% set field_count.value = field_count.value+1 %}
+								{% if child_count.value > 0 %}
+								<div class="card shadow-sm mb-3">
+									<div class="card-body">
+										
+										<input type="hidden" class="form-control" name ="id[{{field_count.value}}]" placeholder="ID" form="family_bg_update_form" value="{{child.id}}" required>
+
+										<input type="hidden" class="form-control" name ="fb_relationship[{{field_count.value}}]" placeholder="" form="family_bg_update_form" value="CHILD" required>
+											<div class="d-md-flex flex-row">
+												<div class="form-floating flex-fill mb-3 p-1">
+													<input type="text" class="form-control" name ="fb_last_name[{{field_count.value}}]" placeholder="Last Name" form="family_bg_update_form" value="{{child.fb_last_name}}" required>
+													<label for="fb_last_name">Last Name</label>
+												</div>
+												<div class="form-floating flex-fill mb-3 p-1">
+													<input type="text" class="form-control" name ="fb_first_name[{{field_count.value}}]" placeholder="First Name" form="family_bg_update_form" value="{{child.fb_first_name}}" required>
+													<label for="fb_first_name">First Name</label>
+												</div>
+												<div class="form-floating flex-fill mb-3 p-1">
+													<input type="text" class="form-control" name ="fb_middle_name[{{field_count.value}}]" placeholder="Middle Name" form="family_bg_update_form" value="{{child.fb_middle_name}}" required>
+													<label for="fb_middle_name">Middle Name</label>
+												</div>
+												<div class="form-floating flex-fill mb-3 p-1">
+													<input type="text" class="form-control" name ="fb_name_ext[{{field_count.value}}]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_update_form" value="{{child.fb_name_ext}}" required>
+													<label for="fb_name_ext">Name Extension (Jr., Sr., II, III)</label>
+												</div>
+											</div>
+											<div class="d-md-flex flex-row">
+												<div class="form-floating flex-fill mb-3 p-1">
+													<input type="date" class="form-control" name ="fb_date_of_birth[{{field_count.value}}]" placeholder="Date of Birth" form="family_bg_update_form" value="{{child.fb_date_of_birth}}" required>
+													<label for="fb_date_of_birth">Date of Birth</label>
+												</div>
+											</div>
+											<a href="#" onclick="delete_child('{{child.id}}'); return false">Remove</a>
+										</div>
+									</div>
+
+
+									{% endif %}
+
+									
+								{% endif %}
+								{% endfor %}
+						  
+
+
+						  {%else%}
+									
+						  <div class="card shadow-sm mb-3">
+							  <div class="card-body">
+								  <input type="hidden" class="form-control" name ="fb_relationship[4]" placeholder="" form="family_bg_form" value="CHILD" required>
+									  <div class="d-md-flex flex-row">
+										  <div class="form-floating flex-fill mb-3 p-1">
+											  <input type="text" class="form-control" name ="fb_last_name[4]" placeholder="Last Name" form="family_bg_form" required>
+											  <label for="fb_last_name">Last Name</label>
+										  </div>
+										  <div class="form-floating flex-fill mb-3 p-1">
+											  <input type="text" class="form-control" name ="fb_first_name[4]" placeholder="First Name" form="family_bg_form" required>
+											  <label for="fb_first_name">First Name</label>
+										  </div>
+										  <div class="form-floating flex-fill mb-3 p-1">
+											  <input type="text" class="form-control" name ="fb_middle_name[4]" placeholder="Middle Name" form="family_bg_form" required>
+											  <label for="fb_middle_name">Middle Name</label>
+										  </div>
+										  <div class="form-floating flex-fill mb-3 p-1">
+											  <input type="text" class="form-control" name ="fb_name_ext[4]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_form" required>
+											  <label for="fb_name_ext">Name Extension (Jr., Sr., II, III)</label>
+										  </div>
+									  </div>
+									  <div class="d-md-flex flex-row">
+										  <div class="form-floating flex-fill mb-3 p-1">
+											  <input type="date" class="form-control" name ="fb_date_of_birth[4]" placeholder="Date of Birth" form="family_bg_form">
+											  <label for="fb_date_of_birth">Date of Birth</label>
+										  </div>
+									  </div>
+								  </div>
+							  </div>
+
+								{% endif %}
+								<input type="hidden" value="{{child_count.value}}" id="child_count" name="child_count" form="family_bg_form">
+								<input type="hidden" value="{{child_count.value}}" id="child_count" name="child_count" form="family_bg_update_form">
 
 							<div id="add_child"></div>
 						</div>
@@ -325,16 +395,6 @@
 					</div>
 			</div>
 		</div>
-		<div class="card mb-3">
-			<div class="card-body">
-					<h3 class="card-title">Family Background</h3> 
-						<div class="card shadow-sm mb-3">
-							<div class="card-body">
-								
-							</div>
-						</div>
-			</div>
-		</div>
 
 
 	</div>
@@ -346,7 +406,20 @@
 {%block scripts%}
 <script type="text/javascript">
 	///ld/add-learning-and-development/{{emp_id}}
+	function delete_child(id){
+		fetch('/familyBg/delete-familyBg/{{user_profile.id}}', {
+				method: 'POST',
+				body: JSON.stringify({"id" : id})
+			}).then((res)=>{
+				if (res.status == 200){
+					// document.getElementById('family_bg_form').reset();
+				}
+				return res.json();
 
+			}).then((data)=>{
+
+			});
+	}
 	function activate_spouse(value){
 		var spouse_ln = document.getElementById('spouse_ln');
 		var spouse_fn = document.getElementById('spouse_fn');
@@ -380,9 +453,13 @@
 
 	function add_child(){
 		document.getElementById('family_count').value ++;
+		collection = document.getElementsByName('child_count');
+		for (let i = 0; i < collection.length; i++) {
+				collection[i].value ++
+			}
 		var x = document.getElementById('family_count').value
 		document.getElementById('add_child').insertAdjacentHTML('beforebegin', `
-		<div class="card shadow-sm mb-3">
+						<div class="card shadow-sm mb-3" id="remove_child${x}">
 							<div class="card-body">
 								<input type="hidden" class="form-control" name ="fb_relationship[${x}]" placeholder="" form="family_bg_form" value="CHILD" required>
 									<div class="d-md-flex flex-row">
@@ -409,9 +486,17 @@
 											<label for="fb_date_of_birth">Date of Birth</label>
 										</div>
 									</div>
+									<a href="#" onclick="remove_child('remove_child${x}'); return false">Remove</a>
 								</div>
 							</div>
 		`);
+	}
+	function remove_child(id){
+		collection = document.getElementsByName('child_count');
+		for (let i = 0; i < collection.length; i++) {
+				collection[i].value --
+			}
+		document.getElementById(id).remove();
 	}
 	document.getElementById('family_bg_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
@@ -427,16 +512,16 @@
 				body: formData
 			}).then((res)=>{
 				if (res.status == 200){
-					document.getElementById('family_bg_form').reset();
+					// document.getElementById('family_bg_form').reset();
 				}
 				return res.json();
 
 			}).then((data)=>{
 					triggerToast(data); //this is the returned error message
 
-					var formElem2 = document.getElementById("family_bg_form");
+					var formElem2 = document.getElementById("family_bg_update_form");
 					
-					let formData2 = new FormData(formElem);
+					let formData2 = new FormData(formElem2);
 
 					const data2 = {}
 					formData2.forEach((value, key) => (data2[key] = value))
@@ -446,7 +531,7 @@
 						body: formData2
 					}).then((res)=>{
 						if (res.status == 200){
-							document.getElementById('family_bg_update_form').reset();
+							// document.getElementById('family_bg_update_form').reset();
 						}
 						return res.json();
 

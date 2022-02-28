@@ -1585,14 +1585,20 @@
 <script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 <script type="text/javascript">
+window.addEventListener("load", function() {
+  graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
+  graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
+  // graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
 
+
+});
 function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
       if(highest_level.value == 'GRADUATED'){
         highest_grade_year_units.readOnly = true;
         scholarship_academic_honor.readOnly = false;
-        period_of_attendance_from.value = ""
+        // period_of_attendance_from.value = ""
 
-        period_of_attendance_to.value = ""
+        // period_of_attendance_to.value = ""
         period_of_attendance_to.readOnly = false
 
       }else if(highest_level.value == "CURRENTLY ENROLLED"){
