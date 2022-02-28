@@ -13,18 +13,22 @@
           var booster_place = document.getElementById('booster_place');
           var booster_date = document.getElementById('booster_date');
           var booster_shot = document.getElementById('do_you_have_booster');
+          var booster_shot_card = document.getElementById('booster_shot_card');
   
           if (booster_shot.value == "YES"){
             booster_id_no.disabled = false;
             booster_brand.disabled = false;
             booster_place.disabled = false;
             booster_date.disabled = false;
+            booster_shot_card.disabled = false;
           }else{
             booster_id_no.disabled = true;
             booster_brand.disabled = true;
             booster_place.disabled = true;
             booster_date.disabled = true;
-  
+            booster_shot_card.disabled = true;
+
+
             booster_id_no.value = "";
             booster_brand.value = "";
             booster_place.value = "";

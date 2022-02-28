@@ -37,12 +37,16 @@ def page_not_found(e):
 def add_voluntary_work(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
+        
+        if 'sf_present' in formdata:
+            formdata['date_to'] = 'PRESENT'
+            formdata.pop('sf_present')
 
         formdata['user_id'] = emp_id
         formdata = {k:v.upper() for k,v in formdata.items()}
         # for key, value in formdata.items(): 
         #     setattr(formdata, key, value.upper())
- 
+
         new_work_exp = Voluntary_Work(**formdata)
 
         db.session.add(new_work_exp)
@@ -96,6 +100,12 @@ def view_voluntary_work():
 def update_voluntary_work():
     if request.method == "POST":
         formdata = request.form.to_dict()
+
+        if 'sf_present' in formdata:
+            formdata['date_to'] = 'PRESENT'
+            formdata.pop('sf_present')
+
+
         get_we = Voluntary_Work.query.get(formdata['id'])
         formdata.pop('id')
 

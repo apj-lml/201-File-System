@@ -21,7 +21,7 @@
   <!--                         WORK EXPERIENCE                                 -->
   <!-- ----------------------------------------------------------------------- -->
   <div class="row mb-3">
-    <div class="card mb-3">
+    <div class="card container">
         <div class="card-body">
           <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
           <form action="#" method="POST" name="work_experience_form" id="work_experience_form" enctype="multipart/form-data"></form>
@@ -29,21 +29,28 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="work_experience_form">
+                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="work_experience_form" required>
                         <label for="date_from">Inclusive Date (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="work_experience_form">
+                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="work_experience_form" required>
                         <label for="date_to">Inclusive Date (To)</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="sf_present" name="sf_present" value = "PRESENT" form="work_experience_form">
+                          <label class="form-check-label" for="sf_present">
+                            PRESENT
+                          </label>
+                        </div>
                       </div>
+                     
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" value="" form="work_experience_form">
+                        <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" value="" form="work_experience_form" required>
                         <label for="date_from">Position Title</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="department_agency_office_company" id="department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="work_experience_form">
+                        <input type="text" class="form-control" name ="department_agency_office_company" id="department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="work_experience_form" required>
                         <label for="department_agency_office_company" style="font-size: 12px">Department / Office / Agency / Company</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
@@ -316,6 +323,19 @@
 {%block scripts%}
 
 <script type="text/javascript">
+
+var sf_present = document.getElementById('sf_present');
+	sf_present.addEventListener('change',()=>{
+		var service_to = document.getElementById('date_to');
+		if(sf_present.checked){
+			service_to.disabled = true;
+			service_to.value = ''
+			}
+		else{
+			service_to.disabled = false;
+			}
+	})
+
   function delete_work_experience(el){
     fetch('/workExperience/delete-work-experience',{
 		method: 'POST',

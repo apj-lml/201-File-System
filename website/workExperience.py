@@ -15,8 +15,8 @@ admin_permission = Permission(RoleNeed('admin'))
 
 @workExperience.errorhandler(403)
 def page_not_found(e):
-	session['redirected_from'] = request.url
-	return redirect(url_for('auth.login'))
+    session['redirected_from'] = request.url
+    return redirect(url_for('auth.login'))
 
 # @workExperience.template_filter()
 # def format_datetime(value, format='medium'):
@@ -38,6 +38,11 @@ def add_work_experience(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         formdata['user_id'] = emp_id
+
+        if 'sf_present' in formdata:
+            formdata['date_to'] = 'PRESENT'
+            formdata.pop('sf_present')
+    
         new_work_exp = Work_Experience(**formdata)
 
         db.session.add(new_work_exp)
@@ -53,13 +58,13 @@ def add_work_experience(emp_id):
 @workExperience.route('delete-work-experience', methods=['POST', 'GET'])
 @login_required
 def delete_work_experience():
-	if request.method == "POST":
-		formdata  = json.loads(request.data)
-		we = Work_Experience.query.get(formdata['work_exp_id'])
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+        we = Work_Experience.query.get(formdata['work_exp_id'])
 
-		db.session.delete(we)
-		db.session.commit()
-	return jsonify('Work Experience Deleted Successfully')
+        db.session.delete(we)
+        db.session.commit()
+    return jsonify('Work Experience Deleted Successfully')
 
  # ---------------------------------------------------------------------------- #
  #                                    GET WES                                   #
@@ -67,21 +72,21 @@ def delete_work_experience():
 @workExperience.route('view-work-experience', methods=['POST', 'GET'])
 @login_required
 def view_work_experience():
-	if request.method == "POST":
-		formdata  = json.loads(request.data)
-		get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).all()
-		column_keys = Work_Experience.__table__.columns.keys()
-	# Temporary dictionary to keep the return value from table
-		rows_dic_temp = {}
-		rows_dic = []
-	# Iterate through the returned output data set
-		for row in get_we:
-			for col in column_keys:
-				rows_dic_temp[col] = getattr(row, col)
-			rows_dic.append(rows_dic_temp)
-			rows_dic_temp= {}
-			print(rows_dic)
-		return jsonify(rows_dic)
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+        get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).all()
+        column_keys = Work_Experience.__table__.columns.keys()
+    # Temporary dictionary to keep the return value from table
+        rows_dic_temp = {}
+        rows_dic = []
+    # Iterate through the returned output data set
+        for row in get_we:
+            for col in column_keys:
+                rows_dic_temp[col] = getattr(row, col)
+            rows_dic.append(rows_dic_temp)
+            rows_dic_temp= {}
+            print(rows_dic)
+        return jsonify(rows_dic)
 
  # ---------------------------------------------------------------------------- #
  #                                   Save WES                                   #

@@ -45,12 +45,15 @@
 									<label for="is_spouse">Do you have a spouse?</label>
 								</div>
 							</div>
+							<input type="hidden" class="form-control" name ="family_count" id ="family_count" value="4" form="family_bg_form" required>
+
 							{% if user_profile.familyBg %}
 								{% for spouse in user_profile.familyBg %}
 									{% if spouse.fb_relationship == 'SPOUSE' %}
 
 								<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_update_form" value="SPOUSE" required>
 								<input type="hidden" class="form-control" name ="family_count" id ="" value="4" form="family_bg_update_form" required>
+
 
 									<input type="hidden" class="form-control" name ="id[1]" id="id[1]" placeholder="ID" form="family_bg_update_form" value="{{spouse.id}}" required>
 							
@@ -100,6 +103,8 @@
 							{% else %}
 							<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_form" value="SPOUSE" required>
 							<input type="hidden" class="form-control" name ="family_count" id ="family_count" value="4" form="family_bg_form" required>
+							<input type="hidden" class="form-control" name ="family_count" id ="" value="4" form="family_bg_update_form" required>
+
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_form" value="" required>
@@ -264,7 +269,7 @@
 							{% if child_count.value == 0 %}
 
 									{% if no_child.value == 0 %}
-									<div class="card shadow-sm mb-3">
+									<!-- <div class="card shadow-sm mb-3">
 										<div class="card-body">
 											<input type="hidden" class="form-control" name ="fb_relationship[4]" placeholder="" form="family_bg_form" value="CHILD" required>
 												<div class="d-md-flex flex-row">
@@ -292,7 +297,8 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
+										<!-- <h1 class="text-muted">No Children</h1> -->
 										{% endif %}
 								
 								{% set no_child.value = no_child.value+1 %}
@@ -417,7 +423,7 @@
 				return res.json();
 
 			}).then((data)=>{
-
+				window.location.reload();
 			});
 	}
 	function activate_spouse(value){

@@ -29,31 +29,37 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="name_of_organization" id="name_of_organization" placeholder="Name of Organization" value="" form="voluntary_work_form">
+                        <input type="text" class="form-control" name ="name_of_organization" id="name_of_organization" placeholder="Name of Organization" value="" form="voluntary_work_form" required>
                         <label for="date_from">Name of Organization</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="address" id="address" placeholder="Address of Organization" value="" form="voluntary_work_form">
+                        <input type="text" class="form-control" name ="address" id="address" placeholder="Address of Organization" value="" form="voluntary_work_form" required>
                         <label for="date_from">Address of Organization</label>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="voluntary_work_form">
+                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="voluntary_work_form" required>
                         <label for="date_from">Inclusive Date (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="voluntary_work_form">
+                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="voluntary_work_form" required>
                         <label for="date_to">Inclusive Date (To)</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="sf_present" name="sf_present" value = "PRESENT" form="voluntary_work_form" onchange="present_date(document.getElementById('date_to'), this)">
+                          <label class="form-check-label" for="sf_present">
+                            PRESENT
+                          </label>
+                        </div>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="number" class="form-control" name ="no_hours" id="no_hours" placeholder="No. of Hours" value="" form="voluntary_work_form">
+                        <input type="number" class="form-control" name ="no_hours" id="no_hours" placeholder="No. of Hours" value="" form="voluntary_work_form" required>
                         <label for="department_agency_office_company">No. of Hours</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="position" id="position" placeholder="Position" value="" form="voluntary_work_form">
+                        <input type="text" class="form-control" name ="position" id="position" placeholder="Position" value="" form="voluntary_work_form" required>
                         <label for="date_from">Position</label>
                       </div>
                     </div>
@@ -151,6 +157,12 @@
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="date" class="form-control" name ="date_to" id="update_date_to" placeholder="Inclusive Date (To)" value="" form="update_voluntary_work_form">
                         <label for="date_to">Inclusive Date (To)</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "PRESENT" form="update_voluntary_work_form" onchange="present_date(document.getElementById('update_date_to'), this)">
+                          <label class="form-check-label" for="update_sf_present">
+                            PRESENT
+                          </label>
+                        </div>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
@@ -185,6 +197,22 @@
 {%block scripts%}
 
 <script type="text/javascript">
+
+function present_date(service_to, sf_present){
+  // var service_to = document.getElementById('date_to');
+
+		if(sf_present.checked){
+			service_to.disabled = true;
+			service_to.value = ''
+			}
+		else{
+			service_to.disabled = false;
+			}
+}
+
+
+
+
   function delete_voluntary_work(el){
     fetch('/voluntaryWork/delete-voluntary-work',{
 		method: 'POST',

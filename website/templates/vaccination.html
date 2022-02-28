@@ -96,7 +96,7 @@
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="flex-fill mb-3 p-1 col-md-6">
-                    <label for="vac_date">Vaccine Card</label>
+                    <label for="vac_date">Vaccination Card</label>
                     <input type="file" class="form-control" name ="vaccine_card" id="vaccine_card" placeholder="Date of First Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_first_dose if user_profile.vaccine else ''}}">
                   </div>
                 </div>
@@ -189,10 +189,9 @@
       <h3 class="card-title">COVID-19 Vaccine Attachments</h3>
       <div class="card shadow-sm mb-3">
         <div class="card-body">
-
         {% for vac_card in user_profile.uploaded_files %}
           {% if vac_card.file_tag == 'vaccine_card' or vac_card.file_tag == 'booster_shot_card' %}
-
+            
               <div class="col-md-12">
                 <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
                   <i class="bi bi-file-earmark-pdf"></i>

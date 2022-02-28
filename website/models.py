@@ -11,7 +11,7 @@ from sqlalchemy_serializer import SerializerMixin
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	timestamp = db.Column(db.DateTime(timezone=True), server_default=func.now())
-	# status_remarks = db.Column(db.String(50))
+	status_remarks = db.Column(db.String(50))
 	employee_id = db.Column(db.Integer, unique=True, nullable=False)
 	email = db.Column(db.String(150), unique=False, nullable=True)
 	password = db.Column(db.String(150), nullable=False)
@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
 	step = db.Column(db.String(150))
 
 	item_no = db.Column(db.String(150))
-	# item_location = db.Column(db.String(150))
+	item_location = db.Column(db.String(150))
 	date_of_assumption = db.Column(db.String(150))
 	original_station = db.Column(db.String(150))
 	date_hired_in_nia = db.Column(db.String(150), nullable=True)

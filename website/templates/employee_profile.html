@@ -153,6 +153,9 @@
                   <div class="form-floating flex-fill mb-3 p-1">
                     <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                     <label for="last_name">Employee ID Number</label>
+                  </div><div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                    <label for="last_name">Status</label>
                   </div>
                 </div>
 
@@ -192,7 +195,7 @@
                       <label for="last_name">Position Title</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
+                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -223,7 +226,7 @@
                       <label for="salary_grade">Salary Grade</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -317,7 +320,7 @@
                       <label for="sex">Sex</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}" form="update_form"> 
+                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}" form="update_form" disabled> 
                         <option class="" value="{{user_profile.civil_status}}" selected disabled hidden>{{user_profile.civil_status}}</option>
                         <option value="Single">Single</option>
                         <option value="Widowed">Widowed</option>
@@ -341,19 +344,20 @@
                       <label for="name_extn">Blood Type</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}" form="update_form">
+                      <input type="text" class="form-control" id="religion" name ="religion" placeholder="Religion" value="{{user_profile.religion}}" form="update_form">
+                      <!-- <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}" form="update_form">
                         <option value="Roman Catholic">Roman Catholic</option>
                         <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
                         <option value="Baptist">Baptist</option>
                         <option value="Born Again Christian">Born Again Christian</option>
                         <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
-                      </select>
+                      </select> -->
                       <label for="religion">Religion</label>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <!-- <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form">
                       <label for="name_extn">No. of Dependent/s</label>
-                    </div>      
+                    </div>       -->
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -373,20 +377,20 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}" form="update_form">
-                      <label for="name_extn">GSIS</label>
+                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}" form="update_form"readOnly>
+                      <label for="name_extn">GSIS No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" readonly>
-                      <label for="name_extn">Pag-ibig</label>
+                      <label for="name_extn">Pag-IBIG No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" readonly>
-                      <label for="name_extn">Philhealth</label>
+                      <label for="name_extn">Philhealth No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form">
-                      <label for="name_extn">SSS</label>
+                      <label for="name_extn">SSS No.</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -400,7 +404,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" >
-                      <label for="name_extn">UMID</label>
+                      <label for="name_extn">GSIS UMID No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" form="update_form">
@@ -1274,15 +1278,15 @@
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="transcript_of_records" class="form-label">Upload Transcript of Records</label>
-                        <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form">
+                        <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form" multiple>
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Diploma</label>
-                        <input class="form-control" type="file" id="diploma" name="diploma" form="update_form">
+                        <input class="form-control" type="file" id="diploma" name="diploma" form="update_form" multiple>
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="tesda_nc" class="form-label">Upload TESDA National Certificate (NC)</label>
-                        <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form">
+                        <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form" multiple>
                       </div>
                     </div>
                   </div>
@@ -1293,7 +1297,7 @@
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="career_service_eligibility" class="form-label">Upload Career Service Eligibility</label>
-                        <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form">
+                        <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form" multiple>
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="prc_license" class="form-label">Upload PRC License</label>
@@ -1383,7 +1387,7 @@
                         <input class="form-control" type="file" id="latest_oath_of_office" name="latest_oath_of_office" form="update_form">
                       </div>
                     </div>
-
+                   
                     <div class="d-md-flex flex-row">
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="latest_assumption_to_duty" class="form-label">Upload Latest Assumption to Duty</label>
@@ -1391,6 +1395,33 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Previous Appointment/s</label>
+                        <input class="form-control" type="file" id="prev_appointment" name="prev_appointment" form="update_form" multiple>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
+                        <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Medical Records</label>
+                        <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form" multiple>
+                      </div>
+                    </div>
+                    
+                    </div>
                 </div>
 
                 <h3 class="card-title">Uploaded Files</h3>
