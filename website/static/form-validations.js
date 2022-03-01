@@ -63,7 +63,11 @@
       })
 
 
+
+
       window.addEventListener('load', function() {
+
+        
         //code to restrict max date of birthdate
           var dtToday = new Date();
       
@@ -80,11 +84,12 @@
           document.getElementById('birthdate').max = maxDate;
 
 
-          // employment_status()
+          myrate();
+          sameAsPermanent();
+
+          // employment_status();
 
 
-          // var final_salary = JSON.parse(salary);
-         // console.log(salary[10][4])
       })
       
     
@@ -154,14 +159,11 @@
         // myrate()
       }
       function myrate(){
-
+        // alert(123)
         var sg = document.getElementById('salary_grade').value
         var step = document.getElementById("step").value;
         var monthly_rate =  document.getElementById('monthly_rate');
         var daily_rate =  document.getElementById('daily_rate');
-        
-
-
 
         if (document.getElementById('employment_status').value == "PERMANENT" || document.getElementById('employment_status').value == "COTERMINOUS" ){
           monthly_rate.value = monthly_salary[sg][step]
@@ -191,7 +193,9 @@
     document.getElementById("salary_grade").addEventListener("change", myrate);
     document.getElementById("step").addEventListener("change", myrate);
 
+    // window.addEventListener("load", ()=>{
 
+    // });
 
     document.getElementById("section").addEventListener("change", (e)=>{
       console.log(e.target.value)

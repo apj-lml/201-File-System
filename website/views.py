@@ -127,3 +127,11 @@ def emergency_contact(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	
 	return render_template('emergency_contact.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/appointment/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def appointment(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	
+	return render_template('appointment.html', emp_id = emp_id, user_profile = user)

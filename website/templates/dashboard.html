@@ -16,126 +16,10 @@
         </nav> -->
 		
 
-		{% if current_user.is_authenticated%}
-		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-		  <div class="container-fluid">
-			<a class="navbar-brand" href="/dashboard">
-			  <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="50px" height="50px" class="d-inline-block align-text-center">
-			  PIMO
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-			  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<ul class="navbar-nav navbar-right me-3">
-				  <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  <i class="bi bi-person-rolodex"></i> Employee Profile
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-					  <li><a class="dropdown-item" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> My Profile</a></li>
-					  <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-people-fill"></i> Family Background</a></li>
-					  <li><a class="dropdown-item" href="/work-experience/{{current_user.id}}"><i class="bi bi-journals"></i> Work Experience</a></li>
-					  <li><a class="dropdown-item" href="/voluntary-work/{{current_user.id}}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
-					  <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i>  Learning & Development</a></li>
-					  <li><a class="dropdown-item" href="/other-information/{{current_user.id}}"><i class="bi bi-pen"></i> Other Information</a></li>
-					  <li><a class="dropdown-item" href="/questions/{{current_user.id}}"><i class="bi bi-question-octagon"></i> Questions</a></li>
-					  <li><a class="dropdown-item" href="/character-reference/{{current_user.id}}"><i class="bi bi-person-video2"></i> Character References</a></li>
-	  
-	  
-	  
-					  <!-- <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li> -->
-					  <!-- <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"><i class="bi-bandaid"></i> COVID-19 Vaccination</a></li> -->
-					  
-	  
-					  <li><hr class="dropdown-divider"></li>
-					  <li><a class="dropdown-item" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> Print Preview</a></li>
-					</ul>
-				  </li>
-				</ul>
-				<li class="nav-item">
-				  <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
-				</li>
-				<!-- <li class="nav-item">
-				  <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
-				</li> -->
-				<li class="nav-item">
-				  <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> COVID-19 Vaccination</a>
-				</li>
-				<ul class="navbar-nav navbar-right me-3">
-				  <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  <i class="bi bi-box-seam"></i> Others
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-					  <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
-					  <li><a class="dropdown-item" href="/emergency-contact/{{current_user.id}}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
-					   <!-- <li><hr class="dropdown-divider"></li> -->
-					  <!-- <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li> -->
-					</ul>
-				  </li>
-				</ul>
-				
-				<!-- <ul class="navbar-nav navbar-right me-3">
-				  <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  <i class="bi bi-key"></i> Admin Access
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-					  <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
-					  <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
-					   <li><hr class="dropdown-divider"></li>
-					  <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li>
-					</ul>
-				  </li>
-				</ul> -->
-				<!-- <li class="nav-item">
-				  <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
-				</li> -->
-			  </ul>
-			  
-			  <ul class="navbar-nav navbar-right me-3">
-	  
-				{% if current_user.type_of_user == 'admin' %}
-				<ul class="navbar-nav navbar-right me-3">
-				  <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  <i class="bi bi-key"></i> Admin Access
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-					  <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
-					  <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
-					   <li><hr class="dropdown-divider"></li>
-					  <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li>
-					</ul>
-				  </li>
-				</ul>
-				{% endif %}
-	  
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					<img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
-					<strong>{{current_user.first_name.0}}{{current_user.middle_name.0}}{{current_user.last_name.0}}</strong>
-				  </a>
-				  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-					<li><a class="dropdown-item" href="/change-password/{{current_user.id}}"><i class="bi bi-shield-lock"></i> Change Password</a></li>
-					<!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
-					<li><hr class="dropdown-divider"></li>
-					<li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-				  </ul>
-				</li>
-	  
-			  </ul>
-			{% endif %}
-	  
-	  
-			</div>
-		  </div>
-		</nav>
+
 
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead pt-5">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
@@ -143,7 +27,7 @@
                             <!-- Page heading-->
                             <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
                                                 
-                            <h1 class="mb-5">PANGASINAN IRRIGATION MANAGEMENT OFFICE</h1>
+                            <h1 class="mb-5 mt-0">PANGASINAN IRRIGATION MANAGEMENT OFFICE</h1>
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -231,14 +115,14 @@
                     <!-- <div class="col-lg-6 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-2.jpg')"></div> -->
                     <div class="col-lg-6 my-auto showcase-text">
                         <h2><i class="bi bi-megaphone"></i> Announcements</h2>
-                        <p class="lead mb-0">Some Announcements and Job Vacanies here.</p>
+                        <p class="lead mb-0">Some Announcements and Job Vacancies here.</p>
                     </div>
                 </div>
                 <div class="row g-0">
                     <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
                     <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                         <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
-                        <p class="lead mb-0">Try to play birthday celebes if can do!</p>
+                        <p class="lead mb-0">Try to play birthday celebs if can do!</p>
                     </div>
                 </div>
             </div>
@@ -247,7 +131,7 @@
         <section class="testimonials text-center bg-light">
             <div class="container">
                 <h2 class="mb-5">Put Something Here</h2>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-lg-4">
                         <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                             <img class="img-fluid rounded-circle mb-3" src="static/assets/img/testimonials-1.jpg" alt="..." />
@@ -269,7 +153,7 @@
                             <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
         <!-- Call to Action-->
@@ -277,42 +161,7 @@
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
-                        <h2 class="mb-4">Ready to get started? Sign up now!</h2>
-                        <!-- Signup form-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form class="form-subscribe" id="contactFormFooter" data-sb-form-api-token="API_TOKEN">
-                            <!-- Email address input-->
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-control form-control-lg" id="emailAddressBelow" type="email" placeholder="Email Address" data-sb-validations="required,email" />
-                                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:required">Email Address is required.</div>
-                                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:email">Email Address Email is not valid.</div>
-                                </div>
-                                <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
-                            </div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    <p>To activate this form, sign up at</p>
-                                    <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                        </form>
+                        <h2 class="mb-4">Put something here</h2>
                     </div>
                 </div>
             </div>
@@ -321,7 +170,11 @@
         <footer class="footer bg-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                  <div class="col-lg-12 h-100 text-center text-lg-start my-auto">
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; All Rights Reserved.</p>
+
+                  </div>
+                    <!-- <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
                             <li class="list-inline-item"><a href="#!">About</a></li>
                             <li class="list-inline-item">⋅</li>
@@ -345,7 +198,7 @@
                                 <a href="#!"><i class="bi-instagram fs-3"></i></a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </footer>

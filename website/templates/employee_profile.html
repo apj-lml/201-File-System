@@ -30,7 +30,9 @@
     }
 }
 
-
+.dtsb-titleRow{
+  display: none;
+}
 #my-menu {
     max-width: 175px;
     max-height: 3.25rem;
@@ -195,7 +197,7 @@
                       <label for="last_name">Position Title</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
+                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -226,7 +228,7 @@
                       <label for="salary_grade">Salary Grade</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -477,8 +479,8 @@
                     <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
                         <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example" onchange="sameAsPermanent()">
-                            <option value="YES" {{ "selected" if user_profile.pres_house_block_lot or user_profile.pres_street or user_profile.pres_barangay or user_profile.pres_province else "" }}>YES</option>
-                            <option value="NO"  {{ "" if user_profile.pres_house_block_lot or user_profile.pres_street or user_profile.pres_barangay or user_profile.pres_province else "selected" }}>NO</option>
+                            <option value="YES" {{ "selected" if user_profile.pres_province is none or user_profile.pres_province == 'N/A' or user_profile.pres_street is none or user_profile.pres_street == "N/A"  or user_profile.pres_barangay is none or user_profile.pres_barangay == "N/A" else "" }}>YES</option>
+                            <option value="NO"  {{ "" if user_profile.pres_province is none or user_profile.pres_province == 'N/A' or user_profile.pres_street is none or user_profile.pres_street == "N/A"  or user_profile.pres_barangay is none or user_profile.pres_barangay == "N/A" else "selected" }}>NO</option>
                           
                         </select>
                         <label for="same_as_permanent">Same as permanent address</label>
@@ -1424,35 +1426,44 @@
                     </div>
                 </div>
 
+
+
                 <h3 class="card-title">Uploaded Files</h3>
                 <div class="card shadow-sm mb-3">
                   <div class="card-body">
-                    
-                    <div class="container">
-                      <div class="row" style="max-width: 1500px;">
+                    <table class="table table-bordered table-striped" id="uploaded_file_table">
+                      <thead>
+                        <tr>
+                          <th>File Name</th>
+                          <th>File Tag</th>
+                          <th>Controls</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                       {% for file in user_profile.uploaded_files %}
                         <!-- <div class="flex-fill mb-3 p-1"> -->
-                          {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' %}
-                          <div class="col-md-12">
-                            <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-                              <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                              <a href="{{file.file_path}}\{{file.file_name}}" target="_blank">
-                                <span class="">
-                                  {{file.file_name}}
-                                </span>
+                          {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
+                          <tr>
+                            <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
+                            <td>{{file.file_tag}}</td>
+                            <td>
+                              <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                                <i class="bi bi-trash"></i>
                               </a>
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
-                            </div>
-                          </div>
+                              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
+                            </td>
+                          </tr>
+        
                           {% endif %}
                         <!-- </div> -->
                       {% endfor %}
-                      </div>
-                    </div>
-
+                    </tbody>
+                    </table>
                   </div>
                 </div>
-
+                <div class="col-sm-12 text-center">
+                  <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
+                </div>
               <!-- <div class="card shadow-sm mb-3">
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
@@ -1619,7 +1630,29 @@
 window.addEventListener("load", function() {
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
+  var vocation_count = document.getElementById('vocational_no_fields').value;
+  
+  
+
+  // for(var x = 0; x < vocation_count; x++){
+  //   alert(vocation_count);
+  // }
+
   // graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
+
+  $('#uploaded_file_table').DataTable({
+      responsive: true,
+      language: {
+            searchBuilder: {
+                title: ``,
+				add: `Add Filter`
+            }
+        },
+        dom: 'Qftrip'
+        // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+				// <'row'<'col-sm-12'tr>>
+				// <'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+    });
 
 
 });
@@ -1881,8 +1914,9 @@ function delete_file(e){
     body: JSON.stringify({"file_id" : e.id})
   })
 	.then(response => response.json())
-	.then(data => data)
-	.catch(err => console.error(err));
+	.then(data => {
+    window.location.reload()
+  })
 }
 
 function year_only (el) {

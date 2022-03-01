@@ -162,6 +162,21 @@ class Service_Record(db.Model, SerializerMixin):
 	separation_cause = db.Column(db.String(50), nullable=True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Appointment(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	service_from = db.Column(db.String(50))
+	service_to = db.Column(db.String(50))
+	designation = db.Column(db.String(150))
+	status = db.Column(db.String(50))
+	salary = db.Column(db.String(50))
+	station_place = db.Column(db.String(50))
+	leave_wo_pay = db.Column(db.String(50))
+	separation_date = db.Column(db.String(50), nullable=True)
+	separation_cause = db.Column(db.String(50), nullable=True)
+	appointment_attachment = db.Column(db.String(150))
+	appointment_attachment_file_name = db.Column(db.String(100))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 class Learning_Development(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	ld_program = db.Column(db.String(50))

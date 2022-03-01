@@ -52,6 +52,7 @@ def create_app():
 	from .questions import questions
 	from .characterReference import characterReference
 	from .emergencyContact import emergencyContact
+	from .appointment import appointment
 
 
 
@@ -74,6 +75,7 @@ def create_app():
 	app.register_blueprint(questions, url_prefix = '/questions')
 	app.register_blueprint(characterReference, url_prefix = '/characterReference')
 	app.register_blueprint(emergencyContact, url_prefix = '/emergencyContact')
+	app.register_blueprint(appointment, url_prefix = '/appointment')
 
 
 
