@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
+from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 from .models import Learning_Development, User
 from . import db
 import datetime
 import time
-from .myhelper import allowed_file
+from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
 import json
 import os, os.path
@@ -86,7 +86,7 @@ def add_learning_and_development(emp_id):
             else:
                 file_extension = file.filename.rsplit('.', 1)[1].lower()
                 file_name = file.filename.rsplit('.', 1)[0]
-                final_name = secure_filename(formdata['ld_program'] + '_' + str(round(time.time() * 1000)) +'_' + file_name +'.'+file_extension)
+                final_name = secure_filename(formdata['ld_program'] + '_' + str(round(time.time() * 1000)) +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
                 if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
                     print('path does not exist... creating path')
                     os.mkdir(current_app.config['UPLOAD_FOLDER'])

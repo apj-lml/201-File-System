@@ -6,7 +6,6 @@
 	<title>{% block title %}{% endblock %}</title>
 	<link href="{{ url_for('static', filename='bootstrap-5.1.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='datatables/datatables.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
 
 
   <!-- Favicon-->
@@ -14,10 +13,12 @@
   <!-- Bootstrap icons-->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" /> -->
   <!-- Google fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+  <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" /> -->
   <!-- Core theme CSS (includes Bootstrap)-->
   <!-- <link href="css/styles.css" rel="stylesheet" /> -->
   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
+
 
   <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet">
 
@@ -25,6 +26,14 @@
   <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/dce3348e0b.js" crossorigin="anonymous"></script> 
   <style>
+
+@font-face {
+  font-family: trajan_reg;
+  src: url("{{ url_for('static', filename='fonts/TrajanPro-Bold.otf') }}");
+}
+.trajan{
+  font-family: trajan_reg;
+}
 @media (min-width: 768px) {
   .animate {
     animation-duration: 0.3s;
@@ -116,7 +125,7 @@
                 <li><a class="dropdown-item" href="/other-information/{{current_user.id}}"><i class="bi bi-pen"></i> Other Information</a></li>
                 <li><a class="dropdown-item" href="/questions/{{current_user.id}}"><i class="bi bi-question-octagon"></i> Questions</a></li>
                 <li><a class="dropdown-item" href="/character-reference/{{current_user.id}}"><i class="bi bi-person-video2"></i> Character References</a></li>
-                <li><a class="dropdown-item" href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a></li>
+                <!-- <li><a class="dropdown-item" href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a></li> -->
 
                 <!-- <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li> -->
                 <!-- <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"><i class="bi-bandaid"></i> COVID-19 Vaccination</a></li> -->
@@ -129,6 +138,10 @@
           </ul>
           <li class="nav-item">
             <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
+          </li>
+          <li class="nav-item">
+            <!-- <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a> -->
+            <a class="nav-link" href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>

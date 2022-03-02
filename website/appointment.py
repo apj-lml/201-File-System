@@ -51,7 +51,7 @@ def add_appointment(emp_id):
                         today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
                         file_extension = file.filename.rsplit('.', 1)[1].lower()
                         file_name = file.filename.rsplit('.', 1)[0]
-                        final_name = secure_filename(afile+'_'+ current_user.last_name+'_'+current_user.first_name + '_' + str(current_user.employee_id)+'_' + today_is +'_' + file_name +'.'+file_extension)
+                        final_name = secure_filename(afile+'_'+ current_user.last_name+'_' + '_' + file_name +'.'+file_extension)
                         
                         # my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
                         # if my_file.is_file():
@@ -75,6 +75,9 @@ def add_appointment(emp_id):
         if 'sf_present' in formdata:
             formdata['service_to'] = 'PRESENT'
             formdata.pop('sf_present')
+        if 'nia_pimo' in formdata:
+            formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+            formdata.pop('nia_pimo')
         formdata['user_id'] = emp_id
         new_Appointment = Appointment(**formdata)
         db.session.add(new_Appointment)

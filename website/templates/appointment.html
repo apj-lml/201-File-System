@@ -15,14 +15,14 @@
 {% endblock %}
 
 {% block content %}
-<main class="container">
+<main>
 	
-	<div class="row">
+	<div class="row container-fluid">
 		<!-- <div class="col-sm-12">
 			<h1 class="text-center fw-bold">APPOINTMENTS</h1>
 		</div> -->
 		<div class="col-sm-12">
-			<button class="btn btn-secondary btn-sm mt-5 mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">New Appointment</button>
+			<button class="btn btn-secondary btn-sm mt-5 mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Record</button>
 		</div>
 		<!-- <div class="col-sm-12 mt-5">
 			<div class="row">
@@ -95,27 +95,27 @@
 		</div> -->
 		<div class="card shadow-sm mt-3">
 			<div class="card-body">
-				<div class="col-sm-12">
+				<!-- <div class="col-sm-12"> -->
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered text-center display" id="service_record_table" style="width: 100%;">
 							<thead>
 							<tr class="align-middle">
-								<th  colspan="2">SERVICE <i>(Inclusive Dates)</i></th>
+								<th  colspan="2">EMPLOYMENT PERIOD <i>(Inclusive Dates)</i></th>
 								<th  colspan="3">RECORD OF APPOINTMENT</th>
 								<th  rowspan="2">STATION/PLACE OF ASSIGNMENT</th>
-								<th  rowspan="2">LEAVE W/O PAY</th>
-								<th  colspan="2">SEPARATION</th>
+								<!-- <th  rowspan="2">LEAVE W/O PAY</th> -->
+								<!-- <th  colspan="2">SEPARATION</th> -->
 								<th  rowspan="2">ATTACHMENT</th>
 								<th  rowspan="2">CONTROLS</th>
 							</tr>
 							<tr class="align-middle">
 								<th >FROM</th>
 								<th >TO</th>
-								<th >DESIGNATION</th>
-								<th >STATUS</th>
-								<th >SALARY</th>
-								<th >DATE</th>
-								<th >CAUSE</th>
+								<th >POSITION TITLE</th>
+								<th >EMPLOYMENT STATUS</th>
+								<th >DAILY/MONTHLY RATE</th>
+								<!-- <th >DATE</th>
+								<th >CAUSE</th> -->
 							</tr>
 							</thead>
 							<tbody>
@@ -123,7 +123,7 @@
 							</tbody>
 						</table>
 					</div>
-				</div>
+				<!-- </div> -->
 		</div>
 		</div>
 
@@ -258,6 +258,12 @@
 					<div class="form-floating flex-fill mb-3 p-1">
 						<input type="text" class="form-control" id="station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
 						<label for="designation">Station/ Place of Assignment</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE">
+							<label class="form-check-label" for="nia_pimo">
+							  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+							</label>
+						  </div>
 						<div class="valid-feedback">
 							Looks good!
 						  </div>
@@ -265,7 +271,7 @@
 							This is required.
 						  </div>
 					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
+					<!-- <div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="leave_wo_pay" name ="leave_wo_pay" placeholder="Leave W/O Pay" value="None">
 					  <label for="salary">Leave W/O Pay</label>
 					  <div class="valid-feedback">
@@ -274,9 +280,9 @@
 					  <div class="invalid-feedback">
 						This is required.
 					  </div>
-					</div>
+					</div> -->
 				</div>
-				<div class="d-sm-flex flex-row">
+				<!-- <div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 						<input type="date" class="form-control" id="separation_date" name ="separation_date" placeholder="Separation Date" value="">
 						<label for="designation">Separation Date</label>
@@ -287,8 +293,8 @@
 							This is required.
 						  </div>
 					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
+				</div> -->
+				<!-- <div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
 					  <label for="salary">Separation Cause</label>
@@ -299,7 +305,7 @@
 						This is required.
 					  </div>
 					</div>
-				</div>
+				</div> -->
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Appointment</label>
@@ -502,13 +508,7 @@ window.addEventListener("load", ()=>{
 
 	$('#uploaded_file_table').DataTable({
       responsive: true,
-      language: {
-            searchBuilder: {
-                title: ``,
-				add: `Add Filter`
-            }
-        },
-        dom: 'Qftrip'
+        dom: 'ftrip'
         // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				// <'row'<'col-sm-12'tr>>
 				// <'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
@@ -535,18 +535,18 @@ window.addEventListener("load", ()=>{
 
 
 	var products_table = $('#service_record_table').DataTable( {
-		language: {
-            searchBuilder: {
-                title: ``,
-				add: `Add Filter`
-            }
-        },
+		// language: {
+        //     searchBuilder: {
+        //         title: ``,
+		// 		add: `Add Filter`
+        //     }
+        // },
 		bSortCellsTop: true,
 		// bLengthChange: true,
 		scrollX: true,
 		// responsive: true,
 		// colReorder: true,
-        dom: 'Qfrtip',
+        dom: 'lfrtip',
 		// "initComplete": function(settings, json) {
 		// 	function edit_appointment(id){
 		// 		fetch(`/appointment/edit-appointment/${id}`,{
@@ -569,16 +569,16 @@ window.addEventListener("load", ()=>{
 			{ "data": "status"},
 			{ "data": "salary"},
 			{ "data": "station_place"},
-			{ "data": "leave_wo_pay"},
-			{ "data": "separation_date"},
-			{ "data": "separation_cause"},
+			// { "data": "leave_wo_pay"},
+			// { "data": "separation_date"},
+			// { "data": "separation_cause"},
 			{
               data: null,
 			  searchable: true,
               render: function ( data, type, row ) {
                 return `
 				<div class="d-sm-flex flex-row">
-					<a href="../${data.appointment_attachment}" title="View employee info" id="${data.appointment_attachment_file_name}" target = "_blank" >
+					<a href="../${data.appointment_attachment}" title="View Attachment" id="${data.ld_attachment_file_name}" target = "_blank" >
 						<i class="bi bi-box-arrow-up-right"></i> Attachment
 					</a>
 				</div>`;
@@ -588,12 +588,8 @@ window.addEventListener("load", ()=>{
               data: null,
 			  searchable: false,
               render: function ( data, type, row ) {
-				// <a class="btn btn-warning btn-sm m-2" title="View employee info" id="${data.id}" data-bs-toggle="modal" data-bs-target="#updateModal" onclick = "edit_appointment(this.id)">
-				// 		<i class="bi bi-eye-fill"></i>
-				// 	</a>
                 return `
 				<div class="d-sm-flex flex-row">
-					
 					<a href="/appointment/delete-appointment/${data.id}" class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}">
 						<i class="bi bi-trash"></i>
 					</a>
@@ -649,9 +645,11 @@ function edit_appointment(id){
 function sf_present(){
 		var sf_present = document.getElementById('sf_present');
 		var service_to = document.getElementById('service_to');
+		var station_place = document.getElementById('station_place');
 		if(sf_present.checked){
 			service_to.disabled = true;
 			service_to.value = ''
+			// station_place.value = "NIA-PANGASINAN IMO"
 			}
 		else{
 			service_to.disabled = false;
@@ -659,8 +657,24 @@ function sf_present(){
 	
 	}
 
+	function nia_pimo(){
+		var nia_pimo = document.getElementById('nia_pimo');
+		var station_place = document.getElementById('station_place');
+		// var station_place = document.getElementById('station_place');
+		if(nia_pimo.checked){
+			station_place.value = "";
+			station_place.disabled = true;
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+
 	document.getElementById('sf_present').addEventListener('change', sf_present)
 	document.getElementById('update_sf_present').addEventListener('change', sf_present)
+	document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
+
 })
 
 // function delete_file(e){

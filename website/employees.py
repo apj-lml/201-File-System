@@ -6,10 +6,11 @@ from .models import Career_Service, College, Doctoral, Learning_Development, Mas
 from . import db
 #from datetime import datetime
 import datetime
-from .myhelper import allowed_file
+from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
 import os, os.path
 import json
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -93,10 +94,11 @@ def update_employee(emp_id):
 					return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
 					#return redirect(request.url)
 				else:
+					print(my_random_string())
 					today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
 					file_extension = file.filename.rsplit('.', 1)[1].lower()
 					file_name = file.filename.rsplit('.', 1)[0]
-					final_name = secure_filename(afile+'_'+ formdata['last_name']+'_'+formdata['first_name'] + '_' + formdata['employee_id']+'_' + today_is +'_' + file_name +'.'+file_extension)
+					final_name = secure_filename(afile+'_'+ formdata['last_name']+'_' + '_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
 					
 					# my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
 					# if my_file.is_file():

@@ -131,6 +131,7 @@ class Career_Service(db.Model):
 	cs_eligibility = db.Column(db.String(150))
 	cs_rating = db.Column(db.String(150))
 	date_of_examination = db.Column(db.String(150))
+	date_of_examination_to = db.Column(db.String(150))
 	place_of_examination_conferment = db.Column(db.String(150))
 	license_no = db.Column(db.String(150))
 	date_of_validity = db.Column(db.String(150))

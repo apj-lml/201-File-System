@@ -37,9 +37,15 @@ def add_eligibility(emp_id):
             # formdata['place_of_examination_conferment['+str(x)+']']
             # formdata['date_of_validity['+str(x)+']']
 
-            new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
-				date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
-				license_no = formdata['license_no['+str(x)+']'], date_of_validity = formdata['date_of_validity['+str(x)+']'], user_id = emp_id)
+            new_cs_eligibility = Career_Service(
+                cs_eligibility = formdata['cs_eligibility['+str(x)+']'],
+                cs_rating = formdata['cs_rating['+str(x)+']'],
+				date_of_examination = formdata['date_of_examination['+str(x)+']'],
+				date_of_examination_to = formdata['date_of_examination_to['+str(x)+']'],
+                place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
+				license_no = formdata['license_no['+str(x)+']'], 
+                date_of_validity = formdata['date_of_validity['+str(x)+']'], 
+                user_id = emp_id)
             db.session.add(new_cs_eligibility)
             db.session.flush()
             db.session.commit()

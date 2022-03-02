@@ -42,6 +42,10 @@ def add_work_experience(emp_id):
         if 'sf_present' in formdata:
             formdata['date_to'] = 'PRESENT'
             formdata.pop('sf_present')
+
+        if 'nia_pimo' in formdata:
+            formdata['department_agency_office_company'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+            formdata.pop('nia_pimo')
     
         new_work_exp = Work_Experience(**formdata)
 

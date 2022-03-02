@@ -52,6 +52,12 @@
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" name ="department_agency_office_company" id="department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="work_experience_form" required>
                         <label for="department_agency_office_company" style="font-size: 12px">Department / Office / Agency / Company</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="work_experience_form">
+                          <label class="form-check-label" for="nia_pimo">
+                            NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+                          </label>
+                        </div>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="number" class="form-control" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" form="work_experience_form">
@@ -229,6 +235,12 @@
                             <div class="form-floating flex-fill mb-3 p-1">
                               <input type="text" class="form-control" name ="department_agency_office_company" id="update_department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="update_work_experience_form">
                               <label for="date_to" style="font-size: 12px">Department / Office / Agency / Company</label>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE">
+                                <label class="form-check-label" for="nia_pimo">
+                                  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+                                </label>
+                              </div>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
                               <input type="number" class="form-control" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" value="" form="update_work_experience_form">
@@ -324,6 +336,22 @@
 
 <script type="text/javascript">
 
+function nia_pimo(){
+		var nia_pimo = document.getElementById('nia_pimo');
+		var station_place = document.getElementById('department_agency_office_company');
+		// var station_place = document.getElementById('station_place');
+		if(nia_pimo.checked){
+			station_place.value = "";
+			station_place.disabled = true;
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
+
+
 var sf_present = document.getElementById('sf_present');
 	sf_present.addEventListener('change',()=>{
 		var service_to = document.getElementById('date_to');
@@ -376,13 +404,8 @@ var sf_present = document.getElementById('sf_present');
 
     $('#work_experience_table').DataTable({
       responsive: true,
-      language: {
-            searchBuilder: {
-                title: ``,
-				add: `Add Filter`
-            }
-        },
-        dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+
+        dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				<'row'<'col-sm-12'tr>>
 				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
     });

@@ -7,7 +7,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def my_random_string(string_length=10):
+def my_random_string(string_length=4):
     """Returns a random string of length string_length."""
     random = str(uuid.uuid4()) # Convert UUID format to a Python string.
     random = random.upper() # Make all characters uppercase.

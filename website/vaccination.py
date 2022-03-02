@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 from .models import Vaccine
 import datetime
-from .myhelper import allowed_file
+from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
 import os, os.path
 
@@ -67,40 +67,39 @@ def add_vaccine(user_id):
 # ---------------------------------------------------------------------------- #
 
         user = User.query.get(user_id)
+
         final_name = ''
         for afile in request.files:
-            file = request.files[afile]
+            files = request.files.getlist(afile)
+            for file in files:
 
             #print(f'print file: {afile}')
-            if file.filename == "":
-            #if afile not in request.files:
-                print('No file selected')
-                #return redirect(request.url)
-            else:
-                if not file and allowed_file(file.filename):
-                    print('Invalid file submitted')
-                    return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
+                if file.filename == "":
+                #if afile not in request.files:
+                    print('No file selected')
+                    #return redirect(request.url)
                 else:
-                    today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
-                    file_extension = file.filename.rsplit('.', 1)[1].lower()
-                    file_name = file.filename.rsplit('.', 1)[0]
-                    final_name = secure_filename(afile+'_'+ user.last_name +'_'+user.first_name + '_' + str(user.employee_id)+'_' + today_is +'_' + file_name +'.'+file_extension)
-                    
-                    # my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
-                    # if my_file.is_file():
-                    # 	print('file already exist')
-
-                    if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
-                        print('path does not exist... creating path')
-                        os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                    if not file and allowed_file(file.filename):
+                        print('Invalid file submitted')
+                        return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
                     else:
-                        print('path exist!')
-                        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+                        today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
+                        file_extension = file.filename.rsplit('.', 1)[1].lower()
+                        file_name = file.filename.rsplit('.', 1)[0]
+                        final_name = secure_filename(afile+'_'+ current_user.last_name+'_' + '_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+                        
 
-                        #saving upload info to database
-                        files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = user_id)
-                        db.session.add(files_to_upload)
-                        db.session.commit()
+                        if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+                            print('path does not exist... creating path')
+                            os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                        else:
+                            print('path exist!')
+                            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+
+                            #saving upload info to database
+                            files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = user_id)
+                            db.session.add(files_to_upload)
+                            db.session.commit()
 # ---------------------------------------------------------------------------- #
 #                              END OF FILE UPLOAD                              #
 # ---------------------------------------------------------------------------- #
@@ -146,39 +145,41 @@ def update_vaccine(user_id):
 
         user = User.query.get(user_id)
         final_name = ''
+        
         for afile in request.files:
-            file = request.files[afile]
+            files = request.files.getlist(afile)
+            for file in files:
 
-            #print(f'print file: {afile}')
-            if file.filename == "":
-            #if afile not in request.files:
-                print('No file selected')
-                #return redirect(request.url)
-            else:
-                if not file and allowed_file(file.filename):
-                    print('Invalid file submitted')
-                    return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
+                #print(f'print file: {afile}')
+                if file.filename == "":
+                #if afile not in request.files:
+                    print('No file selected')
+                    #return redirect(request.url)
                 else:
-                    today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
-                    file_extension = file.filename.rsplit('.', 1)[1].lower()
-                    file_name = file.filename.rsplit('.', 1)[0]
-                    final_name = secure_filename(afile+'_'+ user.last_name +'_'+user.first_name + '_' + str(user.employee_id)+'_' + today_is +'_' + file_name +'.'+file_extension)
-                    
-                    # my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
-                    # if my_file.is_file():
-                    # 	print('file already exist')
-
-                    if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
-                        print('path does not exist... creating path')
-                        os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                    if not file and allowed_file(file.filename):
+                        print('Invalid file submitted')
+                        return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
                     else:
-                        print('path exist!')
-                        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+                        today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
+                        file_extension = file.filename.rsplit('.', 1)[1].lower()
+                        file_name = file.filename.rsplit('.', 1)[0]
+                        final_name = secure_filename(afile+'_'+ current_user.last_name+'_' + '_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+                        
+                        # my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
+                        # if my_file.is_file():
+                        # 	print('file already exist')
 
-                        #saving upload info to database
-                        files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = user_id)
-                        db.session.add(files_to_upload)
-                        db.session.commit()
+                        if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+                            print('path does not exist... creating path')
+                            os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                        else:
+                            print('path exist!')
+                            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+
+                            #saving upload info to database
+                            files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = user_id)
+                            db.session.add(files_to_upload)
+                            db.session.commit()
 # ---------------------------------------------------------------------------- #
 #                              END OF FILE UPLOAD                              #
 # ---------------------------------------------------------------------------- #

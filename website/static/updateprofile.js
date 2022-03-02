@@ -49,9 +49,13 @@
                   <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
                   </div>
                   <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination" form="add_cse_form">
+                      <input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination From" form="add_cse_form">
                       <label for="date_of_examination">Date of Examination</label>
                   </div>
+                  <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="date" class="form-control" name ="date_of_examination_to[${x}]" placeholder="Date of Examination To" value="N/A" form="add_cse_form">
+                    <label for="date_of_examination_to">Date of Examination To</label>
+                </div>
               </div>
               <div class="d-md-flex flex-row">
                   <div class="form-floating flex-fill mb-3 p-1">

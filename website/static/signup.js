@@ -46,22 +46,26 @@ document.getElementById('add_cse_field').addEventListener('click',()=>{
         	<div class="card-body">
 				<div class="d-md-flex flex-row">
 				<div class="form-floating flex-fill mb-3 p-1">
-				<input type="text" class="form-control" name ="cs_eligibility[${x}]" placeholder="Eligibility" form="signUp">
-				<label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+					<input type="text" class="form-control" name ="cs_eligibility[${x}]" placeholder="Eligibility" form="signUp">
+					<label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
 				</div>
 				<div class="form-floating flex-fill mb-3 p-1">
-					<input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination" form="signUp">
+					<input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination From" form="signUp">
 					<label for="date_of_examination">Date of Examination</label>
+				</div>
+				<div class="form-floating flex-fill mb-3 p-1">
+					<input type="date" class="form-control" name ="date_of_examination_to[${x}]" placeholder="Date of Examination To" value="N/A" form="signUp">
+					<label for="date_of_examination_to">Date of Examination To</label>
 				</div>
 			</div>
 			<div class="d-md-flex flex-row">
 				<div class="form-floating flex-fill mb-3 p-1">
-				<input type="text" class="form-control" name ="cs_rating[${x}]" placeholder="Rating" form="signUp">
-				<label for="cs_rating">Rating (if applicable)</label>
+					<input type="text" class="form-control" name ="cs_rating[${x}]" placeholder="Rating" form="signUp">
+					<label for="cs_rating">Rating (if applicable)</label>
 				</div>
 				<div class="form-floating flex-fill mb-3 p-1">
-				<input type="text" class="form-control" name ="place_of_examination_conferment[${x}]" placeholder="Place of Examination / Conferment" form="signUp">
-				<label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+					<input type="text" class="form-control" name ="place_of_examination_conferment[${x}]" placeholder="Place of Examination / Conferment" form="signUp">
+					<label for="place_of_examination_conferment">Place of Examination / Conferment</label>
 				</div>
 			</div>
 			<div class="d-md-flex flex-row">
