@@ -1780,7 +1780,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       e.preventDefault();
       let formData = new FormData(formElem);
       //formData.append('file',  input.files[0])
-
+      loadingScreen('block')
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
     
@@ -1819,7 +1819,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               formData3.forEach((value, key) => (data3[key] = value))
             
               // console.log(data3)
-              loadingScreen('block')
               fetch('/vocation/add-vocational/{{user_profile.id}}', {
                 method: 'POST',
                 body: formData3
