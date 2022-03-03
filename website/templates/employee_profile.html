@@ -466,8 +466,8 @@
                     <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
                         <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example" onchange="sameAsPermanent()">
-                            <option value="YES" {{ "selected" if user_profile.pres_province is none or user_profile.pres_province == 'N/A' or user_profile.pres_street is none or user_profile.pres_street == "N/A"  or user_profile.pres_barangay is none or user_profile.pres_barangay == "N/A" else "" }}>YES</option>
-                            <option value="NO"  {{ "" if user_profile.pres_province is none or user_profile.pres_province == 'N/A' or user_profile.pres_street is none or user_profile.pres_street == "N/A"  or user_profile.pres_barangay is none or user_profile.pres_barangay == "N/A" else "selected" }}>NO</option>
+                            <option value="YES" {{ "selected" if user_profile.pres_barangay == "N/A" else "selected" }}>YES</option>
+                            <option value="NO"  {{ "" if user_profile.pres_barangay == "N/A" else "selected" }}>NO</option>
                           
                         </select>
                         <label for="same_as_permanent">Same as permanent address</label>
@@ -476,33 +476,33 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." {{ "" if user_profile.pres_house_block_lot else "" }} value="{{user_profile.pres_house_block_lot if user_profile.pres_house_block_lot is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." value="{{user_profile.pres_house_block_lot if user_profile.pres_house_block_lot is not none else 'N/A'}}" form="update_form">
                       <label for="pres_house_block_lot">House/Block/Lot No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" {{ "" if user_profile.pres_street else "" }} value="{{user_profile.pres_street if user_profile.pres_street is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street"  value="{{user_profile.pres_street if user_profile.pres_street is not none else 'N/A'}}" form="update_form">
                       <label for="pres_street">Street</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" {{ "" if user_profile.pres_subdivision_village else "" }} value="{{user_profile.pres_subdivision_village if user_profile.pres_subdivision_village is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" value="{{user_profile.pres_subdivision_village if user_profile.pres_subdivision_village is not none else 'N/A'}}" form="update_form">
                       <label for="pres_subdivision_village">Subdivision/Village</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" {{ "" if user_profile.pres_barangay else "" }} value="{{user_profile.pres_barangay if user_profile.pres_barangay is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" value="{{user_profile.pres_barangay if user_profile.pres_barangay is not none else 'N/A'}}" form="update_form" required>
                       <label for="pres_barangay">Barangay</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">        
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" {{ "" if user_profile.pres_city_municipality else "" }} value="{{user_profile.pres_city_municipality if user_profile.pres_city_municipality is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" value="{{user_profile.pres_city_municipality if user_profile.pres_city_municipality is not none else 'N/A'}}" form="update_form">
                       <label for="pres_city_municipality">City/Municipality</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" {{ "" if user_profile.pres_province else "" }} value="{{user_profile.pres_province if user_profile.pres_province is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" value="{{user_profile.pres_province if user_profile.pres_province is not none else 'N/A'}}" form="update_form">
                       <label for="pres_province">Province</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" {{ "" if user_profile.pres_zip_code else "" }} value="{{user_profile.pres_zip_code if user_profile.pres_zip_code is not none else 'N/A'}}" form="update_form">
+                      <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" value="{{user_profile.pres_zip_code if user_profile.pres_zip_code is not none else 'N/A'}}" form="update_form">
                       <label for="pres_zip_code">Zip Code</label>
                     </div>
                   </div>
@@ -1714,13 +1714,13 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
     function sameAsPermanent(){
         var citizenship = document.getElementById('same_as_permanent').value;
         if(citizenship == 'YES'){
-              document.getElementById('pres_house_block_lot').disabled = true;
-              document.getElementById('pres_street').disabled = true;
-              document.getElementById('pres_subdivision_village').disabled = true;
-              document.getElementById('pres_barangay').disabled = true;
-              document.getElementById('pres_city_municipality').disabled = true;
-              document.getElementById('pres_province').disabled = true;
-              document.getElementById('pres_zip_code').disabled = true;
+              document.getElementById('pres_house_block_lot').readOnly = true;
+              document.getElementById('pres_street').readOnly = true;
+              document.getElementById('pres_subdivision_village').readOnly = true;
+              document.getElementById('pres_barangay').readOnly = true;
+              document.getElementById('pres_city_municipality').readOnly = true;
+              document.getElementById('pres_province').readOnly = true;
+              document.getElementById('pres_zip_code').readOnly = true;
       
               document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
               document.getElementById('pres_street').value = document.getElementById('p_street').value;
@@ -1730,13 +1730,13 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               document.getElementById('pres_province').value = document.getElementById('p_province').value;
               document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
           }else{
-              document.getElementById('pres_house_block_lot').removeAttribute('disabled');
-              document.getElementById('pres_street').removeAttribute('disabled');
-              document.getElementById('pres_subdivision_village').removeAttribute('disabled');
-              document.getElementById('pres_barangay').removeAttribute('disabled');
-              document.getElementById('pres_city_municipality').removeAttribute('disabled');
-              document.getElementById('pres_province').removeAttribute('disabled');
-              document.getElementById('pres_zip_code').removeAttribute('disabled');
+              document.getElementById('pres_house_block_lot').removeAttribute('readOnly');
+              document.getElementById('pres_street').removeAttribute('readOnly');
+              document.getElementById('pres_subdivision_village').removeAttribute('readOnly');
+              document.getElementById('pres_barangay').removeAttribute('readOnly');
+              document.getElementById('pres_city_municipality').removeAttribute('readOnly');
+              document.getElementById('pres_province').removeAttribute('readOnly');
+              document.getElementById('pres_zip_code').removeAttribute('readOnly');
       
               document.getElementById('pres_house_block_lot').value = "N/A"
               document.getElementById('pres_street').value = "N/A"
