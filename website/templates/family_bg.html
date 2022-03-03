@@ -40,7 +40,7 @@
 								<div class="form-floating mb-3 p-1 col-sm-4">
 									<select class="form-select" id="is_spouse" aria-label="Floating label select example" onchange="activate_spouse(this.value)">
 										<option value="YES">YES</option>
-										<option value="NO">NO</option>
+										<option value="NO" selected>NO</option>
 									  </select>
 									<label for="is_spouse">Do you have a spouse?</label>
 								</div>
@@ -109,11 +109,11 @@
 										<label for="fb_first_name[1]">First Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_form" value="" required>
+										<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_form" value="" >
 										<label for="fb_middle_name[1]">Middle Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_form" value="" required>
+										<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_form" value="" >
 										<label for="fb_name_ext[1]">Name Extension</label>
 									</div>
 								</div>
@@ -164,11 +164,11 @@
 											<label for="fb_first_name">Father's First Name</label>
 										</div>
 										<div class="form-floating flex-fill mb-3 p-1">
-											<input type="text" class="form-control" name ="fb_middle_name[2]" placeholder="Middle Name" form="family_bg_update_form" value="{{father.fb_middle_name}}" required>
+											<input type="text" class="form-control" name ="fb_middle_name[2]" placeholder="Middle Name" form="family_bg_update_form" value="{{father.fb_middle_name}}" >
 											<label for="fb_middle_name">Father's Middle Name</label>
 										</div>
 										<div class="form-floating flex-fill mb-3 p-1">
-											<input type="text" class="form-control" name ="fb_name_ext[2]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_update_form"  value="{{father.fb_name_ext}}" required>
+											<input type="text" class="form-control" name ="fb_name_ext[2]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_update_form"  value="{{father.fb_name_ext}}">
 											<label for="fb_name_ext">Father's Name Extension (Jr., Sr., II, III)</label>
 										</div>
 
@@ -186,11 +186,11 @@
 										<label for="fb_first_name">Father's First Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="text" class="form-control" name ="fb_middle_name[2]" placeholder="Middle Name" form="family_bg_form" value="" required>
+										<input type="text" class="form-control" name ="fb_middle_name[2]" placeholder="Middle Name" form="family_bg_form" value="">
 										<label for="fb_middle_name">Father's Middle Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="text" class="form-control" name ="fb_name_ext[2]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_form"  value="" required>
+										<input type="text" class="form-control" name ="fb_name_ext[2]" placeholder="Name Extension (Jr., Sr., II, III)" form="family_bg_form"  value="" >
 										<label for="fb_name_ext">Father's Name Extension (Jr., Sr., II, III)</label>
 									</div>
 								{% endif %}
@@ -205,7 +205,7 @@
 
 									<div class="form-floating flex-fill mb-3 p-1">
 										
-										<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="" form="family_bg_update_form"  value="{{ mother.fb_maiden_name if mother.fb_maiden_name is not none else 'N/A'}}" required>
+										<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="" form="family_bg_update_form" value="{{ mother.fb_maiden_name if mother.fb_maiden_name is not none else 'N/A'}}">
 										<label for="fb_maiden_name">Mother's Maiden Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
@@ -217,7 +217,7 @@
 										<label for="fb_first_name">Mother's First Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="text" class="form-control" name ="fb_middle_name[3]" placeholder="Middle Name" form="family_bg_update_form" value="{{ mother.fb_middle_name }}" required>
+										<input type="text" class="form-control" name ="fb_middle_name[3]" placeholder="Middle Name" form="family_bg_update_form" value="{{ mother.fb_middle_name }}" >
 										<label for="fb_middle_name">Mother's Middle Name</label>
 									</div>
 									{% endif %}
@@ -226,7 +226,7 @@
 								<input type="hidden" class="form-control" name ="fb_relationship[3]" placeholder="" form="family_bg_form" value="MOTHER" required>
 
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="" form="family_bg_form"  value="" required>
+									<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="Maiden Name" form="family_bg_form" value="" required>
 									<label for="fb_maiden_name">Mother's Maiden Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
@@ -376,6 +376,12 @@
 {%block scripts%}
 <script type="text/javascript">
 	///ld/add-learning-and-development/{{emp_id}}
+	window.onload = ()=>{
+		activate_spouse(document.getElementById('is_spouse').value);
+	}
+	// document.addEventListener("load",()=>{
+	// 	activate_spouse(document.getElementById('is_spouse'.value));
+	// })
 	function delete_child(id){
 		fetch('/familyBg/delete-familyBg/{{user_profile.id}}', {
 				method: 'POST',

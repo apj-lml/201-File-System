@@ -20,7 +20,7 @@ def create_app():
 	app.config['SECRET_KEY'] = '201 File System Key'
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-	app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024    # 50 Mb limit
+	app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024    # 100 Mb limit
 	# app.config.from_pyfile('mysettings.cfg')
 	
 	# babel.init_app(babel)

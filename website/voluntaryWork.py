@@ -38,6 +38,12 @@ def add_voluntary_work(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         if 'sf_present' in formdata:
             formdata['date_to'] = 'PRESENT'
             formdata.pop('sf_present')

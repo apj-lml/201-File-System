@@ -113,11 +113,11 @@
   </svg>
 
 
-  <div class="col-sm-12 container">
-    <div class="" id="myDivToPrint">
+  <div class="col-sm-12 container-fluid">
+    <div class="container" id="">
       <div class="row">
         <div class="col">
-          <div class="container-fluid">
+          <div class="">
             <div class="d-flex justify-content-center flex-row">
               <img class="img-fluid" src="{{url_for('static', filename='img/employee_profile.png')}}" alt="" width="400">
             </div>
@@ -1456,34 +1456,37 @@
                 <h3 class="card-title">Uploaded Files</h3>
                 <div class="card shadow-sm mb-3">
                   <div class="card-body">
-                    <table class="table table-bordered table-striped" id="uploaded_file_table">
-                      <thead>
-                        <tr>
-                          <th>File Tag</th>
-                          <th>Attachment</th>
-                          <th>Controls</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                      {% for file in user_profile.uploaded_files %}
-                        <!-- <div class="flex-fill mb-3 p-1"> -->
-                          {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-sm" id="uploaded_file_table">
+                        <thead>
                           <tr>
-                            <td>{{file.file_tag}}</td>
-                            <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
-                            <td>
-                              <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
-                                <i class="bi bi-trash"></i>
-                              </a>
-                              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
-                            </td>
+                            <th>File Tag</th>
+                            <th>Attachment</th>
+                            <th>Controls</th>
                           </tr>
-        
-                          {% endif %}
-                        <!-- </div> -->
-                      {% endfor %}
-                    </tbody>
-                    </table>
+                          </thead>
+                          <tbody>
+                        {% for file in user_profile.uploaded_files %}
+                          <!-- <div class="flex-fill mb-3 p-1"> -->
+                            {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
+                            <tr>
+                              <td>{{file.file_tag}}</td>
+                              <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
+                              <td>
+                                <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                                  <i class="bi bi-trash"></i>
+                                </a>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
+                              </td>
+                            </tr>
+          
+                            {% endif %}
+                          <!-- </div> -->
+                        {% endfor %}
+                      </tbody>
+                      </table>
+                    </div>
+
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -1623,26 +1626,25 @@
 </div>
 </div>
 
-  <div class="d-inline-flex">
+  <!-- <div class="d-inline-flex">
     <div class="card m-3 ms-auto shadow-lg hover-opacity fixed-bottom"  id="my-menu">
-      <!-- <img src="..." class="card-img-top" alt="..."> -->
       <div class="card-body">
         
         <div class="d-flex justify-content-center">
           <h5 class="card-title"><strong>Hi {{current_user.first_name|title}}!</strong></h5> <i class="bi bi-emoji-laughing "></i>
         </div>
-        <!-- <p class="card-text">
+        <p class="card-text">
           <div class="alert alert-warning" role="alert">
             You can update profile here!
           </div>
         </p>
         <div class="text-end">
           <button class="btn btn-primary" type="submit" form="update_form">Update</button>
-        </div> -->
+        </div>
 
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 {% endblock %}
@@ -1672,6 +1674,7 @@ window.addEventListener("load", function() {
 			// 	add: `Add Filter`
       //       }
       //   },
+    
         dom: 'ftrip'
         // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				// <'row'<'col-sm-12'tr>>
@@ -1815,7 +1818,8 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               const data3 = {}
               formData3.forEach((value, key) => (data3[key] = value))
             
-              console.log(data3)
+              // console.log(data3)
+              loadingScreen('block')
               fetch('/vocation/add-vocational/{{user_profile.id}}', {
                 method: 'POST',
                 body: formData3
@@ -1923,6 +1927,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 
   function delete_school_record(id, route){
 	// alert(el.id)
+  loadingScreen('block');
 	fetch(route,{
 		method: 'POST',
 		body: JSON.stringify({"id" : id})
@@ -1935,6 +1940,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 }
 
 function delete_file(e){
+  loadingScreen('block');
   // alert(e.id)
   fetch('/employees/delete-file',{
     method: 'POST',

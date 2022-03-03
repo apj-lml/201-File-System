@@ -53,6 +53,35 @@ def get_learning_and_development(emp_id):
  # ---------------------------------------------------------------------------- #
 
 
+# ---------------------------------------------------------------------------- #
+#                                    GET L&D                                   #
+# ---------------------------------------------------------------------------- #
+@ld.route('edit-ld/<id>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def edit_ld(id):
+    if request.method == "GET":
+        get_ld = Learning_Development.query.filter_by(id = id).all()
+        column_keys = Learning_Development.__table__.columns.keys()
+    # Temporary dictionary to keep the return value from table
+        rows_dic_temp = {}
+        rows_dic = []
+    # Iterate through the returned output data set
+        for row in get_ld:
+            for col in column_keys:
+                rows_dic_temp[col] = getattr(row, col)
+            rows_dic.append(rows_dic_temp)
+            rows_dic_temp= {}
+            # print(rows_dic)
+
+        return jsonify(rows_dic)
+
+    # if request.method == "POST":
+        
+    #     return "ok", 200
+ # ---------------------------------------------------------------------------- #
+
+
 
  # ---------------------------------------------------------------------------- #
  #                                    ADD L&D                                   #
@@ -66,10 +95,15 @@ def add_learning_and_development(emp_id):
 
         formdata['user_id'] = emp_id
 
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
 # ---------------------------------------------------------------------------- #
 #                            this is for file upload                           #
 # ---------------------------------------------------------------------------- #
-        get_user = User.query.get(emp_id)
+        # get_user = User.query.get(emp_id)
 
         final_name = ''
         for afile in request.files:
@@ -102,6 +136,8 @@ def add_learning_and_development(emp_id):
                     formdata['ld_attachment_file_name'] = final_name
 
 
+        
+
         new_ld = Learning_Development(**formdata)
         db.session.add(new_ld)
         db.session.commit()
@@ -123,3 +159,55 @@ def delete_learning_and_development():
 		db.session.delete(ld)
 		db.session.commit()
 	return jsonify('File Deleted Successfully')
+
+
+@ld.route('save-ld/<id>', methods=['POST', 'GET'])
+@login_required
+def update_ld(id):
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+        get_we = Learning_Development.query.get(id)
+        formdata.pop('id')
+
+        final_name = ''
+        
+
+        for afile in request.files:
+            file = request.files[afile]
+
+            if file.filename == "":
+                print('No file selected')
+            else:
+                if not allowed_file(file.filename):
+                    return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
+
+                os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.ld_attachment_file_name))
+
+                file_extension = file.filename.rsplit('.', 1)[1].lower()
+                file_name = file.filename.rsplit('.', 1)[0]
+                final_name = secure_filename(formdata['ld_program'] + '_' + str(round(time.time() * 1000)) +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+                if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+                    print('path does not exist... creating path')
+                    os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                else:
+                    # print('path exist!')
+                    file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+
+                    #saving upload info to database
+                    # files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
+                    # db.session.add(files_to_upload)
+                    # db.session.commit()
+                    formdata['ld_attachment'] = '\\static\\files\\' + final_name
+                    formdata['ld_attachment_file_name'] = final_name
+
+        for key, value in formdata.items():
+            # print(key)
+            if key == 'ld_attachment' or key == 'ld_attachment_file_name':
+                setattr(get_we, key, value)
+            else:
+                setattr(get_we, key, value.upper())
+
+
+        db.session.commit()
+
+        return jsonify('Successfully Saved Changes.')

@@ -184,31 +184,53 @@
 
     </div>
   </div>
-  <div class="card mb-3">
-    <div class="card-body">
-      <h3 class="card-title">COVID-19 Vaccine Attachments</h3>
-      <div class="card shadow-sm mb-3">
-        <div class="card-body">
-        {% for vac_card in user_profile.uploaded_files %}
-          {% if vac_card.file_tag == 'vaccine_card' or vac_card.file_tag == 'booster_shot_card' %}
-            
-              <div class="col-md-12">
-                <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-                  <i class="bi bi-file-earmark-pdf"></i>
-                  <a href="{{vac_card.file_path}}\{{vac_card.file_name}}" target="_blank">
-                    <span class="">
-                      {{vac_card.file_name}}
-                    </span>
-                  </a>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{vac_card.id}}" onclick="delete_file(this)"></button>
-                </div>
-              </div>
 
-            {%endif%}
-        {% endfor %}
-      </div>
-    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">COVID-19 Vaccine Attachments</h3>
+          <div class="card shadow-sm mb-3">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-sm" id="uploaded_file_table">
+                  <thead>
+                    <tr>
+                      <th>File Tag</th>
+                      <th>Attachment</th>
+                      <!-- <th>Controls</th> -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                  {% for file in user_profile.uploaded_files %}
+                    <!-- <div class="flex-fill mb-3 p-1"> -->
+                      {% if file.file_tag == 'vaccine_card' or file.file_tag == 'booster_shot_card' %}
+                      <tr>
+                        <td>{{file.file_tag}}</td>
+                        <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
+                        <!-- <td>
+                          <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                            <i class="bi bi-trash"></i>
+                          </a>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                        </td> -->
+                      </tr>
+    
+                      {% endif %}
+                    <!-- </div> -->
+                  {% endfor %}
+                </tbody>
+                </table>
+              </div>
+            </div>
+
+
+
+
+            
+
+          </div>
         </div>
+
+      </div>
     </div>
 	</div>
 
@@ -219,7 +241,14 @@
 {%block scripts%}
 <script src="{{ url_for('static', filename='vaccine-validations.js') }}"></script>
 <script type="text/javascript">
+
+
    window.addEventListener('load',()=>{ 
+
+    $('#uploaded_file_table').DataTable({
+      responsive: true,
+      dom: 'ftrip'
+    });
 
         document.getElementById('vaccine_form').addEventListener('submit',(e)=>{
             e.preventDefault();

@@ -15,20 +15,22 @@
 {% endblock %}
 
 {% block content %}
-<main class="container-fluid">
+<main class="container-fluid mt-4">
 	
 	<div class="row mb-3">
 		<!-- <div class="col-sm-12">
 			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
 		</div> -->
-		<div class="card mb-3">
+		<div class="card container">
 			<div class="card-body">
 				<!-- <h3 class="card-title">Learning & Development</h3> -->
-				<form id="add_ld_form" action="#" method="POST"></form>
+				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
+				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
 					<h3 class="card-title"><i class="bi bi-lightbulb"></i> Learning & Development</h3>
 					  <!-- <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_ld_form" value="1"> -->
 						<div class="card shadow-sm mb-3">
 						  <div class="card-body">
+
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
 							  <input type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form" required>
@@ -63,18 +65,18 @@
 							  </div> -->
 							  <div class="form-floating flex-fill mb-3 p-1">
 								<select class="form-select" id="ld_type" name="ld_type" aria-label="Floating label select example" form="add_ld_form">
-									<option value="Managerial">Managerial</option>
-									<option value="Supervisory">Supervisory</option>
-									<option value="Technical">Technical</option>
-									<option value="Foundation">Foundation</option>
+									<option value="MANAGERIAL">MANAGERIAL</option>
+									<option value="SUPERVISORY">SUPERVISORY</option>
+									<option value="TECHNICAL">TECHNICAL</option>
+									<option value="FOUNDATION">FOUNDATION</option>
 								</select>
 								<label for="ld_type[1]" style="font-size: 13.5px;">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical, etc.)</label>
 							  </div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" name ="ld_sponsored_by" placeholder="Conducted / Sponsored By" form="add_ld_form">
-							  <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
+							  <input type="text" class="form-control" name ="ld_sponsored_by" placeholder="Conducted By" form="add_ld_form">
+							  <label for="ld_sponsored_by[1]">Conducted By</label>
 							</div>
 						  </div>
 						  <div class="d-md-flex flex-row">
@@ -87,79 +89,120 @@
 						  <div class="col-sm-12 text-center">
 							<button type="submit" class="btn btn-primary" form="add_ld_form">Submit</button>
 						</div>
+
 						</div>
-						
 					  </div>
 				
 				  <div class="card shadow-sm mb-3">
 					<div class="card-body">
 						<div class="col-sm-12">
-							<div class="table-responsive">
-								<table class="table table-striped text-center" id="ld_table" width = "100%">
-									<colgroup>
-										<col style="width: 30%" />
-										<col style="width: 14.28%" />
-										<col style="width: 14.28%" />
-										<col style="width: 10%" />
-										<col style="width: 14.28%" />
-										<col style="width: 20%" />
-										<col style="width: 14.28%" />
-										<col style="width: 14.28%" />
-									</colgroup>
-									<thead class="">
-									<tr>
-										<th scope="col">Title of L&D Interventions / Training Programs</th>
-										<th scope="col">Inclusive Date (From)</th>
-										<th scope="col">Inclusive Date (To)</th>
-										<th scope="col">No. of Training Hours</th>
-										<th scope="col">Type of L&D</th>
-										<th scope="col">Conducted / Sponsored By</th>
-										<th scope="col">Attachment</th>
-										<th scope="col">Controls</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-									</tr>
-									</tbody>
-								</table>
-							</div>
+								<div class="table-responsive">
+									<table class="table table-striped text-center" id="ld_table" width = "100%">
+										<colgroup>
+											<col style="width: 30%" />
+											<col style="width: 14.28%" />
+											<col style="width: 14.28%" />
+											<col style="width: 10%" />
+											<col style="width: 14.28%" />
+											<col style="width: 20%" />
+											<col style="width: 14.28%" />
+											<col style="width: 14.28%" />
+										</colgroup>
+										<thead class="">
+										<tr>
+											<th scope="col">Title of L&D Interventions / Training Programs</th>
+											<th scope="col">Inclusive Date (From)</th>
+											<th scope="col">Inclusive Date (To)</th>
+											<th scope="col">No. of Training Hours</th>
+											<th scope="col">Type of L&D</th>
+											<th scope="col">Conducted By</th>
+											<th scope="col">Attachment</th>
+											<th scope="col">Controls</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+										</tr>
+										</tbody>
+									</table>
+								</div>
 						</div>
 					</div>
 				</div>
-
-				<!-- <div class="card shadow-sm mb-3">
-					<div class="card-body">
-					  <h3 class="card-title">Attachments</h3>
-						<div class="d-md-flex flex-row">
-							
-							<div class="container-fluid">
-								<div class="row">
-								{% for ld_attachment in user_profile.learning_development %}
-									<div class="col-md-12">
-									  <div class="alert alert-info alert-dismissible fade show text-truncate" role="alert">
-										<i class="bi bi-file-pdf"></i>
-										<a href="{{ld_attachment.ld_attachment}}" target="_blank">
-										  <span class="">
-											{{ld_attachment.ld_attachment_file_name}}
-										  </span>
-										</a>
-									  </div>
-									</div>
-	
-								{% endfor %}
-								</div>
-							  </div>
-
-					  </div>
-					</div>
-				  </div> -->
-
 			</div>
 		</div>
 	</div>
-
 </main>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="viewExpModal">Edit Learning & Development</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <div class="row mb-3 container">
+			<div class="card mb-3">
+				<div class="card-body">
+					<form action="#" method="POST" name="update_ld_form" id="update_ld_form" enctype="multipart/form-data"></form>
+                <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_ld_form">
+					<div class="d-md-flex flex-row">
+						<div class="form-floating flex-fill mb-3 p-1">
+						  <input type="text" class="form-control" id ="update_ld_program" name ="ld_program" placeholder="Interventions/Training Program" form="update_ld_form" required>
+						  <label for="ld_program[1]">Title of L&D Interventions / Training Programs</label>
+						</div>
+						<div class="form-floating flex-fill mb-3 p-1">
+						  <input type="date" class="form-control"  id ="update_ld_date_from" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="update_ld_form" required>
+						  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
+						</div>
+						<div class="form-floating flex-fill mb-3 p-1">
+						  <input type="date" class="form-control" id ="update_ld_date_to" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="update_ld_form" required>
+						  <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
+						</div>
+					  </div>
+					  <div class="d-md-flex flex-row">
+						<div class="form-floating flex-fill mb-3 p-1">
+						  <input type="number" class="form-control" id ="update_ld_no_hours" name ="ld_no_hours" placeholder="Rating" form="update_ld_form" required>
+						  <label for="ld_no_hours[1]">Number of Hours</label>
+						</div>
+						  <div class="form-floating flex-fill mb-3 p-1">
+							<select class="form-select" id="update_ld_type" name="ld_type" aria-label="Floating label select example" form="update_ld_form">
+								<option value="MANAGERIAL">MANAGERIAL</option>
+								<option value="SUPERVISORY">SUPERVISORY</option>
+								<option value="TECHNICAL">TECHNICAL</option>
+								<option value="FOUNDATION">FOUNDATION</option>
+							</select>
+							<label for="ld_type[1]" style="font-size: 12px;">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical, etc.)</label>
+						  </div>
+					  </div>
+					  <div class="d-md-flex flex-row">
+						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						  <input type="text" class="form-control" id ="update_ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="update_ld_form">
+						  <label for="ld_sponsored_by[1]">Conducted By</label>
+						</div>
+					  </div>
+					  <div class="d-md-flex flex-row">
+						<div class="flex-fill mb-3">
+							<label for="ld_attachment">Attachment (Only PDF files are allowed)</label>
+							<input type="file" class="form-control" id="update_ld_attachment" id="ld_attachment" name ="ld_attachment" form="update_ld_form">
+						  </div>
+					  </div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary" form="update_ld_form">Save changes</button>
+				</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
 
 {% endblock %}
 
@@ -174,7 +217,7 @@
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
 		
-		console.log(data)
+		// console.log(data)
 		fetch('/ld/add-learning-and-development/{{emp_id}}', {
 				method: 'POST',
 				body: formData
@@ -226,7 +269,7 @@
 		bSortCellsTop: true,
 		// bLengthChange: true,
 		scrollX: true,
-		// responsive: true,
+		responsive: true,
 		// colReorder: true,
         // dom: 'QBfrtip',
 		
@@ -306,6 +349,9 @@
               render: function ( data, type, row ) {
                 return `
 				<div class="d-sm-flex flex-row">
+					<a class="btn btn-primary btn-sm m-2" title="Edit" id="${data.id}"  data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "edit_ld(this)">
+						<i class="bi bi-pencil"></i>
+					</a>
 					<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
 						<i class="bi bi-trash"></i>
 					</a>
@@ -316,6 +362,63 @@
     } );
 
 })()
+
+document.getElementById('update_ld_form').addEventListener('submit', (e)=>{
+	e.preventDefault();
+	var id = document.getElementById('update_id').value;
+	var url = `/ld/save-ld/${id}`;
+            loadingScreen('block');
+            let formData4 = new FormData(document.getElementById("update_ld_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+				if (res.status == 406){
+					triggerToast('Invalid file submitted. Only PDF files are allowed.')
+                }
+                else if (res.status == 200){
+					// triggerToast('Successfully Saved Changes.')
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+					// triggerToast(data)
+					loadingScreen('none');
+					var myModal = document.getElementById('viewExpModal');
+					var modal = bootstrap.Modal.getInstance(myModal).hide()
+					// modal.hide();
+                  $('#ld_table').DataTable().ajax.reload()
+                //   document.getElementById('work_experience_form').reset()
+                //   window.location.reload()
+
+                });//END
+})
+
+function edit_ld(el){
+
+    fetch(`/ld/edit-ld/${el.id}`,{
+		method: 'GET'
+	})
+		.then(response => response.json())
+		.then(data => {
+			// console.log(data)
+			document.getElementById('update_id').value = data[0].id;
+			document.getElementById('update_ld_program').value = data[0].ld_program;
+			document.getElementById('update_ld_date_from').value = data[0].ld_date_from;
+			document.getElementById('update_ld_date_to').value = data[0].ld_date_to;
+			document.getElementById('update_ld_no_hours').value = data[0].ld_no_hours;
+			document.getElementById('update_ld_type').value = data[0].ld_type;
+			document.getElementById('update_ld_sponsored_by').value = data[0].ld_sponsored_by;
+			// document.getElementById('update_ld_attachment_file_').value = data[0].update_ld_attachment;
+		});
+  }
+
+
+
 function delete_ld(el){
 	// alert(el.id)
 	fetch('/ld/delete-ld',{

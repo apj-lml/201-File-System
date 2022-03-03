@@ -180,7 +180,7 @@
                                     <i class="bi bi-trash"></i>
                                   </a>
                                   <a class="btn btn-primary btn-sm m-2" title="View" id="{{work_experience.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_work_experience(this)">
-                                    <i class="bi bi-eye"></i>
+                                    <i class="bi bi-pencil"></i>
                                   </a>
                                 </div></td>
                               </tr>
@@ -204,11 +204,11 @@
   <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="viewExpModal">Modal title</h5>
+        <h5 class="modal-title" id="viewExpModal">Edit Work Expreince</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row mb-3">
+        <div class="row mb-3 container">
           <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
@@ -219,37 +219,43 @@
                         <div class="card-body">
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="date" class="form-control" name ="date_from" id="update_date_from" placeholder="Inclusive Date (From)" value="" form="update_work_experience_form">
+                              <input type="date" class="form-control" name ="date_from" id="update_date_from" placeholder="Inclusive Date (From)" value="" form="update_work_experience_form" required>
                               <label for="update_date_from">Inclusive Date (From)</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="date" class="form-control" name ="date_to" id="update_date_to" placeholder="Inclusive Date (To)" value="" form="update_work_experience_form">
+                              <input type="date" class="form-control" name ="date_to" id="update_date_to" placeholder="Inclusive Date (To)" value="" form="update_work_experience_form" required>
                               <label for="date_to">Inclusive Date (To)</label>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "PRESENT" form="update_work_experience_form" required>
+                                <label class="form-check-label" for="update_sf_present">
+                                  PRESENT
+                                </label>
+                              </div>
                             </div>
                           </div>
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" name ="position_title" id="update_position_title" placeholder="Position Title" value="" form="update_work_experience_form">
+                              <input type="text" class="form-control" name ="position_title" id="update_position_title" placeholder="Position Title" value="" form="update_work_experience_form" required>
                               <label for="date_from">Position Title</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" name ="department_agency_office_company" id="update_department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="update_work_experience_form">
+                              <input type="text" class="form-control" name ="department_agency_office_company" id="update_department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="update_work_experience_form" required>
                               <label for="date_to" style="font-size: 12px">Department / Office / Agency / Company</label>
                               <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE">
-                                <label class="form-check-label" for="nia_pimo">
+                                <input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="update_work_experience_form">
+                                <label class="form-check-label" for="update_nia_pimo">
                                   NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
                                 </label>
                               </div>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="number" class="form-control" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" value="" form="update_work_experience_form">
+                              <input type="number" class="form-control" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" value="" form="update_work_experience_form" required>
                               <label for="date_to">Monthly Salary</label>
                             </div>
                           </div>
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_sg" name="sg" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                              <select class="form-select" id="update_sg" name="sg" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
                                 <option value="N" selected>N/A</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -281,7 +287,7 @@
                               <label for="sg">Salary / Job / Pay Grade</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_step" name="step" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                              <select class="form-select" id="update_step" name="step" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
                                 <option value="N" selected>N/A</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -295,7 +301,7 @@
                               <label for="step">Step</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                              <select class="form-select" id="update_status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
                                 <option value="N/A" selected hidden>N/A</option>
                                 <option value="PERMANENT">PERMANENT</option>
                                 <option value="COTERMINOUS">COTERMINOUS</option>
@@ -307,7 +313,7 @@
                               <label for="status_of_appointment">Status of Appointment</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_govt_service" name="govt_service" aria-label="Floating label select example" value="" form="update_work_experience_form">
+                              <select class="form-select" id="update_govt_service" name="govt_service" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
                                 <option value="Y">YES</option>
                                 <option value="N">NO</option>
                               </select>
@@ -327,6 +333,9 @@
       </div>
     </div>
   </div>
+</div>
+</div>
+</div>
 </div>
 </main>
 
@@ -349,13 +358,40 @@ function nia_pimo(){
 			}
 	
 	}
+
+  function update_nia_pimo(){
+		var nia_pimo = document.getElementById('update_nia_pimo');
+		var station_place = document.getElementById('update_department_agency_office_company');
+		// var station_place = document.getElementById('station_place');
+		if(nia_pimo.checked){
+			station_place.value = "";
+			station_place.disabled = true;
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
 document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
+document.getElementById('update_nia_pimo').addEventListener('change', update_nia_pimo)
 
 
 var sf_present = document.getElementById('sf_present');
 	sf_present.addEventListener('change',()=>{
 		var service_to = document.getElementById('date_to');
 		if(sf_present.checked){
+			service_to.disabled = true;
+			service_to.value = ''
+			}
+		else{
+			service_to.disabled = false;
+			}
+	})
+
+  var update_sf_present = document.getElementById('update_sf_present');
+	update_sf_present.addEventListener('change',()=>{
+		var service_to = document.getElementById('update_date_to');
+		if(update_sf_present.checked){
 			service_to.disabled = true;
 			service_to.value = ''
 			}
@@ -387,6 +423,11 @@ var sf_present = document.getElementById('sf_present');
       document.getElementById('update_id').value = data[0].id;
       document.getElementById('update_date_from').value = data[0].date_from;
       document.getElementById('update_date_to').value = data[0].date_to;
+      if(data[0].date_to == "PRESENT"){
+        document.getElementById('update_sf_present').checked = true;
+        document.getElementById('update_date_to').value = "";
+        document.getElementById('update_date_to').disabled = true;
+      }
       document.getElementById('update_position_title').value = data[0].position_title;
       document.getElementById('update_department_agency_office_company').value = data[0].department_agency_office_company;
       document.getElementById('update_monthly_salary').value = data[0].monthly_salary;

@@ -254,7 +254,7 @@ def update_employee(emp_id):
 	# 	db.session.commit()
 
 
-	return 'HELLO WORLD', 200
+	return jsonify('HELLO WORLD'), 200
 
 
 

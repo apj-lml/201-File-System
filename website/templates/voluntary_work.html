@@ -93,7 +93,7 @@
                           {# if user_profile.voluntary_work is not none #}
                             {% for voluntary_work in user_profile.voluntary_work %}
                               <tr>
-                                <td>{{voluntary_work.name_of_organization}}</td>
+                                <td>{{voluntary_work.name_of_organization}} / {{voluntary_work.address}}</td>
                                 <td>{{voluntary_work.date_from}}</td>
                                 <td>{{voluntary_work.date_to}}</td>
                                 <td>{{voluntary_work.no_hours}}</td>
@@ -127,14 +127,14 @@
   <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="viewExpModal">Edit Work Experience</h5>
+        <h5 class="modal-title" id="viewExpModal">Edit Voluntary Work</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row mb-3">
+        <div class="row container">
           <div class="card mb-3">
               <div class="card-body">
-                <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
+                <h3 class="card-title"><i class="bi bi-person-workspace"></i> Voluntary Work</h3>
                 <form action="#" method="POST" name="update_voluntary_work_form" id="update_voluntary_work_form" enctype="multipart/form-data"></form>
                 <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_voluntary_work_form">
                 <div class="card shadow-sm mb-3">
@@ -239,6 +239,12 @@ function present_date(service_to, sf_present){
       document.getElementById('update_no_hours').value = data[0].no_hours;
       document.getElementById('update_date_from').value = data[0].date_from;
       document.getElementById('update_date_to').value = data[0].date_to;
+      if(data[0].date_to == 'PRESENT'){
+        document.getElementById('update_date_to').disabled = true;
+        document.getElementById('update_sf_present').checked = true;
+        
+      }
+       
       document.getElementById('update_position').value = data[0].position;
 		});
   }

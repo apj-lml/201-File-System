@@ -48,7 +48,8 @@
   const data = {}
   loginData.forEach((value, key) => (data[key] = value))
 
-
+  loadingScreen('block');
+	
   fetch('/', {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -64,7 +65,12 @@
 		
 	})
 	.then(err_msg => {
-		triggerToast(err_msg);
+		if(err_msg == 'undefined'){
+			
+		}else{
+			triggerToast(err_msg);
+  			loadingScreen('none');
+		}
 	})
 });
 </script>

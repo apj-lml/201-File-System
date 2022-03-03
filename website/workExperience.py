@@ -38,6 +38,12 @@ def add_work_experience(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         formdata['user_id'] = emp_id
+        
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
 
         if 'sf_present' in formdata:
             formdata['date_to'] = 'PRESENT'
@@ -103,10 +109,18 @@ def update_work_experience():
         get_we = Work_Experience.query.get(formdata['id'])
         formdata.pop('id')
 
+        if 'sf_present' in formdata:
+            formdata['date_to'] = 'PRESENT'
+            formdata.pop('sf_present')
+
+        if 'nia_pimo' in formdata:
+            formdata['department_agency_office_company'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+            formdata.pop('nia_pimo')
+
         #code for automated update
         print(formdata)
         for key, value in formdata.items(): 
-            setattr(get_we, key, value)
+            setattr(get_we, key, value.upper())
         db.session.commit()
 
         return jsonify('Successfully Saved Changes.')

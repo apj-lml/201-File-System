@@ -9,7 +9,7 @@
 
 
   <!-- Favicon-->
-  <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+  <!-- <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" /> -->
   <!-- Bootstrap icons-->
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" /> -->
   <!-- Google fonts-->
@@ -18,6 +18,7 @@
   <!-- <link href="css/styles.css" rel="stylesheet" /> -->
   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='spinner.css') }}" rel="stylesheet">
 
 
   <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet">
@@ -95,6 +96,8 @@
 
 </head>
 <!-- w-auto h-auto -->
+
+
 <body class="">
   {% if current_user.is_authenticated%}
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -201,7 +204,7 @@
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
+              <!-- <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2"> -->
               <strong>{{current_user.first_name.0}}{{current_user.middle_name.0}}{{current_user.last_name.0}}</strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -223,9 +226,9 @@
 
   {% block content %}{% endblock %}
 
+<div class="loading" id="loading">Loading&#8230;</div>
 
-
-<div class="position-fixed bottom-0 start-0 p-3 " style="z-index: 11">
+<div class="position-fixed bottom-0 start-0 p-3 " style="z-index: 9999">
   <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header text-white bg-primary border-0">
       <!-- <img src="..." class="rounded me-2" alt="..."> -->
@@ -260,6 +263,10 @@
 <script src="{{ url_for('static', filename='bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='datatables/datatables.min.js') }}"></script>
 <script type="text/javascript">
+  function loadingScreen(is_display){
+    var loading = document.getElementById('loading');
+    loading.style.cssText = `display:${is_display}`;
+  }
   function triggerToast(err_msg){
     document.getElementById('toastBody').innerHTML = ""
     document.getElementById('toastBody').innerHTML = err_msg
