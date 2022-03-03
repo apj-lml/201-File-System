@@ -1790,7 +1790,12 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         body: formData
       }).then((res)=>{
         if(res.status == 413){
-          triggerToast('File too large. Maximum of 5mb')
+          loadingScreen('none')
+          triggerToast('File too large. Maximum of 250mb')
+        }
+        if(res.status == 406){
+          loadingScreen('none')
+          // triggerToast('File too large. Maximum of 5mb')
         }
         if (res.status == 200){
           //-- ----------------------------------------------------------------------- -->

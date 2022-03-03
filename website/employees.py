@@ -77,44 +77,56 @@ def update_employee(emp_id):
 #                              UPLOADING OF FILE                               #
 # ---------------------------------------------------------------------------- #
 	final_name = ''
+
+	for afilex in request.files:
+		filesx = request.files.getlist(afilex)
+		for filex in filesx:
+			if filex.filename == "":
+				print('No file selected')
+			else:
+				if not allowed_file(filex.filename):
+					print('Invalid file submitted')
+					return jsonify('Invalid File Submitted! Only PDF Files are allowed.'), 406
+
+
 	for afile in request.files:
 		files = request.files.getlist(afile)
-
+		
 		# print(f'print file: {file}')
 		for file in files:
-			print(f'print file: {file}')
+			print(f'print file: {file.filename}')
 
 			if file.filename == "":
 			#if afile not in request.files:
 				print('No file selected')
 				#return redirect(request.url)
 			else:
-				if not allowed_file(file.filename):
-					print('Invalid file submitted')
-					return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
-					#return redirect(request.url)
+				# if not allowed_file(file.filename):
+				# 	print('Invalid file submitted')
+				# 	return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
+				# 	#return redirect(request.url)
+				# else:
+
+				today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
+				file_extension = file.filename.rsplit('.', 1)[1].lower()
+				file_name = file.filename.rsplit('.', 1)[0]
+				final_name = secure_filename(afile+'_'+ formdata['last_name']+'_' + '_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+				
+				# my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
+				# if my_file.is_file():
+				# 	print('file already exist')
+
+				if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+					print('path does not exist... creating path')
+					os.mkdir(current_app.config['UPLOAD_FOLDER'])
 				else:
-					print(my_random_string())
-					today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
-					file_extension = file.filename.rsplit('.', 1)[1].lower()
-					file_name = file.filename.rsplit('.', 1)[0]
-					final_name = secure_filename(afile+'_'+ formdata['last_name']+'_' + '_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
-					
-					# my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
-					# if my_file.is_file():
-					# 	print('file already exist')
+					print('path exist!')
+					file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
 
-					if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
-						print('path does not exist... creating path')
-						os.mkdir(current_app.config['UPLOAD_FOLDER'])
-					else:
-						print('path exist!')
-						file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
-
-						#saving upload info to database
-						files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
-						db.session.add(files_to_upload)
-						db.session.commit()
+					#saving upload info to database
+					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
+					db.session.add(files_to_upload)
+					db.session.commit()
 # ---------------------------------------------------------------------------- #
 #                              END OF FILE UPLOAD                              #
 # ---------------------------------------------------------------------------- #

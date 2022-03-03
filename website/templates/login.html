@@ -57,6 +57,7 @@
 		
 		//console.log(res.json())
 		if (res.redirected) {
+			
 			triggerToast('Success!')
 			window.location.href = res.url
 		}else{
