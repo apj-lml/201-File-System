@@ -6,8 +6,10 @@
 <style type="text/css">
 	div.dtsb-searchBuilder div.dtsb-titleRow {
     	display: none;
-}
+	}
 </style>
+
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 
 <!-- Custom styles for this template -->
@@ -16,7 +18,18 @@
 
 {% block content %}
 <main class="container mt-3">
-	
+	<ul class="circles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
 	<div class="row mb-3">
 		<!-- <div class="col-sm-12">
 			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
@@ -25,10 +38,10 @@
 			<div class="card-body">
 				<form id="family_bg_form" action="#" method="POST"></form>
 				<form id="family_bg_update_form" action="#" method="POST"></form>
-					<div class="card text-white bg-success mb-3" >
+					<div class="card text-white bg-blue shadow-sm mb-3" >
 						<div class="card-header"><h3 class="card-title"><i class="bi bi-people-fill"></i> Family Background</h3> </div>
 						<div class="card-body">
-						  <h5 class="card-title">Description</h5>
+						  <!-- <h5 class="card-title">Description</h5> -->
 						  <p class="card-text">Please indicate in <strong>FIRST NAME </strong> if parents are deceased. Eg. "MARIA (DECEASED)".</p>
 						</div>
 					  </div>
@@ -39,15 +52,15 @@
 							<div class="d-md-flex flex-row">
 								<div class="form-floating mb-3 p-1 col-sm-4">
 									<select class="form-select" id="is_spouse" aria-label="Floating label select example" onchange="activate_spouse(this.value)">
-										<option value="YES">YES</option>
-										<option value="NO" selected>NO</option>
+										<option value="YES" {{ 'selected' if spouse_count > 0 else '' }}>YES</option>
+										<option value="NO" {{ '' if spouse_count > 0 else 'selected' }}>NO</option>
 									  </select>
 									<label for="is_spouse">Do you have a spouse?</label>
 								</div>
 							</div>
 							<input type="hidden" class="form-control" name ="family_count" id ="family_count" value="4" form="family_bg_form" required>
 
-							{% if spouse|length > 0 %}
+							{% if spouse_count > 0 %}
 							<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_update_form" value="SPOUSE" required>
 							<input type="hidden" class="form-control" name ="family_count" id ="" value="4" form="family_bg_update_form" required>
 							<input type="hidden" class="form-control" name ="id[1]" id="id[1]" placeholder="ID" form="family_bg_update_form" value="{{spouse[0].id}}" required>
@@ -355,13 +368,13 @@
 							<div id="add_child"></div>
 						</div>
 						<div class="col-sm-12 m-3 mt-0">
-						<button type="button" class="btn btn-primary" onclick="add_child()">Add</button>
+						<button type="button" class="btn btn-success" onclick="add_child()">Add</button>
 
 						</div>
 					</div>
 			
 					<div class="col-sm-12 text-center">
-						<button type="submit" class="btn btn-success" form="family_bg_form">SAVE</button>
+						<button type="submit" class="btn btn-primary" form="family_bg_form">SAVE</button>
 					</div>
 			</div>
 		</div>

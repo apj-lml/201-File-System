@@ -9,21 +9,44 @@
 }
 </style>
 
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 
 {% endblock %}
 
+
 {% block content %}
-<main class="container-fluid">
-    
+<main class="container mt-4">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   <!-- ----------------------------------------------------------------------- -->
   <!--                            VOLUNTARY WORK                               -->
   <!-- ----------------------------------------------------------------------- -->
   <div class="row mb-3">
     <div class="card mb-3">
         <div class="card-body">
-          <h3 class="card-title"><i class="bi bi-person-workspace"></i> Voluntary Work</h3>
+          <div class="card text-white bg-blue shadow-sm mb-3" >
+            <div class="card-header"><h3 class="card-title"><h3 class="card-title"><i class="bi bi-person-workspace"></i> Voluntary Work</h3></div>
+            <div class="card-body">
+              <!-- <h5 class="card-title">Description</h5> -->
+              <ul>
+                <li><p class="card-text">Please input all necessary fields.</p></li>
+                <li><p class="card-text">Check the PRESENT checkbox if your Voluntary Work is still on going.</p></li>
+              </ul>
+            </div>
+          </div>
+          
           <form action="#" method="POST" name="voluntary_work_form" id="voluntary_work_form" enctype="multipart/form-data"></form>
               <div class="card shadow-sm mb-3">
                   <div class="card-body">
@@ -103,7 +126,7 @@
                                     <i class="bi bi-trash"></i>
                                   </a>
                                   <a class="btn btn-primary btn-sm m-2" title="View" id="{{voluntary_work.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_voluntary_work(this)">
-                                    <i class="bi bi-eye"></i>
+                                    <i class="bi bi-pencil"></i>
                                   </a>
                                 </div></td>
                               </tr>

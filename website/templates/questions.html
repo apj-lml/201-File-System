@@ -9,6 +9,7 @@
 }
 </style>
 
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 
@@ -16,12 +17,34 @@
 
 {% block content %}
 <main class="container mt-5">
-	
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
 	<div class="row mb-3">
 		<div class="card mb-3">
 			<div class="card-body">
 				<form id="add_polo_form" action="#" method="POST"></form>
-					<h3 class="card-title"><i class="bi bi-question-diamond"></i> Questions</h3>
+                <div class="card text-white bg-blue shadow-sm mb-3" >
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="bi bi-question-diamond"></i> Questions</h3>
+                    </div>
+                    <div class="card-body">
+                      <!-- <h5 class="card-title">Description</h5> -->
+                      <ul>
+                      <li><p class="card-text">Please give additional details if your answer is "YES".</p></li>
+                      </ul>
+                    </div>
+                  </div>
+					
                     <form action="#" method="POST" id="questions_form" name="questions_form"></form>
                     {% if user_profile.questions %}
                     <input type="hidden" name="add_update" id="add_update" value="update" form="questions_form">
@@ -38,7 +61,6 @@
                     <input type="hidden" name="id11" id="id11" value="{{user_profile.questions[10].id if user_profile.questions[10].question == 'q11'}}" form="questions_form">
                     <input type="hidden" name="id12" id="id12" value="{{user_profile.questions[11].id if user_profile.questions[11].question == 'q12'}}" form="questions_form">
                     <input type="hidden" name="id13" id="id13" value="{{user_profile.questions[12].id if user_profile.questions[12].question == 'q13'}}" form="questions_form">
-
 
                     {% else %}
                     <input type="hidden" name="add_update" id="add_update" value="add" form="questions_form">
@@ -76,7 +98,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a1c3" placeholder="If YES, give details:" value="{{user_profile.questions[0].answer if user_profile.questions[0].question == 'q1' and user_profile.questions[0].answer != 'NO'}}" {{'disabled' if user_profile.questions[0].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a1c1').value=this.value" >
+                                                    <input type="text" class="form-control" id="a1c3" placeholder="If YES, give details:" value="{{user_profile.questions[0].answer if user_profile.questions[0].question == 'q1' and user_profile.questions[0].answer != 'NO'}}" {{'disabled' if user_profile.questions[0].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a1c1').value=this.value" required>
                                                     <label for="a1">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -108,7 +130,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a2c3" placeholder="If YES, give details:" value="{{user_profile.questions[1].answer if user_profile.questions[1].question == 'q2' and user_profile.questions[1].answer != 'NO'}}" {{'disabled' if user_profile.questions[1].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a2c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a2c3" placeholder="If YES, give details:" value="{{user_profile.questions[1].answer if user_profile.questions[1].question == 'q2' and user_profile.questions[1].answer != 'NO'}}" {{'disabled' if user_profile.questions[1].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a2c1').value=this.value" required>
                                                     <label for="a2c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -151,7 +173,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a3c3" placeholder="If YES, give details:"  value="{{user_profile.questions[2].answer if user_profile.questions[2].question == 'q3' and user_profile.questions[2].answer != 'NO'}}" {{'disabled' if user_profile.questions[2].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a3c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a3c3" placeholder="If YES, give details:"  value="{{user_profile.questions[2].answer if user_profile.questions[2].question == 'q3' and user_profile.questions[2].answer != 'NO'}}" {{'disabled' if user_profile.questions[2].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a3c1').value=this.value" required>
                                                     <label for="a1">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -183,7 +205,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a4c3" placeholder="If YES, give details:" value="{{user_profile.questions[3].answer if user_profile.questions[3].question == 'q4' and user_profile.questions[3].answer != 'NO'}}" {{'disabled' if user_profile.questions[3].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a4c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a4c3" placeholder="If YES, give details:" value="{{user_profile.questions[3].answer if user_profile.questions[3].question == 'q4' and user_profile.questions[3].answer != 'NO'}}" {{'disabled' if user_profile.questions[3].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a4c1').value=this.value" required>
                                                     <label for="a4c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -217,7 +239,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a5c3" placeholder="If YES, give details:" value="{{user_profile.questions[4].answer if user_profile.questions[4].question == 'q5' and user_profile.questions[4].answer != 'NO'}}" {{'disabled' if user_profile.questions[4].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a5c1').value=this.value">
+                                            <input type="text" class="form-control" id="a5c3" placeholder="If YES, give details:" value="{{user_profile.questions[4].answer if user_profile.questions[4].question == 'q5' and user_profile.questions[4].answer != 'NO'}}" {{'disabled' if user_profile.questions[4].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a5c1').value=this.value" required>
                                             <label for="a5c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -249,7 +271,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a6c3" placeholder="If YES, give details:" value="{{user_profile.questions[5].answer if user_profile.questions[5].question == 'q6' and user_profile.questions[5].answer != 'NO'}}" {{'disabled' if user_profile.questions[5].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a6c1').value=this.value">
+                                            <input type="text" class="form-control" id="a6c3" placeholder="If YES, give details:" value="{{user_profile.questions[5].answer if user_profile.questions[5].question == 'q6' and user_profile.questions[5].answer != 'NO'}}" {{'disabled' if user_profile.questions[5].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a6c1').value=this.value" required>
                                             <label for="a6c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -281,7 +303,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="{{user_profile.questions[6].answer if user_profile.questions[6].question == 'q7' and user_profile.questions[6].answer != 'NO'}}" {{'disabled' if user_profile.questions[6].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a7c1').value=this.value" >
+                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="{{user_profile.questions[6].answer if user_profile.questions[6].question == 'q7' and user_profile.questions[6].answer != 'NO'}}" {{'disabled' if user_profile.questions[6].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a7c1').value=this.value" required>
                                             <label for="a7c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -321,7 +343,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="{{user_profile.questions[7].answer if user_profile.questions[7].question == 'q8' and user_profile.questions[7].answer != 'NO'}}" {{'disabled' if user_profile.questions[7].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a8c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="{{user_profile.questions[7].answer if user_profile.questions[7].question == 'q8' and user_profile.questions[7].answer != 'NO'}}" {{'disabled' if user_profile.questions[7].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a8c1').value=this.value" required>
                                                     <label for="a8c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -353,7 +375,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="{{user_profile.questions[8].answer if user_profile.questions[8].question == 'q9' and user_profile.questions[8].answer != 'NO'}}" {{'disabled' if user_profile.questions[8].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a9c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="{{user_profile.questions[8].answer if user_profile.questions[8].question == 'q9' and user_profile.questions[8].answer != 'NO'}}" {{'disabled' if user_profile.questions[8].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a9c1').value=this.value" required>
                                                     <label for="a9c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -387,7 +409,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="{{user_profile.questions[9].answer if user_profile.questions[9].question == 'q10' and user_profile.questions[9].answer != 'NO'}}" {{'disabled' if user_profile.questions[9].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a10c1').value=this.value">
+                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="{{user_profile.questions[9].answer if user_profile.questions[9].question == 'q10' and user_profile.questions[9].answer != 'NO'}}" {{'disabled' if user_profile.questions[9].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a10c1').value=this.value" required>
                                             <label for="a10c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -428,7 +450,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="{{user_profile.questions[10].answer if user_profile.questions[10].question == 'q11' and user_profile.questions[10].answer != 'NO'}}" {{'disabled' if user_profile.questions[10].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a11c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="{{user_profile.questions[10].answer if user_profile.questions[10].question == 'q11' and user_profile.questions[10].answer != 'NO'}}" {{'disabled' if user_profile.questions[10].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a11c1').value=this.value" required>
                                                     <label for="a11c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -460,7 +482,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12' and user_profile.questions[11].answer != 'NO'}}" {{'disabled' if user_profile.questions[11].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a12c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12' and user_profile.questions[11].answer != 'NO'}}" {{'disabled' if user_profile.questions[11].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a12c1').value=this.value" required>
                                                     <label for="a12c3">If YES, please specify ID No.:</label>
                                                   </div>
                                             </div> 
@@ -492,7 +514,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="{{user_profile.questions[12].answer if user_profile.questions[12].question == 'q13' and user_profile.questions[12].answer != 'NO'}}" {{'disabled' if user_profile.questions[12].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a13c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="{{user_profile.questions[12].answer if user_profile.questions[12].question == 'q13' and user_profile.questions[12].answer != 'NO'}}" {{'disabled' if user_profile.questions[12].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a13c1').value=this.value" required>
                                                     <label for="a13c3">If YES, please specify ID No.:</label>
                                                   </div>
                                             </div> 
@@ -534,7 +556,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a1c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a1c1').value=this.value" >
+                                                    <input type="text" class="form-control" id="a1c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a1c1').value=this.value" required>
                                                     <label for="a1">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -566,7 +588,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a2c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a2c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a2c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a2c1').value=this.value" required>
                                                     <label for="a2c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -609,7 +631,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a3c3" placeholder="If YES, give details:"  value="" disabled form="questions_form" oninput="document.getElementById('a3c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a3c3" placeholder="If YES, give details:"  value="" disabled form="questions_form" oninput="document.getElementById('a3c1').value=this.value" required>
                                                     <label for="a1">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -641,7 +663,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a4c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a4c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a4c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a4c1').value=this.value" required>
                                                     <label for="a4c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -675,7 +697,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a5c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a5c1').value=this.value">
+                                            <input type="text" class="form-control" id="a5c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a5c1').value=this.value" required>
                                             <label for="a5c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -707,7 +729,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a6c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a6c1').value=this.value">
+                                            <input type="text" class="form-control" id="a6c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a6c1').value=this.value" required>
                                             <label for="a6c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -739,7 +761,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a7c1').value=this.value" >
+                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a7c1').value=this.value" required>
                                             <label for="a7c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -779,7 +801,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a8c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a8c1').value=this.value" required>
                                                     <label for="a8c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -811,7 +833,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a9c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a9c1').value=this.value" required>
                                                     <label for="a9c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -845,7 +867,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a10c1').value=this.value">
+                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a10c1').value=this.value" required>
                                             <label for="a10c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -886,7 +908,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a11c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a11c1').value=this.value" required>
                                                     <label for="a11c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -918,7 +940,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a12c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a12c1').value=this.value" required>
                                                     <label for="a12c3">If YES, please specify ID no.:</label>
                                                   </div>
                                             </div> 
@@ -950,7 +972,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a13c1').value=this.value">
+                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="" disabled form="questions_form" oninput="document.getElementById('a13c1').value=this.value" required>
                                                     <label for="a13c3">If YES, please specify ID no.:</label>
                                                   </div>
                                             </div> 
@@ -984,6 +1006,7 @@
     }
 	document.getElementById('questions_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
+        loadingScreen('block');
 		var formElem = document.getElementById("questions_form"); 
 		let formData = new FormData(formElem);
 
@@ -991,6 +1014,7 @@
 		formData.forEach((value, key) => (data[key] = value))
 		
 		var url = '';
+        // alert(document.getElementById('add_update').value)
         if (document.getElementById('add_update').value == 'add'){
             url = '/questions/add-answers/{{user_profile.id}}';
         }else{
@@ -1008,7 +1032,7 @@
 
 			}).then((data)=>{
 					triggerToast(data); //this is the returned error message
-					//window.location.reload();
+					window.location.reload();
 			})
 
 	});

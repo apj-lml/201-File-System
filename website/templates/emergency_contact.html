@@ -8,23 +8,41 @@
     	display: none;
 }
 </style>
-
-
-<!-- Custom styles for this template -->
-
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <main class="container mt-4">
-	
+	<ul class="circles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+  
 	<div class="row mb-3">
-
 		<div class="card mb-3">
 			<div class="card-body">
-				<!-- <h3 class="card-title">Learning & Development</h3> -->
+				<div class="card text-white bg-blue shadow-sm mb-3" >
+					<div class="card-header">
+						<h3 class="card-title"><i class="bi bi-telephone-fill"></i> Emergency Contact</h3>
+					 </div>
+					<div class="card-body">
+					  <ul>
+					  <li><p class="card-text">Please fill out necessary field.</p></li>
+					  <li><p class="card-text">Contact number should be eleven (11) digit long.</p></li>
+					  <li><p class="card-text">You can only add up to one (1) Emergency Contact only.</p></li>
+					  </ul>
+					  
+					</div>
+				  </div>
 				<form id="add_emergency_contact_form" action="#" method="POST"></form>
-					<h3 class="card-title"><i class="bi bi-telephone-fill"></i> Emergency Contact</h3>
-					  <!-- <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_emergency_contact_form" value="1"> -->
 						<div class="card shadow-sm mb-3">
 						  <div class="card-body">
 						  <div class="d-md-flex flex-row">

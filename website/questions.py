@@ -38,7 +38,6 @@ def add_answers(emp_id):
 #@admin_permission.require(http_exception=403)
 def update_answers(emp_id):
     if request.method == "POST":
-
         formdata = request.form.to_dict()
         print(formdata)
         for xy in range(1, 13 + 1):

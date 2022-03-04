@@ -38,7 +38,9 @@ def learning_development(emp_id):
 # @admin_permission.require(http_exception=403)
 def family_background(emp_id):
 	user = db.session.query(User).get(int(emp_id))
-	return render_template('family_bg.html', emp_id = emp_id, user_profile = user)
+	spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
+	spouse_count = spouse.count()
+	return render_template('family_bg.html', emp_id = emp_id, user_profile = user, spouse = spouse, spouse_count = spouse_count)
 
 @views.route('/covid-vaccine/<emp_id>', methods=['GET', 'POST'])
 @login_required

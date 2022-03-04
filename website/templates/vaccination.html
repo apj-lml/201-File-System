@@ -2,31 +2,68 @@
 
 {% block title %} Learning and Development {% endblock %}
 
-{%block cssperfile %} 
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
 <style type="text/css">
 	div.dtsb-searchBuilder div.dtsb-titleRow {
     	display: none;
 }
 </style>
 
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
 
 <!-- Custom styles for this template -->
 
 {% endblock %}
 
 {% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
 <main class="container mt-3">
-	
-	<div class="row mb-3">
-		
-        
+	<div class="row mb-3 ms-auto">
+    <!-- <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul> -->
 <!-- ----------------------------------------------------------------------- -->
 <!--                                 VACCINE                                 -->
 <!-- ----------------------------------------------------------------------- -->
 
 <div class="card mb-3">
     <div class="card-body">
-      <h3 class="card-title"><i class="fas fa-syringe"></i> COVID-19 Vaccine</h3>
+      <div class="card text-white bg-blue shadow-sm mb-3" >
+        <div class="card-header">
+          <h3 class="card-title"><i class="fas fa-syringe"></i> COVID-19 Vaccination</h3>
+         </div>
+        <div class="card-body">
+          <ul>
+          <li><p class="card-text">Please input all necessary fields.</p></li>
+          <li><p class="card-text">File uploading only accepts PDF files. </p></li>
+          </ul>
+          <!-- <h5 class="card-title">Description</h5> -->
+        </div>
+      </div>
+      
       <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
 
         {# for user_profile.vaccine[0] in user_profile.vaccine[0] #}
@@ -180,59 +217,52 @@
             <!-- ----------------------------------------------------------------------- -->
 
         <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="vaccine_form">Sumbit</button>
-        <!-- <button type="submit" id="update_covid_btn" class="btn btn-primary btn-sm" form="vaccine_form">Update</button> -->
-
+        
     </div>
   </div>
 
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">COVID-19 Vaccine Attachments</h3>
-          <div class="card shadow-sm mb-3">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered table-striped table-sm" id="uploaded_file_table">
-                  <thead>
-                    <tr>
-                      <th>File Tag</th>
-                      <th>Attachment</th>
-                      <!-- <th>Controls</th> -->
-                    </tr>
-                    </thead>
-                    <tbody>
-                  {% for file in user_profile.uploaded_files %}
-                    <!-- <div class="flex-fill mb-3 p-1"> -->
-                      {% if file.file_tag == 'vaccine_card' or file.file_tag == 'booster_shot_card' %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h3 class="card-title">COVID-19 Vaccine Attachments</h3>
+            <div class="card shadow-sm mb-3">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-sm" id="uploaded_file_table">
+                    <thead>
                       <tr>
-                        <td>{{file.file_tag}}</td>
-                        <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
-                        <!-- <td>
-                          <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
-                            <i class="bi bi-trash"></i>
-                          </a>
-                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
-                        </td> -->
+                        <th>File Tag</th>
+                        <th>Attachment</th>
+                        <!-- <th>Controls</th> -->
                       </tr>
-    
-                      {% endif %}
-                    <!-- </div> -->
-                  {% endfor %}
-                </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                    {% for file in user_profile.uploaded_files %}
+                      <!-- <div class="flex-fill mb-3 p-1"> -->
+                        {% if file.file_tag == 'vaccine_card' or file.file_tag == 'booster_shot_card' %}
+                        <tr>
+                          <td>{{file.file_tag}}</td>
+                          <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
+                          <!-- <td>
+                            <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                              <i class="bi bi-trash"></i>
+                            </a>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
+                          </td> -->
+                        </tr>
+      
+                        {% endif %}
+                      <!-- </div> -->
+                    {% endfor %}
+                  </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-
-
-
-
-            
-
           </div>
         </div>
 
-      </div>
     </div>
-	</div>
+
 
 </main>
 

@@ -103,7 +103,7 @@ def add_learning_and_development(emp_id):
 # ---------------------------------------------------------------------------- #
 #                            this is for file upload                           #
 # ---------------------------------------------------------------------------- #
-        # get_user = User.query.get(emp_id)
+        get_user = User.query.get(emp_id)
 
         final_name = ''
         for afile in request.files:
@@ -120,7 +120,7 @@ def add_learning_and_development(emp_id):
             else:
                 file_extension = file.filename.rsplit('.', 1)[1].lower()
                 file_name = file.filename.rsplit('.', 1)[0]
-                final_name = secure_filename(formdata['ld_program'] + '_' + str(round(time.time() * 1000)) +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+                final_name = secure_filename(formdata['ld_program'] + '_' + get_user.last_name +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
                 if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
                     print('path does not exist... creating path')
                     os.mkdir(current_app.config['UPLOAD_FOLDER'])
@@ -161,9 +161,9 @@ def delete_learning_and_development():
 	return jsonify('File Deleted Successfully')
 
 
-@ld.route('save-ld/<id>', methods=['POST', 'GET'])
+@ld.route('save-ld/<id>/<emp_id>', methods=['POST', 'GET'])
 @login_required
-def update_ld(id):
+def update_ld(id, emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         get_we = Learning_Development.query.get(id)
@@ -171,7 +171,7 @@ def update_ld(id):
 
         final_name = ''
         
-
+        
         for afile in request.files:
             file = request.files[afile]
 
@@ -181,11 +181,15 @@ def update_ld(id):
                 if not allowed_file(file.filename):
                     return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
 
+                
+                get_user = User.query.get(emp_id)
+
+
                 os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.ld_attachment_file_name))
 
                 file_extension = file.filename.rsplit('.', 1)[1].lower()
                 file_name = file.filename.rsplit('.', 1)[0]
-                final_name = secure_filename(formdata['ld_program'] + '_' + str(round(time.time() * 1000)) +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+                final_name = secure_filename(formdata['ld_program'] + '_' + get_user.last_name +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
                 if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
                     print('path does not exist... creating path')
                     os.mkdir(current_app.config['UPLOAD_FOLDER'])

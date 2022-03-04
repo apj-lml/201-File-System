@@ -41,6 +41,7 @@ def add_emergency_contact(emp_id):
             formdata.update({k: v.upper()})
 
         count_char_ref = Emergency_Contact.query.filter_by(user_id = emp_id).count()
+        
         if count_char_ref < 1 :
             formdata['user_id'] = emp_id
             char_ref = Emergency_Contact(**formdata)
@@ -51,7 +52,7 @@ def add_emergency_contact(emp_id):
             
             return jsonify("Successfully Added Emergency Contact!"), 200
         else:
-            return jsonify("You can only add up one Emergency Contact!")
+            return jsonify("You can only add up to one Emergency Contact only!")
 
 
  # ---------------------------------------------------------------------------- #

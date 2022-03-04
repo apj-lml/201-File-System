@@ -28,8 +28,11 @@ class User(db.Model, UserMixin):
 	item_no = db.Column(db.String(150))
 	item_location = db.Column(db.String(150))
 	date_of_assumption = db.Column(db.String(150))
-	original_station = db.Column(db.String(150))
+
+	# original_station = db.Column(db.String(150))
 	date_hired_in_nia = db.Column(db.String(150), nullable=True)
+	no_of_years_in_nia = db.Column(db.String(150), nullable=True)
+
 	date_of_last_step_increment = db.Column(db.String(150), nullable=True)
 	date_of_original_appointment = db.Column(db.String(150), nullable=True)
 	daily_rate = db.Column(db.String(150), nullable=True)

@@ -16,6 +16,7 @@
   <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" /> -->
   <!-- Core theme CSS (includes Bootstrap)-->
   <!-- <link href="css/styles.css" rel="stylesheet" /> -->
+
   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='spinner.css') }}" rel="stylesheet">
@@ -25,9 +26,22 @@
 
 
   <!-- fontawesome -->
-  <script src="https://kit.fontawesome.com/dce3348e0b.js" crossorigin="anonymous"></script> 
-  <style>
+  <script src="https://kit.fontawesome.com/dce3348e0b.js" crossorigin="anonymous"></script>
 
+  <style type="text/css">
+.btn-primary{
+  background: rgb(51,10,113);
+  background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+}
+/* .btn-success{
+  background: rgb(33,82,2);
+background: linear-gradient(152deg, rgba(33,82,2,0.9192051820728291) 2%, rgba(0,84,8,0.8127626050420168) 17%, rgba(34,199,67,1) 100%);
+} */
+.bg-blue{
+  /* background-color: #020878; */
+  background: rgb(51,10,113);
+background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+}
 @font-face {
   font-family: trajan_reg;
   src: url("{{ url_for('static', filename='fonts/TrajanPro-Bold.otf') }}");
@@ -95,10 +109,13 @@
 	{% block cssperfile %}{% endblock %}
 
 </head>
-<!-- w-auto h-auto -->
 
 
-<body class="">
+
+<body class="area">
+  <!-- <div class="area" > -->
+
+  <!-- </div > -->
   {% if current_user.is_authenticated%}
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">

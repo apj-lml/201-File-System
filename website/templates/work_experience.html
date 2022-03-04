@@ -8,22 +8,41 @@
     	display: none;
 }
 </style>
-
-
-<!-- Custom styles for this template -->
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 {% endblock %}
 
 {% block content %}
-<main class="container-fluid">
-    
+<main class="container mt-4 mb-4">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   <!-- ----------------------------------------------------------------------- -->
   <!--                         WORK EXPERIENCE                                 -->
   <!-- ----------------------------------------------------------------------- -->
-  <div class="row mb-3">
+  <div class="row mb-5">
     <div class="card container">
         <div class="card-body">
-          <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3>
+          <div class="card text-white bg-blue shadow-sm mb-3" >
+              <div class="card-header"><h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3> </div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Description</h5> -->
+                <ul>
+                  <li><p class="card-text">Please input all necessary fields.</p></li>
+                  <li><p class="card-text">Check the PRESENT checkbox to indicate that you are currently employed.</p></li>
+                </ul>
+              </div>
+					  </div>
+          
           <form action="#" method="POST" name="work_experience_form" id="work_experience_form" enctype="multipart/form-data"></form>
               <div class="card shadow-sm mb-3">
                   <div class="card-body">
@@ -113,7 +132,7 @@
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="work_experience_form">
-                          <option value="N/A" selected hidden>N/A</option>
+                          <option value="N/A" selected>N/A</option>
                           <option value="PERMANENT">PERMANENT</option>
                           <option value="COTERMINOUS">COTERMINOUS</option>
                           <option value="CASUAL">CASUAL</option>

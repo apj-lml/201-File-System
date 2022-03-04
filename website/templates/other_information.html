@@ -9,21 +9,45 @@
 }
 </style>
 
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 
 {% endblock %}
 
 {% block content %}
-<main class="container-fluid">
-    
+<main class="container mt-5">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   <!-- ----------------------------------------------------------------------- -->
   <!--                          Other Information                              -->
   <!-- ----------------------------------------------------------------------- -->
   <div class="row mb-3">
     <div class="card mb-3">
         <div class="card-body">
-          <h3 class="card-title"><i class="bi bi-box-seam"></i> Other Information</h3>
+          <div class="card text-white bg-blue shadow-sm mb-3" >
+            <div class="card-header">
+              <h3 class="card-title"><i class="bi bi-box-seam"></i> Other Information</h3>
+            </div>
+            <div class="card-body">
+              <!-- <h5 class="card-title">Description</h5> -->
+              <ul>
+              <li><p class="card-text">Please input all necessary fields.</p></li>
+              <li><p class="card-text">Each field have a limit of five (5) inputs.</p></li>
+              </ul>
+            </div>
+          </div>
+          
           <form action="#" method="POST" name="other_information_form" id="other_information_form" enctype="multipart/form-data"></form>
               <div class="card shadow-sm mb-3">
                 <div class="card-body">
@@ -188,7 +212,7 @@
                     <div class="card-body">
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_hobbies_form">
+                          <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_hobbies_form" required>
                           <label for="date_from">Special Skill / Hobby</label>
                         </div>
                       </div>
@@ -225,7 +249,7 @@
                     <div class="card-body">
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_recognition_form">
+                          <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_recognition_form" required>
                           <label for="date_from">Non-Academic Distinctions / Recognition</label>
                         </div>
                       </div>
@@ -262,7 +286,7 @@
                         <div class="card-body">
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_membership_form">
+                              <input type="text" class="form-control" name ="description" id="description" placeholder="Special Skill / Hobby" value="" form="add_membership_form" required>
                               <label for="date_from">Membership in Association / Organization</label>
                             </div>
                           </div>
@@ -323,7 +347,7 @@
 	})
 		.then(response => response.json())
 		.then(data => {
-			 console.log(data)
+			//  console.log(data)
       var id = data[0].id;
       var description  = data[0].description;
       var type = data[0].type;
@@ -339,12 +363,12 @@
             <h3 class="card-title"><i class="bi bi-pencil-square"></i> ${title}</h3>
                 <form action="#" method="POST" name="update_other_information" id="update_other_information" enctype="multipart/form-data"></form>
                 <input type="hidden" name="id" id="udpate_id" value="${id}" form="update_other_information">
-                <input type="hidden" class="form-control" name ="type" id="update_type" placeholder="" value="${type}" form="update_other_information">
+                <input type="hidden" class="form-control" name ="type" id="update_type" placeholder="" value="${type}" form="update_other_information" required>
                 <div class="card shadow-sm mb-3">
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" name ="description" id="update_description" placeholder="Special Skill / Hobby" value="${description}" form="update_other_information">
+                        <input type="text" class="form-control" name ="description" id="update_description" placeholder="Special Skill / Hobby" value="${description}" form="update_other_information" required>
                         <label for="date_from">Special Skill / Hobby</label>
                       </div>
                     </div>

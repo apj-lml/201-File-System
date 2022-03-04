@@ -9,14 +9,24 @@
 }
 </style>
 
-
-<!-- Custom styles for this template -->
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 {% endblock %}
 
 {% block content %}
-<main class="container-fluid mt-4">
-	
+<main class="container-fluid mt-4 ps-5 pe-5 pb-5">
+	<ul class="circles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	  </ul>
 	<div class="row mb-3">
 		<!-- <div class="col-sm-12">
 			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
@@ -26,7 +36,18 @@
 				<!-- <h3 class="card-title">Learning & Development</h3> -->
 				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
-					<h3 class="card-title"><i class="bi bi-lightbulb"></i> Learning & Development</h3>
+				<div class="card text-white bg-blue shadow-sm mb-3" >
+					<div class="card-header">
+						<h3 class="card-title"><i class="bi bi-lightbulb"></i> Learning & Development</h3>
+					</div>
+					<div class="card-body">
+					  <!-- <h5 class="card-title">Description</h5> -->
+					  <ul>
+						<li><p class="card-text">Please input all necessary fields.</p></li>
+						<li><p class="card-text">Take note that updating your file attachment will overwirte the old attachment.</p></li>
+					  </ul>
+					</div>
+				</div>
 					  <!-- <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_ld_form" value="1"> -->
 						<div class="card shadow-sm mb-3">
 						  <div class="card-body">
@@ -366,7 +387,7 @@
 document.getElementById('update_ld_form').addEventListener('submit', (e)=>{
 	e.preventDefault();
 	var id = document.getElementById('update_id').value;
-	var url = `/ld/save-ld/${id}`;
+	var url = `/ld/save-ld/${id}/{{user_profile.id}}`;
             loadingScreen('block');
             let formData4 = new FormData(document.getElementById("update_ld_form"));
                 

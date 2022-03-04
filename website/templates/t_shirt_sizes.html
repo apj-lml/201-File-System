@@ -2,7 +2,8 @@
 
 {% block title %} Shirt Size {% endblock %}
 
-{%block cssperfile %} 
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 <style type="text/css">
 	div.dtsb-searchBuilder div.dtsb-titleRow {
     	display: none;
@@ -15,17 +16,41 @@
 {% endblock %}
 
 {% block content %}
-<main class="container mt-3">
-	
-	<div class="row mb-3">
+<main class="container mt-3 relative w-100">
+	<ul class="circles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+  
+	<div class="row mb-3 position-absolute top-50 start-50 translate-middle container">
 		<!-- <div class="col-sm-12">
 			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
 		</div> -->
 		<div class="card mb-3">
 			<div class="card-body">
 				<form id="add_polo_form" action="#" method="POST"></form>
+				<div class="card text-white bg-blue shadow-sm mb-3" >
+					<div class="card-header">
+						<h3 class="card-title"><i class="fas fa-tshirt"></i> Shirt Size</h3>
+					 </div>
+					<div class="card-body">
+					  <ul>
+					  <li><p class="card-text">Please fill out necessary field.</p></li>
+					  </ul>
+					  <!-- <h5 class="card-title">Description</h5> -->
+					  
+					</div>
+				  </div>
 				<input type="hidden" name="add_or_update" id="add_or_update" value="{{'update' if user_profile.shirt else 'add'}}" form="add_polo_form">
-					<h3 class="card-title"><i class="fas fa-tshirt"></i> Shirt Size</h3>
+					
 					<div class="card shadow-sm mb-3">
                             <div class="card-body">
                                 <div class="form-floating flex-fill mb-3 p-1">

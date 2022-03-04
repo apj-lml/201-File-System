@@ -3,6 +3,7 @@
 {% block title %} Employee Profile {% endblock %}
 
 {%block cssperfile %} 
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
   <style>
     body{
       overflow-x: hidden;
@@ -15,31 +16,20 @@
     .hover-opacity:hover{
       opacity: 1;
     }
-
-
-.dtsb-titleRow{
-  display: none;
-}
-#my-menu {
-    max-width: fit-content;
-    max-height: 3.25rem;
-    transition: all 0.3s ease-out;
-    overflow: hidden;
-    background-color: rgb(23, 88, 131);
-    color: white;
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-}
-
-/* #my-menu:hover {
-    max-height: 500px;
-    max-width: 350px;
-    transition: all 0.25s ease-in;
-    -webkit-transition: all 0.3s ease-in;
-    -moz-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-} */
+    .dtsb-titleRow{
+      display: none;
+    }
+    #my-menu {
+        max-width: fit-content;
+        max-height: 3.25rem;
+        transition: all 0.3s ease-out;
+        overflow: hidden;
+        background-color: rgb(23, 88, 131);
+        color: white;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+    }
   </style>
 {% endblock %}
 
@@ -112,6 +102,18 @@
   </symbol>
   </svg>
 
+  <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
 
   <div class="col-sm-12 container-fluid">
     <div class="container" id="">
@@ -129,11 +131,18 @@
               <form id="add_masteral_form" action="/masteral/add-masteral/{{user_profile.id}}" method="POST" ></form>
               <form id="add_doctoral_form" action="/doctoral/add-doctotral/{{user_profile.id}}" method="POST" ></form>
 
-
-                                                          <!-- /employees/update-employee/{{current_user.id}}  -->
               <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
 
-
+              <div class="card text-white bg-blue shadow-sm mb-3" >
+                <div class="card-header"><h3 class="card-title"><i class="bi bi-info-circle"></i> Notice!</h3> </div>
+                <div class="card-body">
+                  <ul>
+                    <li><p class="card-text">Please input all necessary fields.</p></li>
+                    <li><p class="card-text">File uploading only accepts PDF files. </p></li>
+                    <li><p class="card-text">An asterisk "*" in uploading of supporting documents denotes that the field can accept multiple files to upload. </p></li>
+                  </ul>
+                </div>
+              </div>
 
               <div class="card mb-3">
                 <div class="card-body">
@@ -233,8 +242,19 @@
                       <label for="item_no" >Item No.</label>
                     </div>
                   </div>
-              
-                  <div class="d-md-flex flex-row"> 
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="item_location" name ="item_location" placeholder="Item Location" value="{{user_profile.item_location if user_profile.item_location is not none else 'N/A'}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="item_no" >Item Location / Original Station</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else 'N/A'}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
+                      <label for="item_no" >Date Hired in NIA</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else 'N/A'}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if user_profile.type_of_user == 'user'}}>
+                      <label for="item_no" style="font-size: 14px;" >No. of Years in Service</label>
+                    </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="date_of_assumption">Date of Assumption to Duty</label>
@@ -244,6 +264,21 @@
                       <label for="date_of_assumption">Date of Last Step Increment</label>
                     </div>
                   </div>
+                  
+                
+                  <!-- <div class="d-md-flex flex-row">
+                    
+                  </div> -->
+                  <!-- <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="date_of_assumption">Date of Assumption to Duty</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}> 
+                      <label for="date_of_assumption">Date of Last Step Increment</label>
+                    </div>
+                  </div> -->
                   <!-- TODO -->
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -466,8 +501,8 @@
                     <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
                         <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example" onchange="sameAsPermanent()">
-                            <option value="YES" {{ "selected" if user_profile.pres_barangay == "N/A" else "selected" }}>YES</option>
-                            <option value="NO"  {{ "" if user_profile.pres_barangay == "N/A" else "selected" }}>NO</option>
+                            <option value="YES" {{ "" if user_profile.pres_barangay == "N/A" else "selected" }}>YES</option>
+                            <option value="NO"  {{ "selected" if user_profile.pres_barangay == "N/A" else "" }}>NO</option>
                           
                         </select>
                         <label for="same_as_permanent">Same as permanent address</label>
@@ -914,48 +949,48 @@
                       <input type="hidden" name="gs_id[{{count_update_masteral.value}}]" id="gs_id[{{count_update_masteral.value}}]" value="{{masteral.id}}" form="update_form">
                        <div class="card-body">
   
-                      <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="gs_school[{{count_update_masteral.value}}]" name ="gs_school[{{count_update_masteral.value}}]" placeholder="School" value="{{masteral.gs_school if masteral.gs_school is not none else 'N/A'}}" form="update_form">
-                          <label for="gs_school">School</label>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="gs_school[{{count_update_masteral.value}}]" name ="gs_school[{{count_update_masteral.value}}]" placeholder="School" value="{{masteral.gs_school if masteral.gs_school is not none else 'N/A'}}" form="update_form">
+                              <label for="gs_school">School</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="gs_degree_course[{{count_update_masteral.value}}]" name ="gs_degree_course[{{count_update_masteral.value}}]" placeholder="Degree / Course" value="{{masteral.gs_degree_course if masteral.gs_degree_course is not none else 'N/A' }}" form="update_form">
+                              <label for="gs_degree_course">Degree / Course</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="gs_highest_level_units_earned[{{count_update_masteral.value}}]" name="gs_highest_level_units_earned[{{count_update_masteral.value}}]" aria-label="Floating label select example" value="{{masteral.gs_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[{{count_update_masteral.value}}]'), document.getElementById('gs_scholarship_academic_honor[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_from[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_to[{{count_update_masteral.value}}]'))">
+                                <option class="" value="{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else 'N/A'}}" selected hidden>{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else 'N/A'}}</option>
+                                <option value="GRADUATED">GRADUATED</option>
+                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                              </select>
+                              <label for="gs_highest_level">Highest Level Attained</label>
+                            </div>
                         </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="gs_degree_course[{{count_update_masteral.value}}]" name ="gs_degree_course[{{count_update_masteral.value}}]" placeholder="Degree / Course" value="{{masteral.gs_degree_course if masteral.gs_degree_course is not none else 'N/A' }}" form="update_form">
-                          <label for="gs_degree_course">Degree / Course</label>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="gs_period_of_attendance_from[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_from[{{count_update_masteral.value}}]" placeholder="Period of Attendance (From)" value="{{masteral.gs_period_of_attendance_from if masteral.gs_period_of_attendance_from is not none else 'N/A'}}" form="update_form">
+                            <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="gs_period_of_attendance_to[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_to[{{count_update_masteral.value}}]" placeholder="Period of Attendance (To)" value="{{masteral.gs_period_of_attendance_to if masteral.gs_period_of_attendance_to is not none else 'N/A'}}" form="update_form">
+                            <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                          </div>
                         </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <select class="form-select" id="gs_highest_level_units_earned[{{count_update_masteral.value}}]" name="gs_highest_level_units_earned[{{count_update_masteral.value}}]" aria-label="Floating label select example" value="{{masteral.gs_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[{{count_update_masteral.value}}]'), document.getElementById('gs_scholarship_academic_honor[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_from[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_to[{{count_update_masteral.value}}]'))">
-                            <option class="" value="{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else 'N/A'}}" selected hidden>{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else 'N/A'}}</option>
-                            <option value="GRADUATED">GRADUATED</option>
-                            <option value="UNDERGRADUATE">UNDERGRADUATE</option>
-                            <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
-                          </select>
-                          <label for="gs_highest_level">Highest Level Attained</label>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="gs_highest_grade_year_units[{{count_update_masteral.value}}]" name ="gs_highest_grade_year_units[{{count_update_masteral.value}}]" placeholder="Highest Level" value="{{masteral.gs_highest_grade_year_units if masteral.gs_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
+                            <label for="gs_highest_grade_year_units">Units Earned</label>
+                          </div>   
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="gs_scholarship_academic_honor[{{count_update_masteral.value}}]" name ="gs_scholarship_academic_honor[{{count_update_masteral.value}}]" placeholder="Scholarship / Academic Honor" value="{{masteral.gs_scholarship_academic_honor if masteral.gs_scholarship_academic_honor is not none else  'N/A'}}" form="update_form">
+                            <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                          </div> 
                         </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gs_period_of_attendance_from[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_from[{{count_update_masteral.value}}]" placeholder="Period of Attendance (From)" value="{{masteral.gs_period_of_attendance_from if masteral.gs_period_of_attendance_from is not none else 'N/A'}}" form="update_form">
-                        <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
-                      </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gs_period_of_attendance_to[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_to[{{count_update_masteral.value}}]" placeholder="Period of Attendance (To)" value="{{masteral.gs_period_of_attendance_to if masteral.gs_period_of_attendance_to is not none else 'N/A'}}" form="update_form">
-                        <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gs_highest_grade_year_units[{{count_update_masteral.value}}]" name ="gs_highest_grade_year_units[{{count_update_masteral.value}}]" placeholder="Highest Level" value="{{masteral.gs_highest_grade_year_units if masteral.gs_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
-                        <label for="gs_highest_grade_year_units">Units Earned</label>
-                      </div>   
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="gs_scholarship_academic_honor[{{count_update_masteral.value}}]" name ="gs_scholarship_academic_honor[{{count_update_masteral.value}}]" placeholder="Scholarship / Academic Honor" value="{{masteral.gs_scholarship_academic_honor if masteral.gs_scholarship_academic_honor is not none else  'N/A'}}" form="update_form">
-                        <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
-                      </div> 
-                    </div>
-                    <a href="#" onclick="delete_school_record(document.getElementById('gs_id[{{count_update_masteral.value}}]').value, '/masteral/delete-masteral'); return false">Remove</a>
-  
-                    </div>
+                        <a href="#" onclick="delete_school_record(document.getElementById('gs_id[{{count_update_masteral.value}}]').value, '/masteral/delete-masteral'); return false">Remove</a>
+      
+                        </div>
                     </div>
                     {% set count_update_masteral.value = count_update_masteral.value+1 %}
                   {% endfor %}
@@ -1383,19 +1418,19 @@
                         <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="latest_position_description_form" class="form-label">Upload Latest Position Description Form</label>
-                        <input class="form-control" type="file" id="latest_position_description_form" name="latest_position_description_form" form="update_form">
+                        <label for="position_description_form" class="form-label">Upload Position Description Form*</label>
+                        <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form" multiple>
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="latest_oath_of_office" class="form-label">Upload Latest Oath of Office</label>
-                        <input class="form-control" type="file" id="latest_oath_of_office" name="latest_oath_of_office" form="update_form">
+                        <label for="oath_of_office" class="form-label">Upload Oath of Office*</label>
+                        <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form" multiple>
                       </div>
                     </div>
                    
                     <div class="d-md-flex flex-row">
                       <div class="col-sm-4 mb-3 p-1">
-                        <label for="latest_assumption_to_duty" class="form-label">Upload Latest Assumption to Duty</label>
-                        <input class="form-control" type="file" id="latest_assumption_to_duty" name="latest_assumption_to_duty" form="update_form">
+                        <label for="assumption_to_duty" class="form-label">Upload Assumption to Duty*</label>
+                        <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form" multiple>
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Notice of Step Increment*</label>
@@ -1416,6 +1451,22 @@
                     </div>
 
                   </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="service_employment_record" class="form-label">Upload Service / Employment Record*</label>
+                        <input class="form-control" type="file" id="service_employment_record" name="service_employment_record" form="update_form" multiple>
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="certificate_of_employment" class="form-label">Upload Certificate of Employment*</label>
+                        <input class="form-control" type="file" id="certificate_of_employment" name="certificate_of_employment" form="update_form" multiple>
+                      </div>
+                    </div>
+                    
+                    </div>
                 </div>
 
                 <div class="card shadow-sm mb-3">
@@ -1451,7 +1502,16 @@
                     </div>
                 </div>
 
-
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Others*</label>
+                        <input class="form-control" type="file" id="others" name="others" form="update_form" multiple>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <h3 class="card-title">Uploaded Files</h3>
                 <div class="card shadow-sm mb-3">
@@ -1492,159 +1552,17 @@
                 <div class="col-sm-12 text-center">
                   <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
                 </div>
-              <!-- <div class="card shadow-sm mb-3">
-                  <div class="card-body">
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
-                        <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
-                        <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="cse" class="form-label">Upload Diploma</label>
-                        <input class="form-control" type="file" id="diploma" name="diploma" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="transcript_of_records" class="form-label">Upload Transcript of Records</label>
-                        <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="govt_id" class="form-label">Upload Career Service Eligibility</label>
-                        <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="license" class="form-label">Upload PRC License</label>
-                        <input class="form-control" type="file" id="prc_license" name="prc_license" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="tor" class="form-label">Upload Security Guard License</label>
-                        <input class="form-control" type="file" id="security_guard_license" name="security_guard_license" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="latest_appointment" class="form-label">Upload Driver's License</label>
-                        <input class="form-control" type="file" id="driver_license" name="driver_license" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload UMID ID</label>
-                        <input class="form-control" type="file" id="umid_id" name="umid_id" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="tor" class="form-label">Upload Loyalty Card Plus ID</label>
-                        <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="latest_appointment" class="form-label">Upload PhilHealth ID</label>
-                        <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload TIN ID</label>
-                        <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="tor" class="form-label">Upload National ID</label>
-                        <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
-                        <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest Appointment</label>
-                        <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest Notice of Step Increment</label>
-                        <input class="form-control" type="file" id="latest_notice_of_step_increment" name="latest_notice_of_step_increment" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Memorandum/Designation</label>
-                        <input class="form-control" type="file" id="memorandum_designation" name="memorandum_designation" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest IPCR</label>
-                        <input class="form-control" type="file" id="ipcr" name="ipcr" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest SALN</label>
-                        <input class="form-control" type="file" id="saln" name="saln" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Medical Records</label>
-                        <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest Oath of Office</label>
-                        <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form">
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest Assumption to Duty</label>
-                        <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Latest Position Description Form</label>
-                        <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form">
-                      </div>
-                      <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload TESDA National Certificate (NC)</label>
-                        <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form">
-                      </div>
-                  </div>
-                </div> -->
-                
-              <!-- </div> shadow container end-->
             </div>
 
 
-          <!-- </form> -->
+  
           </div> <!--col-->
           </div> <!--row-->
-            <!-- <div class="row">
-              <div class="col">
-                <button type="submit" class="btn btn-primary m-4" id="submit_btn" >Submit</button>
-              </div>
-            </div> -->
-          <!-- </form> -->
         </div>
   </div>
 </div>
 </div>
 
-  <!-- <div class="d-inline-flex">
-    <div class="card m-3 ms-auto shadow-lg hover-opacity fixed-bottom"  id="my-menu">
-      <div class="card-body">
-        
-        <div class="d-flex justify-content-center">
-          <h5 class="card-title"><strong>Hi {{current_user.first_name|title}}!</strong></h5> <i class="bi bi-emoji-laughing "></i>
-        </div>
-        <p class="card-text">
-          <div class="alert alert-warning" role="alert">
-            You can update profile here!
-          </div>
-        </p>
-        <div class="text-end">
-          <button class="btn btn-primary" type="submit" form="update_form">Update</button>
-        </div>
-
-      </div>
-    </div>
-  </div> -->
 
 
 {% endblock %}
@@ -1653,6 +1571,9 @@
 <script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 <script type="text/javascript">
+
+
+
 window.addEventListener("load", function() {
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
@@ -1683,6 +1604,20 @@ window.addEventListener("load", function() {
 
 
 });
+
+function validate_length(el){
+  if(el.value <0){
+      el.value = 0;
+      triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.');
+    }else{
+      if(el.value.length > 2 || el.value.length < 0){
+          el.value = el.value.slice(0,2); 
+          triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.');
+      }
+    }
+  
+}
+
 function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
       if(highest_level.value == 'GRADUATED'){
         highest_grade_year_units.readOnly = true;
