@@ -111,7 +111,10 @@ def print_preview(emp_id):
 	college = db.session.query(College).filter_by(user_id = emp_id)
 	masteral = db.session.query(Masteral).filter_by(user_id = emp_id)
 
-	return render_template('print_preview.html', emp_id = emp_id,
+	spouse_count = spouse.count()
+
+	return render_template('print_preview.html',
+	 	emp_id = emp_id,
 	 	user_profile = user,
 		spouse = spouse, 
 		child = child, 
@@ -119,7 +122,8 @@ def print_preview(emp_id):
 		mother = mother,
 		vocation = vocation,
 		college = college,
-		masteral = masteral
+		masteral = masteral,
+		spouse_count = spouse_count
 		)
 
 @views.route('/emergency-contact/<emp_id>', methods=['GET', 'POST'])

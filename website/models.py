@@ -5,6 +5,8 @@ from time import timezone
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+from sqlalchemy.orm import column_property
+from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime, date
 from sqlalchemy_serializer import SerializerMixin
 
@@ -221,7 +223,18 @@ class Family_Background(db.Model, SerializerMixin):
 	fb_date_of_birth = db.Column(db.String(50))
 	fb_maiden_name = db.Column(db.String(50))
 	fb_relationship = db.Column(db.String(50))
+	# fullname = column_property(fb_last_name + ", " + fb_first_name + " "+ fb_name_ext + " " + fb_middle_name)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	@hybrid_property
+	def fullname(self):
+		if self.fb_middle_name is None or self.fb_middle_name == "N/A":
+			self.fb_middle_name = ""
+		if self.fb_name_ext is None or self.fb_name_ext == "N/A":
+			self.fb_name_ext = ""
+		
+		fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
+
+		return fullname
 
 class College(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)

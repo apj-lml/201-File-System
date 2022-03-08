@@ -137,7 +137,7 @@
                 <div class="card-header"><h3 class="card-title"><i class="bi bi-info-circle"></i> Notice!</h3> </div>
                 <div class="card-body">
                   <ul>
-                    <li><p class="card-text">Please input all necessary fields.</p></li>
+                    <li><p class="card-text">Please fill out all necessary fields.</p></li>
                     <li><p class="card-text">File uploading only accepts PDF files. </p></li>
                     <li><p class="card-text">An asterisk "*" in uploading of supporting documents denotes that the field can accept multiple files to upload. </p></li>
                   </ul>
@@ -1572,9 +1572,16 @@
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 <script type="text/javascript">
 
-
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 's') {
+    e.preventDefault();
+    // document.getElementById("update_form").submit();
+    alert("awan pay")
+      }
+    });
 
 window.addEventListener("load", function() {
+
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
   var vocation_count = document.getElementById('vocational_no_fields').value;

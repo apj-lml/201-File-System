@@ -38,21 +38,13 @@
 {% endblock %}
 
 {% block content %}
-<main class="container mt-5" id="pds">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
-	<link href="../static/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-
+<main class="container h-100 mt-5" id="pds">
 
     
+    <iframe id="pdf" style="width: 100%; height: 100%;"></iframe>
 
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-
-
-
-<script src="{{ url_for('static', filename='bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>
 
    
       <!-- <button type="button" class="btn btn-primary" onclick="printJS({ printable: 'pds', type: 'html', header: 'PrintJS - Form Element Selection' })">Print</button> -->
@@ -66,24 +58,389 @@
 <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script>
 
 <script type="text/javascript">
+fillForm()
 
 
-function printDiv({divId, title}) {
-  let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+async function fillForm() {
+//   const formUrl = 'https://pdf-lib.js.org/assets/dod_character.pdf'
+  const formUrl = "{{ url_for('static', filename='pds_template.pdf') }}";
 
-  mywindow.document.write(`<html><head><title>${title}</title>`);
-//   mywindow.document.write('<script src="../static/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js">');
-  mywindow.document.write('</head><body >');
-  mywindow.document.write(document.getElementById('pds').innerHTML);
-  mywindow.document.write('</body></html>');
+  const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 
-  mywindow.document.close(); // necessary for IE >= 10
-  mywindow.focus(); // necessary for IE >= 10*/
 
-//   mywindow.print();
-//   mywindow.close();
+  const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
-  return true;
+
+
+  const form = pdfDoc.getForm()
+
+    const last_name = form.getTextField('last_name');
+    const first_name = form.getTextField('first_name');
+    const middle_name = form.getTextField('middle_name');
+    const name_ext = form.getTextField('name_ext');
+    const dob = form.getTextField('date_of_birth');
+    const pob = form.getTextField('place_of_birth');
+    const sex_male = form.getCheckBox('male');
+    const sex_female = form.getCheckBox('female');
+    const height = form.getTextField('height');
+    const weight = form.getTextField('weight');
+    const blood_type = form.getTextField('blood_type');
+    const gsis = form.getTextField('gsis');
+    const pagibig = form.getTextField('pagibig');
+    const philhealth = form.getTextField('philhealth');
+    const sss = form.getTextField('sss');
+    const tin = form.getTextField('tin');
+    const agency_employee_no = form.getTextField('agency_employee_no');
+    const citizenship = form.getCheckBox('citizenship');
+    const dual_citizenship = form.getCheckBox('dual_citizenship');
+    const country = form.getTextField('country');
+    
+    const pres_house_block_lot_no = form.getTextField('pres_house_block_lot_no');
+    const pres_street = form.getTextField('pres_street');
+    const pres_subdivision_village = form.getTextField('pres_subdivision_village');
+    const pres_barangay = form.getTextField('pres_barangay');
+    const pres_city_municipality = form.getTextField('pres_city_municipality');
+    const pres_province = form.getTextField('pres_province');
+    const pres_zip_code = form.getTextField('pres_zip_code');
+
+    const p_house_block_lot_no = form.getTextField('p_house_block_lot_no');
+    const p_street = form.getTextField('p_street');
+    const p_subdivision_village = form.getTextField('p_subdivision_village');
+    const p_barangay = form.getTextField('p_barangay');
+    const p_city_municipality = form.getTextField('p_city_municipality');
+    const p_province = form.getTextField('p_province');
+    const p_zip_code = form.getTextField('p_zip_code');
+
+    const telephone_no = form.getTextField('telephone_no');
+    const mobile_no = form.getTextField('mobile_no');
+    const email = form.getTextField('email');
+
+    const spouse_last_name = form.getTextField('spouse_last_name');
+    const spouse_first_name = form.getTextField('spouse_first_name');
+    const spouse_middle_name = form.getTextField('spouse_middle_name');
+    const spouse_name_ext = form.getTextField('spouse_name_ext');
+    const spouse_occupation = form.getTextField('spouse_occupation');
+    const spouse_employer_business_name = form.getTextField('spouse_employer_business_name');
+    const spouse_business_address = form.getTextField('spouse_business_address');
+    const spouse_contact_no = form.getTextField('spouse_contact_no');
+
+    const father_last_name = form.getTextField('father_last_name');
+    const father_first_name = form.getTextField('father_first_name');
+    const father_middle_name = form.getTextField('father_middle_name');
+    const father_name_ext = form.getTextField('father_name_ext');
+
+    const mother_maiden_name = form.getTextField('mother_maiden_name');
+    const mother_last_name = form.getTextField('mother_last_name');
+    const mother_first_name = form.getTextField('mother_first_name');
+    const mother_middle_name = form.getTextField('mother_middle_name');
+
+    const child1 = form.getTextField('child1');
+    const child2 = form.getTextField('child2');
+    const child3 = form.getTextField('child3');
+    const child4 = form.getTextField('child4');
+    const child5 = form.getTextField('child5');
+    const child6 = form.getTextField('child6');
+    const child7 = form.getTextField('child7');
+    const child8 = form.getTextField('child8');
+    const child9 = form.getTextField('child9');
+    const child10 = form.getTextField('child10');
+    const child11 = form.getTextField('child11');
+    const child12 = form.getTextField('child12');
+
+    const child1_bdate = form.getTextField('child1_bdate');
+    const child2_bdate = form.getTextField('child2_bdate');
+    const child3_bdate = form.getTextField('child3_bdate');
+    const child4_bdate = form.getTextField('child4_bdate');
+    const child5_bdate = form.getTextField('child5_bdate');
+    const child6_bdate = form.getTextField('child6_bdate');
+    const child7_bdate = form.getTextField('child7_bdate');
+    const child8_bdate = form.getTextField('child8_bdate');
+    const child9_bdate = form.getTextField('child9_bdate');
+    const child10_bdate = form.getTextField('child10_bdate');
+    const child11_bdate = form.getTextField('child11_bdate');
+    const child12_bdate = form.getTextField('child12_bdate');
+
+    const elementary_school = form.getTextField('elementary_school');
+    const e_basic_education = form.getTextField('e_basic_education');
+    const e_period_of_attendance_from = form.getTextField('e_period_of_attendance_from');
+    const e_period_of_attendance_to = form.getTextField('e_period_of_attendance_to');
+    const e_highest_grade_year_units = form.getTextField('e_highest_grade_year_units');
+    const e_year_graduated = form.getTextField('e_year_graduated');
+    const e_scholarship_academic_honor = form.getTextField('e_scholarship_academic_honor');
+
+    const high_school = form.getTextField('high_school');
+    const hs_basic_education = form.getTextField('hs_basic_education');
+    const hs_period_of_attendance_from = form.getTextField('hs_period_of_attendance_from');
+    const hs_period_of_attendance_to = form.getTextField('hs_period_of_attendance_to');
+    const hs_highest_level = form.getTextField('hs_highest_level');
+    const hs_year_graduated = form.getTextField('hs_year_graduated');
+    const hs_scholarship_academic_honor = form.getTextField('hs_scholarship_academic_honor');
+
+    const v_school = form.getTextField('v_school');
+    const vocational_trade_course = form.getTextField('vocational_trade_course');
+    const v_period_of_attendance_from = form.getTextField('v_period_of_attendance_from');
+    const v_period_of_attendance_to = form.getTextField('v_period_of_attendance_to');
+    const v_highest_level = form.getTextField('v_highest_level');
+    const v_year_graduated = form.getTextField('v_year_graduated');
+    const v_scholarship_academic_honor = form.getTextField('v_scholarship_academic_honor');
+
+    const c_school = form.getTextField('c_school');
+    const c_degree_course = form.getTextField('c_degree_course');
+    const c_period_of_attendance_from = form.getTextField('c_period_of_attendance_from');
+    const c_period_of_attendance_to = form.getTextField('c_period_of_attendance_to');
+    const c_highest_grade_year_units = form.getTextField('c_highest_level');
+    const c_year_graduated = form.getTextField('c_year_graduated');
+    const c_scholarship_academic_honor = form.getTextField('c_scholarship_academic_honor');
+
+    const gs_school = form.getTextField('gs_school');
+    const gs_degree_course = form.getTextField('gs_degree_course');
+    const gs_period_of_attendance_from = form.getTextField('gs_period_of_attendance_from');
+    const gs_period_of_attendance_to = form.getTextField('gs_period_of_attendance_to');
+    const gs_highest_grade_year_units = form.getTextField('gs_highest_level');
+    const gs_year_graduated = form.getTextField('gs_year_graduated');
+    const gs_scholarship_academic_honor = form.getTextField('gs_scholarship_academic_honor');
+
+    const cse1 = form.getTextField('cse1');
+    const cs_rating1 = form.getTextField('cs_rating1');
+    const date_of_examination1 = form.getTextField('date_of_examination1');
+    const place_of_examination_conferment1 = form.getTextField('place_of_examination_conferment1');
+    const license_no1 = form.getTextField('license_no1');
+    const date_of_validity1 = form.getTextField('date_of_validity1');
+
+    const cse2 = form.getTextField('cse2');
+    const cs_rating2 = form.getTextField('cs_rating2');
+    const date_of_examination2 = form.getTextField('date_of_examination2');
+    const place_of_examination_conferment2 = form.getTextField('place_of_examination_conferment2');
+    const license_no2 = form.getTextField('license_no2');
+    const date_of_validity2 = form.getTextField('date_of_validity2');
+
+    const cse3 = form.getTextField('cse3');
+    const cs_rating3 = form.getTextField('cs_rating3');
+    const date_of_examination3 = form.getTextField('date_of_examination3');
+    const place_of_examination_conferment3 = form.getTextField('place_of_examination_conferment3');
+    const license_no3 = form.getTextField('license_no3');
+    const date_of_validity3 = form.getTextField('date_of_validity3');
+    
+    const cse4 = form.getTextField('cse4');
+    const cs_rating4 = form.getTextField('cs_rating4');
+    const date_of_examination4 = form.getTextField('date_of_examination4');
+    const place_of_examination_conferment4 = form.getTextField('place_of_examination_conferment4');
+    const license_no4 = form.getTextField('license_no4');
+    const date_of_validity4 = form.getTextField('date_of_validity4');
+
+    const cse5 = form.getTextField('cse5');
+    const cs_rating5 = form.getTextField('cs_rating5');
+    const date_of_examination5 = form.getTextField('date_of_examination5');
+    const place_of_examination_conferment5 = form.getTextField('place_of_examination_conferment5');
+    const license_no5 = form.getTextField('license_no5');
+    const date_of_validity5 = form.getTextField('date_of_validity5');
+
+    const cse6 = form.getTextField('cse6');
+    const cs_rating6 = form.getTextField('cs_rating6');
+    const date_of_examination6 = form.getTextField('date_of_examination6');
+    const place_of_examination_conferment6 = form.getTextField('place_of_examination_conferment6');
+    const license_no6 = form.getTextField('license_no6');
+    const date_of_validity6 = form.getTextField('date_of_validity6');
+
+    const cse7 = form.getTextField('cse7');
+    const cs_rating7 = form.getTextField('cs_rating7');
+    const date_of_examination7 = form.getTextField('date_of_examination7');
+    const place_of_examination_conferment7 = form.getTextField('place_of_examination_conferment7');
+    const license_no7 = form.getTextField('license_no7');
+    const date_of_validity7 = form.getTextField('date_of_validity7');
+
+    last_name.setText('{{user_profile.last_name}}');
+    first_name.setText('{{user_profile.first_name}}');
+    middle_name.setText('{{user_profile.middle_name}}');
+    name_ext.setText('{{user_profile.name_extn if user_profile.name_extn != "N/A" else "N/A"}}');
+    dob.setText('{{user_profile.birthdate.strftime("%m/%d/%Y")}}');
+    pob.setText('{{user_profile.place_of_birth}}');
+    height.setText('{{user_profile.height}}');
+    weight.setText('{{user_profile.weight}}');
+    blood_type.setText('{{user_profile.blood_type}}');
+    var sex = '{{user_profile.sex}}';
+        if (sex == 'MALE') {
+            sex_male.check();
+        }else{
+            sex_female.check();
+
+        }
+    gsis.setText('{{user_profile.gsis}}');
+    pagibig.setText('{{user_profile.pagibig}}');
+    philhealth.setText('{{user_profile.philhealth}}');
+    sss.setText('{{user_profile.sss}}');
+    tin.setText('{{user_profile.tin}}');
+    agency_employee_no.setText('{{user_profile.employee_id}}');
+    citizenship.check();
+    dual_citizenship.uncheck();
+    country.setText('{{user_profile.country if user_profile.indicate_country is not none else ""}}');
+
+    pres_house_block_lot_no.setText('{{user_profile.pres_house_block_lot}}');
+    pres_street.setText('{{user_profile.pres_street}}');
+    pres_subdivision_village.setText('{{user_profile.pres_subdivision_village}}');
+    pres_barangay.setText('{{user_profile.pres_barangay}}');
+    pres_city_municipality.setText('{{user_profile.pres_city_municipality}}');
+    pres_province.setText('{{user_profile.pres_province}}');
+    pres_zip_code.setText('{{user_profile.pres_zip_code}}');
+
+    p_house_block_lot_no.setText('{{user_profile.p_house_block_lot}}');
+    p_street.setText('{{user_profile.p_street}}');
+    p_subdivision_village.setText('{{user_profile.p_subdivision_village}}');
+    p_barangay.setText('{{user_profile.p_barangay}}');
+    p_city_municipality.setText('{{user_profile.p_city_municipality}}');
+    p_province.setText('{{user_profile.p_province}}');
+    p_zip_code.setText('{{user_profile.p_zip_code}}');
+
+    telephone_no.setText('{{user_profile.telephone_no if user_profile.telephone_no is not none else "N/A" }}');
+    mobile_no.setText('{{user_profile.mobile_no}}');
+    email.setText('{{user_profile.email}}');
+
+    spouse_last_name.setText('{{spouse[0].fb_last_name if spouse_count > 0 else "N/A"}}');
+    spouse_first_name.setText('{{spouse[0].fb_first_name if spouse_count > 0 else "N/A"}}');
+    spouse_middle_name.setText('{{"N/A" if spouse_count <= 0 or spouse[0].fb_middle_name is none or spouse[0].fb_middle_name == "" else spouse[0].fb_middle_name }}');
+    spouse_name_ext.setText('{{"N/A" if spouse_count <= 0 or spouse[0].fb_name_ext is none or spouse[0].fb_name_ext == "" else spouse[0].fb_name_ext }}');
+    spouse_occupation.setText('{{spouse[0].fb_occupation if spouse_count > 0 else "N/A"}}');
+    spouse_employer_business_name.setText('{{spouse[0].fb_employer_business_name if spouse_count > 0 else "N/A"}}');
+    spouse_business_address.setText('{{spouse[0].fb_business_address if spouse_count > 0 else "N/A"}}');
+    spouse_contact_no.setText('{{spouse[0].fb_contact_no if spouse_count > 0 else "N/A"}}');
+
+    father_last_name.setText('{{father[0].fb_last_name if father[0] and father[0].fb_last_name is not none else "N/A"}}');
+    father_first_name.setText('{{father[0].fb_first_name if father[0] and father[0].fb_first_name is not none else "N/A"}}');
+    father_middle_name.setText('{{father[0].fb_middle_name if father[0] and father[0].fb_middle_name is not none else "N/A"}}');
+    father_name_ext.setText('{{father[0].fb_name_ext if father[0] and father[0].fb_name_ext is not none else "N/A"}}');
+
+    mother_last_name.setText('{{mother[0].fb_last_name if mother[0] and mother[0].fb_last_name is not none else "N/A"}}');
+    mother_first_name.setText('{{mother[0].fb_first_name if mother[0] and mother[0].fb_first_name is not none else "N/A"}}');
+    mother_middle_name.setText('{{mother[0].fb_middle_name if mother[0] and mother[0].fb_middle_name is not none else "N/A"}}');
+    mother_maiden_name.setText('{{mother[0].fb_maiden_name if mother[0] and mother[0].fb_maiden_name is not none else ""}}');
+
+    child1.setText('{{child[0].fullname if child[0] and child[0].fb_last_name is not none else "N/A"}}');
+    child2.setText('{{child[1].fullname if child[1] and child[1].fb_last_name is not none else ""}}');
+    child3.setText('{{child[2].fullname if child[2] and child[2].fb_last_name is not none else ""}}');
+    child4.setText('{{child[3].fullname if child[3] and child[3].fb_last_name is not none else ""}}');
+    child5.setText('{{child[4].fullname if child[4] and child[4].fb_last_name is not none else ""}}');
+    child6.setText('{{child[5].fullname if child[5] and child[5].fb_last_name is not none else ""}}');
+    child7.setText('{{child[6].fullname if child[6] and child[6].fb_last_name is not none else ""}}');
+    child8.setText('{{child[7].fullname if child[7] and child[7].fb_last_name is not none else ""}}');
+    child9.setText('{{child[8].fullname if child[8] and child[8].fb_last_name is not none else ""}}');
+    child10.setText('{{child[9].fullname if child[9] and child[9].fb_last_name is not none else ""}}');
+    child11.setText('{{child[10].fullname if child[10] and child[10].fb_last_name is not none else ""}}');
+    child12.setText('{{child[11].fullname if child[11] and child[11].fb_last_name is not none else ""}}');
+
+    child1_bdate.setText('{{child[0].fb_date_of_birth if child[0] and child[0].fb_date_of_birth is not none else "N/A"}}');
+    child2_bdate.setText('{{child[1].fb_date_of_birth if child[1] and child[1].fb_date_of_birth is not none else ""}}');
+    child3_bdate.setText('{{child[2].fb_date_of_birth if child[2] and child[2].fb_date_of_birth is not none else ""}}');
+    child4_bdate.setText('{{child[3].fb_date_of_birth if child[3] and child[3].fb_date_of_birth is not none else ""}}');
+    child5_bdate.setText('{{child[4].fb_date_of_birth if child[4] and child[4].fb_date_of_birth is not none else ""}}');
+    child6_bdate.setText('{{child[5].fb_date_of_birth if child[5] and child[5].fb_date_of_birth is not none else ""}}');
+    child7_bdate.setText('{{child[6].fb_date_of_birth if child[6] and child[6].fb_date_of_birth is not none else ""}}');
+    child8_bdate.setText('{{child[7].fb_date_of_birth if child[7] and child[7].fb_date_of_birth is not none else ""}}');
+    child9_bdate.setText('{{child[8].fb_date_of_birth if child[8] and child[8].fb_date_of_birth is not none else ""}}');
+    child10_bdate.setText('{{child[9].fb_date_of_birth if child[9] and child[9].fb_date_of_birth is not none else ""}}');
+    child11_bdate.setText('{{child[10].fb_date_of_birth if child[10] and child[10].fb_date_of_birth is not none else ""}}');
+    child12_bdate.setText('{{child[11].fb_date_of_birth if child[11] and child[11].fb_date_of_birth is not none else ""}}');
+
+    elementary_school.setText('{{user_profile.elementary_school if user_profile.elementary_school is not none or elementary_school != "N/A" else "N/A"}}')
+    e_basic_education.setText('{{"ELEMENTARY" if user_profile.e_highest_level == "GRADUATED" else "N/A"}}')
+    e_period_of_attendance_from.setText('{{user_profile.e_period_of_attendance_from if user_profile.e_period_of_attendance_from is not none or e_period_of_attendance_from != "N/A" else "N/A"}}')
+    e_period_of_attendance_to.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_period_of_attendance_to is not none or e_period_of_attendance_to != "N/A" else "N/A"}}')
+    e_highest_grade_year_units.setText('{{user_profile.e_highest_level if user_profile.e_highest_level is not none or user_profile.e_highest_level != "N/A" else "N/A"}}')
+    e_year_graduated.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_highest_level is not none or user_profile.e_highest_level == "GRADUATED" else "N/A"}}')
+    e_scholarship_academic_honor.setText('{{user_profile.e_scholarship_academic_honor if user_profile.e_scholarship_academic_honor is not none or e_scholarship_academic_honor != "N/A" else "N/A"}}')
+
+    high_school.setText('{{user_profile.high_school if user_profile.high_school is not none or high_school != "N/A" else "N/A"}}')
+    hs_basic_education.setText('{{"HIGH SCHOOL" if user_profile.hs_highest_level == "GRADUATED" else "N/A"}}')
+    hs_period_of_attendance_from.setText('{{user_profile.hs_period_of_attendance_from if user_profile.hs_period_of_attendance_from is not none or hs_period_of_attendance_from != "N/A" else "N/A"}}')
+    hs_period_of_attendance_to.setText('{{user_profile.hs_period_of_attendance_to if user_profile.hs_period_of_attendance_to is not none or hs_period_of_attendance_to != "N/A" else "N/A"}}')
+    hs_highest_level.setText('{{user_profile.hs_highest_level if user_profile.hs_highest_level is not none or hs_highest_level != "N/A" else "N/A"}}')
+    hs_year_graduated.setText('{{user_profile.hs_period_of_attendance_to if user_profile.hs_highest_level is not none or user_profile.hs_highest_level == "GRADUATED" else "N/A"}}')
+    hs_scholarship_academic_honor.setText('{{user_profile.hs_scholarship_academic_honor if user_profile.hs_scholarship_academic_honor is not none or hs_scholarship_academic_honor != "N/A" else "N/A"}}')
+
+    
+    v_school.setText('{{user_profile.vocational_course[0].v_school if user_profile.vocational_course|length > 0 else "N/A"}}')
+    vocational_trade_course.setText('{{user_profile.vocational_course[0].vocational_trade_course if user_profile.vocational_course|length > 0 else "N/A"}}')
+    v_period_of_attendance_from.setText('{{user_profile.vocational_course[0].v_period_of_attendance_from if user_profile.vocational_course|length > 0 else"N/A"}}')
+    v_period_of_attendance_to.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 else "N/A"}}')
+    v_highest_level.setText('{{"GRADUATED" if user_profile.vocational_course|length > 0 else "N/A"}}')
+    v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 else "N/A"}}')
+    v_scholarship_academic_honor.setText('{{user_profile.vocational_course[0].v_scholarship_academic_honor if user_profile.vocational_course|length > 0 else "N/A"}}')
+
+    c_school.setText('{{user_profile.college[0].c_school if user_profile.college[0].c_school is not none or user_profile.college[0].c_school != "N/A" else "N/A"}}')
+    c_degree_course.setText('{{user_profile.college[0].c_degree_course if user_profile.college[0].c_degree_course is not none or user_profile.college[0].c_degree_course != "N/A" else "N/A"}}')
+    c_period_of_attendance_from.setText('{{user_profile.college[0].c_period_of_attendance_from if user_profile.college[0].c_period_of_attendance_from is not none or user_profile.college[0].c_period_of_attendance_from != "N/A" else "N/A"}}')
+    c_period_of_attendance_to.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_period_of_attendance_to is not none or user_profile.college[0].c_period_of_attendance_to != "N/A" else "N/A"}}')
+    c_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.college[0].c_highest_level_units_earned is not none and user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else user_profile.college[0].c_highest_level_units_earned }}')
+    c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned is not none or user_profile.college[0].c_highest_level_units_earned != "N/A" or user_profile.college[0].c_highest_level_units_earned != "GRADUATED" else "N/A"}}')
+    c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor if user_profile.college[0].c_scholarship_academic_honor is not none or user_profile.college[0].c_scholarship_academic_honor != "N/A" else "N/A"}}')
+
+    gs_school.setText('{{user_profile.masteral[0].gs_school if user_profile.masteral[0].gs_school is not none or user_profile.masteral[0].gs_school != "N/A" else "N/A"}}')
+    gs_degree_course.setText('{{user_profile.masteral[0].gs_degree_course if user_profile.masteral[0].gs_degree_course is not none or user_profile.masteral[0].gs_degree_course != "N/A" else "N/A"}}')
+    gs_period_of_attendance_from.setText('{{user_profile.masteral[0].gs_period_of_attendance_from if user_profile.masteral[0].gs_period_of_attendance_from is not none or user_profile.masteral[0].gs_period_of_attendance_from != "N/A" else "N/A"}}')
+    gs_period_of_attendance_to.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_period_of_attendance_to is not none or user_profile.masteral[0].gs_period_of_attendance_to != "N/A" else "N/A"}}')
+    gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_highest_level_units_earned is not none or user_profile.masteral[0].gs_highest_level_units_earned != "N/A" else "N/A"}}')
+    gs_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.masteral[0].gs_highest_grade_year_units is not none or user_profile.masteral[0].gs_highest_grade_year_units != "N/A" else "N/A"}}')
+    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0].gs_scholarship_academic_honor is not none or user_profile.masteral[0].gs_scholarship_academic_honor != "N/A" else "N/A"}}')
+
+    //<!-- ----------------------------------------------------------------------- -->
+    //<!--                                 PAGE 2                                  -->
+    //<!-- ----------------------------------------------------------------------- -->
+
+    cse1.setText("{{user_profile.career_service[0].cs_eligibility|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_eligibility is not none else 'N/A'}}");
+    cs_rating1.setText("{{user_profile.career_service[0].cs_rating|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_rating is not none else 'N/A'}}");
+    date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination_to|escapejs if user_profile.career_service[0] and user_profile.career_service[0].date_of_examination_to is not none else 'N/A'}}");
+    place_of_examination_conferment1.setText("{{user_profile.career_service[0].place_of_examination_conferment|escapejs if user_profile.career_service[0] and user_profile.career_service[0].place_of_examination_conferment is not none else 'N/A'}}");
+    license_no1.setText("{{user_profile.career_service[0].license_no|escapejs if user_profile.career_service[0] and user_profile.career_service[0].license_no is not none else 'N/A'}}");
+    date_of_validity1.setText("{{user_profile.career_service[0].date_of_validity|escapejs if user_profile.career_service[0] and user_profile.career_service[0].date_of_validity is not none else 'N/A'}}");
+
+    cse2.setText("{{user_profile.career_service[1].cs_eligibility if user_profile.career_service|length > 1 else ''}}");
+    cs_rating2.setText("{{user_profile.career_service[1].cs_rating|escapejs if user_profile.career_service|length > 1 else ''}}");
+    date_of_examination2.setText("{{user_profile.career_service[1].date_of_examination_to|escapejs if user_profile.career_service|length > 1 else ''}}");
+    place_of_examination_conferment2.setText("{{user_profile.career_service[1].place_of_examination_conferment|escapejs if user_profile.career_service|length > 1 else ''}}");
+    license_no2.setText("{{user_profile.career_service[1].license_no|escapejs if user_profile.career_service|length > 1 else ''}}");
+    date_of_validity2.setText("{{user_profile.career_service[1].date_of_validity|escapejs if user_profile.career_service|length > 1 else ''}}");
+    
+    cse3.setText("{{user_profile.career_service[2].cs_eligibility|escapejs if user_profile.career_service|length > 2 else ''}}");
+    cs_rating3.setText("{{user_profile.career_service[2].cs_rating|escapejs if user_profile.career_service|length > 2 else ''}}");
+    date_of_examination3.setText("{{user_profile.career_service[2].date_of_examination_to|escapejs if user_profile.career_service|length > 2 else ''}}");
+    place_of_examination_conferment3.setText("{{user_profile.career_service[2].place_of_examination_conferment|escapejs if user_profile.career_service|length > 2 else ''}}");
+    license_no3.setText("{{user_profile.career_service[2].license_no|escapejs if user_profile.career_service|length > 2 else ''}}");
+    date_of_validity3.setText("{{user_profile.career_service[2].date_of_validity|escapejs if user_profile.career_service|length > 2 else ''}}");
+    
+    cse4.setText("{{user_profile.career_service[4].cs_eligibility|escapejs if user_profile.career_service|length > 3 else ''}}");
+    cs_rating4.setText("{{user_profile.career_service[4].cs_rating|escapejs if user_profile.career_service|length > 3 else ''}}");
+    date_of_examination4.setText("{{user_profile.career_service[4].date_of_examination_to|escapejs if user_profile.career_service|length > 3 else ''}}");
+    place_of_examination_conferment4.setText("{{user_profile.career_service[4].place_of_examination_conferment|escapejs if user_profile.career_service|length > 3 else ''}}");
+    license_no4.setText("{{user_profile.career_service[4].license_no|escapejs if user_profile.career_service|length > 3 else ''}}");
+    date_of_validity4.setText("{{user_profile.career_service[4].date_of_validity|escapejs if user_profile.career_service|length > 3 else ''}}");
+    
+    cse5.setText("{{user_profile.career_service[5].cs_eligibility|escapejs if user_profile.career_service|length > 4 else ''}}");
+    cs_rating5.setText("{{user_profile.career_service[5].cs_rating|escapejs if user_profile.career_service|length > 4 else ''}}");
+    date_of_examination5.setText("{{user_profile.career_service[5].date_of_examination_to|escapejs if user_profile.career_service|length > 4 else ''}}");
+    place_of_examination_conferment5.setText("{{user_profile.career_service[5].place_of_examination_conferment|escapejs if user_profile.career_service|length > 4 else ''}}");
+    license_no5.setText("{{user_profile.career_service[5].license_no|escapejs if user_profile.career_service|length > 4 else ''}}");
+    date_of_validity5.setText("{{user_profile.career_service[5].date_of_validity|escapejs if user_profile.career_service|length > 4 else ''}}");
+    
+    cse6.setText("{{user_profile.career_service[6].cs_eligibility|escapejs if user_profile.career_service|length > 5 else ''}}");
+    cs_rating6.setText("{{user_profile.career_service[6].cs_rating|escapejs if user_profile.career_service|length > 5 else ''}}");
+    date_of_examination6.setText("{{user_profile.career_service[6].date_of_examination_to|escapejs if user_profile.career_service|length > 5 else ''}}");
+    place_of_examination_conferment6.setText("{{user_profile.career_service[6].place_of_examination_conferment|escapejs if user_profile.career_service|length > 5 else ''}}");
+    license_no6.setText("{{user_profile.career_service[6].license_no|escapejs if user_profile.career_service|length > 5 else ''}}");
+    date_of_validity6.setText("{{user_profile.career_service[6].date_of_validity|escapejs if user_profile.career_service|length > 5 else ''}}");
+    
+    cse7.setText("{{user_profile.career_service[7].cs_eligibility|escapejs if user_profile.career_service|length > 6 else ''}}");
+    cs_rating7.setText("{{user_profile.career_service[7].cs_rating|escapejs if user_profile.career_service|length > 6 else ''}}");
+    date_of_examination7.setText("{{user_profile.career_service[7].date_of_examination_to|escapejs if user_profile.career_service|length > 6 else ''}}");
+    place_of_examination_conferment7.setText("{{user_profile.career_service[7].place_of_examination_conferment|escapejs if user_profile.career_service|length > 6 else ''}}");
+    license_no7.setText("{{user_profile.career_service[7].license_no|escapejs if user_profile.career_service|length > 6 else ''}}");
+    date_of_validity7.setText("{{user_profile.career_service[7].date_of_validity|escapejs if user_profile.career_service|length > 6 else ''}}");
+    
+
+  const pdfBytes = await pdfDoc.save()
+
+  form.flatten();
+
+  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+  document.getElementById('pdf').src = pdfDataUri;
 }
 
 </script>

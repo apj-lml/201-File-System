@@ -152,7 +152,7 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
                 
 
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item {{'disabled' if current_user.type_of_user == 'user'}}" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> Print Preview</a></li>
+                <li><a class="dropdown-item {{'' if current_user.type_of_user == 'user'}}" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> Print Preview</a></li>
               </ul>
             </li>
           </ul>

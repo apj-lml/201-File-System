@@ -104,8 +104,8 @@
                     <label for="c_degree_course[1]">Degree</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                    <select class="form-select" id="add_c_highest_level_units_earned[${x}]" name="c_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_college_form" onchange="graduated(this, document.getElementById('add_c_highest_grade_year_units[${x}]'), document.getElementById('add_c_scholarship_academic_honor[${x}]'), document.getElementById('add_c_period_of_attendance_from[${x}]'), document.getElementById('add_c_period_of_attendance_to[${x}]'))">
-                        <option class="" value="-" selected disabled hidden>-</option>
+                    <select class="form-select" id="add_c_highest_level_units_earned[${x}]" name="c_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_college_form" onchange="graduated(this, document.getElementById('add_c_highest_grade_year_units[${x}]'), document.getElementById('add_c_scholarship_academic_honor[${x}]'), document.getElementById('add_c_period_of_attendance_from[${x}]'), document.getElementById('add_c_period_of_attendance_to[${x}]'))" required>
+                        <option class="" value="" selected>-</option>
                         <option value="GRADUATED">GRADUATED</option>
                         <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                         <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
@@ -161,8 +161,8 @@
              <label for="gs_degree_course">Degree / Course</label>
            </div>
            <div class="form-floating flex-fill mb-3 p-1">
-             <select class="form-select" id="add_gs_highest_level_units_earned[${x}]" name="gs_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_masteral_form" onchange="graduated(this, document.getElementById('add_gs_highest_grade_year_units[${x}]'), document.getElementById('add_gs_scholarship_academic_honor[${x}]'), document.getElementById('add_gs_period_of_attendance_from[${x}]'), document.getElementById('add_gs_period_of_attendance_to[${x}]'))">
-               <option class="" value="-" selected disabled hidden>-</option>
+             <select class="form-select" id="add_gs_highest_level_units_earned[${x}]" name="gs_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_masteral_form" onchange="graduated(this, document.getElementById('add_gs_highest_grade_year_units[${x}]'), document.getElementById('add_gs_scholarship_academic_honor[${x}]'), document.getElementById('add_gs_period_of_attendance_from[${x}]'), document.getElementById('add_gs_period_of_attendance_to[${x}]'))" required>
+               <option class="" value="" selected>-</option>
                <option value="GRADUATED">GRADUATED</option>
                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
@@ -217,8 +217,8 @@
                   <label for="doc_degree_course">Degree / Course</label>
                 </div>
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="add_doc_highest_level_units_earned[${x}]" name="doc_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_doctoral_form" onchange="graduated(this, document.getElementById('add_doc_highest_grade_year_units[${x}]'), document.getElementById('add_doc_scholarship_academic_honor[${x}]'), document.getElementById('add_doc_period_of_attendance_from[${x}]'), document.getElementById('add_doc_period_of_attendance_to[${x}]'))">
-                    <option class="" value="" selected hidden>-</option>
+                  <select class="form-select" id="add_doc_highest_level_units_earned[${x}]" name="doc_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_doctoral_form" onchange="graduated(this, document.getElementById('add_doc_highest_grade_year_units[${x}]'), document.getElementById('add_doc_scholarship_academic_honor[${x}]'), document.getElementById('add_doc_period_of_attendance_from[${x}]'), document.getElementById('add_doc_period_of_attendance_to[${x}]'))" required>
+                    <option class="" value="" selected>-</option>
                     <option value="GRADUATED">GRADUATED</option>
                     <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                     <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
@@ -267,7 +267,7 @@
           <div class="card-body">
               <div class="d-md-flex flex-row">
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control" id="add_v_school[${x}]" name ="v_school[${x}]" placeholder="School" value="" form="add_vocational_form">
+                  <input type="text" class="form-control" id="add_v_school[${x}]" name ="v_school[${x}]" placeholder="School" value="" form="add_vocational_form" required>
                   <label for="v_school">School</label>
                 </div>
                 
@@ -277,7 +277,8 @@
                 </div>
 
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="add_v_highest_level[${x}]" name="v_highest_level[${x}]" aria-label="Floating label select example" value="" form="add_vocational_form" onchange="graduated(this, document.getElementById('add_v_highest_grade_year_units[${x}]'), document.getElementById('add_v_scholarship_academic_honor[${x}]'), document.getElementById('add_v_period_of_attendance_from[${x}]'), document.getElementById('add_v_period_of_attendance_to[${x}]'))">
+                  <select class="form-select" id="add_v_highest_level[${x}]" name="v_highest_level[${x}]" aria-label="Floating label select example" value="" form="add_vocational_form" onchange="graduated(this, document.getElementById('add_v_highest_grade_year_units[${x}]'), document.getElementById('add_v_scholarship_academic_honor[${x}]'), document.getElementById('add_v_period_of_attendance_from[${x}]'), document.getElementById('add_v_period_of_attendance_to[${x}]'))" required>
+                    <option class="" value="" selected>-</option>
                     <option value="GRADUATED">GRADUATED</option>
                     <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                     <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
