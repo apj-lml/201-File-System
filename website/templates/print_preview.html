@@ -379,7 +379,7 @@ async function fillForm() {
     gs_period_of_attendance_to.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_period_of_attendance_to is not none or user_profile.masteral[0].gs_period_of_attendance_to != "N/A" else "N/A"}}')
     gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_highest_level_units_earned is not none or user_profile.masteral[0].gs_highest_level_units_earned != "N/A" else "N/A"}}')
     gs_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.masteral[0].gs_highest_grade_year_units is not none or user_profile.masteral[0].gs_highest_grade_year_units != "N/A" else "N/A"}}')
-    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0].gs_scholarship_academic_honor is not none or user_profile.masteral[0].gs_scholarship_academic_honor != "N/A" else "N/A"}}')
+    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0].gs_scholarship_academic_honor is not none else "N/A"}}')
 
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                                 PAGE 2                                  -->
@@ -437,7 +437,7 @@ async function fillForm() {
 
   const pdfBytes = await pdfDoc.save()
 
-  form.flatten();
+//   form.flatten();
 
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   document.getElementById('pdf').src = pdfDataUri;
