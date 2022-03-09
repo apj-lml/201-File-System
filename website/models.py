@@ -1,5 +1,6 @@
 # from email.policy import default
 #from email.policy import default
+from pickle import NONE
 from time import timezone
 
 from . import db
@@ -238,12 +239,17 @@ class Family_Background(db.Model, SerializerMixin):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	@hybrid_property
 	def fullname(self):
-		if self.fb_middle_name is None or self.fb_middle_name == "N/A":
+		if self.fb_middle_name is None or self.fb_middle_name == "N/A" or self.fb_middle_name == "NONE":
 			self.fb_middle_name = ""
-		if self.fb_name_ext is None or self.fb_name_ext == "N/A":
+		else:
+			self.fb_middle_name = self.fb_middle_name[0] + "."
+		if self.fb_last_name is None or self.fb_last_name == "N/A" or self.fb_last_name == "NONE":
+			self.fb_last_name = ""
+		if self.fb_name_ext is None or self.fb_name_ext == "N/A" or self.fb_name_ext == "NONE":
 			self.fb_name_ext = ""
 		
-		fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
+		#fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
+		fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
 
 		return fullname
 
@@ -339,12 +345,18 @@ class Character_Reference(db.Model, SerializerMixin):
 
 	@hybrid_property
 	def fullname(self):
-		if self.middle_name is None or self.middle_name == "N/A":
+		if self.middle_name is None or self.middle_name == "N/A" or self.middle_name == "NONE":
 			self.middle_name = ""
-		if self.name_ext is None or self.name_ext == "N/A":
+		else:
+			self.middle_name = self.middle_name[0] + "."
+		if self.name_ext is None or self.name_ext == "N/A" or self.name_ext == "N/A" or self.name_ext == "NONE":
 			self.name_ext = ""
+
+		if self.last_name is None or self.last_name == "N/A" or self.last_name == "N/A" or self.last_name == "NONE":
+			self.last_name = ""
 		
-		fullname = self.last_name + ", " + self.first_name + " "+ self.name_ext + " " + self.middle_name
+		#fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
+		fullname = str(self.first_name + " " + self.middle_name + " " + self.last_name + " " + " "+ self.name_ext).strip()
 
 		return fullname
 

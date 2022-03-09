@@ -5,7 +5,8 @@ from os import path
 import os
 from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 import jinja2
-
+from babel.dates import format_date, format_datetime, format_time
+from datetime import datetime
 # from flask_babel import Babel
 
 db = SQLAlchemy()
@@ -53,7 +54,21 @@ def create_app():
 	def escapejs(value):
 		return jinja2.Markup("".join(_js_escapes.get(l, l) for l in value))
 
+	@app.template_filter('format_mydatetime')
+	def format_mydatetime(value):
+		# print("HEEEERRRREEE",value)
+		if value == 'PRESENT':
+			return value
+		elif value == 'N/A':
+			return value
+		elif value == '':
+			return value
+		else:
+			mydatetime = datetime.strptime(value, '%Y-%m-%d')
+			return mydatetime.strftime("%m/%d/%Y")
+
 	app.jinja_env.filters['escapejs'] = escapejs
+	# app.jinja_env.filters['format_datetime'] = format_datetime
 
 	from .auth import auth
 	from .views import views

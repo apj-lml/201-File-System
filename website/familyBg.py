@@ -97,17 +97,17 @@ def add_family_background(emp_id):
                     fb_relationship = None
 
                 new_family_bg = Family_Background(
-                fb_last_name = fb_last_name,
-                fb_first_name = fb_first_name,
-                fb_middle_name = fb_middle_name,
-                fb_name_ext = fb_name_ext,
-                fb_occupation = fb_occupation,
-                fb_employer_business_name = fb_employer_business_name,
-                fb_business_address = fb_business_address,
+                fb_last_name = str(fb_last_name).upper(),
+                fb_first_name = str(fb_first_name).upper(),
+                fb_middle_name = str(fb_middle_name).upper(),
+                fb_name_ext = str(fb_name_ext).upper(),
+                fb_occupation = str(fb_occupation).upper(),
+                fb_employer_business_name = str(fb_employer_business_name).upper(),
+                fb_business_address = str(fb_business_address).upper(),
                 fb_contact_no = fb_contact_no,
                 fb_date_of_birth = fb_date_of_birth,
-                fb_maiden_name = fb_maiden_name,
-                fb_relationship = fb_relationship,
+                fb_maiden_name = str(fb_maiden_name).upper(),
+                fb_relationship = str(fb_relationship).upper(),
                 user_id = emp_id
                     )
 
@@ -187,17 +187,17 @@ def update_family_background(emp_id):
             
         familyBg = Family_Background.query.filter_by(id = id)
         familyBg.update(dict(
-                        fb_last_name = fb_last_name,
-                        fb_first_name = fb_first_name,
-                        fb_middle_name = fb_middle_name,
-                        fb_name_ext = fb_name_ext,
-                        fb_occupation = fb_occupation,
-                        fb_employer_business_name = fb_employer_business_name,
-                        fb_business_address = fb_business_address,
+                        fb_last_name = str(fb_last_name).upper(),
+                        fb_first_name = str(fb_first_name).upper(),
+                        fb_middle_name = str(fb_middle_name).upper(),
+                        fb_name_ext = str(fb_name_ext).upper(),
+                        fb_occupation = str(fb_occupation).upper(),
+                        fb_employer_business_name = str(fb_employer_business_name).upper(),
+                        fb_business_address = str(fb_business_address).upper(),
                         fb_contact_no = fb_contact_no,
                         fb_date_of_birth = fb_date_of_birth,
-                        fb_maiden_name = fb_maiden_name,
-                        fb_relationship = fb_relationship,
+                        fb_maiden_name = str(fb_maiden_name).upper(),
+                        fb_relationship = str(fb_relationship).upper(),
                         ))
 
     db.session.commit()

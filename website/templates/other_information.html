@@ -496,7 +496,7 @@
                 
                 const data4 = {}
                 formData4.forEach((value, key) => (data4[key] = value));
-               
+               loadingScreen('block')
                 fetch(url, {
                 method: 'POST',
                 body: formData4
@@ -511,7 +511,7 @@
                   // $('#voluntary_work_table').DataTable().ajax.reload()
                   // document.getElementById('other_information_form').reset()
                   triggerToast(data);
-                  // window.location.reload()
+                  window.location.reload()
 
                 });//END            
     })
