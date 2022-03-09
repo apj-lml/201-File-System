@@ -86,7 +86,7 @@
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="sg" name="sg" aria-label="Floating label select example" value="" form="work_experience_form">
-                          <option value="N" selected>N/A</option>
+                          <option value="N/A" selected>N/A</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -118,7 +118,7 @@
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="work_experience_form">
-                          <option value="N" selected>N/A</option>
+                          <option value="N/A" selected>N/A</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -187,8 +187,8 @@
                                 <td>{{work_experience.position_title}}</td>
                                 <td>{{work_experience.department_agency_office_company}}</td>
                                 <td>{{work_experience.monthly_salary}}</td>
-                                {% if work_experience.sg == 'N' %}
-                                <td>N</td>
+                                {% if work_experience.sg == 'N/A' %}
+                                <td>N/A</td>
                                 {% else %}
                                 <td>{{work_experience.sg}} - {{work_experience.step}}</td>
                                 {% endif %}
@@ -275,7 +275,7 @@
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
                               <select class="form-select" id="update_sg" name="sg" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
-                                <option value="N" selected>N/A</option>
+                                <option value="N/A" selected>N/A</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -307,7 +307,7 @@
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
                               <select class="form-select" id="update_step" name="step" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
-                                <option value="N" selected>N/A</option>
+                                <option value="N/A" selected>N/A</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

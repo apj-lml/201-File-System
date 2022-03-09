@@ -48,7 +48,7 @@
 
    
       <!-- <button type="button" class="btn btn-primary" onclick="printJS({ printable: 'pds', type: 'html', header: 'PrintJS - Form Element Selection' })">Print</button> -->
-      <button type="button" class="btn btn-primary" onclick="printDiv('pds', 'PDS')">Print</button>
+      <!-- <button type="button" class="btn btn-primary" onclick="printDiv('pds', 'PDS')">Print</button> -->
 
 
 </main>
@@ -82,6 +82,12 @@ async function fillForm() {
     const pob = form.getTextField('place_of_birth');
     const sex_male = form.getCheckBox('male');
     const sex_female = form.getCheckBox('female');
+
+    const single = form.getCheckBox('single');
+    const widowed = form.getCheckBox('widowed');
+    const married = form.getCheckBox('married');
+    const separated = form.getCheckBox('separated');
+
     const height = form.getTextField('height');
     const weight = form.getTextField('weight');
     const blood_type = form.getTextField('blood_type');
@@ -249,6 +255,90 @@ async function fillForm() {
     const license_no7 = form.getTextField('license_no7');
     const date_of_validity7 = form.getTextField('date_of_validity7');
 
+    const emp_id_no = form.getTextField('emp_id_no');
+    const office_id = form.getTextField('office_id');
+
+    var wes_from = [];
+    var wes_to = [];
+    var wes_position = [];
+    var wes_agency = [];
+    var wes_salary = [];
+    var wes_sg_step = [];
+    var wes_status_appointment = [];
+    var wes_govt = [];
+
+    for (var x = 0; x<15; x++){
+        wes_from[x] = form.getTextField(`wes_from${x+1}`);
+        wes_to[x] = form.getTextField(`wes_to${x+1}`)
+        wes_position[x] = form.getTextField(`wes_position${x+1}`)
+        wes_agency[x] = form.getTextField(`wes_agency${x+1}`)
+        wes_salary[x] = form.getTextField(`wes_salary${x+1}`)
+        wes_sg_step[x] = form.getTextField(`wes_sg_step${x+1}`)
+        wes_status_appointment[x] = form.getTextField(`wes_status_appointment${x+1}`)
+        wes_govt[x] = form.getTextField(`wes_govt${x+1}`)
+    }
+
+    var voluntary_work = [];
+    var voluntary_work_from = [];
+    var voluntary_work_to = [];
+    var voluntary_work_no_hours = [];
+    var voluntary_work_position = [];
+
+    for (var y = 0; y<7; y++){
+        voluntary_work[y] = form.getTextField(`voluntary_work${y+1}`);
+        voluntary_work_from[y] = form.getTextField(`voluntary_work_from${y+1}`)
+        voluntary_work_to[y] = form.getTextField(`voluntary_work_to${y+1}`)
+        voluntary_work_no_hours[y] = form.getTextField(`voluntary_work_no_hours${y+1}`)
+        voluntary_work_position[y] = form.getTextField(`voluntary_work_position${y+1}`)
+    }
+
+    var ld = []
+    var ld_from = []
+    var ld_to = []
+    var ld_no_hours = []
+    var ld_type = []
+    var ld_sponsored_by = []
+
+    for (var z = 0; z<11; z++){
+        ld[z] = form.getTextField(`ld${z+1}`)
+        ld_from[z] = form.getTextField(`ld_from${z+1}`)
+        ld_to[z] = form.getTextField(`ld_to${z+1}`)
+        ld_no_hours[z] = form.getTextField(`ld_no_hours${z+1}`)
+        ld_type[z] = form.getTextField(`ld_type${z+1}`)
+        ld_sponsored_by[z] = form.getTextField(`ld_sponsored_by${z+1}`)
+    }
+
+    var other = []
+    var recognition = []
+    var membership = []
+
+    for (var aa = 0; aa<4; aa ++){
+        other[aa] = form.getTextField(`other${aa+1}`);
+        recognition[aa] = form.getTextField(`recognition${aa+1}`);
+        membership[aa] = form.getTextField(`membership${aa+1}`);
+    }
+
+    var char_ref = []
+    var char_address = []
+    var char_tel = []
+
+    for (var ab = 0; ab<3; ab ++){
+        char_ref[ab] = form.getTextField(`char_ref${ab+1}`);
+        char_address[ab] = form.getTextField(`char_address${ab+1}`);
+        char_tel[ab] = form.getTextField(`char_tel${ab+1}`);
+    }
+
+    
+    var qy = []
+    var qn = []
+    var yes_val = []
+
+    for (var ac = 0; ac<12; ac ++){
+        qy[ac] = form.getCheckBox(`qy${ac+1}`);
+        qn[ac] = form.getCheckBox(`qn${ac+1}`);
+        yes_val[ac] = form.getTextField(`yes_val${ac+1}`);
+    }
+
     last_name.setText('{{user_profile.last_name}}');
     first_name.setText('{{user_profile.first_name}}');
     middle_name.setText('{{user_profile.middle_name}}');
@@ -265,6 +355,21 @@ async function fillForm() {
             sex_female.check();
 
         }
+
+    var civil_status = '{{user_profile.civil_status}}'
+
+    if (civil_status == 'SINGLE'){
+        single.check();
+    }else if(civil_status == 'MARRIED'){
+        married.check();
+    }else if(civil_status == 'WIDOWED'){
+        widowed.check();
+    }else if(civil_status == 'SEPARATED'){
+        separated.check();
+    }
+
+
+
     gsis.setText('{{user_profile.gsis}}');
     pagibig.setText('{{user_profile.pagibig}}');
     philhealth.setText('{{user_profile.philhealth}}');
@@ -378,7 +483,7 @@ async function fillForm() {
     gs_period_of_attendance_from.setText('{{user_profile.masteral[0].gs_period_of_attendance_from if user_profile.masteral[0].gs_period_of_attendance_from is not none or user_profile.masteral[0].gs_period_of_attendance_from != "N/A" else "N/A"}}')
     gs_period_of_attendance_to.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_period_of_attendance_to is not none or user_profile.masteral[0].gs_period_of_attendance_to != "N/A" else "N/A"}}')
     gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_highest_level_units_earned is not none or user_profile.masteral[0].gs_highest_level_units_earned != "N/A" else "N/A"}}')
-    gs_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.masteral[0].gs_highest_grade_year_units is not none or user_profile.masteral[0].gs_highest_grade_year_units != "N/A" else "N/A"}}')
+    gs_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.masteral[0].gs_highest_level_units_earned is not none and user_profile.masteral[0].gs_highest_level_units_earned == "GRADUATED" else "N/A"}}')
     gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0].gs_scholarship_academic_honor is not none else "N/A"}}')
 
     //<!-- ----------------------------------------------------------------------- -->
@@ -434,10 +539,567 @@ async function fillForm() {
     license_no7.setText("{{user_profile.career_service[7].license_no|escapejs if user_profile.career_service|length > 6 else ''}}");
     date_of_validity7.setText("{{user_profile.career_service[7].date_of_validity|escapejs if user_profile.career_service|length > 6 else ''}}");
     
+    // WES 0
+        wes_from[0].setText(`{{user_profile.work_experience[0].date_from if user_profile.work_experience|length > 0 else 'N/A'}}`)
+        wes_to[0].setText(`{{user_profile.work_experience[0].date_to if user_profile.work_experience|length > 0 else 'N/A'}}`)
+        wes_position[0].setText(`{{user_profile.work_experience[0].position_title if user_profile.work_experience|length > 0 else 'N/A'}}`)
+        wes_agency[0].setText(`{{user_profile.work_experience[0].department_agency_office_company if user_profile.work_experience|length > 1 else 'N/A'}}`)
+        wes_salary[0].setText(`{{user_profile.work_experience[0].monthly_salary if user_profile.work_experience|length > 0 else 'N/A'}}`)
+
+        {% if user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step != "N/A" %}
+            wes_sg_step[0].setText(`{{user_profile.work_experience[0].sg}} - {{ user_profile.work_experience[0].step }}`)
+        {% elif user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step == "N/A" %}
+            wes_sg_step[0].setText(`{{ user_profile.work_experience[0].sg }}`)
+        {% elif user_profile.work_experience[0] and user_profile.work_experience[2].sg == "N/A" and user_profile.work_experience[0].step == "N/A" %}
+            wes_sg_step[0].setText(`N/A`)
+        {% else %}
+            wes_sg_step[0].setText(``)
+        {% endif %}
+        wes_status_appointment[0].setText(`{{user_profile.work_experience[0].status_of_appointment if user_profile.work_experience|length > 0 else ''}}`)
+        wes_govt[0].setText(`{{user_profile.work_experience[0].govt_service if user_profile.work_experience|length > 0 else ''}}`)
+
+        // WES 1
+        wes_from[1].setText(`{{user_profile.work_experience[1].date_from if user_profile.work_experience|length > 1 else ''}}`)
+        wes_to[1].setText(`{{user_profile.work_experience[1].date_to if user_profile.work_experience|length > 1 else ''}}`)
+        wes_position[1].setText(`{{user_profile.work_experience[1].position_title if user_profile.work_experience|length > 1 else ''}}`)
+        wes_agency[1].setText(`{{user_profile.work_experience[1].department_agency_office_company if user_profile.work_experience|length > 1 else ''}}`)
+        wes_salary[1].setText(`{{user_profile.work_experience[1].monthly_salary if user_profile.work_experience|length > 1 else ''}}`)
+
+        {% if user_profile.work_experience[1] and user_profile.work_experience[1].sg != "N/A" and user_profile.work_experience[1].step != "N/A" %}
+            wes_sg_step[1].setText(`{{user_profile.work_experience[1].sg}} - {{ user_profile.work_experience[1].step }}`)
+        {% elif user_profile.work_experience[1].sg != "N/A" and user_profile.work_experience[1].step == "N/A" %}
+            wes_sg_step[1].setText(`{{ user_profile.work_experience[1].sg }}`)
+        {% elif user_profile.work_experience[1] and user_profile.work_experience[1].sg == "N/A" and user_profile.work_experience[1].step == "N/A" %}
+            wes_sg_step[1].setText(`N/A`)
+        {% else %}
+            wes_sg_step[1].setText(``)
+        {% endif %}
+        wes_status_appointment[1].setText(`{{user_profile.work_experience[1].status_of_appointment if user_profile.work_experience|length > 1 else '' }}`)
+        wes_govt[1].setText(`{{user_profile.work_experience[1].govt_service if user_profile.work_experience|length > 1 else ''}}`)
+
+        // WES 2
+        wes_from[2].setText(`{{user_profile.work_experience[2].date_from if user_profile.work_experience|length > 2 else ''}}`)
+        wes_to[2].setText(`{{user_profile.work_experience[2].date_to if user_profile.work_experience|length > 2 else ''}}`)
+        wes_position[2].setText(`{{user_profile.work_experience[2].position_title if user_profile.work_experience|length > 2 else ''}}`)
+        wes_agency[2].setText(`{{user_profile.work_experience[2].department_agency_office_company if user_profile.work_experience|length > 2 else ''}}`)
+        wes_salary[2].setText(`{{user_profile.work_experience[2].monthly_salary if user_profile.work_experience|length > 2 else ''}}`)
+
+        {% if user_profile.work_experience[2] and user_profile.work_experience[2].sg != "N/A" and user_profile.work_experience[2].step != "N/A" %}
+            wes_sg_step[2].setText(`{{user_profile.work_experience[2].sg}} - {{ user_profile.work_experience[2].step }}`)
+        {% elif user_profile.work_experience[2] and user_profile.work_experience[2].sg != "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[2].setText(`{{ user_profile.work_experience[2].sg }}`)
+        {% elif user_profile.work_experience[2] and user_profile.work_experience[2].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[2].setText(`N/A`)
+        {% else %}
+            wes_sg_step[2].setText(``)
+        {% endif %}
+        wes_status_appointment[2].setText(`{{user_profile.work_experience[2].status_of_appointment if user_profile.work_experience|length > 2 else ''}}`)
+        wes_govt[2].setText(`{{user_profile.work_experience[2].govt_service if user_profile.work_experience|length > 2 else ''}}`)
+
+        // WES 3
+        wes_from[3].setText(`{{user_profile.work_experience[3].date_from if user_profile.work_experience|length > 3 else ''}}`)
+        wes_to[3].setText(`{{user_profile.work_experience[3].date_to if user_profile.work_experience|length > 3 else ''}}`)
+        wes_position[3].setText(`{{user_profile.work_experience[3].position_title if user_profile.work_experience|length > 3 else ''}}`)
+        wes_agency[3].setText(`{{user_profile.work_experience[3].department_agency_office_company if user_profile.work_experience|length > 3 else ''}}`)
+        wes_salary[3].setText(`{{user_profile.work_experience[3].monthly_salary if user_profile.work_experience|length > 3 else ''}}`)
+
+        {% if user_profile.work_experience[3] and user_profile.work_experience[3].sg != "N/A" and user_profile.work_experience[3].step != "N/A" %}
+            wes_sg_step[3].setText(`{{user_profile.work_experience[3].sg}} - {{ user_profile.work_experience[3].step }}`)
+        {% elif user_profile.work_experience[3] and user_profile.work_experience[3].sg != "N/A" and user_profile.work_experience[3].step == "N/A" %}
+            wes_sg_step[3].setText(`{{ user_profile.work_experience[3].sg }}`)
+        {% elif user_profile.work_experience[3] and user_profile.work_experience[3].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[3].setText(`N/A`)
+        {% else %}
+            wes_sg_step[3].setText(``)
+        {% endif %}
+        wes_status_appointment[3].setText(`{{user_profile.work_experience[3].status_of_appointment if user_profile.work_experience|length > 3 else ''}}`)
+        wes_govt[3].setText(`{{user_profile.work_experience[3].govt_service if user_profile.work_experience|length > 3 else ''}}`)
+
+        // WES 4
+        wes_from[4].setText(`{{user_profile.work_experience[4].date_from if user_profile.work_experience|length > 4 else ''}}`)
+        wes_to[4].setText(`{{user_profile.work_experience[4].date_to if user_profile.work_experience|length > 4 else ''}}`)
+        wes_position[4].setText(`{{user_profile.work_experience[4].position_title if user_profile.work_experience|length > 4 else ''}}`)
+        wes_agency[4].setText(`{{user_profile.work_experience[4].department_agency_office_company if user_profile.work_experience|length > 4 else ''}}`)
+        wes_salary[4].setText(`{{user_profile.work_experience[4].monthly_salary if user_profile.work_experience|length > 4 else ''}}`)
+
+        {% if user_profile.work_experience[4] and user_profile.work_experience[4].sg != "N/A" and user_profile.work_experience[4].step != "N/A" %}
+            wes_sg_step[4].setText(`{{user_profile.work_experience[4].sg}} - {{ user_profile.work_experience[4].step }}`)
+        {% elif user_profile.work_experience[4] and user_profile.work_experience[4].sg != "N/A" and user_profile.work_experience[4].step == "N/A" %}
+            wes_sg_step[4].setText(`{{ user_profile.work_experience[4].sg }}`)
+        {% elif user_profile.work_experience[4] and user_profile.work_experience[4].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[4].setText(`N/A`)
+        {% else %}
+            wes_sg_step[4].setText(``)
+        {% endif %}
+        wes_status_appointment[4].setText(`{{user_profile.work_experience[4].status_of_appointment if user_profile.work_experience|length > 4 else ''}}`)
+        wes_govt[4].setText(`{{user_profile.work_experience[4].govt_service if user_profile.work_experience|length > 4 else ''}}`)
+
+        // WES 5
+        wes_from[5].setText(`{{user_profile.work_experience[5].date_from if user_profile.work_experience|length > 5 else ''}}`)
+        wes_to[5].setText(`{{user_profile.work_experience[5].date_to if user_profile.work_experience|length > 5 else ''}}`)
+        wes_position[5].setText(`{{user_profile.work_experience[5].position_title if user_profile.work_experience|length > 5 else ''}}`)
+        wes_agency[5].setText(`{{user_profile.work_experience[5].department_agency_office_company if user_profile.work_experience|length > 5 else ''}}`)
+        wes_salary[5].setText(`{{user_profile.work_experience[5].monthly_salary if user_profile.work_experience|length > 5 else ''}}`)
+
+        {% if user_profile.work_experience[5] and user_profile.work_experience[5].sg != "N/A" and user_profile.work_experience[5].step != "N/A" %}
+            wes_sg_step[5].setText(`{{user_profile.work_experience[5].sg}} - {{ user_profile.work_experience[5].step }}`)
+        {% elif user_profile.work_experience[5] and user_profile.work_experience[5].sg != "N/A" and user_profile.work_experience[5].step == "N/A" %}
+            wes_sg_step[5].setText(`{{ user_profile.work_experience[5].sg }}`)
+        {% elif user_profile.work_experience[5] and user_profile.work_experience[5].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[5].setText(`N/A`)
+        {% else %}
+            wes_sg_step[5].setText(``)
+        {% endif %}
+        wes_status_appointment[5].setText(`{{user_profile.work_experience[5].status_of_appointment if user_profile.work_experience|length > 5 else ''}}`)
+        wes_govt[5].setText(`{{user_profile.work_experience[5].govt_service if user_profile.work_experience|length > 5 else ''}}`)
+
+        // WES 6
+        wes_from[6].setText(`{{user_profile.work_experience[6].date_from if user_profile.work_experience|length > 6 else ''}}`)
+        wes_to[6].setText(`{{user_profile.work_experience[6].date_to if user_profile.work_experience|length > 6 else ''}}`)
+        wes_position[6].setText(`{{user_profile.work_experience[6].position_title if user_profile.work_experience|length > 6 else ''}}`)
+        wes_agency[6].setText(`{{user_profile.work_experience[6].department_agency_office_company if user_profile.work_experience|length > 6 else ''}}`)
+        wes_salary[6].setText(`{{user_profile.work_experience[6].monthly_salary if user_profile.work_experience|length > 6 else ''}}`)
+
+        {% if user_profile.work_experience[6] and user_profile.work_experience[6].sg != "N/A" and user_profile.work_experience[6].step != "N/A" %}
+            wes_sg_step[6].setText(`{{user_profile.work_experience[6].sg}} - {{ user_profile.work_experience[6].step }}`)
+        {% elif user_profile.work_experience[6] and user_profile.work_experience[6].sg != "N/A" and user_profile.work_experience[6].step == "N/A" %}
+            wes_sg_step[6].setText(`{{ user_profile.work_experience[6].sg }}`)
+        {% elif user_profile.work_experience[6] and user_profile.work_experience[6].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[6].setText(`N/A`)
+        {% else %}
+            wes_sg_step[6].setText(``)
+        {% endif %}
+        wes_status_appointment[6].setText(`{{user_profile.work_experience[6].status_of_appointment if user_profile.work_experience|length > 6 else ''}}`)
+        wes_govt[6].setText(`{{user_profile.work_experience[6].govt_service if user_profile.work_experience|length > 6 else ''}}`)
+
+        // WES 7
+        wes_from[7].setText(`{{user_profile.work_experience[7].date_from if user_profile.work_experience|length > 7 else ''}}`)
+        wes_to[7].setText(`{{user_profile.work_experience[7].date_to if user_profile.work_experience|length > 7 else ''}}`)
+        wes_position[7].setText(`{{user_profile.work_experience[7].position_title if user_profile.work_experience|length > 7 else ''}}`)
+        wes_agency[7].setText(`{{user_profile.work_experience[7].department_agency_office_company if user_profile.work_experience|length > 7 else ''}}`)
+        wes_salary[7].setText(`{{user_profile.work_experience[7].monthly_salary if user_profile.work_experience|length > 7 else ''}}`)
+
+        {% if user_profile.work_experience[7] and user_profile.work_experience[7].sg != "N/A" and user_profile.work_experience[7].step != "N/A" %}
+            wes_sg_step[7].setText(`{{user_profile.work_experience[7].sg}} - {{ user_profile.work_experience[7].step }}`)
+        {% elif user_profile.work_experience[7] and user_profile.work_experience[7].sg != "N/A" and user_profile.work_experience[7].step == "N/A" %}
+            wes_sg_step[7].setText(`{{ user_profile.work_experience[7].sg }}`)
+        {% elif user_profile.work_experience[7] and user_profile.work_experience[7].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[7].setText(`N/A`)
+        {% else %}
+            wes_sg_step[7].setText(``)
+        {% endif %}
+        wes_status_appointment[7].setText(`{{user_profile.work_experience[7].status_of_appointment if user_profile.work_experience|length > 7 else ''}}`)
+        wes_govt[7].setText(`{{user_profile.work_experience[7].govt_service if user_profile.work_experience|length > 7 else ''}}`)
+
+        // WES 8
+        wes_from[8].setText(`{{user_profile.work_experience[8].date_from if user_profile.work_experience|length > 8 else ''}}`)
+        wes_to[8].setText(`{{user_profile.work_experience[8].date_to if user_profile.work_experience|length > 8 else ''}}`)
+        wes_position[8].setText(`{{user_profile.work_experience[8].position_title if user_profile.work_experience|length > 8 else ''}}`)
+        wes_agency[8].setText(`{{user_profile.work_experience[8].department_agency_office_company if user_profile.work_experience|length > 8 else ''}}`)
+        wes_salary[8].setText(`{{user_profile.work_experience[8].monthly_salary if user_profile.work_experience|length > 8 else ''}}`)
+
+        {% if user_profile.work_experience[8] and user_profile.work_experience[8].sg != "N/A" and user_profile.work_experience[8].step != "N/A" %}
+            wes_sg_step[8].setText(`{{user_profile.work_experience[8].sg}} - {{ user_profile.work_experience[8].step }}`)
+        {% elif user_profile.work_experience[8] and user_profile.work_experience[8].sg != "N/A" and user_profile.work_experience[8].step == "N/A" %}
+            wes_sg_step[8].setText(`{{ user_profile.work_experience[8].sg }}`)
+        {% elif user_profile.work_experience[8] and user_profile.work_experience[8].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[8].setText(`N/A`)
+        {% else %}
+            wes_sg_step[8].setText(``)
+        {% endif %}
+        wes_status_appointment[8].setText(`{{user_profile.work_experience[8].status_of_appointment if user_profile.work_experience|length > 8 else ''}}`)
+        wes_govt[8].setText(`{{user_profile.work_experience[8].govt_service if user_profile.work_experience|length > 8 else ''}}`)
+
+        // WES 9
+        wes_from[9].setText(`{{user_profile.work_experience[9].date_from if user_profile.work_experience|length > 9 else ''}}`)
+        wes_to[9].setText(`{{user_profile.work_experience[9].date_to if user_profile.work_experience|length > 9 else ''}}`)
+        wes_position[9].setText(`{{user_profile.work_experience[9].position_title if user_profile.work_experience|length > 9 else ''}}`)
+        wes_agency[9].setText(`{{user_profile.work_experience[9].department_agency_office_company if user_profile.work_experience|length > 9 else ''}}`)
+        wes_salary[9].setText(`{{user_profile.work_experience[9].monthly_salary if user_profile.work_experience|length > 9 else ''}}`)
+
+        {% if user_profile.work_experience[9] and user_profile.work_experience[9].sg != "N/A" and user_profile.work_experience[9].step != "N/A" %}
+            wes_sg_step[9].setText(`{{user_profile.work_experience[9].sg}} - {{ user_profile.work_experience[9].step }}`)
+        {% elif user_profile.work_experience[9] and user_profile.work_experience[9].sg != "N/A" and user_profile.work_experience[9].step == "N/A" %}
+            wes_sg_step[9].setText(`{{ user_profile.work_experience[9].sg }}`)
+        {% elif user_profile.work_experience[9] and user_profile.work_experience[9].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[9].setText(`N/A`)
+        {% else %}
+            wes_sg_step[9].setText(``)
+        {% endif %}
+        wes_status_appointment[9].setText(`{{user_profile.work_experience[9].status_of_appointment if user_profile.work_experience|length > 9 else ''}}`)
+        wes_govt[9].setText(`{{user_profile.work_experience[9].govt_service if user_profile.work_experience|length > 9 else ''}}`)
+
+        // WES 10
+        wes_from[10].setText(`{{user_profile.work_experience[10].date_from if user_profile.work_experience|length > 10 else ''}}`)
+        wes_to[10].setText(`{{user_profile.work_experience[10].date_to if user_profile.work_experience|length > 10 else ''}}`)
+        wes_position[10].setText(`{{user_profile.work_experience[10].position_title if user_profile.work_experience|length > 10 else ''}}`)
+        wes_agency[10].setText(`{{user_profile.work_experience[10].department_agency_office_company if user_profile.work_experience|length > 10 else ''}}`)
+        wes_salary[10].setText(`{{user_profile.work_experience[10].monthly_salary if user_profile.work_experience|length > 10 else ''}}`)
+
+        {% if user_profile.work_experience[10] and user_profile.work_experience[10].sg != "N/A" and user_profile.work_experience[10].step != "N/A" %}
+            wes_sg_step[10].setText(`{{user_profile.work_experience[10].sg}} - {{ user_profile.work_experience[10].step }}`)
+        {% elif user_profile.work_experience[10] and user_profile.work_experience[10].sg != "N/A" and user_profile.work_experience[10].step == "N/A" %}
+            wes_sg_step[10].setText(`{{ user_profile.work_experience[10].sg }}`)
+        {% elif user_profile.work_experience[10] and user_profile.work_experience[10].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[10].setText(`N/A`)
+        {% else %}
+            wes_sg_step[10].setText(``)
+        {% endif %}
+        wes_status_appointment[10].setText(`{{user_profile.work_experience[10].status_of_appointment if user_profile.work_experience|length > 10 else ''}}`)
+        wes_govt[10].setText(`{{user_profile.work_experience[10].govt_service if user_profile.work_experience|length > 10 else ''}}`)
+
+        // WES 11
+        wes_from[11].setText(`{{user_profile.work_experience[11].date_from if user_profile.work_experience|length > 11 else ''}}`)
+        wes_to[11].setText(`{{user_profile.work_experience[11].date_to if user_profile.work_experience|length > 11 else ''}}`)
+        wes_position[11].setText(`{{user_profile.work_experience[11].position_title if user_profile.work_experience|length > 11 else ''}}`)
+        wes_agency[11].setText(`{{user_profile.work_experience[11].department_agency_office_company if user_profile.work_experience|length > 11 else ''}}`)
+        wes_salary[11].setText(`{{user_profile.work_experience[11].monthly_salary if user_profile.work_experience|length > 11 else ''}}`)
+
+        {% if user_profile.work_experience[11] and user_profile.work_experience[11].sg != "N/A" and user_profile.work_experience[11].step != "N/A" %}
+            wes_sg_step[11].setText(`{{user_profile.work_experience[11].sg}} - {{ user_profile.work_experience[11].step }}`)
+        {% elif user_profile.work_experience[11] and user_profile.work_experience[11].sg != "N/A" and user_profile.work_experience[11].step == "N/A" %}
+            wes_sg_step[11].setText(`{{ user_profile.work_experience[11].sg }}`)
+        {% elif user_profile.work_experience[11] and user_profile.work_experience[11].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[11].setText(`N/A`)
+        {% else %}
+            wes_sg_step[11].setText(``)
+        {% endif %}
+        wes_status_appointment[11].setText(`{{user_profile.work_experience[11].status_of_appointment if user_profile.work_experience|length > 11 else ''}}`)
+        wes_govt[11].setText(`{{user_profile.work_experience[11].govt_service if user_profile.work_experience|length > 11 else ''}}`)
+
+        // WES 12
+        wes_from[12].setText(`{{user_profile.work_experience[12].date_from if user_profile.work_experience|length > 12 else ''}}`)
+        wes_to[12].setText(`{{user_profile.work_experience[12].date_to if user_profile.work_experience|length > 12 else ''}}`)
+        wes_position[12].setText(`{{user_profile.work_experience[12].position_title if user_profile.work_experience|length > 12 else ''}}`)
+        wes_agency[12].setText(`{{user_profile.work_experience[12].department_agency_office_company if user_profile.work_experience|length > 12 else ''}}`)
+        wes_salary[12].setText(`{{user_profile.work_experience[12].monthly_salary if user_profile.work_experience|length > 12 else ''}}`)
+
+        {% if user_profile.work_experience[12] and user_profile.work_experience[12].sg != "N/A" and user_profile.work_experience[12].step != "N/A" %}
+            wes_sg_step[12].setText(`{{user_profile.work_experience[12].sg}} - {{ user_profile.work_experience[12].step }}`)
+        {% elif user_profile.work_experience[12] and user_profile.work_experience[12].sg != "N/A" and user_profile.work_experience[12].step == "N/A" %}
+            wes_sg_step[12].setText(`{{ user_profile.work_experience[12].sg }}`)
+        {% elif user_profile.work_experience[12] and user_profile.work_experience[12].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[12].setText(`N/A`)
+        {% else %}
+            wes_sg_step[12].setText(``)
+        {% endif %}
+        wes_status_appointment[12].setText(`{{user_profile.work_experience[12].status_of_appointment if user_profile.work_experience|length > 12 else ''}}`)
+        wes_govt[12].setText(`{{user_profile.work_experience[12].govt_service if user_profile.work_experience|length > 12 else ''}}`)
+
+        // WES 13
+        wes_from[13].setText(`{{user_profile.work_experience[13].date_from if user_profile.work_experience|length > 13 else ''}}`)
+        wes_to[13].setText(`{{user_profile.work_experience[13].date_to if user_profile.work_experience|length > 13 else ''}}`)
+        wes_position[13].setText(`{{user_profile.work_experience[13].position_title if user_profile.work_experience|length > 13 else ''}}`)
+        wes_agency[13].setText(`{{user_profile.work_experience[13].department_agency_office_company if user_profile.work_experience|length > 13 else ''}}`)
+        wes_salary[13].setText(`{{user_profile.work_experience[13].monthly_salary if user_profile.work_experience|length > 13 else ''}}`)
+
+        {% if user_profile.work_experience[13] and user_profile.work_experience[13].sg != "N/A" and user_profile.work_experience[13].step != "N/A" %}
+            wes_sg_step[13].setText(`{{user_profile.work_experience[13].sg}} - {{ user_profile.work_experience[13].step }}`)
+        {% elif user_profile.work_experience[13] and user_profile.work_experience[13].sg != "N/A" and user_profile.work_experience[13].step == "N/A" %}
+            wes_sg_step[13].setText(`{{ user_profile.work_experience[13].sg }}`)
+        {% elif user_profile.work_experience[13] and user_profile.work_experience[13].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[13].setText(`N/A`)
+        {% else %}
+            wes_sg_step[13].setText(``)
+        {% endif %}
+        wes_status_appointment[13].setText(`{{user_profile.work_experience[13].status_of_appointment if user_profile.work_experience|length > 13 else ''}}`)
+        wes_govt[13].setText(`{{user_profile.work_experience[13].govt_service if user_profile.work_experience|length > 13 else ''}}`)
+
+
+        // WES 14
+        wes_from[14].setText(`{{user_profile.work_experience[14].date_from if user_profile.work_experience|length > 14 else ''}}`)
+        wes_to[14].setText(`{{user_profile.work_experience[14].date_to if user_profile.work_experience|length > 14 else ''}}`)
+        wes_position[14].setText(`{{user_profile.work_experience[14].position_title if user_profile.work_experience|length > 14 else ''}}`)
+        wes_agency[14].setText(`{{user_profile.work_experience[14].department_agency_office_company if user_profile.work_experience|length > 14 else ''}}`)
+        wes_salary[14].setText(`{{user_profile.work_experience[14].monthly_salary if user_profile.work_experience|length > 14 else ''}}`)
+
+        {% if user_profile.work_experience[14] and user_profile.work_experience[14].sg != "N/A" and user_profile.work_experience[14].step != "N/A" %}
+            wes_sg_step[14].setText(`{{user_profile.work_experience[14].sg}} - {{ user_profile.work_experience[14].step }}`)
+        {% elif user_profile.work_experience[14] and user_profile.work_experience[14].sg != "N/A" and user_profile.work_experience[14].step == "N/A" %}
+            wes_sg_step[14].setText(`{{ user_profile.work_experience[14].sg }}`)
+        {% elif user_profile.work_experience[14] and user_profile.work_experience[14].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+            wes_sg_step[14].setText(`N/A`)
+        {% else %}
+            wes_sg_step[14].setText(``)
+        {% endif %}
+        wes_status_appointment[14].setText(`{{user_profile.work_experience[14].status_of_appointment if user_profile.work_experience|length > 14 else ''}}`)
+        wes_govt[14].setText(`{{user_profile.work_experience[14].govt_service if user_profile.work_experience|length > 14 else ''}}`)
+
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                             VOLUNTARY WORK                              -->
+        //<!-- ----------------------------------------------------------------------- -->
+
+        //VOL 0
+        voluntary_work[0].setText('{{user_profile.voluntary_work[0].name_of_organization if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }} {{" / " + user_profile.voluntary_work[0].address if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "" }}');
+        voluntary_work_from[0].setText('{{user_profile.voluntary_work[0].date_from if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
+        voluntary_work_to[0].setText('{{user_profile.voluntary_work[0].date_to  if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
+        voluntary_work_no_hours[0].setText('{{user_profile.voluntary_work[0].no_hours  if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
+        voluntary_work_position[0].setText('{{user_profile.voluntary_work[0].position  if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
+
+        //VOL1
+        voluntary_work[1].setText('{{user_profile.voluntary_work[1].name_of_organization if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }} {{" / " + user_profile.voluntary_work[1].address if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+        voluntary_work_from[1].setText('{{user_profile.voluntary_work[1].date_from if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+        voluntary_work_to[1].setText('{{user_profile.voluntary_work[1].date_to  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+        voluntary_work_no_hours[1].setText('{{user_profile.voluntary_work[1].no_hours  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+        voluntary_work_position[1].setText('{{user_profile.voluntary_work[1].position  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+
+        //VOL2
+        voluntary_work[2].setText('{{user_profile.voluntary_work[2].name_of_organization if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }} {{" / " + user_profile.voluntary_work[2].address if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+        voluntary_work_from[2].setText('{{user_profile.voluntary_work[2].date_from if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+        voluntary_work_to[2].setText('{{user_profile.voluntary_work[2].date_to  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+        voluntary_work_no_hours[2].setText('{{user_profile.voluntary_work[2].no_hours  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+        voluntary_work_position[2].setText('{{user_profile.voluntary_work[2].position  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+
+        //VOL3
+        voluntary_work[3].setText('{{user_profile.voluntary_work[3].name_of_organization if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }} {{" / " + user_profile.voluntary_work[3].address if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+        voluntary_work_from[3].setText('{{user_profile.voluntary_work[3].date_from if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+        voluntary_work_to[3].setText('{{user_profile.voluntary_work[3].date_to  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+        voluntary_work_no_hours[3].setText('{{user_profile.voluntary_work[3].no_hours  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+        voluntary_work_position[3].setText('{{user_profile.voluntary_work[3].position  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+
+        //VOL4
+        voluntary_work[4].setText('{{user_profile.voluntary_work[4].name_of_organization if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }} {{ " / " + user_profile.voluntary_work[4].address if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+        voluntary_work_from[4].setText('{{user_profile.voluntary_work[4].date_from if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+        voluntary_work_to[4].setText('{{user_profile.voluntary_work[4].date_to  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+        voluntary_work_no_hours[4].setText('{{user_profile.voluntary_work[4].no_hours  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+        voluntary_work_position[4].setText('{{user_profile.voluntary_work[4].position  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+
+        //VOL5
+        voluntary_work[5].setText('{{user_profile.voluntary_work[5].name_of_organization if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}{{" / " +user_profile.voluntary_work[5].address if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+        voluntary_work_from[5].setText('{{user_profile.voluntary_work[5].date_from if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+        voluntary_work_to[5].setText('{{user_profile.voluntary_work[5].date_to  if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+        voluntary_work_no_hours[5].setText('{{user_profile.voluntary_work[5].no_hours  if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+        voluntary_work_position[5].setText('{{user_profile.voluntary_work[5].position  if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+
+        //VOL6
+        voluntary_work[6].setText('{{user_profile.voluntary_work[6].name_of_organization if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }} {{" / " + user_profile.voluntary_work[6].address if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+        voluntary_work_from[6].setText('{{user_profile.voluntary_work[6].date_from if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+        voluntary_work_to[6].setText('{{user_profile.voluntary_work[6].date_to  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+        voluntary_work_no_hours[6].setText('{{user_profile.voluntary_work[6].no_hours  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+        voluntary_work_position[6].setText('{{user_profile.voluntary_work[6].position  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                                   L&D                                   -->
+        //<!-- ----------------------------------------------------------------------- -->
+
+        ld[0].setText('{{user_profile.learning_development[0].ld_program if user_profile.learning_development[0] and user_profile.learning_development|length > 0 else "N/A" }}');
+        ld_from[0].setText('{{user_profile.learning_development[0].ld_date_from if user_profile.learning_development[0] and user_profile.learning_development|length > 0 else "N/A" }}');
+        ld_to[0].setText('{{user_profile.learning_development[0].ld_date_to if user_profile.learning_development[0] and user_profile.learning_development|length > 0 else "N/A" }}');
+        ld_no_hours[0].setText('{{user_profile.learning_development[0].ld_no_hours if user_profile.learning_development[0] and user_profile.learning_development|length > 0 else "N/A" }}');
+        ld_type[0].setText('{{user_profile.learning_development[0].ld_type if user_profile.learning_development[0] and user_profile.learning_development|length > 0 else "N/A" }}');
+        ld_sponsored_by[0].setText('{{user_profile.learning_development[0].ld_sponsored_by if user_profile.learning_development[0] and user_profile.learning_development|length > 0 else "N/A" }}');
+
+        
+        ld[1].setText('{{user_profile.learning_development[1].ld_program if user_profile.learning_development[1] and user_profile.learning_development|length > 1 else "" }}');
+        ld_from[1].setText('{{user_profile.learning_development[1].ld_date_from if user_profile.learning_development[1] and user_profile.learning_development|length > 1 else "" }}');
+        ld_to[1].setText('{{user_profile.learning_development[1].ld_date_to if user_profile.learning_development[1] and user_profile.learning_development|length > 1 else "" }}');
+        ld_no_hours[1].setText('{{user_profile.learning_development[1].ld_no_hours if user_profile.learning_development[1] and user_profile.learning_development|length > 1 else "" }}');
+        ld_type[1].setText('{{user_profile.learning_development[1].ld_type if user_profile.learning_development[1] and user_profile.learning_development|length > 1 else "" }}');
+        ld_sponsored_by[1].setText('{{user_profile.learning_development[1].ld_sponsored_by if user_profile.learning_development[1] and user_profile.learning_development|length > 1 else "" }}');
+
+        
+        ld[2].setText('{{user_profile.learning_development[2].ld_program if user_profile.learning_development[2] and user_profile.learning_development|length > 2 else "" }}');
+        ld_from[2].setText('{{user_profile.learning_development[2].ld_date_from if user_profile.learning_development[2] and user_profile.learning_development|length > 2 else "" }}');
+        ld_to[2].setText('{{user_profile.learning_development[2].ld_date_to if user_profile.learning_development[2] and user_profile.learning_development|length > 2 else "" }}');
+        ld_no_hours[2].setText('{{user_profile.learning_development[2].ld_no_hours if user_profile.learning_development[2] and user_profile.learning_development|length > 2 else "" }}');
+        ld_type[2].setText('{{user_profile.learning_development[2].ld_type if user_profile.learning_development[2] and user_profile.learning_development|length > 2 else "" }}');
+        ld_sponsored_by[2].setText('{{user_profile.learning_development[2].ld_sponsored_by if user_profile.learning_development[2] and user_profile.learning_development|length > 2 else "" }}');
+
+        
+        ld[3].setText('{{user_profile.learning_development[3].ld_program if user_profile.learning_development[3] and user_profile.learning_development|length > 3 else "" }}');
+        ld_from[3].setText('{{user_profile.learning_development[3].ld_date_from if user_profile.learning_development[3] and user_profile.learning_development|length > 3 else "" }}');
+        ld_to[3].setText('{{user_profile.learning_development[3].ld_date_to if user_profile.learning_development[3] and user_profile.learning_development|length > 3 else "" }}');
+        ld_no_hours[3].setText('{{user_profile.learning_development[3].ld_no_hours if user_profile.learning_development[3] and user_profile.learning_development|length > 3 else "" }}');
+        ld_type[3].setText('{{user_profile.learning_development[3].ld_type if user_profile.learning_development[3] and user_profile.learning_development|length > 3 else "" }}');
+        ld_sponsored_by[3].setText('{{user_profile.learning_development[3].ld_sponsored_by if user_profile.learning_development[3] and user_profile.learning_development|length > 3 else "" }}');
+
+        
+        ld[4].setText('{{user_profile.learning_development[4].ld_program if user_profile.learning_development[4] and user_profile.learning_development|length > 4 else "" }}');
+        ld_from[4].setText('{{user_profile.learning_development[4].ld_date_from if user_profile.learning_development[4] and user_profile.learning_development|length > 4 else "" }}');
+        ld_to[4].setText('{{user_profile.learning_development[4].ld_date_to if user_profile.learning_development[4] and user_profile.learning_development|length > 4 else "" }}');
+        ld_no_hours[4].setText('{{user_profile.learning_development[4].ld_no_hours if user_profile.learning_development[4] and user_profile.learning_development|length > 4 else "" }}');
+        ld_type[4].setText('{{user_profile.learning_development[4].ld_type if user_profile.learning_development[4] and user_profile.learning_development|length > 4 else "" }}');
+        ld_sponsored_by[4].setText('{{user_profile.learning_development[4].ld_sponsored_by if user_profile.learning_development[4] and user_profile.learning_development|length > 4 else "" }}');
+
+        
+        ld[5].setText('{{user_profile.learning_development[5].ld_program if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+        ld_from[5].setText('{{user_profile.learning_development[5].ld_date_from if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+        ld_to[5].setText('{{user_profile.learning_development[5].ld_date_to if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+        ld_no_hours[5].setText('{{user_profile.learning_development[5].ld_no_hours if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+        ld_type[5].setText('{{user_profile.learning_development[5].ld_type if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+        ld_sponsored_by[5].setText('{{user_profile.learning_development[5].ld_sponsored_by if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+
+        
+        ld[6].setText('{{user_profile.learning_development[6].ld_program if user_profile.learning_development[6] and user_profile.learning_development|length > 6 else "" }}');
+        ld_from[6].setText('{{user_profile.learning_development[6].ld_date_from if user_profile.learning_development[6] and user_profile.learning_development|length > 6 else "" }}');
+        ld_to[6].setText('{{user_profile.learning_development[6].ld_date_to if user_profile.learning_development[6] and user_profile.learning_development|length > 6 else "" }}');
+        ld_no_hours[6].setText('{{user_profile.learning_development[6].ld_no_hours if user_profile.learning_development[6] and user_profile.learning_development|length > 6 else "" }}');
+        ld_type[6].setText('{{user_profile.learning_development[6].ld_type if user_profile.learning_development[6] and user_profile.learning_development|length > 6 else "" }}');
+        ld_sponsored_by[6].setText('{{user_profile.learning_development[6].ld_sponsored_by if user_profile.learning_development[6] and user_profile.learning_development|length > 6 else "" }}');
+
+        
+        ld[7].setText('{{user_profile.learning_development[7].ld_program if user_profile.learning_development[7] and user_profile.learning_development|length > 7 else "" }}');
+        ld_from[7].setText('{{user_profile.learning_development[7].ld_date_from if user_profile.learning_development[7] and user_profile.learning_development|length > 7 else "" }}');
+        ld_to[7].setText('{{user_profile.learning_development[7].ld_date_to if user_profile.learning_development[7] and user_profile.learning_development|length > 7 else "" }}');
+        ld_no_hours[7].setText('{{user_profile.learning_development[7].ld_no_hours if user_profile.learning_development[7] and user_profile.learning_development|length > 7 else "" }}');
+        ld_type[7].setText('{{user_profile.learning_development[7].ld_type if user_profile.learning_development[7] and user_profile.learning_development|length > 7 else "" }}');
+        ld_sponsored_by[7].setText('{{user_profile.learning_development[7].ld_sponsored_by if user_profile.learning_development[7] and user_profile.learning_development|length > 7 else "" }}');
+
+        
+        ld[8].setText('{{user_profile.learning_development[8].ld_program if user_profile.learning_development[8] and user_profile.learning_development|length > 8 else "" }}');
+        ld_from[8].setText('{{user_profile.learning_development[8].ld_date_from if user_profile.learning_development[8] and user_profile.learning_development|length > 8 else "" }}');
+        ld_to[8].setText('{{user_profile.learning_development[8].ld_date_to if user_profile.learning_development[8] and user_profile.learning_development|length > 8 else "" }}');
+        ld_no_hours[8].setText('{{user_profile.learning_development[8].ld_no_hours if user_profile.learning_development[8] and user_profile.learning_development|length > 8 else "" }}');
+        ld_type[8].setText('{{user_profile.learning_development[8].ld_type if user_profile.learning_development[8] and user_profile.learning_development|length > 8 else "" }}');
+        ld_sponsored_by[8].setText('{{user_profile.learning_development[8].ld_sponsored_by if user_profile.learning_development[8] and user_profile.learning_development|length > 8 else "" }}');
+        
+
+        ld[9].setText('{{user_profile.learning_development[9].ld_program if user_profile.learning_development[9] and user_profile.learning_development|length > 9 else "" }}');
+        ld_from[9].setText('{{user_profile.learning_development[9].ld_date_from if user_profile.learning_development[9] and user_profile.learning_development|length > 9 else "" }}');
+        ld_to[9].setText('{{user_profile.learning_development[9].ld_date_to if user_profile.learning_development[9] and user_profile.learning_development|length > 9 else "" }}');
+        ld_no_hours[9].setText('{{user_profile.learning_development[9].ld_no_hours if user_profile.learning_development[9] and user_profile.learning_development|length > 9 else "" }}');
+        ld_type[9].setText('{{user_profile.learning_development[9].ld_type if user_profile.learning_development[9] and user_profile.learning_development|length > 9 else "" }}');
+        ld_sponsored_by[9].setText('{{user_profile.learning_development[9].ld_sponsored_by if user_profile.learning_development[9] and user_profile.learning_development|length > 9 else "" }}');
+
+        
+        ld[10].setText('{{user_profile.learning_development[10].ld_program if user_profile.learning_development[10] and user_profile.learning_development|length > 10 else "" }}');
+        ld_from[10].setText('{{user_profile.learning_development[10].ld_date_from if user_profile.learning_development[10] and user_profile.learning_development|length > 10 else "" }}');
+        ld_to[10].setText('{{user_profile.learning_development[10].ld_date_to if user_profile.learning_development[10] and user_profile.learning_development|length > 10 else "" }}');
+        ld_no_hours[10].setText('{{user_profile.learning_development[10].ld_no_hours if user_profile.learning_development[10] and user_profile.learning_development|length > 10 else "" }}');
+        ld_type[10].setText('{{user_profile.learning_development[10].ld_type if user_profile.learning_development[10] and user_profile.learning_development|length > 10 else "" }}');
+        ld_sponsored_by[10].setText('{{user_profile.learning_development[10].ld_sponsored_by if user_profile.learning_development[10] and user_profile.learning_development|length > 10 else "" }}');
+
+
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                               OTHER INFO                                -->
+        //<!-- ----------------------------------------------------------------------- -->
+
+        other[0].setText('{{other[0].description}}');
+        recognition[0].setText('{{recognition[0].description}}');
+        membership[0].setText('{{membership[0].description}}');
+
+
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                                CHAR REF                                 -->
+        //<!-- ----------------------------------------------------------------------- -->
+
+        char_ref[0].setText('{{user_profile.character_reference[0].fullname if user_profile.character_reference[0] else "N/A"}}')
+        char_address[0].setText('{{user_profile.character_reference[0].address if user_profile.character_reference[0] else "N/A" }}')
+        char_tel[0].setText('{{user_profile.character_reference[0].contact_no if user_profile.character_reference[0] else "N/A" }}')
+
+        char_ref[1].setText('{{user_profile.character_reference[1].fullname if user_profile.character_reference[1] else ""}}')
+        char_address[1].setText('{{user_profile.character_reference[1].address if user_profile.character_reference[1] else "" }}')
+        char_tel[1].setText('{{user_profile.character_reference[1].contact_no if user_profile.character_reference[1] else "" }}')
+
+        char_ref[2].setText('{{user_profile.character_reference[2].fullname if user_profile.character_reference[2] else ""}}')
+        char_address[2].setText('{{user_profile.character_reference[2].address if user_profile.character_reference[2] else "" }}')
+        char_tel[2].setText('{{user_profile.character_reference[2].contact_no if user_profile.character_reference[2] else "" }}')
+
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                                QUESTIONS                                -->
+        //<!-- ----------------------------------------------------------------------- -->
+
+        {% if user_profile.questions[0] and user_profile.questions[0].answer == "NO" %}
+            qn[0].check();
+        {% else %}
+            qy[0].check();
+            yes_val[0].setText('{{user_profile.questions[0].answer if user_profile.questions[0] else ""  }}')
+        {% endif %}
+
+        {% if user_profile.questions[1] and user_profile.questions[1].answer == "NO" %}
+            qn[1].check();
+        {% else %}
+            qy[1].check();
+            yes_val[1].setText('{{user_profile.questions[1].answer if user_profile.questions[1] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[2] and user_profile.questions[2].answer == "NO" %}
+            qn[2].check();
+        {% else %}
+            qy[2].check();
+            yes_val[2].setText('{{user_profile.questions[2].answer if user_profile.questions[2] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[3] and user_profile.questions[3].answer == "NO" %}
+            qn[3].check();
+        {% else %}
+            qy[3].check();
+            yes_val[3].setText('{{user_profile.questions[3].answer if user_profile.questions[3] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[4] and user_profile.questions[4].answer == "NO" %}
+            qn[4].check();
+        {% else %}
+            qy[4].check();
+            yes_val[4].setText('{{user_profile.questions[4].answer if user_profile.questions[4] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[5] and user_profile.questions[5].answer == "NO" %}
+            qn[5].check();
+        {% else %}
+            qy[5].check();
+            yes_val[5].setText('{{user_profile.questions[5].answer if user_profile.questions[5] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[6] and user_profile.questions[6].answer == "NO" %}
+            qn[6].check();
+        {% else %}
+            qy[6].check();
+            yes_val[6].setText('{{user_profile.questions[6].answer if user_profile.questions[6] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[7] and user_profile.questions[7].answer == "NO" %}
+            qn[7].check();
+        {% else %}
+            qy[7].check();
+            yes_val[7].setText('{{user_profile.questions[7].answer if user_profile.questions[7] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[8] and user_profile.questions[8].answer == "NO" %}
+            qn[8].check();
+        {% else %}
+            qy[8].check();
+            yes_val[8].setText('{{user_profile.questions[8].answer if user_profile.questions[8] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[9] and user_profile.questions[9].answer == "NO" %}
+            qn[9].check();
+        {% else %}
+            qy[9].check();
+            yes_val[9].setText('{{user_profile.questions[9].answer if user_profile.questions[9] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[10] and user_profile.questions[10].answer == "NO" %}
+            qn[10].check();
+        {% else %}
+            qy[10].check();
+            yes_val[10].setText('{{user_profile.questions[10].answer if user_profile.questions[10] else ""  }}')
+
+        {% endif %}
+
+        {% if user_profile.questions[11] and user_profile.questions[11].answer == "YES" %}
+            qn[11].check();
+        {% else %}
+            qy[11].check();
+            yes_val[11].setText('{{user_profile.questions[11].answer if user_profile.questions[11] else ""  }}')
+
+        {% endif %}
+
+        emp_id_no.setText('{{user_profile.employee_id}}')
+        office_id.setText('AGENCY ID')
 
   const pdfBytes = await pdfDoc.save()
 
-//   form.flatten();
+  form.flatten();
 
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   document.getElementById('pdf').src = pdfDataUri;

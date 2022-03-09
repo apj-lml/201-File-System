@@ -64,6 +64,17 @@ class User(db.Model, UserMixin):
 	atm = db.Column(db.String(150))
 	umid = db.Column(db.String(150))
 	philsys = db.Column(db.String(150))
+
+	solo_parent = db.Column(db.String(150))
+	pwd = db.Column(db.String(150))
+
+	driver_license = db.Column(db.String(150))
+	driver_license_validity = db.Column(db.String(150))
+	security_guard = db.Column(db.String(150))
+	security_guard_validity = db.Column(db.String(150))
+	passport_no = db.Column(db.String(150))
+	passport_validity = db.Column(db.String(150))
+
 	citizenship = db.Column(db.String(150))
 	dual_citizenship = db.Column(db.String(150))
 	indicate_country = db.Column(db.String(150))
@@ -325,6 +336,17 @@ class Character_Reference(db.Model, SerializerMixin):
 	address = db.Column(db.String(150))
 	contact_no = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+	@hybrid_property
+	def fullname(self):
+		if self.middle_name is None or self.middle_name == "N/A":
+			self.middle_name = ""
+		if self.name_ext is None or self.name_ext == "N/A":
+			self.name_ext = ""
+		
+		fullname = self.last_name + ", " + self.first_name + " "+ self.name_ext + " " + self.middle_name
+
+		return fullname
 
 class Emergency_Contact(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)

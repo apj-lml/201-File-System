@@ -25,7 +25,7 @@ def add_answers(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         print(formdata)
-        for xy in range(1, 13 + 1):
+        for xy in range(1, 12 + 1):
             finaldata = Questions(question = formdata['q'+str(xy)], answer = formdata['answer['+str(xy)+']'], user_id = emp_id)
             db.session.add(finaldata)
             db.session.commit()
@@ -40,7 +40,7 @@ def update_answers(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         print(formdata)
-        for xy in range(1, 13 + 1):
+        for xy in range(1, 12 + 1):
             select_q = Questions.query.get(formdata['id'+str(xy)])
             select_q.answer = formdata['answer['+str(xy)+']']
             db.session.commit()

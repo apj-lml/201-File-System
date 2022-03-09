@@ -437,6 +437,44 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="{{user_profile.solo_parent if user_profile.solo_parent is not none else 'N/A'}}" form="update_form">
+                      <label for="solo_parent">Solo Parent ID No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pwd" name ="pwd" placeholder="ATM Card No." value="{{user_profile.pwd if user_profile.pwd is not none else 'N/A'}}" form="update_form">
+                      <label for="pwd">PWD ID No.</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else 'N/A'}}" form="update_form" >
+                      <label for="driver_license">Driver's License No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="driver_license_validity" name ="driver_license_validity" placeholder="Driver's License Date of Validity" value="{{user_profile.driver_license_validity}}" form="update_form" >
+                      <label for="driver_license_validity">Driver's License Date of Validity</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="security_guard" name ="security_guard" placeholder="Security Guard License No." value="{{user_profile.security_guard if user_profile.security_guard is not none else 'N/A' }}" form="update_form">
+                      <label for="security_guard">Security Guard License</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="security_guard_validity" name ="security_guard_validity" placeholder="Security Guard License No." value="{{user_profile.security_guard_validity}}" form="update_form">
+                      <label for="security_guard_validity" style="font-size: 15px;">Security Guard License Date of Validity</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating col-sm-4 mb-3 p-1">
+                      <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Driver's License No." value="{{user_profile.passport_no if user_profile.passport_no is not none else 'N/A' }}" form="update_form" >
+                      <label for="passport_no">Passport No.</label>
+                    </div>
+                    <div class="form-floating col-sm-4 mb-3 p-1">
+                      <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" form="update_form" >
+                      <label for="passport_validity">Passport Date of Validity</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
                         <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" value="{{user_profile.citizenship}}" form="update_form">
                           <option value="Filipino" selected>Filipino</option>
@@ -1404,6 +1442,10 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload ATM Card</label>
                         <input class="form-control" type="file" id="atm_card" name="atm_card" form="update_form">
+                      </div>
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="atm_card" class="form-label">Upload Passport ID</label>
+                        <input class="form-control" type="file" id="passport_id" name="passport_id" form="update_form">
                       </div>
                     </div>
                   </div>

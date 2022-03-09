@@ -5,7 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask_principal import Principal, Permission, RoleNeed
 
 from . import db
-from .models import College, Family_Background, Masteral, User, Vocational_Course
+from .models import College, Family_Background, Masteral, Other_Information, User, Vocational_Course
 
 views = Blueprint('views', __name__)
 
@@ -110,6 +110,9 @@ def print_preview(emp_id):
 	vocation = db.session.query(Vocational_Course).filter_by(user_id = emp_id)
 	college = db.session.query(College).filter_by(user_id = emp_id)
 	masteral = db.session.query(Masteral).filter_by(user_id = emp_id)
+	other = db.session.query(Other_Information).filter_by(user_id = emp_id, type="HOBBIES")
+	recognition = db.session.query(Other_Information).filter_by(user_id = emp_id, type="RECOGNITION")
+	membership = db.session.query(Other_Information).filter_by(user_id = emp_id, type="MEMBERSHIP")
 
 	spouse_count = spouse.count()
 
@@ -123,7 +126,10 @@ def print_preview(emp_id):
 		vocation = vocation,
 		college = college,
 		masteral = masteral,
-		spouse_count = spouse_count
+		spouse_count = spouse_count,
+		other = other,
+		recognition = recognition,
+		membership = membership,
 		)
 
 @views.route('/emergency-contact/<emp_id>', methods=['GET', 'POST'])

@@ -60,7 +60,6 @@
                     <input type="hidden" name="id10" id="id10" value="{{user_profile.questions[9].id if user_profile.questions[9].question == 'q10'}}" form="questions_form">
                     <input type="hidden" name="id11" id="id11" value="{{user_profile.questions[10].id if user_profile.questions[10].question == 'q11'}}" form="questions_form">
                     <input type="hidden" name="id12" id="id12" value="{{user_profile.questions[11].id if user_profile.questions[11].question == 'q12'}}" form="questions_form">
-                    <input type="hidden" name="id13" id="id13" value="{{user_profile.questions[12].id if user_profile.questions[12].question == 'q13'}}" form="questions_form">
 
                     {% else %}
                     <input type="hidden" name="add_update" id="add_update" value="add" form="questions_form">
@@ -247,7 +246,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow-sm mb-3">
+                    <!-- <div class="card shadow-sm mb-3">
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
@@ -278,24 +277,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card shadow-sm mb-3">
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q7" id="q7" value="q7" form="questions_form">
+                                    <input type="hidden" name="q6" id="q6" value="q6" form="questions_form">
                                     <p class="">Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</p>
                                 </div>
                                 <div class="form-floating col-sm-6">
                                     <div class="d-flex flex-row">
                                         <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="answer[7]" id="a7c1" value="{{user_profile.questions[6].answer if user_profile.questions[6].question == 'q7'}}" {{'checked' if user_profile.questions[6].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a7c3', false)">
+                                            <input class="form-check-input" type="radio" name="answer[6]" id="a7c1" value="{{user_profile.questions[5].answer if user_profile.questions[5].question == 'q6'}}" {{'checked' if user_profile.questions[5].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a7c3', false)">
                                             <label class="form-check-label" for="a7c1">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="answer[7]" id="a7c2" value="NO" {{'checked' if user_profile.questions[6].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a7c3', true)">
+                                            <input class="form-check-input" type="radio" name="answer[6]" id="a7c2" value="NO" {{'checked' if user_profile.questions[5].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a7c3', true)">
                                             <label class="form-check-label" for="a7c2">
                                                 No
                                             </label>
@@ -303,7 +302,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="{{user_profile.questions[6].answer if user_profile.questions[6].question == 'q7' and user_profile.questions[6].answer != 'NO'}}" {{'disabled' if user_profile.questions[6].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a7c1').value=this.value" required>
+                                            <input type="text" class="form-control" id="a7c3" placeholder="If YES, give details:" value="{{user_profile.questions[5].answer if user_profile.questions[5].question == 'q6' and user_profile.questions[5].answer != 'NO'}}" {{'disabled' if user_profile.questions[5].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a7c1').value=this.value" required>
                                             <label for="a7c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -323,19 +322,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q8" id="q8" value="q8" form="questions_form">
+                                    <input type="hidden" name="q7" id="q7" value="q7" form="questions_form">
                                     <p class=""> a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a8c1" value="{{user_profile.questions[7].answer if user_profile.questions[7].question == 'q8'}}" {{'checked' if user_profile.questions[7].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a8c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[7]" id="a8c1" value="{{user_profile.questions[6].answer if user_profile.questions[6].question == 'q7'}}" {{'checked' if user_profile.questions[6].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a8c3', false)">
                                                     <label class="form-check-label" for="a8c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a8c2" value="NO" {{'checked' if user_profile.questions[7].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a8c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[7]" id="a8c2" value="NO" {{'checked' if user_profile.questions[6].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a8c3', true)">
                                                     <label class="form-check-label" for="a8c2">
                                                         No
                                                     </label>
@@ -343,7 +342,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="{{user_profile.questions[7].answer if user_profile.questions[7].question == 'q8' and user_profile.questions[7].answer != 'NO'}}" {{'disabled' if user_profile.questions[7].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a8c1').value=this.value" required>
+                                                    <input type="text" class="form-control" id="a8c3" placeholder="If YES, give details:" value="{{user_profile.questions[6].answer if user_profile.questions[6].question == 'q7' and user_profile.questions[6].answer != 'NO'}}" {{'disabled' if user_profile.questions[6].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a8c1').value=this.value" required>
                                                     <label for="a8c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -355,19 +354,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                            <input type="hidden" name="q9" id="q9" value="q9" form="questions_form">
+                                            <input type="hidden" name="q8" id="q8" value="q8" form="questions_form">
                                             <p class=""> b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[9]" id="a9c1" value="{{user_profile.questions[8].answer if user_profile.questions[8].question == 'q9'}}" {{'checked' if user_profile.questions[8].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a9c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a9c1" value="{{user_profile.questions[7].answer if user_profile.questions[7].question == 'q8'}}" {{'checked' if user_profile.questions[7].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a9c3', false)">
                                                     <label class="form-check-label" for="a9c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[9]" id="a9c2" value="NO" {{'checked' if user_profile.questions[8].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a9c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a9c2" value="NO" {{'checked' if user_profile.questions[7].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a9c3', true)">
                                                     <label class="form-check-label" for="a9c2">
                                                         No
                                                     </label>
@@ -375,7 +374,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="{{user_profile.questions[8].answer if user_profile.questions[8].question == 'q9' and user_profile.questions[8].answer != 'NO'}}" {{'disabled' if user_profile.questions[8].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a9c1').value=this.value" required>
+                                                    <input type="text" class="form-control" id="a9c3" placeholder="If YES, give details:" value="{{user_profile.questions[7].answer if user_profile.questions[7].question == 'q8' and user_profile.questions[7].answer != 'NO'}}" {{'disabled' if user_profile.questions[7].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a9c1').value=this.value" required>
                                                     <label for="a9c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -389,19 +388,19 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q10" id="q10" value="q10" form="questions_form">
+                                    <input type="hidden" name="q9" id="q9" value="q9" form="questions_form">
                                     <p class=""> Have you acquired the status of an immigrant or permanent resident of another country? </p>
                                 </div>
                                 <div class="form-floating col-sm-6">
                                     <div class="d-flex flex-row">
                                         <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="answer[10]" id="a10c1" value="{{user_profile.questions[9].answer if user_profile.questions[9].question == 'q10'}}" {{'checked' if user_profile.questions[9].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a10c3', false)">
+                                            <input class="form-check-input" type="radio" name="answer[9]" id="a10c1" value="{{user_profile.questions[8].answer if user_profile.questions[8].question == 'q9'}}" {{'checked' if user_profile.questions[8].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a10c3', false)">
                                             <label class="form-check-label" for="a10c1">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="answer[10]" id="a10c2" value="NO" {{'checked' if user_profile.questions[9].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a10c3', true)">
+                                            <input class="form-check-input" type="radio" name="answer[9]" id="a10c2" value="NO" {{'checked' if user_profile.questions[8].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a10c3', true)">
                                             <label class="form-check-label" for="a10c2">
                                                 No
                                             </label>
@@ -409,7 +408,7 @@
                                     </div> 
                                     <div class="d-flex flex-row">
                                         <div class="form-floating flex-fill mb-3 p-1">
-                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="{{user_profile.questions[9].answer if user_profile.questions[9].question == 'q10' and user_profile.questions[9].answer != 'NO'}}" {{'disabled' if user_profile.questions[9].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a10c1').value=this.value" required>
+                                            <input type="text" class="form-control" id="a10c3" placeholder="If YES, give details:" value="{{user_profile.questions[8].answer if user_profile.questions[8].question == 'q9' and user_profile.questions[8].answer != 'NO'}}" {{'disabled' if user_profile.questions[8].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a10c1').value=this.value" required>
                                             <label for="a10c3">If YES, give details:</label>
                                           </div>
                                     </div> 
@@ -421,7 +420,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating flex-fill p-1">
-                                    <input type="hidden" name="q11" id="q11" value="q11" form="questions_form">
+                                    <input type="hidden" name="q10" id="q10" value="q10" form="questions_form">
                                     <p>	Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons
                                         (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following
                                         items:</p>
@@ -436,13 +435,13 @@
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a11c1" value="{{user_profile.questions[10].answer if user_profile.questions[10].question == 'q11'}}" {{'checked' if user_profile.questions[10].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a11c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[10]" id="a11c1" value="{{user_profile.questions[9].answer if user_profile.questions[9].question == 'q10'}}" {{'checked' if user_profile.questions[9].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a11c3', false)">
                                                     <label class="form-check-label" for="a11c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a11c2" value="NO" {{'checked' if user_profile.questions[10].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a11c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[10]" id="a11c2" value="NO" {{'checked' if user_profile.questions[9].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a11c3', true)">
                                                     <label class="form-check-label" for="a11c2">
                                                         No
                                                     </label>
@@ -450,7 +449,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="{{user_profile.questions[10].answer if user_profile.questions[10].question == 'q11' and user_profile.questions[10].answer != 'NO'}}" {{'disabled' if user_profile.questions[10].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a11c1').value=this.value" required>
+                                                    <input type="text" class="form-control" id="a11c3" placeholder="If YES, give details:" value="{{user_profile.questions[9].answer if user_profile.questions[9].question == 'q10' and user_profile.questions[9].answer != 'NO'}}" {{'disabled' if user_profile.questions[9].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a11c1').value=this.value" required>
                                                     <label for="a11c3">If YES, give details:</label>
                                                   </div>
                                             </div> 
@@ -462,19 +461,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                             <input type="hidden" name="q12" id="q12" value="q12" form="questions_form">
+                                             <input type="hidden" name="q11" id="q11" value="q11" form="questions_form">
                                             <p class=""> b. Are you differently abled? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a12c1" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12'}}" {{'checked' if user_profile.questions[11].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a12c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a12c1" value="{{user_profile.questions[10].answer if user_profile.questions[10].question == 'q11'}}" {{'checked' if user_profile.questions[10].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a12c3', false)">
                                                     <label class="form-check-label" for="a12c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a12c2" value="NO" {{'checked' if user_profile.questions[11].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a12c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a12c2" value="NO" {{'checked' if user_profile.questions[11].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a12c3', true)">
                                                     <label class="form-check-label" for="a12c2">
                                                         No
                                                     </label>
@@ -482,7 +481,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12' and user_profile.questions[11].answer != 'NO'}}" {{'disabled' if user_profile.questions[11].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a12c1').value=this.value" required>
+                                                    <input type="text" class="form-control" id="a12c3" placeholder="If YES, give details:" value="{{user_profile.questions[10].answer if user_profile.questions[10].question == 'q11' and user_profile.questions[10].answer != 'NO'}}" {{'disabled' if user_profile.questions[10].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a12c1').value=this.value" required>
                                                     <label for="a12c3">If YES, please specify ID No.:</label>
                                                   </div>
                                             </div> 
@@ -494,19 +493,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q13" id="q13" value="q13" form="questions_form">
+                                    <input type="hidden" name="q12" id="q12" value="q12" form="questions_form">
                                     <p class=""> c. Are you a solo parent? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[13]" id="a13c1" value="{{user_profile.questions[12].answer if user_profile.questions[12].question == 'q13'}}" {{'checked' if user_profile.questions[12].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a13c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a13c1" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12'}}" {{'checked' if user_profile.questions[11].answer != 'NO'}} form="questions_form" onchange="show_if_yes('a13c3', false)">
                                                     <label class="form-check-label" for="a13c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[13]" id="a13c2" value="NO" {{'checked' if user_profile.questions[12].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a13c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a13c2" value="NO" {{'checked' if user_profile.questions[11].answer == 'NO'}} form="questions_form" onchange="show_if_yes('a13c3', true)">
                                                     <label class="form-check-label" for="a13c2">
                                                         No
                                                     </label>
@@ -514,7 +513,7 @@
                                             </div> 
                                             <div class="d-flex flex-row">
                                                 <div class="form-floating flex-fill mb-3 p-1">
-                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="{{user_profile.questions[12].answer if user_profile.questions[12].question == 'q13' and user_profile.questions[12].answer != 'NO'}}" {{'disabled' if user_profile.questions[12].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a13c1').value=this.value" required>
+                                                    <input type="text" class="form-control" id="a13c3" placeholder="If YES, give details:" value="{{user_profile.questions[11].answer if user_profile.questions[11].question == 'q12' and user_profile.questions[11].answer != 'NO'}}" {{'disabled' if user_profile.questions[11].answer == 'NO'}} form="questions_form" oninput="document.getElementById('a13c1').value=this.value" required>
                                                     <label for="a13c3">If YES, please specify ID No.:</label>
                                                   </div>
                                             </div> 
@@ -705,7 +704,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow-sm mb-3">
+                    <!-- <div class="card shadow-sm mb-3">
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
@@ -736,24 +735,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card shadow-sm mb-3">
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q7" id="q7" value="q7" form="questions_form">
+                                    <input type="hidden" name="q6" id="q6" value="q6" form="questions_form">
                                     <p class="">Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</p>
                                 </div>
                                 <div class="form-floating col-sm-6">
                                     <div class="d-flex flex-row">
                                         <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="answer[7]" id="a7c1" value="" form="questions_form" onchange="show_if_yes('a7c3', false)">
+                                            <input class="form-check-input" type="radio" name="answer[6]" id="a7c1" value="" form="questions_form" onchange="show_if_yes('a7c3', false)">
                                             <label class="form-check-label" for="a7c1">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="answer[7]" id="a7c2" value="NO" checked form="questions_form" onchange="show_if_yes('a7c3', true)">
+                                            <input class="form-check-input" type="radio" name="answer[6]" id="a7c2" value="NO" checked form="questions_form" onchange="show_if_yes('a7c3', true)">
                                             <label class="form-check-label" for="a7c2">
                                                 No
                                             </label>
@@ -781,19 +780,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q8" id="q8" value="q8" form="questions_form">
+                                    <input type="hidden" name="q7" id="q7" value="q7" form="questions_form">
                                     <p class=""> a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a8c1" value="" form="questions_form" onchange="show_if_yes('a8c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[7]" id="a8c1" value="" form="questions_form" onchange="show_if_yes('a8c3', false)">
                                                     <label class="form-check-label" for="a8c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a8c2" value="NO" checked form="questions_form" onchange="show_if_yes('a8c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[7]" id="a8c2" value="NO" checked form="questions_form" onchange="show_if_yes('a8c3', true)">
                                                     <label class="form-check-label" for="a8c2">
                                                         No
                                                     </label>
@@ -813,19 +812,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                            <input type="hidden" name="q9" id="q9" value="q9" form="questions_form">
+                                            <input type="hidden" name="q8" id="q8" value="q8" form="questions_form">
                                             <p class=""> b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[9]" id="a9c1" value="" form="questions_form" onchange="show_if_yes('a9c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a9c1" value="" form="questions_form" onchange="show_if_yes('a9c3', false)">
                                                     <label class="form-check-label" for="a9c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[9]" id="a9c2" value="NO" checked form="questions_form" onchange="show_if_yes('a9c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[8]" id="a9c2" value="NO" checked form="questions_form" onchange="show_if_yes('a9c3', true)">
                                                     <label class="form-check-label" for="a9c2">
                                                         No
                                                     </label>
@@ -847,19 +846,19 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q10" id="q10" value="q10" form="questions_form">
+                                    <input type="hidden" name="q9" id="q9" value="q9" form="questions_form">
                                     <p class=""> Have you acquired the status of an immigrant or permanent resident of another country? </p>
                                 </div>
                                 <div class="form-floating col-sm-6">
                                     <div class="d-flex flex-row">
                                         <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="answer[10]" id="a10c1" value="" form="questions_form" onchange="show_if_yes('a10c3', false)">
+                                            <input class="form-check-input" type="radio" name="answer[9]" id="a10c1" value="" form="questions_form" onchange="show_if_yes('a10c3', false)">
                                             <label class="form-check-label" for="a10c1">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="answer[10]" id="a10c2" value="NO" checked form="questions_form" onchange="show_if_yes('a10c3', true)">
+                                            <input class="form-check-input" type="radio" name="answer[9]" id="a10c2" value="NO" checked form="questions_form" onchange="show_if_yes('a10c3', true)">
                                             <label class="form-check-label" for="a10c2">
                                                 No
                                             </label>
@@ -879,7 +878,7 @@
                         <div class="card-body">
                             <div class="d-md-flex flex-row">
                                 <div class="form-floating flex-fill p-1">
-                                    <input type="hidden" name="q11" id="q11" value="q11" form="questions_form">
+                                    <input type="hidden" name="q10" id="q10" value="q10" form="questions_form">
                                     <p>	Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons
                                         (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following
                                         items:</p>
@@ -894,13 +893,13 @@
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a11c1" value="" form="questions_form" onchange="show_if_yes('a11c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[10]" id="a11c1" value="" form="questions_form" onchange="show_if_yes('a11c3', false)">
                                                     <label class="form-check-label" for="a11c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a11c2" value="NO" checked form="questions_form" onchange="show_if_yes('a11c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[10]" id="a11c2" value="NO" checked form="questions_form" onchange="show_if_yes('a11c3', true)">
                                                     <label class="form-check-label" for="a11c2">
                                                         No
                                                     </label>
@@ -920,19 +919,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                             <input type="hidden" name="q12" id="q12" value="q12" form="questions_form">
+                                             <input type="hidden" name="q11" id="q11" value="q11" form="questions_form">
                                             <p class=""> b. Are you differently abled? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a12c1" value="" checked form="questions_form" onchange="show_if_yes('a12c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a12c1" value="" checked form="questions_form" onchange="show_if_yes('a12c3', false)">
                                                     <label class="form-check-label" for="a12c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a12c2" value="NO" checked form="questions_form" onchange="show_if_yes('a12c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[11]" id="a12c2" value="NO" checked form="questions_form" onchange="show_if_yes('a12c3', true)">
                                                     <label class="form-check-label" for="a12c2">
                                                         No
                                                     </label>
@@ -952,19 +951,19 @@
                                 <div class="card-body">
                                     <div class="d-md-flex flex-row">
                                         <div class="form-floating col-sm-6">
-                                    <input type="hidden" name="q13" id="q13" value="q13" form="questions_form">
+                                    <input type="hidden" name="q12" id="q12" value="q12" form="questions_form">
                                     <p class=""> c. Are you a solo parent? </p>
                                         </div>
                                         <div class="form-floating col-sm-6">
                                             <div class="d-flex flex-row">
                                                 <div class="form-check me-3">
-                                                    <input class="form-check-input" type="radio" name="answer[13]" id="a13c1" value="" checked form="questions_form" onchange="show_if_yes('a13c3', false)">
+                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a13c1" value="" checked form="questions_form" onchange="show_if_yes('a13c3', false)">
                                                     <label class="form-check-label" for="a13c1">
                                                         Yes
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="answer[13]" id="a13c2" value="NO" checked form="questions_form" onchange="show_if_yes('a13c3', true)">
+                                                    <input class="form-check-input" type="radio" name="answer[12]" id="a13c2" value="NO" checked form="questions_form" onchange="show_if_yes('a13c3', true)">
                                                     <label class="form-check-label" for="a13c2">
                                                         No
                                                     </label>
