@@ -104,7 +104,7 @@ def get_appointment(emp_id):
                 rows_dic_temp[col] = getattr(row, col)
             rows_dic.append(rows_dic_temp)
             rows_dic_temp= {}
-            print(rows_dic)
+            # print(rows_dic)
         return jsonify(rows_dic)
 
     # return render_template('appointment.html', emp_id = emp_id)
@@ -126,10 +126,8 @@ def edit_appointment(id):
                 rows_dic_temp[col] = getattr(row, col)
             rows_dic.append(rows_dic_temp)
             rows_dic_temp= {}
-            print(rows_dic)
+            # print(rows_dic)
         return jsonify(rows_dic)
-
-
 
  # ---------------------------------------------------------------------------- #
  #                                 DELETE apt                                   #
