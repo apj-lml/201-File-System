@@ -95,11 +95,17 @@ def add_learning_and_development(emp_id):
 
         formdata['user_id'] = emp_id
 
+        if 'nia_pimo' in formdata:
+            formdata['ld_sponsored_by'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+            formdata.pop('nia_pimo')
+
         for k,v in formdata.items():
             if type(v) is str:
                 formdata.update({k: v.upper()})
             else:
                 formdata.update({k: v})
+
+        
 # ---------------------------------------------------------------------------- #
 #                            this is for file upload                           #
 # ---------------------------------------------------------------------------- #
@@ -203,6 +209,10 @@ def update_ld(id, emp_id):
                     # db.session.commit()
                     formdata['ld_attachment'] = '\\static\\files\\' + final_name
                     formdata['ld_attachment_file_name'] = final_name
+
+        if 'nia_pimo' in formdata:
+            formdata['ld_sponsored_by'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+            formdata.pop('nia_pimo')
 
         for key, value in formdata.items():
             # print(key)

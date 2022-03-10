@@ -220,10 +220,9 @@
 
 									<input type="hidden" value="{{mother.id}}" name="id[3]" form="family_bg_update_form">
 
-									<div class="form-floating flex-fill mb-3 p-1">
-										
-										<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="" form="family_bg_update_form" value="{{ mother.fb_maiden_name if mother.fb_maiden_name is not none else 'N/A'}}">
-										<label for="fb_maiden_name">Mother's Maiden Name</label>
+									<div class="form-floating flex-fill mb-3 p-1 d-none">
+										<input type="hidden" class="form-control" name ="fb_maiden_name[3]" placeholder="" form="family_bg_update_form" value="{{ mother.fb_maiden_name if mother.fb_maiden_name is not none else 'N/A'}}">
+										<!-- <label for="fb_maiden_name">Mother's Maiden Name</label> -->
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="text" class="form-control" name ="fb_last_name[3]" placeholder="Last Name" form="family_bg_update_form" value="{{ mother.fb_last_name }}" required>
@@ -242,8 +241,8 @@
 								{% else %}
 								<input type="hidden" class="form-control" name ="fb_relationship[3]" placeholder="" form="family_bg_form" value="MOTHER" required>
 
-								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_maiden_name[3]" placeholder="Maiden Name" form="family_bg_form" value="" required>
+								<div class="form-floating flex-fill mb-3 p-1 d-none">
+									<input type="hidden" class="form-control" name ="fb_maiden_name[3]" placeholder="Maiden Name" form="family_bg_form" value="" required>
 									<label for="fb_maiden_name">Mother's Maiden Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">

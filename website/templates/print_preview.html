@@ -543,23 +543,23 @@ async function fillForm() {
     date_of_validity7.setText("{{user_profile.career_service[7].date_of_validity|format_mydatetime if user_profile.career_service|length > 6 else ''}}");
     
     // WES 0
-        wes_from[0].setText(`{{user_profile.work_experience[0].date_from|format_mydatetime if user_profile.work_experience|length > 0 else 'N/A'}}`)
+        wes_from[0].setText(`{{user_profile.work_experience[0].date_from|format_mydatetime if user_profile.work_experience[0] and user_profile.work_experience|length > 0 else 'N/A'}}`)
         wes_to[0].setText(`{{user_profile.work_experience[0].date_to|format_mydatetime if user_profile.work_experience|length > 0 else 'N/A'}}`)
         wes_position[0].setText(`{{user_profile.work_experience[0].position_title if user_profile.work_experience|length > 0 else 'N/A'}}`)
         wes_agency[0].setText(`{{user_profile.work_experience[0].department_agency_office_company if user_profile.work_experience|length > 1 else 'N/A'}}`)
         wes_salary[0].setText(`{{user_profile.work_experience[0].monthly_salary if user_profile.work_experience|length > 0 else 'N/A'}}`)
 
-        {% if user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step != "N/A" %}
+        {% if user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step != "N/A" %}
             wes_sg_step[0].setText(`{{user_profile.work_experience[0].sg}} - {{ user_profile.work_experience[0].step }}`)
-        {% elif user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step == "N/A" %}
+        {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step == "N/A" %}
             wes_sg_step[0].setText(`{{ user_profile.work_experience[0].sg }}`)
         {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" %}
             wes_sg_step[0].setText(`N/A`)
         {% else %}
-            wes_sg_step[0].setText(``)
+            wes_sg_step[0].setText(`N/A`)
         {% endif %}
-        wes_status_appointment[0].setText(`{{user_profile.work_experience[0].status_of_appointment if user_profile.work_experience|length > 0 else ''}}`)
-        wes_govt[0].setText(`{{user_profile.work_experience[0].govt_service if user_profile.work_experience|length > 0 else ''}}`)
+        wes_status_appointment[0].setText(`{{user_profile.work_experience[0].status_of_appointment if user_profile.work_experience|length > 0 else 'N/A'}}`)
+        wes_govt[0].setText(`{{user_profile.work_experience[0].govt_service if user_profile.work_experience|length > 0 else 'N/A'}}`)
 
         // WES 1
         wes_from[1].setText(`{{user_profile.work_experience[1].date_from|format_mydatetime if user_profile.work_experience[1] and user_profile.work_experience|length > 1 else ''}}`)
@@ -1100,7 +1100,7 @@ async function fillForm() {
 
         {% endif %}
 
-        {% if user_profile.questions[11] and user_profile.questions[11].answer == "YES" %}
+        {% if user_profile.questions[11] and user_profile.questions[11].answer == "NO" %}
             qn[11].check();
         {% else %}
             qy[11].check();

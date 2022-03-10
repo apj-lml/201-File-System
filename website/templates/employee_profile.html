@@ -248,11 +248,11 @@
                       <label for="item_no" >Item Location / Original Station</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else 'N/A'}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else 'N/A'}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}} required>
                       <label for="item_no" >Date Hired in NIA</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else 'N/A'}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if user_profile.type_of_user == 'user'}}>
+                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else 'N/A'}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if user_profile.type_of_user == 'user'}} required>
                       <label for="item_no" style="font-size: 14px;" >No. of Years in Service</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">

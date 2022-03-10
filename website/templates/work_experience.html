@@ -79,13 +79,25 @@
                         </div>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" form="work_experience_form">
+                        <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" pattern="^\d*(\.\d{0,2})?$" form="work_experience_form">
                         <label for="monthly_salary">Monthly Salary</label>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="sg" name="sg" aria-label="Floating label select example" value="" form="work_experience_form">
+                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="work_experience_form">
+                          <option value="N/A" selected>N/A</option>
+                          <option value="PERMANENT">PERMANENT</option>
+                          <option value="COTERMINOUS">COTERMINOUS</option>
+                          <option value="CASUAL">CASUAL</option>
+                          <option value="JOB ORDER">JOB ORDER</option>
+                          <option value="REGULAR">REGULAR</option>
+                          <option value="CONTRACTUAL">CONTRACTUAL</option>
+                        </select>
+                        <label for="status_of_appointment">Status of Appointment</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="sg" name="sg" aria-label="Floating label select example" value="" form="work_experience_form" disabled>
                           <option value="N/A" selected>N/A</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
@@ -117,7 +129,7 @@
                         <label for="sg">Salary / Job / Pay Grade</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="work_experience_form">
+                        <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="work_experience_form" disabled>
                           <option value="N/A" selected>N/A</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
@@ -130,18 +142,7 @@
                         </select>
                         <label for="step">Step</label>
                       </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="work_experience_form">
-                          <option value="N/A" selected>N/A</option>
-                          <option value="PERMANENT">PERMANENT</option>
-                          <option value="COTERMINOUS">COTERMINOUS</option>
-                          <option value="CASUAL">CASUAL</option>
-                          <option value="JOB ORDER">JOB ORDER</option>
-                          <option value="REGULAR">REGULAR</option>
-                          <option value="CONTRACTUAL">CONTRACTUAL</option>
-                        </select>
-                        <label for="status_of_appointment">Status of Appointment</label>
-                      </div>
+
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="govt_service" name="govt_service" aria-label="Floating label select example" value="" form="work_experience_form">
                           <option value="Y">YES</option>
@@ -151,7 +152,7 @@
                       </div>
                     </div>
                     <div class="col-sm-12 text-center">
-                      <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Sumbit</button>
+                      <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Submit</button>
                     </div>
 
                   </div>
@@ -268,7 +269,7 @@
                               </div>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" value="" form="update_work_experience_form" required>
+                              <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" min="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'" form="update_work_experience_form" required>
                               <label for="date_to">Monthly Salary</label>
                             </div>
                           </div>
@@ -320,7 +321,7 @@
                               <label for="step">Step</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
+                              <select class="form-select status_of_appointment" id="update_status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
                                 <option value="N/A" selected hidden>N/A</option>
                                 <option value="PERMANENT">PERMANENT</option>
                                 <option value="COTERMINOUS">COTERMINOUS</option>
@@ -340,7 +341,7 @@
                             </div>
                           </div>
                           <!-- <div class="col-sm-12 text-center">
-                            <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Sumbit</button>
+                            <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Submit</button>
                           </div> -->
       
                         </div>
@@ -530,37 +531,46 @@ var sf_present = document.getElementById('sf_present');
 });
 
 //Use keyup to capture user input & mouse up to catch when user is changing the value with the arrows
-$('.trailing-decimal-input').on('keyup mouseup change', function (e) {
+$('.trailing-decimal-input').on('mouseup blur', function (e) {
 
+  // this.setSelectionRange(0,0);
 // on keyup check for backspace & delete, to allow user to clear the input as required
 var key = e.keyCode || e.charCode;
 if (key == 8 || key == 46) {
     return false;
 };
 
-// get the current input value
-let correctValue = $(this).val().toString();
-
- //if there is no decimal places add trailing zeros
-if (correctValue.indexOf('.') === -1) {
-    correctValue += '.00';
-}
-
-else {
-
-    //if there is only one number after the decimal add a trailing zero
-    if (correctValue.toString().split(".")[1].length === 1) {
-        correctValue += '0'
-    }
-
-    //if there is more than 2 decimal places round backdown to 2
-    if (correctValue.toString().split(".")[1].length > 2) {
-        correctValue = parseFloat($(this).val()).toFixed(2).toString();
-    }
-}
 
 //update the value of the input with our conditions
-$(this).val(correctValue);
+$(this).val(parseFloat($(this).val()).toFixed(2));
+});
+
+
+$('.status_of_appointment').on('change', function (e) {
+    var value = $(this).val();
+    var sg = document.getElementById("sg");
+    var step = document.getElementById("step");
+    if (value == "PERMANENT"){
+      sg.disabled = false;
+      step.disabled = false;
+    }
+    else if (value == "COTERMINOUS"){
+      sg.disabled = false;
+      step.disabled = false;
+    }
+    else if (value == "CASUAL"){
+      sg.disabled = false;
+      step.disabled = true;
+    }
+    else if (value == "JOB ORDER"){
+      sg.disabled = false;
+      step.disabled = true;
+    }else{
+      sg.disabled = true;
+      step.disabled = true;
+    }
+    
+
 });
 
 </script>

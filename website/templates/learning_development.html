@@ -96,8 +96,14 @@
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" name ="ld_sponsored_by" placeholder="Conducted By" form="add_ld_form">
+							  <input type="text" class="form-control" name ="ld_sponsored_by" id="ld_sponsored_by"  placeholder="Conducted By" form="add_ld_form">
 							  <label for="ld_sponsored_by[1]">Conducted By</label>
+							  <div class="form-check">
+								<input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="add_ld_form">
+								<label class="form-check-label" for="nia_pimo">
+								  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+								</label>
+							  </div>
 							</div>
 						  </div>
 						  <div class="d-md-flex flex-row">
@@ -204,6 +210,12 @@
 						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
 						  <input type="text" class="form-control" id ="update_ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="update_ld_form">
 						  <label for="ld_sponsored_by[1]">Conducted By</label>
+						  <div class="form-check">
+							<input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="update_ld_form">
+							<label class="form-check-label" for="nia_pimo">
+							  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+							</label>
+						  </div>
 						</div>
 					  </div>
 					  <div class="d-md-flex flex-row">
@@ -453,6 +465,36 @@ function delete_ld(el){
 		});
 }
 
+function nia_pimo(){
+		var nia_pimo = document.getElementById('nia_pimo');
+		var station_place = document.getElementById('ld_sponsored_by');
+
+		if(nia_pimo.checked){
+			// station_place.value = "";
+			station_place.disabled = true;
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+
+  function update_nia_pimo(){
+		var nia_pimo = document.getElementById('update_nia_pimo');
+		var station_place = document.getElementById('update_ld_sponsored_by');
+
+		if(nia_pimo.checked){
+			// station_place.value = "";
+			station_place.disabled = true;
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+
+document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
+document.getElementById('update_nia_pimo').addEventListener('change', update_nia_pimo)
 
 </script>
 {%endblock%}
