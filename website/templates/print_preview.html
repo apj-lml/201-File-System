@@ -257,6 +257,9 @@ async function fillForm() {
 
     const emp_id_no = form.getTextField('emp_id_no');
     const office_id = form.getTextField('office_id');
+    const date_place_of_issuance = form.getTextField('date_place_of_issuance');
+    const person_administering_oath = form.getTextField('person_administering_oath');
+
 
     var wes_from = [];
     var wes_to = [];
@@ -398,7 +401,7 @@ async function fillForm() {
 
     telephone_no.setText('{{user_profile.telephone_no if user_profile.telephone_no is not none else "N/A" }}');
     mobile_no.setText('{{user_profile.mobile_no}}');
-    email.setText('{{user_profile.email}}');
+    email.setText('{{user_profile.email|lower}}');
 
     spouse_last_name.setText('{{spouse[0].fb_last_name if spouse_count > 0 else "N/A"}}');
     spouse_first_name.setText('{{spouse[0].fb_first_name if spouse_count > 0 else "N/A"}}');
@@ -432,7 +435,7 @@ async function fillForm() {
     child11.setText('{{child[10].fullname if child[10] and child[10].fb_last_name is not none else ""}}');
     child12.setText('{{child[11].fullname if child[11] and child[11].fb_last_name is not none else ""}}');
 
-    child1_bdate.setText('{{child[0].fb_date_of_birth|format_mydatetime if child[0] and child[0].fb_date_of_birth is not none else "N/A"}}');
+    child1_bdate.setText('{{child[0].fb_date_of_birth|format_mydatetime if child[0] and child[0].fb_date_of_birth and child[0].fb_date_of_birth != "" is not none else "N/A"}}');
     child2_bdate.setText('{{child[1].fb_date_of_birth|format_mydatetime if child[1] and child[1].fb_date_of_birth is not none else ""}}');
     child3_bdate.setText('{{child[2].fb_date_of_birth|format_mydatetime if child[2] and child[2].fb_date_of_birth is not none else ""}}');
     child4_bdate.setText('{{child[3].fb_date_of_birth|format_mydatetime if child[3] and child[3].fb_date_of_birth is not none else ""}}');
@@ -1107,6 +1110,9 @@ async function fillForm() {
 
         emp_id_no.setText('{{user_profile.employee_id}}')
         office_id.setText('AGENCY ID')
+        date_place_of_issuance.setText('URDANETA CITY, PANGASINAN')
+        person_administering_oath.setText('ENGR. GERTRUDES A. VIADO')
+
 
   const pdfBytes = await pdfDoc.save()
 
