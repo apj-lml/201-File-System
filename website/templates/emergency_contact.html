@@ -47,6 +47,10 @@
 						  <div class="card-body">
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
+								<input type="text" class="form-control" name ="fullname" placeholder="Full Name" form="add_emergency_contact_form" required>
+								<label for="fullname">Full Name</label>
+							  </div>
+					   <!-- <div class="form-floating flex-fill mb-3 p-1">
 							  <input type="text" class="form-control" name ="last_name" placeholder="Last Name" form="add_emergency_contact_form" required>
 							  <label for="ld_program[1]">Last Name</label>
 							</div>
@@ -61,7 +65,7 @@
                             <div class="form-floating flex-fill mb-3 p-1">
                                 <input type="text" class="form-control" name ="name_ext" placeholder="Name Extension" form="add_emergency_contact_form">
                                 <label for="ld_date_to[1]">Name Extension</label>
-                              </div>
+                              </div> -->
 						  </div>
 						  <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1 col-md-6">
@@ -115,6 +119,56 @@
 		</div>
 	</div>
 
+
+	<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="viewExpModal">Edit Character Reference</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  <form id="update_emergency_contact_form" action="#" method="POST"></form>
+			</div>
+			<div class="modal-body">
+			  <div class="row mb-3 container">
+				<div class="card mb-3">
+					<div class="card-body">
+					  <h3 class="card-title"><i class="bi bi-journals"></i> Character Reference</h3>
+					  <div class="d-md-flex flex-row">
+						<div class="form-floating flex-fill mb-3 p-1">
+							<input type="text" class="form-control" name ="id" id="id" placeholder="ID" form="update_emergency_contact_form" required>
+
+							<input type="text" class="form-control" name ="fullname" id="update_fullname" placeholder="Full Name" form="update_emergency_contact_form" required>
+							<label for="fullname">Full Name</label>
+						</div>
+					  </div>
+					  <div class="d-md-flex flex-row">
+						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+							<input type="text" class="form-control" name ="relationship" id="update_relationship" placeholder="Address" form="update_emergency_contact_form">
+							<label for="address">Relationship</label>
+						  </div>
+						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						  <input type="text" class="form-control" name ="address" id="update_address" placeholder="Address" form="update_emergency_contact_form">
+						  <label for="address">Complete Address</label>
+						</div>
+						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+							<input type="tel" class="form-control" name ="contact_no" id="update_contact_no" placeholder="09277799422" form="update_emergency_contact_form" pattern="[0-9]{11}" required>
+							<label for="contact_no">Contact No. (Eg. 09277799422)</label>
+						  </div>
+					  </div>
+
+
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			  <button type="submit" class="btn btn-primary" form="update_emergency_contact_form">Save changes</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  </div>
+	  </div>
+	  </div>
+	</div>
+
 </main>
 
 {% endblock %}
@@ -145,6 +199,34 @@
 			})
 
 	});
+
+	document.getElementById('update_emergency_contact_form').addEventListener('submit', (e)=>{
+		e.preventDefault();
+		var formElem = document.getElementById("update_emergency_contact_form");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+		console.log(data)
+		fetch('/emergencyContact/update/{{emp_id}}', {
+				method: 'POST',
+				body: formData
+			}).then((res)=>{
+				return res.json();
+
+			}).then((data)=>{
+					triggerToast(data); //this is the returned error message
+					var table = $('#character_ref_table').DataTable();
+					table.ajax.reload();
+                    document.getElementById('add_emergency_contact_form').reset();
+					var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
+					myModal.hide();
+			})
+
+	});
+
+
 (function () {
   'use strict'
 
@@ -180,21 +262,21 @@
         "columns": [
 			// { "data": "last_name"},
 			// { "data": "first_name"},
-			// { "data": "middle_name"},
+			 { "data": "fullname"},
 
-            {"data": null,
-                render: function ( data, type, row ) {
-					if (!data.middle_name){
-                        var middle_name = ''
-                    }else{
-                        var middle_name = data.middle_name[0]
-						middle_name = middle_name.concat('.')
-                    }
-                return `
-				${data.first_name} ${ middle_name ?? ''} ${data.last_name} ${data.name_ext ?? ''}
-                `;
-              }
-             },
+            // {"data": null,
+            //     render: function ( data, type, row ) {
+			// 		if (!data.middle_name){
+            //             var middle_name = ''
+            //         }else{
+            //             var middle_name = data.middle_name[0]
+			// 			middle_name = middle_name.concat('.')
+            //         }
+            //     return `
+			// 	${data.first_name} ${ middle_name ?? ''} ${data.last_name} ${data.name_ext ?? ''}
+            //     `;
+            //   }
+            //  },
 			// { "data": "name_ext"},
 			{ "data": "address"},
 			{ "data": "contact_no"},
@@ -204,6 +286,9 @@
               render: function ( data, type, row ) {
                 return `
 				<div class="d-sm-flex flex-row">
+					<a class="btn btn-primary btn-sm m-2" title="Edit" id="${data.id}" onclick = "edit_ec(this)" data-bs-toggle="modal" data-bs-target="#viewExpModal">
+						<i class="bi bi-pencil"></i>
+					</a>
 					<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
 						<i class="bi bi-trash"></i>
 					</a>
@@ -214,6 +299,20 @@
     } );
 
 })()
+
+function edit_ec(el){
+	fetch(`/emergencyContact/edit/${el.id}`,{
+		method: 'GET',
+	})
+		.then(response => response.json())
+		.then(data => {
+			document.getElementById('id').value = data[0].id;
+			document.getElementById('update_fullname').value = data[0].fullname;
+			document.getElementById('update_relationship').value = data[0].relationship;
+			document.getElementById('update_address').value = data[0].address;
+			document.getElementById('update_contact_no').value = data[0].contact_no;
+		});
+}
 function delete_ld(el){
 	// alert(el.id)
 	fetch('/emergencyContact/delete',{

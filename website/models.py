@@ -369,6 +369,7 @@ class Emergency_Contact(db.Model, SerializerMixin):
 	first_name = db.Column(db.String(100))
 	middle_name = db.Column(db.String(100))
 	name_ext = db.Column(db.String(100))
+	fullname = db.Column(db.String(100))
 	relationship = db.Column(db.String(50))
 	address = db.Column(db.String(150))
 	contact_no = db.Column(db.String(150))

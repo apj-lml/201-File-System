@@ -29,8 +29,8 @@ def page_not_found(e):
 def add_shirt_size(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
-        user = User.query.get(emp_id)
-        
+        shirt = Shirt.query.filter_by(user_id = emp_id).first()
+        # print(formdata)
         if formdata['add_or_update'] == 'add':
             formdata.pop('add_or_update')
             formdata['user_id'] = emp_id
@@ -39,11 +39,11 @@ def add_shirt_size(emp_id):
             db.session.flush()
             db.session.commit()
             return jsonify('Successfully Added Shirt Size')
-
         else:
-            user.polo_shirt_size = formdata['polo_shirt_size']
+            print(shirt.polo_shirt_size)
+            shirt.polo_shirt_size = formdata['polo_shirt_size']
             db.session.commit()
             return jsonify('Successfully Updated Shirt Size')
         
-    return 'ok', 200
+    return jsonify('ok'), 200
     

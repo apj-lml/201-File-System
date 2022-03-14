@@ -130,7 +130,7 @@
 	<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="viewExpModal">Edit Character Reference</h5>
+		  <h5 class="modal-title" id="viewExpModal">Edit Emergency Contact Reference</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
@@ -138,30 +138,31 @@
 			<div class="card mb-3">
 				<div class="card-body">
 				  <h3 class="card-title"><i class="bi bi-journals"></i> Character Reference</h3>
-				  <!-- <form action="#" method="POST" name="update_work_experience_form" id="update_work_experience_form" enctype="multipart/form-data"></form> -->
-				  <!-- <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_character_reference_form"> -->
-  
-					  <div class="card shadow-sm mb-3">
-						  <div class="card-body">
-							<input type="hidden" class="form-control" name ="id" id="update_id" placeholder="id" form="update_character_reference_form" required>
-							<div class="d-md-flex flex-row">
-								<div class="form-floating col-sm-6 mb-3 p-1">
-									<input type="text" class="form-control" name ="fullname" id="update_fullname" placeholder="First Name" form="update_character_reference_form" required>
-									<label for="fullname">Full Name</label>
-								</div>
-							</div>
-							<div class="d-md-flex flex-row">
-								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-								<input type="text" class="form-control" name ="address" id="update_address" placeholder="Address" form="update_character_reference_form">
-								<label for="address">Address</label>
-								</div>
-								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="tel" class="form-control" name ="contact_no" id="update_contact_no" placeholder="09277799422" form="update_character_reference_form" pattern="[0-9]{11}">
-									<label for="contact_no">Contact No. (Eg. 09277799422)</label>
-								</div>
-							</div>
+				  <div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" name ="fullname" placeholder="Full Name" form="add_emergency_contact_form" required>
+						<label for="fullname">Full Name</label>
+					</div>
+				  </div>
+				  <div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						<input type="text" class="form-control" name ="relationship" placeholder="Address" form="add_emergency_contact_form">
+						<label for="address">Relationship</label>
 					  </div>
-		</div>
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+					  <input type="text" class="form-control" name ="address" placeholder="Address" form="add_emergency_contact_form">
+					  <label for="address">Complete Address</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						<input type="tel" class="form-control" name ="contact_no" placeholder="09277799422" form="add_emergency_contact_form" pattern="[0-9]{11}" required>
+						<label for="contact_no">Contact No. (Eg. 09277799422)</label>
+					  </div>
+				  </div>
+
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary" form="add_emergency_contact_form">Submit</button>
+				</div>
+	
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		  <button type="submit" class="btn btn-primary" form="update_character_reference_form">Save changes</button>
@@ -172,7 +173,7 @@
   </div>
   </div>
   </div>
-
+</div>
 
 </main>
 

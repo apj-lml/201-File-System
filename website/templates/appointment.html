@@ -136,7 +136,7 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form enctype="multipart/form-data" id="add_service_record" action="/appointment/add-appointment/{{current_user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+			<form enctype="multipart/form-data" id="add_appointment_form" action="/appointment/add-appointment/{{current_user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
@@ -262,7 +262,7 @@
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Appointment</label>
-                        <input class="form-control" type="file" id="appointment" name="appointment" required>
+                        <input class="form-control" type="file" id="appointment_attachment" name="appointment_attachment" required>
 						<div class="valid-feedback">
 							<!-- Looks good! -->
 						  </div>
@@ -301,7 +301,7 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form enctype="multipart/form-data" id="update_service_record" action="/appointment/update-appointment/{{current_user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+			<form enctype="multipart/form-data" id="update_appointment_form" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<input type="text" class="form-control" id="id" name ="id" placeholder="id" value="" required>
 				
 				<div class="d-sm-flex flex-row"> 
@@ -380,7 +380,7 @@
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE">
 							<label class="form-check-label" for="update_nia_pimo">
-							  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+							  <small class="text-muted">NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE</small>
 							</label>
 						  </div>
 						<div class="valid-feedback">
@@ -434,7 +434,7 @@
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Appointment</label>
-                        <input class="form-control" type="file" id="update_appointment" name="appointment" required>
+                        <input class="form-control" type="file" id="update_appointment_attachment" name="appointment_attachment" required>
 						<div class="valid-feedback">
 							<!-- Looks good! -->
 						  </div>
@@ -686,38 +686,42 @@ function sf_present(){
 	document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
 	document.getElementById('update_nia_pimo').addEventListener('change', update_nia_pimo)
 
-// })
+	
+document.getElementById('update_appointment_form').addEventListener('submit', (e)=>{
+	e.preventDefault();
+	var id = document.getElementById('id').value;
+	var url = `update-appointment/${id}/{{user_profile.id}}`;
+	// var url = `/ld/save-ld/${id}/{{user_profile.id}}`;
+            loadingScreen('block');
+            let formData4 = new FormData(document.getElementById("update_appointment_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+				if (res.status == 406){
+					triggerToast('Invalid file submitted. Only PDF files are allowed.')
+                }
+                else if (res.status == 200){
+					// triggerToast('Successfully Saved Changes.')
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+					// triggerToast(data)
+					loadingScreen('none');
+					var myModal = document.getElementById('updateModal');
+					var modal = bootstrap.Modal.getInstance(myModal).hide()
+					// modal.hide();
+                  $('#ld_table').DataTable().ajax.reload()
+                //   document.getElementById('work_experience_form').reset()
+                  window.location.reload();
 
-// function delete_file(e){
-//   fetch('/employees/delete-file',{
-//     method: 'POST',
-//     body: JSON.stringify({"file_id" : e.id})
-//   })
-// 	.then(response => response.json())
-// 	.then(data => {
-// 		triggerToast(data);
-// 		window.location.reload();
-//   })
-// }
-
-
-// (function () {
-//   'use strict'
-
- 
-
-// })()
-
-
-	// fetch('/employees/service-record', {
-    //     method: 'POST',
-    //     body: formData
-    //   }).then((res)=>{
-    //     return res.json() 
-    //   }).then(data => {
-	// 	console.log(data)
-	//   })
-	//   .catch(console.error)
+                });//END
+})
 
 
 </script>

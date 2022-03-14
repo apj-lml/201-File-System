@@ -42,7 +42,7 @@ def add_other_information(emp_id):
         formdata = {k:v.upper() for k,v in formdata.items()}
         count_other_information = Other_Information.query.filter_by(type = formdata['type'], user_id = emp_id).count()
         # print ('---------------------', formdata['type'])
-        if count_other_information < 5:
+        if count_other_information < 4:
             
             # for key, value in formdata.items(): 
             #     setattr(formdata, key, value.upper())

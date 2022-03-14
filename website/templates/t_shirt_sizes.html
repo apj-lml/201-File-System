@@ -114,13 +114,13 @@
 				body: formData
 			}).then((res)=>{
 				if (res.status == 200){
-					document.getElementById('add_polo_form').reset();
+					// document.getElementById('add_polo_form').reset();
 				}
 				return res.json();
 
 			}).then((data)=>{
 					triggerToast(data); //this is the returned error message
-					//window.location.reload();
+					window.location.reload();
 			})
 
 	});

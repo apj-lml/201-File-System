@@ -5,7 +5,7 @@ from .models import Appointment, Uploaded_File, User
 from . import db
 #from datetime import datetime
 import datetime
-from .myhelper import allowed_file
+from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
 import os, os.path
 import json
@@ -27,16 +27,25 @@ def page_not_found(e):
 @login_required
 #@admin_permission.require(http_exception=403)
 def add_appointment(emp_id):
-    user = db.session.query(User).get(emp_id)
+    # user = db.session.query(User).get(emp_id)
     if request.method == "POST":
         formdata = request.form.to_dict()
         final_name = ''
+
+        for k,v in formdata.items():
+            print(k)
+            if k != 'appointment_attachment' or k != 'appointment_attachment_file_name':
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         for afile in request.files:
             files = request.files.getlist(afile)
 
             # print(f'print file: {file}')
             for file in files:
                 # print(f'print file: {file}')
+
 
                 if file.filename == "":
                 #if afile not in request.files:
@@ -80,11 +89,6 @@ def add_appointment(emp_id):
             formdata.pop('nia_pimo')
         formdata['user_id'] = emp_id
 
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
 
         new_Appointment = Appointment(**formdata)
         db.session.add(new_Appointment)
@@ -150,3 +154,63 @@ def delete_appointment(id):
     db.session.delete(we)
     db.session.commit()
     return redirect(request.referrer)
+
+
+ # ---------------------------------------------------------------------------- #
+ #                                   Save apt                                   #
+ # ---------------------------------------------------------------------------- #
+@appointment.route('update-appointment/<id>/<emp_id>', methods=['POST', 'GET'])
+@login_required
+def update_appointment(id, emp_id):
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+        get_we = Appointment.query.get(id)
+        formdata.pop('id')
+
+        final_name = ''
+        
+        for afile in request.files:
+            file = request.files[afile]
+
+            if file.filename == "":
+                print('No file selected')
+            else:
+                if not allowed_file(file.filename):
+                    return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
+                
+                get_user = User.query.get(emp_id)
+
+
+                file_extension = file.filename.rsplit('.', 1)[1].lower()
+                file_name = file.filename.rsplit('.', 1)[0]
+                final_name = secure_filename(get_user.last_name +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
+                if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+                    print('path does not exist... creating path')
+                    os.mkdir(current_app.config['UPLOAD_FOLDER'])
+                else:
+                    # print('path exist!')
+                    os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.appointment_attachment_file_name))
+
+                    file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+
+                    #saving upload info to database
+                    # files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
+                    # db.session.add(files_to_upload)
+                    # db.session.commit()
+                    formdata['appointment_attachment'] = '\\static\\files\\' + final_name
+                    formdata['appointment_attachment_file_name'] = final_name
+
+        if 'nia_pimo' in formdata:
+            formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+            formdata.pop('nia_pimo')
+
+        for key, value in formdata.items():
+            # print(key)
+            if key == 'appointment_attachment' or key == 'appointment_attachment_file_name':
+                setattr(get_we, key, value)
+            else:
+                setattr(get_we, key, value.upper())
+
+        db.session.commit()
+
+        return jsonify('Successfully Saved Changes.')

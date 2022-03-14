@@ -94,18 +94,35 @@ def view_emergency_contact(emp_id):
  # ---------------------------------------------------------------------------- #
  #                                   Save WES                                   #
  # ---------------------------------------------------------------------------- #
-@emergencyContact.route('save-work-experience', methods=['POST', 'GET'])
+@emergencyContact.route('update/<id>', methods=['POST', 'GET'])
 @login_required
-def update_work_experience():
+def udpate_emergency_contact(id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         get_we = Emergency_Contact.query.get(formdata['id'])
         formdata.pop('id')
 
-        #code for automated update
-        print(formdata)
         for key, value in formdata.items(): 
-            setattr(get_we, key, value)
+            setattr(get_we, key, value.upper())
         db.session.commit()
 
-        return jsonify('Successfully Saved Changes.')
+    return jsonify('Successfully Saved Changes.')
+
+
+@emergencyContact.route('edit/<id>', methods=['POST', 'GET'])
+@login_required
+def edit_emergency_contact(id):
+	if request.method == "GET":
+	# formdata  = json.loads(request.data)
+		get_cr = Emergency_Contact.query.filter_by(id = id).all()
+		column_keys = Emergency_Contact.__table__.columns.keys()
+	# Temporary dictionary to keep the return value from table
+		rows_dic_temp = {}
+		rows_dic = []
+	# Iterate through the returned output data set
+		for row in get_cr:
+			for col in column_keys:
+				rows_dic_temp[col] = getattr(row, col)
+			rows_dic.append(rows_dic_temp)
+			rows_dic_temp= {}
+		return jsonify(rows_dic)
