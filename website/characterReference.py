@@ -14,8 +14,8 @@ admin_permission = Permission(RoleNeed('admin'))
 
 @characterReference.errorhandler(403)
 def page_not_found(e):
-	session['redirected_from'] = request.url
-	return redirect(url_for('auth.login'))
+    session['redirected_from'] = request.url
+    return redirect(url_for('auth.login'))
 
 # @characterReference.template_filter()
 # def format_datetime(value, format='medium'):
@@ -60,13 +60,13 @@ def add_character_reference(emp_id):
 @characterReference.route('delete', methods=['POST', 'GET'])
 @login_required
 def delete_character_reference():
-	if request.method == "POST":
-		formdata  = json.loads(request.data)
-		cr = Character_Reference.query.get(formdata['id'])
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+        cr = Character_Reference.query.get(formdata['id'])
 
-		db.session.delete(cr)
-		db.session.commit()
-	return jsonify('Character Reference Deleted Successfully')
+        db.session.delete(cr)
+        db.session.commit()
+    return jsonify('Character Reference Deleted Successfully')
 
  # ---------------------------------------------------------------------------- #
  #                                    GET WES                                   #
@@ -74,26 +74,41 @@ def delete_character_reference():
 @characterReference.route('get/<emp_id>', methods=['POST', 'GET'])
 @login_required
 def view_character_reference(emp_id):
-	if request.method == "GET":
-	# formdata  = json.loads(request.data)
-		get_cr = Character_Reference.query.filter_by(user_id = emp_id).all()
-		column_keys = Character_Reference.__table__.columns.keys()
-	# Temporary dictionary to keep the return value from table
-		rows_dic_temp = {}
-		rows_dic = []
-	# Iterate through the returned output data set
-		for row in get_cr:
-			for col in column_keys:
-				rows_dic_temp[col] = getattr(row, col)
-			rows_dic.append(rows_dic_temp)
-			rows_dic_temp= {}
-			print(rows_dic)
-		return jsonify(rows_dic)
+    if request.method == "GET":
+    # formdata  = json.loads(request.data)
+        get_cr = Character_Reference.query.filter_by(user_id = emp_id).all()
+        column_keys = Character_Reference.__table__.columns.keys()
+    # Temporary dictionary to keep the return value from table
+        rows_dic_temp = {}
+        rows_dic = []
+    # Iterate through the returned output data set
+        for row in get_cr:
+            for col in column_keys:
+                rows_dic_temp[col] = getattr(row, col)
+            rows_dic.append(rows_dic_temp)
+            rows_dic_temp= {}
+            # print(rows_dic)
+        return jsonify(rows_dic)
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+        get_cr = Character_Reference.query.filter_by(id = formdata['id']).all()
+        column_keys = Character_Reference.__table__.columns.keys()
+    # Temporary dictionary to keep the return value from table
+        rows_dic_temp = {}
+        rows_dic = []
+    # Iterate through the returned output data set
+        for row in get_cr:
+            for col in column_keys:
+                rows_dic_temp[col] = getattr(row, col)
+            rows_dic.append(rows_dic_temp)
+            rows_dic_temp= {}
+            # print(rows_dic)
+        return jsonify(rows_dic)
 
  # ---------------------------------------------------------------------------- #
  #                                   Save WES                                   #
  # ---------------------------------------------------------------------------- #
-@characterReference.route('save-work-experience', methods=['POST', 'GET'])
+@characterReference.route('save', methods=['POST', 'GET'])
 @login_required
 def update_work_experience():
     if request.method == "POST":
@@ -101,10 +116,9 @@ def update_work_experience():
         get_we = Character_Reference.query.get(formdata['id'])
         formdata.pop('id')
 
-        #code for automated update
         print(formdata)
         for key, value in formdata.items(): 
-            setattr(get_we, key, value)
+            setattr(get_we, key, value.upper())
         db.session.commit()
 
         return jsonify('Successfully Saved Changes.')

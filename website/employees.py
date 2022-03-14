@@ -373,3 +373,13 @@ def update_password(emp_id):
 @employees.context_processor
 def inject_today_date():
     return {'today_date': datetime.datetime.utcnow()}
+
+@employees.context_processor
+def utility_pricessor():
+	def inject_count_files(file_tag, emp_id):
+		count_files = Uploaded_File.query.filter_by(user_id = emp_id, file_tag = file_tag)
+		counted_files = count_files.count()
+		# if(count_files != 0):
+		# 	output = f"You have uploaded "
+		return f"You have uploaded {counted_files} file(s) in this field."
+	return dict(count_files = inject_count_files)

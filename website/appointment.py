@@ -79,6 +79,13 @@ def add_appointment(emp_id):
             formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
             formdata.pop('nia_pimo')
         formdata['user_id'] = emp_id
+
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         new_Appointment = Appointment(**formdata)
         db.session.add(new_Appointment)
         db.session.commit()
@@ -111,13 +118,14 @@ def get_appointment(emp_id):
 
 
 
-@appointment.route('edit-appointment/<id>', methods=['POST', 'GET'])
+@appointment.route('edit-appointment', methods=['POST', 'GET'])
 @login_required
 #@admin_permission.require(http_exception=403)
-def edit_appointment(id):
+def edit_appointment():
     if request.method == "POST":
-        # formdata  = json.loads(request.data)
-        new_Appointment = Appointment.query.filter_by(id = id).all()
+        formdata  = json.loads(request.data)
+        print(formdata)
+        new_Appointment = Appointment.query.filter_by(id = formdata['id']).all()
         column_keys = Appointment.__table__.columns.keys()
         rows_dic_temp = {}
         rows_dic = []

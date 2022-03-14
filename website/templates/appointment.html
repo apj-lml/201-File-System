@@ -180,11 +180,11 @@
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 						<select class="form-select" id="status" name="status" aria-label="Floating label select example" value="">
-							<option value="Job Order">Job Order</option>
-							<option value="Permanent">Permanent</option>
-							<option value="Casual">Casual</option>
-							<option value="Coterminous">Coterminous</option>
-							<option value="Separated">Separated</option>
+							<option value="JOB ORDER">Job Order</option>
+							<option value="PERMANENT">Permanent</option>
+							<option value="CASUAL">Casual</option>
+							<option value="COTERMINOUS">Coterminous</option>
+							<option value="SEPARATED">Separated</option>
 						</select>
 						<label for="middle_name">Employment Status</label>
 
@@ -196,7 +196,8 @@
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="number" class="form-control" id="salary" name ="salary" placeholder="Salary" value="" required>
+						<!-- onblur="this.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'" -->
+					  <input type="number" class="form-control trailing-decimal-input" id="salary" name ="salary" placeholder="Salary" value="" pattern="^\d*(\.\d{0,2})?$" step=".01" required> 
 					  <label for="salary">Salary</label>
 					  <div class="valid-feedback">
 						<!-- Looks good! -->
@@ -346,11 +347,11 @@
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 						<select class="form-select" id="update_status" name="status" aria-label="Floating label select example" value="">
-							<option value="Job Order">Job Order</option>
-							<option value="Permanent">Permanent</option>
-							<option value="Casual">Casual</option>
-							<option value="Coterminous">Coterminous</option>
-							<option value="Separated">Separated</option>
+							<option value="JOB ORDER">Job Order</option>
+							<option value="PERMANENT">Permanent</option>
+							<option value="CASUAL">Casual</option>
+							<option value="COTERMINOUS">Coterminous</option>
+							<option value="SEPARATED">Separated</option>
 						</select>
 						<label for="update_status">Employment Status</label>
 
@@ -362,7 +363,7 @@
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="number" class="form-control" id="update_salary" name ="salary" placeholder="Salary" value="" required>
+					  <input type="number" class="form-control trailing-decimal-input" id="update_salary" name ="salary" placeholder="Salary" value=""  step="0.01" required>
 					  <label for="update_salary">Salary</label>
 					  <div class="valid-feedback">
 						<!-- Looks good! -->
@@ -375,7 +376,13 @@
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 						<input type="text" class="form-control" id="update_station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
-						<label for="update_designation">Station/ Place of Assignment</label>
+						<label for="update_station_place">Station/ Place of Assignment</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE">
+							<label class="form-check-label" for="update_nia_pimo">
+							  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+							</label>
+						  </div>
 						<div class="valid-feedback">
 							<!-- Looks good! -->
 						  </div>
@@ -383,41 +390,47 @@
 							This is required.
 						  </div>
 					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
+					<!-- <div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" id="update_station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
+						<label for="update_designation">Station/ Place of Assignment</label>
+						<div class="valid-feedback">
+						  </div>
+						  <div class="invalid-feedback">
+							This is required.
+						  </div>
+					</div> -->
+					<!-- <div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="update_leave_wo_pay" name ="leave_wo_pay" placeholder="Leave W/O Pay" value="None">
 					  <label for="update_leave_wo_pay">Leave W/O Pay</label>
 					  <div class="valid-feedback">
-						<!-- Looks good! -->
 					  </div>
 					  <div class="invalid-feedback">
 						This is required.
 					  </div>
-					</div>
+					</div> -->
 				</div>
-				<div class="d-sm-flex flex-row">
+				<!-- <div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 						<input type="date" class="form-control" id="update_separation_date" name ="separation_date" placeholder="Separation Date" value="">
 						<label for="update_separation_date">Separation Date</label>
 						<div class="valid-feedback">
-							<!-- Looks good! -->
 						  </div>
 						  <div class="invalid-feedback">
 							This is required.
 						  </div>
 					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
+				</div> -->
+				<!-- <div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="update_separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
 					  <label for="update_separation_cause">Separation Cause</label>
 					  <div class="valid-feedback">
-						<!-- Looks good! -->
 					  </div>
 					  <div class="invalid-feedback">
 						This is required.
 					  </div>
 					</div>
-				</div>
+				</div> -->
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Appointment</label>
@@ -455,16 +468,22 @@
 
 {%block scripts%}
 <script type="text/javascript">
+$('.trailing-decimal-input').on('mouseup blur', function (e) {
 
-// window.addEventListener("load", ()=>{
+var key = e.keyCode || e.charCode;
+if (key == 8 || key == 46) {
+  return false;
+};
+
+
+//update the value of the input with our conditions
+$(this).val(parseFloat($(this).val()).toFixed(2));
+});
 
 	$('#uploaded_file_table').DataTable({
       responsive: true,
         dom: 'ftrip'
-        // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
-				// <'row'<'col-sm-12'tr>>
-				// <'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
-    });
+});
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
@@ -542,7 +561,7 @@
               render: function ( data, type, row ) {
                 return `
 				<div class="d-sm-flex flex-row">
-					<a href="#" class="btn btn-primary btn-sm m-2" title="Edit Appointment" id="${data.id}" data-bs-toggle="modal" onclick="" data-bs-target="#updateModal">
+					<a href="#" class="btn btn-primary btn-sm m-2" title="Edit Appointment" id="${data.id}" data-bs-toggle="modal" onclick="edit_appointment(this.id)" data-bs-target="#updateModal">
 						<i class="bi bi-pencil"></i>
 					</a>
 					<a href="/appointment/delete-appointment/${data.id}" class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}">
@@ -556,16 +575,18 @@
 
 	var myModal = document.getElementById('updateModal')
 		myModal.addEventListener('shown.bs.modal', function () {
-		edit_appointment();
+			update_sf_present();
+		// edit_appointment(document.getElementById('id').value);
 	})
 
 function edit_appointment(id){
-	fetch(`/appointment/edit-appointment/${id}`,{
+	fetch(`/appointment/edit-appointment`,{
     method: 'POST',
     body: JSON.stringify({"id" : id})
   })
 	.then(response => response.json())
 	.then(data => {
+		console.log(data)
 		var id = document.getElementById("id");
 		var update_service_from = document.getElementById("update_service_from");
 		var update_service_to = document.getElementById("update_service_to");
@@ -591,10 +612,10 @@ function edit_appointment(id){
 		update_status.value = data[0].status
 		update_salary.value = data[0].salary
 		update_station_place.value = data[0].station_place
-		update_leave_wo_pay.value = data[0].leave_wo_pay
-		update_separation_date.value = data[0].separation_date
-		update_separation_cause.value = data[0].separation_cause
-		update_appointment.value = data[0].appointment
+		// update_leave_wo_pay.value = data[0].leave_wo_pay
+		// update_separation_date.value = data[0].separation_date
+		// update_separation_cause.value = data[0].separation_cause
+		// update_appointment.value = data[0].appointment
 		
   })
 }
@@ -603,6 +624,21 @@ function sf_present(){
 		var sf_present = document.getElementById('sf_present');
 		var service_to = document.getElementById('service_to');
 		var station_place = document.getElementById('station_place');
+		if(sf_present.checked){
+			service_to.disabled = true;
+			service_to.value = ''
+			// station_place.value = "NIA-PANGASINAN IMO"
+			}
+		else{
+			service_to.disabled = false;
+			}
+	
+	}
+
+	function update_sf_present(){
+		var sf_present = document.getElementById('update_sf_present');
+		var service_to = document.getElementById('update_service_to');
+		var station_place = document.getElementById('update_station_place');
 		if(sf_present.checked){
 			service_to.disabled = true;
 			service_to.value = ''
@@ -628,9 +664,27 @@ function sf_present(){
 	
 	}
 
+	function update_nia_pimo(){
+		var nia_pimo = document.getElementById('update_nia_pimo');
+		var station_place = document.getElementById('update_station_place');
+		// var station_place = document.getElementById('station_place');
+
+		if(nia_pimo.checked){
+			station_place.value = "";
+			station_place.disabled = true;
+			station_place.value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE";
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+
 	document.getElementById('sf_present').addEventListener('change', sf_present)
-	document.getElementById('update_sf_present').addEventListener('change', sf_present)
+	document.getElementById('update_sf_present').addEventListener('change', update_sf_present)
+
 	document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
+	document.getElementById('update_nia_pimo').addEventListener('change', update_nia_pimo)
 
 // })
 

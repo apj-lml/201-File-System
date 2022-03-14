@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import current_user, login_user, logout_user, login_required
 #from flask.ext.principal import Principal, Permission, RoleNeed
 from flask_principal import Principal, Permission, RoleNeed
+from sqlalchemy import desc
 
 from . import db
 from .models import College, Family_Background, Masteral, Other_Information, User, Vocational_Course
@@ -106,7 +107,7 @@ def print_preview(emp_id):
 	spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
 	father = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "FATHER")
 	mother = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "MOTHER")
-	child = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "CHILD")
+	child = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "CHILD").order_by(desc(Family_Background.fb_date_of_birth))
 	vocation = db.session.query(Vocational_Course).filter_by(user_id = emp_id)
 	college = db.session.query(College).filter_by(user_id = emp_id)
 	masteral = db.session.query(Masteral).filter_by(user_id = emp_id)

@@ -112,7 +112,6 @@ def add_family_background(emp_id):
                     )
 
                 if fb_last_name is not None and fb_first_name is not None:
-                    print('lname and fname are required')
                     db.session.add(new_family_bg)
                     db.session.commit()
 

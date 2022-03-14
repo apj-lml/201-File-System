@@ -276,22 +276,20 @@
 
 						  {% for child in user_profile.familyBg %}
 
-							{% if child_count.value == 0 %}
-
 									{% if no_child.value == 0 %}
 										{% set no_child.value = no_child.value+1 %}
 									{% endif %}
 
-
 							  {% if child.fb_relationship == 'CHILD' %}
+							  
 							  {% set child_count.value = child_count.value+1 %}
 							  {% set field_count.value = field_count.value+1 %}
+			
+
 								{% if child_count.value > 0 %}
 								<div class="card shadow-sm mb-3">
 									<div class="card-body">
-										
 										<input type="hidden" class="form-control" name ="id[{{field_count.value}}]" placeholder="ID" form="family_bg_update_form" value="{{child.id}}" required>
-
 										<input type="hidden" class="form-control" name ="fb_relationship[{{field_count.value}}]" placeholder="" form="family_bg_update_form" value="CHILD" required>
 											<div class="d-md-flex flex-row">
 												<div class="form-floating flex-fill mb-3 p-1">
@@ -326,7 +324,7 @@
 
 									
 								{% endif %}
-								{% endif %}
+							
 
 								{% endfor %}
 						  
@@ -498,6 +496,7 @@
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
 		
+		loadingScreen('block');
 		// console.log(data)
 		fetch('/familyBg/add-familyBg/{{user_profile.id}}', {
 				method: 'POST',
@@ -529,7 +528,8 @@
 
 					}).then((data)=>{
 							triggerToast(data); //this is the returned error message
-							
+							loadingScreen('none')
+							window.location.reload();
 							// activate_spouse('YES')
 					})
 			})

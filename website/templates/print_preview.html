@@ -498,7 +498,7 @@ async function fillForm() {
     date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination_to|format_mydatetime if user_profile.career_service[0] and user_profile.career_service[0].date_of_examination_to is not none else 'N/A'}}");
     place_of_examination_conferment1.setText("{{user_profile.career_service[0].place_of_examination_conferment|escapejs if user_profile.career_service[0] and user_profile.career_service[0].place_of_examination_conferment is not none else 'N/A'}}");
     license_no1.setText("{{user_profile.career_service[0].license_no|escapejs if user_profile.career_service[0] and user_profile.career_service[0].license_no is not none else 'N/A'}}");
-    date_of_validity1.setText("{{user_profile.career_service[0].date_of_validity|format_mydatetime if user_profile.career_service[0] and user_profile.career_service[0].date_of_validity is not none else 'N/A'}}");
+    date_of_validity1.setText("{{user_profile.career_service[0].date_of_validity|format_mydatetime if user_profile.career_service[0] and user_profile.career_service[0].date_of_validity != "" and user_profile.career_service[0].date_of_validity is not none else 'N/A'}}");
 
     cse2.setText("{{user_profile.career_service[1].cs_eligibility if user_profile.career_service|length > 1 else ''}}");
     cs_rating2.setText("{{user_profile.career_service[1].cs_rating|escapejs if user_profile.career_service|length > 1 else ''}}");

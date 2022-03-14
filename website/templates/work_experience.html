@@ -79,7 +79,7 @@
                         </div>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" pattern="^\d*(\.\d{0,2})?$" form="work_experience_form">
+                        <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" pattern="^\d*(\.\d{0,2})?$" form="work_experience_form">
                         <label for="monthly_salary">Monthly Salary</label>
                       </div>
                     </div>
@@ -357,6 +357,7 @@
 </div>
 </div>
 </div>
+
 </main>
 
 {% endblock %}

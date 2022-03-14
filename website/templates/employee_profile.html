@@ -441,6 +441,10 @@
                       <label for="solo_parent">Solo Parent ID No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else 'N/A'}}" form="update_form">
+                      <label for="voters_id_no">Voter's ID No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="pwd" name ="pwd" placeholder="ATM Card No." value="{{user_profile.pwd if user_profile.pwd is not none else 'N/A'}}" form="update_form">
                       <label for="pwd">PWD ID No.</label>
                     </div>
@@ -1341,10 +1345,12 @@
                     <div class="flex-fill mb-3 p-1">
                       <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
                       <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
+                      {{count_files("certificate_of_live_birth", user_profile.id)}}
                     </div>
                     <div class="flex-fill mb-3 p-1">
                       <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
                       <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
+                      {{count_files("marriage_certificate", user_profile.id)}}
                     </div>
                   </div>
                   </div>
@@ -1356,14 +1362,18 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="transcript_of_records" class="form-label">Upload Transcript of Records*</label>
                         <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form" multiple>
+                      {{count_files("transcript_of_records", user_profile.id)}}
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Diploma*</label>
                         <input class="form-control" type="file" id="diploma" name="diploma" form="update_form" multiple>
+                      {{count_files("diploma", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="tesda_nc" class="form-label">Upload TESDA National Certificate (NC)*</label>
                         <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form" multiple>
+                      {{count_files("tesda_nc", user_profile.id)}}
                       </div>
                     </div>
                   </div>
@@ -1375,20 +1385,27 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="career_service_eligibility" class="form-label">Upload Career Service Eligibility*</label>
                         <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form" multiple>
+                      {{count_files("career_service_eligibility", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="prc_license" class="form-label">Upload PRC License</label>
                         <input class="form-control" type="file" id="prc_license" name="prc_license" form="update_form">
+                      {{count_files("prc_license", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="driver_license" class="form-label">Upload Driver's License</label>
                         <input class="form-control" type="file" id="driver_license" name="driver_license" form="update_form">
+                      {{count_files("driver_license", user_profile.id)}}
+
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="security_guard_license" class="form-label">Upload Security Guard License</label>
                         <input class="form-control" type="file" id="security_guard_license" name="security_guard_license" form="update_form">
+                      {{count_files("security_guard_license", user_profile.id)}}
                       </div>
                     </div>
                   </div>
@@ -1400,52 +1417,80 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="office_id" class="form-label">Upload Office ID</label>
                         <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
+                      {{count_files("office_id", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="gsis_id" class="form-label">Upload GSIS UMID ID</label>
                         <input class="form-control" type="file" id="gsis_id" name="gsis_id" form="update_form">
+                      {{count_files("gsis_id", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="philhealth_id" class="form-label">Upload PhilHealth ID</label>
                         <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
+                      {{count_files("philhealth_id", user_profile.id)}}
+
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="loyalty_card_plus" class="form-label">Upload Loyalty Card Plus ID</label>
                         <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
+                      {{count_files("loyalty_card_plus", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="sss_umid_id" class="form-label">Upload SSS UMID ID</label>
                         <input class="form-control" type="file" id="sss_umid_id" name="sss_umid_id" form="update_form">
+                      {{count_files("sss_umid_id", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="tin_id" class="form-label">Upload TIN ID</label>
                         <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
+                      {{count_files("tin_id", user_profile.id)}}
+
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="national_id" class="form-label">Upload National ID</label>
                         <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
+                      {{count_files("national_id", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="solo_parent_id" class="form-label">Upload Solo Parent ID</label>
                         <input class="form-control" type="file" id="solo_parent_id" name="solo_parent_id" form="update_form">
+                      {{count_files("solo_parent_id", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="pwd_id" class="form-label">Upload PWD ID</label>
                         <input class="form-control" type="file" id="pwd_id" name="pwd_id" form="update_form">
+                      {{count_files("pwd_id", user_profile.id)}}
+
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload ATM Card</label>
                         <input class="form-control" type="file" id="atm_card" name="atm_card" form="update_form">
+                      {{count_files("atm_card", user_profile.id)}}
+
                       </div>
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload Passport ID</label>
                         <input class="form-control" type="file" id="passport_id" name="passport_id" form="update_form">
+                      {{count_files("passport_id", user_profile.id)}}
+
+                      </div>
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="atm_card" class="form-label">Upload Voter's ID</label>
+                        <input class="form-control" type="file" id="voters_id" name="voters_id" form="update_form">
+                      {{count_files("voters_id", user_profile.id)}}
+
                       </div>
                     </div>
                   </div>
@@ -1458,14 +1503,20 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
                         <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
+                      {{count_files("latest_appointment", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="position_description_form" class="form-label">Upload Position Description Form*</label>
                         <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form" multiple>
+                      {{count_files("position_description_form", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="oath_of_office" class="form-label">Upload Oath of Office*</label>
                         <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form" multiple>
+                      {{count_files("oath_of_office", user_profile.id)}}
+
                       </div>
                     </div>
                    
@@ -1473,14 +1524,20 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="assumption_to_duty" class="form-label">Upload Assumption to Duty*</label>
                         <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form" multiple>
+                      {{count_files("assumption_to_duty", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Notice of Step Increment*</label>
                         <input class="form-control" type="file" id="nosi" name="nosi" form="update_form" multiple>
+                      {{count_files("nosi", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Notice of Salary/Wage Adjustment*</label>
                         <input class="form-control" type="file" id="nosa" name="nosa" form="update_form" multiple>
+                      {{count_files("nosa", user_profile.id)}}
+
                       </div>
                     </div>
 
@@ -1489,6 +1546,8 @@
                       <div class="flex-fill mb-3 p-1 ">
                         <label for="ld_cert" class="form-label">Upload Memorandum/Designation*</label>
                         <input class="form-control" type="file" id="memorandum_designation" name="memorandum_designation" form="update_form" multiple>
+                      {{count_files("memorandum_designation", user_profile.id)}}
+
                       </div>
                     </div>
 
@@ -1501,10 +1560,14 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="service_employment_record" class="form-label">Upload Service / Employment Record*</label>
                         <input class="form-control" type="file" id="service_employment_record" name="service_employment_record" form="update_form" multiple>
+                      {{count_files("service_employment_record", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="certificate_of_employment" class="form-label">Upload Certificate of Employment*</label>
                         <input class="form-control" type="file" id="certificate_of_employment" name="certificate_of_employment" form="update_form" multiple>
+                      {{count_files("certificate_of_employment", user_profile.id)}}
+
                       </div>
                     </div>
                     
@@ -1518,10 +1581,14 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload IPCR*</label>
                         <input class="form-control" type="file" id="ipcr" name="ipcr" form="update_form" multiple>
+                      {{count_files("ipcr", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload SALN*</label>
                         <input class="form-control" type="file" id="saln" name="saln" form="update_form" multiple>
+                      {{count_files("saln", user_profile.id)}}
+
                       </div>
 
                     </div>
@@ -1534,10 +1601,14 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
                         <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
+                      {{count_files("nbi_clearance", user_profile.id)}}
+
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">Upload Medical Records*</label>
                         <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form" multiple>
+                      {{count_files("medical_records", user_profile.id)}}
+
                       </div>
                     </div>
                     
@@ -1550,6 +1621,8 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload Others*</label>
                         <input class="form-control" type="file" id="others" name="others" form="update_form" multiple>
+                      {{count_files("others", user_profile.id)}}
+
                       </div>
                     </div>
                   </div>

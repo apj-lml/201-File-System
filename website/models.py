@@ -3,6 +3,8 @@
 from pickle import NONE
 from time import timezone
 
+from sqlalchemy import asc, desc
+
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -67,6 +69,7 @@ class User(db.Model, UserMixin):
 	philsys = db.Column(db.String(150))
 
 	solo_parent = db.Column(db.String(150))
+	voters_id_no = db.Column(db.String(150))
 	pwd = db.Column(db.String(150))
 
 	driver_license = db.Column(db.String(150))
@@ -117,12 +120,12 @@ class User(db.Model, UserMixin):
 	vocational_course = db.relationship('Vocational_Course')
 	learning_development = db.relationship('Learning_Development')
 	vaccine = db.relationship('Vaccine')
-	familyBg = db.relationship('Family_Background')
+	familyBg = db.relationship('Family_Background', order_by=lambda: Family_Background.fb_date_of_birth)
 	college = db.relationship('College')
 	shirt = db.relationship('Shirt')
 	masteral = db.relationship('Masteral')
 	doctoral = db.relationship('Doctoral')
-	work_experience = db.relationship('Work_Experience')
+	work_experience = db.relationship('Work_Experience', order_by=lambda: desc(Work_Experience.date_to))
 	voluntary_work = db.relationship('Voluntary_Work')
 	other_information = db.relationship('Other_Information')
 	questions = db.relationship('Questions')
@@ -302,7 +305,6 @@ class Work_Experience(db.Model, SerializerMixin):
 	date_to = db.Column(db.String(50))
 	position_title = db.Column(db.String(50))
 	department_agency_office_company = db.Column(db.String(50))
-	# immediate_supervisor = db.Column(db.String(50))
 	monthly_salary = db.Column(db.String(50))
 	sg = db.Column(db.String(50))
 	step = db.Column(db.String(50))
@@ -335,6 +337,7 @@ class Questions(db.Model, SerializerMixin):
 
 class Character_Reference(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
+	fullname = db.Column(db.String(100))
 	last_name = db.Column(db.String(100))
 	first_name = db.Column(db.String(100))
 	middle_name = db.Column(db.String(100))
@@ -344,7 +347,7 @@ class Character_Reference(db.Model, SerializerMixin):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	@hybrid_property
-	def fullname(self):
+	def fullnamex(self):
 		if self.middle_name is None or self.middle_name == "N/A" or self.middle_name == "NONE":
 			self.middle_name = ""
 		else:
@@ -356,9 +359,9 @@ class Character_Reference(db.Model, SerializerMixin):
 			self.last_name = ""
 		
 		#fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
-		fullname = str(self.first_name + " " + self.middle_name + " " + self.last_name + " " + " "+ self.name_ext).strip()
+		fullnamex = str(self.first_name + " " + self.middle_name + " " + self.last_name + " " + " "+ self.name_ext).strip()
 
-		return fullname
+		return fullnamex
 
 class Emergency_Contact(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
