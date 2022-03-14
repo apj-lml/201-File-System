@@ -115,7 +115,7 @@
       <li></li>
   </ul>
 
-  <div class="col-sm-12 container-fluid">
+  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container-fluid mb-5" tabindex="0">
     <div class="container" id="">
       <div class="row">
         <div class="col">
@@ -144,7 +144,7 @@
                 </div>
               </div>
 
-              <div class="card mb-3">
+              <div class="card mb-3" id="header">
                 <div class="card-body">
                 <h3 class="card-title">PERSONAL INFORMATION</h3>
                 <div class="d-md-flex flex-row"> 
@@ -545,7 +545,6 @@
                         <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example" onchange="sameAsPermanent()">
                             <option value="YES" {{ "" if user_profile.pres_barangay == "N/A" else "selected" }}>YES</option>
                             <option value="NO"  {{ "selected" if user_profile.pres_barangay == "N/A" else "" }}>NO</option>
-                          
                         </select>
                         <label for="same_as_permanent">Same as permanent address</label>
                       </div>
@@ -1335,7 +1334,7 @@
 <!-- ----------------------------------------------------------------------- -->
 <!--                        UPDALOAD SUPPORTING DOCS                         -->
 <!-- ----------------------------------------------------------------------- -->
-            <div class="card mb-3">
+            <div class="card mb-3" id="footer">
               <div class="card-body">
               <h3 class="card-title">Upload Supporting Documents</h3>
 
@@ -1664,9 +1663,7 @@
 
                   </div>
                 </div>
-                <div class="col-sm-12 text-center">
-                  <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
-                </div>
+
             </div>
 
 
@@ -1677,7 +1674,31 @@
   </div>
 </div>
 </div>
+</div>
 
+</br>
+
+</br>
+
+<footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0" id="navbar-example2">
+  <div class="container p-0 m-0">
+    <div class="row">
+      <div class="col text-center">
+        <a href="#header">Scroll to top</a>
+      </div>
+      <div class="col text-center">
+        <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
+      </div>
+      <div class="col text-center">
+        <a href="#footer">Scroll to bottom</a>
+      </div>
+    </div>
+    <!-- <div class="col-12 text-center"> -->
+    </div>
+  </div>
+</footer>
+
+</div>
 
 
 {% endblock %}
