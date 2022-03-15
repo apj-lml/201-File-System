@@ -1013,7 +1013,7 @@ async function fillForm() {
         //<!--                                QUESTIONS                                -->
         //<!-- ----------------------------------------------------------------------- -->
 
-        {% if user_profile.questions[0] and user_profile.questions[0].answer == "NO" %}
+        {% if user_profile.questions[0] and user_profile.questions[0] == "NO" or user_profile.questions[0] %}
             qn[0].check();
         {% else %}
             qy[0].check();
