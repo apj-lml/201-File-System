@@ -1,4 +1,6 @@
+from datetime import datetime
 import uuid
+
 
 
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -13,4 +15,13 @@ def my_random_string(string_length=4):
     random = random.upper() # Make all characters uppercase.
     #random = random.replace("-","") # Remove the UUID '-'.
     return random[0:string_length] # Return the random string.
+
+def format_mydatetime(value):
+    if(value != "PRESENT"):
+        mydatetime = datetime.strptime(value, '%Y-%m-%d')
+    else:
+        mydatetime = ""
+    return mydatetime
+
+
 

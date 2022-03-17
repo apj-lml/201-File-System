@@ -1,3 +1,4 @@
+from datetime import datetime
 from gc import collect
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import current_user, login_user, logout_user, login_required
@@ -148,3 +149,8 @@ def appointment(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	
 	return render_template('appointment.html', emp_id = emp_id, user_profile = user)
+
+
+@views.context_processor
+def inject_today_date():
+    return {'today_date': datetime.utcnow()}

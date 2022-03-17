@@ -125,14 +125,12 @@ class User(db.Model, UserMixin):
 	shirt = db.relationship('Shirt')
 	masteral = db.relationship('Masteral')
 	doctoral = db.relationship('Doctoral')
-	work_experience = db.relationship('Work_Experience', order_by=lambda: desc(Work_Experience.date_to))
+	work_experience = db.relationship('Work_Experience', order_by="desc(Work_Experience.date_from)")
 	voluntary_work = db.relationship('Voluntary_Work')
 	other_information = db.relationship('Other_Information')
 	questions = db.relationship('Questions')
 	character_reference = db.relationship('Character_Reference')
 	emergency_contact = db.relationship('Emergency_Contact')
-
-
 	# emergency_contact = db.relationship('Emergency_Contact')
 
 class Vocational_Course(db.Model, SerializerMixin):
@@ -144,6 +142,7 @@ class Vocational_Course(db.Model, SerializerMixin):
 	v_highest_level = db.Column(db.String(150))
 	v_highest_grade_year_units = db.Column(db.String(150))
 	v_scholarship_academic_honor = db.Column(db.String(150))
+	v_date_of_validity = db.Column(db.String(50))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Career_Service(db.Model):

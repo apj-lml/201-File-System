@@ -48,11 +48,11 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="work_experience_form" required>
+                        <input type="date" class="form-control" name ="date_from" id="date_from" max="{{today_date.strftime('%Y-%m-%d')}}" placeholder="Inclusive Date (From)" value="" form="work_experience_form" required onchange="document.getElementById('date_to').setAttribute('min', document.getElementById('date_from').value)">
                         <label for="date_from">Inclusive Date (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="work_experience_form" required>
+                        <input type="date" class="form-control" name ="date_to" id="date_to" max="{{today_date.strftime('%Y-%m-%d')}}"  placeholder="Inclusive Date (To)" value="" form="work_experience_form" required>
                         <label for="date_to">Inclusive Date (To)</label>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="sf_present" name="sf_present" value = "PRESENT" form="work_experience_form">
@@ -79,7 +79,7 @@
                         </div>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" pattern="^\d*(\.\d{0,2})?$" form="work_experience_form">
+                        <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" pattern="" form="work_experience_form" onblur="">
                         <label for="monthly_salary">Monthly Salary</label>
                       </div>
                     </div>
@@ -183,8 +183,8 @@
                           {# if user_profile.work_experience is not none #}
                             {% for work_experience in user_profile.work_experience %}
                               <tr>
-                                <td>{{work_experience.date_from}}</td>
-                                <td>{{work_experience.date_to}}</td>
+                                <td>{{work_experience.date_from|format_mydatetime}}</td>
+                                <td>{{work_experience.date_to|format_mydatetime}}</td>
                                 <td>{{work_experience.position_title}}</td>
                                 <td>{{work_experience.department_agency_office_company}}</td>
                                 <td>{{work_experience.monthly_salary}}</td>
@@ -269,7 +269,7 @@
                               </div>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="number" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" min="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'" form="update_work_experience_form" required>
+                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" min="0" step="0.01" pattern="" onblur="" form="update_work_experience_form" required>
                               <label for="date_to">Monthly Salary</label>
                             </div>
                           </div>
@@ -426,7 +426,9 @@ var sf_present = document.getElementById('sf_present');
 		method: 'POST',
 		body: JSON.stringify({"work_exp_id" : el.id})
 	})
-		.then(response => response.json())
+		.then(response => {
+      response.json()
+    })
 		.then(data => {
 			// triggerToast(data)
 			window.location.reload()
@@ -466,7 +468,7 @@ var sf_present = document.getElementById('sf_present');
 
     $('#work_experience_table').DataTable({
       responsive: true,
-
+      order: [[ 0, "desc" ]],
         dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				<'row'<'col-sm-12'tr>>
 				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
@@ -479,7 +481,7 @@ var sf_present = document.getElementById('sf_present');
             const data1 = {}
                 formData1.forEach((value, key) => (data1[key] = value));
             console.log(data1)
-            fetch('/workExperience/save-work-experience', {
+            fetch('/workExperience/save-work-experience/{{user_profile.id}}', {
                 method: 'POST',
                 body: formData1
                 }).then((res)=>{
@@ -514,16 +516,20 @@ var sf_present = document.getElementById('sf_present');
                 method: 'POST',
                 body: formData4
                 }).then((res)=>{
+                  console.log(res.status)
                 if (res.status == 200){
+                    triggerToast("Successfully Added Work Experience", 'success')
                     console.log("SUCCESSFULY SUBMITTED ALL DATA")
-                    return res.json()
+                    document.getElementById('work_experience_form').reset()
+                    window.location.reload()
+                }else if (res.status == 406){
+                  triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
                 }
-                
+                return res.json()
+
                 }).then((data)=>{
 
                   // $('#work_experience_table').DataTable().ajax.reload()
-                  document.getElementById('work_experience_form').reset()
-                  window.location.reload()
 
                 });//END
 
@@ -532,18 +538,24 @@ var sf_present = document.getElementById('sf_present');
 });
 
 //Use keyup to capture user input & mouse up to catch when user is changing the value with the arrows
-$('.trailing-decimal-input').on('mouseup blur', function (e) {
+$('.trailing-decimal-input').on('blur', function (e) {
+var intRegex = /^\d+$/;
+var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).val().replace(/,/gi, ""))) {
+    var num = $(this).val().replace(/,/gi, "");
+    var float_num = parseFloat(num);
+    var final = parseFloat((float_num).toFixed(2)).toLocaleString("en-EN",{
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2 });
+      
+    $(this).val(final);
+  
+}else{
+  $(this).val("")
+}
 
-  // this.setSelectionRange(0,0);
-// on keyup check for backspace & delete, to allow user to clear the input as required
-var key = e.keyCode || e.charCode;
-if (key == 8 || key == 46) {
-    return false;
-};
 
 
-//update the value of the input with our conditions
-$(this).val(parseFloat($(this).val()).toFixed(2));
 });
 
 

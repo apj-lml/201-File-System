@@ -56,7 +56,6 @@ def create_app():
 
 	@app.template_filter('format_mydatetime')
 	def format_mydatetime(value):
-		# print("HEEEERRRREEE",value)
 		if value == 'PRESENT':
 			return value
 		elif value == 'N/A':

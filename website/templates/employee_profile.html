@@ -627,7 +627,7 @@
                         <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1 col-lg-6">
-                        <input type="text" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
+                        <input type="number" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
                         <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
                       </div>  
                     </div>
@@ -672,11 +672,11 @@
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
+                        <input type="number" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
                         <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
+                        <input type="number" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
                         <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
                       </div>
                     </div>
@@ -714,7 +714,6 @@
                   </div>
   
                 <div class="card mb-3">
-  
                   <div class="card-body">
                     <h3 class="card-title">Vocational / Trade Course</h3>
                     <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
@@ -732,7 +731,6 @@
                             <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" form="add_vocational_form" value="N/A"> 
                             <label for="v_school">School</label>
                           </div>
-                          
                           <div class="form-floating flex-fill mb-3 p-1">
                             <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" form="add_vocational_form" value="N/A">
                             <label for="vocational_trade_course">Vocational / Trade Course</label>
@@ -753,12 +751,18 @@
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
+                          <input type="number" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
                           <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
                         </div>
                         <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
+                          <input type="number" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
                           <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating col-sm-4 mb-3 p-1">
+                          <input type="date" class="form-control" id="v_date_of_validity[1]" name ="v_date_of_validity[1]" placeholder="Date of Validity of NC II" form="add_vocational_form" value="N/A">
+                          <label for="v_period_of_attendance_from">Date of Validity of NC II</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
@@ -787,12 +791,10 @@
                               <input type="text" class="form-control" id="v_school[{{count_update_vocational.value}}]" name ="v_school[{{count_update_vocational.value}}]" placeholder="School" value="{{vocational.v_school}}" form="update_form">
                               <label for="v_school">School</label>
                             </div>
-                            
                             <div class="form-floating flex-fill mb-3 p-1">
                               <input type="text" class="form-control" id="vocational_trade_course[{{count_update_vocational.value}}]" name ="vocational_trade_course[{{count_update_vocational.value}}]" placeholder="Vocational / Trade Course" value="{{vocational.vocational_trade_course}}" form="update_form">
                               <label for="vocational_trade_course">Vocational / Trade Course</label>
                             </div>
-  
                             <div class="form-floating flex-fill mb-3 p-1">
                               <select class="form-select" id="v_highest_level[{{count_update_vocational.value}}]" name="v_highest_level[{{count_update_vocational.value}}]" aria-label="Floating label select example" value="{{vocational.v_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[{{count_update_vocational.value}}]'), document.getElementById('v_scholarship_academic_honor[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_from[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_to[{{count_update_vocational.value}}]'))">  
                                 {% if user_profile.v_highest_level is not none %}
@@ -809,12 +811,18 @@
                           </div>
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" id="v_period_of_attendance_from[{{count_update_vocational.value}}]" name ="v_period_of_attendance_from[{{count_update_vocational.value}}]" placeholder="Period of Attendance (From)" value="{{vocational.v_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
+                              <input type="number" class="form-control" id="v_period_of_attendance_from[{{count_update_vocational.value}}]" name ="v_period_of_attendance_from[{{count_update_vocational.value}}]" placeholder="Period of Attendance (From)" value="{{vocational.v_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
                               <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" id="v_period_of_attendance_to[{{count_update_vocational.value}}]" name ="v_period_of_attendance_to[{{count_update_vocational.value}}]" placeholder="Period of Attendance (To)" value="{{vocational.v_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
+                              <input type="number" class="form-control" id="v_period_of_attendance_to[{{count_update_vocational.value}}]" name ="v_period_of_attendance_to[{{count_update_vocational.value}}]" placeholder="Period of Attendance (To)" value="{{vocational.v_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
                               <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating col-sm-4 mb-3 p-1">
+                              <input type="date" class="form-control" id="v_date_of_validity[{{count_update_vocational.value}}]" name ="v_date_of_validity[{{count_update_vocational.value}}]" placeholder="Date of Validity of NC II" value="{{vocational.v_date_of_validity}}" form="update_form">
+                              <label for="v_date_of_validity">Date of Validity of NC II</label>
                             </div>
                           </div>
                           <div class="d-md-flex flex-row">
@@ -880,11 +888,11 @@
                             </div>
                             <div class="d-md-flex flex-row">
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_period_of_attendance_from[{{count_update_college.value}}]" name ="c_period_of_attendance_from[{{count_update_college.value}}]" placeholder="Period of Attendance (From)" value="{{college.c_period_of_attendance_from if college.c_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                                <input type="number" class="form-control" id="c_period_of_attendance_from[{{count_update_college.value}}]" name ="c_period_of_attendance_from[{{count_update_college.value}}]" placeholder="Period of Attendance (From)" value="{{college.c_period_of_attendance_from if college.c_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                                 <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_period_of_attendance_to[{{count_update_college.value}}]" name ="c_period_of_attendance_to[{{count_update_college.value}}]" placeholder="Period of Attendance (To)" value="{{college.c_period_of_attendance_to if college.c_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                                <input type="number" class="form-control" id="c_period_of_attendance_to[{{count_update_college.value}}]" name ="c_period_of_attendance_to[{{count_update_college.value}}]" placeholder="Period of Attendance (To)" value="{{college.c_period_of_attendance_to if college.c_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                                 <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
                               </div>
                             </div>
@@ -1681,16 +1689,18 @@
 </br>
 
 <footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0" id="navbar-example2">
-  <div class="container p-0 m-0">
-    <div class="row">
-      <div class="col text-center">
-        <a href="#header">Scroll to top</a>
-      </div>
-      <div class="col text-center">
-        <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
-      </div>
-      <div class="col text-center">
-        <a href="#footer">Scroll to bottom</a>
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col text-center">
+          <a href="#header">Scroll to top</a>
+        </div>
+        <div class="col text-center">
+          <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
+        </div>
+        <div class="col text-center">
+          <a href="#footer">Scroll to bottom</a>
+        </div>
       </div>
     </div>
     <!-- <div class="col-12 text-center"> -->
@@ -1717,12 +1727,14 @@ document.addEventListener('keydown', e => {
     });
 
 window.addEventListener("load", function() {
-
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
-  var vocation_count = document.getElementById('vocational_no_fields').value;
   
-  
+  var vocation_count = document.getElementById('vocational_no_update_fields').value;
+  console.log(vocation_count)
+  for (var xyz = 1; xyz <= vocation_count; xyz++){
+    graduated(document.getElementById(`v_highest_level[${xyz}]`), document.getElementById(`v_highest_grade_year_units[${xyz}]`), document.getElementById(`v_scholarship_academic_honor[${xyz}]`), document.getElementById(`v_period_of_attendance_from[${xyz}]`), document.getElementById(`v_period_of_attendance_to[${xyz}]`))
+  }
 
   // for(var x = 0; x < vocation_count; x++){
   //   alert(vocation_count);
@@ -1751,11 +1763,11 @@ window.addEventListener("load", function() {
 function validate_length(el){
   if(el.value <0){
       el.value = 0;
-      triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.');
+      triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
     }else{
       if(el.value.length > 2 || el.value.length < 0){
           el.value = el.value.slice(0,2); 
-          triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.');
+          triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
       }
     }
   
@@ -1825,34 +1837,17 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               document.getElementById('pres_zip_code').value = "N/A"
           }
       }
-  var formElem = document.getElementById("update_form");
 
-  // document.getElementById("add_eligibility_form").addEventListener('submit',(e)=>{
-  //   e.preventDefault()
-  //   var formElem = document.getElementById("add_eligibility_form");
-  //   let formData = new FormData(formElem);
 
-  //   const data = {}
-  //   formData.forEach((value, key) => (data[key] = value))
-
-  //   console.log(data)
-  //   fetch('/cse/add-eligibility', {
-  //     method: 'POST',
-  //     body: formData
-  //   }).then((res)=>{
-  //     return res.json()
-  //   }).then(data => {
-
-  //   })
-  // })
-
-  function update_employee(){
-    document.getElementById("update_form").submit();
-  }
+  // function update_employee(){
+  //   document.getElementById("update_form").submit();
+  // }
 
     //------------------------------------//
     //        SUBMIT OF UPDATE FORM       //
     //------------------------------------//
+  var formElem = document.getElementById("update_form");
+
     document.getElementById("update_form").addEventListener("submit",(e)=>{
       //alert("update form")
       e.preventDefault();
@@ -1950,7 +1945,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                           body: formData6
                         }).then((res)=>{
                             if(res.status == 200){
-                              window.location.reload();
+                              // window.location.reload();
                               
                             }
                           
@@ -2037,7 +2032,8 @@ function delete_file(e){
 function year_only (el) {
       if (el.value.length > 4) {
           el.value = el.value.slice(0,4); 
-          triggerToast('Please. Input year only!')
+          triggerToast('Please. Input year only!', 'warning');
+          console.log(123)
       }
   }
 

@@ -1,4 +1,5 @@
 
+from pprint import pprint
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -159,7 +160,7 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF EMPLOYEE PROFILE                         #
 # ---------------------------------------------------------------------------- #
-	print(formdata)
+	# pprint(formdata)
 	
 	#code for automated update
 	for key, value in formdata.items(): 
@@ -179,9 +180,10 @@ def update_employee(emp_id):
 								v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']'].upper(),
 								v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(),
                 				v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(xy)+']'],
-								v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper()))
-
-
+								v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper(),
+								v_date_of_validity = formdata['v_date_of_validity['+str(xy)+']']
+								))
+                				
 		db.session.commit()
 # ---------------------------------------------------------------------------- #
 #                                UPDATING OF CSE                               #

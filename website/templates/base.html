@@ -245,7 +245,7 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
 
 <div class="loading" id="loading">Loading&#8230;</div>
 
-<div class="position-absolute d-flex justify-content-center align-items-center w-100 top-50" style="z-index: 9999;">
+<div class="position-absolute d-flex justify-content-center align-items-center w-100 top-50" style="z-index: 1000;">
   <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 600px;">
     <div class="toast-header text-white bg-primary border-0">
       <h4 class="me-auto">Notice!</h4>
@@ -267,19 +267,47 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
   <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
   <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
 
+
+
 <script src="{{ url_for('static', filename='bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='datatables/datatables.min.js') }}"></script>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                  SWAL                                   -->
+<!-- ----------------------------------------------------------------------- -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javascript">
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'center',
+  showConfirmButton: false,
+  showCloseButton: true,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    // toast.addEventListener('mouseenter', Swal.stopTimer)
+    // toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+
+
   function loadingScreen(is_display){
     var loading = document.getElementById('loading');
     loading.style.cssText = `display:${is_display}`;
   }
-  function triggerToast(err_msg){
-    document.getElementById('toastBody').innerHTML = ""
-    document.getElementById('toastBody').innerHTML = err_msg
-    var myAlert = document.getElementById('liveToast');//select id of toast
-    var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
-    bsAlert.show();//show it
+  function triggerToast(err_msg, icon='success'){
+    // document.getElementById('toastBody').innerHTML = ""
+    // document.getElementById('toastBody').innerHTML = err_msg
+    // var myAlert = document.getElementById('liveToast');//select id of toast
+    // var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+    // bsAlert.show();//show it
+
+    Toast.fire({
+      icon: icon,
+      title: err_msg,
+    })
 
 }
 
