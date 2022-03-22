@@ -1,11 +1,13 @@
+from pprint import pprint
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
+from sqlalchemy import desc
 from .models import Appointment, Uploaded_File, User
 from . import db
 #from datetime import datetime
-import datetime
-from .myhelper import allowed_file, my_random_string
+from datetime import datetime
+from .myhelper import allowed_file, format_mydatetime, my_random_string
 from werkzeug.utils import secure_filename
 import os, os.path
 import json
@@ -33,7 +35,7 @@ def add_appointment(emp_id):
         final_name = ''
 
         for k,v in formdata.items():
-            print(k)
+            # print(k)
             if k != 'appointment_attachment' or k != 'appointment_attachment_file_name':
                 formdata.update({k: v.upper()})
             else:
@@ -53,11 +55,11 @@ def add_appointment(emp_id):
                     #return redirect(request.url)
                 else:
                     if not allowed_file(file.filename):
-                        print('Invalid file submitted')
+                        # print('Invalid file submitted')
                         return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
                         #return redirect(request.url)
                     else:
-                        today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
+                        today_is = datetime.today().strftime('%Y-%m-%d-%H%M%S')
                         file_extension = file.filename.rsplit('.', 1)[1].lower()
                         file_name = file.filename.rsplit('.', 1)[0]
                         final_name = secure_filename(afile+'_'+ current_user.last_name+'_' + '_' + file_name +'.'+file_extension)
@@ -72,22 +74,38 @@ def add_appointment(emp_id):
                         else:
                             print('path exist!')
                             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
-
-                            #saving upload info to database
-                            # files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
-                            # db.session.add(files_to_upload)
-                            # db.session.commit()
                             formdata['appointment_attachment'] = "\\static\\files\\" + final_name
                             formdata['appointment_attachment_file_name'] = final_name
 
+                            if 'sf_present' in formdata:
+                                get_we = Appointment.query.filter_by(user_id = emp_id, service_to = "PRESENT").all()
+                                if get_we:
+                                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                                else:
+                                    formdata['service_to'] = 'PRESENT'
+                                    formdata.pop('sf_present')
+                                    # formdata['service_to'] = 'PRESENT'
+                                    # formdata.pop('sf_present')
+                            else:
+                                get_we = Appointment.query.filter_by(user_id = emp_id).order_by(desc(Appointment.service_from)).all()
+                                for we in get_we:
+                                    pprint(we)
+                                    we_date_from = format_mydatetime(we.service_from)
+                                    date_from = format_mydatetime(formdata['service_from'])
+                                    date_to = format_mydatetime(formdata['service_to'])
+                                    if we.service_to == "PRESENT":
+                                        we_date_to = datetime.utcnow()
+                                    else:
+                                        we_date_to = format_mydatetime(we.service_to)
 
-        if 'sf_present' in formdata:
-            formdata['service_to'] = 'PRESENT'
-            formdata.pop('sf_present')
-        if 'nia_pimo' in formdata:
-            formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
-            formdata.pop('nia_pimo')
-        formdata['user_id'] = emp_id
+                                    if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:    
+                                        return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+
+
+                            if 'nia_pimo' in formdata:
+                                formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+                                formdata.pop('nia_pimo')
+                            formdata['user_id'] = emp_id
 
 
         new_Appointment = Appointment(**formdata)

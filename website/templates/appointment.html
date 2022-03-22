@@ -136,7 +136,7 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form enctype="multipart/form-data" id="add_appointment_form" action="/appointment/add-appointment/{{current_user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+			<form enctype="multipart/form-data" id="add_appointment_form" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
@@ -506,26 +506,9 @@ $(this).val(parseFloat($(this).val()).toFixed(2));
 
 
 	var products_table = $('#service_record_table').DataTable( {
-		// language: {
-        //     searchBuilder: {
-        //         title: ``,
-		// 		add: `Add Filter`
-        //     }
-        // },
 		bSortCellsTop: true,
-		// bLengthChange: true,
 		scrollX: true,
-		// responsive: true,
-		// colReorder: true,
         dom: 'lfrtip',
-		// "initComplete": function(settings, json) {
-		// 	function edit_appointment(id){
-		// 		fetch(`/appointment/edit-appointment/${id}`,{
-		// 		method: 'POST',
-		// 		body: JSON.stringify({"id" : id})
-		// 	})
-		// }
-		// 	},
         "ajax": {
             "method" : "GET",
             "url": "/appointment/get-appointment/{{emp_id}}",
@@ -540,9 +523,6 @@ $(this).val(parseFloat($(this).val()).toFixed(2));
 			{ "data": "status"},
 			{ "data": "salary"},
 			{ "data": "station_place"},
-			// { "data": "leave_wo_pay"},
-			// { "data": "separation_date"},
-			// { "data": "separation_cause"},
 			{
               data: null,
 			  searchable: true,
@@ -576,8 +556,45 @@ $(this).val(parseFloat($(this).val()).toFixed(2));
 	var myModal = document.getElementById('updateModal')
 		myModal.addEventListener('shown.bs.modal', function () {
 			update_sf_present();
-		// edit_appointment(document.getElementById('id').value);
 	})
+
+
+	document.getElementById('add_appointment_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                   SUBMIT OF WORK EXPERIENCE FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/appointment/add-appointment/{{current_user.id}}'
+            
+            let formData4 = new FormData(document.getElementById("add_appointment_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                  console.log(res.status)
+                if (res.status == 200){
+                    triggerToast("Successfully Added Work Experience", 'success')
+                    // document.getElementById('work_experience_form').reset()
+                    window.location.reload()
+                }else if (res.status == 406){
+                  triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
+                }
+                return res.json()
+
+                }).then((data)=>{
+                  triggerToast(data, 'warning')
+
+                  // $('#work_experience_table').DataTable().ajax.reload()
+
+                });//END
+
+             
+    })
 
 function edit_appointment(id){
 	fetch(`/appointment/edit-appointment`,{
@@ -702,23 +719,26 @@ document.getElementById('update_appointment_form').addEventListener('submit', (e
                 method: 'POST',
                 body: formData4
                 }).then((res)=>{
+				
 				if (res.status == 406){
-					triggerToast('Invalid file submitted. Only PDF files are allowed.')
+					return res.json()
                 }
                 else if (res.status == 200){
 					// triggerToast('Successfully Saved Changes.')
-                    return res.json()
+                    // return res.json()
+					// window.location.reload();
                 }
                 
                 }).then((data)=>{
-					// triggerToast(data)
+					triggerToast(data, 'warning')
 					loadingScreen('none');
 					var myModal = document.getElementById('updateModal');
 					var modal = bootstrap.Modal.getInstance(myModal).hide()
-					// modal.hide();
+					modal.hide();
                   $('#ld_table').DataTable().ajax.reload()
+				  
                 //   document.getElementById('work_experience_form').reset()
-                  window.location.reload();
+                //   window.location.reload();
 
                 });//END
 })

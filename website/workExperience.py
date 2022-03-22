@@ -40,7 +40,7 @@ def add_work_experience(emp_id):
         if 'sf_present' in formdata:
             get_we = Work_Experience.query.filter_by(user_id = emp_id, date_to = "PRESENT").all()
             if get_we:
-                return jsonify('You Can\'t Enter Overlapping Dates! 111'), 406
+                return jsonify('You Can\'t Enter Overlapping Dates!'), 406
             else:
                 formdata['date_to'] = 'PRESENT'
                 formdata.pop('sf_present')
@@ -58,7 +58,7 @@ def add_work_experience(emp_id):
                     we_date_to = format_mydatetime(we.date_to)
 
                 if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:    
-                    return jsonify('You Can\'t Enter Overlapping Dates! 2222'), 406
+                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
 
 
         if 'nia_pimo' in formdata:
