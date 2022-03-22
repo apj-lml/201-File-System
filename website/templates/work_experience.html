@@ -61,7 +61,6 @@
                           </label>
                         </div>
                       </div>
-                     
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
@@ -79,7 +78,7 @@
                         </div>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" pattern="" form="work_experience_form" onblur="">
+                        <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" form="work_experience_form" onblur="">
                         <label for="monthly_salary">Monthly Salary</label>
                       </div>
                     </div>
@@ -239,6 +238,22 @@
                         <div class="card-body">
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="date" class="form-control" name ="date_from" id="update_date_from" max="{{today_date.strftime('%Y-%m-%d')}}" placeholder="Inclusive Date (From)" value="" form="update_work_experience_form" required onchange="document.getElementById('date_to').setAttribute('min', document.getElementById('date_from').value)">
+                              <label for="update_date_from">Inclusive Date (From)</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="date" class="form-control" name ="date_to" id="update_date_to" max="{{today_date.strftime('%Y-%m-%d')}}"  placeholder="Inclusive Date (To)" value="" form="update_work_experience_form" required>
+                              <label for="update_date_to">Inclusive Date (To)</label>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "PRESENT" form="update_work_experience_form">
+                                <label class="form-check-label" for="update_sf_present">
+                                  PRESENT
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
                               <input type="date" class="form-control" name ="date_from" id="update_date_from" placeholder="Inclusive Date (From)" value="" form="update_work_experience_form" required>
                               <label for="update_date_from">Inclusive Date (From)</label>
                             </div>
@@ -252,7 +267,7 @@
                                 </label>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
                               <input type="text" class="form-control" name ="position_title" id="update_position_title" placeholder="Position Title" value="" form="update_work_experience_form" required>
@@ -269,7 +284,7 @@
                               </div>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" min="0" step="0.01" pattern="" onblur="" form="update_work_experience_form" required>
+                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" min="0" step="0.01" form="update_work_experience_form" required>
                               <label for="date_to">Monthly Salary</label>
                             </div>
                           </div>
@@ -485,16 +500,21 @@ var sf_present = document.getElementById('sf_present');
                 method: 'POST',
                 body: formData1
                 }).then((res)=>{
-                if (res.status == 200){
-                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
-                    return res.json()
-                }
+                  if (res.status == 200){
+                     // triggerToast("Successfully Updated Work Experience", 'success')
+                      // console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                      //window.location.reload()
+
+                  }else if (res.status == 406){
+                    //triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
+                  }
+                  return res.json()
                 
                 }).then((data)=>{
-
+                  triggerToast(data, 'warning')
+                    
                   // $('#work_experience_table').DataTable().ajax.reload()
                   // document.getElementById('update_work_experience_form').reset()
-                  window.location.reload()
 
                 });//END
             });
@@ -528,6 +548,7 @@ var sf_present = document.getElementById('sf_present');
                 return res.json()
 
                 }).then((data)=>{
+                  triggerToast(data, 'warning')
 
                   // $('#work_experience_table').DataTable().ajax.reload()
 

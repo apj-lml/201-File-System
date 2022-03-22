@@ -43,53 +43,38 @@
 					</div>
 				  </div>
 				<form id="add_emergency_contact_form" action="#" method="POST"></form>
-						<div class="card shadow-sm mb-3">
-						  <div class="card-body">
-						  <div class="d-md-flex flex-row">
-							<div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="fullname" placeholder="Full Name" form="add_emergency_contact_form" required>
-								<label for="fullname">Full Name</label>
-							  </div>
-					   <!-- <div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="last_name" placeholder="Last Name" form="add_emergency_contact_form" required>
-							  <label for="ld_program[1]">Last Name</label>
-							</div>
-							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="first_name" placeholder="First Name" form="add_emergency_contact_form" required>
-							  <label for="ld_date_from[1]">First Name</label>
-							</div>
-							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="middle_name" placeholder="Middle Name" form="add_emergency_contact_form">
-							  <label for="ld_date_to[1]">Middle Name</label>
-							</div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" name ="name_ext" placeholder="Name Extension" form="add_emergency_contact_form">
-                                <label for="ld_date_to[1]">Name Extension</label>
-                              </div> -->
-						  </div>
-						  <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                                <input type="text" class="form-control" name ="relationship" placeholder="Address" form="add_emergency_contact_form">
-                                <label for="address">Relationship</label>
-                              </div>
-							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" name ="address" placeholder="Address" form="add_emergency_contact_form">
-							  <label for="address">Complete Address</label>
-							</div>
-                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                                <input type="tel" class="form-control" name ="contact_no" placeholder="09277799422" form="add_emergency_contact_form" pattern="[0-9]{11}" required>
-                                <label for="contact_no">Contact No. (Eg. 09277799422)</label>
-                              </div>
-						  </div>
+				<form id="update_emergency_contact_form" action="#" method="POST"></form>
 
-						  <div class="col-sm-12 text-center">
-							<button type="submit" class="btn btn-primary" form="add_emergency_contact_form">Submit</button>
+					<div class="card shadow-sm mb-3">
+						<!-- <span class="me-auto ms-3 mt-3">1. </span> -->
+						<div class="card-body">
+							<div class="d-md-flex flex-row">
+								<div class="form-floating flex-fill mb-3 p-1">
+									<input type="hidden" class="form-control" name ="id[1]" placeholder="ID" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "" }} value="{{ user_profile.emergency_contact[0].id if user_profile.emergency_contact[0] }}">
+									<input type="text" class="form-control" name ="fullname[1]" placeholder="Full Name" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].fullname if user_profile.emergency_contact[0] else '' }}" required>
+									<label for="fullname">Full Name</label>
+								</div>
+							</div>
+							<div class="d-md-flex flex-row">
+								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+									<input type="text" class="form-control" name ="relationship[1]" placeholder="Address" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].relationship if user_profile.emergency_contact[0] else '' }}" required>
+									<label for="address">Relationship</label>
+									</div>
+								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+									<input type="text" class="form-control" name ="address[1]" placeholder="Address" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].address if user_profile.emergency_contact[0] else '' }}" required>
+									<label for="address">Complete Address</label>
+								</div>
+								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+									<input type="text" class="form-control" name ="contact_no[1]" placeholder="09277799422" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].contact_no if user_profile.emergency_contact[0] else '' }}" pattern="[0-9]{11}" required>
+									<label for="contact_no">Contact No. (Eg. 09277799422)</label>
+								</div>
+							</div>
 						</div>
+						<div class="col-sm-12 text-center">
+							<button type="submit" class="btn btn-primary mb-5" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }}>Save</button>
 						</div>
-						
-					  </div>
-				
-				  <div class="card shadow-sm mb-3">
+					</div>
+				  <!-- <div class="card shadow-sm mb-3">
 					<div class="card-body">
 						<div class="col-sm-12">
 							<div class="table-responsive">
@@ -97,9 +82,6 @@
 									<thead class="">
 									<tr>
 										<th scope="col">Full Name</th>
-										<!-- <th scope="col">First Name</th>
-										<th scope="col">Middle Name</th> -->
-										<!-- <th scope="col">Name Extension</th> -->
 										<th scope="col">Complete Address</th>
 										<th scope="col">Contact Number</th>
 										<th scope="col">Controls</th>
@@ -113,14 +95,14 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 			</div>
 		</div>
 	</div>
 
 
-	<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+	<!-- <div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
 		<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
 		  <div class="modal-content">
 			<div class="modal-header">
@@ -167,7 +149,7 @@
 	  </div>
 	  </div>
 	  </div>
-	</div>
+	</div> -->
 
 </main>
 
@@ -192,10 +174,12 @@
 				return res.json();
 
 			}).then((data)=>{
-					triggerToast(data); //this is the returned error message
-					var table = $('#character_ref_table').DataTable();
-					table.ajax.reload();
-                    document.getElementById('add_emergency_contact_form').reset();
+					// triggerToast(data);
+					window.location.reload();
+
+					// var table = $('#character_ref_table').DataTable();
+					// table.ajax.reload();
+                    // document.getElementById('add_emergency_contact_form').reset();
 			})
 
 	});
@@ -216,12 +200,13 @@
 				return res.json();
 
 			}).then((data)=>{
-					triggerToast(data); //this is the returned error message
-					var table = $('#character_ref_table').DataTable();
-					table.ajax.reload();
-                    document.getElementById('add_emergency_contact_form').reset();
-					var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
-					myModal.hide();
+					// triggerToast(data);
+					// var table = $('#character_ref_table').DataTable();
+					// table.ajax.reload();
+					window.location.reload();
+                    // document.getElementById('add_emergency_contact_form').reset();
+					// var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
+					// myModal.hide();
 			})
 
 	});
@@ -246,57 +231,37 @@
       }, false)
     })
 
-	var character_ref_table = $('#character_ref_table').DataTable( {
-		//bSortCellsTop: true,
-		// bLengthChange: true,
-		//scrollX: true,
-		responsive: true,
-        paging: false,
-        searching : false,
-        "ajax": {
-            "method" : "GET",
-            "url": "/emergencyContact/get/{{emp_id}}",
-            "dataSrc": ""
-        },
+	// var character_ref_table = $('#character_ref_table').DataTable( {
+	// 	responsive: true,
+    //     paging: false,
+    //     searching : false,
+    //     "ajax": {
+    //         "method" : "GET",
+    //         "url": "/emergencyContact/get/{{emp_id}}",
+    //         "dataSrc": ""
+    //     },
 
-        "columns": [
-			// { "data": "last_name"},
-			// { "data": "first_name"},
-			 { "data": "fullname"},
-
-            // {"data": null,
-            //     render: function ( data, type, row ) {
-			// 		if (!data.middle_name){
-            //             var middle_name = ''
-            //         }else{
-            //             var middle_name = data.middle_name[0]
-			// 			middle_name = middle_name.concat('.')
-            //         }
-            //     return `
-			// 	${data.first_name} ${ middle_name ?? ''} ${data.last_name} ${data.name_ext ?? ''}
-            //     `;
-            //   }
-            //  },
-			// { "data": "name_ext"},
-			{ "data": "address"},
-			{ "data": "contact_no"},
-            {
-              data: null,
-			  searchable: false,
-              render: function ( data, type, row ) {
-                return `
-				<div class="d-sm-flex flex-row">
-					<a class="btn btn-primary btn-sm m-2" title="Edit" id="${data.id}" onclick = "edit_ec(this)" data-bs-toggle="modal" data-bs-target="#viewExpModal">
-						<i class="bi bi-pencil"></i>
-					</a>
-					<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
-						<i class="bi bi-trash"></i>
-					</a>
-				</div>`;
-              }
-            }
-        ]
-    } );
+    //     "columns": [
+	// 		 { "data": "fullname"},
+	// 		{ "data": "address"},
+	// 		{ "data": "contact_no"},
+    //         {
+    //           data: null,
+	// 		  searchable: false,
+    //           render: function ( data, type, row ) {
+    //             return `
+	// 			<div class="d-sm-flex flex-row">
+	// 				<a class="btn btn-primary btn-sm m-2" title="Edit" id="${data.id}" onclick = "edit_ec(this)" data-bs-toggle="modal" data-bs-target="#viewExpModal">
+	// 					<i class="bi bi-pencil"></i>
+	// 				</a>
+	// 				<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
+	// 					<i class="bi bi-trash"></i>
+	// 				</a>
+	// 			</div>`;
+    //           }
+    //         }
+    //     ]
+    // } );
 
 })()
 

@@ -40,24 +40,25 @@ def add_work_experience(emp_id):
         if 'sf_present' in formdata:
             get_we = Work_Experience.query.filter_by(user_id = emp_id, date_to = "PRESENT").all()
             if get_we:
-                return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                return jsonify('You Can\'t Enter Overlapping Dates! 111'), 406
             else:
                 formdata['date_to'] = 'PRESENT'
                 formdata.pop('sf_present')
         else:
-            get_we = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).first()
-            pprint(get_we.date_from)
+            get_we = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).all()
+            for we in get_we:
+                pprint(we.date_from)
                 
-            we_date_from = format_mydatetime(get_we.date_from)
-            date_from = format_mydatetime(formdata['date_from'])
-            date_to = format_mydatetime(formdata['date_to'])
-            if get_we.date_to == "PRESENT":
-                we_date_to = datetime.utcnow()
-            else:
-                we_date_to = format_mydatetime(get_we.date_to)
+                we_date_from = format_mydatetime(we.date_from)
+                date_from = format_mydatetime(formdata['date_from'])
+                date_to = format_mydatetime(formdata['date_to'])
+                if we.date_to == "PRESENT":
+                    we_date_to = datetime.utcnow()
+                else:
+                    we_date_to = format_mydatetime(we.date_to)
 
-            if we_date_from <= date_from <= we_date_to:
-                return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:    
+                    return jsonify('You Can\'t Enter Overlapping Dates! 2222'), 406
 
 
         if 'nia_pimo' in formdata:
@@ -106,7 +107,7 @@ def view_work_experience():
                 rows_dic_temp[col] = getattr(row, col)
             rows_dic.append(rows_dic_temp)
             rows_dic_temp= {}
-            print(rows_dic)
+            # print(rows_dic)
         return jsonify(rows_dic)
 
  # ---------------------------------------------------------------------------- #
@@ -117,39 +118,50 @@ def view_work_experience():
 def update_work_experience(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
-        get_we = Work_Experience.query.get(formdata['id'])
-        formdata.pop('id')
+        # pprint(formdata)
+        # get_we = Work_Experience.query.get(formdata['id'])
 
         if 'sf_present' in formdata:
-            get_we = Work_Experience.query.filter_by(user_id = emp_id, date_to = "PRESENT").all()
-            if get_we:
-                return jsonify('You Can\'t Enter Overlapping Dates!'), 406
-            else:
-                formdata['date_to'] = 'PRESENT'
-                formdata.pop('sf_present')
-        else:
-            get_we = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).first()
-            pprint(get_we.date_from)
+            # if get_we.date_to == "PRESENT":
+            #     return jsonify('You Can\'t Enter Overlapping Dates! 111'), 406
+            # else:
+            formdata['date_to'] = 'PRESENT'
+            formdata.pop('sf_present')
+            
+        
+        get_we_all = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).all()
+        get_we = Work_Experience.query.get(formdata['id'])
+        for we in get_we_all:
+            if we.id != int(formdata['id']):
+                if formdata['date_to'] == "PRESENT":
+                    we_date_to = datetime.utcnow()
+                    date_to = datetime.utcnow()
+
+                else:
+                    we_date_to = format_mydatetime(we.date_to)
+                    date_to = format_mydatetime(formdata['date_to'])
+
+
+                we_date_from = format_mydatetime(we.date_from)
+                date_from = format_mydatetime(formdata['date_from'])
                 
-            we_date_from = format_mydatetime(get_we.date_from)
-            date_from = format_mydatetime(formdata['date_from'])
-            date_to = format_mydatetime(formdata['date_to'])
-            if get_we.date_to == "PRESENT":
-                we_date_to = datetime.utcnow()
-            else:
-                we_date_to = format_mydatetime(get_we.date_to)
+                if we.date_to == "PRESENT":
+                    we_date_to = datetime.utcnow()
+                else:
+                    we_date_to = format_mydatetime(we.date_to)
+                
 
-            if we_date_from <= date_from <= we_date_to:
-                return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:
+                    return jsonify('You Can\'t Enter Overlapping Dates! 222'), 406
+            # else:
+            if 'nia_pimo' in formdata:
+                formdata['department_agency_office_company'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
+                formdata.pop('nia_pimo')
 
-        if 'nia_pimo' in formdata:
-            formdata['department_agency_office_company'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
-            formdata.pop('nia_pimo')
+        formdata.pop('id')
 
-        #code for automated update
-       
         for key, value in formdata.items(): 
-            setattr(get_we, key, value.upper())
+            setattr(get_we, key, value)
         db.session.commit()
 
-        return jsonify('Successfully Saved Changes.')
+        return jsonify('Successfully Saved Changes.'), 200

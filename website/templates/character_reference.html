@@ -32,54 +32,97 @@
                       <!-- <h5 class="card-title">Description</h5> -->
                       <ul>
 						<li><p class="card-text">Please fill out all necessary fields.</p></li>
-                      	<li><p class="card-text">Maximum of three (3) inputs only.</p></li>
+                      	<!-- <li><p class="card-text">Maximum of three (3) inputs only.</p></li> -->
                       </ul>
                     </div>
                   </div>
 					  <!-- <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_character_reference_form" value="1"> -->
 						<div class="card shadow-sm mb-3">
 						  <div class="card-body">
+							  <h5 class="card-title">1.</h5>
 							<div class="d-md-flex flex-row">
+								<input type="hidden" class="form-control" name ="id[1]" placeholder="First Name" {{ 'form=update_character_reference_form' if user_profile.character_reference[0] else '' }} value="{{ user_profile.character_reference[0].id if user_profile.character_reference[0] else '' }}" required>
+								
 								<div class="form-floating col-sm-6 mb-3 p-1">
-									<input type="text" class="form-control" name ="fullname" placeholder="First Name" form="add_character_reference_form" required>
+									<input type="text" class="form-control" name ="fullname[1]" placeholder="First Name" {{ 'form=update_character_reference_form' if user_profile.character_reference[0] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[0].fullname if user_profile.character_reference[0] else '' }}" required>
 									<label for="fullname">Full Name</label>
 								</div>
-								<!-- <div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="last_name" placeholder="Last Name" form="add_character_reference_form" required>
-								<label for="ld_program[1]">Last Name</label>
-								</div>
-								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="first_name" placeholder="First Name" form="add_character_reference_form" required>
-								<label for="ld_date_from[1]">First Name</label>
-								</div>
-								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="middle_name" placeholder="Middle Name" form="add_character_reference_form">
-								<label for="ld_date_to[1]">Middle Name</label>
-								</div>
-								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="name_ext" placeholder="Name Extension" form="add_character_reference_form">
-									<label for="ld_date_to[1]">Name Extension</label>
-								</div> -->
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-								<input type="text" class="form-control" name ="address" placeholder="Address" form="add_character_reference_form">
+								<input type="text" class="form-control" name ="address[1]" placeholder="Address" {{ 'form=update_character_reference_form' if user_profile.character_reference[0] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[0].address if user_profile.character_reference[0] else '' }}" required>
 								<label for="address">Address</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="tel" class="form-control" name ="contact_no" placeholder="09277799422" form="add_character_reference_form" pattern="[0-9]{11}">
+									<input type="tel" class="form-control" name ="contact_no[1]" placeholder="09277799422" {{ 'form=update_character_reference_form' if user_profile.character_reference[0] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[0].contact_no if user_profile.character_reference[0] else '' }}" pattern="[0-9]{11}" required>
 									<label for="contact_no">Contact No. (Eg. 09277799422)</label>
 								</div>
 							</div>
 
-							<div class="col-sm-12 text-center">
+							<!-- <div class="col-sm-12 text-center">
 								<button type="submit" class="btn btn-primary" form="add_character_reference_form">Submit</button>
-							</div>
+							</div> -->
 						</div>
 						
 					  </div>
+					  <div class="card shadow-sm mb-3">
+						<div class="card-body">
+							<h5 class="card-title">2.</h5>
+						  <div class="d-md-flex flex-row">
+							  <div class="form-floating col-sm-6 mb-3 p-1">
+									<input type="hidden" class="form-control" name ="id[2]" placeholder="First Name" {{ 'form=update_character_reference_form' if user_profile.character_reference[1] else '' }} value="{{ user_profile.character_reference[1].id if user_profile.character_reference[1] else '' }}" required>
+
+								  <input type="text" class="form-control" name ="fullname[2]" placeholder="First Name" {{ 'form=update_character_reference_form' if user_profile.character_reference[1] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[1].fullname if user_profile.character_reference[1] else '' }}" required>
+								  <label for="fullname">Full Name</label>
+							  </div>
+						  </div>
+						  <div class="d-md-flex flex-row">
+							  <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+							  <input type="text" class="form-control" name ="address[2]" placeholder="Address" {{ 'form=update_character_reference_form' if user_profile.character_reference[1] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[1].address if user_profile.character_reference[1] else '' }}" required>
+							  <label for="address">Address</label>
+							  </div>
+							  <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+								  <input type="tel" class="form-control" name ="contact_no[2]" placeholder="09277799422" {{ 'form=update_character_reference_form' if user_profile.character_reference[1] else 'form=add_character_reference_form' }} pattern="[0-9]{11}" value="{{ user_profile.character_reference[1].contact_no if user_profile.character_reference[1] else '' }}" required>
+								  <label for="contact_no">Contact No. (Eg. 09277799422)</label>
+							  </div>
+						  </div>
+<!-- 
+						  <div class="col-sm-12 text-center">
+							  <button type="submit" class="btn btn-primary" form="add_character_reference_form">Submit</button>
+						  </div> -->
+					  </div>
+					  
+					</div>
+					<div class="card shadow-sm mb-3">
+						<div class="card-body">
+						<h5 class="card-title">3.</h5>
+						  <div class="d-md-flex flex-row">
+							  <div class="form-floating col-sm-6 mb-3 p-1">
+									<input type="hidden" class="form-control" name ="id[3]" placeholder="First Name" {{ 'form=update_character_reference_form' if user_profile.character_reference[2] else '' }} value="{{ user_profile.character_reference[2].id if user_profile.character_reference[2] else '' }}" required>
+
+								  <input type="text" class="form-control" name ="fullname[3]" placeholder="First Name" {{ 'form=update_character_reference_form' if user_profile.character_reference[2] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[2].fullname if user_profile.character_reference[2] else '' }}" required>
+								  <label for="fullname">Full Name</label>
+							  </div>
+						  </div>
+						  <div class="d-md-flex flex-row">
+							  <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+							  <input type="text" class="form-control" name ="address[3]" placeholder="Address" {{ 'form=update_character_reference_form' if user_profile.character_reference[2] else 'form=add_character_reference_form' }} value="{{ user_profile.character_reference[2].address if user_profile.character_reference[2] else '' }}" required>
+							  <label for="address">Address</label>
+							  </div>
+							  <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+								  <input type="tel" class="form-control" name ="contact_no[3]" placeholder="09277799422" {{ "form=update_character_reference_form" if user_profile.character_reference[2] else "form=add_character_reference_form" }} pattern="[0-9]{11}" value="{{ user_profile.character_reference[2].contact_no if user_profile.character_reference[2] else '' }}" required>
+								  <label for="contact_no">Contact No. (Eg. 09277799422)</label>
+							  </div>
+						  </div>
+
+						  <div class="col-sm-12 text-center">
+							  <button type="submit" class="btn btn-primary" {{ "form=update_character_reference_form" if user_profile.character_reference[0] else "form=add_character_reference_form" }}>Save</button>
+						  </div>
+					  </div>
+					  
+					</div>
 				
-				  <div class="card shadow-sm mb-3">
+				  <!-- <div class="card shadow-sm mb-3">
 					<div class="card-body">
 						<div class="col-sm-12">
 							<div class="table-responsive">
@@ -87,10 +130,6 @@
 									<thead class="">
 									<tr>
 										<th scope="col">Full Name</th>
-										<!-- <th scope="col">Last Name</th>
-										<th scope="col">First Name</th>
-										<th scope="col">Middle Name</th>
-										<th scope="col">Name Extension</th> -->
 										<th scope="col">Address</th>
 										<th scope="col">Contact Number</th>
 										<th scope="col">Controls</th>
@@ -104,7 +143,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="card shadow-sm mb-3">
 					<div class="card-body">
@@ -213,9 +252,9 @@ function view_char_ref(el){
 				return res.json();
 
 			}).then((data)=>{
-					triggerToast(data); //this is the returned error message
-					var table = $('#character_ref_table').DataTable();
-					table.ajax.reload();
+					window.location.reload();
+					// var table = $('#character_ref_table').DataTable();
+					// table.ajax.reload();
 			})
 
 	});
@@ -241,12 +280,13 @@ function view_char_ref(el){
 				return res.json();
 
 			}).then((data)=>{
-					triggerToast(data); //this is the returned error message
-					var table = $('#character_ref_table').DataTable();
-					table.ajax.reload();
+				window.location.reload();
+
+					// var table = $('#character_ref_table').DataTable();
+					// table.ajax.reload();
 					// var myModal = new bootstrap.Modal(document.getElementById('viewExpModal'))
-					var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
-					myModal.hide();
+					// var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
+					// myModal.hide();
 			})
 
 	});

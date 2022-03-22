@@ -1114,7 +1114,94 @@ async function fillForm() {
         person_administering_oath.setText('ENGR. GERTRUDES A. VIADO')
 
 
+
+    const formUrl2 = "{{ url_for('static', filename='pds_template2.pdf') }}";
+
+    const formPdfBytes2 = await fetch(formUrl2).then(res => res.arrayBuffer())
+
+    // srcDoc is the second pdf file
+    const srcDoc = await PDFLib.PDFDocument.load(formPdfBytes2);
+
+    const form2 = srcDoc.getForm()
+
+    //Ilagay dito ang page 2
+    const elementary_school2 = form2.getTextField('elementary_school');
+    const e_basic_education2 = form2.getTextField('e_basic_education');
+    const e_period_of_attendance_from2 = form2.getTextField('e_period_of_attendance_from');
+    const e_period_of_attendance_to2 = form2.getTextField('e_period_of_attendance_to');
+    const e_highest_grade_year_units2 = form2.getTextField('e_highest_grade_year_units');
+    const e_year_graduated2 = form2.getTextField('e_year_graduated');
+    const e_scholarship_academic_honor2 = form2.getTextField('e_scholarship_academic_honor');
+
+    const high_school2 = form2.getTextField('high_school');
+    const hs_basic_education2 = form2.getTextField('hs_basic_education');
+    const hs_period_of_attendance_from2 = form2.getTextField('hs_period_of_attendance_from');
+    const hs_period_of_attendance_to2 = form2.getTextField('hs_period_of_attendance_to');
+    const hs_highest_level2 = form2.getTextField('hs_highest_level');
+    const hs_year_graduated2 = form2.getTextField('hs_year_graduated');
+    const hs_scholarship_academic_honor2 = form2.getTextField('hs_scholarship_academic_honor');
+
+    const v_school2 = form2.getTextField('v_school');
+    const vocational_trade_course2 = form2.getTextField('vocational_trade_course');
+    const v_period_of_attendance_from2 = form2.getTextField('v_period_of_attendance_from');
+    const v_period_of_attendance_to2 = form2.getTextField('v_period_of_attendance_to');
+    const v_highest_level2 = form2.getTextField('v_highest_level');
+    const v_year_graduated2 = form2.getTextField('v_year_graduated');
+    const v_scholarship_academic_honor2 = form2.getTextField('v_scholarship_academic_honor');
+
+    const c_school2 = form2.getTextField('c_school');
+    const c_degree_course2 = form2.getTextField('c_degree_course');
+    const c_period_of_attendance_from2 = form2.getTextField('c_period_of_attendance_from');
+    const c_period_of_attendance_to2 = form2.getTextField('c_period_of_attendance_to');
+    const c_highest_grade_year_units2 = form2.getTextField('c_highest_level');
+    const c_year_graduated2 = form2.getTextField('c_year_graduated');
+    const c_scholarship_academic_honor2 = form2.getTextField('c_scholarship_academic_honor');
+
+    const gs_school2 = form2.getTextField('gs_school');
+    const gs_degree_course2 = form2.getTextField('gs_degree_course');
+    const gs_period_of_attendance_from2 = form2.getTextField('gs_period_of_attendance_from');
+    const gs_period_of_attendance_to2 = form2.getTextField('gs_period_of_attendance_to');
+    const gs_highest_grade_year_units2 = form2.getTextField('gs_highest_level');
+    const gs_year_graduated2 = form2.getTextField('gs_year_graduated');
+    const gs_scholarship_academic_honor2 = form2.getTextField('gs_scholarship_academic_honor');
+
+    
+    v_school2.setText('{{user_profile.vocational_course[1].v_school if user_profile.vocational_course|length > 1 else "N/A"}}')
+    vocational_trade_course2.setText('{{user_profile.vocational_course[1].vocational_trade_course if user_profile.vocational_course|length > 1 else "N/A"}}')
+    v_period_of_attendance_from2.setText('{{user_profile.vocational_course[1].v_period_of_attendance_from if user_profile.vocational_course|length > 1 else"N/A"}}')
+    v_period_of_attendance_to2.setText('{{user_profile.vocational_course[1].v_period_of_attendance_to if user_profile.vocational_course|length > 1 else "N/A"}}')
+    v_highest_level2.setText('{{"GRADUATED" if user_profile.vocational_course|length > 1 else "N/A"}}')
+    v_year_graduated2.setText('{{user_profile.vocational_course[1].v_period_of_attendance_to if user_profile.vocational_course|length > 1 else "N/A"}}')
+    v_scholarship_academic_honor2.setText('{{user_profile.vocational_course[1].v_scholarship_academic_honor if user_profile.vocational_course|length > 1 else "N/A"}}')
+
+    c_school2.setText('{{user_profile.college[1].c_school if user_profile.college[1].c_school is not none or user_profile.college[1].c_school != "N/A" else "N/A"}}')
+    c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college[1].c_degree_course is not none or user_profile.college[1].c_degree_course != "N/A" else "N/A"}}')
+    c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college[1].c_period_of_attendance_from is not none or user_profile.college[1].c_period_of_attendance_from != "N/A" else "N/A"}}')
+    c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_period_of_attendance_to is not none or user_profile.college[1].c_period_of_attendance_to != "N/A" else "N/A"}}')
+    c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned is not none and user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_level_units_earned }}')
+    c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned is not none or user_profile.college[1].c_highest_level_units_earned != "N/A" or user_profile.college[1].c_highest_level_units_earned != "GRADUATED" else "N/A"}}')
+    c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor is not none or user_profile.college[1].c_scholarship_academic_honor != "N/A" else "N/A"}}')
+
+    gs_school2.setText('{{user_profile.masteral[1].gs_school if user_profile.masteral|length > 1 else "N/A"}}')
+    gs_degree_course2.setText('{{user_profile.masteral[1].gs_degree_course if user_profile.masteral[1].gs_degree_course is not none else "N/A"}}')
+    gs_period_of_attendance_from2.setText('{{user_profile.masteral[1].gs_period_of_attendance_from if user_profile.masteral[1].gs_period_of_attendance_from is not none or user_profile.masteral[1].gs_period_of_attendance_from != "N/A" else "N/A"}}')
+    gs_period_of_attendance_to2.setText('{{user_profile.masteral[1].gs_period_of_attendance_to if user_profile.masteral[1].gs_period_of_attendance_to is not none or user_profile.masteral[1].gs_period_of_attendance_to != "N/A" else "N/A"}}')
+    gs_year_graduated2.setText('{{user_profile.masteral[1].gs_period_of_attendance_to if user_profile.masteral[1].gs_highest_level_units_earned is not none or user_profile.masteral[1].gs_highest_level_units_earned != "N/A" else "N/A"}}')
+    gs_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.masteral[1].gs_highest_level_units_earned is not none and user_profile.masteral[1].gs_highest_level_units_earned == "GRADUATED" else "N/A"}}')
+    gs_scholarship_academic_honor2.setText('{{user_profile.masteral[1].gs_scholarship_academic_honor if user_profile.masteral[1].gs_scholarship_academic_honor is not none else "N/A"}}')
+
+  form2.flatten();
+
+
+    const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2, 3])
+    const [firstPage, secondPage, thirdPage, fourthPage] = copiedPages;
+
+    // pdfDoc.addPage(firstPage)
+    pdfDoc.insertPage(4, firstPage)
+    // pdfDoc.addPage(firstPage)
+
   const pdfBytes = await pdfDoc.save()
+//   const pdfBytes2 = await srcDoc.save()
 
   form.flatten();
 
