@@ -182,8 +182,10 @@ def delete_appointment(id):
 def update_appointment(id, emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
-        get_we = Appointment.query.get(id)
+        # get_we = Appointment.query.get(id)
         formdata.pop('id')
+
+        # pprint(formdata)
 
         final_name = ''
         
@@ -217,6 +219,37 @@ def update_appointment(id, emp_id):
                     # db.session.commit()
                     formdata['appointment_attachment'] = '\\static\\files\\' + final_name
                     formdata['appointment_attachment_file_name'] = final_name
+
+        if 'sf_present' in formdata:
+            formdata['service_to'] = 'PRESENT'
+            formdata.pop('sf_present')
+
+        get_we_all = Appointment.query.filter_by(user_id = emp_id).order_by(desc(Appointment.service_from)).all()
+        get_we = Appointment.query.get(id)
+        # pprint(formdata)
+        for we in get_we_all:
+            if we.id != int(id):
+                if formdata['service_to'] == "PRESENT":
+                    we_date_to = datetime.utcnow()
+                    date_to = datetime.utcnow()
+                else:
+                    we_date_to = format_mydatetime(we.service_to)
+                    date_to = format_mydatetime(formdata['service_to'])
+
+                we_date_from = format_mydatetime(we.service_from)
+                date_from = format_mydatetime(formdata['service_from'])
+                
+                if we.service_to == "PRESENT":
+                    we_date_to = datetime.utcnow()
+                    # we_date_to = format_mydatetime(we_date_to)
+                else:
+                    we_date_to = format_mydatetime(we.service_to)
+
+                # print('WE_DATE_TO', we_date_to)
+                # print('DATE_TO', date_to.strftime('%Y-%m-%d'))
+                
+                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:
+                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
 
         if 'nia_pimo' in formdata:
             formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'

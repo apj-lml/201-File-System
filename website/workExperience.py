@@ -152,7 +152,7 @@ def update_work_experience(emp_id):
                 
 
                 if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:
-                    return jsonify('You Can\'t Enter Overlapping Dates! 222'), 406
+                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
             # else:
             if 'nia_pimo' in formdata:
                 formdata['department_agency_office_company'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'

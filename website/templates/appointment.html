@@ -433,8 +433,8 @@
 				</div> -->
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
-                        <label for="diploma" class="form-label">Upload Appointment</label>
-                        <input class="form-control" type="file" id="update_appointment_attachment" name="appointment_attachment" required>
+                        <label for="diploma" class="form-label">Upload Appointment (This will overwrite the old File)</label>
+                        <input class="form-control" type="file" id="update_appointment_attachment" name="appointment_attachment">
 						<div class="valid-feedback">
 							<!-- Looks good! -->
 						  </div>
@@ -721,21 +721,23 @@ document.getElementById('update_appointment_form').addEventListener('submit', (e
                 }).then((res)=>{
 				
 				if (res.status == 406){
+					triggerToast('You Can\'t Enter Overlapping Dates!', 'warning')
 					return res.json()
                 }
                 else if (res.status == 200){
-					// triggerToast('Successfully Saved Changes.')
-                    // return res.json()
-					// window.location.reload();
-                }
-                
-                }).then((data)=>{
-					triggerToast(data, 'warning')
 					loadingScreen('none');
 					var myModal = document.getElementById('updateModal');
 					var modal = bootstrap.Modal.getInstance(myModal).hide()
 					modal.hide();
-                  $('#ld_table').DataTable().ajax.reload()
+					$('#ld_table').DataTable().ajax.reload()
+					triggerToast('Successfully Saved Changes.', 'warning')
+
+					return res.json()
+                }
+                
+                }).then((data)=>{
+					// triggerToast(data, 'warning')
+					
 				  
                 //   document.getElementById('work_experience_form').reset()
                 //   window.location.reload();
