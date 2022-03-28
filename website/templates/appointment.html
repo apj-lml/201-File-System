@@ -139,7 +139,7 @@
 			<form enctype="multipart/form-data" id="add_appointment_form" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
+					  <input type="date" class="form-control" id="service_from" name ="service_from" max="{{today_date.strftime('%Y-%m-%d')}}" onchange="document.getElementById('service_to').setAttribute('min', document.getElementById('service_from').value)" placeholder="Service From" value="" required>
 					  <label for="service_from">Service From</label>
 					  <div class="valid-feedback">
 						<!-- Looks good! -->
@@ -149,7 +149,7 @@
 					  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="date" class="form-control" id="service_to" name ="service_to" placeholder="Service To" value="" required>
+					  <input type="date" class="form-control" id="service_to" name ="service_to" max="{{today_date.strftime('%Y-%m-%d')}}" placeholder="Service To" value="" required>
 					  <label for="first_name">Service To</label>
 					  <div class="valid-feedback">
 						<!-- Looks good! -->
@@ -197,7 +197,7 @@
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
 						<!-- onblur="this.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'" -->
-					  <input type="number" class="form-control trailing-decimal-input" id="salary" name ="salary" placeholder="Salary" value="" pattern="^\d*(\.\d{0,2})?$" step=".01" required> 
+					  <input type="text" class="form-control trailing-decimal-input" id="salary" name ="salary" placeholder="Salary" value="" step=".01"> 
 					  <label for="salary">Salary</label>
 					  <div class="valid-feedback">
 						<!-- Looks good! -->
@@ -325,7 +325,7 @@
 						This is required.
 					  </div>
 					  <div class="form-check">
-						<input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "Present">
+						<input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "PRESENT">
 						<label class="form-check-label" for="update_sf_present">
 						  PRESENT
 						</label>
@@ -363,13 +363,13 @@
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="number" class="form-control trailing-decimal-input" id="update_salary" name ="salary" placeholder="Salary" value=""  step="0.01" required>
+					  <input type="text" class="form-control trailing-decimal-input" id="update_salary" name ="salary" placeholder="Salary" value="" step="0.01" required>
 					  <label for="update_salary">Salary</label>
 					  <div class="valid-feedback">
 						<!-- Looks good! -->
 					  </div>
 					  <div class="invalid-feedback">
-						This is required.
+						Invalid input.
 					  </div>
 					</div>
 				</div>
@@ -468,47 +468,64 @@
 
 {%block scripts%}
 <script type="text/javascript">
-$('.trailing-decimal-input').on('mouseup blur', function (e) {
-
-var key = e.keyCode || e.charCode;
-if (key == 8 || key == 46) {
-  return false;
-};
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
 
 
-//update the value of the input with our conditions
-$(this).val(parseFloat($(this).val()).toFixed(2));
+   //Fetch all the forms we want to apply custom Bootstrap validation styles to
+   var forms = document.querySelectorAll('.needs-validation')
+	//	console.log(forms)
+	// Loop over them and prevent submission
+	Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+		form.addEventListener('submit', function (event) {
+			// if (!form.checkValidity()) {
+			// console.log(1132)
+			// event.preventDefault()
+			// event.stopPropagation()
+			// }
+
+			form.classList.add('was-validated')
+		}, false)
+		})
+
+
+$('.trailing-decimal-input').on('blur', function (e) {
+var intRegex = /^\d+$/;
+var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).val().replace(/,/gi, ""))) {
+    var num = $(this).val().replace(/,/gi, "");
+	// console.log(num)
+    var float_num = parseFloat(num);
+    var final = parseFloat((float_num)).toLocaleString("en-EN",{
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2 });
+
+	this.value = final;
+    // $(this).val(final);
+  
+}else{
+   $(this).val("")
+}
+
 });
 
-	$('#uploaded_file_table').DataTable({
+})()
+
+$('#uploaded_file_table').DataTable({
       responsive: true,
-        dom: 'ftrip'
-});
+        dom: 'ftrip',
+		order: [[ 0, "desc" ]],
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-
-
-
-
+		});
 
 	var products_table = $('#service_record_table').DataTable( {
 		bSortCellsTop: true,
 		scrollX: true,
         dom: 'lfrtip',
+		order: [[ 0, "desc" ]],
+
         "ajax": {
             "method" : "GET",
             "url": "/appointment/get-appointment/{{emp_id}}",
@@ -559,39 +576,50 @@ $(this).val(parseFloat($(this).val()).toFixed(2));
 	})
 
 
-	document.getElementById('add_appointment_form').addEventListener('submit',(e)=>{
-            e.preventDefault();
-            //-- ----------------------------------------------------------------------- -->
-            //--                   SUBMIT OF WORK EXPERIENCE FORM                        -->
-            //-- ----------------------------------------------------------------------- -->
+	
+	//-- ----------------------------------------------------------------------- -->
+	//--                       SUBMIT OF APPOINTMENT FORM                        -->
+	//-- ----------------------------------------------------------------------- -->
 
+	document.getElementById('add_appointment_form').addEventListener('submit',(e)=>{
+			e.preventDefault();
             var url = '/appointment/add-appointment/{{current_user.id}}'
             
             let formData4 = new FormData(document.getElementById("add_appointment_form"));
                 
                 const data4 = {}
                 formData4.forEach((value, key) => (data4[key] = value));
-               
-                fetch(url, {
-                method: 'POST',
-                body: formData4
-                }).then((res)=>{
-                  console.log(res.status)
-                if (res.status == 200){
-                    triggerToast("Successfully Added Work Experience", 'success')
-                    // document.getElementById('work_experience_form').reset()
-                    window.location.reload()
-                }else if (res.status == 406){
-                  triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
-                }
-                return res.json()
 
-                }).then((data)=>{
-                  triggerToast(data, 'warning')
+				if (!document.getElementById('add_appointment_form').checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}else{
+					fetch(url, {
+						method: 'POST',
+						body: formData4
+						}).then((res)=>{
+						console.log(res.status)
+						if (res.status == 200){
+							triggerToast("Successfully Added Work Experience", 'success')
+							document.getElementById('add_appointment_form').reset()
+							$('#service_record_table').DataTable().ajax.reload()
+							var myModalEl = document.getElementById('exampleModal');
+							var modal = bootstrap.Modal.getInstance(myModalEl)
+							modal.hide();
+							// window.location.reload()
+						}else if (res.status == 406){
+							triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
+						}
+						return res.json()
 
-                  // $('#work_experience_table').DataTable().ajax.reload()
+						}).then((data)=>{
+						//   triggerToast(data, 'warning')
 
-                });//END
+						// $('#work_experience_table').DataTable().ajax.reload()
+
+						});//END
+				}
+
 
              
     })
@@ -605,9 +633,9 @@ function edit_appointment(id){
 	.then(data => {
 		console.log(data)
 		var id = document.getElementById("id");
+		var update_sf_present = document.getElementById("update_sf_present");
 		var update_service_from = document.getElementById("update_service_from");
 		var update_service_to = document.getElementById("update_service_to");
-		var update_sf_present = document.getElementById("update_sf_present");
 		var update_designation = document.getElementById("update_designation");
 		var update_status = document.getElementById("update_status");
 		var update_salary = document.getElementById("update_salary");
@@ -620,9 +648,13 @@ function edit_appointment(id){
 		id.value = data[0].id
 		update_service_from.value = data[0].service_from
 		update_service_to.value = data[0].service_to
+
 		if(data[0].service_to == "PRESENT"){
 			update_sf_present.checked = true;
-			sf_present();
+			// sf_present();
+		}else{
+			update_sf_present.checked = false;
+
 		}
 
 		update_designation.value = data[0].designation
@@ -721,6 +753,8 @@ document.getElementById('update_appointment_form').addEventListener('submit', (e
                 }).then((res)=>{
 				
 				if (res.status == 406){
+					loadingScreen('none');
+
 					triggerToast('You Can\'t Enter Overlapping Dates!', 'warning')
 					return res.json()
                 }
@@ -729,13 +763,14 @@ document.getElementById('update_appointment_form').addEventListener('submit', (e
 					var myModal = document.getElementById('updateModal');
 					var modal = bootstrap.Modal.getInstance(myModal).hide()
 					modal.hide();
-					$('#ld_table').DataTable().ajax.reload()
+					$('#service_record_table').DataTable().ajax.reload()
 					triggerToast('Successfully Saved Changes.', 'warning')
 
 					return res.json()
                 }
                 
                 }).then((data)=>{
+
 					// triggerToast(data, 'warning')
 					
 				  
@@ -744,7 +779,6 @@ document.getElementById('update_appointment_form').addEventListener('submit', (e
 
                 });//END
 })
-
 
 </script>
 {%endblock%}

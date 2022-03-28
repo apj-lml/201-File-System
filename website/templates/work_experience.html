@@ -78,7 +78,7 @@
                         </div>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" form="work_experience_form" onblur="">
+                        <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" pattern="^\d*(\.\d{0,2})?$" step=".01" form="work_experience_form" onblur="">
                         <label for="monthly_salary">Monthly Salary</label>
                       </div>
                     </div>
@@ -284,7 +284,7 @@
                               </div>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" min="0" step="0.01" form="update_work_experience_form" required>
+                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" pattern="^\d*(\.\d{0,2})?$" step=".01" form="update_work_experience_form" required>
                               <label for="date_to">Monthly Salary</label>
                             </div>
                           </div>
@@ -380,7 +380,23 @@
 {%block scripts%}
 
 <script type="text/javascript">
+$('.trailing-decimal-input').on('blur', function (e) {
+var intRegex = /^\d+$/;
+var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).val().replace(/,/gi, ""))) {
+    var num = $(this).val().replace(/,/gi, "");
+    var float_num = parseFloat(num);
+    var final = parseFloat((float_num).toFixed(2)).toLocaleString("en-EN",{
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2 });
+      
+    $(this).val(final);
+  
+}else{
+  $(this).val("")
+}
 
+});
 function nia_pimo(){
 		var nia_pimo = document.getElementById('nia_pimo');
 		var station_place = document.getElementById('department_agency_office_company');
@@ -503,10 +519,10 @@ var sf_present = document.getElementById('sf_present');
                   if (res.status == 200){
                      // triggerToast("Successfully Updated Work Experience", 'success')
                       // console.log("SUCCESSFULY SUBMITTED ALL DATA")
-                      //window.location.reload()
+                      window.location.reload()
 
                   }else if (res.status == 406){
-                    //triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
+                    triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
                   }
                   return res.json()
                 
@@ -558,26 +574,7 @@ var sf_present = document.getElementById('sf_present');
     })
 });
 
-//Use keyup to capture user input & mouse up to catch when user is changing the value with the arrows
-$('.trailing-decimal-input').on('blur', function (e) {
-var intRegex = /^\d+$/;
-var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
-if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).val().replace(/,/gi, ""))) {
-    var num = $(this).val().replace(/,/gi, "");
-    var float_num = parseFloat(num);
-    var final = parseFloat((float_num).toFixed(2)).toLocaleString("en-EN",{
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2 });
-      
-    $(this).val(final);
-  
-}else{
-  $(this).val("")
-}
 
-
-
-});
 
 
 $('.status_of_appointment').on('change', function (e) {

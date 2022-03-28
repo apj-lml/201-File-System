@@ -111,8 +111,7 @@ def add_appointment(emp_id):
         new_Appointment = Appointment(**formdata)
         db.session.add(new_Appointment)
         db.session.commit()
-    return redirect(request.referrer)
-    # return redirect(url_for('delete_images'))
+    return jsonify('Successfully Saved Changes!')
 
 
 
