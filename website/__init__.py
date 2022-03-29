@@ -9,7 +9,7 @@ from babel.dates import format_date, format_datetime, format_time
 from datetime import datetime
 # from flask_babel import Babel
 
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"autoflush": False})
 # babel = Babel()
 
 DB_NAME = 'employeeinformation.db'

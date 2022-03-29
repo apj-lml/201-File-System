@@ -480,43 +480,43 @@ async function fillForm() {
             v_scholarship_academic_honor.setText("N/A")
     {% endif %}
 
-    c_school.setText('{{user_profile.college[0].c_school if user_profile.college[0]|length > 0 else "N/A"}}')
-    c_degree_course.setText('{{user_profile.college[0].c_degree_course if user_profile.college[0]|length > 0 else "N/A"}}')
-    c_period_of_attendance_from.setText('{{user_profile.college[0].c_period_of_attendance_from if user_profile.college[0]|length > 0 else "N/A"}}')
-    c_period_of_attendance_to.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0]|length > 0 else "N/A"}}')
-    {% if user_profile.college[0]|length > 0 %}
+    c_school.setText('{{user_profile.college[0].c_school if user_profile.college|length > 0 else "N/A"}}')
+    c_degree_course.setText('{{user_profile.college[0].c_degree_course if user_profile.college|length > 0 else "N/A"}}')
+    c_period_of_attendance_from.setText('{{user_profile.college[0].c_period_of_attendance_from if user_profile.college|length > 0 else "N/A"}}')
+    c_period_of_attendance_to.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college|length > 0 else "N/A"}}')
+    {% if user_profile.college|length > 0 %}
         c_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else user_profile.college[0].c_highest_level_units_earned }}')
     {% else %}
         c_highest_grade_year_units.setText("N/A")
     {% endif %}
 
-    {% if user_profile.college[0]|length > 0 %}
+    {% if user_profile.college|length > 0 %}
         c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned != "GRADUATED" else "N/A"}}')
     {% else %}
         c_year_graduated.setText("N/A")
     {% endif %}
 
-    c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor if user_profile.college[0]|length > 0 else "N/A"}}')
+    c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor if user_profile.college|length > 0 else "N/A"}}')
 
 
-    gs_school.setText('{{user_profile.masteral[0].gs_school if user_profile.masteral[0]|length > 0 else "N/A"}}')
-    gs_degree_course.setText('{{user_profile.masteral[0].gs_degree_course if user_profile.masteral[0]|length > 0 else "N/A"}}')
-    gs_period_of_attendance_from.setText('{{user_profile.masteral[0].gs_period_of_attendance_from if user_profile.masteral[0]|length > 0 else "N/A"}}')
-    gs_period_of_attendance_to.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0]|length > 0 else "N/A"}}')
+    gs_school.setText('{{user_profile.masteral[0].gs_school if user_profile.masteral|length > 0 else "N/A"}}')
+    gs_degree_course.setText('{{user_profile.masteral[0].gs_degree_course if user_profile.masteral|length > 0 else "N/A"}}')
+    gs_period_of_attendance_from.setText('{{user_profile.masteral[0].gs_period_of_attendance_from if user_profile.masteral|length > 0 else "N/A"}}')
+    gs_period_of_attendance_to.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral|length > 0 else "N/A"}}')
 
-    {% if user_profile.masteral[0]|length > 0 %}
+    {% if user_profile.masteral|length > 0 %}
         gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.college[0].gs_highest_grade_year_units == "GRADUATED" else "N/A" }}')
     {% else %}
         gs_year_graduated.setText("N/A")
     {% endif %}
 
-    {% if user_profile.masteral[0]|length > 0 %}
+    {% if user_profile.masteral|length > 0 %}
         gs_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.college[0].gs_highest_level_units_earned == "GRADUATED" else "N/A" }}')
     {% else %}
         gs_highest_grade_year_units.setText("N/A")
     {% endif %}
 
-    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0]|length > 0 else "N/A"}}')
+    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral|length > 0 else "N/A"}}')
 
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                                 PAGE 2                                  -->
