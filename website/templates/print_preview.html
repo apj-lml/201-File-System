@@ -38,11 +38,11 @@
 {% endblock %}
 
 {% block content %}
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
 
 <main class="container h-100 mt-5" id="pds">
 
-    
+    asdasd
     <iframe id="pdf" style="width: 100%; height: 100%;"></iframe>
 
 
@@ -58,12 +58,13 @@
 <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script>
 
 <script type="text/javascript">
+
 fillForm()
 
 
 async function fillForm() {
 //   const formUrl = 'https://pdf-lib.js.org/assets/dod_character.pdf'
-  const formUrl = "{{ url_for('static', filename='pds_template.pdf') }}";
+  const formUrl = "{{ url_for('static', filename='pds_template2.pdf') }}";
 
   const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 
@@ -1196,14 +1197,14 @@ async function fillForm() {
 
 
 
-    // const formUrl2 = "{{ url_for('static', filename='pds_template.pdf') }}";
+    const formUrl2 = "{{ url_for('static', filename='pds_template2.pdf') }}";
 
-    const formPdfBytes2 = await fetch(formUrl).then(res => res.arrayBuffer())
+    const formPdfBytes2 = await fetch(formUrl2).then(res => res.arrayBuffer())
 
     // srcDoc is the second pdf file
     const srcDoc = await PDFLib.PDFDocument.load(formPdfBytes2);
     const form2 = srcDoc.getForm()
-    const form3 = srcDoc.getForm()
+    // const form3 = srcDoc.getForm()
 
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                        SEPARATE SHEET FOR PAGE 1                        -->
@@ -1992,11 +1993,9 @@ async function fillForm() {
     const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2, 3])
     const [firstPage, secondPage, thirdPage, fourthPage] = copiedPages;
 
-    // pdfDoc.addPage(firstPage)
     pdfDoc.insertPage(4, firstPage)
     pdfDoc.insertPage(5, secondPage)
     pdfDoc.insertPage(6, thirdPage)
-    // pdfDoc.addPage(firstPage)
 
     const pdfBytes = await pdfDoc.save()
     //   const pdfBytes2 = await srcDoc.save()
@@ -2006,6 +2005,7 @@ async function fillForm() {
 
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   document.getElementById('pdf').src = pdfDataUri;
+
 }
 
 </script>

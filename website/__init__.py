@@ -7,20 +7,37 @@ from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 import jinja2
 from babel.dates import format_date, format_datetime, format_time
 from datetime import datetime
+
+
+# from website.models import User
+
 # from flask_babel import Babel
 
-db = SQLAlchemy(session_options={"autoflush": False})
-# babel = Babel()
 
-DB_NAME = 'employeeinformation.db'
+db = SQLAlchemy(session_options={"autoflush": False})
+
+#sqlite
+#DB_NAME = 'employeeinformation.db'
+
+DB_NAME = 'employeeinformation'
+
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
+
+
 
 
 def create_app():
 	app = Flask(__name__)
 	app.config['SECRET_KEY'] = '201 File System Key'
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+	# sqlite database
+	#app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+	#mysql database
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+
+
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
 	# app.config.from_pyfile('mysettings.cfg')
