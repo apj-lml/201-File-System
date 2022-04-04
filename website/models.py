@@ -204,7 +204,7 @@ class Learning_Development(db.Model, SerializerMixin):
 	ld_date_to = db.Column(db.String(50))
 	ld_no_hours = db.Column(db.String(50))
 	ld_type = db.Column(db.String(50))
-	ld_sponsored_by = db.Column(db.String(50))
+	ld_sponsored_by = db.Column(db.String(150))
 	ld_attachment = db.Column(db.String(250))
 	ld_attachment_file_name = db.Column(db.String(250))
 
