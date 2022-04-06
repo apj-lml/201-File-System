@@ -1203,8 +1203,9 @@ async function fillForm() {
 
     // srcDoc is the second pdf file
     const srcDoc = await PDFLib.PDFDocument.load(formPdfBytes2);
+
     const form2 = srcDoc.getForm()
-    // const form3 = srcDoc.getForm()
+
 
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                        SEPARATE SHEET FOR PAGE 1                        -->
@@ -1988,14 +1989,46 @@ async function fillForm() {
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                     END OF SEPARATE SHEET FOR PAGE 3                    -->
     //<!-- ----------------------------------------------------------------------- -->
+
+
+    //<!-- ----------------------------------------------------------------------- -->
+    //<!--                   SEPARATE SHEET FOR GRADUATE STUDIES                   -->
+    //<!-- ----------------------------------------------------------------------- -->
+
+
+    // srcDoc2 is 
+    const formUrl3 = "{{ url_for('static', filename='pds_template3.pdf') }}";
+    const formPdfBytes3 = await fetch(formUrl3).then(res => res.arrayBuffer())
+    const srcDoc2 = await PDFLib.PDFDocument.load(formPdfBytes3);
+    const form3 = srcDoc2.getForm()
+
+
+    const gs_school3 = form3.getTextField('gs_school');
+    const gs_degree_course3 = form3.getTextField('gs_degree_course');
+    const gs_period_of_attendance_from3 = form3.getTextField('gs_period_of_attendance_from');
+    const gs_period_of_attendance_to3 = form3.getTextField('gs_period_of_attendance_to');
+    const gs_highest_grade_year_units3 = form3.getTextField('gs_highest_level');
+    const gs_year_graduated3 = form3.getTextField('gs_year_graduated');
+    const gs_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
+
+    
     form2.flatten(); // flatten form before copying
+    form3.flatten(); // flatten form before copying
+
 
     const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2, 3])
     const [firstPage, secondPage, thirdPage, fourthPage] = copiedPages;
 
+    const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0, 1, 2, 3])
+    const [firstPage2, secondPage2, thirdPage2, fourthPage2] = copiedPages2;
+
+    // const copiedPagesDoctoral = await pdfDoc.copyPages(srcDoc2, [0, 1, 2, 3])
+    // const [firstPageDoctoral, secondPageDoctoral, thirdPageDoctoral, fourthPageDoctoral] = copiedPagesDoctoral;
+
     pdfDoc.insertPage(4, firstPage)
     pdfDoc.insertPage(5, secondPage)
     pdfDoc.insertPage(6, thirdPage)
+    pdfDoc.insertPage(7, firstPage2)
 
     const pdfBytes = await pdfDoc.save()
     //   const pdfBytes2 = await srcDoc.save()
