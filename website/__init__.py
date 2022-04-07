@@ -19,7 +19,10 @@ db = SQLAlchemy(session_options={"autoflush": False})
 #sqlite
 #DB_NAME = 'employeeinformation.db'
 
+#mysql
 DB_NAME = 'employeeinformation'
+DB_USERNAME = 'aljohnjacinto'
+DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
@@ -34,9 +37,11 @@ def create_app():
 	# sqlite database
 	#app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
-	#mysql database
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	#mysql database offline
+	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
+	#mysql database online
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
