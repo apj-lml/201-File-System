@@ -42,8 +42,8 @@
 
 <main class="container h-100 mt-5" id="pds">
 
-    asdasd
-    <iframe id="pdf" style="width: 100%; height: 100%;"></iframe>
+    
+    <iframe id="pdf" style="width: 100%; height: 100%;" type="application/pdf"></iframe>
 
 
    
@@ -55,7 +55,7 @@
 {% endblock %}
 
 {%block scripts%}
-<script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script> -->
 
 <script type="text/javascript">
 
@@ -64,7 +64,8 @@ fillForm()
 
 async function fillForm() {
 //   const formUrl = 'https://pdf-lib.js.org/assets/dod_character.pdf'
-  const formUrl = "{{ url_for('static', filename='pds_template2.pdf') }}";
+
+  const formUrl = "{{ url_for('static', filename='my_pds_template.pdf') }}";
 
   const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 
@@ -1197,7 +1198,7 @@ async function fillForm() {
 
 
 
-    const formUrl2 = "{{ url_for('static', filename='pds_template2.pdf') }}";
+    const formUrl2 = "{{ url_for('static', filename='my_pds_template.pdf') }}";
 
     const formPdfBytes2 = await fetch(formUrl2).then(res => res.arrayBuffer())
 
@@ -1210,7 +1211,7 @@ async function fillForm() {
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                        SEPARATE SHEET FOR PAGE 1                        -->
     //<!-- ----------------------------------------------------------------------- -->
-
+    {% if child[12] or college[1] or user_profile.vocational_course[1] or masteral[1] %}
 
     const child1_2 = form2.getTextField('child1');
     const child2_2 = form2.getTextField('child2');
@@ -1355,8 +1356,12 @@ async function fillForm() {
     {% else %}
         gs_highest_grade_year_units2.setText("N/A")
     {% endif %}
-
         gs_scholarship_academic_honor2.setText('{{user_profile.masteral[1].gs_scholarship_academic_honor if user_profile.masteral[1]|length > 1 else "N/A"}}')
+
+
+    {% endif %}
+
+   
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                    END SEPARATE SHEET FOR PAGE 1                        -->
     //<!-- ----------------------------------------------------------------------- -->
@@ -1986,57 +1991,88 @@ async function fillForm() {
         membership_2[3].setText('{{membership[7].description if membership[7] else ""}}');
 
 
-    //<!-- ----------------------------------------------------------------------- -->
-    //<!--                     END OF SEPARATE SHEET FOR PAGE 3                    -->
-    //<!-- ----------------------------------------------------------------------- -->
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                     END OF SEPARATE SHEET FOR PAGE 3                    -->
+        //<!-- ----------------------------------------------------------------------- -->
 
 
-    //<!-- ----------------------------------------------------------------------- -->
-    //<!--                   SEPARATE SHEET FOR GRADUATE STUDIES                   -->
-    //<!-- ----------------------------------------------------------------------- -->
+        //<!-- ----------------------------------------------------------------------- -->
+        //<!--                   SEPARATE SHEET FOR GRADUATE STUDIES                   -->
+        //<!-- ----------------------------------------------------------------------- -->
 
 
     // srcDoc2 is 
-    const formUrl3 = "{{ url_for('static', filename='pds_template3.pdf') }}";
+    const formUrl3 = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
     const formPdfBytes3 = await fetch(formUrl3).then(res => res.arrayBuffer())
     const srcDoc2 = await PDFLib.PDFDocument.load(formPdfBytes3);
     const form3 = srcDoc2.getForm()
 
+    const doc_school3 = form3.getTextField('gs_school');
+    const doc_degree_course3 = form3.getTextField('gs_degree_course');
+    const doc_period_of_attendance_from3 = form3.getTextField('gs_period_of_attendance_from');
+    const doc_period_of_attendance_to3 = form3.getTextField('gs_period_of_attendance_to');
+    const doc_highest_grade_year_units3 = form3.getTextField('gs_highest_level');
+    const doc_year_graduated3 = form3.getTextField('gs_year_graduated');
+    const doc_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
 
-    const gs_school3 = form3.getTextField('gs_school');
-    const gs_degree_course3 = form3.getTextField('gs_degree_course');
-    const gs_period_of_attendance_from3 = form3.getTextField('gs_period_of_attendance_from');
-    const gs_period_of_attendance_to3 = form3.getTextField('gs_period_of_attendance_to');
-    const gs_highest_grade_year_units3 = form3.getTextField('gs_highest_level');
-    const gs_year_graduated3 = form3.getTextField('gs_year_graduated');
-    const gs_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
+    doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else "N/A"}}')
+    doc_degree_course3.setText('{{user_profile.doctoral[0].doc_degree_course if user_profile.doctoral|length > 0 else "N/A"}}')
+    doc_period_of_attendance_from3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_from if user_profile.doctoral|length > 0 else "N/A"}}')
+    doc_period_of_attendance_to3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.doctoral|length > 0 else "N/A"}}')
+
+    {% if user_profile.doctoral|length > 0 %}
+    doc_year_graduated3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.college[0].doc_highest_grade_year_units == "GRADUATED" else "N/A" }}')
+    {% else %}
+    doc_year_graduated3.setText("N/A")
+    {% endif %}
+
+    {% if user_profile.doctoral|length > 0 %}
+    doc_highest_grade_year_units3.setText('{{"GRADUATED" if user_profile.college[0].doc_highest_level_units_earned == "GRADUATED" else "N/A" }}')
+    {% else %}
+    doc_highest_grade_year_units3.setText("N/A")
+    {% endif %}
+    doc_scholarship_academic_honor3.setText('{{user_profile.doctoral[0].doc_scholarship_academic_honor if user_profile.doctoral|length > 0 else "N/A"}}')
+
+
 
     
     form2.flatten(); // flatten form before copying
     form3.flatten(); // flatten form before copying
 
-
     const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2, 3])
     const [firstPage, secondPage, thirdPage, fourthPage] = copiedPages;
 
-    const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0, 1, 2, 3])
-    const [firstPage2, secondPage2, thirdPage2, fourthPage2] = copiedPages2;
+    const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0])
+    const [firstPage2] = copiedPages2;
 
     // const copiedPagesDoctoral = await pdfDoc.copyPages(srcDoc2, [0, 1, 2, 3])
     // const [firstPageDoctoral, secondPageDoctoral, thirdPageDoctoral, fourthPageDoctoral] = copiedPagesDoctoral;
+    {% if child[12] or college[1] or user_profile.vocational_course[1] or masteral[1] %}
+        pdfDoc.addPage(firstPage)
+    {% endif %}
 
-    pdfDoc.insertPage(4, firstPage)
-    pdfDoc.insertPage(5, secondPage)
-    pdfDoc.insertPage(6, thirdPage)
-    pdfDoc.insertPage(7, firstPage2)
+    {% if user_profile.work_experience|length > 15 or user_profile.career_service|length > 7 %}
+        pdfDoc.addPage(secondPage)
+    {% endif %}
+    // pdfDoc.addPage(secondPage)
+
+    {% if user_profile.voluntary_work|length > 6 or user_profile.ld|length > 11 %}
+        pdfDoc.addPage(thirdPage)
+    {% endif %}
+    // pdfDoc.addPage(thirdPage)
+
+    {% if user_profile.doctoral|length > 0 %}
+        pdfDoc.addPage(firstPage2)
+    {% endif %}
+    // pdfDoc.addPage(firstPage2)
 
     const pdfBytes = await pdfDoc.save()
     //   const pdfBytes2 = await srcDoc.save()
-
       
     form.flatten();
 
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+//   console.log(pdfDataUri)
   document.getElementById('pdf').src = pdfDataUri;
 
 }
