@@ -326,30 +326,6 @@ def get_service_record(emp_id):
 
 	return render_template('service_record.html', emp_id = emp_id)
 
-@employees.route('add-update-cse/<emp_id>', methods=['POST', 'GET'])
-@login_required
-#@admin_permission.require(http_exception=403)
-def add_update_cse(emp_id):
-	# if request.method == "POST":
-	# 	formdata = request.form.to_dict()
-	# 	cs_no_fields = formdata["cs_no_fields"]
-
-	# 	for x in range(1, int(cs_no_fields)+1):
-	# 		formdata['cs_eligibility['+str(x)+']']
-	# 		formdata['cs_rating['+str(x)+']']
-	# 		formdata['date_of_examination['+str(x)+']']
-	# 		formdata['place_of_examination_conferment['+str(x)+']']
-	# 		formdata['license_no['+str(x)+']']
-	# 		formdata['date_of_validity['+str(x)+']']
-
-	# 		new_cs_eligibility = Career_Service(cs_eligibility = formdata['cs_eligibility['+str(x)+']'], cs_rating = formdata['cs_rating['+str(x)+']'],
-	# 			date_of_examination = formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']'],
-	# 			license_no = formdata['license_no['+str(x)+']'], date_of_validity = formdata['date_of_validity['+str(x)+']'], user_id = emp_id)
-	# 		db.session.add(new_cs_eligibility)
-	# 		db.session.flush()
-	# 		db.session.commit()
-
-	return "ok", 200
 
 @employees.route('update-password/<emp_id>', methods=['POST', 'GET'])
 @login_required

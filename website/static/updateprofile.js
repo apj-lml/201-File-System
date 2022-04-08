@@ -115,13 +115,16 @@
 
                 </div>
                 <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill mb-2 p-1">
                     <input type="number" class="form-control" id="add_c_period_of_attendance_from[${x}]" name ="c_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)">
                     <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                    <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill mb-2 p-1">
                     <input type="number" class="form-control" id="add_c_period_of_attendance_to[${x}]" name ="c_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)">
                     <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                    <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                     </div>
                 </div>
                 <div class="d-md-flex flex-row">
@@ -171,13 +174,15 @@
            </div>
        </div>
        <div class="d-md-flex flex-row">
-         <div class="form-floating flex-fill mb-3 p-1">
-           <input type="number" class="form-control" id="add_gs_period_of_attendance_from[${x}]" name ="gs_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" value="" form="add_masteral_form">
+         <div class="form-floating flex-fill mb-2 p-1">
+           <input type="number" class="form-control" id="add_gs_period_of_attendance_from[${x}]" name ="gs_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" value="" form="add_masteral_form" oninput="year_only(this)">
            <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+           <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
          </div>
-         <div class="form-floating flex-fill mb-3 p-1">
-           <input type="number" class="form-control" id="add_gs_period_of_attendance_to[${x}]" name ="gs_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_masteral_form">
+         <div class="form-floating flex-fill mb-2 p-1">
+           <input type="number" class="form-control" id="add_gs_period_of_attendance_to[${x}]" name ="gs_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_masteral_form" oninput="year_only(this)">
            <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+           <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
          </div>
        </div>
        <div class="d-md-flex flex-row">
@@ -227,13 +232,15 @@
                 </div>
             </div>
             <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
+              <div class="form-floating flex-fill mb-2 p-1">
                 <input type="number" class="form-control" id="add_doc_period_of_attendance_from[${x}]" name ="doc_period_of_attendance_from[${x}]" placeholder="Period of Attendance (To)" value="" form="add_doctoral_form">
                 <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
               </div>
-              <div class="form-floating flex-fill mb-3 p-1">
+              <div class="form-floating flex-fill mb-2 p-1">
                 <input type="number" class="form-control" id="add_doc_period_of_attendance_to[${x}]" name ="doc_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_doctoral_form">
                 <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
               </div>
             </div>
             <div class="d-md-flex flex-row">
@@ -293,13 +300,15 @@
                 </div>
               </div>
               <div class="d-md-flex flex-row">
-                <div class="form-floating flex-fill mb-3 p-1">
+                <div class="form-floating flex-fill mb-2 p-1">
                   <input type="number" class="form-control" id="add_v_period_of_attendance_from[${x}]" name ="v_period_of_attendance_from[${x}]" placeholder="Period of Attendance (From)" value="" form="add_vocational_form" oninput="year_only(this)">
                   <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                  <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                 </div>
-                <div class="form-floating flex-fill mb-3 p-1">
+                <div class="form-floating flex-fill mb-2 p-1">
                   <input type="number" class="form-control" id="add_v_period_of_attendance_to[${x}]" name ="v_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_vocational_form" oninput="year_only(this)">
                   <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                  <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                 </div>
               </div>
               <div class="d-md-flex flex-row">

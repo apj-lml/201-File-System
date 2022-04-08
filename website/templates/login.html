@@ -60,7 +60,7 @@
 		//console.log(res.json())
 		if (res.redirected) {
 			
-			triggerToast('Success!')
+			triggerToast('Success!', 'success')
 			window.location.href = res.url
 		}else{
 			return res.json()
@@ -71,7 +71,7 @@
 		if(err_msg == 'undefined'){
 			
 		}else{
-			triggerToast(err_msg);
+			triggerToast(err_msg, 'error');
   			loadingScreen('none');
 		}
 	})

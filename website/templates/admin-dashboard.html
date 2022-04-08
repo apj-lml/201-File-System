@@ -325,6 +325,157 @@
 </main>
 	
 
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 MODALS                                  -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="modal fade" id="staff_movement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+	<div class="modal-dialog modal-dialog-scrollable modal-lg">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title"><i class="bi bi-person-lines-fill"></i> Staff Movement</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form enctype="multipart/form-data" id="update_appointment_form" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
+				<input type="text" class="form-control" id="staff_movement_id" name ="id" placeholder="id" value="" required>
+				
+				<div class="d-sm-flex flex-row"> 
+					<!-- <div class="form-floating flex-fill mb-3 p-1">
+						<select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" >
+						  <option value="ACTIVE">ACTIVE</option>
+						  <option value="INACTIVE">INACTIVE</option>
+						  <option value="SEPARATED">DETAILED</option>
+						  <option value="RETIRED">RETIRED</option>
+						  <option value="SEPARATED">SEPARATED</option>
+						</select>
+						<label for="step">Status</label>
+					  </div> -->
+					  <div class="form-floating flex-fill mb-3 p-1">
+						<select class="form-select" id="update_status" name="status" aria-label="Floating label select example" value="">
+							<option value="JOB ORDER">Job Order</option>
+							<option value="PERMANENT">Permanent</option>
+							<option value="CASUAL">Casual</option>
+							<option value="COTERMINOUS">Coterminous</option>
+							<option value="SEPARATED">Separated</option>
+						</select>
+						<label for="update_status">Employment Status</label>
+
+						<div class="valid-feedback">
+							<!-- Looks good! -->
+						  </div>
+						  <div class="invalid-feedback">
+							This is required.
+						  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="date" class="form-control" id="date_of_effectivity" name ="date_of_effectivity" placeholder="Date of Effectivity" value="" required>
+					  <label for="date_of_effectivity">Date of Effectivity</label>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating mb-3 p-1 col-sm-6">
+						<select class="form-select" id="section" name="section" aria-label="Floating label select example" value="" form="update_form">
+							<option value="Administrative & Finance">Administrative & Finance</option>
+							<option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
+							<option value="Engineering">Engineering</option>
+							<option value="Operation & Maintenance">Operation & Maintenance</option>
+							<option value="NISRIP">NISRIP</option>
+							<option value="CARP-IC">CARP-IC</option>
+							<option value="Detailed">Detailed</option>
+							<option value="N/A">N/A</option>
+						  </select>
+						<label for="section">Section</label>
+					  </div>
+					  <div class="form-floating mb-3 p-1 col-sm-6">
+						<select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="" form="update_form">
+						  <option value="Administrative Unit">Administrative Unit</option>
+						  <option value="Finance Unit">Finance Unit</option>
+						  <option value="Cashiering Unit">Cashiering Unit</option>
+						  <option value="Property Unit">Property Unit</option>
+						  <option value="N/A">N/A</option>
+						</select>
+						<label for="name_extn">Unit</label>
+					  </div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="" form="update_form">
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						  <option value="6">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						  <option value="9">9</option>
+						  <option value="10">10</option>
+						  <option value="11">11</option>
+						  <option value="12">12</option>
+						  <option value="13">13</option>
+						  <option value="14">14</option>
+						  <option value="15">15</option>
+						  <option value="16">16</option>
+						  <option value="17">17</option>
+						  <option value="18">18</option>
+						  <option value="19">19</option>
+						  <option value="20">20</option>
+						  <option value="21">21</option>
+						  <option value="22">22</option>
+						  <option value="23">23</option>
+						  <option value="24">24</option>
+						  <option value="25">25</option>
+						</select>
+						<label for="salary_grade">Salary Grade</label>
+					  </div>
+					  <div class="form-floating flex-fill mb-3 p-1">
+						<select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form">
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						  <option value="6">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						</select>
+						<label for="step">Step</label>
+					  </div>
+				</div>
+
+				<div class="d-sm-flex flex-row"> 
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="text" class="form-control" id="update_designation" name ="designation" placeholder="Designation" value="" required>
+					  <label for="update_designation">Position Title</label>
+					  <div class="valid-feedback">
+						<!-- Looks good! -->
+					  </div>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+				</div>
+
+				<div class="d-sm-flex flex-row">
+					<div class="flex-fill mb-3 p-1">
+                        <div class="form-floating">
+							<textarea class="form-control" placeholder="Leave a comment here" style="height: 150px;" id="floatingTextarea"></textarea>
+							<label for="floatingTextarea">Description (Optional)</label>
+						  </div>
+                      </div>
+
+				</div>
+
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary">Save Record</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+
 {% endblock %}
 
 {%block scripts%}
@@ -455,7 +606,6 @@ $(document).ready(function() {
 			{ "data": "pres_city_municipality", visible: false },
 			{ "data": "pres_province", visible: false },
 			{ "data": "pres_zip_code", visible: false },
-			// { "data": "highest_educational_attainment", visible: false },
 			{ "data": "elementary_school", visible: false },
 			{ "data": "e_period_of_attendance_from", visible: false },
 			{ "data": "e_period_of_attendance_to", visible: false },
@@ -490,11 +640,6 @@ $(document).ready(function() {
 			{ "data": "doc_period_of_attendance_to", visible: false },
 			{ "data": "doc_highest_level_units_earned", visible: false },
 			{ "data": "doc_scholarship_academic_honor", visible: false },
-			// { "data": "cs_eligibility", visible: false },
-			// { "data": "cs_rating", visible: false },
-			// { "data": "place_of_examination_conferment", visible: false },
-			// { "data": "license_no", visible: false },
-			// { "data": "date_of_validity", visible: false },
 			{ "data": "type_of_user", visible: false },
             {
               data: null,
@@ -505,8 +650,8 @@ $(document).ready(function() {
 					<a href="/employees/my-profile/${data.id}" class="btn btn-warning btn-sm m-2" title="View employee info" id="${data.id}">
 						<i class="bi bi-eye-fill"></i>
 					</a>
-					<a class="btn btn-danger btn-sm m-2" title="Remove this Product" id="${data.id}" onclick = "delete_product(this)">
-						<i class="bi bi-trash"></i>
+					<a class="btn btn-secondary btn-sm m-2" title="Staff Movement" id="${data.id}" onclick = "staff_movement(this)" data-bs-toggle="modal" data-bs-target="#staff_movement">
+						<i class="bi bi-person-lines-fill"></i>
 					</a>
 				</div>`;
               }
@@ -515,8 +660,6 @@ $(document).ready(function() {
     } );
 
 $('a.toggle-vis').on( 'click', function (e) {
-		//e.preventDefault();
-
 		// Get the column API object
 		var column = products_table.column( $(this).attr('data-column') );
 
@@ -526,6 +669,62 @@ $('a.toggle-vis').on( 'click', function (e) {
 
 })
 	
-	
+	function staff_movement(el){
+		console.log(el.id)
+		var staff_movement_id = document.getElementById("staff_movement_id");
+		staff_movement_id.value = el.id;
+
+		fetch('/get-employee/'+el.id,{
+		method: 'GET'
+	})
+		.then(response => response.json())
+		.then(data => {
+			triggerToast(data)
+			// var table = $('#character_ref_table').DataTable();
+			table.ajax.reload();
+		});
+
+	}
+
+	document.getElementById("section").addEventListener("change", (e)=>{
+      console.log(e.target.value)
+      var units = `<option class='' value='' selected disabled hidden>-</option>`;
+      document.getElementById("unit").innerHTML = units;
+      if(e.target.value == "Administrative & Finance"){
+        units = `
+          <option value="Administrative Unit">Administrative Unit</option>
+          <option value="Finance Unit">Finance Unit</option>
+          <option value="Cashiering Unit">Cashiering Unit</option>
+          <option value="Property Unit">Property Unit</option>
+          <option value="N/A">N/A</option>
+        `;
+      }
+      else if(e.target.value == "Engineering"){
+        units = `
+          <option value="Planning Unit">Planning Unit</option>
+          <option value="Design Unit">Design Unit</option>
+          <option value="Construction Unit">Construction Unit</option>
+          <option value="Institutional Development Unit">Institutional Development Unit</option>
+          <option value="Equipment Unit">Equipment Unit</option>
+          <option value="N/A">N/A</option>
+        `;
+      }
+      else if(e.target.value == "Operation & Maintenance"){
+        units = `
+          <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
+          <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
+          <option value="Lower Agno RIS">Lower Agno RIS</option>
+          <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
+          <option value="N/A">N/A</option>
+        `;
+      }
+      else{
+        units = `
+          <option value="N/A">N/A</option>
+          `;
+      }
+      document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
+    });
+
 </script>
 {%endblock%}

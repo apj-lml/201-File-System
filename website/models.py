@@ -130,7 +130,9 @@ class User(db.Model, UserMixin):
 	other_information = db.relationship('Other_Information')
 	questions = db.relationship('Questions')
 	character_reference = db.relationship('Character_Reference')
-	emergency_contact = db.relationship('Emergency_Contact')
+	emergency_contact = db.relationship('Emergency_Contact') 
+	staff_moved = db.relationship('Staff_Movement')
+
 	# emergency_contact = db.relationship('Emergency_Contact')
 
 class Vocational_Course(db.Model, SerializerMixin):
@@ -224,6 +226,17 @@ class Vaccine(db.Model, SerializerMixin):
 
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Staff_Movement(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	employment_status = db.Column(db.String(50))
+	date_of_effectivity = db.Column(db.String(50))
+	section = db.Column(db.String(50))
+	unit = db.Column(db.String(50))
+	sg = db.Column(db.String(50))
+	step = db.Column(db.String(50))
+	position_title = db.Column(db.String(50))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 class Family_Background(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	fb_last_name = db.Column(db.String(50))
@@ -231,8 +244,8 @@ class Family_Background(db.Model, SerializerMixin):
 	fb_middle_name = db.Column(db.String(50))
 	fb_name_ext = db.Column(db.String(50))
 	fb_occupation = db.Column(db.String(50))
-	fb_employer_business_name = db.Column(db.String(50))
-	fb_business_address = db.Column(db.String(50))
+	fb_employer_business_name = db.Column(db.String(250))
+	fb_business_address = db.Column(db.String(250))
 	fb_contact_no = db.Column(db.String(50))
 	fb_date_of_birth = db.Column(db.String(50))
 	fb_maiden_name = db.Column(db.String(50))

@@ -609,7 +609,7 @@
                       <div class="form-floating flex-fill mb-3 p-1  col-lg-6">
                         <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" value="{{user_profile.elementary_school}}" form="update_form">
                         <label for="elementary_school">Elementary School</label>
-                      </div>   
+                      </div>  
                       <div class="form-floating flex-fill mb-3 p-1  col-lg-6">
                         <!-- <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level" value="{{user_profile.e_highest_level}}" form="update_form"> -->
                         <select class="form-select" id="e_highest_level" name="e_highest_level" aria-label="Floating label select example" value="{{user_profile.e_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))">
@@ -622,13 +622,18 @@
                       </div>   
                     </div>
                     <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1 col-lg-6">
+                      <div class="form-floating flex-fill mb-2 p-1 col-lg-6">
                         <input type="number" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.e_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
                         <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                       </div>
-                      <div class="form-floating flex-fill mb-3 p-1 col-lg-6">
+                      
+                      <div class="form-floating flex-fill mb-2 p-1 col-lg-6">
                         <input type="number" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
                         <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small> 
+
                       </div>  
                     </div>
                     <div class="d-md-flex flex-row">
@@ -671,13 +676,17 @@
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
-                      <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating flex-fill mb-2 p-1">
                         <input type="number" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
                         <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                       </div>
-                      <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating flex-fill mb-2 p-1">
                         <input type="number" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
                         <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
@@ -750,13 +759,17 @@
                           </div>
                       </div>
                       <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
+                        <div class="form-floating flex-fill mb-2 p-1">
                           <input type="number" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
                           <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                         </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
+                        <div class="form-floating flex-fill mb-2 p-1">
                           <input type="number" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
                           <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
@@ -812,13 +825,16 @@
                             </div>
                           </div>
                           <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1">
+                            <div class="form-floating flex-fill mb-2 p-1">
                               <input type="text" class="form-control" id="v_period_of_attendance_from[{{count_update_vocational.value}}]" name ="v_period_of_attendance_from[{{count_update_vocational.value}}]" placeholder="Period of Attendance (From)" form="update_form" oninput="year_only(this)" value="{{vocational.v_period_of_attendance_from}}">
                               <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                              <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
                             </div>
-                            <div class="form-floating flex-fill mb-3 p-1">
+                            <div class="form-floating flex-fill mb-2 p-1">
                               <input type="text" class="form-control" id="v_period_of_attendance_to[{{count_update_vocational.value}}]" name ="v_period_of_attendance_to[{{count_update_vocational.value}}]" placeholder="Period of Attendance (To)" form="update_form" oninput="year_only(this)" value="{{vocational.v_period_of_attendance_to}}">
                               <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                              <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                             </div>
                           </div>
                           <div class="d-md-flex flex-row">
@@ -889,13 +905,15 @@
     
                             </div>
                             <div class="d-md-flex flex-row">
-                              <div class="form-floating flex-fill mb-3 p-1">
+                              <div class="form-floating flex-fill mb-2 p-1">
                                 <input type="number" class="form-control" id="c_period_of_attendance_from[{{count_update_college.value}}]" name ="c_period_of_attendance_from[{{count_update_college.value}}]" placeholder="Period of Attendance (From)" value="{{college.c_period_of_attendance_from if college.c_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                                 <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                               </div>
-                              <div class="form-floating flex-fill mb-3 p-1">
+                              <div class="form-floating flex-fill mb-2 p-1">
                                 <input type="number" class="form-control" id="c_period_of_attendance_to[{{count_update_college.value}}]" name ="c_period_of_attendance_to[{{count_update_college.value}}]" placeholder="Period of Attendance (To)" value="{{college.c_period_of_attendance_to if college.c_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                                 <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                               </div>
                             </div>
                             <div class="d-md-flex flex-row">
@@ -949,13 +967,15 @@
     
                             </div>
                             <div class="d-md-flex flex-row">
-                              <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="N/A" form="add_college_form" oninput="year_only(this)">
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="N/A" form="add_college_form" oninput="year_only(this)">
                                 <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                               </div>
-                              <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_college_form" oninput="year_only(this)">
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_college_form" oninput="year_only(this)">
                                 <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                               </div>
                             </div>
                             <div class="d-md-flex flex-row">
@@ -1020,13 +1040,15 @@
                             </div>
                         </div>
                         <div class="d-md-flex flex-row">
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="gs_period_of_attendance_from[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_from[{{count_update_masteral.value}}]" placeholder="Period of Attendance (From)" value="{{masteral.gs_period_of_attendance_from if masteral.gs_period_of_attendance_from is not none else 'N/A'}}" form="update_form">
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="gs_period_of_attendance_from[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_from[{{count_update_masteral.value}}]" placeholder="Period of Attendance (From)" value="{{masteral.gs_period_of_attendance_from if masteral.gs_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                             <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                           <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                           </div>
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="gs_period_of_attendance_to[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_to[{{count_update_masteral.value}}]" placeholder="Period of Attendance (To)" value="{{masteral.gs_period_of_attendance_to if masteral.gs_period_of_attendance_to is not none else 'N/A'}}" form="update_form">
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="gs_period_of_attendance_to[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_to[{{count_update_masteral.value}}]" placeholder="Period of Attendance (To)" value="{{masteral.gs_period_of_attendance_to if masteral.gs_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                             <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                           </div>
                         </div>
                         <div class="d-md-flex flex-row">
@@ -1071,13 +1093,15 @@
                       </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill mb-2 p-1">
                       <input type="text" class="form-control" id="gs_period_of_attendance_from[1]" name ="gs_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="N/A" form="add_masteral_form">
                       <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                      <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill mb-2 p-1">
                       <input type="text" class="form-control" id="gs_period_of_attendance_to[1]" name ="gs_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_masteral_form">
                       <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                      <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -1141,13 +1165,15 @@
                             </div>
                         </div>
                         <div class="d-md-flex flex-row">
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="doc_period_of_attendance_from[{{count_update_doctoral.value}}]" name ="doc_period_of_attendance_from[{{count_update_doctoral.value}}]" placeholder="Period of Attendance (To)" value="{{doctoral.doc_period_of_attendance_from if doctoral.doc_period_of_attendance_from is not none else 'N/A' }}" form="update_form">
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="doc_period_of_attendance_from[{{count_update_doctoral.value}}]" name ="doc_period_of_attendance_from[{{count_update_doctoral.value}}]" placeholder="Period of Attendance (To)" value="{{doctoral.doc_period_of_attendance_from if doctoral.doc_period_of_attendance_from is not none else 'N/A' }}" form="update_form" oninput="year_only(this)">
                             <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                            <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                           </div>
-                          <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="doc_period_of_attendance_to[{{count_update_doctoral.value}}]" name ="doc_period_of_attendance_to[{{count_update_doctoral.value}}]" placeholder="Period of Attendance (To)" value="{{doctoral.doc_period_of_attendance_to if doctoral.doc_period_of_attendance_to is not none else 'N/A'}}" form="update_form">
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="doc_period_of_attendance_to[{{count_update_doctoral.value}}]" name ="doc_period_of_attendance_to[{{count_update_doctoral.value}}]" placeholder="Period of Attendance (To)" value="{{doctoral.doc_period_of_attendance_to if doctoral.doc_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
                             <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                            <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                           </div>
                         </div>
                         <div class="d-md-flex flex-row">
@@ -1192,13 +1218,15 @@
                           </div>
                       </div>
                       <div class="d-md-flex flex-row">
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="doc_period_of_attendance_from[1]" name ="doc_period_of_attendance_from[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_doctoral_form">
+                        <div class="form-floating flex-fill mb-2 p-1">
+                          <input type="number" class="form-control" id="doc_period_of_attendance_from[1]" name ="doc_period_of_attendance_from[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_doctoral_form" oninput="year_only(this)">
                           <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                         </div>
-                        <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="doc_period_of_attendance_to[1]" name ="doc_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_doctoral_form">
+                        <div class="form-floating flex-fill mb-2 p-1">
+                          <input type="number" class="form-control" id="doc_period_of_attendance_to[1]" name ="doc_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_doctoral_form" oninput="year_only(this)">
                           <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">

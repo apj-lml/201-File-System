@@ -31,7 +31,7 @@ def login():
 
 		user = User.query.filter_by(employee_id=email).first()
 		if user:
-			if check_password_hash(user.password, password):
+			if check_password_hash(user.password, password) and user.status_remarks == 'ACTIVE':
 				flash('Login successful', category = 'success')
 				login_user(user)
 				#session.permanent = False
@@ -46,7 +46,7 @@ def login():
 			else:
 				#flash('Incorrect password, try again', category='error')
 				#session['error_msg'] = 'Incorrect username or password!'
-				return jsonify("Incorrect password, try again")
+				return jsonify("Incorrect password or Account is Deactivated.")
 		else:
 			#session['error_msg'] = 'Employee ID number does not exist!'
 			return jsonify("Employee ID number does not exist!")

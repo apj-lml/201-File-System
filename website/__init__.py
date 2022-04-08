@@ -38,7 +38,7 @@ def create_app():
 	#app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	#mysql database online
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
@@ -111,6 +111,7 @@ def create_app():
 	from .characterReference import characterReference
 	from .emergencyContact import emergencyContact
 	from .appointment import appointment
+	from .staff_movement import staff_movement
 
 
 
@@ -134,6 +135,7 @@ def create_app():
 	app.register_blueprint(characterReference, url_prefix = '/characterReference')
 	app.register_blueprint(emergencyContact, url_prefix = '/emergencyContact')
 	app.register_blueprint(appointment, url_prefix = '/appointment')
+	app.register_blueprint(staff_movement, url_prefix = '/staff_movement')
 
 
 
