@@ -1,0 +1,2077 @@
+{% extends 'base.html' %}
+
+{% block title %} Employee Profile {% endblock %}
+
+{%block cssperfile %} 
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+  <style>
+    /* label{
+      font-size:.2vw;
+    } */
+    body{
+      overflow-x: hidden;
+      background-color:rgba(215, 237, 171, 0.07)
+    }
+    .hover-opacity{
+      opacity: 1;
+      transition: all 0.5s 0s ease;
+    }
+    .hover-opacity:hover{
+      opacity: 1;
+    }
+    .dtsb-titleRow{
+      display: none;
+    }
+    #my-menu {
+        max-width: fit-content;
+        max-height: 3.25rem;
+        transition: all 0.3s ease-out;
+        overflow: hidden;
+        background-color: rgb(23, 88, 131);
+        color: white;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="bootstrap" viewBox="0 0 118 94">
+    <title>Bootstrap</title>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+  </symbol>
+  <symbol id="home" viewBox="0 0 16 16">
+    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+  </symbol>
+  <symbol id="speedometer2" viewBox="0 0 16 16">
+    <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+    <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+  </symbol>
+  <symbol id="table" viewBox="0 0 16 16">
+    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+  </symbol>
+  <symbol id="people-circle" viewBox="0 0 16 16">
+    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+  </symbol>
+  <symbol id="grid" viewBox="0 0 16 16">
+    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+  </symbol>
+  <symbol id="collection" viewBox="0 0 16 16">
+    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+  </symbol>
+  <symbol id="calendar3" viewBox="0 0 16 16">
+    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+  </symbol>
+  <symbol id="chat-quote-fill" viewBox="0 0 16 16">
+    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766a1.688 1.688 0 0 0-.227-.272 1.467 1.467 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.461 2.461 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.466 2.466 0 0 0-.228-.4 1.686 1.686 0 0 0-.227-.273 1.466 1.466 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+  </symbol>
+  <symbol id="cpu-fill" viewBox="0 0 16 16">
+    <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+    <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"/>
+  </symbol>
+  <symbol id="gear-fill" viewBox="0 0 16 16">
+    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+  </symbol>
+  <symbol id="speedometer" viewBox="0 0 16 16">
+    <path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+    <path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"/>
+  </symbol>
+  <symbol id="toggles2" viewBox="0 0 16 16">
+    <path d="M9.465 10H12a2 2 0 1 1 0 4H9.465c.34-.588.535-1.271.535-2 0-.729-.195-1.412-.535-2z"/>
+    <path d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm.535-10a3.975 3.975 0 0 1-.409-1H4a1 1 0 0 1 0-2h2.126c.091-.355.23-.69.41-1H4a2 2 0 1 0 0 4h2.535z"/>
+    <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+  </symbol>
+  <symbol id="tools" viewBox="0 0 16 16">
+    <path d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
+  </symbol>
+  <symbol id="chevron-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+  </symbol>
+  <symbol id="geo-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+  </symbol>
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+  </svg>
+
+  <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
+
+  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container-fluid mb-5" tabindex="0">
+    <div class="container" id="">
+      <div class="row">
+        <div class="col">
+          <div class="">
+            <div class="d-flex justify-content-center flex-row">
+              <img class="img-fluid" src="{{url_for('static', filename='img/employee_profile.png')}}" alt="" width="400">
+            </div>
+            <div class="row">
+            <div class="col">
+              <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" onsubmit="" method="POST"></form>
+              <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
+              <form id="add_college_form" action="/college/add-college/{{user_profile.id}}" method="POST" ></form>
+              <form id="add_masteral_form" action="/masteral/add-masteral/{{user_profile.id}}" method="POST" ></form>
+              <form id="add_doctoral_form" action="/doctoral/add-doctotral/{{user_profile.id}}" method="POST" ></form>
+
+              <form enctype="multipart/form-data" id="update_form" action="#" method="POST"></form>
+
+              <div class="card text-white bg-blue shadow-sm mb-3" >
+                <div class="card-header"><h3 class="card-title"><i class="bi bi-info-circle"></i> Notice!</h3> </div>
+                <div class="card-body">
+                  <ul>
+                    <li><p class="card-text">Please fill out all necessary fields.</p></li>
+                    <li><p class="card-text">File uploading only accepts PDF files. </p></li>
+                    <li><p class="card-text">An asterisk "*" in uploading of supporting documents denotes that the field can accept multiple files to upload. </p></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card mb-3" id="header">
+                <div class="card-body">
+                <h3 class="card-title">PERSONAL INFORMATION</h3>
+                <div class="d-md-flex flex-row"> 
+                  <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                    <label for="last_name">Employee ID Number</label>
+                  </div><div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                    <label for="last_name">Status</label>
+                  </div>
+                </div>
+
+                  <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="last_name">Last Name</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="middle_name">Middle Name</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="name_extn">Name Extension (eg. Jr., III)</label>
+                    </div>
+                  </div>
+                  <!-- TODO -->
+                  <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                        <option class="" value="{{user_profile.employment_status}}" selected disabled hidden>{{user_profile.employment_status}}</option>
+                        <option value="JOB ORDER">JOB ORDER</option>
+                        <option value="PERMANENT">PERMANENT</option>
+                        <option value="CASUAL">CASUAL</option>
+                        <option value="COTERMINOUS">COTERMINOUS - CARP-IC</option>
+                        <option value="SEPARATED">SEPARATED</option>
+                      </select>
+                      <label for="middle_name">Employment Status</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="last_name">Position Title</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                        <option class="" value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                      </select>
+                      <label for="salary_grade" style="font-size: 14px;">Salary Grade</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                        <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                      </select>
+                      <label for="step">Step</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else 'N/A'}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="item_no" >Item No.</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="item_location" name ="item_location" placeholder="Item Location" value="{{user_profile.item_location if user_profile.item_location is not none else 'N/A'}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="item_no" >Item Location / Original Station</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else 'N/A'}}" form="update_form" {{'' if current_user.type_of_user == 'user'}} required>
+                      <label for="item_no" >Date Hired in NIA</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else 'N/A'}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
+                      <label for="item_no" style="font-size: 13px;" >No. of Years in Service</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <label for="date_of_assumption" style="font-size: 13px;">Date of Assumption to Duty</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> 
+                      <label for="date_of_assumption" style="font-size: 13px;">Date of Last Step Increment</label>
+                    </div>
+                  </div>
+                  
+                
+                  <!-- <div class="d-md-flex flex-row">
+                    
+                  </div> -->
+                  <!-- <div class="d-md-flex flex-row"> 
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="date_of_assumption">Date of Assumption to Duty</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}> 
+                      <label for="date_of_assumption">Date of Last Step Increment</label>
+                    </div>
+                  </div> -->
+                  <!-- TODO -->
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
+                          <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option>
+                          <option value="Administrative & Finance">Administrative & Finance</option>
+                          <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
+                          <option value="Engineering">Engineering</option>
+                          <option value="Operation & Maintenance">Operation & Maintenance</option>
+                          <option value="NISRIP">NISRIP</option>
+                          <option value="CARP-IC">CARP-IC</option>
+                          <option value="Detailed">Detailed</option>
+                          <option value="N/A">N/A</option>
+                        </select>
+                      <label for="section">Section</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
+                        <option class="" value="{{user_profile.unit}}" selected disabled hidden>{{user_profile.unit}}</option>
+                        <option value="Administrative Unit">Administrative Unit</option>
+                        <option value="Finance Unit">Finance Unit</option>
+                        <option value="Cashiering Unit">Cashiering Unit</option>
+                        <option value="Property Unit">Property Unit</option>
+                        <option value="N/A">N/A</option>
+                      </select>
+                      <label for="name_extn">Unit</label>
+                    </div>
+                    <!-- TODO -->
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="date_of_original_appointment">Date of Original Appointment</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate if user_profile.daily_rate is not none else 'N/A'}}"  oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="daily_rate">Daily Rate (Php)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate if user_profile.monthly_rate is not none else 'N/A'}}" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="monthly_rate">Monthly Rate (Php)</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <label for="birthdate">Birthdate</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="age" name ="age" placeholder="Age" value="{{user_profile.age}}" form="update_form" readonly>
+                      <label for="name_extn">Age</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}> 
+                      <label for="name_extn">Place of Birth</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
+                        <option class="" value="{{user_profile.sex}}" selected disabled hidden>{{user_profile.sex}}</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                      <label for="sex">Sex</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}" form="update_form" disabled> 
+                        <option class="" value="{{user_profile.civil_status}}" selected disabled hidden>{{user_profile.civil_status}}</option>
+                        <option value="Single">Single</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                      </select>
+                      <label for="civil_status">Civil Status</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}" form="update_form">
+                      <label for="name_extn">Height(m)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}" form="update_form">
+                      <label for="name_extn">Weight(kg)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type" value="{{user_profile.blood_type}}" form="update_form">
+                      <label for="name_extn">Blood Type</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="religion" name ="religion" placeholder="Religion" value="{{user_profile.religion}}" form="update_form">
+                      <!-- <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}" form="update_form">
+                        <option value="Roman Catholic">Roman Catholic</option>
+                        <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                        <option value="Baptist">Baptist</option>
+                        <option value="Born Again Christian">Born Again Christian</option>
+                        <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
+                      </select> -->
+                      <label for="religion">Religion</label>
+                    </div>
+                    <!-- <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form">
+                      <label for="name_extn">No. of Dependent/s</label>
+                    </div>       -->
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No." value="{{user_profile.mobile_no}}" form="update_form">
+                      <label for="mobile_no">Mobile No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}" form="update_form">
+                      <label for="telephone_no">Telephone No.</label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <div class="form-floating mb-3 p-1">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="{{user_profile.email.lower()}}" form="update_form">
+                        <label for="email">Email Address</label>
+                      </div>
+                    </div>    
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}" form="update_form"readOnly>
+                      <label for="name_extn">GSIS No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" readonly>
+                      <label for="name_extn">Pag-IBIG No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" readonly>
+                      <label for="name_extn">Philhealth No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form">
+                      <label for="name_extn">SSS No.</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" readonly>
+                      <label for="name_extn">TIN</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
+                      <label for="name_extn">ATM Card No. (Optional)</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" >
+                      <label for="name_extn">GSIS UMID No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" form="update_form">
+                      <label for="name_extn">PhilSys</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="{{user_profile.solo_parent if user_profile.solo_parent is not none else 'N/A'}}" form="update_form">
+                      <label for="solo_parent">Solo Parent ID No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else 'N/A'}}" form="update_form">
+                      <label for="voters_id_no">Voter's ID No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pwd" name ="pwd" placeholder="ATM Card No." value="{{user_profile.pwd if user_profile.pwd is not none else 'N/A'}}" form="update_form">
+                      <label for="pwd">PWD ID No.</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else 'N/A'}}" form="update_form" >
+                      <label for="driver_license" >Driver's License No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="driver_license_validity" name ="driver_license_validity" placeholder="Driver's License Date of Validity" value="{{user_profile.driver_license_validity}}" form="update_form" >
+                      <label for="driver_license_validity" style="font-size: 13px;">Driver's License Date of Validity</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="security_guard" name ="security_guard" placeholder="Security Guard License No." value="{{user_profile.security_guard if user_profile.security_guard is not none else 'N/A' }}" form="update_form">
+                      <label for="security_guard">Security Guard License</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="security_guard_validity" name ="security_guard_validity" placeholder="Security Guard License No." value="{{user_profile.security_guard_validity}}" form="update_form">
+                      <label for="security_guard_validity" style="font-size: 11.5px;">Security Guard License Date of Validity</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating col-sm-4 mb-3 p-1">
+                      <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Driver's License No." value="{{user_profile.passport_no if user_profile.passport_no is not none else 'N/A' }}" form="update_form" >
+                      <label for="passport_no">Passport No.</label>
+                    </div>
+                    <div class="form-floating col-sm-4 mb-3 p-1">
+                      <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" form="update_form" >
+                      <label for="passport_validity">Passport Date of Validity</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating">
+                        <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" value="{{user_profile.citizenship}}" form="update_form">
+                          <option value="Filipino" selected>Filipino</option>
+                          <option value="Dual Citizen">Dual Citizen</option>
+                        </select>
+                        <label for="floatingSelect">Citizenship</label>
+                      </div>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="dual_citizenship" name ="dual_citizenship" placeholder="Dual Citizenship" disabled value="{{user_profile.dual_citizenship if user_profile.dual_citizenship is not none else 'N/A'}}" form="update_form">
+                      <label for="name_extn">Dual Citizenship</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled value="{{user_profile.indicate_country if user_profile.indicate_country is not none else 'N/A'}}" form="update_form">
+                      <label for="indicate_country">Indicate Country</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Permanent Address</h3>
+                  <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_house_block_lot" name ="p_house_block_lot" placeholder="House/Block/Lot No." onchange="sameAsPermanent()" value="{{user_profile.p_house_block_lot}}" form="update_form"> 
+                        <label for="p_house_block_lot">House/Block/Lot No.</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_street" name ="p_street" placeholder="Street" onchange="sameAsPermanent()" value="{{user_profile.p_street}}" form="update_form">
+                        <label for="p_street">Street</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_subdivision_village" name ="p_subdivision_village" placeholder="Subdivision/Village" onchange="sameAsPermanent()" value="{{user_profile.p_subdivision_village}}" form="update_form">
+                        <label for="p_subdivision_village">Subdivision/Village</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" value="{{user_profile.p_barangay}}" form="update_form">
+                        <label for="p_barangay">Barangay</label>
+                      </div>
+                    </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" value="{{user_profile.p_city_municipality}}" form="update_form">
+                      <label for="p_city_municipality">City/Municipality</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" value="{{user_profile.p_province}}" form="update_form">
+                      <label for="p_province">Province</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" value="{{user_profile.p_zip_code}}" form="update_form">
+                      <label for="p_zip_code">Zip Code</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Present Address</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating">
+                        <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example" onchange="sameAsPermanent()">
+                            <option value="YES" {{ "" if user_profile.pres_barangay == "N/A" else "selected" }}>YES</option>
+                            <option value="NO"  {{ "selected" if user_profile.pres_barangay == "N/A" else "" }}>NO</option>
+                        </select>
+                        <label for="same_as_permanent">Same as permanent address</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." value="{{user_profile.pres_house_block_lot if user_profile.pres_house_block_lot is not none else 'N/A'}}" form="update_form">
+                      <label for="pres_house_block_lot">House/Block/Lot No.</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street"  value="{{user_profile.pres_street if user_profile.pres_street is not none else 'N/A'}}" form="update_form">
+                      <label for="pres_street">Street</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" value="{{user_profile.pres_subdivision_village if user_profile.pres_subdivision_village is not none else 'N/A'}}" form="update_form">
+                      <label for="pres_subdivision_village">Subdivision/Village</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" value="{{user_profile.pres_barangay if user_profile.pres_barangay is not none else 'N/A'}}" form="update_form" required>
+                      <label for="pres_barangay">Barangay</label>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">        
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" value="{{user_profile.pres_city_municipality if user_profile.pres_city_municipality is not none else 'N/A'}}" form="update_form">
+                      <label for="pres_city_municipality">City/Municipality</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" value="{{user_profile.pres_province if user_profile.pres_province is not none else 'N/A'}}" form="update_form">
+                      <label for="pres_province">Province</label>
+                    </div>
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" value="{{user_profile.pres_zip_code if user_profile.pres_zip_code is not none else 'N/A'}}" form="update_form">
+                      <label for="pres_zip_code">Zip Code</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!--           
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">Educational Attainment</h3>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="highest_educational_attainment" name ="highest_educational_attainment" placeholder="House/Block/Lot No." value="{{user_profile.highest_educational_attainment}}" form="update_form">
+                        <label for="highest_educational_attainment">Highest Educational Attainment</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3 class="card-title">EDUCATIONAL BACKGROUND</h3>
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">Elementary</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1  col-lg-6">
+                        <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" value="{{user_profile.elementary_school}}" form="update_form">
+                        <label for="elementary_school">Elementary School</label>
+                      </div>  
+                      <div class="form-floating flex-fill mb-3 p-1  col-lg-6">
+                        <!-- <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level" value="{{user_profile.e_highest_level}}" form="update_form"> -->
+                        <select class="form-select" id="e_highest_level" name="e_highest_level" aria-label="Floating label select example" value="{{user_profile.e_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))">
+                          <option class="" value="{{user_profile.e_highest_level}}" selected disabled hidden>{{user_profile.e_highest_level}}</option>
+                          <option value="GRADUATED">GRADUATED</option>
+                          <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                          <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                        </select>
+                        <label for="e_highest_level">Highest Level Attained</label>
+                      </div>   
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-2 p-1 col-lg-6">
+                        <input type="number" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.e_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
+                        <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
+                      </div>
+                      
+                      <div class="form-floating flex-fill mb-2 p-1 col-lg-6">
+                        <input type="number" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.e_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
+                        <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small> 
+
+                      </div>  
+                    </div>
+                    <div class="d-md-flex flex-row">
+    
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="e_highest_grade_year_units" name="e_highest_grade_units" aria-label="Floating label select example" value="{{user_profile.e_highest_grade_year_units}}" form="update_form" disabled>
+                          <option class="" value="{{user_profile.e_highest_grade_year_units if user_profile.e_highest_grade_year_units is not none else 'N/A'}}" selected disabled hidden>{{user_profile.e_highest_grade_year_units if user_profile.e_highest_grade_year_units is not none else 'N/A'}}</option>
+                          <option value="GRADE 1">GRADE 1</option>
+                          <option value="GRADE 2">GRADE 2</option>
+                          <option value="GRADE 3">GRADE 3</option>
+                          <option value="GRADE 4">GRADE 4</option>
+                          <option value="GRADE 5">GRADE 5</option>
+                          <option value="GRADE 6">GRADE 6</option>
+                        </select>
+                        <label for="e_highes_grade_units">Highest Grade Attained</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.e_scholarship_academic_honor}}" form="update_form" readonly>
+                        <label for="e_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">High School</h3>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="high_school" name ="high_school" placeholder="high_school" value="{{user_profile.high_school}}" form="update_form">
+                        <label for="high_school">High School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="hs_highest_level" name="hs_highest_level" aria-label="Floating label select example" value="{{user_profile.e_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))">
+                          <option class="" value="{{user_profile.e_highest_level}}" selected disabled hidden>{{user_profile.e_highest_level}}</option>
+                          <option value="GRADUATED">GRADUATED</option>
+                          <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                          <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                        </select>
+                        <label for="hs_highest_level">Highest Grade Level Attained</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-2 p-1">
+                        <input type="number" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" value="{{user_profile.hs_period_of_attendance_from}}" form="update_form" oninput="year_only(this)">
+                        <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
+                      </div>
+                      <div class="form-floating flex-fill mb-2 p-1">
+                        <input type="number" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" value="{{user_profile.hs_period_of_attendance_to}}" form="update_form" oninput="year_only(this)">
+                        <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
+                        <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+  
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="hs_highest_grade_year_units" name="hs_highest_grade_year_units" aria-label="Floating label select example" value="{{user_profile.hs_highest_grade_year_units}}" form="update_form" disabled>
+                          <option class="" value="{{user_profile.hs_highest_grade_year_units if user_profile.hs_highest_grade_year_units is not none else 'N/A'}}" selected disabled hidden>{{user_profile.hs_highest_grade_year_units if user_profile.hs_highest_grade_year_units is not none else 'N/A'}}</option>
+                      
+                            <option value="FIRST YEAR">FIRST YEAR</option>
+                            <option value="SECOND YEAR">SECOND YEAR</option>
+                            <option value="THIRD YEAR">THIRD YEAR</option>
+                            <option value="FOURTH YEAR">FOURTH YEAR</option>
+              
+                          <optgroup label="Junior High / Senior High">
+                            <option value="GRADE 7">GRADE 7</option>
+                            <option value="GRADE 8">GRADE 8</option>
+                            <option value="GRADE 9">GRADE 9</option>
+                            <option value="GRADE 10">GRADE 10</option>
+                            <option value="GRADE 11">GRADE 11</option>
+                            <option value="GRADE 12">GRADE 12</option>
+  
+                          </optgroup>
+  
+                        </select>
+                        <label for="hs_scholarship_academic_honor">Highest Year Level Attained</label>
+                      </div>  
+                      
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" value="{{user_profile.hs_scholarship_academic_honor}}" form="update_form">
+                        <label for="hs_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                      </div>  
+                  </div>
+                    </div>
+                  </div>
+  
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">Vocational / Trade Course</h3>
+                    <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
+                    
+                    {% if user_profile.vocational_course  %}
+                    <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="0"  form="add_vocational_form">
+                    
+                    {% else %}
+                    <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="1"  form="add_vocational_form">
+                    
+                    <div class="card shadow-sm mb-3" id=remove_vocational1>
+                      <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" form="add_vocational_form" value="N/A"> 
+                            <label for="v_school">School</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" form="add_vocational_form" value="N/A">
+                            <label for="vocational_trade_course">Vocational / Trade Course</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <select class="form-select" id="v_highest_level[1]" name="v_highest_level[1]" aria-label="Floating label select example" value="" form="add_vocational_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[1]'), document.getElementById('v_scholarship_academic_honor[1]'), document.getElementById('v_period_of_attendance_from[1]'), document.getElementById('v_period_of_attendance_to[1]'))">
+                              {% if user_profile.v_highest_level %}
+                              <option class="" value="{{user_profile.v_highest_level}}" selected disabled hidden>{{user_profile.v_highest_level}}</option>
+                              {% else %}
+                              <option class="" value="N/A" selected>N/A</option>
+                              {% endif %}
+                              <option value="GRADUATED">GRADUATED</option>
+                              <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                              <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                            </select>
+                            <label for="hs_highest_level">Highest Level Attained</label>
+                          </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-2 p-1">
+                          <input type="number" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
+                          <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
+                        </div>
+                        <div class="form-floating flex-fill mb-2 p-1">
+                          <input type="number" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form" value="N/A" oninput="year_only(this)">
+                          <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating col-sm-4 mb-3 p-1">
+                          <input type="date" class="form-control" id="v_date_of_validity[1]" name ="v_date_of_validity[1]" placeholder="Date of Validity of NC II" form="add_vocational_form" value="N/A">
+                          <label for="v_period_of_attendance_from">Date of Validity of NC II</label>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="v_highest_grade_year_units[1]" name ="v_highest_grade_year_units[1]" placeholder="Highest Level" form="add_vocational_form" value="N/A">
+                          <label for="v_highest_grade_year_units">Units Earned</label>
+                          </div>   
+                          <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" form="add_vocational_form" value="N/A">
+                          <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                          </div>  
+                      </div>
+                      </div>
+                  </div>
+                    
+                    {% endif %}
+                    
+                    {% set count_update_vocational = namespace(value=1) %}
+                    {% for vocational in user_profile.vocational_course %}
+                    <!-- {{vocational.id}}
+                    {{vocational.v_period_of_attendance_to}} -->
+
+                    <div class="card shadow-sm mb-3">
+                      <div class="card-body">
+                       <input type="hidden" name="v_id[{{count_update_vocational.value}}]" id="v_id[{{count_update_vocational.value}}]" value="{{vocational.id}}" form="update_form">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="v_school[{{count_update_vocational.value}}]" name ="v_school[{{count_update_vocational.value}}]" placeholder="School" value="{{vocational.v_school}}" form="update_form">
+                              <label for="v_school">School</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="vocational_trade_course[{{count_update_vocational.value}}]" name ="vocational_trade_course[{{count_update_vocational.value}}]" placeholder="Vocational / Trade Course" value="{{vocational.vocational_trade_course}}" form="update_form">
+                              <label for="vocational_trade_course">Vocational / Trade Course</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="v_highest_level[{{count_update_vocational.value}}]" name="v_highest_level[{{count_update_vocational.value}}]" aria-label="Floating label select example" value="{{vocational.v_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[{{count_update_vocational.value}}]'), document.getElementById('v_scholarship_academic_honor[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_from[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_to[{{count_update_vocational.value}}]'))">  
+                                {% if user_profile.v_highest_level is not none %}
+                                <option class="" value="{{vocational.v_highest_level}}" selected hidden>{{vocational.v_highest_level}}</option>
+                                {% else %}
+                                <option class="" value="N/A" selected>N/A</option>
+                                {% endif %}
+                                <option value="GRADUATED">GRADUATED</option>
+                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                              </select>
+                              <label for="hs_highest_level">Highest Level Attained</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-2 p-1">
+                              <input type="text" class="form-control" id="v_period_of_attendance_from[{{count_update_vocational.value}}]" name ="v_period_of_attendance_from[{{count_update_vocational.value}}]" placeholder="Period of Attendance (From)" form="update_form" oninput="year_only(this)" value="{{vocational.v_period_of_attendance_from}}">
+                              <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
+                              <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+
+                            </div>
+                            <div class="form-floating flex-fill mb-2 p-1">
+                              <input type="text" class="form-control" id="v_period_of_attendance_to[{{count_update_vocational.value}}]" name ="v_period_of_attendance_to[{{count_update_vocational.value}}]" placeholder="Period of Attendance (To)" form="update_form" oninput="year_only(this)" value="{{vocational.v_period_of_attendance_to}}">
+                              <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
+                              <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating col-sm-4 mb-3 p-1">
+                              <input type="date" class="form-control" id="v_date_of_validity[{{count_update_vocational.value}}]" name ="v_date_of_validity[{{count_update_vocational.value}}]" placeholder="Date of Validity of NC II" value="{{vocational.v_date_of_validity}}" form="update_form">
+                              <label for="v_date_of_validity">Date of Validity of NC II</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="v_highest_grade_year_units[{{count_update_vocational.value}}]" name ="v_highest_grade_year_units[{{count_update_vocational.value}}]" placeholder="Highest Level" value="{{vocational.v_highest_grade_year_units}}" form="update_form">
+                              <label for="v_highest_level">Units Earned</label>
+                            </div>   
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="v_scholarship_academic_honor[{{count_update_vocational.value}}]" name ="v_scholarship_academic_honor[{{count_update_vocational.value}}]" placeholder="Scholarship / Academic Honor" value="{{vocational.v_scholarship_academic_honor}}" form="update_form">
+                              <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                            </div>  
+                          </div>
+                          <a href="#" onclick="delete_school_record(document.getElementById('v_id[{{count_update_vocational.value}}]').value, '/vocation/delete-vocational'); return false">Remove</a>
+                    </div>
+                  </div>
+                  {% set count_update_vocational.value = count_update_vocational.value+1 %}
+                  {%endfor%}
+                    <div id="vocational_fields"></div>
+                  </div>
+  
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill mb-3 mx-4 p-1">
+                      <button type="button" class="btn btn-success btn-sm" id="add_vocational_field" onclick="document.getElementById('vocational_no_fields').value++">Add</button>
+                    </div>
+                  </div>
+                </div>
+  
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                                 COLLEGE                                 -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <input type="hidden" name="college_no_update_fields" id="college_no_update_fields" value="{{user_profile.college|length}}" form="update_form">
+  
+  
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h3 class="card-title">College</h3>
+                      {%if user_profile.college %}
+                      <input type="hidden" name="college_no_fields" id="college_no_fields" value="0" form="add_college_form">
+                      {% set count_update_college = namespace(value=1) %}
+                      {% for college in user_profile.college %}
+                        <div class="card shadow-sm mb-3" id=remove_vocational>
+                         <input type="hidden" name="college_id[{{count_update_college.value}}]" id="college_id[{{count_update_college.value}}]" value="{{college.id}}" form="update_form">
+  
+                          <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_school[{{count_update_college.value}}]" name ="c_school[{{count_update_college.value}}]" placeholder="" value="{{college.c_school if college.c_school is not none else 'N/A' }}" form="update_form">
+                                <label for="c_school[1]">School</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_degree_course[{{count_update_college.value}}]" name ="c_degree_course[{{count_update_college.value}}]" placeholder="" value="{{college.c_degree_course if college.c_degree_course is not none else 'N/A'}}" form="update_form">
+                                <label for="c_degree_course[1]">Degree</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <select class="form-select" id="c_highest_level_units_earned[{{count_update_college.value}}]" name="c_highest_level_units_earned[{{count_update_college.value}}]" aria-label="Floating label select example" value="{{college.c_highest_level_units_earned if college.c_highest_level_units_earned is not none else 'N/A'}}" form="update_form" onchange="graduated(this, document.getElementById('c_highest_grade_year_units[{{count_update_college.value}}]'), document.getElementById('c_scholarship_academic_honor[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_from[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_to[{{count_update_college.value}}]'))">
+                                  <option value="GRADUATED">GRADUATED</option>
+                                  <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                  <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                                </select>
+                                <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                              </div>
+    
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_from[{{count_update_college.value}}]" name ="c_period_of_attendance_from[{{count_update_college.value}}]" placeholder="Period of Attendance (From)" value="{{college.c_period_of_attendance_from if college.c_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                                <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                              </div>
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_to[{{count_update_college.value}}]" name ="c_period_of_attendance_to[{{count_update_college.value}}]" placeholder="Period of Attendance (To)" value="{{college.c_period_of_attendance_to if college.c_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                                <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_highest_grade_year_units[{{count_update_college.value}}]" name ="c_highest_grade_year_units[{{count_update_college.value}}]" placeholder="Highest Level" value="{{college.c_highest_grade_year_units if college.c_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
+                                <label for="c_highest_grade_year_units[1]">Units Earned</label>
+                              </div>   
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_scholarship_academic_honor[{{count_update_college.value}}]" name ="c_scholarship_academic_honor[{{count_update_college.value}}]" placeholder="Scholarship / Academic Honor" value="{{college.c_scholarship_academic_honor if college.c_scholarship_academic_honor is not none else 'N/A'}}" form="update_form">
+                                <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
+                              </div>  
+                            </div>
+                            <a href="#" onclick="delete_school_record(document.getElementById('college_id[{{count_update_college.value}}]').value, '/college/delete-college'); return false">Remove</a>
+                        </div>
+                      </div>
+  
+                      <!-- <div id="college_fields"></div>
+                      <div class="d-md-flex flex-row">
+                        <div class="flex-fill mb-3 mx-4 p-1">
+                          <button type="button" class="btn btn-success btn-sm" id="add_college_field" onclick="document.getElementById('college_no_fields').value++">Add</button>
+                        </div>
+                      </div> -->
+            
+                  {% set count_update_college.value = count_update_college.value+1 %}
+                  {% endfor %}
+                  {%else%}
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                  KUNG WALA PANG LAMAN ITO ANG LALABAS                   -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <input type="hidden" name="college_no_fields" id="college_no_fields" value="1" form="add_college_form">
+                        <div class="card shadow-sm mb-3" id=remove_vocational1>
+                          <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_school[1]" name ="c_school[1]" placeholder="c_school[1]" value="N/A" form="add_college_form">
+                                <label for="c_school[1]">School</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_degree_course[1]" name ="c_degree_course[1]" placeholder="c_degree_course[1]" value="N/A" form="add_college_form">
+                                <label for="c_degree_course[1]">Degree</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]" aria-label="Floating label select example" value="N/A" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))"> 
+                                  <option class="" value="N/A" selected hidden>N/A</option>
+                                  <option value="GRADUATED">GRADUATED</option>
+                                  <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                  <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                                </select>
+                                <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                              </div>
+    
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="N/A" form="add_college_form" oninput="year_only(this)">
+                                <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                              </div>
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_college_form" oninput="year_only(this)">
+                                <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_highest_grade_year_units[1]" name ="c_highest_grade_year_units[1]" placeholder="Highest Level" value="N/A" form="add_college_form">
+                                <label for="c_highest_grade_year_units[1]">Units Earned</label>
+                              </div>   
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_scholarship_academic_honor[1]" name ="c_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="N/A" form="add_college_form">
+                                <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
+                              </div>  
+                            </div>
+                        </div>
+                      </div>
+                      
+  
+                  {% endif %}
+                  <div id="college_fields"></div>
+                      <div class="d-md-flex flex-row">
+                        <div class="flex-fill mb-3 mx-4 p-1">
+                          <button type="button" class="btn btn-success btn-sm" id="add_college_field" onclick="document.getElementById('college_no_fields').value++">Add</button>
+                        </div>
+                      </div>
+                </div>
+              </div>
+                <!-- ----------------------------------------------------------------------- -->
+                <!--                                MASTERAL                                 -->
+                <!-- ----------------------------------------------------------------------- -->
+  
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">Masteral Degree</h3>
+                    <input type="hidden" name="masteral_no_update_fields" id="masteral_no_update_fields" value="{{user_profile.masteral|length}}" form="update_form">
+  
+                    {% if user_profile.masteral %}
+                    <input type="hidden" name="masteral_no_fields" id="masteral_no_fields" value="0" form="add_masteral_form">
+  
+                    
+                    {% set count_update_masteral = namespace(value=1) %}
+                      {% for masteral in user_profile.masteral %}
+                    <div class="card shadow-sm mb-3" id=remove_masteral>
+                      <input type="hidden" name="gs_id[{{count_update_masteral.value}}]" id="gs_id[{{count_update_masteral.value}}]" value="{{masteral.id}}" form="update_form">
+                       <div class="card-body">
+  
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="gs_school[{{count_update_masteral.value}}]" name ="gs_school[{{count_update_masteral.value}}]" placeholder="School" value="{{masteral.gs_school if masteral.gs_school is not none else 'N/A'}}" form="update_form">
+                              <label for="gs_school">School</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="gs_degree_course[{{count_update_masteral.value}}]" name ="gs_degree_course[{{count_update_masteral.value}}]" placeholder="Degree / Course" value="{{masteral.gs_degree_course if masteral.gs_degree_course is not none else 'N/A' }}" form="update_form">
+                              <label for="gs_degree_course">Degree / Course</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="gs_highest_level_units_earned[{{count_update_masteral.value}}]" name="gs_highest_level_units_earned[{{count_update_masteral.value}}]" aria-label="Floating label select example" value="{{masteral.gs_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[{{count_update_masteral.value}}]'), document.getElementById('gs_scholarship_academic_honor[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_from[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_to[{{count_update_masteral.value}}]'))">
+                                <option class="" value="{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else 'N/A'}}" selected hidden>{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else 'N/A'}}</option>
+                                <option value="GRADUATED">GRADUATED</option>
+                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                              </select>
+                              <label for="gs_highest_level">Highest Level Attained</label>
+                            </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="gs_period_of_attendance_from[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_from[{{count_update_masteral.value}}]" placeholder="Period of Attendance (From)" value="{{masteral.gs_period_of_attendance_from if masteral.gs_period_of_attendance_from is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                            <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                           <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                          </div>
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="gs_period_of_attendance_to[{{count_update_masteral.value}}]" name ="gs_period_of_attendance_to[{{count_update_masteral.value}}]" placeholder="Period of Attendance (To)" value="{{masteral.gs_period_of_attendance_to if masteral.gs_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                            <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="gs_highest_grade_year_units[{{count_update_masteral.value}}]" name ="gs_highest_grade_year_units[{{count_update_masteral.value}}]" placeholder="Highest Level" value="{{masteral.gs_highest_grade_year_units if masteral.gs_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
+                            <label for="gs_highest_grade_year_units">Units Earned</label>
+                          </div>   
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="gs_scholarship_academic_honor[{{count_update_masteral.value}}]" name ="gs_scholarship_academic_honor[{{count_update_masteral.value}}]" placeholder="Scholarship / Academic Honor" value="{{masteral.gs_scholarship_academic_honor if masteral.gs_scholarship_academic_honor is not none else  'N/A'}}" form="update_form">
+                            <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                          </div> 
+                        </div>
+                        <a href="#" onclick="delete_school_record(document.getElementById('gs_id[{{count_update_masteral.value}}]').value, '/masteral/delete-masteral'); return false">Remove</a>
+      
+                        </div>
+                    </div>
+                    {% set count_update_masteral.value = count_update_masteral.value+1 %}
+                  {% endfor %}
+                  {% else %}
+                  <input type="hidden" name="masteral_no_fields" id="masteral_no_fields" value="1" form="add_masteral_form">
+  
+                  <div class="card shadow-sm mb-3" id=remove_masteral>
+                     <div class="card-body">
+  
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_school[1]" name ="gs_school[1]" placeholder="School" value="N/A" form="add_masteral_form">
+                        <label for="gs_school">School</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" id="gs_degree_course[1]" name ="gs_degree_course[1]" placeholder="Degree / Course" value="N/A" form="add_masteral_form">
+                        <label for="gs_degree_course">Degree / Course</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="gs_highest_level_units_earned[1]" name="gs_highest_level_units_earned[1]" aria-label="Floating label select example" value="N/A" form="add_masteral_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[1]'), document.getElementById('gs_scholarship_academic_honor[1]'), document.getElementById('gs_period_of_attendance_from[1]'), document.getElementById('gs_period_of_attendance_to[1]'))">
+                          <option class="" value="N/A" selected hidden>N/A</option>
+                          <option value="GRADUATED">GRADUATED</option>
+                          <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                          <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                        </select>
+                        <label for="gs_highest_level">Highest Level Attained</label>
+                      </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-2 p-1">
+                      <input type="text" class="form-control" id="gs_period_of_attendance_from[1]" name ="gs_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="N/A" form="add_masteral_form">
+                      <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
+                      <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                    </div>
+                    <div class="form-floating flex-fill mb-2 p-1">
+                      <input type="text" class="form-control" id="gs_period_of_attendance_to[1]" name ="gs_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_masteral_form">
+                      <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
+                      <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="gs_highest_grade_year_units[1]" name ="gs_highest_grade_year_units[1]" placeholder="Highest Level" value="N/A" form="add_masteral_form">
+                      <label for="gs_highest_grade_year_units">Units Earned</label>
+                    </div>   
+                    <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="text" class="form-control" id="gs_scholarship_academic_honor[1]" name ="gs_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="N/A" form="add_masteral_form">
+                      <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                    </div> 
+                  </div>
+                  </div>
+                  </div>
+                  {% endif %}
+                  <div id="masteral_fields"></div>
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill mb-3 mx-4 p-1">
+                      <button type="button" class="btn btn-success btn-sm" id="add_masteral_field" onclick="document.getElementById('masteral_no_fields').value++">Add</button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+            
+  
+  
+                <!-- ----------------------------------------------------------------------- -->
+                <!--                                DOCTORAL                                 -->
+                <!-- ----------------------------------------------------------------------- -->
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <h3 class="card-title">Doctoral Degree</h3>
+                    <input type="hidden" name="doctoral_no_update_fields" id="doctoral_no_update_fields" value="{{user_profile.doctoral|length}}" form="update_form">
+  
+                    {% if user_profile.doctoral %}
+                    <input type="hidden" name="doctoral_no_fields" id="doctoral_no_fields" value="0" form="add_doctoral_form">
+  
+                    
+                    {% set count_update_doctoral = namespace(value=1) %}
+                      {% for doctoral in user_profile.doctoral %}
+                      <div class="card shadow-sm mb-3" id=remove_doctoral>
+                        <input type="hidden" name="doctoral_id[{{count_update_doctoral.value}}]" id="doctoral_id[{{count_update_doctoral.value}}]" value="{{doctoral.id}}" form="update_form">
+                        <div class="card-body">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="doc_school[{{count_update_doctoral.value}}]" name ="doc_school[{{count_update_doctoral.value}}]" placeholder="School" value="{{doctoral.doc_school if doctoral.doc_school is not none else 'N/A'}}" form="update_form">
+                              <label for="doc_school">School</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" id="doc_degree_course[{{count_update_doctoral.value}}]" name ="doc_degree_course[{{count_update_doctoral.value}}]" placeholder="Degree / Course" value="{{doctoral.doc_degree_course if doctoral.doc_degree_course is not none else 'N/A'}}" form="update_form">
+                              <label for="doc_degree_course">Degree / Course</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" name="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" aria-label="Floating label select example" value="{{doctoral.doc_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('doc_highest_grade_year_units[{{count_update_doctoral.value}}]'), document.getElementById('doc_scholarship_academic_honor[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_from[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_to[{{count_update_doctoral.value}}]'))">
+                                <option class="" value="{{doctoral.doc_highest_level_units_earned if doctoral.doc_highest_level_units_earned is not none else 'N/A'}}" selected hidden>{{doctoral.doc_highest_level_units_earned if doctoral.doc_highest_level_units_earned is not none else 'N/A'}}</option>
+                                <option value="GRADUATED">GRADUATED</option>
+                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                              </select>
+                              <label for="doc_highest_level">Highest Level Attained</label>
+                            </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="doc_period_of_attendance_from[{{count_update_doctoral.value}}]" name ="doc_period_of_attendance_from[{{count_update_doctoral.value}}]" placeholder="Period of Attendance (To)" value="{{doctoral.doc_period_of_attendance_from if doctoral.doc_period_of_attendance_from is not none else 'N/A' }}" form="update_form" oninput="year_only(this)">
+                            <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                            <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                          </div>
+                          <div class="form-floating flex-fill mb-2 p-1">
+                            <input type="number" class="form-control" id="doc_period_of_attendance_to[{{count_update_doctoral.value}}]" name ="doc_period_of_attendance_to[{{count_update_doctoral.value}}]" placeholder="Period of Attendance (To)" value="{{doctoral.doc_period_of_attendance_to if doctoral.doc_period_of_attendance_to is not none else 'N/A'}}" form="update_form" oninput="year_only(this)">
+                            <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                            <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="doc_highest_grade_year_units[{{count_update_doctoral.value}}]" name ="doc_highest_grade_year_units[{{count_update_doctoral.value}}]" placeholder="Highest Level" value="{{doctoral.doc_highest_grade_year_units if doctoral.doc_highest_grade_year_units is not none else 'N/A'}}" form="update_form">
+                            <label for="doc_highest_grade_year_units">Units Earned</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="doc_scholarship_academic_honor[{{count_update_doctoral.value}}]" name ="doc_scholarship_academic_honor[{{count_update_doctoral.value}}]" placeholder="Scholarship / Academic Honor" value="{{doctoral.doc_scholarship_academic_honor if doctoral.doc_scholarship_academic_honor is not none else 'N/A'}}" form="update_form">
+                            <label for="doc_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                          </div>   
+                        </div>
+                    <a href="#" onclick="delete_school_record(document.getElementById('doctoral_id[{{count_update_doctoral.value}}]').value, '/doctoral/delete-doctoral'); return false">Remove</a>
+  
+                      </div>
+                    </div>
+                    {% set count_update_doctoral.value = count_update_doctoral.value+1 %}
+                    {% endfor %}
+                    {% else %}
+                    <input type="hidden" name="doctoral_no_fields" id="doctoral_no_fields" value="1" form="add_doctoral_form">
+  
+                    <div class="card shadow-sm mb-3" id=remove_doctoral>
+                      <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="doc_school[1]" name ="doc_school[1]" placeholder="School" value="N/A" form="add_doctoral_form">
+                            <label for="doc_school">School</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" id="doc_degree_course[1]" name ="doc_degree_course[1]" placeholder="Degree / Course" value="N/A" form="add_doctoral_form">
+                            <label for="doc_degree_course">Degree / Course</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <select class="form-select" id="doc_highest_level_units_earned[1]" name="doc_highest_level_units_earned[1]" aria-label="Floating label select example" value="N/A" form="add_doctoral_form" onchange="graduated(this, document.getElementById('doc_highest_grade_year_units[1]'), document.getElementById('doc_scholarship_academic_honor[1]'), document.getElementById('doc_period_of_attendance_from[1]'), document.getElementById('doc_period_of_attendance_to[1]'))">
+  
+                              <option class="" value="N/A" selected hidden>N/A</option>
+                              <option value="GRADUATED">GRADUATED</option>
+                              <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                              <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                            </select>
+                            <label for="doc_highest_level">Highest Level Attained</label>
+                          </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-2 p-1">
+                          <input type="number" class="form-control" id="doc_period_of_attendance_from[1]" name ="doc_period_of_attendance_from[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_doctoral_form" oninput="year_only(this)">
+                          <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                        </div>
+                        <div class="form-floating flex-fill mb-2 p-1">
+                          <input type="number" class="form-control" id="doc_period_of_attendance_to[1]" name ="doc_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="N/A" form="add_doctoral_form" oninput="year_only(this)">
+                          <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
+                          <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="doc_highest_grade_year_units[1]" name ="doc_highest_grade_year_units[1]" placeholder="Highest Level" value="N/A" form="add_doctoral_form">
+                          <label for="doc_highest_grade_year_units">Units Earned</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="doc_scholarship_academic_honor[1]" name ="doc_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="N/A" form="add_doctoral_form">
+                          <label for="doc_scholarship_academic_honor">Scholarship / Academic Honor</label>
+                        </div>   
+                      </div>
+                    </div>
+                  </div>
+                    {% endif %}
+                  
+                    <div id="doctoral_fields"></div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 mx-4 p-1">
+                        <button type="button" class="btn btn-success btn-sm" id="add_doctoral_field" onclick="document.getElementById('doctoral_no_fields').value++">Add</button>
+                      </div>
+                    </div>
+  
+                
+  
+                  </div>
+                </div>
+
+                </div>
+                </div>
+              
+          
+<!-- ----------------------------------------------------------------------- -->
+<!--                                   CSE                                   -->
+<!-- ----------------------------------------------------------------------- -->
+            <!-- </form> -->
+          <!-- <form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data"> -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title">Civil Service Eligibility</h3>
+                  <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.career_service|length}}" form="update_form">
+                  {% if user_profile.career_service %}
+                  <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="0" form="add_cse_form">
+
+                    {% set count_update_cse = namespace(value=1) %}
+                      {% for cse in user_profile.career_service %}
+                        <div class="card shadow-sm mb-3">
+                          <input type="hidden" id="cse_id[{{count_update_cse.value}}]" name="cse_id[{{count_update_cse.value}}]" value="{{cse.id}}" form="update_form">
+                            <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" name ="cs_eligibility[{{count_update_cse.value}}]" placeholder="Eligibility" value="{{cse.cs_eligibility}}" form="update_form">
+                                <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" placeholder="Date of Examination" value="{{cse.date_of_examination}}" form="update_form">
+                                <label for="date_of_examination">Date of Examination / Conferment From</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="date" class="form-control" name ="date_of_examination_to[{{count_update_cse.value}}]" placeholder="Date of Examination To" value="{{cse.date_of_examination_to}}" form="update_form">
+                                <label for="date_of_examination_to">Date of Examination / Conferment To</label>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" name ="cs_rating[{{count_update_cse.value}}]" placeholder="Rating" value="{{cse.cs_rating}}" form="update_form">
+                                <label for="cs_rating">Rating (if applicable)</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" name ="place_of_examination_conferment[{{count_update_cse.value}}]" placeholder="Place of Examination / Conferment" value="{{cse.place_of_examination_conferment}}" form="update_form">
+                                <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                                <input type="text" class="form-control" name ="license_no[{{count_update_cse.value}}]" placeholder="License Number" value="{{cse.license_no}}" form="update_form">
+                                <label for="license_no">License Number</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="date" class="form-control" name ="date_of_validity[{{count_update_cse.value}}]" placeholder="Date of Validity" value="{{cse.date_of_validity}}" form="update_form"> 
+                                <label for="date_of_validity">Date of Validity</label>
+                              </div>
+                            </div>
+                  <a href="#" onclick="delete_school_record(document.getElementById('cse_id[{{count_update_cse.value}}]').value, '/cse/delete-cse'); return false">Remove</a>
+                          
+                          </div>
+                        </div>
+                      {% set count_update_cse.value = count_update_cse.value + 1 %}
+                    {% endfor %}
+                  {% else %}
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                 DITO YUNG UNANG LALABAS PAG WALANG DATA                 -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_cse_form" value="N/A">
+
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" value="N/A" form="add_cse_form">
+                            <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="N/A" form="add_cse_form">
+                            <label for="date_of_examination">Date of Examination From</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="N/A" form="add_cse_form">
+                            <label for="date_of_examination_to">Date of Examination To</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" value="N/A" form="add_cse_form">
+                            <label for="cs_rating">Rating (if applicable)</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" value="N/A" form="add_cse_form">
+                            <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                            <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number" value="N/A" form="add_cse_form">
+                            <label for="license_no">License Number</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" value="N/A" form="add_cse_form"> 
+                            <label for="date_of_validity">Date of Validity</label>
+                          </div>
+                        </div>
+                      </div>
+                   </div>
+                  {% endif %}
+                <div id="cs_fields"></div>
+              </div>
+              <div class="d-md-flex flex-row">
+                <div class="flex-fill mb-3 mx-4 p-1">
+                  <button type="button" class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
+                </div>
+              </div>
+            </div>
+<!-- ----------------------------------------------------------------------- -->
+<!--                        UPDALOAD SUPPORTING DOCS                         -->
+<!-- ----------------------------------------------------------------------- -->
+            <div class="card mb-3" id="footer">
+              <div class="card-body">
+              <h3 class="card-title">Upload Supporting Documents</h3>
+
+              <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill mb-3 p-1">
+                      <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
+                      <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
+                      {{count_files("certificate_of_live_birth", user_profile.id)}}
+                    </div>
+                    <div class="flex-fill mb-3 p-1">
+                      <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
+                      <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
+                      {{count_files("marriage_certificate", user_profile.id)}}
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="transcript_of_records" class="form-label">Upload Transcript of Records*</label>
+                        <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form" multiple>
+                      {{count_files("transcript_of_records", user_profile.id)}}
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="diploma" class="form-label">Upload Diploma*</label>
+                        <input class="form-control" type="file" id="diploma" name="diploma" form="update_form" multiple>
+                      {{count_files("diploma", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="tesda_nc" class="form-label">Upload TESDA National Certificate (NC)*</label>
+                        <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form" multiple>
+                      {{count_files("tesda_nc", user_profile.id)}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="career_service_eligibility" class="form-label">Upload Career Service Eligibility*</label>
+                        <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form" multiple>
+                      {{count_files("career_service_eligibility", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="prc_license" class="form-label">Upload PRC License</label>
+                        <input class="form-control" type="file" id="prc_license" name="prc_license" form="update_form">
+                      {{count_files("prc_license", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="driver_license" class="form-label">Upload Driver's License</label>
+                        <input class="form-control" type="file" id="driver_license" name="driver_license" form="update_form">
+                      {{count_files("driver_license", user_profile.id)}}
+
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="security_guard_license" class="form-label">Upload Security Guard License</label>
+                        <input class="form-control" type="file" id="security_guard_license" name="security_guard_license" form="update_form">
+                      {{count_files("security_guard_license", user_profile.id)}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="office_id" class="form-label">Upload Office ID</label>
+                        <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
+                      {{count_files("office_id", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="gsis_id" class="form-label">Upload GSIS UMID ID</label>
+                        <input class="form-control" type="file" id="gsis_id" name="gsis_id" form="update_form">
+                      {{count_files("gsis_id", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="philhealth_id" class="form-label">Upload PhilHealth ID</label>
+                        <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
+                      {{count_files("philhealth_id", user_profile.id)}}
+
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="loyalty_card_plus" class="form-label">Upload Loyalty Card Plus ID</label>
+                        <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
+                      {{count_files("loyalty_card_plus", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="sss_umid_id" class="form-label">Upload SSS UMID ID</label>
+                        <input class="form-control" type="file" id="sss_umid_id" name="sss_umid_id" form="update_form">
+                      {{count_files("sss_umid_id", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="tin_id" class="form-label">Upload TIN ID</label>
+                        <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
+                      {{count_files("tin_id", user_profile.id)}}
+
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="national_id" class="form-label">Upload National ID</label>
+                        <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
+                      {{count_files("national_id", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="solo_parent_id" class="form-label">Upload Solo Parent ID</label>
+                        <input class="form-control" type="file" id="solo_parent_id" name="solo_parent_id" form="update_form">
+                      {{count_files("solo_parent_id", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="pwd_id" class="form-label">Upload PWD ID</label>
+                        <input class="form-control" type="file" id="pwd_id" name="pwd_id" form="update_form">
+                      {{count_files("pwd_id", user_profile.id)}}
+
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="atm_card" class="form-label">Upload ATM Card</label>
+                        <input class="form-control" type="file" id="atm_card" name="atm_card" form="update_form">
+                      {{count_files("atm_card", user_profile.id)}}
+
+                      </div>
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="atm_card" class="form-label">Upload Passport ID</label>
+                        <input class="form-control" type="file" id="passport_id" name="passport_id" form="update_form">
+                      {{count_files("passport_id", user_profile.id)}}
+
+                      </div>
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="atm_card" class="form-label">Upload Voter's ID</label>
+                        <input class="form-control" type="file" id="voters_id" name="voters_id" form="update_form">
+                      {{count_files("voters_id", user_profile.id)}}
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
+                        <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
+                      {{count_files("latest_appointment", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="position_description_form" class="form-label">Upload Position Description Form*</label>
+                        <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form" multiple>
+                      {{count_files("position_description_form", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="oath_of_office" class="form-label">Upload Oath of Office*</label>
+                        <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form" multiple>
+                      {{count_files("oath_of_office", user_profile.id)}}
+
+                      </div>
+                    </div>
+                   
+                    <div class="d-md-flex flex-row">
+                      <div class="col-sm-4 mb-3 p-1">
+                        <label for="assumption_to_duty" class="form-label">Upload Assumption to Duty*</label>
+                        <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form" multiple>
+                      {{count_files("assumption_to_duty", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Notice of Step Increment*</label>
+                        <input class="form-control" type="file" id="nosi" name="nosi" form="update_form" multiple>
+                      {{count_files("nosi", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Notice of Salary/Wage Adjustment*</label>
+                        <input class="form-control" type="file" id="nosa" name="nosa" form="update_form" multiple>
+                      {{count_files("nosa", user_profile.id)}}
+
+                      </div>
+                    </div>
+
+                    <div class="d-md-flex flex-row col-sm-4">
+            
+                      <div class="flex-fill mb-3 p-1 ">
+                        <label for="ld_cert" class="form-label">Upload Memorandum/Designation*</label>
+                        <input class="form-control" type="file" id="memorandum_designation" name="memorandum_designation" form="update_form" multiple>
+                      {{count_files("memorandum_designation", user_profile.id)}}
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="service_employment_record" class="form-label">Upload Service / Employment Record*</label>
+                        <input class="form-control" type="file" id="service_employment_record" name="service_employment_record" form="update_form" multiple>
+                      {{count_files("service_employment_record", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="certificate_of_employment" class="form-label">Upload Certificate of Employment*</label>
+                        <input class="form-control" type="file" id="certificate_of_employment" name="certificate_of_employment" form="update_form" multiple>
+                      {{count_files("certificate_of_employment", user_profile.id)}}
+
+                      </div>
+                    </div>
+                    
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                    
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload IPCR*</label>
+                        <input class="form-control" type="file" id="ipcr" name="ipcr" form="update_form" multiple>
+                      {{count_files("ipcr", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload SALN*</label>
+                        <input class="form-control" type="file" id="saln" name="saln" form="update_form" multiple>
+                      {{count_files("saln", user_profile.id)}}
+
+                      </div>
+
+                    </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
+                        <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
+                      {{count_files("nbi_clearance", user_profile.id)}}
+
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="ld_cert" class="form-label">Upload Medical Records*</label>
+                        <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form" multiple>
+                      {{count_files("medical_records", user_profile.id)}}
+
+                      </div>
+                    </div>
+                    
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Others*</label>
+                        <input class="form-control" type="file" id="others" name="others" form="update_form" multiple>
+                      {{count_files("others", user_profile.id)}}
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="card-title">Uploaded Files</h3>
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped table-sm" id="uploaded_file_table">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>File Tag</th>
+                            <th>Attachment</th>
+                            <th>Controls</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                        {% for file in user_profile.uploaded_files %}
+                          <!-- <div class="flex-fill mb-3 p-1"> -->
+                            {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
+                            <tr>
+                              <td>{{file.id}}</td>
+                              <td>{{file.file_tag}}</td>
+                              <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
+                              <td>
+                                <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                                  <i class="bi bi-trash"></i>
+                                </a>
+                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
+                              </td>
+                            </tr>
+          
+                            {% endif %}
+                          <!-- </div> -->
+                        {% endfor %}
+                      </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+
+            </div>
+
+
+  
+          </div> <!--col-->
+          </div> <!--row-->
+        </div>
+  </div>
+</div>
+</div>
+</div>
+
+</br>
+
+</br>
+
+<footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0" id="navbar-example2">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col text-center">
+          <a href="#header">Scroll to top</a>
+        </div>
+        <div class="col text-center">
+          <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
+        </div>
+        <div class="col text-center">
+          <a href="#footer">Scroll to bottom</a>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-12 text-center"> -->
+    </div>
+  </div>
+</footer>
+
+</div>
+
+
+{% endblock %}
+
+{%block scripts %}
+<script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
+<script src="{{ url_for('static', filename='form-validations.js') }}"></script>
+<script type="text/javascript">
+
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 's' && e.ctrlKey || e.ctrlKey && e.key === 'S') {
+    e.preventDefault();
+    // document.getElementById("update_form").submit();
+    alert("awan pay")
+      }
+    });
+
+window.addEventListener("load", function() {
+  graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
+  graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
+  
+  var vocation_count = document.getElementById('vocational_no_update_fields').value;
+  console.log(vocation_count)
+  for (var xyz = 1; xyz <= vocation_count; xyz++){
+    graduated(document.getElementById(`v_highest_level[${xyz}]`), document.getElementById(`v_highest_grade_year_units[${xyz}]`), document.getElementById(`v_scholarship_academic_honor[${xyz}]`), document.getElementById(`v_period_of_attendance_from[${xyz}]`), document.getElementById(`v_period_of_attendance_to[${xyz}]`))
+  }
+
+  // for(var x = 0; x < vocation_count; x++){
+  //   alert(vocation_count);
+  // }
+
+  // graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
+
+  $('#uploaded_file_table').DataTable({
+      responsive: true,
+      // language: {
+      //       searchBuilder: {
+      //           title: ``,
+			// 	add: `Add Filter`
+      //       }
+      //   },
+    
+        dom: 'ftrip',
+        "order": [[ 0, "desc" ]]
+        // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+				// <'row'<'col-sm-12'tr>>
+				// <'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+    });
+
+
+});
+
+function validate_length(el){
+  if(el.value <0){
+      el.value = 0;
+      triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
+    }else{
+      if(el.value.length > 2 || el.value.length < 0){
+          el.value = el.value.slice(0,2); 
+          triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
+      }
+    }
+  
+}
+
+function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
+      if(highest_level.value == 'GRADUATED'){
+        highest_grade_year_units.readOnly = true;
+        scholarship_academic_honor.readOnly = false;
+        // period_of_attendance_from.value = ""
+
+        // period_of_attendance_to.value = ""
+        period_of_attendance_to.readOnly = false
+
+      }else if(highest_level.value == "CURRENTLY ENROLLED"){
+        highest_grade_year_units.readOnly = true;
+        scholarship_academic_honor.readOnly = true;
+        period_of_attendance_to.readOnly = true;
+        period_of_attendance_to.value = "PRESENT"
+        // period_of_attendance_from.value = ""
+        highest_grade_year_units.value = "N/A";
+
+
+      }else{
+        period_of_attendance_to.readOnly = false;
+        // period_of_attendance_to.value = ""
+        // period_of_attendance_from.value = ""
+
+        highest_grade_year_units.readOnly = false;
+        scholarship_academic_honor.readOnly = true;
+      }
+    }
+
+    function sameAsPermanent(){
+        var citizenship = document.getElementById('same_as_permanent').value;
+        if(citizenship == 'YES'){
+              document.getElementById('pres_house_block_lot').readOnly = true;
+              document.getElementById('pres_street').readOnly = true;
+              document.getElementById('pres_subdivision_village').readOnly = true;
+              document.getElementById('pres_barangay').readOnly = true;
+              document.getElementById('pres_city_municipality').readOnly = true;
+              document.getElementById('pres_province').readOnly = true;
+              document.getElementById('pres_zip_code').readOnly = true;
+      
+              document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
+              document.getElementById('pres_street').value = document.getElementById('p_street').value;
+              document.getElementById('pres_subdivision_village').value = document.getElementById('p_subdivision_village').value;
+              document.getElementById('pres_barangay').value = document.getElementById('p_barangay').value;
+              document.getElementById('pres_city_municipality').value = document.getElementById('p_city_municipality').value;
+              document.getElementById('pres_province').value = document.getElementById('p_province').value;
+              document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
+          }else{
+              document.getElementById('pres_house_block_lot').removeAttribute('readOnly');
+              document.getElementById('pres_street').removeAttribute('readOnly');
+              document.getElementById('pres_subdivision_village').removeAttribute('readOnly');
+              document.getElementById('pres_barangay').removeAttribute('readOnly');
+              document.getElementById('pres_city_municipality').removeAttribute('readOnly');
+              document.getElementById('pres_province').removeAttribute('readOnly');
+              document.getElementById('pres_zip_code').removeAttribute('readOnly');
+      
+              document.getElementById('pres_house_block_lot').value = "N/A"
+              document.getElementById('pres_street').value = "N/A"
+              document.getElementById('pres_subdivision_village').value = "N/A"
+              document.getElementById('pres_barangay').value = "N/A"
+              document.getElementById('pres_city_municipality').value = "N/A"
+              document.getElementById('pres_province').value = "N/A"
+              document.getElementById('pres_zip_code').value = "N/A"
+          }
+      }
+
+
+  // function update_employee(){
+  //   document.getElementById("update_form").submit();
+  // }
+
+    //------------------------------------//
+    //        SUBMIT OF UPDATE FORM       //
+    //------------------------------------//
+  var formElem = document.getElementById("update_form");
+
+    document.getElementById("update_form").addEventListener("submit",(e)=>{
+      //alert("update form")
+      e.preventDefault();
+      let formData = new FormData(formElem);
+      //formData.append('file',  input.files[0])
+      loadingScreen('block')
+      const data = {}
+      formData.forEach((value, key) => (data[key] = value))
+    
+      console.log(data)
+      fetch('/employees/update-employee/{{user_profile.id}}', {
+        method: 'POST',
+        body: formData
+      }).then((res)=>{
+        if(res.status == 413){
+          loadingScreen('none')
+          triggerToast('File too large. Maximum of 250mb')
+        }
+        if(res.status == 406){
+          loadingScreen('none')
+          // triggerToast('File too large. Maximum of 5mb')
+        }
+        if (res.status == 200){
+          //-- ----------------------------------------------------------------------- -->
+          //--                           SUBMIT OF CSE FORM                            -->
+          //-- ----------------------------------------------------------------------- -->
+          let formData2 = new FormData(document.getElementById("add_cse_form"));
+          //formData.append('file',  input.files[0])
+
+          const data2 = {}
+          formData2.forEach((value, key) => (data2[key] = value))
+        
+          console.log(data2)
+          fetch('/cse/add-eligibility/{{user_profile.id}}', {
+            method: 'POST',
+            body: formData2
+          }).then((res)=>{
+            if (res.status == 200){
+
+             //-- ----------------------------------------------------------------------- -->
+             //--                        SUBMIT OF VOCATIONAL FORM                        -->
+             //-- ----------------------------------------------------------------------- -->
+             let formData3 = new FormData(document.getElementById("add_vocational_form"));
+              //formData.append('file',  input.files[0])
+
+              const data3 = {}
+              formData3.forEach((value, key) => (data3[key] = value))
+            
+              // console.log(data3)
+              fetch('/vocation/add-vocational/{{user_profile.id}}', {
+                method: 'POST',
+                body: formData3
+              }).then((res)=>{
+               // <!-- ----------------------------------------------------------------------- -->
+                //<!--                           SUBMIT COLLEGE FORM                           -->
+               // <!-- ----------------------------------------------------------------------- -->
+               let formData4 = new FormData(document.getElementById("add_college_form"));
+              //formData.append('file',  input.files[0])
+
+              const data4 = {}
+              formData4.forEach((value, key) => (data4[key] = value))
+                
+              console.log(data4)
+              fetch('/college/add-college/{{user_profile.id}}', {
+                method: 'POST',
+                body: formData4
+              }).then((res)=>{
+                //<!-- ----------------------------------------------------------------------- -->
+               // <!--                          SUBMIT MASTERAL FORM                           -->
+               // <!-- ----------------------------------------------------------------------- -->
+                    let formData5 = new FormData(document.getElementById("add_masteral_form"));
+                    //formData.append('file',  input.files[0])
+
+                    const data5 = {}
+                    formData5.forEach((value, key) => (data5[key] = value))
+                  
+                    // console.log(data5)
+                    fetch('/masteral/add-masteral/{{user_profile.id}}', {
+                      method: 'POST',
+                      body: formData5
+                    }).then((res)=>{
+
+                        //<!-- ----------------------------------------------------------------------- -->
+                      // <!--                          SUBMIT DOCTORAL FORM                           -->
+                      // <!-- ----------------------------------------------------------------------- -->
+                        let formData6 = new FormData(document.getElementById("add_doctoral_form"));
+                        //formData.append('file',  input.files[0])
+
+                        const data6 = {}
+                        formData6.forEach((value, key) => (data6[key] = value))
+                      
+                        // console.log(data5)
+                        fetch('/doctoral/add-doctoral/{{user_profile.id}}', {
+                          method: 'POST',
+                          body: formData6
+                        }).then((res)=>{
+                            if(res.status == 200){
+                              window.location.reload();
+                              
+                            }
+                          
+                        });//END DOCTORAL FORM
+
+                    });//END MASTERAL FORM
+
+                });//END COLLEGE FORM
+
+
+              });//END VOCATIONAL
+            }
+            
+          })//END CSE
+        }
+        return res.json();
+      }).then((data)=>{
+        // triggerToast(data)
+      });
+
+          }); 
+
+  // document.getElementById("add_cse_form").addEventListener("submit", (e)=>{
+  //   e.preventDefault();
+  //   alert("pumasok ba sa cse form");
+  //     let formData = new FormData(document.getElementById("add_cse_form"));
+  //     //formData.append('file',  input.files[0])
+
+  //     const data = {}
+  //     formData.forEach((value, key) => (data[key] = value))
+    
+  //     console.log(data)
+  //     fetch('/cse/add-eligibility/{{user_profile.id}}', {
+  //       method: 'POST',
+  //       body: formData
+  //     }).then((res)=>{
+  //       if (res.status == 200){
+  //         document.getElementById("add_vocational_form").submit();
+  //       }
+        
+  //     })
+  // })
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+
+    var dob = new Date(document.getElementById("birthdate").value);
+    var diff_ms = Date.now() - dob.getTime();
+    var age_dt = new Date(diff_ms); 
+    
+    var age = Math.abs(age_dt.getUTCFullYear() - 1970);
+      document.getElementById("age").value = age;
+
+      sameAsPermanent()
+
+  });
+
+  function delete_school_record(id, route){
+	// alert(el.id)
+  loadingScreen('block');
+	fetch(route,{
+		method: 'POST',
+		body: JSON.stringify({"id" : id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// triggerToast(data)
+			window.location.reload()
+		});
+}
+
+function delete_file(e){
+  loadingScreen('block');
+  // alert(e.id)
+  fetch('/employees/delete-file',{
+    method: 'POST',
+    body: JSON.stringify({"file_id" : e.id})
+  })
+	.then(response => response.json())
+	.then(data => {
+    window.location.reload()
+  })
+}
+
+function year_only (el) {
+      if (el.value.length > 4) {
+          el.value = el.value.slice(0,4); 
+          triggerToast('Please. Input year only!', 'warning');
+          console.log(123)
+      }
+  }
+
+</script>
+{%endblock%}

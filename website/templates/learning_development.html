@@ -124,8 +124,9 @@
 					<div class="card-body">
 						<div class="col-sm-12">
 								<div class="table-responsive">
-									<table class="table table-striped text-center" id="ld_table" width = "100%">
+									<table class="table table-striped text-left" id="ld_table" width = "100%">
 										<colgroup>
+											<col style="width: 5%" />
 											<col style="width: 30%" />
 											<col style="width: 14.28%" />
 											<col style="width: 14.28%" />
@@ -137,6 +138,7 @@
 										</colgroup>
 										<thead class="">
 										<tr>
+											<th scope="col">ID</th>
 											<th scope="col">Title of L&D Interventions / Training Programs</th>
 											<th scope="col">Inclusive Date (From)</th>
 											<th scope="col">Inclusive Date (To)</th>
@@ -256,8 +258,10 @@
 				body: formData
 			}).then((res)=>{
 				if (res.status == 413){
-					triggerToast("The selected file exceeds maximum limit size of 50MB."); 
+					// triggerToast("The selected file exceeds maximum limit size of 50MB."); 
 				}else if (res.status == 406){
+					 triggerToast("Invalid File Submitted.", 'error'); 
+
 					// return res.json();
 					// do nothong
 				}else{
@@ -270,6 +274,7 @@
 					triggerToast(data); //this is the returned error message
 					var table = $('#ld_table').DataTable();
 					table.ajax.reload();
+					
 					// window.location.reload();
 			})
 
@@ -308,8 +313,10 @@
 		
 		dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				<'row'<'col-sm-12'tr>>
-				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
 		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "order": [[ 0, "desc" ]],
+
 		buttons: [
 			
 				{
@@ -358,6 +365,7 @@
         },
 
         "columns": [
+			{ "data": "id"},
 			{ "data": "ld_program"},
 			{ "data": "ld_date_from"},
 			{ "data": "ld_date_to"},
@@ -391,7 +399,8 @@
 				</div>`;
               }
             }
-        ]
+        ],
+
     } );
 
 })()

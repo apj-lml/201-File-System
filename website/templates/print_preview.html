@@ -960,7 +960,7 @@ async function fillForm() {
         ld_from[5].setText('{{user_profile.learning_development[5].ld_date_from|format_mydatetime if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
         ld_to[5].setText('{{user_profile.learning_development[5].ld_date_to|format_mydatetime if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
         ld_no_hours[5].setText('{{user_profile.learning_development[5].ld_no_hours if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
-        ld_type[5].setText('{{user_profile.learning_development[5].ld_type if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
+        ld_type[5].setText('{{user_profile.learning_development[16].ld_type if user_profile.learning_development|length > 16 else "" }}');
         ld_sponsored_by[5].setText('{{user_profile.learning_development[5].ld_sponsored_by if user_profile.learning_development[5] and user_profile.learning_development|length > 5 else "" }}');
 
         
@@ -1321,23 +1321,23 @@ async function fillForm() {
             v_scholarship_academic_honor2.setText("")
     {% endif %}
 
-    c_school2.setText('{{user_profile.college[1].c_school if user_profile.college[1]|length > 1 else "N/A"}}')
-    c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college[1]|length > 1 else "N/A"}}')
-    c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college[1]|length > 1 else "N/A"}}')
-    c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1]|length > 1 else "N/A"}}')
+    c_school2.setText('{{user_profile.college[1].c_school if user_profile.college[1]|length > 1 else ""}}')
+    c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college[1]|length > 1 else ""}}')
+    c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college[1]|length > 1 else ""}}')
+    c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1]|length > 1 else ""}}')
     {% if user_profile.college[1]|length > 1 %}
         c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_level_units_earned }}')
     {% else %}
-        c_highest_grade_year_units2.setText("N/A")
+        c_highest_grade_year_units2.setText("")
     {% endif %}
 
     {% if user_profile.college[1]|length > 1 %}
-        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned != "GRADUATED" else "N/A"}}')
+        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned != "GRADUATED" else ""}}')
     {% else %}
-        c_year_graduated2.setText("N/A")
+        c_year_graduated2.setText("")
     {% endif %}
 
-    c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1]|length > 1 else "N/A"}}')
+    c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1]|length > 1 else ""}}')
 
 
     gs_school2.setText('{{user_profile.masteral[1].gs_school if user_profile.masteral|length > 1 else ""}}')
@@ -1807,11 +1807,11 @@ async function fillForm() {
         //<!-- ----------------------------------------------------------------------- -->
 
         //VOL 7
-        voluntary_work_2[0].setText('{{user_profile.voluntary_work[7].name_of_organization if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "N/A" }} {{" / " + user_profile.voluntary_work[7].address if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }}');
-        voluntary_work_from_2[0].setText('{{user_profile.voluntary_work[7].date_from|format_mydatetime if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "N/A" }}');
-        voluntary_work_to_2[0].setText('{{user_profile.voluntary_work[7].date_to|format_mydatetime if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "N/A" }}');
-        voluntary_work_no_hours_2[0].setText('{{user_profile.voluntary_work[7].no_hours if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "N/A" }}');
-        voluntary_work_position_2[0].setText('{{user_profile.voluntary_work[7].position if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "N/A" }}');
+        voluntary_work_2[0].setText('{{user_profile.voluntary_work[7].name_of_organization if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }} {{" / " + user_profile.voluntary_work[7].address if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }}');
+        voluntary_work_from_2[0].setText('{{user_profile.voluntary_work[7].date_from|format_mydatetime if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }}');
+        voluntary_work_to_2[0].setText('{{user_profile.voluntary_work[7].date_to|format_mydatetime if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }}');
+        voluntary_work_no_hours_2[0].setText('{{user_profile.voluntary_work[7].no_hours if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }}');
+        voluntary_work_position_2[0].setText('{{user_profile.voluntary_work[7].position if user_profile.voluntary_work[7] and user_profile.voluntary_work|length > 7 else "" }}');
 
         //VOL 8
         voluntary_work_2[1].setText('{{user_profile.voluntary_work[8].name_of_organization if user_profile.voluntary_work[8] and user_profile.voluntary_work|length > 8 else "" }} {{" / " + user_profile.voluntary_work[8].address if user_profile.voluntary_work[8] and user_profile.voluntary_work|length > 8 else "" }}');
@@ -1868,9 +1868,10 @@ async function fillForm() {
             ld_to_2[z] = form2.getTextField(`ld_to${z+1}`)
             ld_no_hours_2[z] = form2.getTextField(`ld_no_hours${z+1}`)
             ld_type_2[z] = form2.getTextField(`ld_type${z+1}`)
+
             ld_sponsored_by_2[z] = form2.getTextField(`ld_sponsored_by${z+1}`)
         }
-
+        console.log(ld_type_2[6])
         var other_2 = []
         var recognition_2 = []
         var membership_2 = []
@@ -1882,12 +1883,12 @@ async function fillForm() {
         }
 
 
-        ld_2[0].setText('{{user_profile.learning_development[11].ld_program if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "N/A" }}');
-        ld_from_2[0].setText('{{user_profile.learning_development[11].ld_date_from|format_mydatetime if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "N/A" }}');
-        ld_to_2[0].setText('{{user_profile.learning_development[11].ld_date_to|format_mydatetime if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "N/A" }}');
-        ld_no_hours_2[0].setText('{{user_profile.learning_development[11].ld_no_hours if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "N/A" }}');
+        ld_2[0].setText('{{user_profile.learning_development[11].ld_program if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "" }}');
+        ld_from_2[0].setText('{{user_profile.learning_development[11].ld_date_from|format_mydatetime if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "" }}');
+        ld_to_2[0].setText('{{user_profile.learning_development[11].ld_date_to|format_mydatetime if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "" }}');
+        ld_no_hours_2[0].setText('{{user_profile.learning_development[11].ld_no_hours if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "" }}');
         ld_type_2[0].setText('{{user_profile.learning_development[11].ld_type if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "N/A" }}');
-        ld_sponsored_by_2[0].setText('{{user_profile.learning_development[11].ld_sponsored_by if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "N/A" }}');
+        ld_sponsored_by_2[0].setText('{{user_profile.learning_development[11].ld_sponsored_by if user_profile.learning_development[11] and user_profile.learning_development|length > 11 else "" }}');
 
         
         ld_2[1].setText('{{user_profile.learning_development[12].ld_program if user_profile.learning_development[12] and user_profile.learning_development|length > 12 else "" }}');
@@ -1926,7 +1927,8 @@ async function fillForm() {
         ld_from_2[5].setText('{{user_profile.learning_development[16].ld_date_from|format_mydatetime if user_profile.learning_development[16] and user_profile.learning_development|length > 16 else "" }}');
         ld_to_2[5].setText('{{user_profile.learning_development[16].ld_date_to|format_mydatetime if user_profile.learning_development[16] and user_profile.learning_development|length > 16 else "" }}');
         ld_no_hours_2[5].setText('{{user_profile.learning_development[16].ld_no_hours if user_profile.learning_development[16] and user_profile.learning_development|length > 16 else "" }}');
-        ld_type[5].setText('{{user_profile.learning_development[16].ld_type if user_profile.learning_development[16] and user_profile.learning_development|length > 16 else "" }}');
+        ld_type_2[5].setText('{{user_profile.learning_development[16].ld_type if user_profile.learning_development|length > 16 else "" }}');
+        // ld_type[5].setText('asdasd');
         ld_sponsored_by_2[5].setText('{{user_profile.learning_development[16].ld_sponsored_by if user_profile.learning_development[16] and user_profile.learning_development|length > 16 else "" }}');
 
         
@@ -1974,9 +1976,9 @@ async function fillForm() {
         //<!--                               OTHER INFO                                -->
         //<!-- ----------------------------------------------------------------------- -->
 
-        other_2[0].setText('{{other[4].description if other[4] else "N/A"}}');
-        recognition_2[0].setText('{{recognition[4].description if recognition[4] else "N/A"}}');
-        membership_2[0].setText('{{membership[4].description if membership[4] else "N/A"}}');
+        other_2[0].setText('{{other[4].description if other[4] else ""}}');
+        recognition_2[0].setText('{{recognition[4].description if recognition[4] else ""}}');
+        membership_2[0].setText('{{membership[4].description if membership[4] else ""}}');
 
         other_2[1].setText('{{other[5].description if other[5] else ""}}');
         recognition_2[1].setText('{{recognition[5].description if recognition[5] else ""}}');
@@ -2016,22 +2018,22 @@ async function fillForm() {
     const doc_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
 
     doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else "N/A"}}')
-    doc_degree_course3.setText('{{user_profile.doctoral[0].doc_degree_course if user_profile.doctoral|length > 0 else "N/A"}}')
-    doc_period_of_attendance_from3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_from if user_profile.doctoral|length > 0 else "N/A"}}')
-    doc_period_of_attendance_to3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.doctoral|length > 0 else "N/A"}}')
+    doc_degree_course3.setText('{{user_profile.doctoral[0].doc_degree_course if user_profile.doctoral|length > 0 else ""}}')
+    doc_period_of_attendance_from3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_from if user_profile.doctoral|length > 0 else ""}}')
+    doc_period_of_attendance_to3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.doctoral|length > 0 else ""}}')
 
     {% if user_profile.doctoral|length > 0 %}
-    doc_year_graduated3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.college[0].doc_highest_grade_year_units == "GRADUATED" else "N/A" }}')
+    doc_year_graduated3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.college[0].doc_highest_grade_year_units == "GRADUATED" else "" }}')
     {% else %}
     doc_year_graduated3.setText("N/A")
     {% endif %}
 
     {% if user_profile.doctoral|length > 0 %}
-    doc_highest_grade_year_units3.setText('{{"GRADUATED" if user_profile.college[0].doc_highest_level_units_earned == "GRADUATED" else "N/A" }}')
+    doc_highest_grade_year_units3.setText('{{"GRADUATED" if user_profile.college[0].doc_highest_level_units_earned == "GRADUATED" else "" }}')
     {% else %}
-    doc_highest_grade_year_units3.setText("N/A")
+    doc_highest_grade_year_units3.setText("")
     {% endif %}
-    doc_scholarship_academic_honor3.setText('{{user_profile.doctoral[0].doc_scholarship_academic_honor if user_profile.doctoral|length > 0 else "N/A"}}')
+    doc_scholarship_academic_honor3.setText('{{user_profile.doctoral[0].doc_scholarship_academic_honor if user_profile.doctoral|length > 0 else ""}}')
 
 
 
@@ -2056,12 +2058,12 @@ async function fillForm() {
     {% endif %}
     // pdfDoc.addPage(secondPage)
 
-    {% if user_profile.voluntary_work|length > 6 or user_profile.ld|length > 11 %}
+    {% if user_profile.voluntary_work|length > 7 or user_profile.learning_development|length > 11 %}
         pdfDoc.addPage(thirdPage)
     {% endif %}
     // pdfDoc.addPage(thirdPage)
 
-    {% if user_profile.doctoral|length > 0 %}
+    {% if user_profile.doctoral|length > 0 and user_profile.doctoral[0].doc_school != none and user_profile.doctoral[0].doc_school != 'N/A' and  user_profile.doctoral[0].doc_school != '' %}
         pdfDoc.addPage(firstPage2)
     {% endif %}
     // pdfDoc.addPage(firstPage2)
