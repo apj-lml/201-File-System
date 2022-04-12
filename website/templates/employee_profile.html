@@ -5,6 +5,9 @@
 {%block cssperfile %} 
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
   <style>
+    /* label{
+      font-size:.2vw;
+    } */
     body{
       overflow-x: hidden;
       background-color:rgba(215, 237, 171, 0.07)
@@ -221,7 +224,7 @@
                         <option value="24">24</option>
                         <option value="25">25</option>
                       </select>
-                      <label for="salary_grade">Salary Grade</label>
+                      <label for="salary_grade" style="font-size: 14px;">Salary Grade</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
@@ -253,15 +256,15 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else 'N/A'}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
-                      <label for="item_no" style="font-size: 14px;" >No. of Years in Service</label>
+                      <label for="item_no" style="font-size: 13px;" >No. of Years in Service</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <label for="date_of_assumption">Date of Assumption to Duty</label>
+                      <label for="date_of_assumption" style="font-size: 13px;">Date of Assumption to Duty</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="{{user_profile.date_of_last_step_increment}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> 
-                      <label for="date_of_assumption">Date of Last Step Increment</label>
+                      <label for="date_of_assumption" style="font-size: 13px;">Date of Last Step Increment</label>
                     </div>
                   </div>
                   
@@ -423,8 +426,8 @@
                       <label for="name_extn">TIN</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form" readonly>
-                      <label for="name_extn">ATM Card No.</label>
+                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
+                      <label for="name_extn">ATM Card No. (Optional)</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" >
@@ -452,11 +455,11 @@
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else 'N/A'}}" form="update_form" >
-                      <label for="driver_license">Driver's License No.</label>
+                      <label for="driver_license" >Driver's License No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="driver_license_validity" name ="driver_license_validity" placeholder="Driver's License Date of Validity" value="{{user_profile.driver_license_validity}}" form="update_form" >
-                      <label for="driver_license_validity">Driver's License Date of Validity</label>
+                      <label for="driver_license_validity" style="font-size: 13px;">Driver's License Date of Validity</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="security_guard" name ="security_guard" placeholder="Security Guard License No." value="{{user_profile.security_guard if user_profile.security_guard is not none else 'N/A' }}" form="update_form">
@@ -464,7 +467,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="security_guard_validity" name ="security_guard_validity" placeholder="Security Guard License No." value="{{user_profile.security_guard_validity}}" form="update_form">
-                      <label for="security_guard_validity" style="font-size: 15px;">Security Guard License Date of Validity</label>
+                      <label for="security_guard_validity" style="font-size: 11.5px;">Security Guard License Date of Validity</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -1672,6 +1675,7 @@
                       <table class="table table-bordered table-striped table-sm" id="uploaded_file_table">
                         <thead>
                           <tr>
+                            <th>ID</th>
                             <th>File Tag</th>
                             <th>Attachment</th>
                             <th>Controls</th>
@@ -1682,6 +1686,7 @@
                           <!-- <div class="flex-fill mb-3 p-1"> -->
                             {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
                             <tr>
+                              <td>{{file.id}}</td>
                               <td>{{file.file_tag}}</td>
                               <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
                               <td>
@@ -1781,7 +1786,8 @@ window.addEventListener("load", function() {
       //       }
       //   },
     
-        dom: 'ftrip'
+        dom: 'ftrip',
+        "order": [[ 0, "desc" ]]
         // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				// <'row'<'col-sm-12'tr>>
 				// <'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
