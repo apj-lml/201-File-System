@@ -65,7 +65,7 @@ fillForm()
 async function fillForm() {
 //   const formUrl = 'https://pdf-lib.js.org/assets/dod_character.pdf'
 
-  const formUrl = "{{ url_for('static', filename='my_pds_template.pdf') }}";
+  const formUrl = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
 
   const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 
