@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
 	#position_id = db.relationship("Position", back_populates="user", uselist = False)
 	employment_status = db.Column(db.String(150))
 	position_title = db.Column(db.String(150))
+	job_grade = db.Column(db.String(150))
 	salary_grade = db.Column(db.String(150))
 	step = db.Column(db.String(150))
 

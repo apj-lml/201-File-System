@@ -32,7 +32,6 @@ def login():
 		user = User.query.filter_by(employee_id=email).first()
 		if user:
 			if check_password_hash(user.password, password) and user.status_remarks == 'ACTIVE':
-				flash('Login successful', category = 'success')
 				login_user(user)
 				#session.permanent = False
 				if user.type_of_user == 'admin':
@@ -46,10 +45,10 @@ def login():
 			else:
 				#flash('Incorrect password, try again', category='error')
 				#session['error_msg'] = 'Incorrect username or password!'
-				return jsonify("Incorrect password or Account is Deactivated.")
+				return jsonify("incorrect_or_deactivated")
 		else:
 			#session['error_msg'] = 'Employee ID number does not exist!'
-			return jsonify("Employee ID number does not exist!")
+			return jsonify("id_does_not_exist")
 	return render_template('login.html', user=current_user)
 
 

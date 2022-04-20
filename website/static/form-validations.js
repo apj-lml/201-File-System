@@ -46,6 +46,44 @@
         15:1387.77,
         16:1526.54
       }
+
+      var job_grade_monthly_salary = {
+        2:{1:13000,	2:13111,	3:13223,	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
+        3:{1:13819,	2:13927,	3:14036,	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
+        4:{1:14678,	2:14793,	3:14909,	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
+        5:{1:15586,	2:16166,	3:16745,	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
+        6:{1:19744,	2:19928,	3:20111,	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
+        7:{1:21129,	2:21620,	3:22111,	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
+        8:{1:27000,	2:27604,	3:28209,	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
+        9:{1:31320,	2:32037,	3:32755,	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
+        10:{1:36619,	2:38010,	3:39401,	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
+        11:{1:46725,	2:51386,	3:56046,	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
+        12:{1:80003,	2:82987,	3:85970,	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
+        13:{1:102690,	2:106586,	3:110486,	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
+        14:{1:131124,	2:133372,	3:135620,	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
+        15:{1:148171,	2:150711,	3:153251,	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
+        16:{1:167432,	2:170302,	3:173173,	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
+        17:{1:189199,	2:192442,	3:195686,	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
+        18:{1:278434,	2:284201,	3:289969,	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
+        19:{1:331954,	2:339067,	3:346181,	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
+        20:{1:419144,	2:422737,	3:426329,	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
+      }
+
+      var casual_job_grade_daily_salary = {
+        2:{1:"590.90",	2:595.95},
+        3:{1:628.13,	2:633.04},
+        4:{1:667.18,	2:"672.40"},
+        5:{1:708.45,	2:734.81},
+        6:{1:897.45,	2:905.81},
+        7:{1:"960.40",	2:982.72},
+        8:{1:1227.27,	2:1254.72},
+        9:{1:1423.63,	2:1456.22},
+        10:{1:"1664.50",	2:1727.72},
+        11:{1:2123.86,	2:2335.72},
+        12:{1:"3636.50",	2:3772.13},
+        13:{1:4667.72,	2:4844.81}
+      }
+
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll('.needs-validation')
   
@@ -87,7 +125,7 @@
           myrate();
           sameAsPermanent();
 
-          // employment_status();
+          employment_status();
 
 
       })
@@ -124,73 +162,120 @@
 
 
       function employment_status(){
-        var emp_stauts = document.getElementById("employment_status").value;
+        
+        var emp_status = document.getElementById("employment_status").value;
 
         var d_rate = document.getElementById("daily_rate");
         var m_rate = document.getElementById("monthly_rate");
         var step = document.getElementById("step");
-        var item_no = document.getElementById("item_no");
-        //var date_of_last_step_increment = document.getElementById("date_of_last_step_increment");
+      //  var item_no = document.getElementById("item_no");
+        var sg = document.getElementById('salary_grade');
+        var job_grade = document.getElementById('job_grade');
+
       
-        m_rate.readOnly = false;
-        d_rate.readOnly = false;
         step.disabled = false;
-        item_no.readOnly = false;
-        //date_of_last_step_increment.disabled = false;
 
         m_rate.value = "N/A";
         d_rate.value = "N/A";
-        step.value = "";
-        item_no.value = "N/A";
-        //date_of_last_step_increment.value = "";
 
-        if(emp_stauts == "JOB ORDER" || emp_stauts == "CASUAL"){
-          m_rate.readOnly = true;
-          //parseFloat('100,000.00'.replace(/,/g, ''))
+        if(emp_status == "JOB ORDER"){
+          step.value = "";
+
+          d_rate.readOnly = true;
+
+          m_rate.disabled = true;
           step.disabled = true;
-          item_no.readOnly = true;
-          //date_of_last_step_increment.disabled = true;
+         // item_no.readOnly = true;
+          sg.disabled = false;
+          job_grade.value = "";
+          job_grade.disabled = true;
         }
         else{
-          m_rate.value = ""
+          m_rate.value = "";
           d_rate.readOnly = true;
+          sg.value = "";
+          sg.disabled = true;
+          job_grade.disabled = false;
+          step.value = "1";
+
         }
 
-        // myrate()
+        if(emp_status == "CASUAL"){
+          m_rate.disabled = true;
+          step.value = "1";
+          disableStepCasual(true);
+        }
+        myrate()
       }
+
       function myrate(){
-        // alert(123)
-        var sg = document.getElementById('salary_grade').value
+        var sg = document.getElementById('salary_grade').value;
         var step = document.getElementById("step").value;
         var monthly_rate =  document.getElementById('monthly_rate');
         var daily_rate =  document.getElementById('daily_rate');
+        var emp_status = document.getElementById('employment_status').value;
+        var job_grade = document.getElementById('job_grade').value;
 
-        if (document.getElementById('employment_status').value == "PERMANENT" || document.getElementById('employment_status').value == "COTERMINOUS" ){
-          monthly_rate.value = monthly_salary[sg][step]
+        if (emp_status == "PERMANENT" || "COTERMINOUS"){
+          monthly_rate.value = job_grade_monthly_salary[job_grade][step];
           var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
-          monthly_rate.value = temp_m_rate.toLocaleString('en-US')
-          daily_rate.value = "N/A"
-        }else if (document.getElementById('employment_status').value == "JOB ORDER" || document.getElementById('employment_status').value == "CASUAL" ){
-          daily_rate.value = daily_salary[sg]
+          monthly_rate.value = temp_m_rate.toLocaleString('en-US');
+          daily_rate.value = "N/A";
+          document.getElementById('salary_grade').value = "";;
+          disableStepCasual(false);
+
+        }else if (emp_status == "JOB ORDER"){
+          daily_rate.value = daily_salary[sg];
           var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
-          daily_rate.value = temp_m_rate.toLocaleString('en-US')
-          monthly_rate.value = "N/A"
+          daily_rate.value = temp_m_rate.toLocaleString('en-US');
+          monthly_rate.value = "N/A";
+          disableStepCasual(false);
+
+        }else if (emp_status == "CASUAL"){
+          daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
+          var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, '')).toFixed(2);
+          daily_rate.value = temp_m_rate.toLocaleString('en-US');
+          monthly_rate.value = "N/A";
+          //disableStepCasual(true);
+
+          if(job_grade == "5" || job_grade == "17" ){
+            disableStepCasual(true);
+          }else{
+            disableStepCasual(false);
+          }
         }
-    
-        // if(emp_stauts == "JOB ORDER" || emp_stauts == "CASUAL"){
-        //   //parseFloat('100,000.00'.replace(/,/g, ''))
-        //   var temp_m_rate = parseFloat(d_rate.value.replace(/,/g, '')) * 22;
-        //   m_rate.value = temp_m_rate.toLocaleString('en-US')
-        // }else if (emp_stauts == "PERMANENT" || "COTERMINOUS"){
-        //   var temp_d_rate = parseFloat(m_rate.value.replace(/,/g, '')) / 22;
-        //   d_rate.value = temp_d_rate.toLocaleString('en-US')
+        // employment_status();
+
+        /* -------------------------------------------------------------------------- */
+        /*                                  OLD CODE                                  */
+        /* -------------------------------------------------------------------------- */
+
+        // if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" ){
+        //   monthly_rate.value = monthly_salary[sg][step]
+        //   var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
+        //   monthly_rate.value = temp_m_rate.toLocaleString('en-US')
+        //   daily_rate.value = "N/A"
+        // }else if (emp_status == "JOB ORDER" || emp_status == "CASUAL" ){
+        //   daily_rate.value = daily_salary[sg]
+        //   var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
+        //   daily_rate.value = temp_m_rate.toLocaleString('en-US')
+        //   monthly_rate.value = "N/A"
         // }
       }
-
+      function disableStepCasual(isDisabled){
+        
+        var op = document.getElementById("step").getElementsByTagName("option");
+        for (var i = 3; i < op.length; i++) { 
+        //   if ( i==5 || i==17 || i==4) {
+            op[i].disabled = isDisabled;
+          }
+        //   }
+      }
     document.getElementById("employment_status").addEventListener("change", employment_status);
 
 
     document.getElementById("salary_grade").addEventListener("change", myrate);
+    document.getElementById("job_grade").addEventListener("change", myrate);
     document.getElementById("step").addEventListener("change", myrate);
 
     // window.addEventListener("load", ()=>{
@@ -239,34 +324,6 @@
 
 
 
-
-    // document.getElementById('e_highest_level').addEventListener('change',(e)=>{
-    //   //console.log(e.target.value)
-    //   if(e.target.value == 'GRADUATED'){
-    //     document.getElementById('e_highest_grade_year_units').disabled = true;
-    //     document.getElementById('e_scholarship_academic_honor').readOnly = false;
-    //     document.getElementById('e_period_of_attendance_from').value = ""
-
-    //     document.getElementById('e_period_of_attendance_to').value = ""
-    //     document.getElementById('e_period_of_attendance_to').readOnly = false
-
-    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
-    //     document.getElementById('e_highest_grade_year_units').disabled = true;
-    //     document.getElementById('e_scholarship_academic_honor').readOnly = true;
-    //     document.getElementById('e_period_of_attendance_to').readOnly = true;
-    //     document.getElementById('e_period_of_attendance_to').value = "PRESENT"
-    //     document.getElementById('e_period_of_attendance_from').value = ""
-
-    //   }else{
-    //     document.getElementById('e_period_of_attendance_to').readOnly = false;
-    //     document.getElementById('e_period_of_attendance_to').value = ""
-    //     document.getElementById('e_period_of_attendance_from').value = ""
-
-    //     document.getElementById('e_highest_grade_year_units').disabled = false;
-    //     document.getElementById('e_scholarship_academic_honor').readOnly = true;
-    //   }
-    // });
-
     document.getElementById('hs_highest_level').addEventListener('change',(e)=>{
       // console.log(e.target.value)
       if(e.target.value == 'GRADUATED'){
@@ -294,86 +351,5 @@
       }
     });
 
-    // document.getElementById('c_highest_level_units_earned').addEventListener('change',(e)=>{
-    //   // console.log(e.target.value)
-    //   if(e.target.value == 'GRADUATED'){
-    //     document.getElementById('c_highest_grade_year_units').disabled = true;
-    //     document.getElementById('c_scholarship_academic_honor').readOnly = false;
-    //     document.getElementById('c_period_of_attendance_from').value = ""
-
-    //     document.getElementById('c_period_of_attendance_to').value = ""
-    //     document.getElementById('c_period_of_attendance_to').readOnly = false
-
-    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
-    //     document.getElementById('c_highest_grade_year_units').disabled = true;
-    //     document.getElementById('c_scholarship_academic_honor').readOnly = true;
-    //     document.getElementById('c_period_of_attendance_to').readOnly = true;
-    //     document.getElementById('c_period_of_attendance_to').value = "PRESENT"
-    //     document.getElementById('c_period_of_attendance_from').value = ""
-
-    //   }else{
-    //     document.getElementById('c_period_of_attendance_to').readOnly = false;
-    //     document.getElementById('c_period_of_attendance_to').value = ""
-    //     document.getElementById('c_period_of_attendance_from').value = ""
-
-    //     document.getElementById('c_highest_grade_year_units').disabled = false;
-    //     document.getElementById('c_scholarship_academic_honor').readOnly = true;
-    //   }
-    // });
-
-    // document.getElementById('gs_highest_level_units_earned').addEventListener('change',(e)=>{
-    //   // console.log(e.target.value)
-    //   if(e.target.value == 'GRADUATED'){
-    //     document.getElementById('gs_highest_grade_year_units').disabled = true;
-    //     document.getElementById('gs_scholarship_academic_honor').readOnly = false;
-    //     document.getElementById('gs_period_of_attendance_from').value = ""
-
-    //     document.getElementById('gs_period_of_attendance_to').value = ""
-    //     document.getElementById('gs_period_of_attendance_to').readOnly = false
-
-    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
-    //     document.getElementById('gs_highest_grade_year_units').disabled = true;
-    //     document.getElementById('gs_scholarship_academic_honor').readOnly = true;
-    //     document.getElementById('gs_period_of_attendance_to').readOnly = true;
-    //     document.getElementById('gs_period_of_attendance_to').value = "PRESENT"
-    //     document.getElementById('gs_period_of_attendance_from').value = ""
-
-    //   }else{
-    //     document.getElementById('gs_period_of_attendance_to').readOnly = false;
-    //     document.getElementById('gs_period_of_attendance_to').value = ""
-    //     document.getElementById('gs_period_of_attendance_from').value = ""
-
-    //     document.getElementById('gs_highest_grade_year_units').disabled = false;
-    //     document.getElementById('gs_scholarship_academic_honor').readOnly = true;
-    //   }
-    // });
-
-    // document.getElementById('doc_highest_level_units_earned').addEventListener('change',(e)=>{
-    //   // console.log(e.target.value)
-    //   if(e.target.value == 'GRADUATED'){
-    //     document.getElementById('doc_highest_grade_year_units').disabled = true;
-    //     document.getElementById('doc_scholarship_academic_honor').readOnly = false;
-    //     document.getElementById('doc_period_of_attendance_from').value = ""
-
-    //     document.getElementById('doc_period_of_attendance_to').value = ""
-    //     document.getElementById('doc_period_of_attendance_to').readOnly = false
-
-    //   }else if(e.target.value == "CURRENTLY ENROLLED"){
-    //     document.getElementById('doc_highest_grade_year_units').disabled = true;
-    //     document.getElementById('doc_scholarship_academic_honor').readOnly = true;
-    //     document.getElementById('doc_period_of_attendance_to').readOnly = true;
-    //     document.getElementById('doc_period_of_attendance_to').value = "PRESENT"
-    //     document.getElementById('doc_period_of_attendance_from').value = ""
-
-    //   }else{
-    //     document.getElementById('doc_period_of_attendance_to').readOnly = false;
-    //     document.getElementById('doc_period_of_attendance_to').value = ""
-    //     document.getElementById('doc_period_of_attendance_from').value = ""
-
-    //     document.getElementById('doc_highest_grade_year_units').disabled = false;
-    //     document.getElementById('doc_scholarship_academic_honor').readOnly = true;
-    //   }
-    // });
-
-
+    
   })()

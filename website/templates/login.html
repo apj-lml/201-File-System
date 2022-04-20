@@ -5,11 +5,14 @@
 {%block cssperfile %} 
 	<!-- Custom style for login -->
 	<link href="{{ url_for('static', filename='signin.css') }}" rel="stylesheet">
-	<link href="http://fonts.cdnfonts.com/css/mistral" rel="stylesheet">
+	<!-- <link href="http://fonts.cdnfonts.com/css/mistral" rel="stylesheet"> -->
+	<link href="http://fonts.cdnfonts.com/css/cinzel-decorative-2" rel="stylesheet">
+
     <style>
 		.title{
-			font-family: 'Mistral', sans-serif;
-			font-size: 3vw
+			/* font-family: 'Mistral', sans-serif; */
+			font-family: 'Cinzel Decorative', sans-serif;
+			font-size: 40px;
 		}
 	</style>
     <!-- Custom styles for login -->
@@ -24,7 +27,7 @@
 	  <form id="login_form" action="#" method="POST">
 	    <!-- <h4 class="mb-1 fw-bolder text-white">Pangasinan <br> Irrigation Management Office</h4> -->
 
-	    <h1 class="h3 mb-3 fw-bolder text-white title">201 File System</h1>
+	    <h1 class="h3 mb-3 fw-bolder text-white title">Online </br>201 File System</h1>
 
 	    <div class="form-floating mb-3">
 	      <input type="number" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -68,23 +71,26 @@
 		body: JSON.stringify(data),
 	}).then((res)=>{
 		
-		//console.log(res.json())
+		if(res.response == 403){
+			triggerToast('Employee ID number does not exist!', 'error');
+
+		}
 		if (res.redirected) {
 			
-			triggerToast('Success!', 'success')
-			window.location.href = res.url
+			triggerToast('Login Successful!', 'success');
+			window.location.href = res.url;
 		}else{
-			return res.json()
+			return res.json();
 		}
 		
 	})
 	.then(err_msg => {
-		if(err_msg == 'undefined'){
-			
-		}else{
-			triggerToast(err_msg, 'error');
-  			loadingScreen('none');
+		if(err_msg == "id_does_not_exist"){
+			triggerToast('Employee ID does not Exist!', 'error');
+		}else if(err_msg == "incorrect_or_deactivated"){
+			triggerToast('Incorrect Password or Account Deactivated.', 'error');
 		}
+  		loadingScreen('none');
 	})
 });
 </script>
