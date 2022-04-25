@@ -19,6 +19,7 @@ def page_not_found(e):
 	return redirect(url_for('auth.login'))
 
 @views.route('/dashboard', methods=['GET', 'POST'])
+@login_required
 def dashboard():
 	return render_template('dashboard.html')
 
