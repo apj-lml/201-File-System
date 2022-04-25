@@ -81,6 +81,7 @@ class User(db.Model, UserMixin):
 	passport_validity = db.Column(db.String(150))
 
 	citizenship = db.Column(db.String(150))
+
 	dual_citizenship = db.Column(db.String(150))
 	indicate_country = db.Column(db.String(150))
 	p_house_block_lot = db.Column(db.String(150))
@@ -90,6 +91,9 @@ class User(db.Model, UserMixin):
 	p_city_municipality = db.Column(db.String(150))
 	p_province = db.Column(db.String(150))
 	p_zip_code = db.Column(db.String(150))
+
+	same_as_permanent_address = db.Column(db.String(150))
+
 	pres_house_block_lot = db.Column(db.String(150))
 	pres_street = db.Column(db.String(150))
 	pres_subdivision_village = db.Column(db.String(150))

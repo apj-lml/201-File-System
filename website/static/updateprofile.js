@@ -233,12 +233,12 @@
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-2 p-1">
-                <input type="number" class="form-control" id="add_doc_period_of_attendance_from[${x}]" name ="doc_period_of_attendance_from[${x}]" placeholder="Period of Attendance (To)" value="" form="add_doctoral_form">
+                <input type="number" class="form-control" id="add_doc_period_of_attendance_from[${x}]" name ="doc_period_of_attendance_from[${x}]" placeholder="Period of Attendance (To)" value="" form="add_doctoral_form" oninput="year_only(this)">
                 <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
                 <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
               </div>
               <div class="form-floating flex-fill mb-2 p-1">
-                <input type="number" class="form-control" id="add_doc_period_of_attendance_to[${x}]" name ="doc_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_doctoral_form">
+                <input type="number" class="form-control" id="add_doc_period_of_attendance_to[${x}]" name ="doc_period_of_attendance_to[${x}]" placeholder="Period of Attendance (To)" value="" form="add_doctoral_form" oninput="year_only(this)">
                 <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
                 <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
               </div>

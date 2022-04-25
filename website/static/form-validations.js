@@ -48,25 +48,25 @@
       }
 
       var job_grade_monthly_salary = {
-        2:{1:13000,	2:13111,	3:13223,	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
-        3:{1:13819,	2:13927,	3:14036,	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
-        4:{1:14678,	2:14793,	3:14909,	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
-        5:{1:15586,	2:16166,	3:16745,	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
-        6:{1:19744,	2:19928,	3:20111,	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
-        7:{1:21129,	2:21620,	3:22111,	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
-        8:{1:27000,	2:27604,	3:28209,	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
-        9:{1:31320,	2:32037,	3:32755,	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
-        10:{1:36619,	2:38010,	3:39401,	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
-        11:{1:46725,	2:51386,	3:56046,	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
-        12:{1:80003,	2:82987,	3:85970,	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
-        13:{1:102690,	2:106586,	3:110486,	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
-        14:{1:131124,	2:133372,	3:135620,	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
-        15:{1:148171,	2:150711,	3:153251,	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
-        16:{1:167432,	2:170302,	3:173173,	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
-        17:{1:189199,	2:192442,	3:195686,	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
-        18:{1:278434,	2:284201,	3:289969,	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
-        19:{1:331954,	2:339067,	3:346181,	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
-        20:{1:419144,	2:422737,	3:426329,	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
+        2:{1:"13000.00",	2:13111,	3:13223,	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
+        3:{1:13819.00,	2:13927,	3:14036,	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
+        4:{1:14678.00,	2:14793,	3:14909,	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
+        5:{1:15586.00,	2:16166,	3:16745,	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
+        6:{1:19744.00,	2:19928,	3:20111,	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
+        7:{1:21129.00,	2:21620,	3:22111,	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
+        8:{1:27000.00,	2:27604,	3:28209,	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
+        9:{1:31320.00,	2:32037,	3:32755,	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
+        10:{1:36619.00,	2:38010,	3:39401,	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
+        11:{1:46725.00,	2:51386,	3:56046,	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
+        12:{1:80003.00,	2:82987,	3:85970,	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
+        13:{1:102690.00,	2:106586,	3:110486,	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
+        14:{1:131124.00,	2:133372,	3:135620,	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
+        15:{1:148171.00,	2:150711,	3:153251,	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
+        16:{1:167432.00,	2:170302,	3:173173,	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
+        17:{1:189199.00,	2:192442,	3:195686,	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
+        18:{1:278434.00,	2:284201,	3:289969,	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
+        19:{1:331954.00,	2:339067,	3:346181,	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
+        20:{1:419144.00,	2:422737,	3:426329,	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
       }
 
       var casual_job_grade_daily_salary = {
@@ -132,7 +132,7 @@
       
     
           
-      document.getElementById("same_as_permanent").addEventListener("change", function(e){
+      document.getElementById("same_as_permanent_address").addEventListener("change", function(e){
           sameAsPermanent();
       });
       
@@ -149,7 +149,6 @@
       
       document.getElementById("citizenship").addEventListener("change", function(e){
           var citizenship = document.getElementById('citizenship').value;
-          //alert(citizenship)
           if(citizenship == 'Filipino'){
               document.getElementById('dual_citizenship').disabled = true;
               document.getElementById('indicate_country').disabled = true;
@@ -180,19 +179,20 @@
 
         if(emp_status == "JOB ORDER"){
           step.value = "";
-
+          sg.value = "1";
           d_rate.readOnly = true;
 
           m_rate.disabled = true;
           step.disabled = true;
-         // item_no.readOnly = true;
           sg.disabled = false;
           job_grade.value = "";
           job_grade.disabled = true;
+          disableSgJobOrder(true);
         }
         else{
           m_rate.value = "";
           d_rate.readOnly = true;
+          job_grade.value = "2"
           sg.value = "";
           sg.disabled = true;
           job_grade.disabled = false;
@@ -203,8 +203,10 @@
         if(emp_status == "CASUAL"){
           m_rate.disabled = true;
           step.value = "1";
+          job_grade.value = "2";
           disableStepCasual(true);
         }
+
         myrate()
       }
 
@@ -216,10 +218,11 @@
         var emp_status = document.getElementById('employment_status').value;
         var job_grade = document.getElementById('job_grade').value;
 
-        if (emp_status == "PERMANENT" || "COTERMINOUS"){
+        if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS"){
+
           monthly_rate.value = job_grade_monthly_salary[job_grade][step];
           var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
-          monthly_rate.value = temp_m_rate.toLocaleString('en-US');
+          monthly_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           daily_rate.value = "N/A";
           document.getElementById('salary_grade').value = "";;
           disableStepCasual(false);
@@ -227,22 +230,18 @@
         }else if (emp_status == "JOB ORDER"){
           daily_rate.value = daily_salary[sg];
           var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
-          daily_rate.value = temp_m_rate.toLocaleString('en-US');
+          daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           monthly_rate.value = "N/A";
           disableStepCasual(false);
 
         }else if (emp_status == "CASUAL"){
           daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
-          var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, '')).toFixed(2);
-          daily_rate.value = temp_m_rate.toLocaleString('en-US');
+          var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
+          daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           monthly_rate.value = "N/A";
           //disableStepCasual(true);
 
-          if(job_grade == "5" || job_grade == "17" ){
-            disableStepCasual(true);
-          }else{
-            disableStepCasual(false);
-          }
+
         }
         // employment_status();
 
@@ -262,14 +261,24 @@
         //   monthly_rate.value = "N/A"
         // }
       }
+      function disableSgJobOrder(isDisabled){
+          var sg = document.getElementById("salary_grade").getElementsByTagName("option");
+          for (var i = 17; i < sg.length; i++) { 
+          //   if ( i==5 || i==17 || i==4) {
+              sg[i].disabled = isDisabled;
+            }
+      }
+
       function disableStepCasual(isDisabled){
-        
         var op = document.getElementById("step").getElementsByTagName("option");
         for (var i = 3; i < op.length; i++) { 
-        //   if ( i==5 || i==17 || i==4) {
             op[i].disabled = isDisabled;
           }
-        //   }
+
+        var jg = document.getElementById("job_grade").getElementsByTagName("option");
+          for (var j = 13; j < jg.length; j++) { 
+              jg[j].disabled = isDisabled;
+            }
       }
     document.getElementById("employment_status").addEventListener("change", employment_status);
 
