@@ -122,7 +122,7 @@
           document.getElementById('birthdate').max = maxDate;
 
 
-          myrate();
+          // myrate();
           sameAsPermanent();
 
           employment_status();
@@ -161,7 +161,7 @@
 
 
       function employment_status(){
-        
+
         var emp_status = document.getElementById("employment_status").value;
 
         var d_rate = document.getElementById("daily_rate");
@@ -178,34 +178,39 @@
         d_rate.value = "N/A";
 
         if(emp_status == "JOB ORDER"){
+
           step.value = "";
-          sg.value = "1";
           d_rate.readOnly = true;
 
           m_rate.disabled = true;
           step.disabled = true;
           sg.disabled = false;
-          job_grade.value = "";
+          sg.value = "1";
           job_grade.disabled = true;
+          job_grade.value = "";
           disableSgJobOrder(true);
-        }
-        else{
-          m_rate.value = "";
-          d_rate.readOnly = true;
-          job_grade.value = "2"
-          sg.value = "";
-          sg.disabled = true;
-          job_grade.disabled = false;
-          step.value = "1";
 
-        }
+        }else if(emp_status == "CASUAL"){
 
-        if(emp_status == "CASUAL"){
           m_rate.disabled = true;
-          step.value = "1";
-          job_grade.value = "2";
+          // step.value = "1";
+          sg.disabled = true;
+          sg.value = null;
+          
+           job_grade.value = "2";
           disableStepCasual(true);
         }
+        
+        else{
+
+          m_rate.value = "";
+          d_rate.readOnly = true;
+          sg.value = "N/A";
+          sg.disabled = true;
+          job_grade.disabled = false;
+
+        }
+
 
         myrate()
       }
@@ -239,11 +244,15 @@
           var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
           daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           monthly_rate.value = "N/A";
-          //disableStepCasual(true);
-
-
         }
-        // employment_status();
+
+        document.getElementsByName('daily_rate')[0].value = document.getElementById('daily_rate').value;
+        document.getElementsByName('monthly_rate')[0].value = document.getElementById('monthly_rate').value;
+
+        document.getElementsByName('job_grade')[0].value = document.getElementById('job_grade').value;
+        document.getElementsByName('salary_grade')[0].value = document.getElementById('salary_grade').value;
+        document.getElementsByName('step')[0].value = document.getElementById('step').value;
+
 
         /* -------------------------------------------------------------------------- */
         /*                                  OLD CODE                                  */

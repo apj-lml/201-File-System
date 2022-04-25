@@ -152,6 +152,10 @@ def update_employee(emp_id):
 #                                CAPITALIZE DATA                               #
 # ---------------------------------------------------------------------------- #
 	for k,v in formdata.items():
+		# if v == "":
+		# 	print(k,v)
+		# 	# formdata.update({k: None})
+		# else:
 		if type(v) is str:
 			formdata.update({k: v.upper()})
 		else:
