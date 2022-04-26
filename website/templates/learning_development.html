@@ -271,10 +271,10 @@
 				return res.json();
 
 			}).then((data)=>{
-					triggerToast(data); //this is the returned error message
+					triggerToast(data, "success"); //this is the returned error message
 					var table = $('#ld_table').DataTable();
 					table.ajax.reload();
-					
+					nia_pimo();
 					// window.location.reload();
 			})
 
