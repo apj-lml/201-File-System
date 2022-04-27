@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Learning and Development {% endblock %}
+{% block title %} Vaccine Information {% endblock %}
 
 {%block cssperfile %}
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
@@ -215,8 +215,9 @@
             <!-- ----------------------------------------------------------------------- -->
             <!--                            IF NO VACCINE YET                            -->
             <!-- ----------------------------------------------------------------------- -->
-
-        <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="vaccine_form">Sumbit</button>
+        <div class="col-sm-12 text-center">
+          <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-md" form="vaccine_form">Submit</button>
+        </div>
         
     </div>
   </div>
