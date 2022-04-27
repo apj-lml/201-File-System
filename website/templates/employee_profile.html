@@ -780,15 +780,15 @@
                       <div class="card-body">
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" form="add_vocational_form" value=""> 
+                            <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" form="add_vocational_form"> 
                             <label for="v_school">School</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" form="add_vocational_form" value="">
+                            <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" form="add_vocational_form">
                             <label for="vocational_trade_course">Vocational / Trade Course</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <select class="form-select" id="v_highest_level[1]" name="v_highest_level[1]" aria-label="Floating label select example" value="" form="add_vocational_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[1]'), document.getElementById('v_scholarship_academic_honor[1]'), document.getElementById('v_period_of_attendance_from[1]'), document.getElementById('v_period_of_attendance_to[1]'))">
+                            <select class="form-select" id="v_highest_level[1]" name="v_highest_level[1]" aria-label="Floating label select example" form="add_vocational_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[1]'), document.getElementById('v_scholarship_academic_honor[1]'), document.getElementById('v_period_of_attendance_from[1]'), document.getElementById('v_period_of_attendance_to[1]'))">
                               {% if user_profile.v_highest_level %}
                               <option class="" value="{{user_profile.v_highest_level}}" selected disabled hidden>{{user_profile.v_highest_level}}</option>
                               {% else %}
@@ -803,13 +803,13 @@
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating flex-fill mb-2 p-1">
-                          <input type="number" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form" value="" oninput="year_only(this)">
+                          <input type="number" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="add_vocational_form" oninput="year_only(this)">
                           <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
                           <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
 
                         </div>
                         <div class="form-floating flex-fill mb-2 p-1">
-                          <input type="number" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form" value="" oninput="year_only(this)">
+                          <input type="number" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="add_vocational_form" oninput="year_only(this)">
                           <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
                           <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
 
@@ -817,17 +817,17 @@
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating col-sm-4 mb-3 p-1">
-                          <input type="date" class="form-control" id="v_date_of_validity[1]" name ="v_date_of_validity[1]" placeholder="Date of Validity of NC II" form="add_vocational_form" value="">
+                          <input type="date" class="form-control" id="v_date_of_validity[1]" name ="v_date_of_validity[1]" placeholder="Date of Validity of NC II" form="add_vocational_form">
                           <label for="v_period_of_attendance_from">Date of Validity of NC II</label>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="v_highest_grade_year_units[1]" name ="v_highest_grade_year_units[1]" placeholder="Highest Level" form="add_vocational_form" value="">
+                          <input type="text" class="form-control" id="v_highest_grade_year_units[1]" name ="v_highest_grade_year_units[1]" placeholder="Highest Level" form="add_vocational_form">
                           <label for="v_highest_grade_year_units">Units Earned</label>
                           </div>   
                           <div class="form-floating flex-fill mb-3 p-1">
-                          <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" form="add_vocational_form" value="">
+                          <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" form="add_vocational_form">
                           <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
                           </div>  
                       </div>

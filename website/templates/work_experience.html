@@ -126,6 +126,7 @@
                           <option value="26">26</option>
                         </select>
                         <label for="sg">Salary / Job / Pay Grade</label>
+                        <!-- <input type="text" name="sg" form="work_experience_form"> -->
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
                         <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="work_experience_form" disabled>
@@ -140,6 +141,8 @@
                           <option value="8">8</option>
                         </select>
                         <label for="step">Step</label>
+                        <!-- <input type="text" name="step" form="work_experience_form"> -->
+
                       </div>
 
                       <div class="form-floating flex-fill mb-3 p-1">
@@ -499,10 +502,10 @@ var sf_present = document.getElementById('sf_present');
 
     $('#work_experience_table').DataTable({
       responsive: true,
-      order: [[ 0, "desc" ]],
+      order: [],
         dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
 				<'row'<'col-sm-12'tr>>
-				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
     });
 
       document.getElementById('update_work_experience_form').addEventListener('submit',(e)=>{
@@ -511,7 +514,7 @@ var sf_present = document.getElementById('sf_present');
           
             const data1 = {}
                 formData1.forEach((value, key) => (data1[key] = value));
-            console.log(data1)
+            // console.log(data1)
             fetch('/workExperience/save-work-experience/{{user_profile.id}}', {
                 method: 'POST',
                 body: formData1
@@ -545,7 +548,7 @@ var sf_present = document.getElementById('sf_present');
             
             let formData4 = new FormData(document.getElementById("work_experience_form"));
                 
-                const data4 = {}
+                const data4 = {};
                 formData4.forEach((value, key) => (data4[key] = value));
                
                 fetch(url, {
@@ -554,17 +557,16 @@ var sf_present = document.getElementById('sf_present');
                 }).then((res)=>{
                   console.log(res.status)
                 if (res.status == 200){
-                    triggerToast("Successfully Added Work Experience", 'success')
-                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
-                    document.getElementById('work_experience_form').reset()
-                    window.location.reload()
+                    triggerToast("Successfully Added Work Experience", 'success');
+                    document.getElementById('work_experience_form').reset();
+                    window.location.reload();
                 }else if (res.status == 406){
-                  triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
+                  triggerToast("You Can\'t Enter Overlapping Dates", 'warning');
                 }
-                return res.json()
+                return res.json();
 
                 }).then((data)=>{
-                  triggerToast(data, 'warning')
+                  triggerToast(data, 'success');
 
                   // $('#work_experience_table').DataTable().ajax.reload()
 
