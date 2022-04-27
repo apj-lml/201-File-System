@@ -600,7 +600,7 @@ $('#uploaded_file_table').DataTable({
 						}).then((res)=>{
 						console.log(res.status)
 						if (res.status == 200){
-							triggerToast("Successfully Added Work Experience", 'success')
+							triggerToast("Successfully Added Appointment", 'success')
 							document.getElementById('add_appointment_form').reset()
 							$('#service_record_table').DataTable().ajax.reload()
 							var myModalEl = document.getElementById('exampleModal');
