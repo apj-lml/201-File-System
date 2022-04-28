@@ -55,8 +55,6 @@
 								<th  colspan="2">EMPLOYMENT PERIOD <i>(Inclusive Dates)</i></th>
 								<th  colspan="3">RECORD OF APPOINTMENT</th>
 								<th  rowspan="2">STATION/PLACE OF ASSIGNMENT</th>
-								<!-- <th  rowspan="2">LEAVE W/O PAY</th> -->
-								<!-- <th  colspan="2">SEPARATION</th> -->
 								<th  rowspan="2">ATTACHMENT</th>
 								<th  rowspan="2">CONTROLS</th>
 							</tr>
@@ -66,8 +64,6 @@
 								<th >POSITION TITLE</th>
 								<th >EMPLOYMENT STATUS</th>
 								<th >DAILY/MONTHLY RATE</th>
-								<!-- <th >DATE</th>
-								<th >CAUSE</th> -->
 							</tr>
 							</thead>
 							<tbody>
@@ -79,51 +75,6 @@
 		</div>
 		</div>
 
-			<!-- <div class="card shadow-sm mt-3">
-				<div class="card-body">
-				  <table class="table table-bordered table-striped" id="uploaded_file_table">
-					<thead>
-					  <tr>
-						<th>File Name</th>
-						<th>File Tag</th>
-						<th>Controls</th>
-					  </tr>
-					  </thead>
-					  <tbody>
-					{% for file in user_profile.uploaded_files %}
-						{% if file.file_tag == 'appointment' %}
-						<tr>
-						  <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
-						  <td>{{file.file_tag}}</td>
-						  <td>
-							<a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
-							  <i class="bi bi-trash"></i>
-							</a>
-						  </td>
-						</tr>
-	  
-						{% endif %}
-					{% endfor %}
-				  </tbody>
-				  </table>
-				</div>
-			  </div> -->
-
-
-
-		<!-- <div class="row">
-			<div class="col-sm-12">
-				<p class="fw-light mb-0">This superseeds all Service Records previously issued inconsistent herewith.</p>
-				<p class="fw-bold">INVALID IF THERE ARE ERASURES.</p>
-			</div>
-			<div class="col-sm-12 mt-3">
-				<p><i>Certified Correct:</i></p>
-			</div>
-			<div class="col-sm-12 mt-5">
-				<p class="fw-bold mb-0">FRANCIS CARLO L. ZACARIAS</p>
-				<p class="mt-0"><i>Industrial Relations Management/Development Officer C</i></p>
-			</div>
-		</div> -->
 	</div>
 
 </main>
@@ -224,62 +175,12 @@
 							This is required.
 						  </div>
 					</div>
-					<!-- <div class="form-floating flex-fill mb-3 p-1">
-					  <input type="text" class="form-control" id="leave_wo_pay" name ="leave_wo_pay" placeholder="Leave W/O Pay" value="None">
-					  <label for="salary">Leave W/O Pay</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div> -->
 				</div>
-				<!-- <div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-						<input type="date" class="form-control" id="separation_date" name ="separation_date" placeholder="Separation Date" value="">
-						<label for="designation">Separation Date</label>
-						<div class="valid-feedback">
-							Looks good!
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
-					</div>
-				</div> -->
-				<!-- <div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
-					  <label for="salary">Separation Cause</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div>
-				</div> -->
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Appointment</label>
                         <input class="form-control" type="file" id="appointment_attachment" name="appointment_attachment" required>
-						<div class="valid-feedback">
-							<!-- Looks good! -->
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
                       </div>
-					<!-- <div class="form-floating flex-fill mb-3 p-1">
-						<input class="form-control" type="file" id="appointment" name="appointment" multiple>
-						<label for="salary">Upload Appointment</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div> -->
 				</div>
 
 		</div>
@@ -301,29 +202,17 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form enctype="multipart/form-data" id="update_appointment_form" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
+			<form enctype="multipart/form-data" id="update_appointment_form" action="#" method="POST">
 				<input type="hidden" class="form-control" id="id" name ="id" placeholder="id" value="" required>
 				
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="date" class="form-control" id="update_service_from" name ="service_from" placeholder="Service From" value="" required>
 					  <label for="update_service_from">Service From</label>
-					  <div class="valid-feedback">
-						<!-- Looks good! -->
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="date" class="form-control" id="update_service_to" name ="service_to" placeholder="Service To" value="" required>
 					  <label for="update_service_to">Service To</label>
-					  <div class="valid-feedback">
-						<!-- Looks good! -->
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					  <div class="form-check">
 						<input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "PRESENT">
 						<label class="form-check-label" for="update_sf_present">
@@ -336,12 +225,6 @@
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="update_designation" name ="designation" placeholder="Designation" value="" required>
 					  <label for="update_designation">Position Title</label>
-					  <div class="valid-feedback">
-						<!-- Looks good! -->
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
@@ -354,23 +237,10 @@
 							<option value="SEPARATED">Separated</option>
 						</select>
 						<label for="update_status">Employment Status</label>
-
-						<div class="valid-feedback">
-							<!-- Looks good! -->
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control trailing-decimal-input" id="update_salary" name ="salary" placeholder="Salary" value="" step="0.01" required>
 					  <label for="update_salary">Salary</label>
-					  <div class="valid-feedback">
-						<!-- Looks good! -->
-					  </div>
-					  <div class="invalid-feedback">
-						Invalid input.
-					  </div>
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
@@ -383,54 +253,8 @@
 							  <small class="text-muted">NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE</small>
 							</label>
 						  </div>
-						<div class="valid-feedback">
-							<!-- Looks good! -->
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
 					</div>
-					<!-- <div class="form-floating flex-fill mb-3 p-1">
-						<input type="text" class="form-control" id="update_station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
-						<label for="update_designation">Station/ Place of Assignment</label>
-						<div class="valid-feedback">
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
-					</div> -->
-					<!-- <div class="form-floating flex-fill mb-3 p-1">
-					  <input type="text" class="form-control" id="update_leave_wo_pay" name ="leave_wo_pay" placeholder="Leave W/O Pay" value="None">
-					  <label for="update_leave_wo_pay">Leave W/O Pay</label>
-					  <div class="valid-feedback">
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div> -->
 				</div>
-				<!-- <div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-						<input type="date" class="form-control" id="update_separation_date" name ="separation_date" placeholder="Separation Date" value="">
-						<label for="update_separation_date">Separation Date</label>
-						<div class="valid-feedback">
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
-					</div>
-				</div> -->
-				<!-- <div class="d-sm-flex flex-row">
-					<div class="form-floating flex-fill mb-3 p-1">
-					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="update_separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
-					  <label for="update_separation_cause">Separation Cause</label>
-					  <div class="valid-feedback">
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div>
-				</div> -->
 				<div class="d-sm-flex flex-row">
 					<div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">Upload Appointment (This will overwrite the old File)</label>
@@ -442,16 +266,6 @@
 							This is required.
 						  </div>
                       </div>
-					<!-- <div class="form-floating flex-fill mb-3 p-1">
-						<input class="form-control" type="file" id="appointment" name="appointment" multiple>
-						<label for="salary">Upload Appointment</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-					</div> -->
 				</div>
 
 		</div>
@@ -598,24 +412,34 @@ $('#uploaded_file_table').DataTable({
 						method: 'POST',
 						body: formData4
 						}).then((res)=>{
-						console.log(res.status)
+
+						var myModalEl = document.getElementById('exampleModal');
+						var modal = bootstrap.Modal.getInstance(myModalEl);
+						
 						if (res.status == 200){
 							triggerToast("Successfully Added Appointment", 'success')
 							document.getElementById('add_appointment_form').reset()
 							$('#service_record_table').DataTable().ajax.reload()
-							var myModalEl = document.getElementById('exampleModal');
-							var modal = bootstrap.Modal.getInstance(myModalEl)
+
 							modal.hide();
 							// window.location.reload()
-						}else if (res.status == 406){
-							triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
 						}
 						return res.json()
 
 						}).then((data)=>{
-						//   triggerToast(data, 'warning')
+						
+						if(data == "invalid_file"){
+							console.log("invalid_file");
+							triggerToast('Invalid File Submitted. Only PDF Files are allowed.', 'warning');
+							loadingScreen('none');
+							//modal.hide();
 
-						// $('#work_experience_table').DataTable().ajax.reload()
+						}else if (data == "overlapping_date"){
+							triggerToast('You Can\'t Enter Overlapping Dates!', 'success');
+							console.log("overlaping_date");
+							loadingScreen('none');
+							//modal.hide();
+						}
 
 						});//END
 				}
@@ -661,10 +485,6 @@ function edit_appointment(id){
 		update_status.value = data[0].status
 		update_salary.value = data[0].salary
 		update_station_place.value = data[0].station_place
-		// update_leave_wo_pay.value = data[0].leave_wo_pay
-		// update_separation_date.value = data[0].separation_date
-		// update_separation_cause.value = data[0].separation_cause
-		// update_appointment.value = data[0].appointment
 		
   })
 }
@@ -751,31 +571,34 @@ document.getElementById('update_appointment_form').addEventListener('submit', (e
                 method: 'POST',
                 body: formData4
                 }).then((res)=>{
-				
-				if (res.status == 406){
-					loadingScreen('none');
 
-					triggerToast('You Can\'t Enter Overlapping Dates!', 'warning')
-					return res.json()
-                }
-                else if (res.status == 200){
+				var myModal = document.getElementById('updateModal');
+				var modal = bootstrap.Modal.getInstance(myModal);
+
+               	if (res.status == 200){
 					loadingScreen('none');
-					var myModal = document.getElementById('updateModal');
-					var modal = bootstrap.Modal.getInstance(myModal).hide()
-					modal.hide();
+					// modal.hide();
 					$('#service_record_table').DataTable().ajax.reload()
-					triggerToast('Successfully Saved Changes.', 'warning')
+					triggerToast('Successfully Saved Changes.', 'success')
 
-					return res.json()
+					// return res.json()
                 }
+				return res.json();
                 
                 }).then((data)=>{
+					// console.log(data)
+					if(data == "invalid_file"){
+							console.log("invalid_file");
+							triggerToast('Invalid File Submitted. Only PDF Files are allowed.', 'warning');
+							loadingScreen('none');
+							//modal.hide();
 
-					// triggerToast(data, 'warning')
-					
-				  
-                //   document.getElementById('work_experience_form').reset()
-                //   window.location.reload();
+					}else if (data == "overlapping_date"){
+						triggerToast('You Can\'t Enter Overlapping Dates!', 'success');
+						console.log("overlaping_date");
+						loadingScreen('none');
+						//modal.hide();
+					}
 
                 });//END
 })

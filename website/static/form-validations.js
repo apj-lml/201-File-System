@@ -126,6 +126,7 @@
           sameAsPermanent();
 
           employment_status();
+          date_of_last_promotion();
 
 
       })
@@ -188,7 +189,8 @@
           sg.value = "1";
           job_grade.disabled = true;
           job_grade.value = "";
-          disableSgJobOrder(true);
+          // disableSgJobOrder(true);
+
 
         }else if(emp_status == "CASUAL"){
 
@@ -197,8 +199,9 @@
           sg.disabled = true;
           sg.value = null;
           
-           job_grade.value = "2";
-          disableStepCasual(true);
+          job_grade.value = "2";
+          // disableStepCasual(true);
+
         }
         
         else{
@@ -208,11 +211,27 @@
           sg.value = "N/A";
           sg.disabled = true;
           job_grade.disabled = false;
+          // job_grade.value = "2";
+          // step.value = "1";
+        }
+        date_of_last_promotion();
+        myrate()
+      }
+
+      
+      function date_of_last_promotion(){
+        var dolp = document.getElementById('date_of_last_promotion');
+        var emp_status = document.getElementById("employment_status");
+        // dolp.readOnly = isReadOnly;
+
+        if(emp_status.value == "PERMANENT"){
+          dolp.readOnly = false;
+
+        }else{
+          dolp.readOnly = true;
 
         }
 
-
-        myrate()
       }
 
       function myrate(){

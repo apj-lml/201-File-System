@@ -48,7 +48,6 @@ def add_appointment(emp_id):
             for file in files:
                 # print(f'print file: {file}')
 
-
                 if file.filename == "":
                 #if afile not in request.files:
                     print('No file selected')
@@ -56,7 +55,7 @@ def add_appointment(emp_id):
                 else:
                     if not allowed_file(file.filename):
                         # print('Invalid file submitted')
-                        return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
+                        return jsonify('invalid_file'), 406
                         #return redirect(request.url)
                     else:
                         today_is = datetime.today().strftime('%Y-%m-%d-%H%M%S')
@@ -80,7 +79,7 @@ def add_appointment(emp_id):
                             if 'sf_present' in formdata:
                                 get_we = Appointment.query.filter_by(user_id = emp_id, service_to = "PRESENT").all()
                                 if get_we:
-                                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                                    return jsonify('overlapping_date'), 406
                                 else:
                                     formdata['service_to'] = 'PRESENT'
                                     formdata.pop('sf_present')
@@ -99,7 +98,7 @@ def add_appointment(emp_id):
                                         we_date_to = format_mydatetime(we.service_to)
 
                                     if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:    
-                                        return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                                        return jsonify('overlapping_date'), 406
 
 
                             if 'nia_pimo' in formdata:
@@ -195,10 +194,9 @@ def update_appointment(id, emp_id):
                 print('No file selected')
             else:
                 if not allowed_file(file.filename):
-                    return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
+                    return jsonify('invalid_file'), 406
                 
                 get_user = User.query.get(emp_id)
-
 
                 file_extension = file.filename.rsplit('.', 1)[1].lower()
                 file_name = file.filename.rsplit('.', 1)[0]
@@ -207,15 +205,12 @@ def update_appointment(id, emp_id):
                     print('path does not exist... creating path')
                     os.mkdir(current_app.config['UPLOAD_FOLDER'])
                 else:
-                    # print('path exist!')
-                    os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.appointment_attachment_file_name))
+                    # this is to remove old file
+                    #os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.appointment_attachment_file_name))
 
                     file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
 
                     #saving upload info to database
-                    # files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
-                    # db.session.add(files_to_upload)
-                    # db.session.commit()
                     formdata['appointment_attachment'] = '\\static\\files\\' + final_name
                     formdata['appointment_attachment_file_name'] = final_name
 
@@ -248,7 +243,7 @@ def update_appointment(id, emp_id):
                 # print('DATE_TO', date_to.strftime('%Y-%m-%d'))
                 
                 if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:
-                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                    return jsonify('overlapping_date'), 406
 
         if 'nia_pimo' in formdata:
             formdata['station_place'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
