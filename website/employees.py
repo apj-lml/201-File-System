@@ -176,18 +176,28 @@ def update_employee(emp_id):
 #                         UPDATING OF VOCATIONAL COURSE                        #
 # ---------------------------------------------------------------------------- #
 	for xy in range(1, int(vocational_no_update_fields)+1):
-		
+
+		v_school = formdata['v_school['+str(xy)+']']
+		vocational_trade_course = formdata['vocational_trade_course['+str(xy)+']']
+		v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(xy)+']']
+		v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']']
+		v_highest_level = formdata['v_highest_level['+str(xy)+']']
+		v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(xy)+']']
+		v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']']
+		v_date_of_validity = formdata['v_date_of_validity['+str(xy)+']']
+
 		vocational_course = Vocational_Course.query.filter_by(id = formdata['v_id['+str(xy)+']'])
-		vocational_course.update(dict(v_school = formdata['v_school['+str(xy)+']'].upper(), 
-								vocational_trade_course = formdata['vocational_trade_course['+str(xy)+']'].upper(), 
-								v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(xy)+']'].upper(),
-								v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(xy)+']'].upper(),
-								v_highest_level = formdata['v_highest_level['+str(xy)+']'].upper(),
-                				v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(xy)+']'],
-								v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(xy)+']'].upper(),
-								v_date_of_validity = formdata['v_date_of_validity['+str(xy)+']']
+		vocational_course.update(dict(
+								v_school = v_school,
+								vocational_trade_course = vocational_trade_course,
+								v_period_of_attendance_from = v_period_of_attendance_from,
+								v_period_of_attendance_to = v_period_of_attendance_to,
+								v_highest_level = v_highest_level,
+								v_highest_grade_year_units = v_highest_grade_year_units,
+								v_scholarship_academic_honor = v_scholarship_academic_honor,
+								v_date_of_validity = v_date_of_validity
 								))
-                				
+								
 		db.session.commit()
 # ---------------------------------------------------------------------------- #
 #                                UPDATING OF CSE                               #

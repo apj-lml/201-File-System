@@ -41,24 +41,37 @@ def add_masteral(emp_id):
 # ---------------------------------------------------------------------------- #
 
         for x in range(1, int(masteral_no_fields)+1):
-            # formdata['cs_eligibility['+str(x)+']']
-            # formdata['cs_rating['+str(x)+']']
-            # formdata['date_of_examination['+str(x)+']']
-            # formdata['place_of_examination_conferment['+str(x)+']']
-            # formdata['date_of_validity['+str(x)+']']
 
-            new_masteral = Masteral(
-                gs_school = formdata['gs_school['+str(x)+']'],
-                gs_degree_course = formdata['gs_degree_course['+str(x)+']'],
-				gs_period_of_attendance_from = formdata['gs_period_of_attendance_from['+str(x)+']'],
-                gs_period_of_attendance_to = formdata['gs_period_of_attendance_to['+str(x)+']'],
-				gs_highest_level_units_earned = formdata['gs_highest_level_units_earned['+str(x)+']'],
-                gs_highest_grade_year_units = formdata['gs_highest_grade_year_units['+str(x)+']'],
-                gs_scholarship_academic_honor = formdata['gs_scholarship_academic_honor['+str(x)+']'],
-                 user_id = emp_id)
-            db.session.add(new_masteral)
-            db.session.flush()
-            db.session.commit()
+            gs_school = formdata['gs_school['+str(x)+']']
+            gs_degree_course = formdata['gs_degree_course['+str(x)+']']
+            gs_period_of_attendance_from = formdata['gs_period_of_attendance_from['+str(x)+']']
+            gs_period_of_attendance_to = formdata['gs_period_of_attendance_to['+str(x)+']']
+            gs_highest_level_units_earned = formdata['gs_highest_level_units_earned['+str(x)+']']
+            gs_highest_grade_year_units = formdata['gs_highest_grade_year_units['+str(x)+']']
+            gs_scholarship_academic_honor = formdata['gs_scholarship_academic_honor['+str(x)+']']
+
+            if(
+                gs_school == "" and
+                gs_degree_course == "" and
+                gs_period_of_attendance_from == "" and
+                gs_period_of_attendance_to == "" and
+                gs_highest_level_units_earned == "" and
+                gs_highest_grade_year_units == "" and
+                gs_scholarship_academic_honor == ""
+            ): pass
+            else:
+                new_masteral = Masteral(
+                    gs_school = formdata['gs_school['+str(x)+']'],
+                    gs_degree_course = formdata['gs_degree_course['+str(x)+']'],
+                    gs_period_of_attendance_from = formdata['gs_period_of_attendance_from['+str(x)+']'],
+                    gs_period_of_attendance_to = formdata['gs_period_of_attendance_to['+str(x)+']'],
+                    gs_highest_level_units_earned = formdata['gs_highest_level_units_earned['+str(x)+']'],
+                    gs_highest_grade_year_units = formdata['gs_highest_grade_year_units['+str(x)+']'],
+                    gs_scholarship_academic_honor = formdata['gs_scholarship_academic_honor['+str(x)+']'],
+                    user_id = emp_id)
+                db.session.add(new_masteral)
+                db.session.flush()
+                db.session.commit()
             
     return "ok", 200
 

@@ -31,17 +31,29 @@ def add_vocational(emp_id):
         vocational_no_fields = formdata["vocational_no_fields"]
         pprint(formdata)
         for x in range(1, int(vocational_no_fields)+1):
+
+            v_school = formdata['v_school['+str(x)+']']
+            vocational_trade_course = formdata['vocational_trade_course['+str(x)+']']
+            v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']']
+            v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']']
+            v_highest_level = formdata['v_highest_level['+str(x)+']']
+            v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(x)+']']
+            v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']']
+            v_date_of_validity = formdata['v_date_of_validity['+str(x)+']']
             
-            new_vocational = Vocational_Course(
-                v_school = formdata['v_school['+str(x)+']'].upper(),
-                vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'].upper(),
-				v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'],
-                v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
-				v_highest_level = formdata['v_highest_level['+str(x)+']'].upper(),
-                v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(x)+']'].upper(),
-                v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'],
-                v_date_of_validity = formdata['v_date_of_validity['+str(x)+']'],
-                user_id = emp_id)
+            if (v_school == "" and vocational_trade_course == "" and v_period_of_attendance_from == "" and v_period_of_attendance_to == "" and v_highest_level == "" and v_highest_grade_year_units == "" and v_scholarship_academic_honor == "" and v_date_of_validity == ""):
+                pass
+            else:
+                new_vocational = Vocational_Course(
+                    v_school = formdata['v_school['+str(x)+']'].upper(),
+                    vocational_trade_course = formdata['vocational_trade_course['+str(x)+']'].upper(),
+                    v_period_of_attendance_from = formdata['v_period_of_attendance_from['+str(x)+']'],
+                    v_period_of_attendance_to = formdata['v_period_of_attendance_to['+str(x)+']'],
+                    v_highest_level = formdata['v_highest_level['+str(x)+']'].upper(),
+                    v_highest_grade_year_units = formdata['v_highest_grade_year_units['+str(x)+']'].upper(),
+                    v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'],
+                    v_date_of_validity = formdata['v_date_of_validity['+str(x)+']'],
+                    user_id = emp_id)
 
             db.session.add(new_vocational)
             db.session.flush()

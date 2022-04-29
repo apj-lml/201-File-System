@@ -39,20 +39,37 @@ def add_doctoral(emp_id):
             else:
                 formdata.update({k: v})
 # ---------------------------------------------------------------------------- #
-
+        
         for x in range(1, int(doctoral_no_fields)+1):
-            new_doctoral = Doctoral(
-                doc_school = formdata['doc_school['+str(x)+']'],
-                doc_degree_course = formdata['doc_degree_course['+str(x)+']'],
-				doc_period_of_attendance_from = formdata['doc_period_of_attendance_from['+str(x)+']'],
-                doc_period_of_attendance_to = formdata['doc_period_of_attendance_to['+str(x)+']'],
-				doc_highest_level_units_earned = formdata['doc_highest_level_units_earned['+str(x)+']'],
-                doc_highest_grade_year_units = formdata['doc_highest_grade_year_units['+str(x)+']'],
-                doc_scholarship_academic_honor = formdata['doc_scholarship_academic_honor['+str(x)+']'],
-                 user_id = emp_id)
-            db.session.add(new_doctoral)
-            db.session.flush()
-            db.session.commit()
+
+            doc_school = formdata['doc_school['+str(x)+']']
+            doc_degree_course = formdata['doc_degree_course['+str(x)+']']
+            doc_period_of_attendance_from = formdata['doc_period_of_attendance_from['+str(x)+']']
+            doc_period_of_attendance_to = formdata['doc_period_of_attendance_to['+str(x)+']']
+            doc_highest_level_units_earned = formdata['doc_highest_level_units_earned['+str(x)+']']
+            doc_highest_grade_year_units = formdata['doc_highest_grade_year_units['+str(x)+']']
+            doc_scholarship_academic_honor = formdata['doc_scholarship_academic_honor['+str(x)+']']
+            if(doc_school == "" and
+                doc_degree_course == "" and
+                doc_period_of_attendance_from == "" and
+                doc_period_of_attendance_to == "" and
+                doc_highest_level_units_earned == "" and
+                doc_highest_grade_year_units == "" and
+                doc_scholarship_academic_honor == ""
+                ): pass
+            else:
+                new_doctoral = Doctoral(
+                    doc_school = formdata['doc_school['+str(x)+']'],
+                    doc_degree_course = formdata['doc_degree_course['+str(x)+']'],
+                    doc_period_of_attendance_from = formdata['doc_period_of_attendance_from['+str(x)+']'],
+                    doc_period_of_attendance_to = formdata['doc_period_of_attendance_to['+str(x)+']'],
+                    doc_highest_level_units_earned = formdata['doc_highest_level_units_earned['+str(x)+']'],
+                    doc_highest_grade_year_units = formdata['doc_highest_grade_year_units['+str(x)+']'],
+                    doc_scholarship_academic_honor = formdata['doc_scholarship_academic_honor['+str(x)+']'],
+                    user_id = emp_id)
+                db.session.add(new_doctoral)
+                db.session.flush()
+                db.session.commit()
             
     return "ok", 200
 
