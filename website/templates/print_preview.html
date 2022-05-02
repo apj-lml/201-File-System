@@ -489,7 +489,9 @@ async function fillForm() {
         c_period_of_attendance_to.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college|length > 0 else "N/A"}}');
 
         c_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else user_profile.college[0].c_highest_level_units_earned }}');
-        c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned != "GRADUATED" else "N/A"}}');
+
+        c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
+
         c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor if user_profile.college[0].c_scholarship_academic_honor != "" else "N/A"}}');
 
     {% else %}
@@ -1355,7 +1357,7 @@ async function fillForm() {
         c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college|length > 1 else "N/A"}}');
 
         c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_level_units_earned }}');
-        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned != "GRADUATED" else "N/A"}}');
+        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
         c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
 
     {% else %}
@@ -2266,7 +2268,7 @@ for (var y = 0; y<2; y++){
     doc_period_of_attendance_from3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_from if user_profile.doctoral|length > 0 else ""}}')
     doc_period_of_attendance_to3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.doctoral|length > 0 else ""}}')
 
-    {% if user_profile.doctoral|length > 0 %}
+    {% if user_profile.doctoral|length > 1 %}
     doc_year_graduated3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.masteral[0].doc_highest_grade_year_units == "GRADUATED" else "" }}')
     {% else %}
     doc_year_graduated3.setText("")
