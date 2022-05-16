@@ -128,6 +128,13 @@
           employment_status();
           date_of_last_promotion();
 
+        var emp_status = document.getElementById("employment_status").value;
+          
+          if(emp_status == "CASUAL"){
+            // var sg = document.getElementById('salary_grade');
+            // var job_grade = document.getElementById('job_grade');
+            disableStepCasual(true)
+          }
 
       })
       
@@ -168,7 +175,6 @@
         var d_rate = document.getElementById("daily_rate");
         var m_rate = document.getElementById("monthly_rate");
         var step = document.getElementById("step");
-      //  var item_no = document.getElementById("item_no");
         var sg = document.getElementById('salary_grade');
         var job_grade = document.getElementById('job_grade');
 
@@ -198,9 +204,9 @@
           // step.value = "1";
           sg.disabled = true;
           sg.value = null;
-          
-          job_grade.value = "2";
-          // disableStepCasual(true);
+          job_grade.disabled = false;
+          job_grade.value = "";
+          disableStepCasual(true);
 
         }
         

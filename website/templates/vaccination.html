@@ -149,7 +149,7 @@
           <!-- ----------------------------------------------------------------------- -->
           <div class="card shadow-sm mb-3">
             <div class="card-body">
-              <div class="d-md-flex flex-row col-sm-4">
+              <div class="d-md-flex flex-row col-sm-6">
                 <div class="form-floating flex-fill mb-3 p-1">
                   <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="">
                     {% if user_profile.vaccine and user_profile.vaccine[0].booster_brand != 'N/A' %}
@@ -160,7 +160,7 @@
                     <option value="YES">YES</option>
                     <option value="NO">NO</option>
                   </select>
-                  <label for="do_you_have_booster">Do You have Booster Shot?</label>
+                  <label for="do_you_have_booster">Do You have Booster Shot (1st Dose)?</label>
                 </div>
               </div>
             </div>
@@ -174,11 +174,11 @@
               <div class="d-md-flex flex-row">
                 <div class="form-floating flex-fill mb-3 p-1">
                   <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="vaccine_form" value="{{user_profile.vaccine[0].booster_id_no if user_profile.vaccine else ''}}" disabled>
-                  <label for="booster_id_no">Booster Shot ID No.</label>
+                  <label for="booster_id_no">1st Dose Booster Shot ID No.</label>
                 </div>
                 <div class="form-floating flex-fill mb-3 p-1">
                   <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" form="vaccine_form" value="N/A" disabled required>
-                    {% if user_profile.vaccine is not none and user_profile.vaccine[0].booster_brand != 'N/A'%}
+                    {% if user_profile.vaccine is not none and user_profile.vaccine|length > 0 %}
                     <option value="{{user_profile.vaccine[0].booster_brand}}" selected hidden>{{user_profile.vaccine[0].booster_brand}}</option>
                     {% else %}
                     <option value="N/A" selected hidden>N/A</option>
@@ -211,11 +211,30 @@
               </div>
               <div class="d-md-flex flex-row">
                 <div class="flex-fill mb-3 p-1 col-md-6">
-                  <label for="vac_date">Booster Shot ID Card</label>
-                  <input type="file" class="form-control" name ="booster_shot_card" id="booster_shot_card" placeholder="Date of First Dose" form="vaccine_form" value="" multiple required>
+                  <label for="vac_date">1st Dose Booster Shot ID Card</label>
+                  <input type="file" class="form-control" name ="booster_shot_card_first_dose" id="booster_shot_card_first_dose" placeholder="Date of First Dose" form="vaccine_form" value="" multiple required>
                 </div>
               </div>
             </div>
+        </div>
+
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <div class="d-md-flex flex-row col-sm-6">
+              <div class="form-floating flex-fill mb-3 p-1">
+                <select class="form-select" id="do_you_have_booster2" name="" aria-label="Floating label select example" value="">
+                  {% if user_profile.vaccine[0].booster_brand2 is not none %}
+                  <option value="YES" selected disabled hidden>YES</option>
+                  {% else %}
+                  <option value="NO" selected disabled hidden>NO</option>
+                  {% endif %}
+                  <option value="YES">YES</option>
+                  <option value="NO">NO</option>
+                </select>
+                <label for="do_you_have_booster2">Do You have Booster Shot (2nd Dose)?</label>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="card shadow-sm mb-3">
@@ -225,13 +244,13 @@
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="vaccine_form" value="{{user_profile.vaccine[0].booster_id_no if user_profile.vaccine else ''}}" disabled>
+                <input type="text" class="form-control" id="booster_id_no2" name ="booster_id_no2" placeholder="Vaccine ID no." form="vaccine_form" value="{{user_profile.vaccine[0].booster_id_no2 if user_profile.vaccine else ''}}" disabled>
                 <label for="booster_id_no">Booster Shot ID No.</label>
               </div>
               <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" form="vaccine_form" value="N/A" disabled required>
-                  {% if user_profile.vaccine is not none and user_profile.vaccine[0].booster_brand != 'N/A'%}
-                  <option value="{{user_profile.vaccine[0].booster_brand}}" selected hidden>{{user_profile.vaccine[0].booster_brand}}</option>
+                <select class="form-select" id="booster_brand2" name="booster_brand2" aria-label="Floating label select example" form="vaccine_form" value="N/A" disabled required>
+                  {% if user_profile.vaccine is not none and user_profile.vaccine|length > 0%}
+                  <option value="{{user_profile.vaccine[0].booster_brand2}}" selected hidden>{{user_profile.vaccine[0].booster_brand2}}</option>
                   {% else %}
                   <option value="N/A" selected hidden>N/A</option>
                   {% endif %}
@@ -251,20 +270,20 @@
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="vaccine_form" value="{{user_profile.vaccine[0].booster_place if user_profile.vaccine else 'N/A'}}" disabled required>
+                <input type="text" class="form-control" name ="booster_place2" id="booster_place2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_place2 if user_profile.vaccine else 'N/A'}}" disabled required>
                 <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
               </div>
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="vaccine_form" value="{{user_profile.vaccine[0].booster_date if user_profile.vaccine else 'N/A'}}" disabled required>
+                <input type="date" class="form-control" name ="booster_date2" id="booster_date2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_date2 if user_profile.vaccine else 'N/A'}}" disabled required>
                 <label for="booster_date">Date of Booster Shot</label>
               </div>
             </div>
             <div class="d-md-flex flex-row">
               <div class="flex-fill mb-3 p-1 col-md-6">
-                <label for="vac_date">Booster Shot ID Card</label>
-                <input type="file" class="form-control" name ="booster_shot_card" id="booster_shot_card" placeholder="Date of First Dose" form="vaccine_form" value="" multiple required>
+                <label for="booster_shot_card_second_dose">2nd Dose Booster Shot ID Card</label>
+                <input type="file" class="form-control" name ="booster_shot_card_second_dose" id="booster_shot_card_second_dose" form="vaccine_form" value="" multiple required>
               </div>
             </div>
           </div>
@@ -291,16 +310,22 @@
                       <tr>
                         <th>File Tag</th>
                         <th>Attachment</th>
-                        <!-- <th>Controls</th> -->
+                        <th>Controls</th>
                       </tr>
                       </thead>
                       <tbody>
                     {% for file in user_profile.uploaded_files %}
                       <!-- <div class="flex-fill mb-3 p-1"> -->
-                        {% if file.file_tag == 'vaccine_card' or file.file_tag == 'booster_shot_card' %}
+                        {% if file.file_tag == 'vaccine_card' or file.file_tag == 'booster_shot_card_first_dose' or file.file_tag == 'booster_shot_card_second_dose' %}
                         <tr>
                           <td>{{file.file_tag}}</td>
                           <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
+                          <td>
+                            <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                              <i class="bi bi-trash"></i>
+                            </a>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
+                          </td>
                           <!-- <td>
                             <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
                               <i class="bi bi-trash"></i>
@@ -381,7 +406,9 @@ function delete_file(e){
     body: JSON.stringify({"file_id" : e.id})
   })
 	.then(response => response.json())
-	.then(data => data)
+	.then((data)=>{
+    window.location.reload();
+  })
 	.catch(err => console.error(err));
 }
    

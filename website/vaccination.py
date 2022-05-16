@@ -117,18 +117,37 @@ def update_vaccine(user_id):
    
     if 'vac_id' in formdata:
         if 'booster_id_no' in formdata and 'booster_brand' in formdata:
-            print (formdata)
-            select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
-            select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
-                                        vac_brand = formdata['vac_brand'], 
-                                        vac_place = formdata['vac_place'],
-                                        vac_first_dose = formdata['vac_first_dose'], 
-                                        vac_second_dose = formdata['vac_second_dose'], 
-                                        booster_id_no = formdata['booster_id_no'],
-                                        booster_brand = formdata['booster_brand'], 
-                                        booster_place = formdata['booster_place'],
-                                        booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
-                                        ))
+            if 'booster_id_no2' in formdata and 'booster_brand' in formdata:
+                print (formdata)
+                select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+                select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+                                            vac_brand = formdata['vac_brand'], 
+                                            vac_place = formdata['vac_place'],
+                                            vac_first_dose = formdata['vac_first_dose'], 
+                                            vac_second_dose = formdata['vac_second_dose'], 
+                                            booster_id_no = formdata['booster_id_no'],
+                                            booster_brand = formdata['booster_brand'], 
+                                            booster_place = formdata['booster_place'],
+                                            booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date(),
+
+                                            booster_id_no2 = formdata['booster_id_no2'],
+                                            booster_brand2 = formdata['booster_brand2'], 
+                                            booster_place2 = formdata['booster_place2'],
+                                            booster_date2 = datetime.datetime.strptime(formdata['booster_date2'], '%Y-%m-%d').date()
+                                            ))
+            else:
+                print (formdata)
+                select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
+                select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
+                                            vac_brand = formdata['vac_brand'], 
+                                            vac_place = formdata['vac_place'],
+                                            vac_first_dose = formdata['vac_first_dose'], 
+                                            vac_second_dose = formdata['vac_second_dose'], 
+                                            booster_id_no = formdata['booster_id_no'],
+                                            booster_brand = formdata['booster_brand'], 
+                                            booster_place = formdata['booster_place'],
+                                            booster_date = datetime.datetime.strptime(formdata['booster_date'], '%Y-%m-%d').date()
+                                            ))
         else:
             select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
             select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],

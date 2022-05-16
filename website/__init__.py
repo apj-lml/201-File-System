@@ -38,10 +38,10 @@ def create_app():
 	#app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	#mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
@@ -108,6 +108,7 @@ def create_app():
 	from .voluntaryWork import voluntaryWork
 	from .otherInformation import otherInformation
 	from .questions import questions
+	from .otherQuestions import otherQuestions
 	from .characterReference import characterReference
 	from .emergencyContact import emergencyContact
 	from .appointment import appointment
@@ -132,6 +133,7 @@ def create_app():
 	app.register_blueprint(voluntaryWork, url_prefix = '/voluntaryWork')
 	app.register_blueprint(otherInformation, url_prefix = '/otherInformation')
 	app.register_blueprint(questions, url_prefix = '/questions')
+	app.register_blueprint(otherQuestions, url_prefix = '/otherQuestions')
 	app.register_blueprint(characterReference, url_prefix = '/characterReference')
 	app.register_blueprint(emergencyContact, url_prefix = '/emergencyContact')
 	app.register_blueprint(appointment, url_prefix = '/appointment')

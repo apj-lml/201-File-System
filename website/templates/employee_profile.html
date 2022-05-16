@@ -138,7 +138,7 @@
               <div id="hiddenFields">
 
               </div>
-              <div class="card text-white bg-blue shadow-sm mb-3" >
+              <!-- <div class="card text-white bg-blue shadow-sm mb-3" >
                 <div class="card-header"><h3 class="card-title"><i class="bi bi-info-circle"></i> Notice!</h3> </div>
                 <div class="card-body">
                   <ul>
@@ -147,7 +147,7 @@
                     <li><p class="card-text">An asterisk "*" in uploading of supporting documents denotes that the field can accept multiple files to upload. </p></li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
 
               <div class="card mb-3" id="header">
                 <div class="card-body">
@@ -470,10 +470,10 @@
                       <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" readonly>
                       <label for="name_extn">TIN</label>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
-                      <label for="name_extn">ATM Card No. (Optional)</label>
-                    </div>
+                    <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
+                      <input type="hidden" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
+                      <!-- <label for="name_extn">ATM Card No. (Optional)</label>
+                    </div> -->
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" >
                       <label for="name_extn">GSIS UMID No.</label>
@@ -508,7 +508,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="security_guard" name ="security_guard" placeholder="Security Guard License No." value="{{user_profile.security_guard if user_profile.security_guard is not none else '' }}" form="update_form">
-                      <label for="security_guard">Security Guard License</label>
+                      <label for="security_guard">Security Guard License No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="security_guard_validity" name ="security_guard_validity" placeholder="Security Guard License No." value="{{user_profile.security_guard_validity}}" form="update_form">
@@ -1558,13 +1558,12 @@
 
                       </div>
                     </div>
-                    <div class="d-md-flex flex-row">
+                    <!-- <div class="d-md-flex flex-row">
                       <div class="col-sm-4 mb-3 p-1">
-                        <label for="atm_card" class="form-label">Upload ATM Card</label>
-                        <input class="form-control" type="file" id="atm_card" name="atm_card" form="update_form">
-                      {{count_files("atm_card", user_profile.id)}}
-
-                      </div>
+                        <label for="atm_card" class="form-label">Upload ATM Card (Optional)</label> -->
+                        <!-- <input class="form-control" type="file" id="atm_card" name="atm_card" form="update_form"> -->
+                      {#{count_files("atm_card", user_profile.id)}#}
+                      <!-- </div> -->
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload Passport ID</label>
                         <input class="form-control" type="file" id="passport_id" name="passport_id" form="update_form">

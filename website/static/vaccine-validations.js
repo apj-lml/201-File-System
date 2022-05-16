@@ -4,6 +4,7 @@
       activate_booster_shot();
       activate_covid_vac();
   })
+      document.getElementById('do_you_have_booster2').addEventListener('change', activate_booster_shot_two);
       document.getElementById('do_you_have_booster').addEventListener('change', activate_booster_shot);
       document.getElementById('are_you_covid_vac').addEventListener('change', activate_covid_vac);
         
@@ -13,7 +14,7 @@
           var booster_place = document.getElementById('booster_place');
           var booster_date = document.getElementById('booster_date');
           var booster_shot = document.getElementById('do_you_have_booster');
-          var booster_shot_card = document.getElementById('booster_shot_card');
+          var booster_shot_card = document.getElementById('booster_shot_card_first_dose');
   
           if (booster_shot.value == "YES"){
             booster_id_no.disabled = false;
@@ -36,7 +37,35 @@
           
             }
           }
+          function activate_booster_shot_two(){
+            var booster_id_no = document.getElementById('booster_id_no2');
+            var booster_brand = document.getElementById('booster_brand2');
+            var booster_place = document.getElementById('booster_place2');
+            var booster_date = document.getElementById('booster_date2');
+            var booster_shot = document.getElementById('do_you_have_booster2');
+            var booster_shot_card = document.getElementById('booster_shot_card_second_dose');
+    
+            if (booster_shot.value == "YES"){
+              booster_id_no.disabled = false;
+              booster_brand.disabled = false;
+              booster_place.disabled = false;
+              booster_date.disabled = false;
+              booster_shot_card.disabled = false;
+            }else{
+              booster_id_no.disabled = true;
+              booster_brand.disabled = true;
+              booster_place.disabled = true;
+              booster_date.disabled = true;
+              booster_shot_card.disabled = true;
   
+  
+              booster_id_no.value = "";
+              booster_brand.value = "";
+              booster_place.value = "";
+              booster_date.value = "";
+            
+              }
+            }
         function activate_covid_vac(){
           var vac_id_no = document.getElementById('vac_id_no');
           var vac_brand = document.getElementById('vac_brand');

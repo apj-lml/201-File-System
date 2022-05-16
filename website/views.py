@@ -94,6 +94,13 @@ def questions(emp_id):
 	user = db.session.query(User).get(int(emp_id))
 	return render_template('questions.html', emp_id = emp_id, user_profile = user)
 
+@views.route('/other-questions/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def other_questions(emp_id):
+	user = db.session.query(User).get(int(emp_id))
+	return render_template('other-questions.html', emp_id = emp_id, user_profile = user)
+
 @views.route('/character-reference/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)

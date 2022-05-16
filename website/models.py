@@ -136,6 +136,7 @@ class User(db.Model, UserMixin):
 	voluntary_work = db.relationship('Voluntary_Work', order_by="desc(Voluntary_Work.date_from)")
 	other_information = db.relationship('Other_Information')
 	questions = db.relationship('Questions')
+	other_questions = db.relationship('Other_Questions')
 	character_reference = db.relationship('Character_Reference')
 	emergency_contact = db.relationship('Emergency_Contact') 
 	staff_moved = db.relationship('Staff_Movement')
@@ -230,6 +231,11 @@ class Vaccine(db.Model, SerializerMixin):
 	booster_brand = db.Column(db.String(150))
 	booster_place = db.Column(db.String(150))
 	booster_date = db.Column(db.String(150))
+
+	booster_id_no2 = db.Column(db.String(150))
+	booster_brand2 = db.Column(db.String(150))
+	booster_place2 = db.Column(db.String(150))
+	booster_date2 = db.Column(db.String(150))
 
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -346,6 +352,12 @@ class Other_Information(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	description = db.Column(db.String(150))
 	type = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Other_Questions(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	question = db.Column(db.String(150))
+	answer = db.Column(db.String(150))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Questions(db.Model, SerializerMixin):

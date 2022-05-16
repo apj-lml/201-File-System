@@ -26,7 +26,7 @@ def login():
 	session.clear()
 	if request.method == 'POST':
 		formdata = json.loads(request.data)
-		email = formdata['email']
+		email = formdata['email'].lstrip('0')
 		password = formdata['password']
 
 		user = User.query.filter_by(employee_id=email).first()

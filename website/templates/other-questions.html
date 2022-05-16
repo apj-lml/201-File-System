@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %} Other Questions {% endblock %}
+
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<main class="container mt-3">
+	<div class="row mb-3 ms-auto">
+    <div class="card mb-3">
+        <div class="card-body">
+          <div class="card text-white bg-blue shadow-sm mb-3" >
+            <div class="card-header">
+              <h3 class="card-title"><i class="bi bi-question-diamond"></i> Other Questions</h3>
+            </div>
+            <div class="card-body">
+              <ul>
+              <li><p class="card-text">Please input all necessary fields.</p></li>
+              </ul>
+              <!-- <h5 class="card-title">Description</h5> -->
+            </div>
+          </div>
+          
+          <form action="#" method="POST" name="other_question_form" id="other_question_form" enctype="multipart/form-data"></form>
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="card-title">
+                    <h6>1.) Do you have eGSIS MO account?</h6>
+                  </div>
+                  <input type="hidden" class="form-control" name ="id1" id="id1" form="other_question_form" value="{{user_profile.other_questions[0].id if user_profile.other_questions|length > 0 else ''}}">
+                  <div class="d-md-flex flex-row">
+                    <input type="hidden" id="q1" name="q1" value="q1" form="other_question_form">
+                    <div class="form-floating col-sm-4 mb-3 p-1">
+                      <select class="form-select" id="answer1" name="answer1" value="{{user_profile.other_questions[0].answer if user_profile.other_questions else ''}}" form="other_question_form">
+                          {% if user_profile.other_questions %}
+                          <option value="{{user_profile.other_questions[0].answer}}" selected hidden>{{user_profile.other_questions[0].answer}}</option>
+                          {% else %}
+                          <option value="NO" selected hidden>NO</option>
+                          {% endif %}
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                      <label for="answer1">e-GSIS</label>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="card shadow-sm mb-3">
+              <div class="card-body">
+                <div class="card-title">
+                  <h6>2.) Do you have Virtual Pag-IBIG account?</h6>
+                </div>
+                <input type="hidden" id="q2" name="q2" value="q2" form="other_question_form">
+                <input type="hidden" class="form-control" name ="id2" id="id2" form="other_question_form" value="{{user_profile.other_questions[1].id if user_profile.other_questions|length > 1 else ''}}">
+                <div class="d-md-flex flex-row">
+                  <div class="form-floating col-sm-4 mb-3 p-1">
+                    <select class="form-select" id="answer2" name="answer2" value="{{user_profile.other_questions[1].answer if user_profile.other_questions else ''}}" form="other_question_form">
+                        {% if user_profile.other_questions %}
+                        <option value="{{user_profile.other_questions[1].answer}}" selected hidden>{{user_profile.other_questions[1].answer}}</option>
+                        {% else %}
+                        <option value="NO" selected hidden>NO</option>
+                        {% endif %}
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                    </select>
+                    <label for="answer2">Virtual Pag-Ibig</label>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="card shadow-sm mb-3">
+            <div class="card-body">
+              <div class="card-title">
+                <h6>3.) Do you have PhilHealth Member Portal account?</h6>
+              </div>
+              <input type="hidden" id="q3" name="q3" value="q3" form="other_question_form">
+              <input type="hidden" class="form-control" name ="id3" id="id3" form="other_question_form" value="{{user_profile.other_questions[2].id if user_profile.other_questions|length > 2 else ''}}">
+              <div class="d-md-flex flex-row">
+                <div class="form-floating col-sm-4 mb-3 p-1">
+                  <select class="form-select" id="answer3" name="answer3" value="{{user_profile.other_questions[2].answer if user_profile.other_questions else ''}}" form="other_question_form">
+                      {% if user_profile.other_questions %}
+                      <option value="{{user_profile.other_questions[2].answer}}" selected hidden>{{user_profile.other_questions[2].answer}}</option>
+                      {% else %}
+                      <option value="NO" selected hidden>NO</option>
+                      {% endif %}
+                      <option value="YES">YES</option>
+                      <option value="NO">NO</option>
+                  </select>
+                  <label for="answer3">PhilHealth Portal</label>
+                </div>
+              </div>
+            </div>
+        </div>
+            <div class="col-sm-12 text-center">
+              <button type="submit" id="submit_btn" class="btn btn-primary btn-md" form="other_question_form">Submit</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+   window.addEventListener('load',()=>{
+    document.getElementById('other_question_form').addEventListener('submit',(e)=>{
+        e.preventDefault();
+        
+
+        if (document.getElementById('id1').value == ""){
+            var url = '/otherQuestions/add-answers/{{user_profile.id}}';
+        }else{
+            var url = '/otherQuestions/update-answers/{{user_profile.id}}';
+        }
+
+        let formData4 = new FormData(document.getElementById("other_question_form"));
+            
+            const data4 = {}
+            formData4.forEach((value, key) => (data4[key] = value));
+            
+            fetch(url, {
+            method: 'POST',
+            body: formData4
+            }).then((res)=>{
+            if (res.status == 200){
+                console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                return res.json()
+            }
+            
+            }).then((data)=>{
+
+            window.location.reload();
+
+            });//END other_questions
+        })
+    });
+
+</script>
+{%endblock%}
