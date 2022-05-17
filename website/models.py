@@ -263,7 +263,6 @@ class Family_Background(db.Model, SerializerMixin):
 	fb_date_of_birth = db.Column(db.String(50))
 	fb_maiden_name = db.Column(db.String(50))
 	fb_relationship = db.Column(db.String(50))
-	# fullname = column_property(fb_last_name + ", " + fb_first_name + " "+ fb_name_ext + " " + fb_middle_name)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	@hybrid_property
 	def fullname(self):
@@ -275,8 +274,6 @@ class Family_Background(db.Model, SerializerMixin):
 			self.fb_last_name = ""
 		if self.fb_name_ext is None or self.fb_name_ext == "N/A" or self.fb_name_ext == "NONE":
 			self.fb_name_ext = ""
-		
-		#fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
 		fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
 
 		return fullname
@@ -388,8 +385,6 @@ class Character_Reference(db.Model, SerializerMixin):
 
 		if self.last_name is None or self.last_name == "N/A" or self.last_name == "N/A" or self.last_name == "NONE":
 			self.last_name = ""
-		
-		#fullname = self.fb_last_name + ", " + self.fb_first_name + " "+ self.fb_name_ext + " " + self.fb_middle_name
 		fullnamex = str(self.first_name + " " + self.middle_name + " " + self.last_name + " " + " "+ self.name_ext).strip()
 
 		return fullnamex

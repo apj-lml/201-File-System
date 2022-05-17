@@ -91,12 +91,12 @@
 									<option value="TECHNICAL">TECHNICAL</option>
 									<option value="FOUNDATION">FOUNDATION</option>
 								</select>
-								<label for="ld_type[1]" style="font-size: 13.5px;">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical, etc.)</label>
+								<label for="ld_type[1]" style="font-size: 13.5px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical, etc.)</label>
 							  </div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" name ="ld_sponsored_by" id="ld_sponsored_by"  placeholder="Conducted By" form="add_ld_form">
+							  <input type="text" class="form-control" name ="ld_sponsored_by" id="ld_sponsored_by"  placeholder="Conducted By" form="add_ld_form" required>
 							  <label for="ld_sponsored_by[1]">Conducted By</label>
 							  <div class="form-check">
 								<input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="add_ld_form">
@@ -169,8 +169,8 @@
 <div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
 	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="viewExpModal">Edit Learning & Development</h5>
+		<div class="modal-header text-white bg-blue">
+		  <h5 class="modal-title" id="viewExpModal"><i class="bi bi-lightbulb"></i>Edit Learning & Development</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
@@ -205,16 +205,16 @@
 								<option value="TECHNICAL">TECHNICAL</option>
 								<option value="FOUNDATION">FOUNDATION</option>
 							</select>
-							<label for="ld_type[1]" style="font-size: 12px;">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical, etc.)</label>
+							<label for="update_ld_no_hours" style="font-size: 12px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical, etc.)</label>
 						  </div>
 					  </div>
 					  <div class="d-md-flex flex-row">
 						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-						  <input type="text" class="form-control" id ="update_ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="update_ld_form">
+						  <input type="text" class="form-control" id ="update_ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="update_ld_form" required>
 						  <label for="ld_sponsored_by[1]">Conducted By</label>
 						  <div class="form-check">
 							<input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="update_ld_form">
-							<label class="form-check-label" for="nia_pimo">
+							<label class="form-check-label" for="update_nia_pimo">
 							  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
 							</label>
 						  </div>
@@ -479,7 +479,7 @@ function nia_pimo(){
 		var station_place = document.getElementById('ld_sponsored_by');
 
 		if(nia_pimo.checked){
-			// station_place.value = "";
+			station_place.value = "";
 			station_place.disabled = true;
 			}
 		else{
@@ -493,7 +493,7 @@ function nia_pimo(){
 		var station_place = document.getElementById('update_ld_sponsored_by');
 
 		if(nia_pimo.checked){
-			// station_place.value = "";
+			station_place.value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE";
 			station_place.disabled = true;
 			}
 		else{

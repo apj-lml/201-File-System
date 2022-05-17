@@ -44,9 +44,10 @@
           <div class="card shadow-sm mb-3" id="remove_cse${x}">
               <div class="card-body">
                   <div class="d-md-flex flex-row">
-                  <div class="form-floating flex-fill mb-3 p-1">
+                  <div class="form-floating col-sm-4 mb-3 p-1">
                   <input type="text" class="form-control" name ="cs_eligibility[${x}]" placeholder="Eligibility" form="add_cse_form">
-                  <label for="cs_eligibility" style="font-size: 11.5px;">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+                  <label for="cs_eligibility[${x}]">Eligibility</label>
+					<small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                   </div>
                   <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination From" form="add_cse_form">

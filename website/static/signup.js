@@ -47,7 +47,8 @@ document.getElementById('add_cse_field').addEventListener('click',()=>{
 				<div class="d-md-flex flex-row">
 				<div class="form-floating flex-fill mb-3 p-1">
 					<input type="text" class="form-control" name ="cs_eligibility[${x}]" placeholder="Eligibility" form="signUp">
-					<label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
+					<label for="cs_eligibility[${x}]">Eligibility</label>
+					<small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
 				</div>
 				<div class="form-floating flex-fill mb-3 p-1">
 					<input type="date" class="form-control" name ="date_of_examination[${x}]" placeholder="Date of Examination From" form="signUp">
