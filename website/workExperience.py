@@ -124,6 +124,12 @@ def view_work_experience():
 def update_work_experience(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
+
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
         # pprint(formdata)
         # get_we = Work_Experience.query.get(formdata['id'])
 

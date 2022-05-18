@@ -84,7 +84,7 @@
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="work_experience_form">
+                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" onchange="govt_service_validation(this)" value="" form="work_experience_form">
                           <option value="N/A" selected>N/A</option>
                           <option value="PERMANENT">PERMANENT</option>
                           <option value="COTERMINOUS">COTERMINOUS</option>
@@ -144,9 +144,10 @@
                         <!-- <input type="text" name="step" form="work_experience_form"> -->
 
                       </div>
-
+                      
+                      <input type="hidden" id="govt_service_save" name="govt_service" form="work_experience_form">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="govt_service" name="govt_service" aria-label="Floating label select example" value="" form="work_experience_form">
+                        <select class="form-select" id="govt_service" name="govt_service_select">
                           <option value="Y">YES</option>
                           <option value="N">NO</option>
                         </select>
@@ -339,7 +340,7 @@
                               <label for="step">Step</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select status_of_appointment" id="update_status_of_appointment" name="status_of_appointment" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
+                              <select class="form-select status_of_appointment" id="update_status_of_appointment" name="status_of_appointment" onchange="govt_service_validation(this)" value="" form="update_work_experience_form" required>
                                 <option value="N/A" selected hidden>N/A</option>
                                 <option value="PERMANENT">PERMANENT</option>
                                 <option value="COTERMINOUS">COTERMINOUS</option>
@@ -350,18 +351,16 @@
                               </select>
                               <label for="status_of_appointment">Status of Appointment</label>
                             </div>
+
+                         <input type="hidden" id="govt_service_save" name="govt_service" form="update_work_experience_form">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_govt_service" name="govt_service" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
+                              <select class="form-select" id="update_govt_service" name="govt_service_select" aria-label="Floating label select example" value="" required>
                                 <option value="Y">YES</option>
                                 <option value="N">NO</option>
                               </select>
                               <label for="govt_service">Government Service</label>
                             </div>
                           </div>
-                          <!-- <div class="col-sm-12 text-center">
-                            <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Submit</button>
-                          </div> -->
-      
                         </div>
                     </div>
       </div>
@@ -383,6 +382,33 @@
 {%block scripts%}
 
 <script type="text/javascript">
+//doing work here
+function govt_service_validation(e){
+  // var govt_service = document.getElementsByName("govt_service");
+  // var govt_service_select = document.getElementsByName("govt_service_select");
+
+  // var emp_status = document.getElementsByName("status_of_appointment");
+  // emp_status.forEach((status)=>{
+  //   if(status.value == "JOB ORDER" || status.value =="N/A"){
+  //   govt_service_select.forEach((k)=>{
+  //       k.value = "N";
+  //       k.disabled = true;
+  //       govt_service.forEach((x)=>{
+  //             x.value = "N"
+  //       })
+  //   });
+  //   }else{
+  //     govt_service_select.forEach((p)=>{
+  //         p.value = "Y";
+  //         p.disabled = false;
+  //         govt_service.forEach((z)=>{
+  //               z.value = "Y";
+  //         })
+  //     });
+  //   }
+  // })
+}
+
 $('.trailing-decimal-input').on('blur', function (e) {
 var intRegex = /^\d+$/;
 var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
@@ -493,7 +519,6 @@ var sf_present = document.getElementById('sf_present');
       document.getElementById('update_status_of_appointment').value = data[0].status_of_appointment;
       document.getElementById('update_govt_service').value = data[0].govt_service;
 
-
 		});
   }
 
@@ -583,6 +608,9 @@ $('.status_of_appointment').on('change', function (e) {
     var value = $(this).val();
     var sg = document.getElementById("sg");
     var step = document.getElementById("step");
+    var govt_service = document.getElementsByName("govt_service");
+    var govt_service_select = document.getElementsByName("govt_service_select");
+
     if (value == "PERMANENT"){
       sg.disabled = false;
       step.disabled = false;
@@ -598,6 +626,8 @@ $('.status_of_appointment').on('change', function (e) {
     else if (value == "JOB ORDER"){
       sg.disabled = false;
       step.disabled = true;
+      govt_service.value = "N";
+      govt_service.disabled = true;
     }else{
       sg.disabled = true;
       step.disabled = true;
