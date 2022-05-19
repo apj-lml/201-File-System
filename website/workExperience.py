@@ -145,7 +145,7 @@ def update_work_experience(emp_id):
             formdata['sg'] = 'N/A'
         
         if 'step' not in formdata:
-            formdata['step'] = 'N/A'
+            formdata['step'] = '1'
             
         get_we_all = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).all()
         get_we = Work_Experience.query.get(formdata['id'])

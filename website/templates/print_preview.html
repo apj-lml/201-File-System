@@ -1516,9 +1516,9 @@ wes_agency_2[0].setText(`{{user_profile.work_experience[15].department_agency_of
 wes_salary_2[0].setText(`{{user_profile.work_experience[15].monthly_salary if user_profile.work_experience|length > 15 else 'N/A'}}`)
 
 {% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" and user_profile.work_experience[15].step != "N/A" %}
-    wes_sg_step_2[0].setText(`{{user_profile.work_experience[15].sg}} - {{ user_profile.work_experience[0].step }}`)
+    wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[0].step }}`)
 {% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" and user_profile.work_experience[15].step == "N/A" %}
-    wes_sg_step_2[0].setText(`{{ user_profile.work_experience[15].sg }}`)
+    wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }}`)
 {% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" and user_profile.work_experience[15].step == "N/A" %}
     wes_sg_step_2[0].setText(`N/A`)
 {% else %}
@@ -1535,9 +1535,9 @@ wes_agency_2[1].setText(`{{user_profile.work_experience[16].department_agency_of
 wes_salary_2[1].setText(`{{user_profile.work_experience[16].monthly_salary if user_profile.work_experience|length > 16 else ''}}`)
 
 {% if user_profile.work_experience[16] and user_profile.work_experience[16].sg != "N/A" and user_profile.work_experience[16].step != "N/A" %}
-    wes_sg_step_2[1].setText(`{{user_profile.work_experience[16].sg}} - {{ user_profile.work_experience[16].step }}`)
+    wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[16].sg|int }} - {{ user_profile.work_experience[16].step }}`)
 {% elif user_profile.work_experience[16] and user_profile.work_experience[16].sg != "N/A" and user_profile.work_experience[16].step == "N/A" %}
-    wes_sg_step_2[1].setText(`{{ user_profile.work_experience[16].sg }}`)
+    wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[16].sg|int }}`)
 {% elif user_profile.work_experience[16] and user_profile.work_experience[16].sg == "N/A" and user_profile.work_experience[16].step == "N/A" %}
     wes_sg_step_2[1].setText(`N/A`)
 {% else %}
@@ -1554,9 +1554,9 @@ wes_agency_2[2].setText(`{{user_profile.work_experience[17].department_agency_of
 wes_salary_2[2].setText(`{{user_profile.work_experience[17].monthly_salary if user_profile.work_experience|length > 17 else ''}}`)
 
 {% if user_profile.work_experience[17] and user_profile.work_experience[17].sg != "N/A" and user_profile.work_experience[17].step != "N/A" %}
-    wes_sg_step_2[2].setText(`{{user_profile.work_experience[17].sg}} - {{ user_profile.work_experience[17].step }}`)
+    wes_sg_step_2[2].setText(`{{ '%02d' % user_profile.work_experience[17].sg|int }} - {{ user_profile.work_experience[17].step }}`)
 {% elif user_profile.work_experience[17] and user_profile.work_experience[17].sg != "N/A" and user_profile.work_experience[17].step == "N/A" %}
-    wes_sg_step_2[2].setText(`{{ user_profile.work_experience[17].sg }}`)
+    wes_sg_step_2[2].setText(`{{ '%02d' % user_profile.work_experience[17].sg|int }}`)
 {% elif user_profile.work_experience[17] and user_profile.work_experience[17].sg == "N/A" and user_profile.work_experience[17].step == "N/A" %}
     wes_sg_step_2[2].setText(`N/A`)
 {% else %}
@@ -1573,9 +1573,9 @@ wes_agency_2[3].setText(`{{user_profile.work_experience[18].department_agency_of
 wes_salary_2[3].setText(`{{user_profile.work_experience[18].monthly_salary if user_profile.work_experience|length > 18 else ''}}`)
 
 {% if user_profile.work_experience[18] and user_profile.work_experience[18].sg != "N/A" and user_profile.work_experience[18].step != "N/A" %}
-    wes_sg_step_2[3].setText(`{{user_profile.work_experience[18].sg}} - {{ user_profile.work_experience[18].step }}`)
+    wes_sg_step_2[3].setText(`{{ '%02d' % user_profile.work_experience[18].sg|int }} - {{ user_profile.work_experience[18].step }}`)
 {% elif user_profile.work_experience[18] and user_profile.work_experience[18].sg != "N/A" and user_profile.work_experience[18].step == "N/A" %}
-    wes_sg_step_2[3].setText(`{{ user_profile.work_experience[18].sg }}`)
+    wes_sg_step_2[3].setText(`{{ '%02d' % user_profile.work_experience[18].sg|int }}`)
 {% elif user_profile.work_experience[18] and user_profile.work_experience[18].sg == "N/A" and user_profile.work_experience[18].step == "N/A" %}
     wes_sg_step_2[3].setText(`N/A`)
 {% else %}
@@ -1592,9 +1592,9 @@ wes_agency_2[4].setText(`{{user_profile.work_experience[19].department_agency_of
 wes_salary_2[4].setText(`{{user_profile.work_experience[19].monthly_salary if user_profile.work_experience|length > 19 else ''}}`)
 
 {% if user_profile.work_experience[19] and user_profile.work_experience[19].sg != "N/A" and user_profile.work_experience[19].step != "N/A" %}
-    wes_sg_step_2[4].setText(`{{user_profile.work_experience[19].sg}} - {{ user_profile.work_experience[19].step }}`)
+    wes_sg_step_2[4].setText(`{{ '%02d' % user_profile.work_experience[19].sg|int }} - {{ user_profile.work_experience[19].step }}`)
 {% elif user_profile.work_experience[19] and user_profile.work_experience[19].sg != "N/A" and user_profile.work_experience[19].step == "N/A" %}
-    wes_sg_step_2[4].setText(`{{ user_profile.work_experience[19].sg }}`)
+    wes_sg_step_2[4].setText(`{{ '%02d' % user_profile.work_experience[19].sg|int }}`)
 {% elif user_profile.work_experience[19] and user_profile.work_experience[19].sg == "N/A" and user_profile.work_experience[19].step == "N/A" %}
     wes_sg_step_2[4].setText(`N/A`)
 {% else %}
@@ -1611,9 +1611,9 @@ wes_agency_2[5].setText(`{{user_profile.work_experience[20].department_agency_of
 wes_salary_2[5].setText(`{{user_profile.work_experience[20].monthly_salary if user_profile.work_experience|length > 20 else ''}}`)
 
 {% if user_profile.work_experience[20] and user_profile.work_experience[20].sg != "N/A" and user_profile.work_experience[20].step != "N/A" %}
-    wes_sg_step_2[5].setText(`{{user_profile.work_experience[20].sg}} - {{ user_profile.work_experience[20].step }}`)
+    wes_sg_step_2[5].setText(`{{ '%02d' % user_profile.work_experience[20].sg|int}} - {{ user_profile.work_experience[20].step }}`)
 {% elif user_profile.work_experience[20] and user_profile.work_experience[20].sg != "N/A" and user_profile.work_experience[20].step == "N/A" %}
-    wes_sg_step_2[5].setText(`{{ user_profile.work_experience[20].sg }}`)
+    wes_sg_step_2[5].setText(`{{ '%02d' % user_profile.work_experience[20].sg|int }}`)
 {% elif user_profile.work_experience[20] and user_profile.work_experience[20].sg == "N/A" and user_profile.work_experience[20].step == "N/A" %}
     wes_sg_step_2[5].setText(`N/A`)
 {% else %}
@@ -1630,9 +1630,9 @@ wes_agency_2[6].setText(`{{user_profile.work_experience[21].department_agency_of
 wes_salary_2[6].setText(`{{user_profile.work_experience[21].monthly_salary if user_profile.work_experience|length > 21 else ''}}`)
 
 {% if user_profile.work_experience[21] and user_profile.work_experience[21].sg != "N/A" and user_profile.work_experience[21].step != "N/A" %}
-    wes_sg_step_2[6].setText(`{{user_profile.work_experience[21].sg}} - {{ user_profile.work_experience[21].step }}`)
+    wes_sg_step_2[6].setText(`{{ '%02d' % user_profile.work_experience[21].sg|int }} - {{ user_profile.work_experience[21].step }}`)
 {% elif user_profile.work_experience[21] and user_profile.work_experience[21].sg != "N/A" and user_profile.work_experience[21].step == "N/A" %}
-    wes_sg_step_2[6].setText(`{{ user_profile.work_experience[21].sg }}`)
+    wes_sg_step_2[6].setText(`{{ '%02d' % user_profile.work_experience[21].sg|int }}`)
 {% elif user_profile.work_experience[21] and user_profile.work_experience[21].sg == "N/A" and user_profile.work_experience[21].step == "N/A" %}
     wes_sg_step_2[6].setText(`N/A`)
 {% else %}
@@ -1649,9 +1649,9 @@ wes_agency_2[7].setText(`{{user_profile.work_experience[22].department_agency_of
 wes_salary_2[7].setText(`{{user_profile.work_experience[22].monthly_salary if user_profile.work_experience|length > 22 else ''}}`)
 
 {% if user_profile.work_experience[22] and user_profile.work_experience[22].sg != "N/A" and user_profile.work_experience[22].step != "N/A" %}
-    wes_sg_step_2[7].setText(`{{user_profile.work_experience[22].sg}} - {{ user_profile.work_experience[22].step }}`)
+    wes_sg_step_2[7].setText(`{{ '%02d' % user_profile.work_experience[22].sg|int }} - {{ user_profile.work_experience[22].step }}`)
 {% elif user_profile.work_experience[22] and user_profile.work_experience[22].sg != "N/A" and user_profile.work_experience[22].step == "N/A" %}
-    wes_sg_step_2[7].setText(`{{ user_profile.work_experience[22].sg }}`)
+    wes_sg_step_2[7].setText(`{{ '%02d' % user_profile.work_experience[22].sg|int }}`)
 {% elif user_profile.work_experience[22] and user_profile.work_experience[22].sg == "N/A" and user_profile.work_experience[22].step == "N/A" %}
     wes_sg_step_2[7].setText(`N/A`)
 {% else %}
@@ -1668,9 +1668,9 @@ wes_agency_2[8].setText(`{{user_profile.work_experience[23].department_agency_of
 wes_salary_2[8].setText(`{{user_profile.work_experience[23].monthly_salary if user_profile.work_experience|length > 23 else ''}}`)
 
 {% if user_profile.work_experience[23] and user_profile.work_experience[23].sg != "N/A" and user_profile.work_experience[23].step != "N/A" %}
-    wes_sg_step_2[8].setText(`{{user_profile.work_experience[23].sg}} - {{ user_profile.work_experience[23].step }}`)
+    wes_sg_step_2[8].setText(`{{ '%02d' % user_profile.work_experience[23].sg|int }} - {{ user_profile.work_experience[23].step }}`)
 {% elif user_profile.work_experience[23] and user_profile.work_experience[23].sg != "N/A" and user_profile.work_experience[23].step == "N/A" %}
-    wes_sg_step_2[8].setText(`{{ user_profile.work_experience[23].sg }}`)
+    wes_sg_step_2[8].setText(`{{ '%02d' % user_profile.work_experience[23].sg|int }}`)
 {% elif user_profile.work_experience[23] and user_profile.work_experience[23].sg == "N/A" and user_profile.work_experience[23].step == "N/A" %}
     wes_sg_step_2[8].setText(`N/A`)
 {% else %}
@@ -1687,9 +1687,9 @@ wes_agency_2[9].setText(`{{user_profile.work_experience[24].department_agency_of
 wes_salary_2[9].setText(`{{user_profile.work_experience[24].monthly_salary if user_profile.work_experience|length > 24 else ''}}`)
 
 {% if user_profile.work_experience[24] and user_profile.work_experience[24].sg != "N/A" and user_profile.work_experience[24].step != "N/A" %}
-    wes_sg_step_2[9].setText(`{{user_profile.work_experience[24].sg}} - {{ user_profile.work_experience[24].step }}`)
+    wes_sg_step_2[9].setText(`{{ '%02d' % user_profile.work_experience[24].sg|int }} - {{ user_profile.work_experience[24].step }}`)
 {% elif user_profile.work_experience[24] and user_profile.work_experience[24].sg != "N/A" and user_profile.work_experience[24].step == "N/A" %}
-    wes_sg_step_2[9].setText(`{{ user_profile.work_experience[24].sg }}`)
+    wes_sg_step_2[9].setText(`{{ '%02d' % user_profile.work_experience[24].sg|int }}`)
 {% elif user_profile.work_experience[24] and user_profile.work_experience[24].sg == "N/A" and user_profile.work_experience[24].step == "N/A" %}
     wes_sg_step_2[9].setText(`N/A`)
 {% else %}
@@ -1707,9 +1707,9 @@ wes_agency_2[10].setText(`{{user_profile.work_experience[25].department_agency_o
 wes_salary_2[10].setText(`{{user_profile.work_experience[25].monthly_salary if user_profile.work_experience|length > 25 else ''}}`)
 
 {% if user_profile.work_experience[25] and user_profile.work_experience[25].sg != "N/A" and user_profile.work_experience[25].step != "N/A" %}
-    wes_sg_step_2[10].setText(`{{user_profile.work_experience[25].sg}} - {{ user_profile.work_experience[25].step }}`)
+    wes_sg_step_2[10].setText(`{{ '%02d' % user_profile.work_experience[25].sg|int }} - {{ user_profile.work_experience[25].step }}`)
 {% elif user_profile.work_experience[25] and user_profile.work_experience[25].sg != "N/A" and user_profile.work_experience[25].step == "N/A" %}
-    wes_sg_step_2[10].setText(`{{ user_profile.work_experience[25].sg }}`)
+    wes_sg_step_2[10].setText(`{{ '%02d' % user_profile.work_experience[25].sg|int }}`)
 {% elif user_profile.work_experience[25] and user_profile.work_experience[25].sg == "N/A" and user_profile.work_experience[25].step == "N/A" %}
     wes_sg_step_2[10].setText(`N/A`)
 {% else %}
@@ -1726,9 +1726,9 @@ wes_agency_2[11].setText(`{{user_profile.work_experience[26].department_agency_o
 wes_salary_2[11].setText(`{{user_profile.work_experience[26].monthly_salary if user_profile.work_experience|length > 26 else ''}}`)
 
 {% if user_profile.work_experience[26] and user_profile.work_experience[26].sg != "N/A" and user_profile.work_experience[26].step != "N/A" %}
-    wes_sg_step_2[11].setText(`{{user_profile.work_experience[26].sg}} - {{ user_profile.work_experience[26].step }}`)
+    wes_sg_step_2[11].setText(`{{ '%02d' % user_profile.work_experience[26].sg|int }} - {{ user_profile.work_experience[26].step }}`)
 {% elif user_profile.work_experience[26] and user_profile.work_experience[26].sg != "N/A" and user_profile.work_experience[26].step == "N/A" %}
-    wes_sg_step_2[11].setText(`{{ user_profile.work_experience[26].sg }}`)
+    wes_sg_step_2[11].setText(`{{ '%02d' % user_profile.work_experience[26].sg|int }}`)
 {% elif user_profile.work_experience[26] and user_profile.work_experience[26].sg == "N/A" and user_profile.work_experience[26].step == "N/A" %}
     wes_sg_step_2[11].setText(`N/A`)
 {% else %}
@@ -1745,9 +1745,9 @@ wes_agency_2[12].setText(`{{user_profile.work_experience[27].department_agency_o
 wes_salary_2[12].setText(`{{user_profile.work_experience[27].monthly_salary if user_profile.work_experience|length > 27 else ''}}`)
 
 {% if user_profile.work_experience[27] and user_profile.work_experience[27].sg != "N/A" and user_profile.work_experience[27].step != "N/A" %}
-    wes_sg_step_2[12].setText(`{{user_profile.work_experience[27].sg}} - {{ user_profile.work_experience[27].step }}`)
+    wes_sg_step_2[12].setText(`{{'%02d' % user_profile.work_experience[27].sg|int }} - {{ user_profile.work_experience[27].step }}`)
 {% elif user_profile.work_experience[27] and user_profile.work_experience[27].sg != "N/A" and user_profile.work_experience[27].step == "N/A" %}
-    wes_sg_step_2[12].setText(`{{ user_profile.work_experience[27].sg }}`)
+    wes_sg_step_2[12].setText(`{{ '%02d' % user_profile.work_experience[27].sg|int }}`)
 {% elif user_profile.work_experience[27] and user_profile.work_experience[27].sg == "N/A" and user_profile.work_experience[27].step == "N/A" %}
     wes_sg_step_2[12].setText(`N/A`)
 {% else %}
@@ -1764,9 +1764,9 @@ wes_agency_2[13].setText(`{{user_profile.work_experience[28].department_agency_o
 wes_salary_2[13].setText(`{{user_profile.work_experience[28].monthly_salary if user_profile.work_experience|length > 28 else ''}}`)
 
 {% if user_profile.work_experience[28] and user_profile.work_experience[28].sg != "N/A" and user_profile.work_experience[28].step != "N/A" %}
-    wes_sg_step_2[13].setText(`{{user_profile.work_experience[28].sg}} - {{ user_profile.work_experience[28].step }}`)
+    wes_sg_step_2[13].setText(`{{'%02d' % user_profile.work_experience[28].sg|int }} - {{ user_profile.work_experience[28].step }}`)
 {% elif user_profile.work_experience[28] and user_profile.work_experience[28].sg != "N/A" and user_profile.work_experience[28].step == "N/A" %}
-    wes_sg_step_2[13].setText(`{{ user_profile.work_experience[28].sg }}`)
+    wes_sg_step_2[13].setText(`{{ '%02d' % user_profile.work_experience[28].sg|int }}`)
 {% elif user_profile.work_experience[28] and user_profile.work_experience[28].sg == "N/A" and user_profile.work_experience[28].step == "N/A" %}
     wes_sg_step_2[13].setText(`N/A`)
 {% else %}
@@ -1784,9 +1784,9 @@ wes_agency_2[14].setText(`{{user_profile.work_experience[29].department_agency_o
 wes_salary_2[14].setText(`{{user_profile.work_experience[29].monthly_salary if user_profile.work_experience|length > 29 else ''}}`)
 
 {% if user_profile.work_experience[29] and user_profile.work_experience[29].sg != "N/A" and user_profile.work_experience[29].step != "N/A" %}
-    wes_sg_step_2[14].setText(`{{user_profile.work_experience[29].sg}} - {{ user_profile.work_experience[29].step }}`)
+    wes_sg_step_2[14].setText(`{{ '%02d' % user_profile.work_experience[29].sg|int }} - {{ user_profile.work_experience[29].step }}`)
 {% elif user_profile.work_experience[29] and user_profile.work_experience[29].sg != "N/A" and user_profile.work_experience[29].step == "N/A" %}
-    wes_sg_step_2[14].setText(`{{ user_profile.work_experience[29].sg }}`)
+    wes_sg_step_2[14].setText(`{{ '%02d' % user_profile.work_experience[29].sg|int }}`)
 {% elif user_profile.work_experience[29] and user_profile.work_experience[29].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
     wes_sg_step_2[14].setText(`N/A`)
 {% else %}

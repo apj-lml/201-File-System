@@ -100,9 +100,6 @@
         }, false)
       })
 
-
-
-
       window.addEventListener('load', function() {
 
         
@@ -192,7 +189,7 @@
           m_rate.disabled = true;
           step.disabled = true;
           sg.disabled = false;
-          sg.value = "1";
+          //sg.value = "1";
           job_grade.disabled = true;
           job_grade.value = "";
           // disableSgJobOrder(true);
