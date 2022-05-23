@@ -160,6 +160,7 @@
 	///ld/add-learning-and-development/{{emp_id}}
 	document.getElementById('add_emergency_contact_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
+		loadingScreen("block");
 		var formElem = document.getElementById("add_emergency_contact_form");
 		let formData = new FormData(formElem);
 
@@ -174,8 +175,9 @@
 				return res.json();
 
 			}).then((data)=>{
-					// triggerToast(data);
-					window.location.reload();
+					loadingScreen("none")
+					triggerToast("Successfully Added Emergency Contact!", "success");
+					//window.location.reload();
 
 					// var table = $('#character_ref_table').DataTable();
 					// table.ajax.reload();
@@ -186,6 +188,7 @@
 
 	document.getElementById('update_emergency_contact_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
+		loadingScreen("block");
 		var formElem = document.getElementById("update_emergency_contact_form");
 		let formData = new FormData(formElem);
 
@@ -200,6 +203,7 @@
 				return res.json();
 
 			}).then((data)=>{
+					loadingScreen("none");
 					 triggerToast(data);
 					// var table = $('#character_ref_table').DataTable();
 					// table.ajax.reload();
@@ -280,6 +284,7 @@ function edit_ec(el){
 }
 function delete_ld(el){
 	// alert(el.id)
+	
 	fetch('/emergencyContact/delete',{
 		method: 'POST',
 		body: JSON.stringify({"id" : el.id})

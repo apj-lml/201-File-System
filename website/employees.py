@@ -83,10 +83,13 @@ def update_employee(emp_id):
 		filesx = request.files.getlist(afilex)
 		print(afilex)
 		for filex in filesx:
-			if afilex == "wes":
-				if not allowed_file(filex.filename, {'pdf','doc','docx'}):
-					print('Invalid file submitted')
-					return jsonify('Invalid File Submitted! Only PDF (.pdf) and Word (.doc, .docx) file types are allowed in WES.'), 406
+			if afilex == "wes" :
+				if filex.filename == "":
+					print('No file selected')
+				else:
+					if not allowed_file(filex.filename, {'pdf','doc','docx'}):
+						print('Invalid file submitted')
+						return jsonify('Invalid File Submitted! Only PDF (.pdf) and Word (.doc, .docx) file types are allowed in WES.'), 406
 			else:
 				if filex.filename == "":
 					print('No file selected')
