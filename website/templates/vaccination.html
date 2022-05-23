@@ -231,8 +231,6 @@
                   {% endif %}
                   {% endif %}
 
-                  <!-- <option value="YES">YES</option>
-                  <option value="NO">NO</option> -->
                 </select>
                 <label for="do_you_have_booster2">Do You have Booster Shot (2nd Dose)?</label>
               </div>
@@ -327,14 +325,7 @@
                             <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
                               <i class="bi bi-trash"></i>
                             </a>
-                            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
                           </td>
-                          <!-- <td>
-                            <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
-                              <i class="bi bi-trash"></i>
-                            </a>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button>
-                          </td> -->
                         </tr>
       
                         {% endif %}
@@ -368,6 +359,7 @@
     });
 
         document.getElementById('vaccine_form').addEventListener('submit',(e)=>{
+            loadingScreen("block");
             e.preventDefault();
             //-- ----------------------------------------------------------------------- -->
             //--                           SUBMIT OF VACCINE FORM                        -->
@@ -393,8 +385,8 @@
                 }
                 
                 }).then((data)=>{
-
-                window.location.reload();
+                  loadingScreen("none");
+                  window.location.reload();
 
                 });//END VACCINE
 
@@ -404,6 +396,7 @@
 
 function delete_file(e){
   // alert(e.id)
+  loadingScreen("block")
   fetch('/employees/delete-file',{
     method: 'POST',
     body: JSON.stringify({"file_id" : e.id})
