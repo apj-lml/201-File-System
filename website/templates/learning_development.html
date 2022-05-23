@@ -246,6 +246,9 @@
 	///ld/add-learning-and-development/{{emp_id}}
 	document.getElementById('add_ld_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
+
+		loadingScreen('block');
+
 		var formElem = document.getElementById("add_ld_form");
 		let formData = new FormData(formElem);
 
@@ -275,6 +278,8 @@
 					var table = $('#ld_table').DataTable();
 					table.ajax.reload();
 					nia_pimo();
+					loadingScreen('none');
+
 					// window.location.reload();
 			})
 
@@ -463,6 +468,7 @@ function edit_ld(el){
 
 function delete_ld(el){
 	// alert(el.id)
+	loadingScreen("block");
 	fetch('/ld/delete-ld',{
 		method: 'POST',
 		body: JSON.stringify({"ld_id" : el.id})
