@@ -54,50 +54,39 @@
 
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form" required>
+							  <textarea type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form" rows="8" required></textarea>
 							  <label for="ld_program[1]">Title of L&D Interventions / Training Programs</label>
 							</div>
-							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form" required>
-							  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
 							</div>
-							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form" required>
-							  <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
-							</div>
-						  </div>
-						  <div class="d-md-flex flex-row">
-							<div class="form-floating flex-fill mb-3 p-1">
-							  <input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required>
-							  <label for="ld_no_hours[1]">Number of Hours</label>
-							</div>
-							<!-- <div class="form-floating flex-fill mb-3 p-1">
-							  <input type="text" class="form-control" name ="ld_type" placeholder="Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)" form="add_ld_form" required>
-							  <label for="ld_type[1]" style="font-size: 12px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical)</label>
-							</div> -->
-							<!-- <div class="form-floating flex-fill mb-3 p-1">
-								<label for="ld_type[1]" style="font-size: 11px;">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical, etc.)</label>
-								<select class="form-select" id="ld_type[1]" name="ld_type[1]" aria-label="Floating label select example" value="" form="add_ld_form">
-								  <option value="Managerial">Managerial</option>
-								  <option value="Supervisory">Supervisory</option>
-								  <option value="Technical">Technical</option>
-								  <option value="Foundation">Foundation</option>
-								</select>
-							  </div> -->
-							  <div class="form-floating flex-fill mb-3 p-1">
-								<select class="form-select" id="ld_type" name="ld_type" aria-label="Floating label select example" form="add_ld_form">
-									<option value="MANAGERIAL">MANAGERIAL</option>
-									<option value="SUPERVISORY">SUPERVISORY</option>
-									<option value="TECHNICAL">TECHNICAL</option>
-									<option value="FOUNDATION">FOUNDATION</option>
-								</select>
-								<label for="ld_type[1]" style="font-size: 13.5px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical, etc.)</label>
-							  </div>
+							<div class="d-md-flex flex-row">
+								<div class="form-floating flex-fill mb-3 p-1">
+								<input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form" required>
+								<label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
+								</div>
+								<div class="form-floating flex-fill mb-3 p-1">
+								<input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form" required>
+								<label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
+								</div>
+								<div class="form-floating flex-fill mb-3 p-1">
+									<input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required step="any" min="1">
+									<label for="ld_no_hours[1]">Number of Hours</label>
+								  </div>
+								  <div class="form-floating flex-fill mb-3 p-1">
+									<select class="form-select" id="ld_type" name="ld_type" aria-label="Floating label select example" form="add_ld_form">
+										<option value="MANAGERIAL">MANAGERIAL</option>
+										<option value="SUPERVISORY">SUPERVISORY</option>
+										<option value="TECHNICAL">TECHNICAL</option>
+										<option value="FOUNDATION">FOUNDATION</option>
+									</select>
+									<label for="ld_type[1]">Type of Learning & Development</label>
+									<!-- <small class="text-muted" style="font-size: 12px;">*Eg. Managerial, Supervisory, Technical, etc.</small> -->
+
+								  </div>
 						  </div>
 						  <div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" name ="ld_sponsored_by" id="ld_sponsored_by"  placeholder="Conducted By" form="add_ld_form" required>
-							  <label for="ld_sponsored_by[1]">Conducted By</label>
+							  <input type="text" class="form-control" id ="ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="add_ld_form" required>
+							  <label for="ld_sponsored_by">Conducted By</label>
 							  <div class="form-check">
 								<input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="add_ld_form">
 								<label class="form-check-label" for="nia_pimo">
@@ -181,9 +170,11 @@
                 <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_ld_form">
 					<div class="d-md-flex flex-row">
 						<div class="form-floating flex-fill mb-3 p-1">
-						  <input type="text" class="form-control" id ="update_ld_program" name ="ld_program" placeholder="Interventions/Training Program" form="update_ld_form" required>
+						  <textarea class="form-control" id ="update_ld_program" name ="ld_program" placeholder="Interventions/Training Program" form="update_ld_form" required></textarea>
 						  <label for="ld_program[1]">Title of L&D Interventions / Training Programs</label>
 						</div>
+					</div>
+					<div class="d-md-flex flex-row">
 						<div class="form-floating flex-fill mb-3 p-1">
 						  <input type="date" class="form-control"  id ="update_ld_date_from" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="update_ld_form" required>
 						  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
@@ -194,7 +185,7 @@
 						</div>
 					  </div>
 					  <div class="d-md-flex flex-row">
-						<div class="form-floating flex-fill mb-3 p-1">
+						<div class="form-floating col-sm-4 mb-3 p-1">
 						  <input type="number" class="form-control" id ="update_ld_no_hours" name ="ld_no_hours" placeholder="Rating" form="update_ld_form" required>
 						  <label for="ld_no_hours[1]">Number of Hours</label>
 						</div>
@@ -205,7 +196,9 @@
 								<option value="TECHNICAL">TECHNICAL</option>
 								<option value="FOUNDATION">FOUNDATION</option>
 							</select>
-							<label for="update_ld_no_hours" style="font-size: 12px;">Type of Learning & Development (Ex. Managerial, Supervisory, Technical, etc.)</label>
+							<label for="update_ld_no_hours" style="font-size: 12px;">Type of Learning & Development</label>
+							<small class="text-muted" style="font-size: 12px;">*Eg. Managerial, Supervisory, Technical, etc.</small>
+
 						  </div>
 					  </div>
 					  <div class="d-md-flex flex-row">
@@ -224,6 +217,8 @@
 						<div class="flex-fill mb-3">
 							<label for="ld_attachment">Attachment (Only PDF files are allowed)</label>
 							<input type="file" class="form-control" id="update_ld_attachment" name ="ld_attachment" form="update_ld_form">
+
+							<small class="text-muted" style="font-size: 12px;">This will overwirte your previous uploaded attachment (<span id="old_ld_attachement"></span>).</small>
 						  </div>
 					  </div>
 				</div>
@@ -452,7 +447,7 @@ function edit_ld(el){
 	})
 		.then(response => response.json())
 		.then(data => {
-			// console.log(data)
+			console.log(data)
 			document.getElementById('update_id').value = data[0].id;
 			document.getElementById('update_ld_program').value = data[0].ld_program;
 			document.getElementById('update_ld_date_from').value = data[0].ld_date_from;
@@ -460,7 +455,8 @@ function edit_ld(el){
 			document.getElementById('update_ld_no_hours').value = data[0].ld_no_hours;
 			document.getElementById('update_ld_type').value = data[0].ld_type;
 			document.getElementById('update_ld_sponsored_by').value = data[0].ld_sponsored_by;
-			// document.getElementById('update_ld_attachment_file_').value = data[0].update_ld_attachment;
+			var file_dir = data[0].ld_attachment;
+			document.getElementById('old_ld_attachement').innerHTML = "<a href='"+ file_dir +"' >"+data[0].ld_attachment_file_name+"</a>";
 		});
   }
 

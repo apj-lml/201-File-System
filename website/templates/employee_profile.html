@@ -2055,8 +2055,10 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         }
         return res.json();
       }).then((data)=>{
-        if (icon == "error")
+        if (icon == "error"){
           triggerToast(data, icon)
+          icon = "randomLetters"
+        }
       });
 
           }); 
