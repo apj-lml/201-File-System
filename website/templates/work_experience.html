@@ -638,7 +638,7 @@ function validate_status2(){
       }
       else if (value == "CASUAL"){
         sg.disabled = false;
-        step.disabled = true;
+        step.disabled = false;
 
         document.querySelectorAll("#update_sg option").forEach(opt => {
         if (opt.value == "N/A") {
@@ -740,7 +740,7 @@ function validate_status(){
       }
       else if (value == "CASUAL"){
         sg.disabled = false;
-        step.disabled = true;
+        step.disabled = false;
 
         document.querySelectorAll("#sg option").forEach(opt => {
         if (opt.value == "N/A") {

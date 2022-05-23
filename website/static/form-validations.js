@@ -191,7 +191,7 @@
           sg.disabled = false;
           //sg.value = "1";
           job_grade.disabled = true;
-          //job_grade.value = "";
+          job_grade.value = "";
           // disableSgJobOrder(true);
 
 

@@ -1,1043 +1,903 @@
 {% extends 'base.html' %}
 
-{% block title %} Sign Up {% endblock %}
+{% block title %} Employee Profile {% endblock %}
 
 {%block cssperfile %} 
-  <style type="text/css">
-    label {
-      font: .75em sans-serif;
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+  <style>
+    /* label{
+      font-size:.2vw;
+    } */
+    body{
+      overflow-x: hidden;
+      background-color:rgba(215, 237, 171, 0.07)
     }
-    .card-title{
-      font:2em impact;
+    .hover-opacity{
+      opacity: 1;
+      transition: all 0.5s 0s ease;
+    }
+    .hover-opacity:hover{
+      opacity: 1;
+    }
+    .dtsb-titleRow{
+      display: none;
+    }
+    #my-menu {
+        max-width: fit-content;
+        max-height: 3.25rem;
+        transition: all 0.3s ease-out;
+        overflow: hidden;
+        background-color: rgb(23, 88, 131);
+        color: white;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+    }
+    .is-required {
+      color: red;
+      font-size: 15px;
+      margin-left: 5px;
     }
 
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+*{
+    padding:0;
+    margin:0;
+}
+.container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color:#eee;
+}
+.container .card{
+    height:500px;
+    width:800px;
+    background-color:#fff;
+    position:relative;
+    box-shadow:0 15px 30px rgba(0,0,0,0.1);
+    font-family: 'Poppins', sans-serif;
+    border-radius:20px;
+}
+.container .card .form{
+    width:100%;
+    height:100%;
+    
+    display:flex;
+}
+.container .card .left-side{
+    width:35%;
+    background-color:#304767;
+    height:100%;
+ border-top-left-radius:20px;
+ border-bottom-left-radius:20px;
+  padding:20px 30px;
+  box-sizing:border-box;
+
+}
+/*left-side-start*/
+.left-heading{
+    color:#fff;
+   
+}
+.steps-content{
+    margin-top:30px;
+    color:#fff;
+}
+.steps-content p{
+    font-size:12px;
+    margin-top:15px;
+}
+.progress-bar{
+    list-style:none;
+    /*color:#fff;*/
+    margin-top:30px;
+    font-size:13px;
+    font-weight:700;
+    counter-reset:container 0;
+}
+.progress-bar li{
+       position:relative;
+       margin-left:40px;
+       margin-top:50px;
+       counter-increment:container 1;
+      color:#4f6581;
+}
+.progress-bar li::before{
+    content:counter(container);
+    line-height:25px;
+    text-align:center;
+    position:absolute;
+    height:25px;
+    width:25px;
+    border:1px solid #4f6581;
+    border-radius:50%;
+    left:-40px;
+    top:-5px;
+    z-index:10;
+    background-color:#304767;
+
+     
+}
+
+
+.progress-bar li::after{
+    content: '';
+    position: absolute;
+    height: 90px;
+    width: 2px;
+    background-color: #4f6581;
+    z-index: 1;
+    left: -27px;
+    top: -70px;
+}
+
+
+.progress-bar li.active::after{
+    background-color: #fff;
+
+}
+
+.progress-bar li:first-child:after{
+  display:none;  
+}
+
+/*.progress-bar li:last-child:after{*/
+/*  display:none;  */
+/*}*/
+.progress-bar li.active::before{
+    color:#fff;
+      border:1px solid #fff;
+}
+.progress-bar li.active{
+    color:#fff;
+}
+.d-none{
+   display:none;   
+}
   </style>
 {% endblock %}
 
 {% block content %}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="bootstrap" viewBox="0 0 118 94">
+    <title>Bootstrap</title>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+  </symbol>
+  <symbol id="home" viewBox="0 0 16 16">
+    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+  </symbol>
+  <symbol id="speedometer2" viewBox="0 0 16 16">
+    <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+    <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+  </symbol>
+  <symbol id="table" viewBox="0 0 16 16">
+    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+  </symbol>
+  <symbol id="people-circle" viewBox="0 0 16 16">
+    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+  </symbol>
+  <symbol id="grid" viewBox="0 0 16 16">
+    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+  </symbol>
+  <symbol id="collection" viewBox="0 0 16 16">
+    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+  </symbol>
+  <symbol id="calendar3" viewBox="0 0 16 16">
+    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+  </symbol>
+  <symbol id="chat-quote-fill" viewBox="0 0 16 16">
+    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM7.194 6.766a1.688 1.688 0 0 0-.227-.272 1.467 1.467 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.461 2.461 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.466 2.466 0 0 0-.228-.4 1.686 1.686 0 0 0-.227-.273 1.466 1.466 0 0 0-.469-.324l-.008-.004A1.785 1.785 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+  </symbol>
+  <symbol id="cpu-fill" viewBox="0 0 16 16">
+    <path d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+    <path d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z"/>
+  </symbol>
+  <symbol id="gear-fill" viewBox="0 0 16 16">
+    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+  </symbol>
+  <symbol id="speedometer" viewBox="0 0 16 16">
+    <path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+    <path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"/>
+  </symbol>
+  <symbol id="toggles2" viewBox="0 0 16 16">
+    <path d="M9.465 10H12a2 2 0 1 1 0 4H9.465c.34-.588.535-1.271.535-2 0-.729-.195-1.412-.535-2z"/>
+    <path d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm.535-10a3.975 3.975 0 0 1-.409-1H4a1 1 0 0 1 0-2h2.126c.091-.355.23-.69.41-1H4a2 2 0 1 0 0 4h2.535z"/>
+    <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+  </symbol>
+  <symbol id="tools" viewBox="0 0 16 16">
+    <path d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
+  </symbol>
+  <symbol id="chevron-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+  </symbol>
+  <symbol id="geo-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+  </symbol>
+  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+  </symbol>
+  <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+  </symbol>
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+  </svg>
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="50px" height="50px" class="d-inline-block align-text-center">
-      PIMO
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/"><i class="bi bi-house-fill"></i>Home</a>
-        </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> -->
-      </ul>
-      <!-- <ul class="navbar-nav navbar-right me-3">
-        <li class="nav-item dropdown ms-auto">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"  data-bs-toggle="dropdown" data-bs-target="#dropdownUser1" aria-controls="navbarNavDropdown" aria-expanded="false"  aria-label="Toggle navigation">
-            <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>APJ</strong>
-            </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarScrollingDropdown" id="dropdownUser1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-          </ul>
-        </li>
+  <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+  </ul>
 
-      </ul> -->
-      <!-- <ul class="navbar-nav navbar-right me-3">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>APJ</strong>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-          </ul>
-        </li>
-      </ul> -->
-    </div>
-  </div>
-</nav>
-<div class="container-fluid mt-5 mb-5">
-<div class="row">
-  <div class="text-center">
-      <img class="mb-4" src="{{url_for('static', filename='img/signup.png')}}" alt="" width="172" height="172">
-  </div>
-</div>
-<div class="row">
-<div class="col">
-  <form id="signUp" action="/auth/signup" method="POST" enctype="multipart/form-data" ></form>
-  <!-- <form id="vocational_course_form" action="/auth/signup" method="POST" enctype="multipart/form-data" ></form> -->
-    <div class="card mb-3 align-self-center">
-      <div class="card-body">
-      <h3 class="card-title">Account Setup</h3>
-      <div class="d-flex flex-row">
-        <div class="form-floating flex-fill mb-3 p-1">
-            <input type="number" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" form="signUp">
-            <label for="employee_id">Employee ID Number</label>
-          </div>
-      </div>
-        <div class="d-flex flex-row"> 
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="password" class="form-control" id="password" name ="password" placeholder="Password" form="signUp">
-            <label for="password">Password</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="password" class="form-control" id="floatingPassword2" name ="floatingPassword2" placeholder="Password" form="signUp">
-            <label for="floatingPassword2">Confirm Password</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-      <h3 class="card-title">Personal Information</h3>
-        <div class="d-md-flex flex-row"> 
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" form="signUp">
-            <label for="last_name">Last Name</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" form="signUp">
-            <label for="first_name">First Name</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" form="signUp">
-            <label for="middle_name">Middle Name</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" form="signUp">
-            <label for="name_extn">Name Extension (eg. Jr., III)</label>
-          </div>
-        </div>
-        <!-- TODO -->
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="" form="signUp">
-                <option value="Administrative & Finance">Administrative & Finance</option>
-                <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Operation & Maintenance">Operation & Maintenance</option>
-                <option value="NISRIP">NISRIP</option>
-                <option value="CARP-IC">CARP-IC</option>
-                <option value="Detailed">Detailed</option>
-                <option value="N/A">N/A</option>
-              </select>
-            <label for="section">Section</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="" form="signUp">
-              <option class="" value="" selected disabled hidden>-</option>
-              <option value="Administrative Unit">Administrative Unit</option>
-              <option value="Finance Unit">Finance Unit</option>
-              <option value="Cashiering Unit">Cashiering Unit</option>
-              <option value="Property Unit">Property Unit</option>
-              <option value="N/A">N/A</option>
-            </select>
-            <label for="name_extn">Unit</label>
-          </div>
-          <!-- TODO -->
-
-        </div>
-        <div class="d-md-flex flex-row"> 
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="" form="signUp">
-              <option class="" value="" selected disabled hidden>-</option>
-              <option value="Permanent">Permanent</option>
-              <option value="Casual">Casual</option>
-              <option value="Job Order">Job Order</option>
-              <option value="Coterminous">Coterminous</option>
-              <!-- <option value="Separated">Separated</option> -->
-            </select>
-            <label for="middle_name">Employment Status</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="" form="signUp">
-            <label for="last_name">Position Title</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="" form="signUp">
-            <label for="item_no">Item No.</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="" form="signUp">
-              <option class="" value="" selected disabled hidden>-</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-
-            </select>
-            <label for="salary_grade">Salary Grade</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="signUp">
-              <option class="" value="" selected disabled hidden>-</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </select>
-            <label for="step">Step</label>
-          </div>
-
-
-  
-
-        <div class="d-md-flex flex-row">
+  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container-fluid mb-5" tabindex="0">
+    <div class="container" id="">
+      <div class="row">
+        <div class="col">
+          <div class="container">
+            <div class="card">
+                <div class="form">
+                    <div class="left-side">
+                        <div class="left-heading">
+                            <h3>indeed</h3>
+                        </div>
+                        <div class="steps-content">
+                            <h3>Step <span class="step-number">1</span></h3>
+                            <p class="step-number-content active">Enter your personal information to get closer to companies.</p>
+                            <p class="step-number-content d-none">Get to know better by adding your diploma,certificate and education life.</p>
+                            <p class="step-number-content d-none">Help companies get to know you better by telling then about your past experiences.</p>
+                            <p class="step-number-content d-none">Add your profile piccture and let companies find youy fast.</p>
+                        </div>
+                        <ul class="progress-bar">
+                            <li class="active">Personal Information</li>
+                            <li>Education</li>
+                            <li>Work Experience</li>
+                            <li>User Photo</li>
+                        </ul>
+                        
         
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="currency" class="form-control" id="daily_rate" name ="daily_rate" placeholder="Daily Rate (Php)" value="" form="signUp" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" >
-            <label for="daily_rate">Daily Rate (Php)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="currency" class="form-control" id="monthly_rate" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="signUp" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" disabled>
-            <label for="monthly_rate">Monthly Rate (Php)</label>
-          </div>
-        </div>
-
-
-      </div>
-
-      <!-- <div class="d-md-flex flex-row"> 
-
-        <div class="form-floating flex-fill mb-3 p-1">
-          <input type="text" class="form-control" id="original_station" name ="original_station" placeholder="Item No." value="" form="signUp">
-          <label for="item_no">Original Station</label>
-        </div>
-        <div class="form-floating flex-fill mb-3 p-1">
-          <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="" form="signUp">
-          <label for="date_of_assumption">Date of Assumption to Duty</label>
-        </div>
-        <div class="form-floating flex-fill mb-3 p-1">
-          <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="" form="signUp">
-          <label for="date_hired_in_nia">Date Hired in NIA</label>
-        </div>
-        <div class="form-floating flex-fill mb-3 p-1">
-          <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="" form="signUp">
-          <label for="date_of_original_appointment">Date of Original Appointment</label>
-        </div>
-        <div class="form-floating flex-fill mb-3 p-1">
-          <input type="date" class="form-control" id="date_of_last_step_increment" name ="date_of_last_step_increment" placeholder="Date of Last Step Increment" value="" form="signUp">
-          <label for="date_of_assumption">Date of Last Step Increment</label>
-        </div>
-
-      </div> -->
-
-
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" form="signUp">
-            <label for="birthdate">Birthdate</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="age" name ="age" placeholder="Age" disabled>
-            <label for="name_extn">Age</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" form="signUp"> 
-            <label for="name_extn">Place of Birth</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" form="signUp">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            <label for="sex">Sex</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" form="signUp">
-              <option value="Single">Single</option>
-              <option value="Widowed">Widowed</option>
-              <option value="Married">Married</option>
-              <option value="Separated">Separated</option>
-            </select>
-            <label for="civil_status">Civil Status</label>
-          </div>
-        </div>
-
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)" form="signUp">
-            <label for="name_extn">Height(m)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" form="signUp">
-            <label for="name_extn">Weight(kg)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <!-- <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type" form="signUp"> -->
-            <select class="form-select" id="blood_type" name="blood_type" aria-label="Floating label select example" form="signUp">
-              <option class="" value="" selected disabled hidden>-</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="">AB</option>
-              <option value="O">O</option>
-            </select>
-            <label for="name_extn">Blood Type</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="religion" name ="religion" placeholder="Religion" form="signUp">
-
-            <!-- <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" form="signUp">
-              <option value="Roman Catholic">Roman Catholic</option>
-              <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
-              <option value="Baptist">Baptist</option>
-              <option value="Born Again Christian">Born Again Christian</option>
-              <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
-            </select> -->
-            <label for="religion">Religion</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="number" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" form="signUp" min="0" value="0">
-            <label for="name_extn">No. Dependents</label>
-          </div>      
-        </div>
-
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No." form="signUp">
-            <label for="mobile_no">Mobile No.</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." form="signUp">
-            <label for="telephone_no">Telephone No.</label>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="form-floating mb-3 p-1">
-              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" form="signUp">
-              <label for="email">Email Address</label>
+                        
+                    </div>
+                    <div class="right-side">
+                        <div class="main active">
+                            <small><i class="fa fa-smile-o"></i></small>
+                            <div class="text">
+                                <h2>Your Personal Information</h2>
+                                <p>Enter your personal information to get closer to copanies.</p>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require id="user_name">
+                                    <span>First Name</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" required>
+                                    <span>Last Name</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require>
+                                    <span>Phone number</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required require>
+                                    <span>E-mail Address</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <select>
+                                        <option>Select Country</option>
+                                        <option>India</option>
+                                        <option>France</option>
+                                        <option>UK</option>
+                                        <option>USA</option>
+                                        <option>Germany</option>
+                                        <option>Russia</option>
+                                        <option>China</option>
+                                        <option>Japan</option>
+                                        <option>Pakistan</option>
+                                    </select>
+                                
+                                </div>
+                                <div class="input-div">
+                                    
+                                    <select>
+                                        <option>Select City</option>
+                                        <option>New Delhi</option>
+                                        <option>Paris</option>
+                                        <option>London</option>
+                                        <option>Washington D.C.</option>
+                                        <option>Berlin</option>
+                                        <option>Moscow</option>
+                                        <option>Bejing</option>
+                                        <option>Tokyo</option>
+                                        <option>Islamabad</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <button class="next_button">Next Step</button>
+                            </div>
+                        </div>
+                        <div class="main">
+                            <small><i class="fa fa-smile-o"></i></small>
+                            <div class="text">
+                                <h2>Education</h2>
+                                <p>Inform companies about your education life.</p>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require>
+                                    <span>School Name</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" required>
+                                    <span>Board Name</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require>
+                                    <span>College/University name</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <select>
+                                        <option>Select Course</option>
+                                        <option>BCA</option>
+                                        <option>B-TECH</option>
+                                        <option>BA</option>
+                                        <option>B-COM</option>
+                                        <option>B-SC</option>
+                                        <option>MBA</option>
+                                        <option>MCA</option>
+                                        <option>M-COM</option>
+                                        <option>M-TECH</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="buttons button_space">
+                                <button class="back_button">Back</button>
+                                <button class="next_button">Next Step</button>
+                            </div>
+                        </div>
+                        <div class="main">
+                            <small><i class="fa fa-smile-o"></i></small>
+                            <div class="text">
+                                <h2>Work Experiences</h2>
+                                <p>Can you talk about your past work experience?</p>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require>
+                                    <span>Experience 1</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" required require>
+                                    <span>Position</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required>
+                                    <span>Experience 2</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required>
+                                    <span>Position</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required>
+                                    <span>Experience 3</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required>
+                                    <span>Position</span>
+                                </div>
+                            </div>
+                            <div class="buttons button_space">
+                                <button class="back_button">Back</button>
+                                <button class="next_button">Next Step</button>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="main">
+                            <small><i class="fa fa-smile-o"></i></small>
+                            <div class="text">
+                                <h2>User Photo</h2>
+                                <p>Upload your profile picture and share yourself.</p>
+                            </div>
+                            <div class="user_card">
+                                <span></span>
+                                <div class="circle">
+                                    <span><img src="https://i.imgur.com/hnwphgM.jpg"></span>
+                                    
+                                </div>
+                                <div class="social">
+                                    <span><i class="fa fa-share-alt"></i></span>
+                                    <span><i class="fa fa-heart"></i></span>
+                                    
+                                </div>
+                                <div class="user_name">
+                                    <h3>Peter Hawkins</h3>
+                                    <div class="detail">
+                                        <p><a href="#">Izmar,Turkey</a>Hiring</p>
+                                        <p>17 last day . 94Apply</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons button_space">
+                                <button class="back_button">Back</button>
+                                <button class="submit_button">Submit</button>
+                            </div>
+                        </div>
+                         <div class="main">
+                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                             
+                            <div class="text congrats">
+                                <h2>Congratulations!</h2>
+                                <p>Thanks Mr./Mrs. <span class="shown_name"></span> your information have been submitted successfully for the future reference we will contact you soon.</p>
+                            </div>
+                        </div>
+                        
+                    
+                      
+        
+                    
+        
+                    </div>
+                </div>
             </div>
-          </div>    
         </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" form="signUp">
-            <label for="name_extn">GSIS</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" form="signUp">
-            <label for="name_extn">Pag-ibig</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" form="signUp">
-            <label for="name_extn">Philhealth</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" form="signUp">
-            <label for="name_extn">SSS</label>
-          </div>
+          </div> <!--col-->
+          </div> <!--row-->
         </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" form="signUp">
-            <label for="name_extn">TIN</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." form="signUp">
-            <label for="name_extn">ATM Card No.</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" form="signUp">
-            <label for="name_extn">UMID</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" form="signUp">
-            <label for="name_extn">PhilSys</label>
-          </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <div class="form-floating">
-              <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" form="signUp">
-                <option value="Filipino" selected>Filipino</option>
-                <option value="Dual Citizen">Dual Citizen</option>
-              </select>
-              <label for="floatingSelect">Citizenship</label>
-            </div>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="dual_citizenship" name ="dual_citizenship" placeholder="Dual Citizenship" disabled form="signUp">
-            <label for="name_extn">Dual Citizenship</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="indicate_country" name ="indicate_country" placeholder="Dual Citizenship" disabled form="signUp">
-            <label for="indicate_country">Indicate Country</label>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+</div>
+</div>
+</div>
 
-    <div class="card mb-3">
-      <div class="card-body">
-      <h3 class="card-title">Permanent Address</h3>
-        <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="p_house_block_lot" name ="p_house_block_lot" placeholder="House/Block/Lot No." onchange="sameAsPermanent()" form="signUp"> 
-              <label for="p_house_block_lot">House/Block/Lot No.</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="p_street" name ="p_street" placeholder="Street" onchange="sameAsPermanent()" form="signUp">
-              <label for="p_street">Street</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="p_subdivision_village" name ="p_subdivision_village" placeholder="Subdivision/Village" onchange="sameAsPermanent()" form="signUp">
-              <label for="p_subdivision_village">Subdivision/Village</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" form="signUp">
-              <label for="p_barangay">Barangay</label>
-            </div>
-          </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" form="signUp">
-            <label for="p_city_municipality">City/Municipality</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" form="signUp">
-            <label for="p_province">Province</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" form="signUp">
-            <label for="p_zip_code">Zip Code</label>
-          </div>
+</br>
+
+</br>
+
+<footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0" id="navbar-example2">
+  <div class="container">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col text-center">
+          <a href="#header">Scroll to top</a>
         </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-      <h3 class="card-title">Present Address</h3>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <div class="form-floating">
-              <select class="form-select" id="same_as_permanent" name="same_as_permanent" aria-label="Floating label select example" form="signUp">
-                <option value="Yes" selected>Yes</option>
-                <option value="No">No</option>
-              </select>
-              <label for="same_as_permanent">Same as permanent address</label>
-            </div>
-          </div>
+        <div class="col text-center">
+          <button class="btn btn-primary" type="submit" form="update_form">Save Changes</button>
         </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_house_block_lot" name ="pres_house_block_lot" placeholder="House/Block/Lot No." disabled form="signUp">
-            <label for="pres_house_block_lot">House/Block/Lot No.</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_street" name ="pres_street" placeholder="Street" disabled form="signUp">
-            <label for="pres_street">Street</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_subdivision_village" name ="pres_subdivision_village" placeholder="Subdivision/Village" disabled form="signUp">
-            <label for="pres_subdivision_village">Subdivision/Village</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_barangay" name ="pres_barangay" placeholder="Barangay" disabled form="signUp">
-            <label for="pres_barangay">Barangay</label>
-          </div>
-        </div>
-        <div class="d-md-flex flex-row">        
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_city_municipality" name ="pres_city_municipality" placeholder="City/Municipality" disabled form="signUp">
-            <label for="pres_city_municipality">City/Municipality</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_province" name ="pres_province" placeholder="Province" disabled form="signUp">
-            <label for="pres_province">Province</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="pres_zip_code" name ="pres_zip_code" placeholder="Zip Code" disabled form="signUp">
-            <label for="pres_zip_code">Zip Code</label>
-          </div>
+        <div class="col text-center">
+          <a href="#footer">Scroll to bottom</a>
         </div>
       </div>
     </div>
-
-    <!-- <div class="card mb-3">
-      <div class="card-body">
-      <h3 class="card-title">Educational Attainment</h3>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="highest_educational_attainment" name ="highest_educational_attainment" placeholder="House/Block/Lot No." form="signUp">
-              <label for="highest_educational_attainment">Highest Educational Attainment</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="card mb-3">
-      <div class="card-body">
-      <h3 class="card-title">Elementary</h3>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="elementary_school" name ="elementary_school" placeholder="elementary_school" form="signUp">
-            <label for="elementary_school">Elementary School</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="e_period_of_attendance_from" name ="e_period_of_attendance_from" placeholder="Period of Attendance (From)" form="signUp">
-            <label for="e_period_of_attendance_from">Period of Attendance (From)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="e_period_of_attendance_to" name ="e_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
-            <label for="e_period_of_attendance_to">Period of Attendance (To)</label>
-          </div>       
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="e_highest_level" name ="e_highest_level" placeholder="Highest Level" form="signUp">
-            <label for="e_highest_level">Highest Level Attained</label>
-          </div>   
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="e_scholarship_academic_honor" name ="e_scholarship_academic_honor" placeholder="Shcolarship / Academic Honor" form="signUp">
-            <label for="e_scholarship_academic_honor">Shcolarship / Academic Honor</label>
-          </div>  
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">High School</h3>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="high_school" name ="high_school" placeholder="high_school" form="signUp">
-            <label for="high_school">High School</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="hs_period_of_attendance_from" name ="hs_period_of_attendance_from" placeholder="Period of Attendance (From)" form="signUp">
-            <label for="hs_period_of_attendance_from">Period of Attendance (From)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="hs_period_of_attendance_to" name ="hs_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
-            <label for="hs_period_of_attendance_to">Period of Attendance (To)</label>
-          </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="hs_highest_level" name ="hs_highest_level" placeholder="Highest Level" form="signUp">
-            <label for="hs_highest_level">Highest Level Attained</label>
-          </div>   
-          <!-- <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="hs_scholarship_academic_honor" name ="hs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
-            <label for="hs_scholarship_academic_honor">Scholarship / Academic Honor</label>
-          </div>   -->
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Vocational / Trade Course</h3>
-        <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
-        <div class="card shadow-sm mb-3">
-          <div class="card-body">
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="v_school[1]" name ="v_school[1]" placeholder="School" form="signUp">
-            <label for="v_school">School</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="vocational_trade_course[1]" name ="vocational_trade_course[1]" placeholder="Vocational / Trade Course" form="signUp">
-            <label for="vocational_trade_course">Vocational / Trade Course</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="v_period_of_attendance_from[1]" name ="v_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" form="signUp">
-            <label for="v_period_of_attendance_from">Period of Attendance (From)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="v_period_of_attendance_to[1]" name ="v_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" form="signUp">
-            <label for="v_period_of_attendance_to">Period of Attendance (To)</label>
-          </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="v_highest_level[1]" name ="v_highest_level[1]" placeholder="Highest Level" form="signUp">
-            <label for="v_highest_level">Highest Level Attained / Units Earned</label>
-          </div>   
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="v_scholarship_academic_honor[1]" name ="v_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" form="signUp">
-            <label for="v_scholarship_academic_honor">Scholarship / Academic Honor</label>
-          </div>  
-        </div>
-        </div>
-      </div>
-        <div id="vocational_fields"></div>
-      </div>
-      <div class="d-md-flex flex-row">
-        <div class="flex-fill mb-3 mx-4 p-1">
-          <button class="btn btn-success btn-sm" id="add_vocational_field" onclick="document.getElementById('vocational_no_fields').value++">Add</button>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">College</h3>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="c_school" name ="c_school" placeholder="c_school" form="signUp">
-            <label for="c_school">School</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="c_degree_course" name ="c_degree_course" placeholder="c_degree_course" form="signUp">
-            <label for="c_degree_course">Degree</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="c_period_of_attendance_from" name ="c_period_of_attendance_from" placeholder="Period of Attendance (From)" form="signUp">
-            <label for="c_period_of_attendance_from">Period of Attendance (From)</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="c_period_of_attendance_to" name ="c_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
-            <label for="c_period_of_attendance_to">Period of Attendance (To)</label>
-          </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="c_highest_level_units_earned" name ="c_highest_level_units_earned" placeholder="Highest Level" form="signUp">
-            <label for="c_highest_level_units_earned">Highest Level Attained / Units Earned</label>
-          </div>   
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="c_scholarship_academic_honor" name ="c_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
-            <label for="c_scholarship_academic_honor">Scholarship / Academic Honor</label>
-          </div>  
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Masteral Degree</h3>
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="gs_school" name ="gs_school" placeholder="School" form="signUp">
-              <label for="gs_school">School</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="gs_degree_course" name ="gs_degree_course" placeholder="Degree / Course" form="signUp">
-              <label for="gs_degree_course">Degree / Course</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="gs_period_of_attendance_from" name ="gs_period_of_attendance_from" placeholder="Period of Attendance (To)" form="signUp">
-              <label for="gs_period_of_attendance_from">Period of Attendance (From)</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="gs_period_of_attendance_to" name ="gs_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
-              <label for="gs_period_of_attendance_to">Period of Attendance (To)</label>
-            </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="gs_highest_level_units_earned" name ="gs_highest_level_units_earned" placeholder="Highest Level" form="signUp">
-            <label for="gs_highest_level_units_earned">Highest Level Attained / Units Earned</label>
-          </div>   
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="gs_scholarship_academic_honor" name ="gs_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
-            <label for="gs_scholarship_academic_honor">Scholarship / Academic Honor</label>
-          </div> 
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h3 class="card-title">Doctoral Degree</h3>
-          <div class="d-md-flex flex-row">
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="doc_school" name ="doc_school" placeholder="School" form="signUp">
-              <label for="doc_school">School</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="doc_degree_course" name ="doc_degree_course" placeholder="Degree / Course" form="signUp">
-              <label for="doc_degree_course">Degree / Course</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="doc_period_of_attendance_from" name ="doc_period_of_attendance_from" placeholder="Period of Attendance (To)" form="signUp">
-              <label for="doc_period_of_attendance_from">Period of Attendance (From)</label>
-            </div>
-            <div class="form-floating flex-fill mb-3 p-1">
-              <input type="text" class="form-control" id="doc_period_of_attendance_to" name ="doc_period_of_attendance_to" placeholder="Period of Attendance (To)" form="signUp">
-              <label for="doc_period_of_attendance_to">Period of Attendance (To)</label>
-            </div>
-        </div>
-        <div class="d-md-flex flex-row">
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="doc_highest_level_units_earned" name ="doc_highest_level_units_earned" placeholder="Highest Level" form="signUp">
-            <label for="doc_highest_level_units_earned">Highest Level Attained / Units Earned</label>
-          </div>
-          <div class="form-floating flex-fill mb-3 p-1">
-            <input type="text" class="form-control" id="doc_scholarship_academic_honor" name ="doc_scholarship_academic_honor" placeholder="Scholarship / Academic Honor" form="signUp">
-            <label for="doc_scholarship_academic_honor">Scholarship / Academic Honor</label>
-          </div>   
-        </div>
-      </div>
-    </div>
-
-
-  <!-- </form> -->
-<!-- <form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data"> -->
-  <div class="card mb-3">
-    <div class="card-body">
-      <h3 class="card-title">Civil Service Eligibility</h3>
-        <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
-          <div class="card shadow-sm mb-3">
-            <div class="card-body">
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" form="signUp">
-                <label for="cs_eligibility">Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" form="signUp">
-                <label for="date_of_examination">Date of Examination</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" form="signUp">
-                <label for="cs_rating">Rating (if applicable)</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" form="signUp">
-                <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number" form="signUp">
-                <label for="license_no">License Number</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" form="signUp">
-                <label for="date_of_validity">Date of Validity</label>
-              </div>
-            </div>
-            <!-- <div class="d-md-flex flex-row">
-              <div class="flex-fill mb-3 p-1">
-                <label for="psa" class="form-label">Upload Supporting Document</label>
-                <input class="form-control" type="file" id="cse[1]" name="cse[1]" form="signUp">
-              </div>
-            </div> -->
-          </div>
-        </div>
-      <div id="cs_fields"></div>
-    </div>
-    <div class="d-md-flex flex-row">
-      <div class="flex-fill mb-3 mx-4 p-1">
-        <button class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
-      </div>
     </div>
   </div>
-<!-- 
-  <div class="card mb-3">
-    <div class="card-body">
-      <h3 class="card-title">Learning & Development</h3>
-        <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1">
-          <div class="card shadow-sm mb-3">
-            <div class="card-body">
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="ld_program[1]" placeholder="Interventions/Training Program" form="signUp">
-                <label for="ld_program[1]">Interventions / Training Program</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="date" class="form-control" name ="ld_date_from[1]" placeholder="Inclusive Date of Attendance From" form="signUp">
-                <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="date" class="form-control" name ="ld_date_to[1]" placeholder="Inclusive Date of Attendance To" form="signUp">
-                <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="number" class="form-control" name ="ld_no_hours[1]" placeholder="Rating" form="signUp">
-                <label for="ld_no_hours[1]">Number of Hours</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <label for="ld_type[1]">Type of Learning & Development (Ex. Manegerial, Supervisory, Technical)</label>
-                <select class="form-select" id="ld_type[1]" name="ld_type[1]" aria-label="Floating label select example" value="" form="signUp">
-                  <option value="Managerial">Managerial</option>
-                  <option value="Supervisory">Supervisory</option>
-                  <option value="Technical">Technical</option>
-                  <option value="N/A">N/A</option>
-                </select>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                <input type="text" class="form-control" name ="ld_sponsored_by[1]" placeholder="Conducted / Sponsored By" form="signUp">
-                <label for="ld_sponsored_by[1]">Conducted / Sponsored By</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      <div id="ld_fields"></div>
-    </div>
-    <div class="d-md-flex flex-row">
-      <div class="flex-fill mb-3 mx-4 p-1">
-        <button class="btn btn-success btn-sm" id="add_ld_field" onclick="document.getElementById('ld_no_fields').value++">Add</button>
-      </div>
-    </div>
-  </div> -->
-
-  <div class="card mb-3">
-    <div class="card-body">
-      <h3 class="card-title">COVID-19 Vaccine</h3>
-        <!-- <input type="hidden" class="form-control" id="vac_no_fields" name ="vac_no_fields" placeholder="No. of Fields" min="1" max="10" form="signUp" value="1"> -->
-        <div class="card shadow-sm mb-3">
-          <div class="card-body">
-            <div class="d-md-flex flex-row col-sm-4">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="are_you_covid_vac" name="" aria-label="Floating label select example" value="">
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
-                </select>
-                <label for="are_you_covid_vac">Are you COVID-19 Vaccinated?</label>
-              </div>
-            </div>
-          </div>
-        </div>  
-        <div class="card shadow-sm mb-3">
-            <div class="card-body">
-              <div class="d-md-flex flex-row">
-                <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control" name ="vac_id_no" id="vac_id_no" placeholder="Vaccine ID no." form="signUp">
-                  <label for="vac_id_no">Vaccine ID no.</label>
-                </div>
-                <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="vac_brand" name="vac_brand" id="vac_brand" aria-label="Floating label select example" value="" form="signUp">
-                    <option class="" value="" selected disabled hidden>-</option>
-                    <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
-                    <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
-                    <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
-                    <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
-                    <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
-                    <option value="SINOPHARM">SINOPHARM</option>
-                    <option value="COVILO">COVILO</option>
-                    <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
-                    <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
-                    <option value="COVOVAX">COVOVAX</option>
-                  </select>
-                  <label for="vac_brand">Vaccine Brand</label>
-                </div>
-              </div>
-              <div class="d-md-flex flex-row">
-                <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="signUp">
-                  <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
-                </div>
-              </div>
-              <div class="d-md-flex flex-row">
-                <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                  <input type="date" class="form-control" name ="vac_first_dose" id="vac_first_dose" placeholder="Date of First Dose" form="signUp">
-                  <label for="vac_date">Date of First Dose</label>
-                </div>
-                <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                  <input type="date" class="form-control" name ="vac_second_dose" id="vac_second_dose" placeholder="Date of Second Dose" form="signUp">
-                  <label for="vac_date">Date of Second Dose</label>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <div class="card shadow-sm mb-3">
-          <div class="card-body">
-            <div class="d-md-flex flex-row col-sm-4">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="" form="signUp">
-                  <option value="NO" selected>NO</option>
-                  <option value="YES">YES</option>
-                </select>
-                <label for="do_you_have_booster">Do You have Booster Shot?</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card shadow-sm mb-3">
-          <div class="card-body">
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" id="booster_id_no" name ="booster_id_no" placeholder="Vaccine ID no." form="signUp" value="N/A" disabled>
-                <label for="booster_id_no">Booster Shot ID no.</label>
-              </div>
-              <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="booster_brand" name="booster_brand" aria-label="Floating label select example" value="" form="signUp" value="N/A" disabled>
-                    <option class="" value="" selected disabled hidden>-</option>
-                    <option value="CORONAVAC (SINOVAC)">CORONAVAC (SINOVAC)</option>
-                    <option value="COMIRNATY (PFIZER/BIONTECH)">COMIRNATY (PFIZER/BIONTECH)</option>
-                    <option value="JANSSEN (JOHNSON & JOHNSON)">JANSSEN (JOHNSON & JOHNSON)</option>
-                    <option value="OXFORD/ASTRAZENICA (VAXZEVRIA)">OXFORD/ASTRAZENICA (VAXZEVRIA)</option>
-                    <option value="SPIKEVAX (MODERNA)">SPIKEVAX (MODERNA)</option>
-                    <option value="SINOPHARM">SINOPHARM</option>
-                    <option value="COVILO">COVILO</option>
-                    <option value="COVAXIN (BHARAT-BIOTECH)">COVAXIN (BHARAT-BIOTECH)</option>
-                    <option value="SPUTNIK V (GAMALEYA)">SPUTNIK V (GAMALEYA)</option>
-                    <option value="COVOVAX">COVOVAX</option>
-                </select>
-                <label for="booster_brand">Vaccine Brand</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="signUp" value="N/A" disabled>
-                <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
-              </div>
-            </div>
-            <div class="d-md-flex flex-row">
-              <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                <input type="date" class="form-control" name ="booster_date" id="booster_date" placeholder="Date of Booster Shot" form="signUp" value="N/A" disabled>
-                <label for="booster_date">Date of Booster Shot</label>
-              </div>
-            </div>
-          </div>
-      </div>
-      <!-- <div id="vac_fields"></div> -->
-    </div>
-    <!-- <div class="d-md-flex flex-row">
-      <div class="flex-fill mb-3 mx-4 p-1">
-        <button class="btn btn-success btn-sm" id="add_vac_field" onclick="document.getElementById('vac_no_fields').value++">Add</button>
-      </div>
-    </div> -->
-  </div>
-
-  <!-- <div class="card mb-3">
-    <div class="card-body">
-    <h3 class="card-title">Upload Supporting Documents</h3>
-      <div class="d-md-flex flex-row">
-        <div class="flex-fill mb-3 p-1">
-          <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
-          <input class="form-control" type="file" id="psa" name="psa" form="signUp">
-        </div>
-        <div class="flex-fill mb-3 p-1">
-          <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
-          <input class="form-control" type="file" id="marriage_cert" name="marriage_cert" form="signUp">
-        </div>
-        <div class="flex-fill mb-3 p-1">
-          <label for="cse" class="form-label">Upload Career Service Eligibility</label>
-          <input class="form-control" type="file" id="cse" name="cse" form="signUp">
-        </div>
-      </div>
-      <div class="d-md-flex flex-row">
-        <div class="flex-fill mb-3 p-1">
-          <label for="office_id" class="form-label">Upload Office ID</label>
-          <input class="form-control" type="file" id="office_id" name="office_id" form="signUp">
-        </div>
-        <div class="flex-fill mb-3 p-1">
-          <label for="govt_id" class="form-label">Upload Government Issued ID</label>
-          <input class="form-control" type="file" id="govt_id" name="govt_id" form="signUp">
-        </div>
-        <div class="flex-fill mb-3 p-1">
-          <label for="license" class="form-label">Upload License</label>
-          <input class="form-control" type="file" id="license" name="license" form="signUp">
-        </div>
-      </div>
-      <div class="d-md-flex flex-row">
-        <div class="flex-fill mb-3 p-1">
-          <label for="tor" class="form-label">Upload TOR</label>
-          <input class="form-control" type="file" id="tor" name="tor" form="signUp">
-        </div>
-        <div class="flex-fill mb-3 p-1">
-          <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
-          <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="signUp">
-        </div>
-        <div class="flex-fill mb-3 p-1">
-          <label for="ld_cert" class="form-label">Upload COVID-19 Vaccination Card</label>
-          <input class="form-control" type="file" id="covid_vax" name="covid_vax" form="signUp">
-        </div>
-      </div>
-    </div>
-  </div> -->
-<!-- </form> -->
-</div> <!--col-->
-</div> <!--row-->
-  <div class="row">
-    <div class="col">
-      <button type="submit" class="btn btn-primary m-4" id="submit_btn" form="signUp">Submit</button>
-    </div>
-  </div>
-<!-- </form> THIS IS THE REAL END OF FORM-->
+</footer>
 
 </div>
+
+
 {% endblock %}
 
-{%block scripts%}
-<script type="text/javascript">
-        function sameAsPermanent(){
-        var citizenship = document.getElementById('same_as_permanent').value;
-        if(citizenship == 'Yes'){
-              document.getElementById('pres_house_block_lot').disabled = true;
-              document.getElementById('pres_street').disabled = true;
-              document.getElementById('pres_subdivision_village').disabled = true;
-              document.getElementById('pres_barangay').disabled = true;
-              document.getElementById('pres_city_municipality').disabled = true;
-              document.getElementById('pres_province').disabled = true;
-              document.getElementById('pres_zip_code').disabled = true;
-      
-              document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
-              document.getElementById('pres_street').value = document.getElementById('p_street').value;
-              document.getElementById('pres_subdivision_village').value = document.getElementById('p_subdivision_village').value;
-              document.getElementById('pres_barangay').value = document.getElementById('p_barangay').value;
-              document.getElementById('pres_city_municipality').value = document.getElementById('p_city_municipality').value;
-              document.getElementById('pres_province').value = document.getElementById('p_province').value;
-              document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
-          }else{
-              document.getElementById('pres_house_block_lot').removeAttribute('disabled');
-              document.getElementById('pres_street').removeAttribute('disabled');
-              document.getElementById('pres_subdivision_village').removeAttribute('disabled');
-              document.getElementById('pres_barangay').removeAttribute('disabled');
-              document.getElementById('pres_city_municipality').removeAttribute('disabled');
-              document.getElementById('pres_province').removeAttribute('disabled');
-              document.getElementById('pres_zip_code').removeAttribute('disabled');
-      
-              document.getElementById('pres_house_block_lot').value = ""
-              document.getElementById('pres_street').value = ""
-              document.getElementById('pres_subdivision_village').value = ""
-              document.getElementById('pres_barangay').value = ""
-              document.getElementById('pres_city_municipality').value = ""
-              document.getElementById('pres_province').value = ""
-              document.getElementById('pres_zip_code').value = ""
-          }
-      }
-</script>
-<script src="{{ url_for('static', filename='signup.js') }}"></script>
+{%block scripts %}
+<script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
-<script src="{{ url_for('static', filename='vaccine-validations.js') }}"></script>
+<script type="text/javascript">
+
+// document.addEventListener('keydown', e => {
+//   if (e.ctrlKey && e.key === 's' && e.ctrlKey || e.ctrlKey && e.key === 'S') {
+//     e.preventDefault();
+//     alert("awan pay")
+//       }
+//     });
+
+// window.addEventListener("load", function() {
+//   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
+//   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
+  
+//   var vocation_count = document.getElementById('vocational_no_update_fields').value;
+//   console.log(vocation_count)
+//   for (var xyz = 1; xyz <= vocation_count; xyz++){
+//     graduated(document.getElementById(`v_highest_level[${xyz}]`), document.getElementById(`v_highest_grade_year_units[${xyz}]`), document.getElementById(`v_scholarship_academic_honor[${xyz}]`), document.getElementById(`v_period_of_attendance_from[${xyz}]`), document.getElementById(`v_period_of_attendance_to[${xyz}]`))
+//   }
 
 
+//   $('#uploaded_file_table').DataTable({
+//       responsive: true,
+//         dom: 'ftrip',
+//         "order": [[ 0, "desc" ]]
+//     });
+
+
+// });
+
+// function validate_length(el){
+//   if(el.value <0){
+//       el.value = 0;
+//       triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
+//     }else{
+//       if(el.value.length > 2 || el.value.length < 0){
+//           el.value = el.value.slice(0,2); 
+//           triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
+//       }
+//     }
+  
+// }
+
+// function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
+//       if(highest_level.value == 'GRADUATED'){
+//         highest_grade_year_units.readOnly = true;
+//         scholarship_academic_honor.readOnly = false;
+//         // period_of_attendance_from.value = ""
+
+//         // period_of_attendance_to.value = ""
+//         period_of_attendance_to.readOnly = false
+
+//       }else if(highest_level.value == "CURRENTLY ENROLLED"){
+//         highest_grade_year_units.readOnly = true;
+//         scholarship_academic_honor.readOnly = true;
+//         period_of_attendance_to.readOnly = true;
+//         period_of_attendance_to.value = "PRESENT"
+//         // period_of_attendance_from.value = ""
+//         highest_grade_year_units.value = "";
+
+
+//       }else{
+//         period_of_attendance_to.readOnly = false;
+//         // period_of_attendance_to.value = ""
+//         // period_of_attendance_from.value = ""
+
+//         highest_grade_year_units.readOnly = false;
+//         scholarship_academic_honor.readOnly = true;
+//       }
+//     }
+
+//     function sameAsPermanent(){
+//         var citizenship = document.getElementById('same_as_permanent_address').value;
+//         if(citizenship == 'YES'){
+//               document.getElementById('pres_house_block_lot').readOnly = true;
+//               document.getElementById('pres_street').readOnly = true;
+//               document.getElementById('pres_subdivision_village').readOnly = true;
+//               document.getElementById('pres_barangay').readOnly = true;
+//               document.getElementById('pres_city_municipality').readOnly = true;
+//               document.getElementById('pres_province').readOnly = true;
+//               document.getElementById('pres_zip_code').readOnly = true;
+      
+//               document.getElementById('pres_house_block_lot').value = document.getElementById('p_house_block_lot').value;
+//               document.getElementById('pres_street').value = document.getElementById('p_street').value;
+//               document.getElementById('pres_subdivision_village').value = document.getElementById('p_subdivision_village').value;
+//               document.getElementById('pres_barangay').value = document.getElementById('p_barangay').value;
+//               document.getElementById('pres_city_municipality').value = document.getElementById('p_city_municipality').value;
+//               document.getElementById('pres_province').value = document.getElementById('p_province').value;
+//               document.getElementById('pres_zip_code').value = document.getElementById('p_zip_code').value;
+//           }else{
+//               document.getElementById('pres_house_block_lot').removeAttribute('readOnly');
+//               document.getElementById('pres_street').removeAttribute('readOnly');
+//               document.getElementById('pres_subdivision_village').removeAttribute('readOnly');
+//               document.getElementById('pres_barangay').removeAttribute('readOnly');
+//               document.getElementById('pres_city_municipality').removeAttribute('readOnly');
+//               document.getElementById('pres_province').removeAttribute('readOnly');
+//               document.getElementById('pres_zip_code').removeAttribute('readOnly');
+      
+//           }
+//       }
+
+
+//     //------------------------------------//
+//     //        SUBMIT OF UPDATE FORM       //
+//     //------------------------------------//
+//   var formElem = document.getElementById("update_form");
+//       var icon = "";
+//     document.getElementById("update_form").addEventListener("submit",(e)=>{
+//       //alert("update form")
+//       e.preventDefault();
+//       let formData = new FormData(formElem);
+//       //formData.append('file',  input.files[0])
+//       loadingScreen('block')
+//       const data = {}
+//       formData.forEach((value, key) => (data[key] = value))
+    
+//       console.log(data)
+//       fetch('/employees/update-employee/my_id', {
+//         method: 'POST',
+//         body: formData
+//       }).then((res)=>{
+//         if(res.status == 413){
+//           loadingScreen('none')
+//           triggerToast('File(s) too large. Maximum of 250mb', 'error')
+//         }
+//         if(res.status == 406){
+//           loadingScreen('none')
+//           //triggerToast('Invalid File(s) Submitted! Only PDF Files are allowed.', 'error')
+//           icon = "error"
+//         }
+//         if (res.status == 200){
+//           //-- ----------------------------------------------------------------------- -->
+//           //--                           SUBMIT OF CSE FORM                            -->
+//           //-- ----------------------------------------------------------------------- -->
+//           let formData2 = new FormData(document.getElementById("add_cse_form"));
+//           //formData.append('file',  input.files[0])
+
+//           const data2 = {}
+//           formData2.forEach((value, key) => (data2[key] = value))
+        
+//           console.log(data2)
+//           fetch('/cse/add-eligibility/my_id', {
+//             method: 'POST',
+//             body: formData2
+//           }).then((res)=>{
+//             if (res.status == 200){
+
+//              //-- ----------------------------------------------------------------------- -->
+//              //--                        SUBMIT OF VOCATIONAL FORM                        -->
+//              //-- ----------------------------------------------------------------------- -->
+//              let formData3 = new FormData(document.getElementById("add_vocational_form"));
+//               //formData.append('file',  input.files[0])
+
+//               const data3 = {}
+//               formData3.forEach((value, key) => (data3[key] = value))
+            
+//               // console.log(data3)
+//               fetch('/vocation/add-vocational/my_id', {
+//                 method: 'POST',
+//                 body: formData3
+//               }).then((res)=>{
+//                // <!-- ----------------------------------------------------------------------- -->
+//                 //<!--                           SUBMIT COLLEGE FORM                           -->
+//                // <!-- ----------------------------------------------------------------------- -->
+//                let formData4 = new FormData(document.getElementById("add_college_form"));
+//               //formData.append('file',  input.files[0])
+
+//               const data4 = {}
+//               formData4.forEach((value, key) => (data4[key] = value))
+                
+//               console.log(data4)
+//               fetch('/college/add-college/my_id', {
+//                 method: 'POST',
+//                 body: formData4
+//               }).then((res)=>{
+//                 //<!-- ----------------------------------------------------------------------- -->
+//                // <!--                          SUBMIT MASTERAL FORM                           -->
+//                // <!-- ----------------------------------------------------------------------- -->
+//                     let formData5 = new FormData(document.getElementById("add_masteral_form"));
+//                     //formData.append('file',  input.files[0])
+
+//                     const data5 = {}
+//                     formData5.forEach((value, key) => (data5[key] = value))
+                  
+//                     // console.log(data5)
+//                     fetch('/masteral/add-masteral/my_id', {
+//                       method: 'POST',
+//                       body: formData5
+//                     }).then((res)=>{
+
+//                         //<!-- ----------------------------------------------------------------------- -->
+//                       // <!--                          SUBMIT DOCTORAL FORM                           -->
+//                       // <!-- ----------------------------------------------------------------------- -->
+//                         let formData6 = new FormData(document.getElementById("add_doctoral_form"));
+//                         //formData.append('file',  input.files[0])
+
+//                         const data6 = {}
+//                         formData6.forEach((value, key) => (data6[key] = value))
+                      
+//                         // console.log(data5)
+//                         fetch('/doctoral/add-doctoral/my_id', {
+//                           method: 'POST',
+//                           body: formData6
+//                         }).then((res)=>{
+//                             if(res.status == 200){
+//                               window.location.reload();
+                              
+//                             }
+                          
+//                         });//END DOCTORAL FORM
+
+//                     });//END MASTERAL FORM
+
+//                 });//END COLLEGE FORM
+
+
+//               });//END VOCATIONAL
+//             }
+            
+//           })//END CSE
+//         }
+//         return res.json();
+//       }).then((data)=>{
+//         if (icon == "error"){
+//           triggerToast(data, icon)
+//           icon = "randomLetters"
+//         }
+//       });
+
+//           }); 
+
+
+//   document.addEventListener("DOMContentLoaded", function(event) {
+
+//     var dob = new Date(document.getElementById("birthdate").value);
+//     var diff_ms = Date.now() - dob.getTime();
+//     var age_dt = new Date(diff_ms); 
+    
+//     var age = Math.abs(age_dt.getUTCFullYear() - 1970);
+//       document.getElementById("age").value = age;
+
+//       sameAsPermanent()
+
+//   });
+
+//   function delete_school_record(id, route){
+// 	// alert(el.id)
+//   loadingScreen('block');
+// 	fetch(route,{
+// 		method: 'POST',
+// 		body: JSON.stringify({"id" : id})
+// 	})
+// 		.then(response => response.json())
+// 		.then(data => {
+// 			// triggerToast(data)
+// 			window.location.reload()
+// 		});
+// }
+
+// function delete_file(e){
+//   loadingScreen('block');
+//   // alert(e.id)
+//   fetch('/employees/delete-file',{
+//     method: 'POST',
+//     body: JSON.stringify({"file_id" : e.id})
+//   })
+// 	.then(response => response.json())
+// 	.then(data => {
+//     window.location.reload()
+//   })
+// }
+
+// function year_only (el) {
+//       if (el.value.length > 4) {
+//           el.value = el.value.slice(0,4); 
+//           triggerToast('Please. Input year only!', 'warning');
+//           console.log(123)
+//       }
+//   }
+
+  //<!-- ----------------------------------------------------------------------- -->
+  //<!--                       this is the js of template                        -->
+  //<!-- ----------------------------------------------------------------------- -->
+
+  var next_click=document.querySelectorAll(".next_button");
+var main_form=document.querySelectorAll(".main");
+var step_list = document.querySelectorAll(".progress-bar li");
+var num = document.querySelector(".step-number");
+let formnumber=0;
+
+next_click.forEach(function(next_click_form){
+    next_click_form.addEventListener('click',function(){
+        if(!validateform()){
+            return false
+        }
+       formnumber++;
+       updateform();
+       progress_forward();
+       contentchange();
+    });
+}); 
+
+var back_click=document.querySelectorAll(".back_button");
+back_click.forEach(function(back_click_form){
+    back_click_form.addEventListener('click',function(){
+       formnumber--;
+       updateform();
+       progress_backward();
+       contentchange();
+    });
+});
+
+var username=document.querySelector("#user_name");
+var shownname=document.querySelector(".shown_name");
+ 
+
+var submit_click=document.querySelectorAll(".submit_button");
+submit_click.forEach(function(submit_click_form){
+    submit_click_form.addEventListener('click',function(){
+       shownname.innerHTML= username.value;
+       formnumber++;
+       updateform(); 
+    });
+});
+
+var heart=document.querySelector(".fa-heart");
+heart.addEventListener('click',function(){
+   heart.classList.toggle('heart');
+});
+
+
+var share=document.querySelector(".fa-share-alt");
+share.addEventListener('click',function(){
+   share.classList.toggle('share');
+});
+
+ 
+
+function updateform(){
+    main_form.forEach(function(mainform_number){
+        mainform_number.classList.remove('active');
+    })
+    main_form[formnumber].classList.add('active');
+} 
+ 
+function progress_forward(){
+    // step_list.forEach(list => {
+        
+    //     list.classList.remove('active');
+         
+    // }); 
+    
+     
+    num.innerHTML = formnumber+1;
+    step_list[formnumber].classList.add('active');
+}  
+
+function progress_backward(){
+    var form_num = formnumber+1;
+    step_list[form_num].classList.remove('active');
+    num.innerHTML = form_num;
+} 
+ 
+var step_num_content=document.querySelectorAll(".step-number-content");
+
+ function contentchange(){
+     step_num_content.forEach(function(content){
+        content.classList.remove('active'); 
+        content.classList.add('d-none');
+     }); 
+     step_num_content[formnumber].classList.add('active');
+ } 
+ 
+ 
+function validateform(){
+    validate=true;
+    var validate_inputs=document.querySelectorAll(".main.active input");
+    validate_inputs.forEach(function(vaildate_input){
+        vaildate_input.classList.remove('warning');
+        if(vaildate_input.hasAttribute('require')){
+            if(vaildate_input.value.length==0){
+                validate=false;
+                vaildate_input.classList.add('warning');
+            }
+        }
+    });
+    return validate;
+    
+}
+
+</script>
 {%endblock%}
