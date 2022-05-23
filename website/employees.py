@@ -81,13 +81,19 @@ def update_employee(emp_id):
 
 	for afilex in request.files:
 		filesx = request.files.getlist(afilex)
+		print(afilex)
 		for filex in filesx:
-			if filex.filename == "":
-				print('No file selected')
-			else:
-				if not allowed_file(filex.filename):
+			if afilex == "wes":
+				if not allowed_file(filex.filename, {'pdf','doc','docx'}):
 					print('Invalid file submitted')
-					return jsonify('Invalid File Submitted! Only PDF Files are allowed.'), 406
+					return jsonify('Invalid File Submitted! Only PDF (.pdf) and Word (.doc, .docx) file types are allowed in WES.'), 406
+			else:
+				if filex.filename == "":
+					print('No file selected')
+				else:
+					if not allowed_file(filex.filename):
+						print('Invalid file submitted')
+						return jsonify('Invalid File Submitted! Only PDF (.pdf) Files are allowed.'), 406
 
 
 	for afile in request.files:
@@ -102,11 +108,6 @@ def update_employee(emp_id):
 				print('No file selected')
 				#return redirect(request.url)
 			else:
-				# if not allowed_file(file.filename):
-				# 	print('Invalid file submitted')
-				# 	return jsonify('Invalid File Submitted! Only PDF Files are allowed'), 406
-				# 	#return redirect(request.url)
-				# else:
 
 				today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
 				file_extension = file.filename.rsplit('.', 1)[1].lower()
@@ -282,7 +283,7 @@ def update_employee(emp_id):
 	# 	db.session.commit()
 
 
-	return jsonify('HELLO WORLD'), 200
+	return jsonify('Successfully Saved to Database!'), 200
 
 
 

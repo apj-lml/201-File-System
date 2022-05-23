@@ -376,7 +376,7 @@ async function fillForm() {
     gsis.setText('{{user_profile.gsis}}');
     pagibig.setText('{{user_profile.pagibig}}');
     philhealth.setText('{{user_profile.philhealth}}');
-    sss.setText('{{user_profile.sss}}');
+    sss.setText('{{user_profile.sss if user_profile.sss is not none and user_profile.sss != "" else "N/A"}}');
     tin.setText('{{user_profile.tin}}');
     agency_employee_no.setText('{{user_profile.employee_id}}');
     citizenship.check();
@@ -588,11 +588,11 @@ async function fillForm() {
     date_of_validity7.setText("{{user_profile.career_service[6].date_of_validity|format_mydatetime if user_profile.career_service|length > 6 else ''}}");
 
         // WES 0
-        wes_from[0].setText(`{{user_profile.work_experience[0].date_from|format_mydatetime if user_profile.work_experience|length > 0 else ''}}`);
-        wes_to[0].setText(`{{user_profile.work_experience[0].date_to|format_mydatetime if user_profile.work_experience|length > 0 else ''}}`);
-        wes_position[0].setText(`{{user_profile.work_experience[0].position_title|escapejs if user_profile.work_experience|length > 0 else ''}}`);
-        wes_agency[0].setText(`{{user_profile.work_experience[0].department_agency_office_company|escapejs if user_profile.work_experience|length > 0 else ''}}`);
-        wes_salary[0].setText(`{{user_profile.work_experience[0].monthly_salary if user_profile.work_experience|length > 0 else ''}}`);
+        wes_from[0].setText(`{{user_profile.work_experience[0].date_from|format_mydatetime if user_profile.work_experience|length > 0 else 'N/A'}}`);
+        wes_to[0].setText(`{{user_profile.work_experience[0].date_to|format_mydatetime if user_profile.work_experience|length > 0 else 'N/A'}}`);
+        wes_position[0].setText(`{{user_profile.work_experience[0].position_title|escapejs if user_profile.work_experience|length > 0 else 'N/A'}}`);
+        wes_agency[0].setText(`{{user_profile.work_experience[0].department_agency_office_company|escapejs if user_profile.work_experience|length > 0 else 'N/A'}}`);
+        wes_salary[0].setText(`{{user_profile.work_experience[0].monthly_salary if user_profile.work_experience|length > 0 else 'N/A'}}`);
 
         {% if user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step != "N/A" %}
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int}} - {{ user_profile.work_experience[0].step }}`);

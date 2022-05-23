@@ -33,6 +33,11 @@
         -moz-transition: all 0.3s ease-out;
         -o-transition: all 0.3s ease-out;
     }
+    .is-required {
+      color: red;
+      font-size: 15px;
+      margin-left: 5px;
+    }
   </style>
 {% endblock %}
 
@@ -155,25 +160,25 @@
                 <div class="d-md-flex flex-row"> 
                   <div class="form-floating flex-fill mb-3 p-1">
                     <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                    <label for="last_name">Employee ID Number</label>
+                    <label for="last_name">Employee ID Number<span class="is-required">*</span></label>
                   </div><div class="form-floating flex-fill mb-3 p-1">
                     <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                    <label for="last_name">Status</label>
+                    <label for="last_name">Status<span class="is-required">*</span></label>
                   </div>
                 </div>
 
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <label for="last_name">Last Name</label>
+                      <label for="last_name">Last Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <label for="first_name">First Name</label>
+                      <label for="first_name">First Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <label for="middle_name">Middle Name</label>
+                      <label for="middle_name">Middle Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
@@ -191,13 +196,13 @@
                         <option value="COTERMINOUS">COTERMINOUS - CARP-IC</option>
                         <!-- <option value="SEPARATED">SEPARATED</option> -->
                       </select>
-                      <label for="middle_name">Employment Status</label>
+                      <label for="middle_name">Employment Status<span class="is-required">*</span></label>
 
                     </div>
                     
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
-                      <label for="last_name">Position Title</label>
+                      <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="job_grade" name="" aria-label="Floating label select example" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
@@ -223,7 +228,7 @@
                         <option value="20">20</option>
 
                       </select>
-                      <label for="job_grade" style="font-size: 14px;">Job Grade</label>
+                      <label for="job_grade" style="font-size: 14px;">Job Grade<span class="is-required">*</span></label>
                       <input type="hidden" id="" name="job_grade" value="" form="update_form" >
 
                     </div>
@@ -257,7 +262,7 @@
                         <option value="24">24</option>
                         <option value="25">25</option>
                       </select>
-                      <label for="salary_grade" style="font-size: 14px;">Salary Grade</label>
+                      <label for="salary_grade" style="font-size: 14px;">Salary Grade<span class="is-required">*</span></label>
                       <input type="hidden" id="" name="salary_grade" form="update_form" >
 
                     </div>
@@ -273,7 +278,7 @@
                         <option value="7">7</option>
                         <option value="8">8</option>
                       </select>
-                      <label for="step">Step</label>
+                      <label for="step">Step<span class="is-required">*</span></label>
                       <input type="hidden" id="" name="step" value="" form="update_form">
 
                     </div>
@@ -300,7 +305,7 @@
                           <option value="Detailed">Detailed</option>
                           <option value=""></option>
                         </select>
-                      <label for="section">Section</label>
+                      <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-sm-3 mb-3 p-1">
                       <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" form="update_form">
@@ -311,7 +316,7 @@
                         <option value="Property Unit">Property Unit</option>
                         <option value=""></option>
                       </select>
-                      <label for="name_extn">Unit</label>
+                      <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
@@ -355,65 +360,79 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
-                      <label for="item_no" style="font-size: 13px;" >No. of Years in Service in NIA</label>
+                      <label for="item_no" style="font-size: 13px;" >No. of Years in Service in NIA<span class="is-required">*</span></label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="daily_rate" name ="" placeholder="Daily Rate (Php)" value="{{user_profile.daily_rate if user_profile.daily_rate is not none else ''}}" oninput="" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <input type="hidden" class="form-control" id="" name ="daily_rate" placeholder="Daily Rate (Php)" form="update_form">
-                      <label for="daily_rate">Daily Rate (Php)</label>
+                      <label for="daily_rate">Daily Rate (Php)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="monthly_rate" name ="" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate if user_profile.monthly_rate is not none else ''}}" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <input type="hidden" class="form-control" id="" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="update_form">
-                      <label for="monthly_rate">Monthly Rate (Php)</label>
+                      <label for="monthly_rate">Monthly Rate (Php)<span class="is-required">*</span></label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
-                      <label for="birthdate">Birthdate</label>
+                      <label for="birthdate">Birthdate<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="age" name ="age" placeholder="Age" value="{{user_profile.age}}" form="update_form" readonly>
-                      <label for="name_extn">Age</label>
+                      <label for="name_extn">Age<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}> 
-                      <label for="name_extn">Place of Birth</label>
+                      <input type="text" class="form-control" id="place_of_birth" name ="place_of_birth" placeholder="Place of Birth" value="{{user_profile.place_of_birth}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}} required> 
+                      <label for="name_extn">Place of Birth<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
+                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}} required>
                         <option class="" value="{{user_profile.sex}}" selected disabled hidden>{{user_profile.sex}}</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                       </select>
-                      <label for="sex">Sex</label>
+                      <label for="sex">Sex<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}" form="update_form" disabled> 
+                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}" form="update_form" disabled required> 
                         <option class="" value="{{user_profile.civil_status}}" selected disabled hidden>{{user_profile.civil_status}}</option>
                         <option value="Single">Single</option>
                         <option value="Widowed">Widowed</option>
                         <option value="Married">Married</option>
                         <option value="Separated">Separated</option>
                       </select>
-                      <label for="civil_status">Civil Status</label>
+                      <label for="civil_status">Civil Status<span class="is-required">*</span></label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}" form="update_form">
-                      <label for="name_extn">Height(m)</label>
+                      <input type="number" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}" min="1" form="update_form" step="any" required>
+                      <label for="name_extn">Height(m)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}" form="update_form">
-                      <label for="name_extn">Weight(kg)</label>
+                      <input type="number" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}" min="1" form="update_form" step="any" required>
+                      <label for="name_extn">Weight(kg)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="blood_type" name ="blood_type" placeholder="Blood Type" value="{{user_profile.blood_type}}" form="update_form">
-                      <label for="name_extn">Blood Type</label>
+                      <select class="form-select" id="blood_type" name="blood_type" aria-label="Blood Type" value="{{user_profile.blood_type}}" form="update_form" disabled required> 
+                        <option class="" value="{{user_profile.blood_type}}" selected disabled hidden>{{user_profile.blood_type}}</option>
+                        <option value="A">A</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B">B</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O">O</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB">AB</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                      </select>
+                      <label for="name_extn">Blood Type<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="religion" name ="religion" placeholder="Religion" value="{{user_profile.religion}}" form="update_form">
@@ -432,55 +451,58 @@
                     </div>       -->
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="mobile_no" name ="mobile_no" placeholder="Mobile No." value="{{user_profile.mobile_no}}" form="update_form">
-                      <label for="mobile_no">Mobile No.</label>
+                    <div class="form-floating col-sm-3 mb-3 p-1">
+                      <input type="text" class="form-control" id="mobile_no" name ="mobile_no" pattern="[0-9]+" title="Please enter 11 digit long number only." maxlength="11" minlength="11" placeholder="Mobile No." value="{{user_profile.mobile_no}}" form="update_form" required>
+                      <label for="mobile_no">Mobile No.<span class="is-required">*</span></label>
+                      <small class="text-muted" style="font-size: 12px;">*Eg. 09122354653</small>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating col-sm-3 mb-3 p-1">
                       <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}" form="update_form">
                       <label for="telephone_no">Telephone No.</label>
                     </div>
-                    <div class="d-flex flex-column">
-                      <div class="form-floating mb-3 p-1">
+                    <!-- <div class="d-flex flex-fill flex-column"> -->
+                      <div class="form-floating flex-fill mb-3 p-1">
                         <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="{{user_profile.email.lower()}}" form="update_form" required>
-                        <label for="email">Email Address</label>
+                        <label for="email">Email Address<span class="is-required">*</span></label>
                       </div>
-                    </div>    
+                    <!-- </div>     -->
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}" form="update_form"readOnly>
-                      <label for="name_extn">GSIS No.</label>
+                      <label for="name_extn">GSIS No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" readonly>
-                      <label for="name_extn">Pag-IBIG No.</label>
+                      <label for="name_extn">Pag-IBIG No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" readonly>
-                      <label for="name_extn">Philhealth No.</label>
+                      <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form">
+                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" pattern="[0-9]+" minlength="10" maxlength="10">
                       <label for="name_extn">SSS No.</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" readonly>
-                      <label for="name_extn">TIN</label>
+                      <label for="name_extn">TIN<span class="is-required">*</span></label>
                     </div>
                     <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
                       <input type="hidden" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
                       <!-- <label for="name_extn">ATM Card No. (Optional)</label>
                     </div> -->
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" >
+                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" minlength="18" maxlength="18">
                       <label for="name_extn">GSIS UMID No.</label>
+                      <small class="text-muted" style="font-size: 12px;">*Eg. CRN-0111-9316875-2</small>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" form="update_form">
+                      <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" minlength="19" maxlength="19" form="update_form">
                       <label for="name_extn">PhilSys</label>
+                      <small class="text-muted" style="font-size: 12px;">*Eg. PSN-1234-567-8912-3</small>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -489,8 +511,9 @@
                       <label for="solo_parent">Solo Parent ID No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" form="update_form">
+                      <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" minlength="24" maxlength="24" form="update_form">
                       <label for="voters_id_no">Voter's ID No.</label>
+                      <small class="text-muted" style="font-size: 12px;">*Eg. 3022-0201B-C0272ESA20000</small>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="pwd" name ="pwd" placeholder="ATM Card No." value="{{user_profile.pwd if user_profile.pwd is not none else ''}}" form="update_form">
@@ -499,8 +522,10 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}" form="update_form" >
+                      <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}" minlength="13" maxlength="13" form="update_form" >
                       <label for="driver_license" >Driver's License No.</label>
+                      <small class="text-muted" style="font-size: 12px;">*Eg. A14-22-000321</small>
+
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="driver_license_validity" name ="driver_license_validity" placeholder="Driver's License Date of Validity" value="{{user_profile.driver_license_validity}}" form="update_form" >
@@ -517,8 +542,9 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-sm-4 mb-3 p-1">
-                      <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Driver's License No." value="{{user_profile.passport_no if user_profile.passport_no is not none else '' }}" form="update_form" >
+                      <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="{{user_profile.passport_no if user_profile.passport_no is not none else '' }}" minlength="9" maxlength="9" form="update_form" >
                       <label for="passport_no">Passport No.</label>
+                      <small class="text-muted" style="font-size: 12px;">*Eg. EB6684441</small>
                     </div>
                     <div class="form-floating col-sm-4 mb-3 p-1">
                       <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" form="update_form" >
@@ -532,7 +558,7 @@
                           <option value="Filipino" selected>Filipino</option>
                           <option value="Dual Citizen">Dual Citizen</option>
                         </select>
-                        <label for="floatingSelect">Citizenship</label>
+                        <label for="floatingSelect">Citizenship<span class="is-required">*</span></label>
                       </div>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -564,22 +590,22 @@
                         <label for="p_subdivision_village">Subdivision/Village</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" value="{{user_profile.p_barangay}}" form="update_form">
-                        <label for="p_barangay">Barangay</label>
+                        <input type="text" class="form-control" id="p_barangay" name ="p_barangay" placeholder="Barangay" onchange="sameAsPermanent()" value="{{user_profile.p_barangay}}" form="update_form" required>
+                        <label for="p_barangay">Barangay<span class="is-required">*</span></label>
                       </div>
                     </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" value="{{user_profile.p_city_municipality}}" form="update_form">
-                      <label for="p_city_municipality">City/Municipality</label>
+                      <input type="text" class="form-control" id="p_city_municipality" name ="p_city_municipality" placeholder="City/Municipality" onchange="sameAsPermanent()" value="{{user_profile.p_city_municipality}}" form="update_form" required>
+                      <label for="p_city_municipality">City/Municipality<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" value="{{user_profile.p_province}}" form="update_form">
-                      <label for="p_province">Province</label>
+                      <input type="text" class="form-control" id="p_province" name ="p_province" placeholder="Province" onchange="sameAsPermanent()" value="{{user_profile.p_province}}" form="update_form" required>
+                      <label for="p_province">Province<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" value="{{user_profile.p_zip_code}}" form="update_form">
-                      <label for="p_zip_code">Zip Code</label>
+                      <input type="text" class="form-control" id="p_zip_code" name ="p_zip_code" placeholder="Zip Code" onchange="sameAsPermanent()" value="{{user_profile.p_zip_code}}" form="update_form" required>
+                      <label for="p_zip_code">Zip Code<span class="is-required">*</span></label>
                     </div>
                   </div>
                 </div>
@@ -1425,19 +1451,19 @@
             <div class="card mb-3" id="footer">
               <div class="card-body">
               <h3 class="card-title">Upload Supporting Documents</h3>
-
+                <p class="text-muted">An asterisk (*) in uploading of Supporting Documents indicates that the field accepts multiple files to upload.</p>
               <div class="card shadow-sm mb-3">
                 <div class="card-body">
                   <div class="d-md-flex flex-row">
                     <div class="flex-fill mb-3 p-1">
                       <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
                       <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
-                      {{count_files("certificate_of_live_birth", user_profile.id)}}
+                      <p class="text-muted">{{count_files("certificate_of_live_birth", user_profile.id)}}</p>
                     </div>
                     <div class="flex-fill mb-3 p-1">
                       <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
                       <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
-                      {{count_files("marriage_certificate", user_profile.id)}}
+                      <p class="text-muted"></p>{{count_files("marriage_certificate", user_profile.id)}}</p>
                     </div>
                   </div>
                   </div>
@@ -1447,20 +1473,20 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
-                        <label for="transcript_of_records" class="form-label">Upload Transcript of Records*</label>
+                        <label for="transcript_of_records" class="form-label">*Upload Transcript of Records</label>
                         <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form" multiple>
-                      {{count_files("transcript_of_records", user_profile.id)}}
+                        <p class="text-muted">{{count_files("transcript_of_records", user_profile.id)}}</p>
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="diploma" class="form-label">Upload Diploma*</label>
+                        <label for="diploma" class="form-label">*Upload Diploma</label>
                         <input class="form-control" type="file" id="diploma" name="diploma" form="update_form" multiple>
-                      {{count_files("diploma", user_profile.id)}}
+                        <p class="text-muted">{{count_files("diploma", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="tesda_nc" class="form-label">Upload TESDA National Certificate (NC)*</label>
+                        <label for="tesda_nc" class="form-label">*Upload TESDA National Certificate (NC)</label>
                         <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form" multiple>
-                      {{count_files("tesda_nc", user_profile.id)}}
+                        <p class="text-muted">{{count_files("tesda_nc", user_profile.id)}}</p>
                       </div>
                     </div>
                   </div>
@@ -1470,21 +1496,21 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
-                        <label for="career_service_eligibility" class="form-label">Upload Career Service Eligibility*</label>
+                        <label for="career_service_eligibility" class="form-label">*Upload Career Service Eligibility</label>
                         <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form" multiple>
-                      {{count_files("career_service_eligibility", user_profile.id)}}
+                        <p class="text-muted">{{count_files("career_service_eligibility", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="prc_license" class="form-label">Upload PRC License</label>
                         <input class="form-control" type="file" id="prc_license" name="prc_license" form="update_form">
-                      {{count_files("prc_license", user_profile.id)}}
+                        <p class="text-muted">{{count_files("prc_license", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="driver_license" class="form-label">Upload Driver's License</label>
                         <input class="form-control" type="file" id="driver_license" name="driver_license" form="update_form">
-                      {{count_files("driver_license", user_profile.id)}}
+                        <p class="text-muted">{{count_files("driver_license", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1492,7 +1518,7 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="security_guard_license" class="form-label">Upload Security Guard License</label>
                         <input class="form-control" type="file" id="security_guard_license" name="security_guard_license" form="update_form">
-                      {{count_files("security_guard_license", user_profile.id)}}
+                        <p class="text-muted">{{count_files("security_guard_license", user_profile.id)}}</p>
                       </div>
                     </div>
                   </div>
@@ -1504,19 +1530,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="office_id" class="form-label">Upload Office ID</label>
                         <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
-                      {{count_files("office_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("office_id", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="gsis_id" class="form-label">Upload GSIS UMID ID</label>
                         <input class="form-control" type="file" id="gsis_id" name="gsis_id" form="update_form">
-                      {{count_files("gsis_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("gsis_id", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="philhealth_id" class="form-label">Upload PhilHealth ID</label>
                         <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
-                      {{count_files("philhealth_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("philhealth_id", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1524,19 +1550,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="loyalty_card_plus" class="form-label">Upload Loyalty Card Plus ID</label>
                         <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
-                      {{count_files("loyalty_card_plus", user_profile.id)}}
+                        <p class="text-muted">{{count_files("loyalty_card_plus", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="sss_umid_id" class="form-label">Upload SSS UMID ID</label>
                         <input class="form-control" type="file" id="sss_umid_id" name="sss_umid_id" form="update_form">
-                      {{count_files("sss_umid_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("sss_umid_id", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="tin_id" class="form-label">Upload TIN ID</label>
                         <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
-                      {{count_files("tin_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("tin_id", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1544,19 +1570,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="national_id" class="form-label">Upload National ID</label>
                         <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
-                      {{count_files("national_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("national_id", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="solo_parent_id" class="form-label">Upload Solo Parent ID</label>
                         <input class="form-control" type="file" id="solo_parent_id" name="solo_parent_id" form="update_form">
-                      {{count_files("solo_parent_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("solo_parent_id", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="pwd_id" class="form-label">Upload PWD ID</label>
                         <input class="form-control" type="file" id="pwd_id" name="pwd_id" form="update_form">
-                      {{count_files("pwd_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("pwd_id", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1569,13 +1595,13 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload Passport ID</label>
                         <input class="form-control" type="file" id="passport_id" name="passport_id" form="update_form">
-                      {{count_files("passport_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("passport_id", user_profile.id)}}</p>
 
                       </div>
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload Voter's ID</label>
                         <input class="form-control" type="file" id="voters_id" name="voters_id" form="update_form">
-                      {{count_files("voters_id", user_profile.id)}}
+                        <p class="text-muted">{{count_files("voters_id", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1589,40 +1615,40 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
                         <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
-                      {{count_files("latest_appointment", user_profile.id)}}
+                        <p class="text-muted">{{count_files("latest_appointment", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="position_description_form" class="form-label">Upload Position Description Form*</label>
+                        <label for="position_description_form" class="form-label">*Upload Position Description Form</label>
                         <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form" multiple>
-                      {{count_files("position_description_form", user_profile.id)}}
+                        <p class="text-muted">{{count_files("position_description_form", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="oath_of_office" class="form-label">Upload Oath of Office*</label>
+                        <label for="oath_of_office" class="form-label">*Upload Oath of Office</label>
                         <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form" multiple>
-                      {{count_files("oath_of_office", user_profile.id)}}
+                        <p class="text-muted">{{count_files("oath_of_office", user_profile.id)}}</p>
 
                       </div>
                     </div>
                    
                     <div class="d-md-flex flex-row">
                       <div class="col-sm-4 mb-3 p-1">
-                        <label for="assumption_to_duty" class="form-label">Upload Assumption to Duty*</label>
+                        <label for="assumption_to_duty" class="form-label">*Upload Assumption to Duty</label>
                         <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form" multiple>
-                      {{count_files("assumption_to_duty", user_profile.id)}}
+                        <p class="text-muted">{{count_files("assumption_to_duty", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Notice of Step Increment*</label>
+                        <label for="ld_cert" class="form-label">*Upload Notice of Step Increment</label>
                         <input class="form-control" type="file" id="nosi" name="nosi" form="update_form" multiple>
-                      {{count_files("nosi", user_profile.id)}}
+                        <p class="text-muted">{{count_files("nosi", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Notice of Salary/Wage Adjustment*</label>
+                        <label for="ld_cert" class="form-label">*Upload Notice of Salary/Wage Adjustment</label>
                         <input class="form-control" type="file" id="nosa" name="nosa" form="update_form" multiple>
-                      {{count_files("nosa", user_profile.id)}}
+                        <p class="text-muted">{{count_files("nosa", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1630,9 +1656,9 @@
                     <div class="d-md-flex flex-row col-sm-4">
             
                       <div class="flex-fill mb-3 p-1 ">
-                        <label for="ld_cert" class="form-label">Upload Memorandum/Designation*</label>
+                        <label for="ld_cert" class="form-label">*Upload Memorandum/Designation</label>
                         <input class="form-control" type="file" id="memorandum_designation" name="memorandum_designation" form="update_form" multiple>
-                      {{count_files("memorandum_designation", user_profile.id)}}
+                        <p class="text-muted">{{count_files("memorandum_designation", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1644,15 +1670,15 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
-                        <label for="service_employment_record" class="form-label">Upload Service / Employment Record*</label>
+                        <label for="service_employment_record" class="form-label">*Upload Service / Employment Record</label>
                         <input class="form-control" type="file" id="service_employment_record" name="service_employment_record" form="update_form" multiple>
-                      {{count_files("service_employment_record", user_profile.id)}}
+                        <p class="text-muted">{{count_files("service_employment_record", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="certificate_of_employment" class="form-label">Upload Certificate of Employment*</label>
+                        <label for="certificate_of_employment" class="form-label">*Upload Certificate of Employment</label>
                         <input class="form-control" type="file" id="certificate_of_employment" name="certificate_of_employment" form="update_form" multiple>
-                      {{count_files("certificate_of_employment", user_profile.id)}}
+                        <p class="text-muted">{{count_files("certificate_of_employment", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1665,15 +1691,15 @@
                     <div class="d-md-flex flex-row">
                     
                       <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload IPCR*</label>
+                        <label for="ld_cert" class="form-label">*Upload IPCR</label>
                         <input class="form-control" type="file" id="ipcr" name="ipcr" form="update_form" multiple>
-                      {{count_files("ipcr", user_profile.id)}}
+                        <p class="text-muted">{{count_files("ipcr", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload SALN*</label>
+                        <label for="ld_cert" class="form-label">*Upload SALN</label>
                         <input class="form-control" type="file" id="saln" name="saln" form="update_form" multiple>
-                      {{count_files("saln", user_profile.id)}}
+                        <p class="text-muted">{{count_files("saln", user_profile.id)}}</p>
 
                       </div>
 
@@ -1687,13 +1713,13 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
                         <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
-                      {{count_files("nbi_clearance", user_profile.id)}}
+                        <p class="text-muted">{{count_files("nbi_clearance", user_profile.id)}}</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
-                        <label for="ld_cert" class="form-label">Upload Medical Records*</label>
+                        <label for="ld_cert" class="form-label">*Upload Medical Records</label>
                         <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form" multiple>
-                      {{count_files("medical_records", user_profile.id)}}
+                        <p class="text-muted">{{count_files("medical_records", user_profile.id)}}</p>
 
                       </div>
                     </div>
@@ -1705,14 +1731,28 @@
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
-                        <label for="latest_appointment" class="form-label">Upload Others*</label>
+                        <label for="latest_appointment" class="form-label">*Upload Others</label>
                         <input class="form-control" type="file" id="others" name="others" form="update_form" multiple>
-                      {{count_files("others", user_profile.id)}}
+                        <p class="text-muted">{{count_files("others", user_profile.id)}}</p>
 
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="latest_appointment" class="form-label">Upload Work Experience Sheet</label>
+                        <input class="form-control" type="file" id="wes" name="wes" form="update_form">
+                        <p class="text-muted">{{count_files("wes", user_profile.id)}}</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
 
                 <h3 class="card-title">Uploaded Files</h3>
                 <div class="card shadow-sm mb-3">
@@ -1729,7 +1769,6 @@
                           </thead>
                           <tbody>
                         {% for file in user_profile.uploaded_files %}
-                          <!-- <div class="flex-fill mb-3 p-1"> -->
                             {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
                             <tr>
                               <td>{{file.id}}</td>
@@ -1739,12 +1778,10 @@
                                 <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
                                   <i class="bi bi-trash"></i>
                                 </a>
-                                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id = "{{file.id}}" onclick="delete_file(this)"></button> -->
                               </td>
                             </tr>
           
                             {% endif %}
-                          <!-- </div> -->
                         {% endfor %}
                       </tbody>
                       </table>
@@ -1784,7 +1821,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col-12 text-center"> -->
     </div>
   </div>
 </footer>
@@ -1802,7 +1838,6 @@
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && e.key === 's' && e.ctrlKey || e.ctrlKey && e.key === 'S') {
     e.preventDefault();
-    // document.getElementById("update_form").submit();
     alert("awan pay")
       }
     });
@@ -1817,26 +1852,11 @@ window.addEventListener("load", function() {
     graduated(document.getElementById(`v_highest_level[${xyz}]`), document.getElementById(`v_highest_grade_year_units[${xyz}]`), document.getElementById(`v_scholarship_academic_honor[${xyz}]`), document.getElementById(`v_period_of_attendance_from[${xyz}]`), document.getElementById(`v_period_of_attendance_to[${xyz}]`))
   }
 
-  // for(var x = 0; x < vocation_count; x++){
-  //   alert(vocation_count);
-  // }
-
-  // graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
 
   $('#uploaded_file_table').DataTable({
       responsive: true,
-      // language: {
-      //       searchBuilder: {
-      //           title: ``,
-			// 	add: `Add Filter`
-      //       }
-      //   },
-    
         dom: 'ftrip',
         "order": [[ 0, "desc" ]]
-        // dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
-				// <'row'<'col-sm-12'tr>>
-				// <'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
     });
 
 
@@ -1918,7 +1938,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
     //        SUBMIT OF UPDATE FORM       //
     //------------------------------------//
   var formElem = document.getElementById("update_form");
-
+      var icon = "";
     document.getElementById("update_form").addEventListener("submit",(e)=>{
       //alert("update form")
       e.preventDefault();
@@ -1939,7 +1959,8 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         }
         if(res.status == 406){
           loadingScreen('none')
-          triggerToast('Invalid File(s) Submitted! Only PDF Files are allowed.', 'error')
+          //triggerToast('Invalid File(s) Submitted! Only PDF Files are allowed.', 'error')
+          icon = "error"
         }
         if (res.status == 200){
           //-- ----------------------------------------------------------------------- -->
@@ -2034,7 +2055,8 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         }
         return res.json();
       }).then((data)=>{
-        // triggerToast(data)
+        if (icon == "error")
+          triggerToast(data, icon)
       });
 
           }); 

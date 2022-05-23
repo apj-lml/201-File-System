@@ -3,11 +3,11 @@ import uuid
 
 
 
-ALLOWED_EXTENSIONS = {'pdf'}
+#ALLOWED_EXTENSIONS = {'pdf'}
 
-def allowed_file(filename):
+def allowed_file(filename, allowed_ext={'pdf'}):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].lower() in allowed_ext
 
 def my_random_string(string_length=4):
     """Returns a random string of length string_length."""
