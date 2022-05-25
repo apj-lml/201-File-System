@@ -83,19 +83,19 @@
 									<label for="fb_middle_name[1]">Middle Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_name_ext}}" required>
+									<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_name_ext}}">
 									<label for="fb_name_ext[1]">Name Extension</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_update_form" value="{{spouse[0].fb_occupation}}" required>
+								<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_update_form" value="{{spouse[0].fb_occupation}}">
 								<label for="fb_occupation[1]">Occupation</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_update_form" value="{{spouse[0].fb_employer_business_name}}" required>
+									<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_update_form" value="{{spouse[0].fb_employer_business_name}}" >
 									<label for="fb_employer_business_name[1]">Employer / Business Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
@@ -106,7 +106,7 @@
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
 									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_update_form" value="{{spouse[0].fb_contact_no}}">
-									<label for="fb_contact_no[1]">Employer / Business Contact No.</label>
+									<label for="fb_contact_no[1]">Spouse's Mobile/Telephone No.</label>
 								</div>
 							</div>
 
@@ -136,13 +136,13 @@
 								</div>
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_form" value="" required>
+									<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_form" value="">
 									<label for="fb_occupation[1]">Occupation</label>
 									</div>
 								</div>
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-										<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_form" value="" required>
+										<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_form" value="">
 										<label for="fb_employer_business_name[1]">Employer / Business Name</label>
 									</div>
 									<div class="form-floating flex-fill mb-3 p-1 col-md-6">
@@ -247,7 +247,7 @@
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
 									<input type="text" class="form-control" name ="fb_last_name[3]" placeholder="Last Name" form="family_bg_form" value="" required>
-									<label for="fb_last_name">Mother's Last Name</label>
+									<label for="fb_last_name">Mother's Maiden Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
 									<input type="text" class="form-control" name ="fb_first_name[3]" placeholder="First Name" form="family_bg_form" value="" required>
@@ -332,7 +332,7 @@
 
 						  {%else%}
 									
-						  <div class="card shadow-sm mb-3">
+						  <!-- <div class="card shadow-sm mb-3">
 							  <div class="card-body">
 								  <input type="hidden" class="form-control" name ="fb_relationship[4]" placeholder="" form="family_bg_form" value="CHILD" required>
 									  <div class="d-md-flex flex-row">
@@ -360,7 +360,7 @@
 										  </div>
 									  </div>
 								  </div>
-							  </div>
+							  </div> -->
 
 								{% endif %}
 								<input type="hidden" value="{{child_count.value}}" id="child_count" name="child_count" form="family_bg_form">
