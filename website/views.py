@@ -33,31 +33,47 @@ def admin_dashboard():
 @login_required
 # @admin_permission.require(http_exception=403)
 def learning_development(emp_id):
-	user = db.session.query(User).get(emp_id)
-	return render_template('learning_development.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(emp_id)
+			return render_template('learning_development.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/family-background/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def family_background(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
-	spouse_count = spouse.count()
-	return render_template('family_bg.html', emp_id = emp_id, user_profile = user, spouse = spouse, spouse_count = spouse_count)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
+			spouse_count = spouse.count()
+			return render_template('family_bg.html', emp_id = emp_id, user_profile = user, spouse = spouse, spouse_count = spouse_count)
 
 @views.route('/covid-vaccine/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def covid_vaccine(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('vaccination.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('vaccination.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/change-password/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def change_password(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('change_password.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+	else:
+		user = db.session.query(User).get(int(emp_id))
+		return render_template('change_password.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/tshirt-sizes/<emp_id>', methods=['GET', 'POST'])
 @login_required
@@ -70,93 +86,127 @@ def shirt_size(emp_id):
 @login_required
 # @admin_permission.require(http_exception=403)
 def work_experience(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('work_experience.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('work_experience.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/voluntary-work/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def voluntary_work(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('voluntary_work.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('voluntary_work.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/other-information/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def other_information(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('other_information.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('other_information.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/questions/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def questions(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('questions.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('questions.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/other-questions/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def other_questions(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('other-questions.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('other-questions.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/character-reference/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def character_reference(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	return render_template('character_reference.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('character_reference.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/print-preview/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def print_preview(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
-	father = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "FATHER")
-	mother = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "MOTHER")
-	child = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "CHILD").order_by(desc(Family_Background.fb_date_of_birth))
-	vocation = db.session.query(Vocational_Course).filter_by(user_id = emp_id)
-	college = db.session.query(College).filter_by(user_id = emp_id)
-	masteral = db.session.query(Masteral).filter_by(user_id = emp_id)
-	other = db.session.query(Other_Information).filter_by(user_id = emp_id, type="HOBBIES")
-	recognition = db.session.query(Other_Information).filter_by(user_id = emp_id, type="RECOGNITION")
-	membership = db.session.query(Other_Information).filter_by(user_id = emp_id, type="MEMBERSHIP")
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
+			father = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "FATHER")
+			mother = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "MOTHER")
+			child = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "CHILD").order_by(desc(Family_Background.fb_date_of_birth))
+			vocation = db.session.query(Vocational_Course).filter_by(user_id = emp_id)
+			college = db.session.query(College).filter_by(user_id = emp_id)
+			masteral = db.session.query(Masteral).filter_by(user_id = emp_id)
+			other = db.session.query(Other_Information).filter_by(user_id = emp_id, type="HOBBIES")
+			recognition = db.session.query(Other_Information).filter_by(user_id = emp_id, type="RECOGNITION")
+			membership = db.session.query(Other_Information).filter_by(user_id = emp_id, type="MEMBERSHIP")
 
-	spouse_count = spouse.count()
+			spouse_count = spouse.count()
 
-	return render_template('print_preview.html',
-	 	emp_id = emp_id,
-	 	user_profile = user,
-		spouse = spouse, 
-		child = child, 
-		father = father, 
-		mother = mother,
-		vocation = vocation,
-		college = college,
-		masteral = masteral,
-		spouse_count = spouse_count,
-		other = other,
-		recognition = recognition,
-		membership = membership,
-		)
+			return render_template('print_preview.html',
+				emp_id = emp_id,
+				user_profile = user,
+				spouse = spouse, 
+				child = child, 
+				father = father, 
+				mother = mother,
+				vocation = vocation,
+				college = college,
+				masteral = masteral,
+				spouse_count = spouse_count,
+				other = other,
+				recognition = recognition,
+				membership = membership,
+				)
 
 @views.route('/emergency-contact/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def emergency_contact(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	
-	return render_template('emergency_contact.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('emergency_contact.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/appointment/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def appointment(emp_id):
-	user = db.session.query(User).get(int(emp_id))
-	
-	return render_template('appointment.html', emp_id = emp_id, user_profile = user)
+	if request.method == 'GET':
+		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('appointment.html', emp_id = emp_id, user_profile = user)
 
 
 @views.context_processor

@@ -408,7 +408,6 @@ async function fillForm() {
     spouse_middle_name.setText('{{"N/A" if spouse_count <= 0 or spouse[0].fb_middle_name is none or spouse[0].fb_middle_name == "" else spouse[0].fb_middle_name }}');
     spouse_name_ext.setText('{{"N/A" if spouse_count <= 0 or spouse[0].fb_name_ext is none or spouse[0].fb_name_ext == "" else spouse[0].fb_name_ext }}');
     spouse_occupation.setText('{{"N/A" if spouse_count <= 0 or spouse[0].fb_occupation is none or spouse[0].fb_occupation == "" else spouse[0].fb_occupation }}');
-    // spouse_occupation.setText('{#{spouse[0].fb_occupation if spouse_count > 0 or spouse[0].fb_occupation != "" else "N/A"}#}');
     spouse_employer_business_name.setText('{{spouse[0].fb_employer_business_name if spouse_count > 0 and spouse[0].fb_employer_business_name != "" else "N/A"}}');
     spouse_business_address.setText('{{spouse[0].fb_business_address if spouse_count > 0 and spouse[0].fb_business_address != "" else "N/A"}}');
     spouse_contact_no.setText('{{"N/A" if spouse_count <= 0 or spouse[0].fb_contact_no == "" or spouse[0].fb_contact_no is none or spouse[0].fb_contact_no is none else spouse[0].fb_contact_no}}');
@@ -421,7 +420,6 @@ async function fillForm() {
     mother_last_name.setText('{{mother[0].fb_last_name if mother[0] and mother[0].fb_last_name is not none else "N/A"}}');
     mother_first_name.setText('{{mother[0].fb_first_name if mother[0] and mother[0].fb_first_name is not none else "N/A"}}');
     mother_middle_name.setText('{{mother[0].fb_middle_name if mother[0] and mother[0].fb_middle_name is not none else "N/A"}}');
-    // mother_maiden_name.setText('{{mother[0].fb_maiden_name if mother[0] and mother[0].fb_maiden_name is not none else ""}}');
 
     child1.setText('{{"N/A" if child[0] is not defined else child[0].fullname}}');
     child2.setText('{{child[1].fullname if child[1] and child[1].fb_last_name is not none else ""}}');
@@ -453,24 +451,57 @@ async function fillForm() {
     e_basic_education.setText('{{"ELEMENTARY" if user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
     e_period_of_attendance_from.setText('{{user_profile.e_period_of_attendance_from if user_profile.e_period_of_attendance_from is not none or e_period_of_attendance_from != "N/A" else "N/A"}}');
     e_period_of_attendance_to.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_period_of_attendance_to is not none or e_period_of_attendance_to != "N/A" else "N/A"}}');
-    e_highest_grade_year_units.setText('{{user_profile.e_highest_level if user_profile.e_highest_level is not none or user_profile.e_highest_level != "N/A" else "N/A"}}');
-    e_year_graduated.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_highest_level is not none or user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
-    e_scholarship_academic_honor.setText('{{user_profile.e_scholarship_academic_honor if user_profile.e_scholarship_academic_honor is not none or e_scholarship_academic_honor != "N/A" else "N/A"}}');
 
+    {% if user_profile.e_highest_level == "GRADUATED" %}
+    e_highest_grade_year_units.setText('GRADUATED')
+    {% elif user_profile.e_highest_level != "GRADUATED" or user_profile.e_highest_level == "CURRENTLY ENROLLED" and user_profile.e_highest_level is not none %}
+    e_highest_grade_year_units.setText('{{user_profile.e_highest_grade_year_units}}');
+    {% else %}
+    e_highest_grade_year_units.setText('N/A');
+    {% endif %}
+
+
+    e_year_graduated.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_highest_level is not none and user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
+    e_scholarship_academic_honor.setText('{{user_profile.e_scholarship_academic_honor if user_profile.e_scholarship_academic_honor is not none or e_scholarship_academic_honor != "N/A" else "N/A"}}');
+    
     high_school.setText('{{user_profile.high_school if user_profile.high_school is not none or high_school != "N/A" else "N/A"}}');
-    hs_basic_education.setText('{{"HIGH SCHOOL" if user_profile.hs_highest_level == "GRADUATED" else "N/A"}}');
+    hs_basic_education.setText('HIGH SCHOOL');
+
     hs_period_of_attendance_from.setText('{{user_profile.hs_period_of_attendance_from if user_profile.hs_period_of_attendance_from is not none or hs_period_of_attendance_from != "N/A" else "N/A"}}');
     hs_period_of_attendance_to.setText('{{user_profile.hs_period_of_attendance_to if user_profile.hs_period_of_attendance_to is not none or hs_period_of_attendance_to != "N/A" else "N/A"}}');
-    hs_highest_level.setText('{{user_profile.hs_highest_level if user_profile.hs_highest_level is not none or hs_highest_level != "N/A" else "N/A"}}')
-    hs_year_graduated.setText('{{user_profile.hs_period_of_attendance_to if user_profile.hs_highest_level is not none or user_profile.hs_highest_level == "GRADUATED" else "N/A"}}');
+
+
+
+    {% if user_profile.hs_highest_level == "GRADUATED" %}
+        hs_highest_level.setText('GRADUATED')
+    {% elif user_profile.hs_highest_level != "GRADUATED" and user_profile.hs_highest_level is not none %}
+        hs_highest_level.setText('{{user_profile.hs_highest_grade_year_units}}');
+    {% else %}
+        hs_highest_level.setText('N/A');
+    {% endif %}
+
+    hs_year_graduated.setText('{{user_profile.hs_period_of_attendance_to if user_profile.hs_highest_level is not none and user_profile.hs_highest_level == "GRADUATED" else "N/A"}}');
+
     hs_scholarship_academic_honor.setText('{{user_profile.hs_scholarship_academic_honor if user_profile.hs_scholarship_academic_honor is not none or hs_scholarship_academic_honor != "N/A" else "N/A"}}');
 
     v_school.setText('{{user_profile.vocational_course[0].v_school if user_profile.vocational_course|length > 0 else "N/A"}}');
     vocational_trade_course.setText('{{user_profile.vocational_course[0].vocational_trade_course if user_profile.vocational_course|length > 0 else "N/A"}}');
     v_period_of_attendance_from.setText('{{user_profile.vocational_course[0].v_period_of_attendance_from if user_profile.vocational_course|length > 0 else"N/A"}}');
     v_period_of_attendance_to.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 else "N/A"}}');
-    v_highest_level.setText('{{"GRADUATED" if user_profile.vocational_course|length > 0 else "N/A"}}');
-    v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 else "N/A"}}');
+
+    {% if user_profile.vocational_course[0].v_highest_level == "GRADUATED" %}
+        v_highest_level.setText('GRADUATED')
+        console.log("IM HERE PO")
+    {% elif user_profile.vocational_course[0].v_highest_level != "GRADUATED" and user_profile.vocational_course[0].v_highest_level is not none %}
+        v_highest_level.setText('{{user_profile.vocational_course[0].v_highest_grade_year_units}}');
+        console.log("IM HERE PO 2")
+    {% else %}
+        v_highest_level.setText('N/A');
+        console.log("IM HERE PO 3")
+
+    {% endif %}
+
+    v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 and user_profile.c_highest_level == "GRADUATED" else "N/A"}}');
 
     {% if user_profile.vocational_course[1] %}
         {% if user_profile.vocational_course[1].v_scholarship_academic_honor != "" %}
@@ -482,6 +513,7 @@ async function fillForm() {
             v_scholarship_academic_honor.setText("N/A");
     {% endif %}
 
+
     {% if user_profile.college|length > 0 %}
         
         c_school.setText('{{user_profile.college[0].c_school if user_profile.college|length > 0 else "N/A"}}');
@@ -489,7 +521,13 @@ async function fillForm() {
         c_period_of_attendance_from.setText('{{user_profile.college[0].c_period_of_attendance_from if user_profile.college|length > 0 else "N/A"}}');
         c_period_of_attendance_to.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college|length > 0 else "N/A"}}');
 
-        c_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else user_profile.college[0].c_highest_level_units_earned }}');
+        {% if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" %}
+            c_highest_grade_year_units.setText('GRADUATED')
+        {% elif user_profile.college[0].c_highest_level_units_earned != "GRADUATED" and user_profile.college[0].c_highest_grade_year_units is not none %}
+            c_highest_grade_year_units.setText('{{user_profile.college[0].c_highest_grade_year_units}}');
+        {% else %}
+            c_highest_grade_year_units.setText('N/A');
+        {% endif %}
 
         c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
 
@@ -520,7 +558,6 @@ async function fillForm() {
 
     {% else %}
         gs_year_graduated.setText("N/A");
-
         gs_school.setText('N/A');
         gs_degree_course.setText('N/A');
         gs_period_of_attendance_from.setText('N/A');
@@ -528,12 +565,20 @@ async function fillForm() {
     {% endif %}
 
     {% if user_profile.masteral|length > 0 %}
-        gs_highest_grade_year_units.setText('{{"GRADUATED" if user_profile.masteral[0].gs_highest_level_units_earned == "GRADUATED" else "N/A" }}');
+        {% if user_profile.masteral[0].gs_highest_level_units_earned == "GRADUATED" %}
+            gs_highest_grade_year_units.setText('GRADUATED')
+        {% elif user_profile.masteral[0].gs_highest_level_units_earned != "GRADUATED" and user_profile.masteral[0].gs_highest_level_units_earned is not none %}
+            gs_highest_grade_year_units.setText('{{user_profile.masteral[0].gs_highest_grade_year_units}}');
+        {% else %}
+            gs_highest_grade_year_units.setText('N/A');
+        {% endif %}
     {% else %}
         gs_highest_grade_year_units.setText("N/A");
     {% endif %}
 
-    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral|length > 0 else "N/A"}}');
+    gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_highest_level_units_earned == "GRADUATED" else "N/A"}}');
+    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0].gs_scholarship_academic_honor != "" and user_profile.masteral[0].gs_scholarship_academic_honor is not none else "N/A"}}');
+
 
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                                 PAGE 2                                  -->
@@ -2377,12 +2422,6 @@ const form6 = page6.getForm();
 
     const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0])
     const [firstPage2] = copiedPages2;
-
-
-
-
-
-
 
     {% if child[12] or college[1] or user_profile.vocational_course[1] or masteral[1] %}
         pdfDoc.addPage(firstPage)

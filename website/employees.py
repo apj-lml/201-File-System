@@ -1,9 +1,9 @@
 
-from pprint import pprint
+# from pprint import pprint
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Career_Service, College, Doctoral, Learning_Development, Masteral, Service_Record, User, Uploaded_File, Vaccine, Vocational_Course
+from .models import Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -52,7 +52,6 @@ def get_employees(emp_id):
 def my_profile(emp_id):
 	
 	if request.method == 'GET':
-		print("EMPLOYEE ID: ", emp_id)
 		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
 			return "PAGE NOT FOUND", 404
 		else:

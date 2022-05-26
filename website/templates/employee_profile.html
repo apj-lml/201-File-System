@@ -698,7 +698,7 @@
                     <div class="d-md-flex flex-row">
     
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="e_highest_grade_year_units" name="e_highest_grade_units" aria-label="Floating label select example" value="{{user_profile.e_highest_grade_year_units}}" form="update_form" disabled>
+                        <select class="form-select" id="e_highest_grade_year_units" name="e_highest_grade_units" aria-label="Floating label select example" value="{{user_profile.e_highest_grade_year_units}}" form="update_form" disabled required>
                           <option class="" value="{{user_profile.e_highest_grade_year_units if user_profile.e_highest_grade_year_units is not none else ''}}" selected disabled hidden>{{user_profile.e_highest_grade_year_units if user_profile.e_highest_grade_year_units is not none else ''}}</option>
                           <option value="GRADE 1">GRADE 1</option>
                           <option value="GRADE 2">GRADE 2</option>
@@ -725,8 +725,8 @@
                         <label for="high_school">High School</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select" id="hs_highest_level" name="hs_highest_level" aria-label="Floating label select example" value="{{user_profile.e_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))">
-                          <option class="" value="{{user_profile.e_highest_level}}" selected disabled hidden>{{user_profile.e_highest_level}}</option>
+                        <select class="form-select" id="hs_highest_level" name="hs_highest_level" aria-label="Floating label select example" value="{{user_profile.hs_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))">
+                          <option class="" value="{{user_profile.hs_highest_level}}" selected disabled hidden>{{user_profile.hs_highest_level}}</option>
                           <option value="GRADUATED">GRADUATED</option>
                           <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                           <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
@@ -904,7 +904,7 @@
                           </div>
                           <div class="d-md-flex flex-row">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" id="v_highest_grade_year_units[{{count_update_vocational.value}}]" name ="v_highest_grade_year_units[{{count_update_vocational.value}}]" placeholder="Highest Level" value="{{vocational.v_highest_grade_year_units}}" form="update_form">
+                              <input type="text" class="form-control" id="v_highest_grade_year_units[{{count_update_vocational.value}}]" name ="v_highest_grade_year_units[{{count_update_vocational.value}}]" placeholder="Highest Level" value="{{vocational.v_highest_grade_year_units}}" form="update_form" required>
                               <label for="v_highest_level">Units Earned</label>
                             </div>   
                             <div class="form-floating flex-fill mb-3 p-1">
@@ -954,7 +954,10 @@
                                 <label for="c_degree_course[1]">Degree</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <select class="form-select" id="c_highest_level_units_earned[{{count_update_college.value}}]" name="c_highest_level_units_earned[{{count_update_college.value}}]" aria-label="Floating label select example" value="{{college.c_highest_level_units_earned if college.c_highest_level_units_earned is not none else ''}}" form="update_form" onchange="graduated(this, document.getElementById('c_highest_grade_year_units[{{count_update_college.value}}]'), document.getElementById('c_scholarship_academic_honor[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_from[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_to[{{count_update_college.value}}]'))">
+                                <select class="form-select" id="c_highest_level_units_earned[{{count_update_college.value}}]" name="c_highest_level_units_earned[{{count_update_college.value}}]" value="{{college.c_highest_level_units_earned if college.c_highest_level_units_earned is not none else ''}}" form="update_form" onchange="graduated(this, document.getElementById('c_highest_grade_year_units[{{count_update_college.value}}]'), document.getElementById('c_scholarship_academic_honor[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_from[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_to[{{count_update_college.value}}]'))">
+                                  {% if user_profile.c_highest_level is not none %}
+                                    <option class="" value="{{college.c_highest_level_units_earned}}" selected hidden>{{college.c_highest_level_units_earned}}</option>
+                                  {% endif %}
                                   <option value="GRADUATED">GRADUATED</option>
                                   <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                                   <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
@@ -977,7 +980,7 @@
                             </div>
                             <div class="d-md-flex flex-row">
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_highest_grade_year_units[{{count_update_college.value}}]" name ="c_highest_grade_year_units[{{count_update_college.value}}]" placeholder="Highest Level" value="{{college.c_highest_grade_year_units if college.c_highest_grade_year_units is not none else ''}}" form="update_form">
+                                <input type="text" class="form-control" id="c_highest_grade_year_units[{{count_update_college.value}}]" name ="c_highest_grade_year_units[{{count_update_college.value}}]" placeholder="Highest Level" value="{{college.c_highest_grade_year_units if college.c_highest_grade_year_units is not none else ''}}" form="update_form" required>
                                 <label for="c_highest_grade_year_units[1]">Units Earned</label>
                               </div>   
                               <div class="form-floating flex-fill mb-3 p-1">
@@ -1448,7 +1451,7 @@
                     <div class="flex-fill mb-3 p-1">
                       <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
                       <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
-                      <p class="text-muted"></p>{{count_files("marriage_certificate", user_profile.id)}}</p>
+                      <p class="text-muted">{{count_files("marriage_certificate", user_profile.id)}}</p>
                     </div>
                   </div>
                   </div>
@@ -1863,27 +1866,23 @@ function validate_length(el){
 function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
       if(highest_level.value == 'GRADUATED'){
         highest_grade_year_units.readOnly = true;
+        //highest_grade_year_units.disabled = true;
+        highest_grade_year_units.value = "";
         scholarship_academic_honor.readOnly = false;
-        // period_of_attendance_from.value = ""
-
-        // period_of_attendance_to.value = ""
         period_of_attendance_to.readOnly = false
 
       }else if(highest_level.value == "CURRENTLY ENROLLED"){
         highest_grade_year_units.readOnly = true;
+        //highest_grade_year_units.disabled = true;
         scholarship_academic_honor.readOnly = true;
         period_of_attendance_to.readOnly = true;
         period_of_attendance_to.value = "PRESENT"
         // period_of_attendance_from.value = ""
         highest_grade_year_units.value = "";
-
-
       }else{
         period_of_attendance_to.readOnly = false;
-        // period_of_attendance_to.value = ""
-        // period_of_attendance_from.value = ""
-
         highest_grade_year_units.readOnly = false;
+        //highest_grade_year_units.disabled = false;
         scholarship_academic_honor.readOnly = true;
       }
     }
@@ -1933,7 +1932,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
     
-      console.log(data)
+      // console.log(data)
       fetch('/employees/update-employee/{{user_profile.id}}', {
         method: 'POST',
         body: formData
