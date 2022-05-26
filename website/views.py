@@ -71,9 +71,9 @@ def change_password(emp_id):
 	if request.method == 'GET':
 		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
-	else:
-		user = db.session.query(User).get(int(emp_id))
-		return render_template('change_password.html', emp_id = emp_id, user_profile = user)
+		else:
+			user = db.session.query(User).get(int(emp_id))
+			return render_template('change_password.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/tshirt-sizes/<emp_id>', methods=['GET', 'POST'])
 @login_required
