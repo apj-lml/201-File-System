@@ -576,8 +576,8 @@ async function fillForm() {
         gs_highest_grade_year_units.setText("N/A");
     {% endif %}
 
-    gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_highest_level_units_earned == "GRADUATED" else "N/A"}}');
-    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0].gs_scholarship_academic_honor != "" and user_profile.masteral[0].gs_scholarship_academic_honor is not none else "N/A"}}');
+    gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0] is defined and user_profile.masteral[0].gs_highest_level_units_earned == "GRADUATED" else "N/A"}}');
+    gs_scholarship_academic_honor.setText('{{user_profile.masteral[0].gs_scholarship_academic_honor if user_profile.masteral[0] is defined and user_profile.masteral[0].gs_scholarship_academic_honor != "" and user_profile.masteral[0].gs_scholarship_academic_honor is not none else "N/A"}}');
 
 
     //<!-- ----------------------------------------------------------------------- -->
