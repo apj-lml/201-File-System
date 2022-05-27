@@ -514,7 +514,7 @@ async function fillForm() {
     {% endif %}
 
 
-    {% if user_profile.college|length > 0 %}
+    {% if user_profile.college|length == 1 %}
         
         c_school.setText('{{user_profile.college[0].c_school if user_profile.college|length > 0 else "N/A"}}');
         c_degree_course.setText('{{user_profile.college[0].c_degree_course if user_profile.college|length > 0 else "N/A"}}');
@@ -1388,23 +1388,23 @@ async function fillForm() {
 
     {% if user_profile.college|length > 1 %}
         
-        c_school2.setText('{{user_profile.college[1].c_school if user_profile.college|length > 1 else "N/A"}}');
-        c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college|length > 1 else "N/A"}}');
-        c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college|length > 1 else "N/A"}}');
-        c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college|length > 1 else "N/A"}}');
+        c_school2.setText('{{user_profile.college[1].c_school if user_profile.college|length > 1 else ""}}');
+        c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college|length > 1 else ""}}');
+        c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college|length > 1 else ""}}');
+        c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college|length > 1 else ""}}');
 
         c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_level_units_earned }}');
-        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
-        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
+        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else ""}}');
+        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor != "" else ""}}');
 
     {% else %}
-        c_highest_grade_year_units2.setText("N/A");
-        c_school2.setText('N/A');
-        c_degree_course2.setText('N/A');
-        c_period_of_attendance_from2.setText('N/A');
-        c_period_of_attendance_to2.setText('N/A');
-        c_year_graduated2.setText("N/A");
-        c_scholarship_academic_honor2.setText("N/A");
+        // c_highest_grade_year_units2.setText("N/A");
+        // c_school2.setText('N/A');
+        // c_degree_course2.setText('N/A');
+        // c_period_of_attendance_from2.setText('N/A');
+        // c_period_of_attendance_to2.setText('N/A');
+        // c_year_graduated2.setText("N/A");
+        // c_scholarship_academic_honor2.setText("N/A");
     {% endif %}
 
 
@@ -2439,26 +2439,31 @@ const form6 = page6.getForm();
 
     {% endif %}
 
-    {% if user_profile.voluntary_work|length > 8 or user_profile.learning_development|length > 26 %}
+    {% if user_profile.voluntary_work|length > 8 or user_profile.learning_development|length > 27 %}
         form5.flatten(); // flatten form before copying
         const copiedPages4 = await pdfDoc.copyPages(page5, [0])
         const [thirdPage3] = copiedPages4;
         pdfDoc.addPage(thirdPage3)
+        // const pdfBytes = await pdfDoc.save()
 
     {% endif %}
-
-    {% if user_profile.learning_development|length > 42 %}
-        //form6.flatten(); // flatten form before copying
-        const copiedPages5 = await pdfDoc.copyPages(page6, [0])
-        const [thirdPage4] = copiedPages5;
-        pdfDoc.addPage(thirdPage4)
-    {% endif %}
-
-
 
     {% if user_profile.doctoral|length > 0 and user_profile.doctoral[0].doc_school != none and user_profile.doctoral[0].doc_school != 'N/A' and  user_profile.doctoral[0].doc_school != '' %}
         pdfDoc.addPage(firstPage2)
     {% endif %}
+
+    {% if user_profile.learning_development|length > 43 %}
+        //form6.flatten(); // flatten form before copying
+        form6.flatten();
+
+        const copiedPages5 = await pdfDoc.copyPages(page6, [0])
+
+        const [thirdPage4] = copiedPages5;
+
+        pdfDoc.addPage(thirdPage4)
+    {% endif %}
+
+
 
     const pdfBytes = await pdfDoc.save()
       

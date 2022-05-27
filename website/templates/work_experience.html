@@ -94,6 +94,7 @@
                         <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" onchange="//govt_service_validation(this)" value="" form="work_experience_form">
                           <option value="N/A" selected>N/A</option>
                           <option value="PERMANENT">PERMANENT</option>
+                          <option value="TEMPORARY">TEMPORARY</option>
                           <option value="COTERMINOUS">COTERMINOUS</option>
                           <option value="CASUAL">CASUAL</option>
                           <option value="JOB ORDER">JOB ORDER</option>
@@ -288,6 +289,7 @@
                               <select class="form-select status_of_appointment2" id="update_status_of_appointment" name="status_of_appointment" form="update_work_experience_form" required>
                                 <option value="N/A">N/A</option>
                                 <option value="PERMANENT">PERMANENT</option>
+                                <option value="TEMPORARY">TEMPORARY</option>
                                 <option value="COTERMINOUS">COTERMINOUS</option>
                                 <option value="CASUAL">CASUAL</option>
                                 <option value="JOB ORDER">JOB ORDER</option>
@@ -604,7 +606,7 @@ function validate_status2(){
       step.value = "1";
 
 
-      if (value == "PERMANENT"){
+      if (value == "PERMANENT" || value == "TEMPORARY"){
         sg.disabled = false;
         step.disabled = false;
 
@@ -620,7 +622,7 @@ function validate_status2(){
         }
       });
       }
-      else if (value == "COTERMINOUS"){
+      else if (value == "COTERMINOUS" || value == 'CONTRACTUAL'){
         sg.disabled = false;
         step.disabled = false;
 
@@ -709,7 +711,7 @@ function validate_status(){
       step.value = "1";
 
 
-      if (value == "PERMANENT"){
+      if (value == "PERMANENT" || value == "TEMPORARY"){
         sg.disabled = false;
         step.disabled = false;
 
@@ -725,7 +727,7 @@ function validate_status(){
         }
       });
       }
-      else if (value == "COTERMINOUS"){
+      else if (value == "COTERMINOUS" || value == 'CONTRACTUAL'){
         sg.disabled = false;
         step.disabled = false;
 

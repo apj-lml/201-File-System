@@ -227,7 +227,7 @@
         var emp_status = document.getElementById("employment_status");
         // dolp.readOnly = isReadOnly;
 
-        if(emp_status.value == "PERMANENT"){
+        if(emp_status.value == "PERMANENT" || emp_status.value == "TEMPORARY"){
           dolp.readOnly = false;
 
         }else{
@@ -245,7 +245,7 @@
         var emp_status = document.getElementById('employment_status').value;
         var job_grade = document.getElementById('job_grade').value;
 
-        if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS"){
+        if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" || emp_status == "TEMPORARY"){
 
           monthly_rate.value = job_grade_monthly_salary[job_grade][step];
           var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
@@ -276,21 +276,6 @@
         document.getElementsByName('step')[0].value = document.getElementById('step').value;
 
 
-        /* -------------------------------------------------------------------------- */
-        /*                                  OLD CODE                                  */
-        /* -------------------------------------------------------------------------- */
-
-        // if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" ){
-        //   monthly_rate.value = monthly_salary[sg][step]
-        //   var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
-        //   monthly_rate.value = temp_m_rate.toLocaleString('en-US')
-        //   daily_rate.value = "N/A"
-        // }else if (emp_status == "JOB ORDER" || emp_status == "CASUAL" ){
-        //   daily_rate.value = daily_salary[sg]
-        //   var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
-        //   daily_rate.value = temp_m_rate.toLocaleString('en-US')
-        //   monthly_rate.value = "N/A"
-        // }
       }
       function disableSgJobOrder(isDisabled){
           var sg = document.getElementById("salary_grade").getElementsByTagName("option");
