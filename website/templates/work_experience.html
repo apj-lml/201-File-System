@@ -91,7 +91,7 @@
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" onchange="govt_service_validation(this)" value="" form="work_experience_form">
+                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" onchange="//govt_service_validation(this)" value="" form="work_experience_form">
                           <option value="N/A" selected>N/A</option>
                           <option value="PERMANENT">PERMANENT</option>
                           <option value="COTERMINOUS">COTERMINOUS</option>
@@ -152,9 +152,9 @@
 
                       </div>
                       
-                      <input type="hidden" id="govt_service_save" name="govt_service" value="N" form="work_experience_form">
+                      <input type="text" id="govt_service_save" name="govt_service" value="N" form="work_experience_form">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select status_of_apppointment" id="govt_service_select" name="govt_service_select" disabled>
+                        <select class="form-select status_of_apppointment" id="govt_service_select" name="govt_service_select" onchange="document.getElementById('govt_service_save').value=this.value;" disabled>
                           <option value="Y">YES</option>
                           <option value="N" selected>NO</option>
                         </select>
@@ -651,6 +651,9 @@ function validate_status2(){
             opt.disabled = true;
         }
       });
+      govt_service_save.value = "Y";
+
+
       }
       else{
         sg.disabled = true;
