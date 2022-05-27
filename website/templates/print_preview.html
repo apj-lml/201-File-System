@@ -2454,7 +2454,7 @@ const form6 = page6.getForm();
 
     {% if user_profile.learning_development|length > 43 %}
         //form6.flatten(); // flatten form before copying
-        form6.flatten();
+       // form6.flatten();
 
         const copiedPages5 = await pdfDoc.copyPages(page6, [0])
 
