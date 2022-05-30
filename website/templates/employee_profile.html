@@ -197,6 +197,8 @@
                         <option value="TEMPORARY">TEMPORARY</option>
                         <option value="CASUAL">CASUAL</option>
                         <option value="COTERMINOUS">COTERMINOUS - CARP-IC</option>
+                        <option value="CONTRACT OF SERVICE">CONTRACT OF SERVICE</option>
+
                         <!-- <option value="SEPARATED">SEPARATED</option> -->
                       </select>
                       <label for="middle_name">Employment Status<span class="is-required">*</span></label>
@@ -1838,11 +1840,28 @@ window.addEventListener("load", function() {
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
   
   var vocation_count = document.getElementById('vocational_no_update_fields').value;
-  console.log(vocation_count)
+  console.log("VOCATIONAL COUNT : ", vocation_count);
   for (var xyz = 1; xyz <= vocation_count; xyz++){
     graduated(document.getElementById(`v_highest_level[${xyz}]`), document.getElementById(`v_highest_grade_year_units[${xyz}]`), document.getElementById(`v_scholarship_academic_honor[${xyz}]`), document.getElementById(`v_period_of_attendance_from[${xyz}]`), document.getElementById(`v_period_of_attendance_to[${xyz}]`))
   }
 
+  var college_count = document.getElementById('college_no_update_fields').value;
+  console.log("COLLEGE COUNT : ", college_count);
+  for (var xyz = 1; xyz <= college_count; xyz++){
+    graduated(document.getElementById(`c_highest_level_units_earned[${xyz}]`), document.getElementById(`c_highest_grade_year_units[${xyz}]`), document.getElementById(`c_scholarship_academic_honor[${xyz}]`), document.getElementById(`c_period_of_attendance_from[${xyz}]`), document.getElementById(`c_period_of_attendance_to[${xyz}]`))
+  }
+
+  var gs_count = document.getElementById('masteral_no_update_fields').value;
+  console.log("GS COUNT : ", gs_count);
+  for (var xyz = 1; xyz <= gs_count; xyz++){
+    graduated(document.getElementById(`gs_highest_level_units_earned[${xyz}]`), document.getElementById(`gs_highest_grade_year_units[${xyz}]`), document.getElementById(`gs_scholarship_academic_honor[${xyz}]`), document.getElementById(`gs_period_of_attendance_from[${xyz}]`), document.getElementById(`gs_period_of_attendance_to[${xyz}]`))
+  }
+
+  var doc_count = document.getElementById('doctoral_no_update_fields').value;
+  console.log("DOC COUNT : ", doc_count);
+  for (var xyz = 1; xyz <= doc_count; xyz++){
+    graduated(document.getElementById(`doc_highest_level_units_earned[${xyz}]`), document.getElementById(`doc_highest_grade_year_units[${xyz}]`), document.getElementById(`doc_scholarship_academic_honor[${xyz}]`), document.getElementById(`doc_period_of_attendance_from[${xyz}]`), document.getElementById(`doc_period_of_attendance_to[${xyz}]`))
+  }
 
   $('#uploaded_file_table').DataTable({
       responsive: true,

@@ -501,7 +501,7 @@ async function fillForm() {
 
     {% endif %}
 
-    v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 and user_profile.c_highest_level == "GRADUATED" else "N/A"}}');
+    v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course[0].v_highest_level == "GRADUATED" else "N/A"}}');
 
     {% if user_profile.vocational_course[1] %}
         {% if user_profile.vocational_course[1].v_scholarship_academic_honor != "" %}
@@ -514,7 +514,7 @@ async function fillForm() {
     {% endif %}
 
 
-    {% if user_profile.college|length == 1 %}
+    {% if user_profile.college|length > 0 %}
         
         c_school.setText('{{user_profile.college[0].c_school if user_profile.college|length > 0 else "N/A"}}');
         c_degree_course.setText('{{user_profile.college[0].c_degree_course if user_profile.college|length > 0 else "N/A"}}');
@@ -586,14 +586,16 @@ async function fillForm() {
 
     cse1.setText("{{user_profile.career_service[0].cs_eligibility|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_eligibility is not none else 'N/A'}}");
     cs_rating1.setText("{{user_profile.career_service[0].cs_rating|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_rating is not none else 'N/A'}}");
-    date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination_to|format_mydatetime if user_profile.career_service[0] and user_profile.career_service[0].date_of_examination_to is not none else 'N/A'}}");
+
+    date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination|format_mydatetime if user_profile.career_service[0] is defined and user_profile.career_service[0].date_of_examination_from is not none else 'N/A'}}");
+
     place_of_examination_conferment1.setText("{{user_profile.career_service[0].place_of_examination_conferment|escapejs if user_profile.career_service[0] and user_profile.career_service[0].place_of_examination_conferment is not none else 'N/A'}}");
     license_no1.setText("{{user_profile.career_service[0].license_no|escapejs if user_profile.career_service[0] and user_profile.career_service[0].license_no is not none else 'N/A'}}");
     date_of_validity1.setText("{{user_profile.career_service[0].date_of_validity|format_mydatetime if user_profile.career_service[0] and user_profile.career_service[0].date_of_validity != "" and user_profile.career_service[0].date_of_validity is not none else 'N/A'}}");
 
     cse2.setText("{{user_profile.career_service[1].cs_eligibility if user_profile.career_service|length > 1 else ''}}");
     cs_rating2.setText("{{user_profile.career_service[1].cs_rating|escapejs if user_profile.career_service|length > 1 else ''}}");
-    date_of_examination2.setText("{{user_profile.career_service[1].date_of_examination_to|format_mydatetime if user_profile.career_service|length > 1 else ''}}");
+    date_of_examination2.setText("{{user_profile.career_service[1].date_of_examination|format_mydatetime if user_profile.career_service|length > 1 else ''}}");
     place_of_examination_conferment2.setText("{{user_profile.career_service[1].place_of_examination_conferment|escapejs if user_profile.career_service|length > 1 else ''}}");
     license_no2.setText("{{user_profile.career_service[1].license_no|escapejs if user_profile.career_service|length > 1 else ''}}");
     date_of_validity2.setText("{{user_profile.career_service[1].date_of_validity|format_mydatetime if user_profile.career_service|length > 1 else ''}}");
@@ -1395,16 +1397,16 @@ async function fillForm() {
 
         c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_level_units_earned }}');
         c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else ""}}');
-        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor != "" else ""}}');
+        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
 
     {% else %}
-        // c_highest_grade_year_units2.setText("N/A");
-        // c_school2.setText('N/A');
-        // c_degree_course2.setText('N/A');
-        // c_period_of_attendance_from2.setText('N/A');
-        // c_period_of_attendance_to2.setText('N/A');
-        // c_year_graduated2.setText("N/A");
-        // c_scholarship_academic_honor2.setText("N/A");
+        // c_highest_grade_year_units2.setText("");
+        // c_school2.setText('');
+        // c_degree_course2.setText('');
+        // c_period_of_attendance_from2.setText('');
+        // c_period_of_attendance_to2.setText('');
+        // c_year_graduated2.setText("");
+        // c_scholarship_academic_honor2.setText("");
     {% endif %}
 
 
@@ -2414,8 +2416,8 @@ const form6 = page6.getForm();
     {% endif %}
     doc_scholarship_academic_honor3.setText('{{user_profile.doctoral[0].doc_scholarship_academic_honor if user_profile.doctoral|length > 0 else ""}}')
     
-    form2.flatten(); // flatten form before copying
-    form3.flatten(); // flatten form before copying
+    //form2.flatten(); // flatten form before copying
+    //form3.flatten(); // flatten form before copying
 
     const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2])
     const [firstPage, secondPage, thirdPage] = copiedPages;
@@ -2432,7 +2434,7 @@ const form6 = page6.getForm();
     {% endif %}
 
     {% if user_profile.voluntary_work|length > 6 or user_profile.learning_development|length > 11 %}
-        form4.flatten(); // flatten form before copying
+        //form4.flatten(); // flatten form before copying
         const copiedPages3 = await pdfDoc.copyPages(page4, [2])
         const [thirdPage2] = copiedPages3;
         pdfDoc.addPage(thirdPage2)
@@ -2440,7 +2442,7 @@ const form6 = page6.getForm();
     {% endif %}
 
     {% if user_profile.voluntary_work|length > 8 or user_profile.learning_development|length > 27 %}
-        form5.flatten(); // flatten form before copying
+        //form5.flatten(); // flatten form before copying
         const copiedPages4 = await pdfDoc.copyPages(page5, [0])
         const [thirdPage3] = copiedPages4;
         pdfDoc.addPage(thirdPage3)

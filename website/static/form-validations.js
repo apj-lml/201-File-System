@@ -175,13 +175,12 @@
         var sg = document.getElementById('salary_grade');
         var job_grade = document.getElementById('job_grade');
 
-      
         step.disabled = false;
 
         m_rate.value = "N/A";
         d_rate.value = "N/A";
 
-        if(emp_status == "JOB ORDER"){
+        if(emp_status == "JOB ORDER" || emp_status == "CONTRACT OF SERVICE"){
 
           step.value = "";
           d_rate.readOnly = true;
@@ -254,7 +253,7 @@
           document.getElementById('salary_grade').value = "";;
           disableStepCasual(false);
 
-        }else if (emp_status == "JOB ORDER"){
+        }else if (emp_status == "JOB ORDER" || "CONTRACT OF SERVICE"){
           daily_rate.value = daily_salary[sg];
           var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
           daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
