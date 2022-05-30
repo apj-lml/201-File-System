@@ -129,15 +129,15 @@
         <div class="col">
           <div class="">
             <div class="d-flex justify-content-center flex-row">
-              <img class="img-fluid" src="{{url_for('static', filename='img/employee_profile.png')}}" alt="" width="400">
+              <img class="img-fluid" src="{{url_for('static', filename='img/sign_up.png')}}" alt="" width="400">
             </div>
             <div class="row">
             <div class="col">
-              <!-- <form id="add_cse_form" action="/cse/add-eligibility/" onsubmit="" method="POST"></form>
-              <form id="add_vocational_form" action="/vocation/add-vocational/" method="POST" ></form>
-              <form id="add_college_form" action="/college/add-college/" method="POST" ></form>
-              <form id="add_masteral_form" action="/masteral/add-masteral/" method="POST" ></form>
-              <form id="add_doctoral_form" action="/doctoral/add-doctotral/" method="POST" ></form> -->
+              <form id="add_cse_form" action="/cse/add-eligibility/" method="POST"></form>
+              <form id="add_vocational_form" action="/vocation/add-vocational/" method="POST"></form>
+              <form id="add_college_form" action="/college/add-college/" method="POST"></form>
+              <form id="add_masteral_form" action="/masteral/add-masteral/" method="POST"></form>
+              <form id="add_doctoral_form" action="/doctoral/add-doctotral/" method="POST"></form>
 
               <form enctype="multipart/form-data" id="add_user_form" action="#" method="POST"></form>
               <div id="hiddenFields">
@@ -147,38 +147,51 @@
               <div class="card mb-3" id="header">
                 <div class="card-body">
                 <h3 class="card-title">PERSONAL INFORMATION</h3>
+
                 <div class="d-md-flex flex-row"> 
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" form="add_user_form">
-                    <label for="last_name">Employee ID Number<span class="is-required">*</span></label>
-                  </div><div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="" form="add_user_form">
-                    <label for="last_name">Status<span class="is-required">*</span></label>
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" value="" form="add_user_form" maxlength="6">
+                    <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
+                  </div>
+                  <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="ACTIVE" form="add_user_form" readonly>
+                    <label for="employee_id">Status<span class="is-required">*</span></label>
+                  </div>
+                </div>
+                <div class="d-md-flex flex-row"> 
+                  <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="password" name ="password" value="" form="add_user_form">
+                    <label for="password">Password<span class="is-required">*</span></label>
+                  </div>
+                  <div class="form-floating flex-fill mb-3 p-1">
+                    <input type="text" class="form-control" id="confirm_password" name ="confirm_password" value="" form="add_user_form">
+                    <label for="confirm_password">Confirm Password<span class="is-required">*</span></label>
                   </div>
                 </div>
 
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="" form="add_user_form">
+                      <input type="text" class="form-control" id="last_name" name ="last_name" value="" form="add_user_form">
                       <label for="last_name">Last Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="" form="add_user_form">
+                      <input type="text" class="form-control" id="first_name" name ="first_name" value="" form="add_user_form">
                       <label for="first_name">First Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="" form="add_user_form" >
+                      <input type="text" class="form-control" id="middle_name" name ="middle_name"value="" form="add_user_form" >
                       <label for="middle_name">Middle Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="" form="add_user_form">
+                      <input type="text" class="form-control" id="name_extn" name ="name_extn" value="" form="add_user_form">
                       <label for="name_extn">Name Extension (eg. Jr., III)</label>
                     </div>
                   </div>
+
                   <!-- TODO -->
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating col-sm-3 mb-3 p-1">
-                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="" form="add_user_form" >
+                      <select class="form-select" id="employment_status" name="employment_status" value="" form="add_user_form" >
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
                         <option value="CASUAL">CASUAL</option>
@@ -190,11 +203,11 @@
                     </div>
                     
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="" form="add_user_form">
+                      <input type="text" class="form-control" id="position_title" name ="position_title" value="" form="add_user_form">
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="job_grade" name="" aria-label="Floating label select example" value="" form="add_user_form" required >
+                      <select class="form-select" id="job_grade" name="" form="add_user_form" required >
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
@@ -221,7 +234,7 @@
 
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="" aria-label="Floating label select example" value="" form="add_user_form" required >
+                      <select class="form-select" id="salary_grade" name="" value="" form="add_user_form" required >
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -423,15 +436,15 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="" form="add_user_form"readOnly>
+                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="" form="add_user_form">
                       <label for="name_extn">GSIS No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="" form="add_user_form" readonly>
+                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="" form="add_user_form">
                       <label for="name_extn">Pag-IBIG No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="" form="add_user_form" readonly>
+                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="" form="add_user_form">
                       <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -442,7 +455,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="add_user_form" readonly>
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="add_user_form">
                       <label for="name_extn">TIN<span class="is-required">*</span></label>
                     </div>
                     <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
@@ -1404,7 +1417,7 @@
           <a href="#header">Scroll to top</a>
         </div>
         <div class="col text-center">
-          <button class="btn btn-primary" type="submit" form="add_user_form">Save Changes</button>
+          <button class="btn btn-primary" type="submit" form="add_user_form">Submit</button>
         </div>
         <div class="col text-center">
           <a href="#footer">Scroll to bottom</a>
@@ -1534,7 +1547,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       e.preventDefault();
       let formData = new FormData(formElem);
       //formData.append('file',  input.files[0])
-      loadingScreen('block')
+      //loadingScreen('block')
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
     
@@ -1628,7 +1641,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                           body: formData6
                         }).then((res)=>{
                             if(res.status == 200){
-                              window.location.reload();
+                              //window.location.reload();
                               
                             }
                           
@@ -1678,7 +1691,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 		.then(response => response.json())
 		.then(data => {
 			// triggerToast(data)
-			window.location.reload()
+		//	window.location.reload()
 		});
 }
 

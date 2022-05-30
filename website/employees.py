@@ -1,5 +1,6 @@
 
 # from pprint import pprint
+from copyreg import constructor
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -271,19 +272,108 @@ def update_employee(emp_id):
 
 		db.session.commit()
 
+
+
+	return jsonify('Successfully Saved to Database!'), 200
+
+
+
+
+
+@employees.route('add-employee', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def insert_employee():
+	formdata = request.form.to_dict()
+
+	# user = db.session.query(User).get(emp_id)
+
+	formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
+
+	formdata = formdata.copy()
+
 # ---------------------------------------------------------------------------- #
-#                        UPDATE LEARNING AND DEVELOPMENT                       #
+#              popping unnecessary data before saving to database              #
 # ---------------------------------------------------------------------------- #
-	# for xy in range(1, int(ld_update_no_fields)+1):
-	# 	print("SOMETING IN HERE")
+
+	formdata.pop('employee_id')
+
+# ---------------------------------------------------------------------------- #
+#                                CAPITALIZE DATA                               #
+# ---------------------------------------------------------------------------- #
+	for k,v in formdata.items():
+		if type(v) is str:
+			formdata.update({k: v.upper()})
+		else:
+			formdata.update({k: v})
+# ---------------------------------------------------------------------------- #
+#                        INSERTING OF EMPLOYEE PROFILE                         #
+# ---------------------------------------------------------------------------- #
+	
+	#code for automated insert
+	new_user = User(**formdata)
+	db.session.add(new_user)
+	db.session.flush()
+	db.session.commit()
+
+# ---------------------------------------------------------------------------- #
+#                              UPLOADING OF FILE                               #
+# ---------------------------------------------------------------------------- #
+	final_name = ''
+
+	for afilex in request.files:
+		filesx = request.files.getlist(afilex)
+		print(afilex)
+		for filex in filesx:
+			if afilex == "wes" :
+				if filex.filename == "":
+					print('No file selected')
+				else:
+					if not allowed_file(filex.filename, {'pdf','doc','docx'}):
+						print('Invalid file submitted')
+						return jsonify('Invalid File Submitted! Only PDF (.pdf) and Word (.doc, .docx) file types are allowed in WES.'), 406
+			else:
+				if filex.filename == "":
+					print('No file selected')
+				else:
+					if not allowed_file(filex.filename):
+						print('Invalid file submitted')
+						return jsonify('Invalid File Submitted! Only PDF (.pdf) Files are allowed.'), 406
+
+	print("NEW ID: ", new_user.id)
+
+	for afile in request.files:
+		files = request.files.getlist(afile)
 		
-	# 	ld = Learning_Development.query.filter_by(id = formdata['ld_id['+str(xy)+']'])
-	# 	ld.update(dict(ld_program = formdata['ld_program['+str(xy)+']'].upper(), ld_date_from = formdata['ld_date_from['+str(xy)+']'].upper(), ld_date_to = formdata['ld_date_to['+str(xy)+']'], ld_no_hours = formdata['ld_no_hours['+str(xy)+']'],
-	# 		ld_type = formdata['ld_type['+str(xy)+']'].upper(), ld_sponsored_by = formdata['ld_sponsored_by['+str(xy)+']'].upper()))
+		# print(f'print file: {file}')
+		for file in files:
+			print(f'print file: {file.filename}')
 
+			if file.filename == "":
+			#if afile not in request.files:
+				print('No file selected')
+				#return redirect(request.url)
+			else:
 
-	# 	db.session.commit()
+				today_is = datetime.datetime.today().strftime('%Y-%m-%d-%H%M%S')
+				file_extension = file.filename.rsplit('.', 1)[1].lower()
+				file_name = file.filename.rsplit('.', 1)[0]
+				final_name = secure_filename(afile+'_'+ formdata['last_name']+'_' + '_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
 
+				if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
+					print('path does not exist... creating path')
+					os.mkdir(current_app.config['UPLOAD_FOLDER'])
+				else:
+					print('path exist!')
+					file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
+
+					#saving upload info to database
+					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = new_user.id)
+					db.session.add(files_to_upload)
+					db.session.commit()
+# ---------------------------------------------------------------------------- #
+#                              END OF FILE UPLOAD                              #
+# ---------------------------------------------------------------------------- #
 
 	return jsonify('Successfully Saved to Database!'), 200
 

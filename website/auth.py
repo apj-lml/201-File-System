@@ -82,7 +82,7 @@ def signup():
 			
 			employee_id = formdata['employee_id']
 			password1 = formdata['password']
-			password2 = formdata['floatingPassword2']
+			password2 = formdata['confirm_password']
 			user = User.query.filter_by(employee_id=employee_id).first()
 			if user:
 				return jsonify('User already exists')
@@ -106,18 +106,18 @@ def signup():
 	#              popping unnecessary data before saving to database              #
 	# ---------------------------------------------------------------------------- #
 
-				formdata.pop('vac_id_no')
-				formdata.pop('vac_brand')
-				formdata.pop('vac_place')
-				formdata.pop('vac_first_dose')
-				formdata.pop('vac_second_dose')
+				# formdata.pop('vac_id_no')
+				# formdata.pop('vac_brand')
+				# formdata.pop('vac_place')
+				# formdata.pop('vac_first_dose')
+				# formdata.pop('vac_second_dose')
 				# formdata.pop('booster_date')
 				
-				if 'booster_id_no' in formdata and formdata['booster_id_no'] is not None and 'booster_brand' in formdata and formdata['booster_brand'] is not None and 'booster_date' in formdata and formdata['booster_date'] is not None:
-					formdata.pop('booster_id_no')
-					formdata.pop('booster_brand')
-					formdata.pop('booster_place')
-					formdata.pop('booster_date')
+				# if 'booster_id_no' in formdata and formdata['booster_id_no'] is not None and 'booster_brand' in formdata and formdata['booster_brand'] is not None and 'booster_date' in formdata and formdata['booster_date'] is not None:
+				# 	formdata.pop('booster_id_no')
+				# 	formdata.pop('booster_brand')
+				# 	formdata.pop('booster_place')
+				# 	formdata.pop('booster_date')
 
 				for y in range(1, int(vocational_no_fields)+1):
 					# print('HERE HEREEEEE!!!!!', x)
@@ -155,45 +155,45 @@ def signup():
 	#                              for cs eligibility                              #
 	# ---------------------------------------------------------------------------- #
 
-				for x in range(1, int(cs_no_fields)+1):
+				# for x in range(1, int(cs_no_fields)+1):
 
-					new_cs_eligibility = Career_Service(cs_eligibility = new_formdata['cs_eligibility['+str(x)+']'], cs_rating = new_formdata['cs_rating['+str(x)+']'],
-						date_of_examination = new_formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = new_formdata['place_of_examination_conferment['+str(x)+']'],
-						license_no = new_formdata['license_no['+str(x)+']'], date_of_validity = new_formdata['date_of_validity['+str(x)+']'], user_id = finaldata.id)
-					db.session.add(new_cs_eligibility)
-					db.session.flush()
-					db.session.commit()
+				# 	new_cs_eligibility = Career_Service(cs_eligibility = new_formdata['cs_eligibility['+str(x)+']'], cs_rating = new_formdata['cs_rating['+str(x)+']'],
+				# 		date_of_examination = new_formdata['date_of_examination['+str(x)+']'], place_of_examination_conferment = new_formdata['place_of_examination_conferment['+str(x)+']'],
+				# 		license_no = new_formdata['license_no['+str(x)+']'], date_of_validity = new_formdata['date_of_validity['+str(x)+']'], user_id = finaldata.id)
+				# 	db.session.add(new_cs_eligibility)
+				# 	db.session.flush()
+				# 	db.session.commit()
 
 	# ---------------------------------------------------------------------------- #
 	#                            for vocational courses                            #
 	# ---------------------------------------------------------------------------- #
 
-				for y in range(1, int(vocational_no_fields)+1):
+				# for y in range(1, int(vocational_no_fields)+1):
 
-					new_cs_eligibility = Vocational_Course(v_school = new_formdata['v_school['+str(y)+']'], vocational_trade_course = new_formdata['vocational_trade_course['+str(y)+']'],
-						v_period_of_attendance_from = new_formdata['v_period_of_attendance_from['+str(y)+']'], v_period_of_attendance_to = new_formdata['v_period_of_attendance_to['+str(y)+']'],
-						v_highest_level = new_formdata['v_highest_level['+str(y)+']'], v_scholarship_academic_honor = new_formdata['v_scholarship_academic_honor['+str(y)+']'], user_id = finaldata.id)
-					db.session.add(new_cs_eligibility)
-					db.session.flush()
-					db.session.commit()
+				# 	new_cs_eligibility = Vocational_Course(v_school = new_formdata['v_school['+str(y)+']'], vocational_trade_course = new_formdata['vocational_trade_course['+str(y)+']'],
+				# 		v_period_of_attendance_from = new_formdata['v_period_of_attendance_from['+str(y)+']'], v_period_of_attendance_to = new_formdata['v_period_of_attendance_to['+str(y)+']'],
+				# 		v_highest_level = new_formdata['v_highest_level['+str(y)+']'], v_scholarship_academic_honor = new_formdata['v_scholarship_academic_honor['+str(y)+']'], user_id = finaldata.id)
+				# 	db.session.add(new_cs_eligibility)
+				# 	db.session.flush()
+				# 	db.session.commit()
 
 	# ---------------------------------------------------------------------------- #
 	#                               COVID-19 VACCINE                               #
 	# ---------------------------------------------------------------------------- #
-				if 'booster_id_no' in new_formdata and new_formdata['booster_id_no'] != "" and 'booster_brand' in new_formdata and new_formdata['booster_brand'] != "" and 'booster_date' in new_formdata and new_formdata['booster_date'] != "":
-					new_vaccine = Vaccine(vac_id_no = new_formdata['vac_id_no'], vac_brand = new_formdata['vac_brand'], vac_place = new_formdata['vac_place'],
-									vac_first_dose = new_formdata['vac_first_dose'], vac_second_dose = new_formdata['vac_second_dose'], booster_id_no = new_formdata['booster_id_no'],
-									booster_brand = new_formdata['booster_brand'], booster_place = new_formdata['booster_place'],
-									booster_date = datetime.datetime.strptime(new_formdata['booster_date'], '%Y-%m-%d').date(), user_id = finaldata.id
-									)
-					# print('if pumasok')
-				else:
-					new_vaccine = Vaccine(vac_id_no = new_formdata['vac_id_no'], vac_brand = new_formdata['vac_brand'], vac_place = new_formdata['vac_place'],
-									vac_first_dose = new_formdata['vac_first_dose'], vac_second_dose = new_formdata['vac_second_dose'], booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date(), user_id = finaldata.id
-									)
-					# print('else pumasok')
-				db.session.add(new_vaccine)
-				db.session.commit()
+				# if 'booster_id_no' in new_formdata and new_formdata['booster_id_no'] != "" and 'booster_brand' in new_formdata and new_formdata['booster_brand'] != "" and 'booster_date' in new_formdata and new_formdata['booster_date'] != "":
+				# 	new_vaccine = Vaccine(vac_id_no = new_formdata['vac_id_no'], vac_brand = new_formdata['vac_brand'], vac_place = new_formdata['vac_place'],
+				# 					vac_first_dose = new_formdata['vac_first_dose'], vac_second_dose = new_formdata['vac_second_dose'], booster_id_no = new_formdata['booster_id_no'],
+				# 					booster_brand = new_formdata['booster_brand'], booster_place = new_formdata['booster_place'],
+				# 					booster_date = datetime.datetime.strptime(new_formdata['booster_date'], '%Y-%m-%d').date(), user_id = finaldata.id
+				# 					)
+
+				# else:
+				# 	new_vaccine = Vaccine(vac_id_no = new_formdata['vac_id_no'], vac_brand = new_formdata['vac_brand'], vac_place = new_formdata['vac_place'],
+				# 					vac_first_dose = new_formdata['vac_first_dose'], vac_second_dose = new_formdata['vac_second_dose'], booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date(), user_id = finaldata.id
+				# 					)
+
+				# db.session.add(new_vaccine)
+				# db.session.commit()
 		else:
 			return render_template('signup.html')
 		
