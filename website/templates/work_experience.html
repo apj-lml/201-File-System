@@ -99,7 +99,7 @@
                           <option value="CASUAL">CASUAL</option>
                           <option value="JOB ORDER">JOB ORDER</option>
                           <option value="REGULAR">REGULAR</option>
-                          <option value="CONTRACTUAL">CONTRACTUAL</option>
+                          <option value="CONTRACT OF SERVICE">CONTRACT OF SERVICE</option>
                         </select>
                         <label for="status_of_appointment">Status of Appointment</label>
                       </div>
@@ -294,7 +294,7 @@
                                 <option value="CASUAL">CASUAL</option>
                                 <option value="JOB ORDER">JOB ORDER</option>
                                 <option value="REGULAR">REGULAR</option>
-                                <option value="CONTRACTUAL">CONTRACTUAL</option>
+                                <option value="CONTRACT OF SERVICE">CONTRACT OF SERVICE</option>
                               </select>
                               <label for="update_status_of_appointment">Status of Appointment</label>
                             </div>
@@ -593,7 +593,7 @@ function validate_status2(){
 
       document.querySelectorAll("#sg option").forEach(opt => {
         if (opt.value == "N/A") {
-            opt.disabled = true;
+            opt.disabled = false;
         }
     });
 
@@ -622,7 +622,7 @@ function validate_status2(){
         }
       });
       }
-      else if (value == "COTERMINOUS" || value == 'CONTRACTUAL'){
+      else if (value == "COTERMINOUS" || value == 'CONTRACT OF SERVICE'){
         sg.disabled = false;
         step.disabled = false;
 
@@ -699,7 +699,7 @@ function validate_status(){
 
       document.querySelectorAll("#sg option").forEach(opt => {
         if (opt.value == "N/A") {
-            opt.disabled = true;
+            opt.disabled = false;
         }
     });
 
@@ -727,7 +727,7 @@ function validate_status(){
         }
       });
       }
-      else if (value == "COTERMINOUS" || value == 'CONTRACTUAL'){
+      else if (value == "COTERMINOUS" || value == 'CONTRACT OF SERVICE'){
         sg.disabled = false;
         step.disabled = false;
 

@@ -207,8 +207,8 @@
                       <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-1 mb-3 p-1">
-                      <select class="form-select" id="job_grade" name="" aria-label="Floating label select example" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                    <div class="form-floating col-sm-2 mb-3 p-1">
+                      <select class="form-select" id="job_grade" name="" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.job_grade if user_profile.job_grade is not none else ''}}" selected disabled hidden>{{user_profile.job_grade if user_profile.job_grade is not none else ''}}</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
