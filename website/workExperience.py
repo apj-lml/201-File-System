@@ -43,6 +43,9 @@ def add_work_experience(emp_id):
         if 'step' not in formdata:
             formdata['step'] = 'N/A'
 
+        if formdata['status_of_appointment']  == "JOB ORDER":
+            formdata['step'] = '1'
+
         if 'sf_present' in formdata:
             get_we = Work_Experience.query.filter_by(user_id = emp_id, date_to = "PRESENT").all()
             if get_we:

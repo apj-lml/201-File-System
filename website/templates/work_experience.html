@@ -586,10 +586,14 @@ function validate_status2(){
 
     if (value == "JOB ORDER"){
       sg.disabled = false;
-      step.disabled = true;
-      govt_service_save.value = "N";
       govt_service_select.disabled = true;
+      govt_service_select.value = "N";
+      govt_service_save.value = "N";
+      
       sg.value = "1";
+      step.value = "1";
+      step.disabled = true;
+
 
       document.querySelectorAll("#sg option").forEach(opt => {
         if (opt.value == "N/A") {
@@ -692,10 +696,14 @@ function validate_status(){
 
     if (value == "JOB ORDER"){
       sg.disabled = false;
-      step.disabled = true;
-      govt_service_save.value = "N";
       govt_service_select.disabled = true;
+      govt_service_select.value = "N";
+      govt_service_save.value = "N";
+      
+      
       sg.value = "1";
+      step.value = "1";
+      step.disabled = false;
 
       document.querySelectorAll("#sg option").forEach(opt => {
         if (opt.value == "N/A") {
