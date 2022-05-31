@@ -646,10 +646,8 @@ async function fillForm() {
 
         {% if user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step != "N/A" %}
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int}} - {{ user_profile.work_experience[0].step }}`);
-        {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step == "N/A" %}
-            wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int }}`);
-        {% elif user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" or user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" %}
-            wes_sg_step[0].setText(`N/A`);
+        {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg == "N/A" %}
+            wes_sg_step[0].setText('N/A');
         {% else %}
             wes_sg_step[0].setText(``);
         {% endif %}
@@ -666,10 +664,8 @@ async function fillForm() {
 
         {% if user_profile.work_experience[1] and user_profile.work_experience[1].sg != "N/A" and user_profile.work_experience[1].step != "N/A" %}
             wes_sg_step[1].setText(`{{'%02d' %  user_profile.work_experience[1].sg|int}} - {{ user_profile.work_experience[1].step }}`);
-        {% elif user_profile.work_experience[1] and user_profile.work_experience[1].sg != "N/A" and user_profile.work_experience[1].step == "N/A" %}
-            wes_sg_step[1].setText(`{{ user_profile.work_experience[1].sg }}`);
-        {% elif user_profile.work_experience[1] and user_profile.work_experience[1].sg == "N/A" and user_profile.work_experience[1].step == "N/A" %}
-            wes_sg_step[1].setText(`N/A`);
+        {% elif user_profile.work_experience[1] and user_profile.work_experience[1].sg == "N/A"%}
+            wes_sg_step[1].setText('N/A');
         {% else %}
             wes_sg_step[1].setText(``);
         {% endif %}
@@ -687,9 +683,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[2] and user_profile.work_experience[2].sg != "N/A" and user_profile.work_experience[2].step != "N/A" %}
             wes_sg_step[2].setText(`{{'%02d' %  user_profile.work_experience[2].sg|int}} - {{ user_profile.work_experience[2].step }}`);
-        {% elif user_profile.work_experience[2] and user_profile.work_experience[2].sg != "N/A" and user_profile.work_experience[2].step == "N/A" %}
-            wes_sg_step[2].setText(`{{ user_profile.work_experience[2].sg }}`);
-        {% elif user_profile.work_experience[2] and user_profile.work_experience[2].sg == "N/A" and user_profile.work_experience[2].step == "N/A" %}
+        {% elif user_profile.work_experience[2] and user_profile.work_experience[2].sg == "N/A" %}
             wes_sg_step[2].setText(`N/A`);
         {% else %}
             wes_sg_step[2].setText(``);
@@ -707,9 +701,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[3] and user_profile.work_experience[3].sg != "N/A" and user_profile.work_experience[3].step != "N/A" %}
             wes_sg_step[3].setText(`{{'%02d' %  user_profile.work_experience[3].sg|int}} - {{ user_profile.work_experience[3].step }}`);
-        {% elif user_profile.work_experience[3] and user_profile.work_experience[3].sg != "N/A" and user_profile.work_experience[3].step == "N/A" %}
-            wes_sg_step[3].setText(`{{ user_profile.work_experience[3].sg }}`);
-        {% elif user_profile.work_experience[3] and user_profile.work_experience[3].sg == "N/A" and user_profile.work_experience[3].step == "N/A" %}
+        {% elif user_profile.work_experience[3] and user_profile.work_experience[3].sg == "N/A" %}
             wes_sg_step[3].setText(`N/A`);
         {% else %}
             wes_sg_step[3].setText(``);
@@ -726,9 +718,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[4] and user_profile.work_experience[4].sg != "N/A" and user_profile.work_experience[4].step != "N/A" %}
             wes_sg_step[4].setText(`{{'%02d' %  user_profile.work_experience[4].sg|int}} - {{ user_profile.work_experience[4].step }}`);
-        {% elif user_profile.work_experience[4] and user_profile.work_experience[4].sg != "N/A" and user_profile.work_experience[4].step == "N/A" %}
-            wes_sg_step[4].setText(`{{ user_profile.work_experience[4].sg }}`);
-        {% elif user_profile.work_experience[4] and user_profile.work_experience[4].sg == "N/A" and user_profile.work_experience[4].step == "N/A" %}
+        {% elif user_profile.work_experience[4] and user_profile.work_experience[4].sg == "N/A" %}
             wes_sg_step[4].setText(`N/A`);
         {% else %}
             wes_sg_step[4].setText(``);
@@ -745,9 +735,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[5] and user_profile.work_experience[5].sg != "N/A" and user_profile.work_experience[5].step != "N/A" %}
             wes_sg_step[5].setText(`{{'%02d' %  user_profile.work_experience[5].sg|int}} - {{ user_profile.work_experience[5].step }}`);
-        {% elif user_profile.work_experience[5] and user_profile.work_experience[5].sg != "N/A" and user_profile.work_experience[5].step == "N/A" %}
-            wes_sg_step[5].setText(`{{ user_profile.work_experience[5].sg }}`);
-        {% elif user_profile.work_experience[5] and user_profile.work_experience[5].sg == "N/A" and user_profile.work_experience[5].step == "N/A" %}
+        {% elif user_profile.work_experience[5] and user_profile.work_experience[5].sg == "N/A" %}
             wes_sg_step[5].setText(`N/A`);
         {% else %}
             wes_sg_step[5].setText(``);
@@ -764,9 +752,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[6] and user_profile.work_experience[6].sg != "N/A" and user_profile.work_experience[6].step != "N/A" %}
             wes_sg_step[6].setText(`{{'%02d' %  user_profile.work_experience[6].sg|int}} - {{ user_profile.work_experience[6].step }}`)
-        {% elif user_profile.work_experience[6] and user_profile.work_experience[6].sg != "N/A" and user_profile.work_experience[6].step == "N/A" %}
-            wes_sg_step[6].setText(`{{ user_profile.work_experience[6].sg }}`)
-        {% elif user_profile.work_experience[6] and user_profile.work_experience[6].sg == "N/A" and user_profile.work_experience[6].step == "N/A" %}
+        {% elif user_profile.work_experience[6] and user_profile.work_experience[6].sg == "N/A" %}
             wes_sg_step[6].setText(`N/A`)
         {% else %}
             wes_sg_step[6].setText(``)
@@ -783,9 +769,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[7] and user_profile.work_experience[7].sg != "N/A" and user_profile.work_experience[7].step != "N/A" %}
             wes_sg_step[7].setText(`{{'%02d' %  user_profile.work_experience[7].sg|int}} - {{ user_profile.work_experience[7].step }}`);
-        {% elif user_profile.work_experience[7] and user_profile.work_experience[7].sg != "N/A" and user_profile.work_experience[7].step == "N/A" %}
-            wes_sg_step[7].setText(`{{ user_profile.work_experience[7].sg }}`);
-        {% elif user_profile.work_experience[7] and user_profile.work_experience[7].sg == "N/A" and user_profile.work_experience[7].step == "N/A" %}
+        {% elif user_profile.work_experience[7] and user_profile.work_experience[7].sg == "N/A" %}
             wes_sg_step[7].setText(`N/A`)
         {% else %}
             wes_sg_step[7].setText(``)
@@ -802,9 +786,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[8] and user_profile.work_experience[8].sg != "N/A" and user_profile.work_experience[8].step != "N/A" %}
             wes_sg_step[8].setText(`{{'%02d' %  user_profile.work_experience[8].sg|int}} - {{ user_profile.work_experience[8].step }}`);
-        {% elif user_profile.work_experience[8] and user_profile.work_experience[8].sg != "N/A" and user_profile.work_experience[8].step == "N/A" %}
-            wes_sg_step[8].setText(`{{ user_profile.work_experience[8].sg }}`);
-        {% elif user_profile.work_experience[8] and user_profile.work_experience[8].sg == "N/A" and user_profile.work_experience[8].step == "N/A" %}
+        {% elif user_profile.work_experience[8] and user_profile.work_experience[8].sg == "N/A" %}
             wes_sg_step[8].setText(`N/A`);
         {% else %}
             wes_sg_step[8].setText(``);
@@ -821,9 +803,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[9] and user_profile.work_experience[9].sg != "N/A" and user_profile.work_experience[9].step != "N/A" %}
             wes_sg_step[9].setText(`{{'%02d' %  user_profile.work_experience[9].sg|int}} - {{ user_profile.work_experience[9].step }}`);
-        {% elif user_profile.work_experience[9] and user_profile.work_experience[9].sg != "N/A" and user_profile.work_experience[9].step == "N/A" %}
-            wes_sg_step[9].setText(`{{ user_profile.work_experience[9].sg }}`);
-        {% elif user_profile.work_experience[9] and user_profile.work_experience[9].sg == "N/A" and user_profile.work_experience[9].step == "N/A" %}
+        {% elif user_profile.work_experience[9] and user_profile.work_experience[9].sg == "N/A" %}
             wes_sg_step[9].setText(`N/A`);
         {% else %}
             wes_sg_step[9].setText(``);
@@ -840,9 +820,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[10] and user_profile.work_experience[10].sg != "N/A" and user_profile.work_experience[10].step != "N/A" %}
             wes_sg_step[10].setText(`{{'%02d' %  user_profile.work_experience[10].sg|int}} - {{ user_profile.work_experience[10].step }}`);
-        {% elif user_profile.work_experience[10] and user_profile.work_experience[10].sg != "N/A" and user_profile.work_experience[10].step == "N/A" %}
-            wes_sg_step[10].setText(`{{ user_profile.work_experience[10].sg }}`);
-        {% elif user_profile.work_experience[10] and user_profile.work_experience[10].sg == "N/A" and user_profile.work_experience[10].step == "N/A" %}
+        {% elif user_profile.work_experience[10] and user_profile.work_experience[10].sg == "N/A" %}
             wes_sg_step[10].setText(`N/A`);
         {% else %}
             wes_sg_step[10].setText(``);
@@ -859,9 +837,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[11] and user_profile.work_experience[11].sg != "N/A" and user_profile.work_experience[11].step != "N/A" %}
             wes_sg_step[11].setText(`{{'%02d' %  user_profile.work_experience[11].sg|int}} - {{ user_profile.work_experience[11].step }}`);
-        {% elif user_profile.work_experience[11] and user_profile.work_experience[11].sg != "N/A" and user_profile.work_experience[11].step == "N/A" %}
-            wes_sg_step[11].setText(`{{ user_profile.work_experience[11].sg }}`);
-        {% elif user_profile.work_experience[11] and user_profile.work_experience[11].sg == "N/A" and user_profile.work_experience[11].step == "N/A" %}
+        {% elif user_profile.work_experience[11] and user_profile.work_experience[11].sg == "N/A" %}
             wes_sg_step[11].setText(`N/A`);
         {% else %}
             wes_sg_step[11].setText(``);
@@ -878,9 +854,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[12] and user_profile.work_experience[12].sg != "N/A" and user_profile.work_experience[12].step != "N/A" %}
             wes_sg_step[12].setText(`{{'%02d' %  user_profile.work_experience[12].sg|int}} - {{ user_profile.work_experience[12].step }}`);
-        {% elif user_profile.work_experience[12] and user_profile.work_experience[12].sg != "N/A" and user_profile.work_experience[12].step == "N/A" %}
-            wes_sg_step[12].setText(`{{ user_profile.work_experience[12].sg }}`);
-        {% elif user_profile.work_experience[12] and user_profile.work_experience[12].sg == "N/A" and user_profile.work_experience[12].step == "N/A" %}
+        {% elif user_profile.work_experience[12] and user_profile.work_experience[12].sg == "N/A" %}
             wes_sg_step[12].setText(`N/A`);
         {% else %}
             wes_sg_step[12].setText(``);
@@ -897,9 +871,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[13] and user_profile.work_experience[13].sg != "N/A" and user_profile.work_experience[13].step != "N/A" %}
             wes_sg_step[13].setText(`{{'%02d' %  user_profile.work_experience[13].sg|int}} - {{ user_profile.work_experience[13].step }}`);
-        {% elif user_profile.work_experience[13] and user_profile.work_experience[13].sg != "N/A" and user_profile.work_experience[13].step == "N/A" %}
-            wes_sg_step[13].setText(`{{ user_profile.work_experience[13].sg }}`);
-        {% elif user_profile.work_experience[13] and user_profile.work_experience[13].sg == "N/A" and user_profile.work_experience[13].step == "N/A" %}
+        {% elif user_profile.work_experience[13] and user_profile.work_experience[13].sg == "N/A" %}
             wes_sg_step[13].setText(`N/A`);
         {% else %}
             wes_sg_step[13].setText(``);
@@ -917,9 +889,7 @@ async function fillForm() {
 
         {% if user_profile.work_experience[14] and user_profile.work_experience[14].sg != "N/A" and user_profile.work_experience[14].step != "N/A" %}
             wes_sg_step[14].setText(`{{'%02d' %  user_profile.work_experience[14].sg|int}} - {{ user_profile.work_experience[14].step }}`);
-        {% elif user_profile.work_experience[14] and user_profile.work_experience[14].sg != "N/A" and user_profile.work_experience[14].step == "N/A" %}
-            wes_sg_step[14].setText(`{{ user_profile.work_experience[14].sg }}`);
-        {% elif user_profile.work_experience[14] and user_profile.work_experience[14].sg == "N/A" and user_profile.work_experience[14].step == "N/A" %}
+        {% elif user_profile.work_experience[14] and user_profile.work_experience[14].sg == "N/A"%}
             wes_sg_step[14].setText(`N/A`);
         {% else %}
             wes_sg_step[14].setText(``);
@@ -1569,9 +1539,7 @@ wes_salary_2[0].setText(`{{user_profile.work_experience[15].monthly_salary if us
 
 {% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" and user_profile.work_experience[15].step != "N/A" %}
     wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[0].step }}`)
-{% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" and user_profile.work_experience[15].step == "N/A" %}
-    wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }}`)
-{% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" and user_profile.work_experience[15].step == "N/A" %}
+{% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" %}
     wes_sg_step_2[0].setText(`N/A`)
 {% else %}
     wes_sg_step_2[0].setText(`N/A`)
@@ -1588,9 +1556,7 @@ wes_salary_2[1].setText(`{{user_profile.work_experience[16].monthly_salary if us
 
 {% if user_profile.work_experience[16] and user_profile.work_experience[16].sg != "N/A" and user_profile.work_experience[16].step != "N/A" %}
     wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[16].sg|int }} - {{ user_profile.work_experience[16].step }}`)
-{% elif user_profile.work_experience[16] and user_profile.work_experience[16].sg != "N/A" and user_profile.work_experience[16].step == "N/A" %}
-    wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[16].sg|int }}`)
-{% elif user_profile.work_experience[16] and user_profile.work_experience[16].sg == "N/A" and user_profile.work_experience[16].step == "N/A" %}
+{% elif user_profile.work_experience[16] and user_profile.work_experience[16].sg == "N/A" %}
     wes_sg_step_2[1].setText(`N/A`)
 {% else %}
     wes_sg_step_2[1].setText(``)
@@ -2390,10 +2356,11 @@ const form6 = page6.getForm();
         //<!-- ----------------------------------------------------------------------- -->
 
     // srcDoc2 is for the page 2 of masteral and doctoral
-    const formUrl3 = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
-    const formPdfBytes3 = await fetch(formUrl3).then(res => res.arrayBuffer())
-    const srcDoc2 = await PDFLib.PDFDocument.load(formPdfBytes3);
-    const form3 = srcDoc2.getForm()
+
+    // const formUrl3 = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
+    // const formPdfBytes3 = await fetch(formUrl3).then(res => res.arrayBuffer())
+    // const srcDoc2 = await PDFLib.PDFDocument.load(formPdfBytes3);
+    // const form3 = srcDoc2.getForm()
 
     // const doc_school3 = form3.getTextField('gs_school');
     // const doc_degree_course3 = form3.getTextField('gs_degree_course');
@@ -2433,13 +2400,13 @@ const form6 = page6.getForm();
 
     
     form2.flatten(); // flatten form before copying
-    form3.flatten(); // flatten form before copying
+    //form3.flatten(); // flatten form before copying
 
     const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2])
     const [firstPage, secondPage, thirdPage] = copiedPages;
 
-    const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0])
-    const [firstPage2] = copiedPages2;
+    // const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0])
+    // const [firstPage2] = copiedPages2;
 
     {% if child[12] or college[1] or user_profile.vocational_course[1] or masteral[1] %}
         pdfDoc.addPage(firstPage)
@@ -2467,8 +2434,7 @@ const form6 = page6.getForm();
     {% endif %}
 
     {% if user_profile.learning_development|length > 43 %}
-        //form6.flatten(); // flatten form before copying
-       // form6.flatten();
+        form6.flatten(); // flatten form before copying
 
         const copiedPages5 = await pdfDoc.copyPages(page6, [0])
 
