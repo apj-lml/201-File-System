@@ -208,6 +208,9 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 
 	for xy in range(1, int(cs_update_no_fields)+1):
+
+		if formdata['cs_rating['+str(xy)+']'] == "":
+			formdata['cs_rating['+str(xy)+']'] = "N/A"
 		
 		cse = Career_Service.query.filter_by(id = formdata['cse_id['+str(xy)+']'])
 		cse.update(dict(cs_eligibility = formdata['cs_eligibility['+str(xy)+']'].upper(), 

@@ -587,7 +587,8 @@ async function fillForm() {
     //<!-- ----------------------------------------------------------------------- -->
 
     cse1.setText("{{user_profile.career_service[0].cs_eligibility|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_eligibility is not none else 'N/A'}}");
-    cs_rating1.setText("{{user_profile.career_service[0].cs_rating|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_rating is not none else 'N/A'}}");
+
+    cs_rating1.setText("{{user_profile.career_service[0].cs_rating|escapejs if user_profile.career_service[0] is defined and user_profile.career_service[0].cs_rating is not none and user_profile.career_service[0].cs_rating != "" else 'N/A'}}");
 
     date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination|format_mydatetime if user_profile.career_service[0] is defined and user_profile.career_service[0].date_of_examination_from != "" else 'N/A'}}");
 
