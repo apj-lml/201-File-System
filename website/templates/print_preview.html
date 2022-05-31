@@ -648,7 +648,7 @@ async function fillForm() {
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int}} - {{ user_profile.work_experience[0].step }}`);
         {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step == "N/A" %}
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int }}`);
-        {% elif user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" or user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" or user_profile.work_experience[0].sg is none %}
+        {% elif user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" or user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" %}
             wes_sg_step[0].setText(`N/A`);
         {% else %}
             wes_sg_step[0].setText(``);
@@ -2403,13 +2403,13 @@ const form6 = page6.getForm();
     // const doc_year_graduated3 = form3.getTextField('gs_year_graduated');
     // const doc_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
 
-    const doc_school3 = form3.getTextField('gs_school');
-    const doc_degree_course3 = form3.getTextField('gs_degree_course');
-    const doc_period_of_attendance_from3 = form3.getTextField('gs_period_of_attendance_from');
-    const doc_period_of_attendance_to3 = form3.getTextField('gs_period_of_attendance_to');
-    const doc_highest_grade_year_units3 = form3.getTextField('gs_highest_level');
-    const doc_year_graduated3 = form3.getTextField('gs_year_graduated');
-    const doc_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
+    const doc_school3 = form2.getTextField('gs_school');
+    const doc_degree_course3 = form2.getTextField('gs_degree_course');
+    const doc_period_of_attendance_from3 = form2.getTextField('gs_period_of_attendance_from');
+    const doc_period_of_attendance_to3 = form2.getTextField('gs_period_of_attendance_to');
+    const doc_highest_grade_year_units3 = form2.getTextField('gs_highest_level');
+    const doc_year_graduated3 = form2.getTextField('gs_year_graduated');
+    const doc_scholarship_academic_honor3 = form2.getTextField('gs_scholarship_academic_honor');
 
     doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else ""}}')
     doc_degree_course3.setText('{{user_profile.doctoral[0].doc_degree_course if user_profile.doctoral|length > 0 else ""}}')
@@ -2450,7 +2450,7 @@ const form6 = page6.getForm();
     {% endif %}
 
     {% if user_profile.voluntary_work|length > 6 or user_profile.learning_development|length > 11 %}
-        //form4.flatten(); // flatten form before copying
+        form4.flatten(); // flatten form before copying
         const copiedPages3 = await pdfDoc.copyPages(page4, [2])
         const [thirdPage2] = copiedPages3;
         pdfDoc.addPage(thirdPage2)
@@ -2458,7 +2458,7 @@ const form6 = page6.getForm();
     {% endif %}
 
     {% if user_profile.voluntary_work|length > 8 or user_profile.learning_development|length > 27 %}
-        //form5.flatten(); // flatten form before copying
+        form5.flatten(); // flatten form before copying
         const copiedPages4 = await pdfDoc.copyPages(page5, [0])
         const [thirdPage3] = copiedPages4;
         pdfDoc.addPage(thirdPage3)
