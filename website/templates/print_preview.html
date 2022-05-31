@@ -490,18 +490,20 @@ async function fillForm() {
     v_period_of_attendance_to.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course|length > 0 else "N/A"}}');
 
     {% if user_profile.vocational_course[0] is defined and user_profile.vocational_course[0].v_highest_level == "GRADUATED" %}
-        v_highest_level.setText('GRADUATED')
-        console.log("IM HERE PO")
+        v_highest_level.setText('GRADUATED');
+        v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to}}');
+        console.log("IM HERE PO");
     {% elif user_profile.vocational_course[0] is defined and user_profile.vocational_course[0].v_highest_level != "GRADUATED" and user_profile.vocational_course[0].v_highest_level is not none %}
         v_highest_level.setText('{{user_profile.vocational_course[0].v_highest_grade_year_units}}');
-        console.log("IM HERE PO 2")
+        console.log("IM HERE PO 2");
     {% else %}
         v_highest_level.setText('N/A');
-        console.log("IM HERE PO 3")
+        console.log("IM HERE PO 3");
+        v_year_graduated.setText('N/A');
 
     {% endif %}
 
-    v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to if user_profile.vocational_course[0].v_highest_level == "GRADUATED" else "N/A"}}');
+
 
     {% if user_profile.vocational_course[1] %}
         {% if user_profile.vocational_course[1].v_scholarship_academic_honor != "" %}
