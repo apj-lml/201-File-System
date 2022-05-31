@@ -589,7 +589,7 @@ async function fillForm() {
     cse1.setText("{{user_profile.career_service[0].cs_eligibility|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_eligibility is not none else 'N/A'}}");
     cs_rating1.setText("{{user_profile.career_service[0].cs_rating|escapejs if user_profile.career_service[0] and user_profile.career_service[0].cs_rating is not none else 'N/A'}}");
 
-    date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination|format_mydatetime if user_profile.career_service[0] is defined and user_profile.career_service[0].date_of_examination_from is not none else 'N/A'}}");
+    date_of_examination1.setText("{{user_profile.career_service[0].date_of_examination|format_mydatetime if user_profile.career_service[0] is defined and user_profile.career_service[0].date_of_examination_from != "" else 'N/A'}}");
 
     place_of_examination_conferment1.setText("{{user_profile.career_service[0].place_of_examination_conferment|escapejs if user_profile.career_service[0] and user_profile.career_service[0].place_of_examination_conferment is not none else 'N/A'}}");
     license_no1.setText("{{user_profile.career_service[0].license_no|escapejs if user_profile.career_service[0] and user_profile.career_service[0].license_no is not none else 'N/A'}}");

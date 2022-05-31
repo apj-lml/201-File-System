@@ -54,10 +54,9 @@ def add_vocational(emp_id):
                     v_scholarship_academic_honor = formdata['v_scholarship_academic_honor['+str(x)+']'],
                     v_date_of_validity = formdata['v_date_of_validity['+str(x)+']'],
                     user_id = emp_id)
-
-            db.session.add(new_vocational)
-            db.session.flush()
-            db.session.commit()
+                db.session.add(new_vocational)
+                db.session.flush()
+                db.session.commit()
             
     return "vocation ok", 200
 

@@ -206,12 +206,14 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 #                                UPDATING OF CSE                               #
 # ---------------------------------------------------------------------------- #
+
 	for xy in range(1, int(cs_update_no_fields)+1):
 		
 		cse = Career_Service.query.filter_by(id = formdata['cse_id['+str(xy)+']'])
 		cse.update(dict(cs_eligibility = formdata['cs_eligibility['+str(xy)+']'].upper(), 
 						cs_rating = formdata['cs_rating['+str(xy)+']'].upper(), 
 						date_of_examination = formdata['date_of_examination['+str(xy)+']'], 
+						date_of_examination_to = formdata['date_of_examination_to['+str(xy)+']'], 
 						place_of_examination_conferment = formdata['place_of_examination_conferment['+str(xy)+']'].upper(),
 						license_no = formdata['license_no['+str(xy)+']'].upper(), 
 						date_of_validity = formdata['date_of_validity['+str(xy)+']']))

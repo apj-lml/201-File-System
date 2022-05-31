@@ -789,6 +789,8 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Vocational / Trade Course</h3>
+                    <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Vocational / Trade Course is not applicable.</p>
+
                     <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="{{user_profile.vocational_course|length}}" form="update_form">
                     
                     {% if user_profile.vocational_course  %}
@@ -813,7 +815,7 @@
                               {% if user_profile.v_highest_level %}
                               <option class="" value="{{user_profile.v_highest_level}}" selected disabled hidden>{{user_profile.v_highest_level}}</option>
                               {% else %}
-                              <option class="" value="" selected></option>
+                              <option value="" selected></option>
                               {% endif %}
                               <option value="GRADUATED">GRADUATED</option>
                               <option value="UNDERGRADUATE">UNDERGRADUATE</option>
@@ -941,6 +943,8 @@
                   <div class="card mb-3">
                     <div class="card-body">
                       <h3 class="card-title">College</h3>
+                      <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if College is not applicable.</p>
+
                       {%if user_profile.college %}
                       <input type="hidden" name="college_no_fields" id="college_no_fields" value="0" form="add_college_form">
                       {% set count_update_college = namespace(value=1) %}
@@ -1075,6 +1079,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Masteral Degree</h3>
+                    <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Masteral Degree is not applicable.</p>
                     <input type="hidden" name="masteral_no_update_fields" id="masteral_no_update_fields" value="{{user_profile.masteral|length}}" form="update_form">
   
                     {% if user_profile.masteral %}
@@ -1201,6 +1206,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Doctoral Degree</h3>
+                    <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Doctoral Degree is not applicable.</p>
                     <input type="hidden" name="doctoral_no_update_fields" id="doctoral_no_update_fields" value="{{user_profile.doctoral|length}}" form="update_form">
   
                     {% if user_profile.doctoral %}
@@ -1334,6 +1340,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Civil Service Eligibility</h3>
+                <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Civil Service Eligibility is not applicable.</p>
                   <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.career_service|length}}" form="update_form">
                   {% if user_profile.career_service %}
                   <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="0" form="add_cse_form">
@@ -1350,11 +1357,11 @@
                                 <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" placeholder="Date of Examination" value="{{cse.date_of_examination}}" form="update_form">
+                                <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" value="{{cse.date_of_examination}}" form="update_form">
                                 <label for="date_of_examination">Date of Examination / Conferment From</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="date" class="form-control" name ="date_of_examination_to[{{count_update_cse.value}}]" placeholder="Date of Examination To" value="{{cse.date_of_examination_to}}" form="update_form">
+                                <input type="date" class="form-control" name ="date_of_examination_to[{{count_update_cse.value}}]" value="{{cse.date_of_examination_to}}" form="update_form">
                                 <label for="date_of_examination_to">Date of Examination / Conferment To</label>
                               </div>
                             </div>
