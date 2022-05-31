@@ -648,7 +648,7 @@ async function fillForm() {
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int}} - {{ user_profile.work_experience[0].step }}`);
         {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step == "N/A" %}
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int }}`);
-        {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" %}
+        {% elif user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A" or user_profile.work_experience[0].sg == "N/A" and user_profile.work_experience[0].step == "N/A"  %}
             wes_sg_step[0].setText(`N/A`);
         {% else %}
             wes_sg_step[0].setText(``);
