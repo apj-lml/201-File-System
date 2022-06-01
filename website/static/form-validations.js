@@ -244,8 +244,10 @@
         var emp_status = document.getElementById('employment_status').value;
         var job_grade = document.getElementById('job_grade').value;
 
-        if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" || emp_status == "TEMPORARY"){
+        console.log(emp_status)
 
+        if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" || emp_status == "TEMPORARY"){
+          console.log(2)
           monthly_rate.value = job_grade_monthly_salary[job_grade][step];
           var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
           monthly_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -253,7 +255,8 @@
           document.getElementById('salary_grade').value = "";;
           disableStepCasual(false);
 
-        }else if (emp_status == "JOB ORDER" || "CONTRACT OF SERVICE"){
+        }else if (emp_status == "JOB ORDER" || emp_status == "CONTRACT OF SERVICE"){
+          console.log(3)
           daily_rate.value = daily_salary[sg];
           var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
           daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -261,18 +264,27 @@
           disableStepCasual(false);
 
         }else if (emp_status == "CASUAL"){
+          console.log(4)
+
+          //daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
+          //var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
+          //daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
-          var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
-          daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           monthly_rate.value = "N/A";
+
+        console.log("HELLO", casual_job_grade_daily_salary[job_grade][step]);
+
+          disableStepCasual(true);
+
         }
 
-        document.getElementsByName('daily_rate')[0].value = document.getElementById('daily_rate').value;
-        document.getElementsByName('monthly_rate')[0].value = document.getElementById('monthly_rate').value;
 
-        document.getElementsByName('job_grade')[0].value = document.getElementById('job_grade').value;
-        document.getElementsByName('salary_grade')[0].value = document.getElementById('salary_grade').value;
-        document.getElementsByName('step')[0].value = document.getElementById('step').value;
+        // document.getElementsByName('daily_rate')[0].value = document.getElementById('daily_rate').value;
+        // document.getElementsByName('monthly_rate')[0].value = document.getElementById('monthly_rate').value;
+
+        // document.getElementsByName('job_grade')[0].value = document.getElementById('job_grade').value;
+        // document.getElementsByName('salary_grade')[0].value = document.getElementById('salary_grade').value;
+        // document.getElementsByName('step')[0].value = document.getElementById('step').value;
 
 
       }
@@ -286,7 +298,7 @@
 
       function disableStepCasual(isDisabled){
         var op = document.getElementById("step").getElementsByTagName("option");
-        for (var i = 3; i < op.length; i++) { 
+        for (var i = 3; i < op.length; i++) {
             op[i].disabled = isDisabled;
           }
 
@@ -296,7 +308,6 @@
             }
       }
     document.getElementById("employment_status").addEventListener("change", employment_status);
-
 
     document.getElementById("salary_grade").addEventListener("change", myrate);
     document.getElementById("job_grade").addEventListener("change", myrate);

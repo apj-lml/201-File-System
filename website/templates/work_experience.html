@@ -584,7 +584,7 @@ function validate_status2(){
     var govt_service_save = document.getElementById("update_govt_service");
     var govt_service_select = document.getElementById("update_govt_service_select");
 
-    if (value == "JOB ORDER"){
+    if (value == "JOB ORDER" || value == "CONTRACT OF SERVICE"){
       sg.disabled = false;
       govt_service_select.disabled = true;
       govt_service_select.value = "N";
@@ -695,7 +695,7 @@ function validate_status(){
     var govt_service_save = document.getElementById("govt_service_save");
     var govt_service_select = document.getElementById("govt_service_select");
 
-    if (value == "JOB ORDER"){
+    if (value == "JOB ORDER" || value == "CONTRACT OF SERVICE"){
       sg.disabled = false;
       govt_service_select.disabled = true;
       govt_service_select.value = "N";
