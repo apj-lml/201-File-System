@@ -210,7 +210,7 @@
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <select class="form-select" id="job_grade" name="" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="job_grade" name="job_grade" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.job_grade if user_profile.job_grade is not none else ''}}" selected disabled hidden>{{user_profile.job_grade if user_profile.job_grade is not none else ''}}</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -234,11 +234,11 @@
 
                       </select>
                       <label for="job_grade" style="font-size: 14px;">Job Grade<span class="is-required">*</span></label>
-                      <input type="hidden" id="" name="job_grade" value="" form="update_form" >
+                      <!-- <input type="text" id="" name="" value="" form="update_form" > -->
 
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="" aria-label="Floating label select example" value="{{user_profile.salary_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="salary_grade" name="salary_grade" value="{{user_profile.salary_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -267,11 +267,11 @@
                         <option value="25">25</option>
                       </select>
                       <label for="salary_grade" style="font-size: 14px;">Salary Grade<span class="is-required">*</span></label>
-                      <input type="hidden" id="" name="salary_grade" form="update_form" >
+                      <!-- <input type="text" id="" name="" id="" form="update_form" > -->
 
                     </div>
                     <div class="form-floating col-sm-1 mb-3 p-1">
-                      <select class="form-select" id="step" name="" aria-label="Floating label select example" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -283,7 +283,7 @@
                         <option value="8">8</option>
                       </select>
                       <label for="step">Step<span class="is-required">*</span></label>
-                      <input type="hidden" id="" name="step" value="" form="update_form">
+                      <!-- <input type="hidden" id="" name="step" value="" form="update_form"> -->
 
                     </div>
 

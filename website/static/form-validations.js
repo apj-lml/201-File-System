@@ -266,13 +266,13 @@
         }else if (emp_status == "CASUAL"){
           console.log(4)
 
-          //daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
-          //var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
-          //daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+          daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
+          var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
+          daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           daily_rate.value = casual_job_grade_daily_salary[job_grade][step];
           monthly_rate.value = "N/A";
 
-        console.log("HELLO", casual_job_grade_daily_salary[job_grade][step]);
+        //console.log("HELLO", casual_job_grade_daily_salary[job_grade][step]);
 
           disableStepCasual(true);
 

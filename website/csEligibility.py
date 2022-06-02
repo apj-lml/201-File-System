@@ -40,8 +40,7 @@ def add_eligibility(emp_id):
             license_no = formdata['license_no['+str(x)+']']
             date_of_validity = formdata['date_of_validity['+str(x)+']']
             
-            if cs_rating == "":
-                cs_rating="N/A"
+
 
             if(
                 cs_eligibility == "" and
@@ -54,7 +53,8 @@ def add_eligibility(emp_id):
             ):pass
             
             else:
-
+                if cs_rating == "":
+                    cs_rating="N/A"
 
                 new_cs_eligibility = Career_Service(
                     cs_eligibility = formdata['cs_eligibility['+str(x)+']'],
