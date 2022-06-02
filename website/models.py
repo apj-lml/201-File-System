@@ -266,7 +266,7 @@ class Family_Background(db.Model, SerializerMixin):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	@hybrid_property
 	def fullname(self):
-		if self.fb_middle_name is None or self.fb_middle_name == "N/A" or self.fb_middle_name == "NONE":
+		if self.fb_middle_name is None or self.fb_middle_name == "N/A" or self.fb_middle_name == "NONE" or self.fb_middle_name == "" :
 			self.fb_middle_name = ""
 		else:
 			self.fb_middle_name = self.fb_middle_name[0] + "."

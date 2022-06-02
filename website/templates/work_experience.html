@@ -202,7 +202,7 @@
                                 {% if work_experience.sg == 'N/A' %}
                                 <td>N/A</td>
                                 {% else %}
-                                <td>{{work_experience.sg}} - {{work_experience.step}}</td>
+                                <td>{{ '%02d' % work_experience.sg|int}} - {{work_experience.step}}</td>
                                 {% endif %}
                                 <td>{{work_experience.status_of_appointment}}</td>
                                 <td>{{work_experience.govt_service}}</td>
@@ -299,7 +299,7 @@
                               <label for="update_status_of_appointment">Status of Appointment</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_sg" name="sg" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
+                              <select class="form-select" id="update_sg" name="sg" value="" form="update_work_experience_form" required>
                                 <option value="N/A" selected>N/A</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -331,7 +331,7 @@
                               <label for="sg">Salary / Job / Pay Grade</label>
                             </div>
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select" id="update_step" name="step" aria-label="Floating label select example" value="" form="update_work_experience_form" required>
+                              <select class="form-select" id="update_step" name="step" value="" form="update_work_experience_form" required>
                                 <option value="N/A" selected>N/A</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -348,7 +348,7 @@
 
                             <!-- this is saved in the database --><input type="hidden" id="update_govt_service" name="govt_service" form="update_work_experience_form">
                             <div class="form-floating flex-fill mb-3 p-1">
-                              <select class="form-select status_of_appointment2" id="update_govt_service_select" name="update_govt_service_select" aria-label="Floating label select example" value="" disabled required>
+                              <select class="form-select status_of_appointment2" id="update_govt_service_select" name="update_govt_service_select" value="" disabled required>
                                 <option value="Y">YES</option>
                                 <option value="N">NO</option>
                               </select>
@@ -464,6 +464,13 @@ var sf_present = document.getElementById('sf_present');
   }
 
   function view_work_experience(el){
+
+    document.getElementById('update_sf_present').checked = false;
+    // document.getElementById('update_date_to').value = "";
+    document.getElementById('update_date_to').disabled = false;
+
+    validate_status2();
+
     fetch('/workExperience/view-work-experience',{
 		method: 'POST',
 		body: JSON.stringify({"work_exp_id" : el.id})
@@ -488,13 +495,13 @@ var sf_present = document.getElementById('sf_present');
       document.getElementById('update_govt_service').value = data[0].govt_service;
       document.getElementById('update_govt_service_select').value = data[0].govt_service;
 
-      validate_status2()
+      //validate_status2()
 
 		});
   }
 
 
-   window.addEventListener('load',()=>{ 
+   window.addEventListener('load',()=>{
 
     $('#work_experience_table').DataTable({
       columnDefs:[{targets:3,className:"truncate"}],
@@ -521,8 +528,6 @@ var sf_present = document.getElementById('sf_present');
                 body: formData1
                 }).then((res)=>{
                   if (res.status == 200){
-                     // triggerToast("Successfully Updated Work Experience", 'success')
-                      // console.log("SUCCESSFULY SUBMITTED ALL DATA")
                       window.location.reload()
 
                   }else if (res.status == 406){
@@ -531,10 +536,7 @@ var sf_present = document.getElementById('sf_present');
                   return res.json()
                 
                 }).then((data)=>{
-                  //triggerToast(data, 'info')
-                    
-                  // $('#work_experience_table').DataTable().ajax.reload()
-                  // document.getElementById('update_work_experience_form').reset()
+
 
                 });//END
             });
@@ -578,7 +580,11 @@ var sf_present = document.getElementById('sf_present');
 });
 
 function validate_status2(){
-  var value = document.getElementById("update_status_of_appointment").value;
+
+    console.log("validate_satatus is running")
+    var value = document.getElementById("update_status_of_appointment").value;
+    console.log(value);
+
     var sg = document.getElementById("update_sg");
     var step = document.getElementById("update_step");
     var govt_service_save = document.getElementById("update_govt_service");
@@ -593,8 +599,6 @@ function validate_status2(){
       sg.value = "1";
       step.value = "1";
       step.disabled = false;
-
-
 
       document.querySelectorAll("#sg option").forEach(opt => {
         if (opt.value == "N/A") {
@@ -796,6 +800,7 @@ function validate_status(){
 
 $('.status_of_appointment').on('change', validate_status);
 $('.status_of_appointment2').on('change', validate_status2);
+
 
 </script>
 {%endblock%}

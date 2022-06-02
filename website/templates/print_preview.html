@@ -447,7 +447,7 @@ async function fillForm() {
     child11_bdate.setText('{{child[10].fb_date_of_birth|format_mydatetime if child[10] and child[10].fb_date_of_birth is not none else ""}}');
     child12_bdate.setText('{{child[11].fb_date_of_birth|format_mydatetime if child[11] and child[11].fb_date_of_birth is not none else ""}}');
 
-    elementary_school.setText('{{user_profile.elementary_school if user_profile.elementary_school is not none or elementary_school != "N/A" else "N/A"}}');
+    elementary_school.setText('{{user_profile.elementary_school|escapejs if user_profile.elementary_school is not none or elementary_school != "N/A" else "N/A"}}');
     e_basic_education.setText('{{"ELEMENTARY" if user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
     e_period_of_attendance_from.setText('{{user_profile.e_period_of_attendance_from if user_profile.e_period_of_attendance_from is not none or e_period_of_attendance_from != "N/A" else "N/A"}}');
     e_period_of_attendance_to.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_period_of_attendance_to is not none or e_period_of_attendance_to != "N/A" else "N/A"}}');
@@ -464,7 +464,7 @@ async function fillForm() {
     e_year_graduated.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_highest_level is not none and user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
     e_scholarship_academic_honor.setText('{{user_profile.e_scholarship_academic_honor if user_profile.e_scholarship_academic_honor is not none or e_scholarship_academic_honor != "N/A" else "N/A"}}');
     
-    high_school.setText('{{user_profile.high_school if user_profile.high_school is not none or high_school != "N/A" else "N/A"}}');
+    high_school.setText('{{user_profile.high_school|escapejs if user_profile.high_school is not none or high_school != "N/A" else "N/A"}}');
     hs_basic_education.setText('HIGH SCHOOL');
 
     hs_period_of_attendance_from.setText('{{user_profile.hs_period_of_attendance_from if user_profile.hs_period_of_attendance_from is not none or hs_period_of_attendance_from != "N/A" else "N/A"}}');
@@ -518,7 +518,7 @@ async function fillForm() {
 
     {% if user_profile.college|length > 0 %}
         
-        c_school.setText('{{user_profile.college[0].c_school if user_profile.college|length > 0 else "N/A"}}');
+        c_school.setText('{{user_profile.college[0].c_school|escapejs if user_profile.college|length > 0 else "N/A"}}');
         c_degree_course.setText('{{user_profile.college[0].c_degree_course if user_profile.college|length > 0 else "N/A"}}');
         c_period_of_attendance_from.setText('{{user_profile.college[0].c_period_of_attendance_from if user_profile.college|length > 0 else "N/A"}}');
         c_period_of_attendance_to.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college|length > 0 else "N/A"}}');
@@ -553,7 +553,7 @@ async function fillForm() {
     {% if user_profile.masteral|length > 0 %}
         gs_year_graduated.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral[0].gs_highest_grade_year_units == "GRADUATED" else "N/A" }}');
 
-        gs_school.setText('{{user_profile.masteral[0].gs_school if user_profile.masteral|length > 0 else "N/A"}}');
+        gs_school.setText('{{user_profile.masteral[0].gs_school|escapejs if user_profile.masteral|length > 0 else "N/A"}}');
         gs_degree_course.setText('{{user_profile.masteral[0].gs_degree_course if user_profile.masteral|length > 0 else "N/A"}}');
         gs_period_of_attendance_from.setText('{{user_profile.masteral[0].gs_period_of_attendance_from if user_profile.masteral|length > 0 else "N/A"}}');
         gs_period_of_attendance_to.setText('{{user_profile.masteral[0].gs_period_of_attendance_to if user_profile.masteral|length > 0 else "N/A"}}');
@@ -2446,7 +2446,7 @@ const form6 = page6.getForm();
 
     
     {% if user_profile.doctoral|length > 0 and user_profile.doctoral[0].doc_school != none and user_profile.doctoral[0].doc_school != 'N/A' and  user_profile.doctoral[0].doc_school != '' %}
-        pdfDoc.addPage(firstPage2)
+        //pdfDoc.addPage(firstPage2)
     {% endif %}
 
 
