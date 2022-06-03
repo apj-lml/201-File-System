@@ -1035,37 +1035,37 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Civil Service Eligibility</h3>
-                  <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_cse_form">
+                  <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" min="1" max="10" value="1" form="add_cse_form">
 
                   <!-- ----------------------------------------------------------------------- -->
                   <!--                 DITO YUNG UNANG LALABAS PAG WALANG DATA                 -->
                   <!-- ----------------------------------------------------------------------- -->
-                  <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_cse_form" value="">
+                  <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" min="1" max="10" value="1" form="add_cse_form">
 
                     <div class="card shadow-sm mb-3">
                         <div class="card-body">
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" value="" form="add_cse_form">
+                            <input type="text" class="form-control" name ="cs_eligibility[1]" value="" form="add_cse_form">
                             <label for="cs_eligibility">Eligibility</label>
                             <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="" form="add_cse_form">
+                            <input type="date" class="form-control" name ="date_of_examination[1]" value="" form="add_cse_form">
                             <label for="date_of_examination">Date of Examination From</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="" form="add_cse_form">
+                            <input type="date" class="form-control" name ="date_of_examination_to[1]" value="" form="add_cse_form">
                             <label for="date_of_examination_to">Date of Examination To</label>
                           </div>
                         </div>
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" value="" form="add_cse_form">
+                            <input type="text" class="form-control" name ="cs_rating[1]" value="" form="add_cse_form">
                             <label for="cs_rating">Rating (if applicable)</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" value="" form="add_cse_form">
+                            <input type="text" class="form-control" name ="place_of_examination_conferment[1]" value="" form="add_cse_form">
                             <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
                           </div>
                         </div>
@@ -1576,6 +1576,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           triggerToast(data, icon)
           icon = "unset"
         }else{
+          console.log("HI IM HERE");
           //-- ----------------------------------------------------------------------- -->
           //--                           SUBMIT OF CSE FORM                            -->
           //-- ----------------------------------------------------------------------- -->
@@ -1583,9 +1584,10 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           //formData.append('file',  input.files[0])
 
           const data2 = {}
+          console.log(data2)
           formData2.forEach((value, key) => (data2[key] = value))
         
-          console.log(data2)
+          console.log("This is the ID: ", data)
           fetch(`/cse/add-eligibility/${data}`, {
             method: 'POST',
             body: formData2
@@ -1615,7 +1617,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               const data4 = {}
               formData4.forEach((value, key) => (data4[key] = value))
                 
-              console.log(data4)
+              //console.log(data4)
               fetch(`/college/add-college/${data}`, {
                 method: 'POST',
                 body: formData4

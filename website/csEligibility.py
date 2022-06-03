@@ -1,3 +1,4 @@
+from pprint import pprint
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -24,10 +25,10 @@ def page_not_found(e):
 # ---------------------------------------------------------------------------- #
 @cse.route('add-eligibility/<emp_id>', methods=['POST', 'GET'])
 @login_required
-# @admin_permission.require(http_exception=403)
 def add_eligibility(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
+        pprint(formdata)
         cs_no_fields = formdata["cs_no_fields"]
 
         for x in range(1, int(cs_no_fields)+1):

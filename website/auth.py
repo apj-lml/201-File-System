@@ -200,6 +200,7 @@ def signup():
 			return render_template('signup.html')
 		
 	#return redirect(url_for('auth.login'))
+	print("nothing happens")
 	return 'ok', 200
 	
 
