@@ -492,13 +492,13 @@ async function fillForm() {
     {% if user_profile.vocational_course[0] is defined and user_profile.vocational_course[0].v_highest_level == "GRADUATED" %}
         v_highest_level.setText('GRADUATED');
         v_year_graduated.setText('{{user_profile.vocational_course[0].v_period_of_attendance_to}}');
-        console.log("IM HERE PO");
+       
     {% elif user_profile.vocational_course[0] is defined and user_profile.vocational_course[0].v_highest_level != "GRADUATED" and user_profile.vocational_course[0].v_highest_level is not none %}
         v_highest_level.setText('{{user_profile.vocational_course[0].v_highest_grade_year_units}}');
-        console.log("IM HERE PO 2");
+
     {% else %}
         v_highest_level.setText('N/A');
-        console.log("IM HERE PO 3");
+
         v_year_graduated.setText('N/A');
 
     {% endif %}
@@ -1820,6 +1820,7 @@ wes_govt_2[14].setText(`{{user_profile.work_experience[29].govt_service if user_
     //<!-- ----------------------------------------------------------------------- -->
 
 
+
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                        SEPARATE SHEET FOR PAGE 3                        -->
     //<!-- ----------------------------------------------------------------------- -->
@@ -1972,7 +1973,7 @@ const form4 = page4.getForm()
         ld_type_2[9].setText('{{user_profile.learning_development[20].ld_type if user_profile.learning_development[20] and user_profile.learning_development|length > 20 else "" }}');
         ld_sponsored_by_2[9].setText('{{user_profile.learning_development[20].ld_sponsored_by if user_profile.learning_development[20] and user_profile.learning_development|length > 20 else "" }}');
 
-        
+
         ld_2[10].setText('{{user_profile.learning_development[21].ld_program|escapejs if user_profile.learning_development[21] and user_profile.learning_development|length > 21 else "" }}');
         ld_from_2[10].setText('{{user_profile.learning_development[21].ld_date_from|format_mydatetime if user_profile.learning_development[21] and user_profile.learning_development|length > 21 else "" }}');
         ld_to_2[10].setText('{{user_profile.learning_development[21].ld_date_to|format_mydatetime if user_profile.learning_development[21] and user_profile.learning_development|length > 21 else "" }}');
@@ -2324,7 +2325,7 @@ const form6 = page6.getForm();
     ld_no_hours_2_4[12].setText('{{user_profile.learning_development[55].ld_no_hours if user_profile.learning_development[55] and user_profile.learning_development|length > 55 else "" }}');
     ld_type_2_4[12].setText('{{user_profile.learning_development[55].ld_type if user_profile.learning_development[55] and user_profile.learning_development|length > 55 else "" }}');
     ld_sponsored_by_2_4[12].setText('{{user_profile.learning_development[55].ld_sponsored_by if user_profile.learning_development[55] and user_profile.learning_development|length > 55 else "" }}');
-
+    
     ld_2_4[13].setText('{{user_profile.learning_development[56].ld_program|escapejs if user_profile.learning_development[56] and user_profile.learning_development|length > 56 else "" }}');
     ld_from_2_4[13].setText('{{user_profile.learning_development[56].ld_date_from|format_mydatetime if user_profile.learning_development[56] and user_profile.learning_development|length > 56 else "" }}');
     ld_to_2_4[13].setText('{{user_profile.learning_development[56].ld_date_to|format_mydatetime if user_profile.learning_development[56] and user_profile.learning_development|length > 56 else "" }}');
@@ -2350,6 +2351,7 @@ const form6 = page6.getForm();
     //<!--                     END OF SEPARATE SHEET FOR PAGE 3.3                  -->
     //<!-- ----------------------------------------------------------------------- -->
 
+    
 
 
         //<!-- ----------------------------------------------------------------------- -->
@@ -2417,9 +2419,12 @@ const form6 = page6.getForm();
        pdfDoc.addPage(secondPage)
     {% endif %}
 
+
     {% if user_profile.voluntary_work|length > 6 or user_profile.learning_development|length > 11 %}
+
         form4.flatten(); // flatten form before copying
         const copiedPages3 = await pdfDoc.copyPages(page4, [2])
+        
         const [thirdPage2] = copiedPages3;
         pdfDoc.addPage(thirdPage2)
 
@@ -2450,6 +2455,7 @@ const form6 = page6.getForm();
     {% endif %}
 
 
+    console.log("IM HERE")
 
     const pdfBytes = await pdfDoc.save()
       
@@ -2458,6 +2464,8 @@ const form6 = page6.getForm();
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   document.getElementById('pdf').src = pdfDataUri;
 
+
+       // console.log("IM HERE")
 }
 
 </script>

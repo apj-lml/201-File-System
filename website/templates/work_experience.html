@@ -596,8 +596,8 @@ function validate_status2(){
       govt_service_select.value = "N";
       govt_service_save.value = "N";
       
-      sg.value = "1";
-      step.value = "1";
+      // sg.value = "1";
+      // step.value = "1";
       step.disabled = false;
 
       document.querySelectorAll("#sg option").forEach(opt => {
@@ -607,12 +607,15 @@ function validate_status2(){
     });
 
     }else{
+      
+      step.disabled = false;
+      sg.disabled = false;
       govt_service_select.disabled = false;
 
       govt_service_save.value = govt_service_select.value;
 
-      sg.value = "1";
-      step.value = "1";
+      // sg.value = "1";
+      // step.value = "1";
 
 
       if (value == "PERMANENT" || value == "TEMPORARY"){
@@ -667,8 +670,7 @@ function validate_status2(){
 
       }
       else{
-        sg.disabled = true;
-        step.disabled = true;
+
 
         document.querySelectorAll("#update_sg option").forEach(opt => {
         if (opt.value == "N/A") {
@@ -685,7 +687,9 @@ function validate_status2(){
       sg.value = "N/A";
       step.value = "N/A";
       govt_service_save.value = "N";
-      govt_service_select.disabled = true;
+      //sg.disabled = true;
+      //step.disabled = true;
+      //govt_service_select.disabled = true;
 
       }
       

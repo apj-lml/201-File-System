@@ -80,9 +80,9 @@ def create_app():
 	def format_mydatetime(value):
 		if value == 'PRESENT':
 			return value
-		elif value == 'N/A':
+		elif value == 'N/A' or value ==  None:
 			return 'N/A'
-		elif value == '':
+		elif value == '' or value ==  None:
 			return 'N/A'
 		else:
 			mydatetime = datetime.strptime(value, '%Y-%m-%d')
