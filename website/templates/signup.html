@@ -336,7 +336,7 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="" form="add_user_form" required>
-                      <label for="item_no" >Date Hired in NIA</label>
+                      <label for="item_no" >Date Hired in NIA<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="" form="add_user_form" min="0" max="99" oninput="validate_length(this)" required>
@@ -358,7 +358,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="" form="add_user_form">
+                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="" form="add_user_form" required>
                       <label for="birthdate">Birthdate<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -747,7 +747,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Vocational / Trade Course</h3>
-                    <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="0" form="add_user_form">
+                    <input type="hidden" class="form-control" id="vocational_no_update_fields" name ="vocational_no_update_fields" placeholder="No. of Fields" min="0" value="0" form="add_vocational_form">
          
                     <input type="hidden" class="form-control" id="vocational_no_fields" name ="vocational_no_fields" placeholder="No. of Fields" min="1" max="10" value="1"  form="add_vocational_form">
                     
@@ -817,7 +817,7 @@
                   <!-- ----------------------------------------------------------------------- -->
                   <!--                                 COLLEGE                                 -->
                   <!-- ----------------------------------------------------------------------- -->
-                  <input type="hidden" name="college_no_update_fields" id="college_no_update_fields" value="1" form="add_user_form">
+                  <input type="hidden" name="college_no_update_fields" id="college_no_update_fields" value="1" form="add_college_form">
   
   
                   <div class="card mb-3">
@@ -891,7 +891,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Masteral Degree</h3>
-                    <input type="hidden" name="masteral_no_update_fields" id="masteral_no_update_fields" value="1" form="add_user_form">
+                    <input type="hidden" name="masteral_no_update_fields" id="masteral_no_update_fields" value="1" form="add_masteral_form">
   
                   <input type="hidden" name="masteral_no_fields" id="masteral_no_fields" value="1" form="add_masteral_form">
   
@@ -959,7 +959,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Doctoral Degree</h3>
-                    <input type="hidden" name="doctoral_no_update_fields" id="doctoral_no_update_fields" value="1" form="add_user_form">
+                    <input type="hidden" name="doctoral_no_update_fields" id="doctoral_no_update_fields" value="1" form="add_doctoral_form">
 
                     <input type="hidden" name="doctoral_no_fields" id="doctoral_no_fields" value="1" form="add_doctoral_form">
   
@@ -1035,7 +1035,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Civil Service Eligibility</h3>
-                  <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_user_form">
+                  <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_cse_form">
 
                   <!-- ----------------------------------------------------------------------- -->
                   <!--                 DITO YUNG UNANG LALABAS PAG WALANG DATA                 -->
@@ -1450,7 +1450,7 @@ window.addEventListener("load", function() {
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
   
   var vocation_count = document.getElementById('vocational_no_update_fields').value;
-  console.log(vocation_count)
+  //console.log(vocation_count)
   for (var xyz = 1; xyz <= vocation_count; xyz++){
     graduated(document.getElementById(`v_highest_level[${xyz}]`), document.getElementById(`v_highest_grade_year_units[${xyz}]`), document.getElementById(`v_scholarship_academic_honor[${xyz}]`), document.getElementById(`v_period_of_attendance_from[${xyz}]`), document.getElementById(`v_period_of_attendance_to[${xyz}]`))
   }
@@ -1466,7 +1466,7 @@ window.addEventListener("load", function() {
 });
 
 function validate_length(el){
-  if(el.value <0){
+  if(el.value < 0){
       el.value = 0;
       triggerToast('Invalid Input! Input should be greater than 0 and maximum of 2 digits.', 'warning');
     }else{
@@ -1551,9 +1551,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
     
-      console.log(data)
+      //console.log("this is the ID: ",data)
       //fetch('/employees/update-employee/{#{user_profile.id}#}', {
-      fetch('', {
+      fetch('/signup', {
         method: 'POST',
         body: formData
       }).then((res)=>{
@@ -1567,6 +1567,15 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           icon = "error"
         }
         if (res.status == 200){
+          icon = "success"
+        }
+        return res.json();
+      }).then((data)=>{
+        //console.log(data)
+        if (icon == "error"){
+          triggerToast(data, icon)
+          icon = "unset"
+        }else{
           //-- ----------------------------------------------------------------------- -->
           //--                           SUBMIT OF CSE FORM                            -->
           //-- ----------------------------------------------------------------------- -->
@@ -1577,7 +1586,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           formData2.forEach((value, key) => (data2[key] = value))
         
           console.log(data2)
-          fetch('/cse/add-eligibility/{#{user_profile.id}#}', {
+          fetch(`/cse/add-eligibility/${data}`, {
             method: 'POST',
             body: formData2
           }).then((res)=>{
@@ -1593,7 +1602,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               formData3.forEach((value, key) => (data3[key] = value))
             
               // console.log(data3)
-              fetch('/vocation/add-vocational/{#{user_profile.id}#}', {
+              fetch(`/vocation/add-vocational/${data}`, {
                 method: 'POST',
                 body: formData3
               }).then((res)=>{
@@ -1607,7 +1616,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               formData4.forEach((value, key) => (data4[key] = value))
                 
               console.log(data4)
-              fetch('/college/add-college/{#{user_profile.id}#}', {
+              fetch(`/college/add-college/${data}`, {
                 method: 'POST',
                 body: formData4
               }).then((res)=>{
@@ -1621,7 +1630,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                     formData5.forEach((value, key) => (data5[key] = value))
                   
                     // console.log(data5)
-                    fetch('/masteral/add-masteral/{#{user_profile.id}#}', {
+                    fetch(`/masteral/add-masteral/${data}`, {
                       method: 'POST',
                       body: formData5
                     }).then((res)=>{
@@ -1636,7 +1645,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                         formData6.forEach((value, key) => (data6[key] = value))
                       
                         // console.log(data5)
-                        fetch('/doctoral/add-doctoral/{#{user_profile.id}#}', {
+                        fetch(`/doctoral/add-doctoral/${data}`, {
                           method: 'POST',
                           body: formData6
                         }).then((res)=>{
@@ -1656,12 +1665,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
             }
             
           })//END CSE
-        }
-        return res.json();
-      }).then((data)=>{
-        if (icon == "error"){
-          triggerToast(data, icon)
-          icon = "randomLetters"
         }
       });
 

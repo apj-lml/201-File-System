@@ -39,8 +39,6 @@ def add_eligibility(emp_id):
             place_of_examination_conferment = formdata['place_of_examination_conferment['+str(x)+']']
             license_no = formdata['license_no['+str(x)+']']
             date_of_validity = formdata['date_of_validity['+str(x)+']']
-            
-
 
             if(
                 cs_eligibility == "" and
@@ -65,6 +63,7 @@ def add_eligibility(emp_id):
                     license_no = formdata['license_no['+str(x)+']'],
                     date_of_validity = formdata['date_of_validity['+str(x)+']'],
                     user_id = emp_id)
+
                 db.session.add(new_cs_eligibility)
                 db.session.flush()
                 db.session.commit()

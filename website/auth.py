@@ -1,3 +1,4 @@
+from pprint import pprint
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app, session
 from sqlalchemy import null
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -79,23 +80,26 @@ def signup():
 			#logout_user()
 			#formdata = json.loads(request.data) <-- use this if receiving json request
 			formdata = request.form.to_dict()
-			
+			pprint(formdata)
+
 			employee_id = formdata['employee_id']
 			password1 = formdata['password']
 			password2 = formdata['confirm_password']
+
 			user = User.query.filter_by(employee_id=employee_id).first()
+
 			if user:
-				return jsonify('User already exists')
+				print('User already exists')
 			elif password1 != password2:
-				return jsonify('Password does not match')
+				print('Password does not match')
 
 			else:
 				formdata['password'] = generate_password_hash(password1)
 				formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
 				new_formdata = formdata.copy()
-				cs_no_fields = new_formdata['cs_no_fields']
-				vocational_no_fields = new_formdata['vocational_no_fields']
+				# cs_no_fields = new_formdata['cs_no_fields']
+				# vocational_no_fields = new_formdata['vocational_no_fields']
 				# ld_no_fields = new_formdata['ld_no_fields']
 				# vac_no_fields = new_formdata['vac_no_fields']
 
@@ -119,30 +123,26 @@ def signup():
 				# 	formdata.pop('booster_place')
 				# 	formdata.pop('booster_date')
 
-				for y in range(1, int(vocational_no_fields)+1):
-					# print('HERE HEREEEEE!!!!!', x)
-					formdata.pop('v_school['+str(y)+']')
-					formdata.pop('vocational_trade_course['+str(y)+']')
-					formdata.pop('v_period_of_attendance_from['+str(y)+']')
-					formdata.pop('v_period_of_attendance_to['+str(y)+']')
-					formdata.pop('v_highest_level['+str(y)+']')
-					formdata.pop('v_scholarship_academic_honor['+str(y)+']')
+				# for y in range(1, int(vocational_no_fields)+1):
+				# 	formdata.pop('v_school['+str(y)+']')
+				# 	formdata.pop('vocational_trade_course['+str(y)+']')
+				# 	formdata.pop('v_period_of_attendance_from['+str(y)+']')
+				# 	formdata.pop('v_period_of_attendance_to['+str(y)+']')
+				# 	formdata.pop('v_highest_level['+str(y)+']')
+				# 	formdata.pop('v_scholarship_academic_honor['+str(y)+']')
 				
-				for x in range(1, int(cs_no_fields)+1):
-					# print('HERE HEREEEEE!!!!!', x)
-					formdata.pop('cs_eligibility['+str(x)+']')
-					formdata.pop('cs_rating['+str(x)+']')
-					formdata.pop('date_of_examination['+str(x)+']')
-					formdata.pop('place_of_examination_conferment['+str(x)+']')
-					formdata.pop('license_no['+str(x)+']')
-					formdata.pop('date_of_validity['+str(x)+']')
+				# for x in range(1, int(cs_no_fields)+1):
+				# 	formdata.pop('cs_eligibility['+str(x)+']')
+				# 	formdata.pop('cs_rating['+str(x)+']')
+				# 	formdata.pop('date_of_examination['+str(x)+']')
+				# 	formdata.pop('place_of_examination_conferment['+str(x)+']')
+				# 	formdata.pop('license_no['+str(x)+']')
+				# 	formdata.pop('date_of_validity['+str(x)+']')
 
-				# formdata.pop('ld_no_fields')
-				formdata.pop('cs_no_fields')
-				formdata.pop('vocational_no_fields')
-				formdata.pop('floatingPassword2')
-				formdata.pop('same_as_permanent')
-				# formdata.pop('vac_no_fields')
+				
+				formdata.pop('confirm_password')
+				#formdata.pop('same_as_permanent_address')
+
 	# ---------------------------------------------------------------------------- #
 	#                    saving employee info to the databse                       #
 	# ---------------------------------------------------------------------------- #
@@ -150,6 +150,7 @@ def signup():
 				finaldata = User(**formdata)
 				db.session.add(finaldata)
 				db.session.flush()
+				#session.refresh(f)
 				db.session.commit()
 	# ---------------------------------------------------------------------------- #
 	#                              for cs eligibility                              #
@@ -194,10 +195,12 @@ def signup():
 
 				# db.session.add(new_vaccine)
 				# db.session.commit()
+				return jsonify(finaldata.id)
 		else:
 			return render_template('signup.html')
 		
-	return redirect(url_for('auth.login'))
+	#return redirect(url_for('auth.login'))
+	return 'ok', 200
 	
 
 @auth.route('/home')
