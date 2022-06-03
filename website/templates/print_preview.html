@@ -645,7 +645,7 @@ async function fillForm() {
         wes_agency[0].setText(`{{user_profile.work_experience[0].department_agency_office_company|escapejs if user_profile.work_experience|length > 0 else 'N/A'}}`);
         wes_salary[0].setText(`{{user_profile.work_experience[0].monthly_salary if user_profile.work_experience|length > 0 else 'N/A'}}`);
 
-        {% if user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A" and user_profile.work_experience[0].step != "N/A" %}
+        {% if user_profile.work_experience[0] and user_profile.work_experience[0].sg != "N/A"%}
             wes_sg_step[0].setText(`{{'%02d' %  user_profile.work_experience[0].sg|int}} - {{ user_profile.work_experience[0].step }}`);
         {% elif user_profile.work_experience[0] and user_profile.work_experience[0].sg == "N/A" %}
             wes_sg_step[0].setText('N/A');
@@ -663,7 +663,7 @@ async function fillForm() {
         wes_agency[1].setText(`{{user_profile.work_experience[1].department_agency_office_company|escapejs if user_profile.work_experience|length > 1 else ''}}`);
         wes_salary[1].setText(`{{user_profile.work_experience[1].monthly_salary if user_profile.work_experience|length > 1 else ''}}`);
 
-        {% if user_profile.work_experience[1] and user_profile.work_experience[1].sg != "N/A" and user_profile.work_experience[1].step != "N/A" %}
+        {% if user_profile.work_experience[1] and user_profile.work_experience[1].sg != "N/A" %}
             wes_sg_step[1].setText(`{{'%02d' %  user_profile.work_experience[1].sg|int}} - {{ user_profile.work_experience[1].step }}`);
         {% elif user_profile.work_experience[1] and user_profile.work_experience[1].sg == "N/A"%}
             wes_sg_step[1].setText('N/A');
@@ -682,7 +682,7 @@ async function fillForm() {
         wes_agency[2].setText(`{{user_profile.work_experience[2].department_agency_office_company|escapejs if user_profile.work_experience|length > 2 else ''}}`);
         wes_salary[2].setText(`{{user_profile.work_experience[2].monthly_salary if user_profile.work_experience|length > 2 else ''}}`);
 
-        {% if user_profile.work_experience[2] and user_profile.work_experience[2].sg != "N/A" and user_profile.work_experience[2].step != "N/A" %}
+        {% if user_profile.work_experience[2] and user_profile.work_experience[2].sg != "N/A" %}
             wes_sg_step[2].setText(`{{'%02d' %  user_profile.work_experience[2].sg|int}} - {{ user_profile.work_experience[2].step }}`);
         {% elif user_profile.work_experience[2] and user_profile.work_experience[2].sg == "N/A" %}
             wes_sg_step[2].setText(`N/A`);
@@ -700,7 +700,7 @@ async function fillForm() {
         wes_agency[3].setText(`{{user_profile.work_experience[3].department_agency_office_company|escapejs if user_profile.work_experience|length > 3 else ''}}`);
         wes_salary[3].setText(`{{user_profile.work_experience[3].monthly_salary if user_profile.work_experience|length > 3 else ''}}`);
 
-        {% if user_profile.work_experience[3] and user_profile.work_experience[3].sg != "N/A" and user_profile.work_experience[3].step != "N/A" %}
+        {% if user_profile.work_experience[3] and user_profile.work_experience[3].sg != "N/A" %}
             wes_sg_step[3].setText(`{{'%02d' %  user_profile.work_experience[3].sg|int}} - {{ user_profile.work_experience[3].step }}`);
         {% elif user_profile.work_experience[3] and user_profile.work_experience[3].sg == "N/A" %}
             wes_sg_step[3].setText(`N/A`);
@@ -717,7 +717,7 @@ async function fillForm() {
         wes_agency[4].setText(`{{user_profile.work_experience[4].department_agency_office_company|escapejs if user_profile.work_experience|length > 4 else ''}}`);
         wes_salary[4].setText(`{{user_profile.work_experience[4].monthly_salary if user_profile.work_experience|length > 4 else ''}}`);
 
-        {% if user_profile.work_experience[4] and user_profile.work_experience[4].sg != "N/A" and user_profile.work_experience[4].step != "N/A" %}
+        {% if user_profile.work_experience[4] and user_profile.work_experience[4].sg != "N/A" %}
             wes_sg_step[4].setText(`{{'%02d' %  user_profile.work_experience[4].sg|int}} - {{ user_profile.work_experience[4].step }}`);
         {% elif user_profile.work_experience[4] and user_profile.work_experience[4].sg == "N/A" %}
             wes_sg_step[4].setText(`N/A`);
@@ -734,7 +734,7 @@ async function fillForm() {
         wes_agency[5].setText(`{{user_profile.work_experience[5].department_agency_office_company|escapejs if user_profile.work_experience|length > 5 else ''}}`);
         wes_salary[5].setText(`{{user_profile.work_experience[5].monthly_salary if user_profile.work_experience|length > 5 else ''}}`);
 
-        {% if user_profile.work_experience[5] and user_profile.work_experience[5].sg != "N/A" and user_profile.work_experience[5].step != "N/A" %}
+        {% if user_profile.work_experience[5] and user_profile.work_experience[5].sg != "N/A" %}
             wes_sg_step[5].setText(`{{'%02d' %  user_profile.work_experience[5].sg|int}} - {{ user_profile.work_experience[5].step }}`);
         {% elif user_profile.work_experience[5] and user_profile.work_experience[5].sg == "N/A" %}
             wes_sg_step[5].setText(`N/A`);
@@ -751,7 +751,7 @@ async function fillForm() {
         wes_agency[6].setText(`{{user_profile.work_experience[6].department_agency_office_company|escapejs if user_profile.work_experience|length > 6 else ''}}`);
         wes_salary[6].setText(`{{user_profile.work_experience[6].monthly_salary if user_profile.work_experience|length > 6 else ''}}`);
 
-        {% if user_profile.work_experience[6] and user_profile.work_experience[6].sg != "N/A" and user_profile.work_experience[6].step != "N/A" %}
+        {% if user_profile.work_experience[6] and user_profile.work_experience[6].sg != "N/A" %}
             wes_sg_step[6].setText(`{{'%02d' %  user_profile.work_experience[6].sg|int}} - {{ user_profile.work_experience[6].step }}`)
         {% elif user_profile.work_experience[6] and user_profile.work_experience[6].sg == "N/A" %}
             wes_sg_step[6].setText(`N/A`)
@@ -768,7 +768,7 @@ async function fillForm() {
         wes_agency[7].setText(`{{user_profile.work_experience[7].department_agency_office_company|escapejs if user_profile.work_experience|length > 7 else ''}}`);
         wes_salary[7].setText(`{{user_profile.work_experience[7].monthly_salary if user_profile.work_experience|length > 7 else ''}}`);
 
-        {% if user_profile.work_experience[7] and user_profile.work_experience[7].sg != "N/A" and user_profile.work_experience[7].step != "N/A" %}
+        {% if user_profile.work_experience[7] and user_profile.work_experience[7].sg != "N/A" %}
             wes_sg_step[7].setText(`{{'%02d' %  user_profile.work_experience[7].sg|int}} - {{ user_profile.work_experience[7].step }}`);
         {% elif user_profile.work_experience[7] and user_profile.work_experience[7].sg == "N/A" %}
             wes_sg_step[7].setText(`N/A`)
@@ -785,7 +785,7 @@ async function fillForm() {
         wes_agency[8].setText(`{{user_profile.work_experience[8].department_agency_office_company|escapejs if user_profile.work_experience|length > 8 else ''}}`);
         wes_salary[8].setText(`{{user_profile.work_experience[8].monthly_salary if user_profile.work_experience|length > 8 else ''}}`);
 
-        {% if user_profile.work_experience[8] and user_profile.work_experience[8].sg != "N/A" and user_profile.work_experience[8].step != "N/A" %}
+        {% if user_profile.work_experience[8] and user_profile.work_experience[8].sg != "N/A" %}
             wes_sg_step[8].setText(`{{'%02d' %  user_profile.work_experience[8].sg|int}} - {{ user_profile.work_experience[8].step }}`);
         {% elif user_profile.work_experience[8] and user_profile.work_experience[8].sg == "N/A" %}
             wes_sg_step[8].setText(`N/A`);
@@ -802,7 +802,7 @@ async function fillForm() {
         wes_agency[9].setText(`{{user_profile.work_experience[9].department_agency_office_company|escapejs if user_profile.work_experience|length > 9 else ''}}`);
         wes_salary[9].setText(`{{user_profile.work_experience[9].monthly_salary if user_profile.work_experience|length > 9 else ''}}`);
 
-        {% if user_profile.work_experience[9] and user_profile.work_experience[9].sg != "N/A" and user_profile.work_experience[9].step != "N/A" %}
+        {% if user_profile.work_experience[9] and user_profile.work_experience[9].sg != "N/A" %}
             wes_sg_step[9].setText(`{{'%02d' %  user_profile.work_experience[9].sg|int}} - {{ user_profile.work_experience[9].step }}`);
         {% elif user_profile.work_experience[9] and user_profile.work_experience[9].sg == "N/A" %}
             wes_sg_step[9].setText(`N/A`);
@@ -819,7 +819,7 @@ async function fillForm() {
         wes_agency[10].setText(`{{user_profile.work_experience[10].department_agency_office_company|escapejs if user_profile.work_experience|length > 10 else ''}}`);
         wes_salary[10].setText(`{{user_profile.work_experience[10].monthly_salary if user_profile.work_experience|length > 10 else ''}}`);
 
-        {% if user_profile.work_experience[10] and user_profile.work_experience[10].sg != "N/A" and user_profile.work_experience[10].step != "N/A" %}
+        {% if user_profile.work_experience[10] and user_profile.work_experience[10].sg != "N/A" %}
             wes_sg_step[10].setText(`{{'%02d' %  user_profile.work_experience[10].sg|int}} - {{ user_profile.work_experience[10].step }}`);
         {% elif user_profile.work_experience[10] and user_profile.work_experience[10].sg == "N/A" %}
             wes_sg_step[10].setText(`N/A`);
@@ -836,7 +836,7 @@ async function fillForm() {
         wes_agency[11].setText(`{{user_profile.work_experience[11].department_agency_office_company|escapejs if user_profile.work_experience|length > 11 else ''}}`);
         wes_salary[11].setText(`{{user_profile.work_experience[11].monthly_salary if user_profile.work_experience|length > 11 else ''}}`);
 
-        {% if user_profile.work_experience[11] and user_profile.work_experience[11].sg != "N/A" and user_profile.work_experience[11].step != "N/A" %}
+        {% if user_profile.work_experience[11] and user_profile.work_experience[11].sg != "N/A" %}
             wes_sg_step[11].setText(`{{'%02d' %  user_profile.work_experience[11].sg|int}} - {{ user_profile.work_experience[11].step }}`);
         {% elif user_profile.work_experience[11] and user_profile.work_experience[11].sg == "N/A" %}
             wes_sg_step[11].setText(`N/A`);
@@ -853,7 +853,7 @@ async function fillForm() {
         wes_agency[12].setText(`{{user_profile.work_experience[12].department_agency_office_company|escapejs if user_profile.work_experience|length > 12 else ''}}`);
         wes_salary[12].setText(`{{user_profile.work_experience[12].monthly_salary if user_profile.work_experience|length > 12 else ''}}`);
 
-        {% if user_profile.work_experience[12] and user_profile.work_experience[12].sg != "N/A" and user_profile.work_experience[12].step != "N/A" %}
+        {% if user_profile.work_experience[12] and user_profile.work_experience[12].sg != "N/A" %}
             wes_sg_step[12].setText(`{{'%02d' %  user_profile.work_experience[12].sg|int}} - {{ user_profile.work_experience[12].step }}`);
         {% elif user_profile.work_experience[12] and user_profile.work_experience[12].sg == "N/A" %}
             wes_sg_step[12].setText(`N/A`);
@@ -870,7 +870,7 @@ async function fillForm() {
         wes_agency[13].setText(`{{user_profile.work_experience[13].department_agency_office_company|escapejs if user_profile.work_experience|length > 13 else ''}}`);
         wes_salary[13].setText(`{{user_profile.work_experience[13].monthly_salary if user_profile.work_experience|length > 13 else ''}}`);
 
-        {% if user_profile.work_experience[13] and user_profile.work_experience[13].sg != "N/A" and user_profile.work_experience[13].step != "N/A" %}
+        {% if user_profile.work_experience[13] and user_profile.work_experience[13].sg != "N/A" %}
             wes_sg_step[13].setText(`{{'%02d' %  user_profile.work_experience[13].sg|int}} - {{ user_profile.work_experience[13].step }}`);
         {% elif user_profile.work_experience[13] and user_profile.work_experience[13].sg == "N/A" %}
             wes_sg_step[13].setText(`N/A`);
@@ -888,7 +888,7 @@ async function fillForm() {
         wes_agency[14].setText(`{{user_profile.work_experience[14].department_agency_office_company|escapejs if user_profile.work_experience|length > 14 else ''}}`);
         wes_salary[14].setText(`{{user_profile.work_experience[14].monthly_salary if user_profile.work_experience|length > 14 else ''}}`);
 
-        {% if user_profile.work_experience[14] and user_profile.work_experience[14].sg != "N/A" and user_profile.work_experience[14].step != "N/A" %}
+        {% if user_profile.work_experience[14] and user_profile.work_experience[14].sg != "N/A" %}
             wes_sg_step[14].setText(`{{'%02d' %  user_profile.work_experience[14].sg|int}} - {{ user_profile.work_experience[14].step }}`);
         {% elif user_profile.work_experience[14] and user_profile.work_experience[14].sg == "N/A"%}
             wes_sg_step[14].setText(`N/A`);
@@ -1538,7 +1538,7 @@ wes_position_2[0].setText(`{{user_profile.work_experience[15].position_title|esc
 wes_agency_2[0].setText(`{{user_profile.work_experience[15].department_agency_office_company|escapejs if user_profile.work_experience|length > 15 else 'N/A'}}`)
 wes_salary_2[0].setText(`{{user_profile.work_experience[15].monthly_salary if user_profile.work_experience|length > 15 else 'N/A'}}`)
 
-{% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" and user_profile.work_experience[15].step != "N/A" %}
+{% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" %}
     wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[0].step }}`)
 {% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" %}
     wes_sg_step_2[0].setText(`N/A`)
@@ -1555,7 +1555,7 @@ wes_position_2[1].setText(`{{user_profile.work_experience[16].position_title|esc
 wes_agency_2[1].setText(`{{user_profile.work_experience[16].department_agency_office_company|escapejs if user_profile.work_experience|length > 16 else ''}}`)
 wes_salary_2[1].setText(`{{user_profile.work_experience[16].monthly_salary if user_profile.work_experience|length > 16 else ''}}`)
 
-{% if user_profile.work_experience[16] and user_profile.work_experience[16].sg != "N/A" and user_profile.work_experience[16].step != "N/A" %}
+{% if user_profile.work_experience[16] and user_profile.work_experience[16].sg != "N/A" %}
     wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[16].sg|int }} - {{ user_profile.work_experience[16].step }}`)
 {% elif user_profile.work_experience[16] and user_profile.work_experience[16].sg == "N/A" %}
     wes_sg_step_2[1].setText(`N/A`)
@@ -1572,7 +1572,7 @@ wes_position_2[2].setText(`{{user_profile.work_experience[17].position_title|esc
 wes_agency_2[2].setText(`{{user_profile.work_experience[17].department_agency_office_company|escapejs if user_profile.work_experience|length > 17 else ''}}`)
 wes_salary_2[2].setText(`{{user_profile.work_experience[17].monthly_salary if user_profile.work_experience|length > 17 else ''}}`)
 
-{% if user_profile.work_experience[17] and user_profile.work_experience[17].sg != "N/A" and user_profile.work_experience[17].step != "N/A" %}
+{% if user_profile.work_experience[17] and user_profile.work_experience[17].sg != "N/A" %}
     wes_sg_step_2[2].setText(`{{ '%02d' % user_profile.work_experience[17].sg|int }} - {{ user_profile.work_experience[17].step }}`)
 {% elif user_profile.work_experience[17] and user_profile.work_experience[17].sg != "N/A" and user_profile.work_experience[17].step == "N/A" %}
     wes_sg_step_2[2].setText(`{{ '%02d' % user_profile.work_experience[17].sg|int }}`)
@@ -1591,7 +1591,7 @@ wes_position_2[3].setText(`{{user_profile.work_experience[18].position_title|esc
 wes_agency_2[3].setText(`{{user_profile.work_experience[18].department_agency_office_company|escapejs if user_profile.work_experience|length > 18 else ''}}`)
 wes_salary_2[3].setText(`{{user_profile.work_experience[18].monthly_salary if user_profile.work_experience|length > 18 else ''}}`)
 
-{% if user_profile.work_experience[18] and user_profile.work_experience[18].sg != "N/A" and user_profile.work_experience[18].step != "N/A" %}
+{% if user_profile.work_experience[18] and user_profile.work_experience[18].sg != "N/A" %}
     wes_sg_step_2[3].setText(`{{ '%02d' % user_profile.work_experience[18].sg|int }} - {{ user_profile.work_experience[18].step }}`)
 {% elif user_profile.work_experience[18] and user_profile.work_experience[18].sg != "N/A" and user_profile.work_experience[18].step == "N/A" %}
     wes_sg_step_2[3].setText(`{{ '%02d' % user_profile.work_experience[18].sg|int }}`)
@@ -1610,7 +1610,7 @@ wes_position_2[4].setText(`{{user_profile.work_experience[19].position_title|esc
 wes_agency_2[4].setText(`{{user_profile.work_experience[19].department_agency_office_company|escapejs if user_profile.work_experience|length > 19 else ''}}`)
 wes_salary_2[4].setText(`{{user_profile.work_experience[19].monthly_salary if user_profile.work_experience|length > 19 else ''}}`)
 
-{% if user_profile.work_experience[19] and user_profile.work_experience[19].sg != "N/A" and user_profile.work_experience[19].step != "N/A" %}
+{% if user_profile.work_experience[19] and user_profile.work_experience[19].sg != "N/A"%}
     wes_sg_step_2[4].setText(`{{ '%02d' % user_profile.work_experience[19].sg|int }} - {{ user_profile.work_experience[19].step }}`)
 {% elif user_profile.work_experience[19] and user_profile.work_experience[19].sg != "N/A" and user_profile.work_experience[19].step == "N/A" %}
     wes_sg_step_2[4].setText(`{{ '%02d' % user_profile.work_experience[19].sg|int }}`)
@@ -1629,7 +1629,7 @@ wes_position_2[5].setText(`{{user_profile.work_experience[20].position_title|esc
 wes_agency_2[5].setText(`{{user_profile.work_experience[20].department_agency_office_company|escapejs if user_profile.work_experience|length > 20 else ''}}`)
 wes_salary_2[5].setText(`{{user_profile.work_experience[20].monthly_salary if user_profile.work_experience|length > 20 else ''}}`)
 
-{% if user_profile.work_experience[20] and user_profile.work_experience[20].sg != "N/A" and user_profile.work_experience[20].step != "N/A" %}
+{% if user_profile.work_experience[20] and user_profile.work_experience[20].sg != "N/A" %}
     wes_sg_step_2[5].setText(`{{ '%02d' % user_profile.work_experience[20].sg|int}} - {{ user_profile.work_experience[20].step }}`)
 {% elif user_profile.work_experience[20] and user_profile.work_experience[20].sg != "N/A" and user_profile.work_experience[20].step == "N/A" %}
     wes_sg_step_2[5].setText(`{{ '%02d' % user_profile.work_experience[20].sg|int }}`)
@@ -1648,7 +1648,7 @@ wes_position_2[6].setText(`{{user_profile.work_experience[21].position_title|esc
 wes_agency_2[6].setText(`{{user_profile.work_experience[21].department_agency_office_company|escapejs if user_profile.work_experience|length > 21 else ''}}`)
 wes_salary_2[6].setText(`{{user_profile.work_experience[21].monthly_salary if user_profile.work_experience|length > 21 else ''}}`)
 
-{% if user_profile.work_experience[21] and user_profile.work_experience[21].sg != "N/A" and user_profile.work_experience[21].step != "N/A" %}
+{% if user_profile.work_experience[21] and user_profile.work_experience[21].sg != "N/A" %}
     wes_sg_step_2[6].setText(`{{ '%02d' % user_profile.work_experience[21].sg|int }} - {{ user_profile.work_experience[21].step }}`)
 {% elif user_profile.work_experience[21] and user_profile.work_experience[21].sg != "N/A" and user_profile.work_experience[21].step == "N/A" %}
     wes_sg_step_2[6].setText(`{{ '%02d' % user_profile.work_experience[21].sg|int }}`)
@@ -1667,7 +1667,7 @@ wes_position_2[7].setText(`{{user_profile.work_experience[22].position_title|esc
 wes_agency_2[7].setText(`{{user_profile.work_experience[22].department_agency_office_company|escapejs if user_profile.work_experience|length > 22 else ''}}`)
 wes_salary_2[7].setText(`{{user_profile.work_experience[22].monthly_salary if user_profile.work_experience|length > 22 else ''}}`)
 
-{% if user_profile.work_experience[22] and user_profile.work_experience[22].sg != "N/A" and user_profile.work_experience[22].step != "N/A" %}
+{% if user_profile.work_experience[22] and user_profile.work_experience[22].sg != "N/A" %}
     wes_sg_step_2[7].setText(`{{ '%02d' % user_profile.work_experience[22].sg|int }} - {{ user_profile.work_experience[22].step }}`)
 {% elif user_profile.work_experience[22] and user_profile.work_experience[22].sg != "N/A" and user_profile.work_experience[22].step == "N/A" %}
     wes_sg_step_2[7].setText(`{{ '%02d' % user_profile.work_experience[22].sg|int }}`)
@@ -1686,7 +1686,7 @@ wes_position_2[8].setText(`{{user_profile.work_experience[23].position_title|esc
 wes_agency_2[8].setText(`{{user_profile.work_experience[23].department_agency_office_company|escapejs if user_profile.work_experience|length > 23 else ''}}`)
 wes_salary_2[8].setText(`{{user_profile.work_experience[23].monthly_salary if user_profile.work_experience|length > 23 else ''}}`)
 
-{% if user_profile.work_experience[23] and user_profile.work_experience[23].sg != "N/A" and user_profile.work_experience[23].step != "N/A" %}
+{% if user_profile.work_experience[23] and user_profile.work_experience[23].sg != "N/A" %}
     wes_sg_step_2[8].setText(`{{ '%02d' % user_profile.work_experience[23].sg|int }} - {{ user_profile.work_experience[23].step }}`)
 {% elif user_profile.work_experience[23] and user_profile.work_experience[23].sg != "N/A" and user_profile.work_experience[23].step == "N/A" %}
     wes_sg_step_2[8].setText(`{{ '%02d' % user_profile.work_experience[23].sg|int }}`)
@@ -1705,7 +1705,7 @@ wes_position_2[9].setText(`{{user_profile.work_experience[24].position_title|esc
 wes_agency_2[9].setText(`{{user_profile.work_experience[24].department_agency_office_company|escapejs if user_profile.work_experience|length > 24 else ''}}`)
 wes_salary_2[9].setText(`{{user_profile.work_experience[24].monthly_salary if user_profile.work_experience|length > 24 else ''}}`)
 
-{% if user_profile.work_experience[24] and user_profile.work_experience[24].sg != "N/A" and user_profile.work_experience[24].step != "N/A" %}
+{% if user_profile.work_experience[24] and user_profile.work_experience[24].sg != "N/A"%}
     wes_sg_step_2[9].setText(`{{ '%02d' % user_profile.work_experience[24].sg|int }} - {{ user_profile.work_experience[24].step }}`)
 {% elif user_profile.work_experience[24] and user_profile.work_experience[24].sg != "N/A" and user_profile.work_experience[24].step == "N/A" %}
     wes_sg_step_2[9].setText(`{{ '%02d' % user_profile.work_experience[24].sg|int }}`)
@@ -1725,7 +1725,7 @@ wes_position_2[10].setText(`{{user_profile.work_experience[25].position_title|es
 wes_agency_2[10].setText(`{{user_profile.work_experience[25].department_agency_office_company|escapejs if user_profile.work_experience|length > 25 else ''}}`)
 wes_salary_2[10].setText(`{{user_profile.work_experience[25].monthly_salary if user_profile.work_experience|length > 25 else ''}}`)
 
-{% if user_profile.work_experience[25] and user_profile.work_experience[25].sg != "N/A" and user_profile.work_experience[25].step != "N/A" %}
+{% if user_profile.work_experience[25] and user_profile.work_experience[25].sg != "N/A"%}
     wes_sg_step_2[10].setText(`{{ '%02d' % user_profile.work_experience[25].sg|int }} - {{ user_profile.work_experience[25].step }}`)
 {% elif user_profile.work_experience[25] and user_profile.work_experience[25].sg != "N/A" and user_profile.work_experience[25].step == "N/A" %}
     wes_sg_step_2[10].setText(`{{ '%02d' % user_profile.work_experience[25].sg|int }}`)
@@ -1744,7 +1744,7 @@ wes_position_2[11].setText(`{{user_profile.work_experience[26].position_title|es
 wes_agency_2[11].setText(`{{user_profile.work_experience[26].department_agency_office_company|escapejs if user_profile.work_experience|length > 26 else ''}}`)
 wes_salary_2[11].setText(`{{user_profile.work_experience[26].monthly_salary if user_profile.work_experience|length > 26 else ''}}`)
 
-{% if user_profile.work_experience[26] and user_profile.work_experience[26].sg != "N/A" and user_profile.work_experience[26].step != "N/A" %}
+{% if user_profile.work_experience[26] and user_profile.work_experience[26].sg != "N/A" %}
     wes_sg_step_2[11].setText(`{{ '%02d' % user_profile.work_experience[26].sg|int }} - {{ user_profile.work_experience[26].step }}`)
 {% elif user_profile.work_experience[26] and user_profile.work_experience[26].sg != "N/A" and user_profile.work_experience[26].step == "N/A" %}
     wes_sg_step_2[11].setText(`{{ '%02d' % user_profile.work_experience[26].sg|int }}`)
@@ -1763,7 +1763,7 @@ wes_position_2[12].setText(`{{user_profile.work_experience[27].position_title|es
 wes_agency_2[12].setText(`{{user_profile.work_experience[27].department_agency_office_company|escapejs if user_profile.work_experience|length > 27 else ''}}`)
 wes_salary_2[12].setText(`{{user_profile.work_experience[27].monthly_salary if user_profile.work_experience|length > 27 else ''}}`)
 
-{% if user_profile.work_experience[27] and user_profile.work_experience[27].sg != "N/A" and user_profile.work_experience[27].step != "N/A" %}
+{% if user_profile.work_experience[27] and user_profile.work_experience[27].sg != "N/A" %}
     wes_sg_step_2[12].setText(`{{'%02d' % user_profile.work_experience[27].sg|int }} - {{ user_profile.work_experience[27].step }}`)
 {% elif user_profile.work_experience[27] and user_profile.work_experience[27].sg != "N/A" and user_profile.work_experience[27].step == "N/A" %}
     wes_sg_step_2[12].setText(`{{ '%02d' % user_profile.work_experience[27].sg|int }}`)
@@ -1782,7 +1782,7 @@ wes_position_2[13].setText(`{{user_profile.work_experience[28].position_title|es
 wes_agency_2[13].setText(`{{user_profile.work_experience[28].department_agency_office_company|escapejs if user_profile.work_experience|length > 28 else ''}}`)
 wes_salary_2[13].setText(`{{user_profile.work_experience[28].monthly_salary if user_profile.work_experience|length > 28 else ''}}`)
 
-{% if user_profile.work_experience[28] and user_profile.work_experience[28].sg != "N/A" and user_profile.work_experience[28].step != "N/A" %}
+{% if user_profile.work_experience[28] and user_profile.work_experience[28].sg != "N/A" %}
     wes_sg_step_2[13].setText(`{{'%02d' % user_profile.work_experience[28].sg|int }} - {{ user_profile.work_experience[28].step }}`)
 {% elif user_profile.work_experience[28] and user_profile.work_experience[28].sg != "N/A" and user_profile.work_experience[28].step == "N/A" %}
     wes_sg_step_2[13].setText(`{{ '%02d' % user_profile.work_experience[28].sg|int }}`)
@@ -1802,7 +1802,7 @@ wes_position_2[14].setText(`{{user_profile.work_experience[29].position_title|es
 wes_agency_2[14].setText(`{{user_profile.work_experience[29].department_agency_office_company|escapejs if user_profile.work_experience|length > 29 else ''}}`)
 wes_salary_2[14].setText(`{{user_profile.work_experience[29].monthly_salary if user_profile.work_experience|length > 29 else ''}}`)
 
-{% if user_profile.work_experience[29] and user_profile.work_experience[29].sg != "N/A" and user_profile.work_experience[29].step != "N/A" %}
+{% if user_profile.work_experience[29] and user_profile.work_experience[29].sg != "N/A" %}
     wes_sg_step_2[14].setText(`{{ '%02d' % user_profile.work_experience[29].sg|int }} - {{ user_profile.work_experience[29].step }}`)
 {% elif user_profile.work_experience[29] and user_profile.work_experience[29].sg != "N/A" and user_profile.work_experience[29].step == "N/A" %}
     wes_sg_step_2[14].setText(`{{ '%02d' % user_profile.work_experience[29].sg|int }}`)
