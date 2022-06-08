@@ -159,29 +159,29 @@
                 <h3 class="card-title">PERSONAL INFORMATION</h3>
                 <div class="d-md-flex flex-row"> 
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                     <label for="last_name">Employee ID Number<span class="is-required">*</span></label>
                   </div><div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                    <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                     <label for="last_name">Status<span class="is-required">*</span></label>
                   </div>
                 </div>
 
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="last_name">Last Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-sm-4 mb-3 p-1">
-                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="first_name">First Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="middle_name">Middle Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="name_extn">Name Extension</label>
                       <small class="text-muted" style="font-size: 12px;">*Eg. Jr. / Sr. / III</small>
 
@@ -190,7 +190,7 @@
                   <!-- TODO -->
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating col-sm-3 mb-3 p-1">
-                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.employment_status}}" selected disabled hidden>{{user_profile.employment_status}}</option>
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
@@ -206,11 +206,11 @@
                     </div>
                     
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <select class="form-select" id="job_grade" name="job_grade" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="job_grade" name="job_grade" value="{{user_profile.job_grade}}" form="update_form" required {{'' if user_profile.type_of_user == 'user'}}>
                         <option value="{{user_profile.job_grade if user_profile.job_grade is not none else ''}}" selected disabled hidden>{{user_profile.job_grade if user_profile.job_grade is not none else ''}}</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -238,7 +238,7 @@
 
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="salary_grade" value="{{user_profile.salary_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="salary_grade" name="salary_grade" value="{{user_profile.salary_grade}}" form="update_form" required {{'' if user_profile.type_of_user == 'user'}}>
                         <option value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -271,7 +271,7 @@
 
                     </div>
                     <div class="form-floating col-sm-1 mb-3 p-1">
-                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" form="update_form" required {{'' if user_profile.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -290,11 +290,11 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else ''}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else ''}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}}>
                       <label for="item_no" >Item No.</label>
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <input type="text" class="form-control" id="item_location" name ="item_location" placeholder="Item Location" value="{{user_profile.item_location if user_profile.item_location is not none else ''}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="item_location" name ="item_location" placeholder="Item Location" value="{{user_profile.item_location if user_profile.item_location is not none else ''}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
                     <div class="form-floating col-sm-3 p-1">
@@ -323,7 +323,7 @@
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-sm-2 mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="date_of_assumption" style="font-size: 12px;">Date of Assumption to Duty</label>
                       <small class="text-muted" style="font-size: 12px;">*Refers to your current position.</small>
                     </div>
@@ -335,20 +335,20 @@
                   <div class="d-md-flex flex-row">
                     <!-- TODO -->
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" placeholder="Date of Assumption to Duty." value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}}>
                       <label for="date_of_original_appointment">*Date of Original Appointment</label>
                       <small class="text-muted" style="font-size: 12px;">*Refers to original appointment as permanent/casual/coterminous or first government service.</small>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user' }}>
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" {{'' if current_user.type_of_user == 'user'}} required>
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" {{'' if user_profile.type_of_user == 'user'}} required>
                       <label for="item_no" >Date Hired in NIA</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
+                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if user_profile.type_of_user == 'user'}} required>
                       <label for="item_no">Years in Service<span class="is-required">*</span></label>
                       <small class="text-muted" style="font-size: 12px;">*Refers to the no. of Years in Service in NIA.</small>
                     </div>
@@ -379,7 +379,7 @@
                       <label for="name_extn">Place of Birth<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="sex" name="sex" aria-label="Floating label select example" value="{{user_profile.sex}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}} required>
+                      <select class="form-select" id="sex" name="sex" value="{{user_profile.sex}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}} required>
                         <option class="" value="{{user_profile.sex}}" selected disabled hidden>{{user_profile.sex}}</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -387,7 +387,7 @@
                       <label for="sex">Sex<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="civil_status" name="civil_status" aria-label="Floating label select example" value="{{user_profile.civil_status}}" form="update_form" disabled required> 
+                      <select class="form-select" id="civil_status" name="civil_status" value="{{user_profile.civil_status}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}} required> 
                         <option class="" value="{{user_profile.civil_status}}" selected disabled hidden>{{user_profile.civil_status}}</option>
                         <option value="Single">Single</option>
                         <option value="Widowed">Widowed</option>
@@ -407,7 +407,7 @@
                       <label for="name_extn">Weight(kg)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="blood_type" name="blood_type" aria-label="Blood Type" value="{{user_profile.blood_type}}" form="update_form" disabled required> 
+                      <select class="form-select" id="blood_type" name="blood_type" aria-label="Blood Type" value="{{user_profile.blood_type}}" form="update_form" {{'disabled' if user_profile.type_of_user == 'user'}} required> 
                         <option class="" value="{{user_profile.blood_type}}" selected disabled hidden>{{user_profile.blood_type}}</option>
                         <option value="A">A</option>
                         <option value="A+">A+</option>
@@ -459,15 +459,15 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}" form="update_form"readOnly>
+                      <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="{{user_profile.gsis}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="name_extn">GSIS No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" readonly>
+                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="name_extn">Pag-IBIG No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" readonly>
+                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -478,7 +478,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" readonly>
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" {{'readonly' if user_profile.type_of_user == 'user'}}>
                       <label for="name_extn">TIN<span class="is-required">*</span></label>
                     </div>
                     <!-- <div class="form-floating flex-fill mb-3 p-1"> -->

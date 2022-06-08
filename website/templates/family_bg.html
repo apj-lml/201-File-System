@@ -55,9 +55,9 @@
 							
 							<div class="d-md-flex flex-row">
 								<div class="form-floating mb-3 p-1 col-sm-4">
-									<select class="form-select" id="is_spouse" aria-label="Floating label select example" onchange="activate_spouse(this.value)">
-										<option value="YES" {{ 'selected' if spouse_count > 0 else '' }}>YES</option>
-										<option value="NO" {{ '' if spouse_count > 0 else 'selected' }}>NO</option>
+									<select class="form-select" id="is_spouse" onchange="activate_spouse(this.value)">
+										<option value="YES" {{ 'selected' if spouse_count > 0 and spouse[0].fb_last_name is not none and spouse[0].fb_last_name != '' else '' }}>YES</option>
+										<option value="NO" {{ 'selected' if spouse[0].fb_last_name is none and spouse[0].fb_last_name == '' else '' }}>NO</option>
 									  </select>
 									<label for="is_spouse">Do you have a spouse?</label>
 								</div>
@@ -71,47 +71,47 @@
 							
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_update_form" value="{{spouse[0].fb_last_name}}" required>
+									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_update_form" value="{{spouse[0].fb_last_name if spouse[0].fb_last_name is not none and spouse[0].fb_last_name != 'NONE' else '' }}" required>
 									<label for="fb_last_name[1]">Last Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_first_name[1]" id="spouse_fn" placeholder="First Name" form="family_bg_update_form" value="{{spouse[0].fb_first_name}}" required>
+									<input type="text" class="form-control" name ="fb_first_name[1]" id="spouse_fn" placeholder="First Name" form="family_bg_update_form" value="{{spouse[0].fb_first_name if spouse[0].fb_first_name is not none and spouse[0].fb_first_name != 'NONE' else ''}}" required>
 									<label for="fb_first_name[1]">First Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_middle_name}}" required>
+									<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_middle_name if spouse[0].fb_middle_name is not none and spouse[0].fb_middle_name != 'NONE' else ''}}" required>
 									<label for="fb_middle_name[1]">Middle Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_name_ext}}">
+									<input type="text" class="form-control" name ="fb_name_ext[1]" id="spouse_ne" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_name_ext if spouse[0].fb_name_ext is not none and spouse[0].fb_name_ext != 'NONE' else ''}}">
 									<label for="fb_name_ext[1]">Name Extension</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_update_form" value="{{spouse[0].fb_occupation}}">
+								<input type="text" class="form-control" name ="fb_occupation[1]" id="spouse_oc" placeholder="Occupation" form="family_bg_update_form" value="{{spouse[0].fb_occupation if spouse[0].fb_occupation is not none and spouse[0].fb_occupation != 'NONE' else ''}}">
 								<label for="fb_occupation[1]">Occupation</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_update_form" value="{{spouse[0].fb_employer_business_name}}" >
+									<input type="text" class="form-control" name ="fb_employer_business_name[1]" id="spouse_bn" placeholder="Employer / Business Name" form="family_bg_update_form" value="{{spouse[0].fb_employer_business_name if spouse[0].fb_employer_business_name is not none and spouse[0].fb_employer_business_name != 'NONE' else ''}}" >
 									<label for="fb_employer_business_name[1]">Employer / Business Name</label>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-								<input type="text" class="form-control" name ="fb_business_address[1]" id="spouse_ba" placeholder="Employer / Business Address" form="family_bg_update_form" value="{{spouse[0].fb_business_address}}">
+								<input type="text" class="form-control" name ="fb_business_address[1]" id="spouse_ba" placeholder="Employer / Business Address" form="family_bg_update_form" value="{{spouse[0].fb_business_address if spouse[0].fb_business_address is not none and spouse[0].fb_business_address != 'NONE' else ''}}">
 								<label for="fb_business_address[1]">Employer / Business Address</label>
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
 								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_update_form" value="{{spouse[0].fb_contact_no}}">
+									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_update_form" value="{{spouse[0].fb_contact_no if spouse[0].fb_contact_no is not none and spouse[0].fb_contact_no != 'NONE' else ''}}">
 									<label for="fb_contact_no[1]">Spouse's Mobile/Telephone No.</label>
 								</div>
 							</div>
 
 							{% else %}
-							<!-- ASDASKasdjasdhasdh -->
+		
 							<input type="hidden" class="form-control" name ="fb_relationship[1]" placeholder="" form="family_bg_form" value="SPOUSE" required>
 							<input type="hidden" class="form-control" name ="family_count" id ="family_count" value="4" form="family_bg_form" required>
 							<input type="hidden" class="form-control" name ="family_count" id ="" value="4" form="family_bg_update_form" required>
