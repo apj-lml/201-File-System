@@ -133,7 +133,7 @@
             </div>
             <div class="row">
             <div class="col">
-              <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" onsubmit="" method="POST"></form>
+              <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" method="POST"></form>
               <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
               <form id="add_college_form" action="/college/add-college/{{user_profile.id}}" method="POST" ></form>
               <form id="add_masteral_form" action="/masteral/add-masteral/{{user_profile.id}}" method="POST" ></form>
@@ -1952,11 +1952,10 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
     //------------------------------------//
   var formElem = document.getElementById("update_form");
       var icon = "";
-    document.getElementById("update_form").addEventListener("submit",(e)=>{
+      document.getElementById("update_form").addEventListener("submit",(e)=>{
       //alert("update form")
       e.preventDefault();
       let formData = new FormData(formElem);
-      //formData.append('file',  input.files[0])
       loadingScreen('block')
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
@@ -1972,15 +1971,14 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         }
         if(res.status == 406){
           loadingScreen('none')
-          //triggerToast('Invalid File(s) Submitted! Only PDF Files are allowed.', 'error')
           icon = "error"
         }
         if (res.status == 200){
+          
           //-- ----------------------------------------------------------------------- -->
           //--                           SUBMIT OF CSE FORM                            -->
           //-- ----------------------------------------------------------------------- -->
           let formData2 = new FormData(document.getElementById("add_cse_form"));
-          //formData.append('file',  input.files[0])
 
           const data2 = {}
           formData2.forEach((value, key) => (data2[key] = value))
@@ -1996,7 +1994,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
              //--                        SUBMIT OF VOCATIONAL FORM                        -->
              //-- ----------------------------------------------------------------------- -->
              let formData3 = new FormData(document.getElementById("add_vocational_form"));
-              //formData.append('file',  input.files[0])
 
               const data3 = {}
               formData3.forEach((value, key) => (data3[key] = value))

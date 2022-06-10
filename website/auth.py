@@ -80,7 +80,7 @@ def signup():
 			#logout_user()
 			#formdata = json.loads(request.data) <-- use this if receiving json request
 			formdata = request.form.to_dict()
-			pprint(formdata)
+			#pprint(formdata)
 
 			employee_id = formdata['employee_id']
 			password1 = formdata['password']

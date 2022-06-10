@@ -28,6 +28,7 @@ def page_not_found(e):
 def add_eligibility(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
+        print("IM AT THE BACKEND OF CSE")
         pprint(formdata)
         cs_no_fields = formdata["cs_no_fields"]
 

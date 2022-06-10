@@ -533,7 +533,7 @@ async function fillForm() {
 
         c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
 
-        c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor if user_profile.college[0].c_scholarship_academic_honor != "" else "N/A"}}');
+        c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor|escapejs if user_profile.college[0].c_scholarship_academic_honor != "" else "N/A"}}');
 
     {% else %}
         c_highest_grade_year_units.setText("N/A");
@@ -903,53 +903,53 @@ async function fillForm() {
         //<!-- ----------------------------------------------------------------------- -->
 
         //VOL 0
-        voluntary_work[0].setText('{{user_profile.voluntary_work[0].name_of_organization if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }} {{" / " + user_profile.voluntary_work[0].address if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "" }}');
+        voluntary_work[0].setText('{{user_profile.voluntary_work[0].name_of_organization|escapejs if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }} {{" / " + user_profile.voluntary_work[0].address if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "" }}');
         voluntary_work_from[0].setText('{{user_profile.voluntary_work[0].date_from|format_mydatetime if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
         voluntary_work_to[0].setText('{{user_profile.voluntary_work[0].date_to|format_mydatetime  if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
         voluntary_work_no_hours[0].setText('{{user_profile.voluntary_work[0].no_hours  if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
-        voluntary_work_position[0].setText('{{user_profile.voluntary_work[0].position  if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
+        voluntary_work_position[0].setText('{{user_profile.voluntary_work[0].position|escapejs   if user_profile.voluntary_work[0] and user_profile.voluntary_work|length > 0 else "N/A" }}');
 
         //VOL1
-        voluntary_work[1].setText('{{user_profile.voluntary_work[1].name_of_organization if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }} {{" / " + user_profile.voluntary_work[1].address if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+        voluntary_work[1].setText('{{user_profile.voluntary_work[1].name_of_organization|escapejs if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }} {{" / " + user_profile.voluntary_work[1].address if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
         voluntary_work_from[1].setText('{{user_profile.voluntary_work[1].date_from|format_mydatetime if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
         voluntary_work_to[1].setText('{{user_profile.voluntary_work[1].date_to|format_mydatetime  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
         voluntary_work_no_hours[1].setText('{{user_profile.voluntary_work[1].no_hours  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
-        voluntary_work_position[1].setText('{{user_profile.voluntary_work[1].position  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
+        voluntary_work_position[1].setText('{{user_profile.voluntary_work[1].position|escapejs  if user_profile.voluntary_work[1] and user_profile.voluntary_work|length > 1 else "" }}');
 
         //VOL2
-        voluntary_work[2].setText('{{user_profile.voluntary_work[2].name_of_organization if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }} {{" / " + user_profile.voluntary_work[2].address if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+        voluntary_work[2].setText('{{user_profile.voluntary_work[2].name_of_organization|escapejs if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }} {{" / " + user_profile.voluntary_work[2].address if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
         voluntary_work_from[2].setText('{{user_profile.voluntary_work[2].date_from|format_mydatetime if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
         voluntary_work_to[2].setText('{{user_profile.voluntary_work[2].date_to|format_mydatetime  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
         voluntary_work_no_hours[2].setText('{{user_profile.voluntary_work[2].no_hours  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
-        voluntary_work_position[2].setText('{{user_profile.voluntary_work[2].position  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
+        voluntary_work_position[2].setText('{{user_profile.voluntary_work[2].position|escapejs  if user_profile.voluntary_work[2] and user_profile.voluntary_work|length > 2 else "" }}');
 
         //VOL3
-        voluntary_work[3].setText('{{user_profile.voluntary_work[3].name_of_organization if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }} {{" / " + user_profile.voluntary_work[3].address if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+        voluntary_work[3].setText('{{user_profile.voluntary_work[3].name_of_organization|escapejs if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }} {{" / " + user_profile.voluntary_work[3].address if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
         voluntary_work_from[3].setText('{{user_profile.voluntary_work[3].date_from|format_mydatetime if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
         voluntary_work_to[3].setText('{{user_profile.voluntary_work[3].date_to|format_mydatetime  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
         voluntary_work_no_hours[3].setText('{{user_profile.voluntary_work[3].no_hours  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
-        voluntary_work_position[3].setText('{{user_profile.voluntary_work[3].position  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
+        voluntary_work_position[3].setText('{{user_profile.voluntary_work[3].position|escapejs  if user_profile.voluntary_work[3] and user_profile.voluntary_work|length > 3 else "" }}');
 
         //VOL4
-        voluntary_work[4].setText('{{user_profile.voluntary_work[4].name_of_organization if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }} {{ " / " + user_profile.voluntary_work[4].address if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+        voluntary_work[4].setText('{{user_profile.voluntary_work[4].name_of_organization|escapejs if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }} {{ " / " + user_profile.voluntary_work[4].address if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
         voluntary_work_from[4].setText('{{user_profile.voluntary_work[4].date_from|format_mydatetime if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
         voluntary_work_to[4].setText('{{user_profile.voluntary_work[4].date_to|format_mydatetime  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
         voluntary_work_no_hours[4].setText('{{user_profile.voluntary_work[4].no_hours  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
-        voluntary_work_position[4].setText('{{user_profile.voluntary_work[4].position  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
+        voluntary_work_position[4].setText('{{user_profile.voluntary_work[4].position|escapejs  if user_profile.voluntary_work[4] and user_profile.voluntary_work|length > 4 else "" }}');
 
         //VOL5
-        voluntary_work[5].setText('{{user_profile.voluntary_work[5].name_of_organization if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}{{" / " +user_profile.voluntary_work[5].address if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+        voluntary_work[5].setText('{{user_profile.voluntary_work[5].name_of_organization|escapejs if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}{{" / " +user_profile.voluntary_work[5].address if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
         voluntary_work_from[5].setText('{{user_profile.voluntary_work[5].date_from|format_mydatetime if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
         voluntary_work_to[5].setText('{{user_profile.voluntary_work[5].date_to|format_mydatetime  if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
         voluntary_work_no_hours[5].setText('{{user_profile.voluntary_work[5].no_hours  if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
-        voluntary_work_position[5].setText('{{user_profile.voluntary_work[5].position  if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
+        voluntary_work_position[5].setText('{{user_profile.voluntary_work[5].position|escapejs if user_profile.voluntary_work[5] and user_profile.voluntary_work|length > 5 else "" }}');
 
         //VOL6
-        voluntary_work[6].setText('{{user_profile.voluntary_work[6].name_of_organization if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }} {{" / " + user_profile.voluntary_work[6].address if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+        voluntary_work[6].setText('{{user_profile.voluntary_work[6].name_of_organization|escapejs if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }} {{" / " + user_profile.voluntary_work[6].address if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
         voluntary_work_from[6].setText('{{user_profile.voluntary_work[6].date_from|format_mydatetime if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
         voluntary_work_to[6].setText('{{user_profile.voluntary_work[6].date_to|format_mydatetime  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
         voluntary_work_no_hours[6].setText('{{user_profile.voluntary_work[6].no_hours  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
-        voluntary_work_position[6].setText('{{user_profile.voluntary_work[6].position  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
+        voluntary_work_position[6].setText('{{user_profile.voluntary_work[6].position|escapejs  if user_profile.voluntary_work[6] and user_profile.voluntary_work|length > 6 else "" }}');
 
         //<!-- ----------------------------------------------------------------------- -->
         //<!--                                   L&D                                   -->
@@ -1351,14 +1351,14 @@ async function fillForm() {
     v_highest_level2.setText('{{"GRADUATED" if user_profile.vocational_course|length > 1 else ""}}');
     v_year_graduated2.setText('{{user_profile.vocational_course[1].v_period_of_attendance_to if user_profile.vocational_course|length > 1 else ""}}');
 
-    {% if user_profile.vocational_course[1] %}
+    {% if user_profile.vocational_course[1] is defined %}
         {% if user_profile.vocational_course[1].v_scholarship_academic_honor != "" %}
             v_scholarship_academic_honor2.setText('{{user_profile.vocational_course[1].v_scholarship_academic_honor if user_profile.vocational_course[1] else ""}}');
         {% else %}
-            v_scholarship_academic_honor2.setText('{{user_profile.vocational_course[1].v_scholarship_academic_honor if user_profile.vocational_course[1] else ""}}');
+            v_scholarship_academic_honor2.setText('N/A');
         {% endif %}
     {% else %}
-            v_scholarship_academic_honor2.setText("here");
+            v_scholarship_academic_honor2.setText("");
     {% endif %}
 
 
@@ -1373,7 +1373,7 @@ async function fillForm() {
 
         c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
 
-        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
+        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor|escapejs if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
 
     {% else %}
         // c_highest_grade_year_units2.setText("");

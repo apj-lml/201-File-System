@@ -1542,17 +1542,12 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
     //------------------------------------//
   var formElem = document.getElementById("add_user_form");
       var icon = "";
-    document.getElementById("add_user_form").addEventListener("submit",(e)=>{
-      //alert("update form")
+      document.getElementById("add_user_form").addEventListener("submit",(e)=>{
       e.preventDefault();
       let formData = new FormData(formElem);
-      //formData.append('file',  input.files[0])
-      //loadingScreen('block')
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
-    
-      //console.log("this is the ID: ",data)
-      //fetch('/employees/update-employee/{#{user_profile.id}#}', {
+
       fetch('/signup', {
         method: 'POST',
         body: formData
@@ -1563,47 +1558,35 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         }
         if(res.status == 406){
           loadingScreen('none')
-          //triggerToast('Invalid File(s) Submitted! Only PDF Files are allowed.', 'error')
           icon = "error"
         }
         if (res.status == 200){
           icon = "success"
         }
-        return res.json();
-      }).then((data)=>{
-        //console.log(data)
-        if (icon == "error"){
-          triggerToast(data, icon)
-          icon = "unset"
-        }else{
-          console.log("HI IM HERE");
-          //-- ----------------------------------------------------------------------- -->
+
+        //-- ----------------------------------------------------------------------- -->
           //--                           SUBMIT OF CSE FORM                            -->
           //-- ----------------------------------------------------------------------- -->
           let formData2 = new FormData(document.getElementById("add_cse_form"));
-          //formData.append('file',  input.files[0])
 
           const data2 = {}
           console.log(data2)
           formData2.forEach((value, key) => (data2[key] = value))
         
-          console.log("This is the ID: ", data)
-          fetch(`/cse/add-eligibility/${data}`, {
+          fetch(`\/cse\/add-eligibility\/${data}`, {
             method: 'POST',
             body: formData2
           }).then((res)=>{
             if (res.status == 200){
-
+             console.log("HI IM at THE RESPONSE OF CSE");
              //-- ----------------------------------------------------------------------- -->
              //--                        SUBMIT OF VOCATIONAL FORM                        -->
              //-- ----------------------------------------------------------------------- -->
              let formData3 = new FormData(document.getElementById("add_vocational_form"));
-              //formData.append('file',  input.files[0])
 
               const data3 = {}
               formData3.forEach((value, key) => (data3[key] = value))
             
-              // console.log(data3)
               fetch(`/vocation/add-vocational/${data}`, {
                 method: 'POST',
                 body: formData3
@@ -1612,7 +1595,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 //<!--                           SUBMIT COLLEGE FORM                           -->
                // <!-- ----------------------------------------------------------------------- -->
                let formData4 = new FormData(document.getElementById("add_college_form"));
-              //formData.append('file',  input.files[0])
 
               const data4 = {}
               formData4.forEach((value, key) => (data4[key] = value))
@@ -1626,22 +1608,19 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                // <!--                          SUBMIT MASTERAL FORM                           -->
                // <!-- ----------------------------------------------------------------------- -->
                     let formData5 = new FormData(document.getElementById("add_masteral_form"));
-                    //formData.append('file',  input.files[0])
 
                     const data5 = {}
                     formData5.forEach((value, key) => (data5[key] = value))
                   
-                    // console.log(data5)
                     fetch(`/masteral/add-masteral/${data}`, {
                       method: 'POST',
                       body: formData5
                     }).then((res)=>{
 
-                        //<!-- ----------------------------------------------------------------------- -->
+                      // <!-- ----------------------------------------------------------------------- -->
                       // <!--                          SUBMIT DOCTORAL FORM                           -->
                       // <!-- ----------------------------------------------------------------------- -->
                         let formData6 = new FormData(document.getElementById("add_doctoral_form"));
-                        //formData.append('file',  input.files[0])
 
                         const data6 = {}
                         formData6.forEach((value, key) => (data6[key] = value))
@@ -1667,6 +1646,18 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
             }
             
           })//END CSE
+
+
+        return res.json();
+      }).then((data)=>{
+        //console.log(data)
+        if (icon == "error"){
+          triggerToast(data, icon)
+          icon = "unset"
+        }else{
+          
+
+          
         }
       });
 
