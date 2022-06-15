@@ -1540,10 +1540,12 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
     //------------------------------------//
     //        SUBMIT OF UPDATE FORM       //
     //------------------------------------//
+
   var formElem = document.getElementById("add_user_form");
       var icon = "";
       document.getElementById("add_user_form").addEventListener("submit",(e)=>{
       e.preventDefault();
+
       let formData = new FormData(formElem);
       const data = {}
       formData.forEach((value, key) => (data[key] = value))
@@ -1564,21 +1566,27 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           icon = "success"
         }
 
-        //-- ----------------------------------------------------------------------- -->
+        return res.json();
+      }).then((data)=>{
+        myid = data;
+        if (icon == "error"){
+          triggerToast(data, icon)
+          icon = "unset"
+        }
+          //-- ----------------------------------------------------------------------- -->
           //--                           SUBMIT OF CSE FORM                            -->
           //-- ----------------------------------------------------------------------- -->
           let formData2 = new FormData(document.getElementById("add_cse_form"));
 
           const data2 = {}
-          console.log(data2)
+
           formData2.forEach((value, key) => (data2[key] = value))
-        
-          fetch(`\/cse\/add-eligibility\/${data}`, {
+
+        return fetch(`/cse/add-eligibility/${myid}`, {
             method: 'POST',
             body: formData2
           }).then((res)=>{
             if (res.status == 200){
-             console.log("HI IM at THE RESPONSE OF CSE");
              //-- ----------------------------------------------------------------------- -->
              //--                        SUBMIT OF VOCATIONAL FORM                        -->
              //-- ----------------------------------------------------------------------- -->
@@ -1587,7 +1595,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               const data3 = {}
               formData3.forEach((value, key) => (data3[key] = value))
             
-              fetch(`/vocation/add-vocational/${data}`, {
+              fetch(`/vocation/add-vocational/${myid}`, {
                 method: 'POST',
                 body: formData3
               }).then((res)=>{
@@ -1600,7 +1608,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               formData4.forEach((value, key) => (data4[key] = value))
                 
               //console.log(data4)
-              fetch(`/college/add-college/${data}`, {
+              fetch(`/college/add-college/${myid}`, {
                 method: 'POST',
                 body: formData4
               }).then((res)=>{
@@ -1612,7 +1620,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                     const data5 = {}
                     formData5.forEach((value, key) => (data5[key] = value))
                   
-                    fetch(`/masteral/add-masteral/${data}`, {
+                    fetch(`/masteral/add-masteral/${myid}`, {
                       method: 'POST',
                       body: formData5
                     }).then((res)=>{
@@ -1626,7 +1634,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                         formData6.forEach((value, key) => (data6[key] = value))
                       
                         // console.log(data5)
-                        fetch(`/doctoral/add-doctoral/${data}`, {
+                        fetch(`/doctoral/add-doctoral/${myid}`, {
                           method: 'POST',
                           body: formData6
                         }).then((res)=>{
@@ -1646,19 +1654,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
             }
             
           })//END CSE
-
-
-        return res.json();
-      }).then((data)=>{
-        //console.log(data)
-        if (icon == "error"){
-          triggerToast(data, icon)
-          icon = "unset"
-        }else{
-          
-
-          
-        }
       });
 
           }); 

@@ -199,9 +199,11 @@ def signup():
 		else:
 			return render_template('signup.html')
 		
-	#return redirect(url_for('auth.login'))
-	print("nothing happens")
-	return 'ok', 200
+	return redirect(url_for('auth.login'))
+	#print("nothing happens")
+	#return 'ok', 200
+		
+	#return redirect(request.url)
 	
 
 @auth.route('/home')
