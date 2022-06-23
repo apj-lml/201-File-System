@@ -223,10 +223,9 @@
                   <label for="doc_degree_course">Degree / Course</label>
                 </div>
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="add_doc_highest_level_units_earned[${x}]" name="doc_highest_level_units_earned[${x}]" aria-label="Floating label select example" value="" form="add_doctoral_form" onchange="graduated(this, document.getElementById('add_doc_highest_grade_year_units[${x}]'), document.getElementById('add_doc_scholarship_academic_honor[${x}]'), document.getElementById('add_doc_period_of_attendance_from[${x}]'), document.getElementById('add_doc_period_of_attendance_to[${x}]'))" required>
+                  <select class="form-select" id="add_doc_highest_level_units_earned[${x}]" name="doc_highest_level_units_earned[${x}]" value="" form="add_doctoral_form" onchange="graduated(this, document.getElementById('add_doc_highest_grade_year_units[${x}]'), document.getElementById('add_doc_scholarship_academic_honor[${x}]'), document.getElementById('add_doc_period_of_attendance_from[${x}]'), document.getElementById('add_doc_period_of_attendance_to[${x}]'))" required>
                     <option class="" value="" selected>-</option>
                     <option value="GRADUATED">GRADUATED</option>
-                    <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                     <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
                   </select>
                   <label for="doc_highest_level">Highest Level Attained</label>

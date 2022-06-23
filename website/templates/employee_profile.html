@@ -1228,10 +1228,10 @@
                               <label for="doc_degree_course">Degree / Course</label>
                             </div>
                             <div class="form-floating col-sm-3 mb-3 p-1">
-                              <select class="form-select" id="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" name="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" aria-label="Floating label select example" value="{{doctoral.doc_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('doc_highest_grade_year_units[{{count_update_doctoral.value}}]'), document.getElementById('doc_scholarship_academic_honor[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_from[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_to[{{count_update_doctoral.value}}]'))">
+                              <select class="form-select" id="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" name="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" value="{{doctoral.doc_highest_level_units_earned}}" form="update_form" onchange="doc_graduated(this, document.getElementById('doc_highest_grade_year_units[{{count_update_doctoral.value}}]'), document.getElementById('doc_scholarship_academic_honor[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_from[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_to[{{count_update_doctoral.value}}]'))">
                                 <option class="" value="{{doctoral.doc_highest_level_units_earned if doctoral.doc_highest_level_units_earned is not none else none}}" selected hidden>{{doctoral.doc_highest_level_units_earned if doctoral.doc_highest_level_units_earned is not none else ''}}</option>
                                 <option value="GRADUATED">GRADUATED</option>
-                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                <!-- <option value="UNDERGRADUATE">UNDERGRADUATE</option> -->
                                 <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
                               </select>
                               <label for="doc_highest_level">Highest Level Attained</label>
@@ -1272,19 +1272,19 @@
                       <div class="card-body">
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="doc_school[1]" name ="doc_school[1]" placeholder="School" value="" form="add_doctoral_form">
+                            <input type="text" class="form-control" id="doc_school[1]" name ="doc_school[1]" placeholder="School" form="add_doctoral_form">
                             <label for="doc_school">School</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="doc_degree_course[1]" name ="doc_degree_course[1]" placeholder="Degree / Course" value="" form="add_doctoral_form">
+                            <input type="text" class="form-control" id="doc_degree_course[1]" name ="doc_degree_course[1]" placeholder="Degree / Course" form="add_doctoral_form">
                             <label for="doc_degree_course">Degree / Course</label>
                           </div>
                           <div class="form-floating col-sm-3 mb-3 p-1">
-                            <select class="form-select" id="doc_highest_level_units_earned[1]" name="doc_highest_level_units_earned[1]" aria-label="Floating label select example" value="" form="add_doctoral_form" onchange="graduated(this, document.getElementById('doc_highest_grade_year_units[1]'), document.getElementById('doc_scholarship_academic_honor[1]'), document.getElementById('doc_period_of_attendance_from[1]'), document.getElementById('doc_period_of_attendance_to[1]'))">
+                            <select class="form-select" id="doc_highest_level_units_earned[1]" name="doc_highest_level_units_earned[1]" form="add_doctoral_form" onchange="doc_graduated(this, document.getElementById('doc_highest_grade_year_units[1]'), document.getElementById('doc_scholarship_academic_honor[1]'), document.getElementById('doc_period_of_attendance_from[1]'), document.getElementById('doc_period_of_attendance_to[1]'))">
   
                               <option class="" value="" selected hidden></option>
                               <option value="GRADUATED">GRADUATED</option>
-                              <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                              <!-- <option value="UNDERGRADUATE">UNDERGRADUATE</option> -->
                               <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
                             </select>
                             <label for="doc_highest_level">Highest Level Attained</label>
@@ -1909,6 +1909,22 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         // period_of_attendance_from.value = ""
         highest_grade_year_units.value = "";
       }else{
+        period_of_attendance_to.readOnly = false;
+        highest_grade_year_units.readOnly = false;
+        //highest_grade_year_units.disabled = false;
+        scholarship_academic_honor.readOnly = true;
+      }
+    }
+
+    function doc_graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
+      if(highest_level.value == 'GRADUATED'){
+        highest_grade_year_units.readOnly = true;
+        //highest_grade_year_units.disabled = true;
+        highest_grade_year_units.value = "";
+        scholarship_academic_honor.readOnly = false;
+        period_of_attendance_to.readOnly = false
+
+      }else if(highest_level.value == "CURRENTLY ENROLLED"){
         period_of_attendance_to.readOnly = false;
         highest_grade_year_units.readOnly = false;
         //highest_grade_year_units.disabled = false;
