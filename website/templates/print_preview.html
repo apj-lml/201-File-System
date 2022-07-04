@@ -260,6 +260,7 @@ async function fillForm() {
     const emp_id_no = form.getTextField('emp_id_no');
     const office_id = form.getTextField('office_id');
     const date_place_of_issuance = form.getTextField('date_place_of_issuance');
+
     const person_administering_oath = form.getTextField('person_administering_oath');
 
 
@@ -353,6 +354,9 @@ async function fillForm() {
     height.setText('{{user_profile.height}}');
     weight.setText('{{user_profile.weight}}');
     blood_type.setText('{{user_profile.blood_type}}');
+    person_administering_oath.setText('{{user_profile.assignatory[0].assignatory}}')
+
+
     var sex = '{{user_profile.sex}}';
         if (sex == 'MALE') {
             sex_male.check();
@@ -1233,7 +1237,6 @@ async function fillForm() {
         emp_id_no.setText('{{user_profile.employee_id}}')
         office_id.setText('AGENCY ID')
         date_place_of_issuance.setText('URDANETA CITY, PANGASINAN')
-        person_administering_oath.setText('ENGR. GERTRUDES A. VIADO')
 
 
 
