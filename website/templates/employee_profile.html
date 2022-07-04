@@ -172,7 +172,7 @@
                       <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="last_name">Last Name<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-4 mb-3 p-1">
+                    <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="{{user_profile.first_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="first_name">First Name<span class="is-required">*</span></label>
                     </div>
@@ -180,7 +180,7 @@
                       <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="{{user_profile.middle_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="middle_name">Middle Name<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-2 mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="name_extn">Name Extension</label>
                       <small class="text-muted" style="font-size: 12px;">*Eg. Jr. / Sr. / III</small>
@@ -189,7 +189,7 @@
                   </div>
                   <!-- TODO -->
                   <div class="d-md-flex flex-row"> 
-                    <div class="form-floating col-sm-3 mb-3 p-1">
+                    <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.employment_status}}" selected disabled hidden>{{user_profile.employment_status}}</option>
                         <option value="JOB ORDER">JOB ORDER</option>
@@ -209,7 +209,7 @@
                       <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-2 mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="job_grade" name="job_grade" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.job_grade if user_profile.job_grade is not none else ''}}" selected disabled hidden>{{user_profile.job_grade if user_profile.job_grade is not none else ''}}</option>
                         <option value="2">2</option>
@@ -237,7 +237,7 @@
                       <!-- <input type="text" id="" name="" value="" form="update_form" > -->
 
                     </div>
-                    <div class="form-floating col-sm-2 mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="salary_grade" name="salary_grade" value="{{user_profile.salary_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
@@ -270,7 +270,7 @@
                       <!-- <input type="text" id="" name="" id="" form="update_form" > -->
 
                     </div>
-                    <div class="form-floating col-sm-1 mb-3 p-1">
+                    <div class="form-floating col-md-1 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="step" name="step" aria-label="Floating label select example" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
@@ -293,11 +293,11 @@
                       <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else ''}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                       <label for="item_no" >Item No.</label>
                     </div>
-                    <div class="form-floating col-sm-2 mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="item_location" name ="item_location" placeholder="Item Location" value="{{user_profile.item_location if user_profile.item_location is not none else ''}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
-                    <div class="form-floating col-sm-3 p-1">
+                    <div class="form-floating col-md-3 col-sm-12 p-1">
                       <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" form="update_form">
                           <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option>
                           <option value="Administrative & Finance">Administrative & Finance</option>
@@ -311,7 +311,7 @@
                         </select>
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-3 mb-3 p-1">
+                    <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" form="update_form">
                         <option class="" value="{{user_profile.unit}}" selected disabled hidden>{{user_profile.unit}}</option>
                         <option value="Administrative Unit">Administrative Unit</option>
@@ -322,7 +322,7 @@
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-2 mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_assumption" style="font-size: 12px;">Date of Assumption to Duty</label>
                       <small class="text-muted" style="font-size: 12px;">*Refers to your current position.</small>
@@ -366,11 +366,11 @@
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating col-sm-2 mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="birthdate">Birthdate<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-sm-1 mb-3 p-1">
+                    <div class="form-floating col-md-1 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="age" name ="age" placeholder="Age" value="{{user_profile.age}}" form="update_form" readonly>
                       <label for="name_extn">Age<span class="is-required">*</span></label>
                     </div>
@@ -398,15 +398,15 @@
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating col-md-1 col-sm-12 mb-3 p-1">
                       <input type="number" class="form-control" id="height" name ="height" placeholder="Height(m)" value="{{user_profile.height}}" min="1" form="update_form" step="any" required>
                       <label for="name_extn">Height(m)<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating col-md-1 col-sm-12 mb-3 p-1">
                       <input type="number" class="form-control" id="weight" name ="weight" placeholder="Weight(kg)" value="{{user_profile.weight}}" min="1" form="update_form" step="any" required>
                       <label for="name_extn">Weight(kg)<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="blood_type" name="blood_type" aria-label="Blood Type" value="{{user_profile.blood_type}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}} required> 
                         <option class="" value="{{user_profile.blood_type}}" selected disabled hidden>{{user_profile.blood_type}}</option>
                         <option value="A">A</option>
@@ -426,27 +426,21 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="religion" name ="religion" placeholder="Religion" value="{{user_profile.religion}}" form="update_form">
-                      <!-- <select class="form-select" id="religion" name="religion" aria-label="Floating label select example" value="{{user_profile.religion}}" form="update_form">
-                        <option value="Roman Catholic">Roman Catholic</option>
-                        <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
-                        <option value="Baptist">Baptist</option>
-                        <option value="Born Again Christian">Born Again Christian</option>
-                        <option value="Jehovah's Witnesses">Jehovah's Witnesses</option>
-                      </select> -->
                       <label for="religion">Religion</label>
                     </div>
-                    <!-- <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form">
-                      <label for="name_extn">No. of Dependent/s</label>
-                    </div>       -->
+                    <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
+                      <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form" required>
+                      <label for="name_extn">No. of Dependent/s<small style="font-size: 14px;"> (21 y/o below )</small></label>
+                      <small class="text-muted" style="font-size: 12px; color: red">*Applicable to employees hired on or before 1989</small>
+                    </div>      
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating col-sm-3 mb-3 p-1">
+                    <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="mobile_no" name ="mobile_no" pattern="[0-9]+" title="Please enter 11 digit long number only." maxlength="11" minlength="11" placeholder="Mobile No." value="{{user_profile.mobile_no}}" form="update_form" required>
                       <label for="mobile_no">Mobile No.<span class="is-required">*</span></label>
                       <small class="text-muted" style="font-size: 12px;">*Eg. 09122354653</small>
                     </div>
-                    <div class="form-floating col-sm-3 mb-3 p-1">
+                    <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}" form="update_form">
                       <label for="telephone_no">Telephone No.</label>
                     </div>
@@ -532,12 +526,12 @@
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating col-sm-4 mb-3 p-1">
+                    <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="{{user_profile.passport_no if user_profile.passport_no is not none else '' }}" minlength="9" maxlength="9" form="update_form" >
                       <label for="passport_no">Passport No.</label>
                       <small class="text-muted" style="font-size: 12px;">*Eg. EB6684441</small>
                     </div>
-                    <div class="form-floating col-sm-4 mb-3 p-1">
+                    <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
                       <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" form="update_form" >
                       <label for="passport_validity">Passport Date of Validity</label>
                     </div>
