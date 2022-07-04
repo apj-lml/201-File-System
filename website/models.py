@@ -140,6 +140,7 @@ class User(db.Model, UserMixin):
 	character_reference = db.relationship('Character_Reference')
 	emergency_contact = db.relationship('Emergency_Contact') 
 	staff_moved = db.relationship('Staff_Movement')
+	assignatory = db.relationship('Assignatory')
 
 	# emergency_contact = db.relationship('Emergency_Contact')
 
@@ -399,6 +400,11 @@ class Emergency_Contact(db.Model, SerializerMixin):
 	relationship = db.Column(db.String(50))
 	address = db.Column(db.String(150))
 	contact_no = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Assignatory(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	assignatory = db.Column(db.String(150), default='GERTRUDES A. VIADO')
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 # class Position(db.Model):

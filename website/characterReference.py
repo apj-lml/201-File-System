@@ -3,7 +3,7 @@ from pprint import pprint
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Character_Reference
+from .models import Assignatory, Character_Reference
 from . import db
 from datetime import datetime
 import json
@@ -17,15 +17,6 @@ admin_permission = Permission(RoleNeed('admin'))
 def page_not_found(e):
     session['redirected_from'] = request.url
     return redirect(url_for('auth.login'))
-
-# @characterReference.template_filter()
-# def format_datetime(value, format='medium'):
-#     if format == 'full':
-#         format="EEEE, d. MMMM y 'at' HH:mm"
-#     elif format == 'medium':
-#         format="EE dd.MM.y HH:mm"
-#     return babel.dates.format_datetime(value, format)
-
 
 
 # ---------------------------------------------------------------------------- #
@@ -139,3 +130,21 @@ def update_work_experience():
         db.session.commit()
 
         return jsonify('Successfully Saved Changes.')
+
+# ---------------------------------------------------------------------------- #
+#                              UPDATE ASSIGNATORY                              #
+# ---------------------------------------------------------------------------- #
+@characterReference.route('assignatory/<emp_id>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def update_assignatory(emp_id):
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+
+        get_assig = Assignatory.query.filter_by(user_id = emp_id)
+        get_assig.update(dict(
+                assignatory = formdata['assignatory'].upper(),
+                ))
+        db.session.commit()
+    return redirect(request.referrer)
+

@@ -144,16 +144,22 @@
 						</div>
 					</div>
 				</div> -->
-
-				<div class="card shadow-sm mb-3">
-					<div class="card-body">
-					  <h3 class="card-title"> <i class="bi bi-person-bounding-box"></i> Person Administering Oath</h3>
+				<form action="/characterReference/assignatory/{{emp_id}}" method="POST">
+					<div class="card shadow-sm mb-3">
+						<div class="card-body">
+						<h3 class="card-title"> <i class="bi bi-person-bounding-box"></i> Person Administering Oath</h3>
+							<div class="d-md-flex flex-row">
+								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+									<input type="text" class="form-control" name ="assignatory" value="{{user_profile.assignatory[0].assignatory}}" {{ 'readonly' if current_user == 'user'  }}>
+									<label for="assignatory"> Name of Person Administering Oath</label>
+								</div>
+						</div>
+					  {% if current_user != 'user': %}
 						<div class="d-md-flex flex-row">
-							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                                <input type="tel" class="form-control" name ="contact_no" value="ENGR. GERTRUDES A. VIADO" placeholder="NAME OF PERSON ADMINISTERING OATH" readonly>
-                                <label for="contact_no"> Name of Person Administering Oath</label>
-                              </div>
-					  </div>
+							<button class="btn btn-sm btn-warning" type="submit">Update</button>
+						</div>
+					  {% endif %}
+					</form>	
 					</div>
 				  </div>
 
