@@ -120,7 +120,7 @@
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="vaccine_form" value="{{ user_profile.vaccine[0].vac_place if user_profile.vaccine else ''}}">
+                    <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="vaccine_form" value="{{ user_profile.vaccine[0].vac_place if user_profile.vaccine else ''}}" required>
                     <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
                   </div>
                 </div>
@@ -151,8 +151,8 @@
             <div class="card-body">
               <div class="d-md-flex flex-row col-sm-6">
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="do_you_have_booster" name="" aria-label="Floating label select example" value="">
-                    {% if user_profile.vaccine and user_profile.vaccine[0].booster_brand != 'N/A' %}
+                  <select class="form-select" id="do_you_have_booster">
+                    {% if user_profile.vaccine and user_profile.vaccine[0].booster_brand is not none %}
                     <option value="YES" selected disabled hidden>YES</option>
                     {% else %}
                     <option value="NO" selected disabled hidden>NO</option>
@@ -199,7 +199,7 @@
               </div>
               <div class="d-md-flex flex-row">
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control" name ="booster_place" id="booster_place" placeholder="Place of Booster Shot (Municipality, Province)" form="vaccine_form" value="{{user_profile.vaccine[0].booster_place if user_profile.vaccine else 'N/A'}}" disabled required>
+                  <input type="text" class="form-control" name ="booster_place" id="booster_place" form="vaccine_form" value="{{user_profile.vaccine[0].booster_place if user_profile.vaccine else 'N/A'}}" disabled required>
                   <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
                 </div>
               </div>
@@ -222,18 +222,16 @@
           <div class="card-body">
             <div class="d-md-flex flex-row col-sm-6">
               <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="do_you_have_booster2" name="" aria-label="Floating label select example" value="">
-                  {% if (user_profile.vaccine)|select|first%}
-                  {% if user_profile.vaccine[0].booster_brand2 is not none %}
-                      <option value="YES" selected disabled hidden>YES</option>
-                      {% else %}
-                      <option value="NO" selected disabled hidden>NO</option>
+                <select class="form-select" id="do_you_have_booster2">
+                  {% if user_profile.vaccine and user_profile.vaccine[0].booster_brand2 is not none %}
+                  <option value="YES" selected disabled hidden>YES</option>
+                  {% else %}
+                  <option value="NO" selected disabled hidden>NO</option>
                   {% endif %}
                   <option value="YES">YES</option>
-                    <option value="NO">NO</option>
-                  {% endif %}
-
+                  <option value="NO">NO</option>
                 </select>
+
                 <label for="do_you_have_booster2">Do You have Booster Shot (2nd Dose)?</label>
               </div>
             </div>
@@ -247,12 +245,12 @@
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" id="booster_id_no2" name ="booster_id_no2" placeholder="Vaccine ID no." form="vaccine_form" value="{{user_profile.vaccine[0].booster_id_no2 if user_profile.vaccine[0].booster_id_no2 is not none else ''}}" disabled>
+                <input type="text" class="form-control" id="booster_id_no2" name ="booster_id_no2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_id_no2 if user_profile.vaccine[0] is defined else ''}}" disabled>
                 <label for="booster_id_no">Booster Shot ID No.</label>
               </div>
               <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="booster_brand2" name="booster_brand2" aria-label="Floating label select example" form="vaccine_form" value="{{user_profile.vaccine[0].booster_brand2 if user_profile.vaccine[0].booster_brand2 is not none else ''}}" disabled required>
-                  {% if user_profile.vaccine[0].booster_brand2 is not none %}
+                <select class="form-select" id="booster_brand2" name="booster_brand2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_brand2 if user_profile.vaccine[0] is defined else ''}}" disabled required>
+                  {% if user_profile.vaccine[0] is defined %}
                   <option value="{{user_profile.vaccine[0].booster_brand2}}" selected hidden>{{user_profile.vaccine[0].booster_brand2}}</option>
                   {% else %}
                   <option value="" selected hidden></option>
@@ -273,13 +271,13 @@
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-3 p-1">
-                <input type="text" class="form-control" name ="booster_place2" id="booster_place2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_place2 if user_profile.vaccine[0].booster_place2 is not none else ''}}" disabled required>
+                <input type="text" class="form-control" name ="booster_place2" id="booster_place2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_place2 if user_profile.vaccine[0] is defined else ''}}" disabled required>
                 <label for="booster_place">Place of Booster Shot (Municipality, Province)</label>
               </div>
             </div>
             <div class="d-md-flex flex-row">
               <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                <input type="date" class="form-control" name ="booster_date2" id="booster_date2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_date2 if user_profile.vaccine[0].booster_place2 is not none else ''}}" disabled required>
+                <input type="date" class="form-control" name ="booster_date2" id="booster_date2" form="vaccine_form" value="{{user_profile.vaccine[0].booster_date2 if user_profile.vaccine[0] is defined else ''}}" disabled required>
                 <label for="booster_date">Date of Booster Shot</label>
               </div>
             </div>

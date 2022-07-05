@@ -2,6 +2,7 @@
     'use strict'
   window.addEventListener('load',(e)=>{
       activate_booster_shot();
+      activate_booster_shot_two();
       activate_covid_vac();
   })
       document.getElementById('do_you_have_booster2').addEventListener('change', activate_booster_shot_two);

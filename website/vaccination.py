@@ -36,8 +36,9 @@ def add_vaccine(user_id):
             else:
                 new_formdata.update({k: v})
 
-        print('VAX',new_formdata)
-        if 'booster_id_no' in new_formdata and new_formdata['booster_id_no'] != "" and 'booster_brand' in new_formdata and new_formdata['booster_brand'] != "" and 'booster_date' in new_formdata and new_formdata['booster_date'] != "":
+        # print('VAX',new_formdata)
+        if 'booster_id_no' in new_formdata and new_formdata['booster_id_no'] != "" and 'booster_brand' in new_formdata and new_formdata['booster_brand'] != "" \
+            and 'booster_date2' in new_formdata and new_formdata['booster_date2'] != "" and 'booster_date2' in new_formdata and new_formdata['booster_date2'] != "":
 
             new_vaccine = Vaccine(
                                     vac_id_no = new_formdata['vac_id_no'],
@@ -49,6 +50,10 @@ def add_vaccine(user_id):
                                     booster_brand = new_formdata['booster_brand'], 
                                     booster_place = new_formdata['booster_place'],
                                     booster_date = datetime.datetime.strptime(new_formdata['booster_date'], '%Y-%m-%d').date(), 
+                                    booster_id_no2 = new_formdata['booster_id_no2'],
+                                    booster_brand2 = new_formdata['booster_brand2'], 
+                                    booster_place2 = new_formdata['booster_place2'],
+                                    booster_date2 = datetime.datetime.strptime(new_formdata['booster_date2'], '%Y-%m-%d').date(), 
                                     user_id = user_id
                             )
         else:
@@ -58,7 +63,7 @@ def add_vaccine(user_id):
                                     vac_place = new_formdata['vac_place'],
                                     vac_first_dose = new_formdata['vac_first_dose'], 
                                     vac_second_dose = new_formdata['vac_second_dose'], 
-                                    booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date(), 
+                                    #booster_date = datetime.datetime.strptime('1900-01-01', '%Y-%m-%d').date(), 
                                     user_id = user_id
                             )
 
@@ -117,8 +122,8 @@ def update_vaccine(user_id):
    
     if 'vac_id' in formdata:
         if 'booster_id_no' in formdata and 'booster_brand' in formdata:
-            if 'booster_id_no2' in formdata and 'booster_brand' in formdata:
-                print (formdata)
+            if 'booster_id_no2' in formdata and 'booster_brand2' in formdata:
+                #print (formdata)
                 select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
                 select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
                                             vac_brand = formdata['vac_brand'], 
@@ -136,7 +141,7 @@ def update_vaccine(user_id):
                                             booster_date2 = datetime.datetime.strptime(formdata['booster_date2'], '%Y-%m-%d').date()
                                             ))
             else:
-                print (formdata)
+                #print (formdata)
                 select_vaccine = Vaccine.query.filter_by(id = formdata['vac_id'])
                 select_vaccine.update(dict(vac_id_no = formdata['vac_id_no'],
                                             vac_brand = formdata['vac_brand'], 
