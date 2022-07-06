@@ -145,7 +145,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="uploadForm_form">Upload</button>
+        <button type="submit" class="btn btn-primary" form="uploadForm_form" onclick="loadingScreen('block')">Upload</button>
       </div>
     </div>
   </div>
@@ -158,12 +158,6 @@
 {%block scripts%}
 <script type="text/javascript">
 
-
-   window.addEventListener('load',()=>{ 
-
-
-
-  });
 
   function deleteForm(id) {
     const swalWithBootstrapButtons = Swal.mixin()
@@ -227,20 +221,6 @@ function myFunction() {
   }
 }
 
-
-function delete_file(e){
-  // alert(e.id)
-  loadingScreen("block")
-  fetch('/employees/delete-file',{
-    method: 'POST',
-    body: JSON.stringify({"file_id" : e.id})
-  })
-	.then(response => response.json())
-	.then((data)=>{
-    window.location.reload();
-  })
-	.catch(err => console.error(err));
-}
    
 </script>
 {%endblock%}
