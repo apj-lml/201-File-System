@@ -28,6 +28,8 @@
                             <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
                                                 
                             <h1 class="mb-5 mt-0 trajan"><span style="font-size: larger;">PANGASINAN</span> <br> IRRIGATION MANAGEMENT OFFICE</h1>
+                            <p><i id="quote"></i></p>
+                            <p class="text-center fs-6"><b id="qauthor"></b></p>
                         </div>
                     </div>
                 </div>
@@ -126,8 +128,8 @@
                     <div class="col-xl-6">
                         <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="150px" height="150px" class="d-inline-block align-text-center mb-2">
                         <h2 class="mb-4">Pangasinan <br> Irrigation Management Office</h2>
-                        <p>"<i id="quote"></i>"</p>
-                        <p class="text-end fs-6">-<b id="qauthor"></b></p>
+                        <!-- <p>"<i id="quote"></i>"</p>
+                        <p class="text-end fs-6">-<b id="qauthor"></b></p> -->
                     </div>
                 </div>
             </div>
@@ -175,15 +177,18 @@
         <script type="application/javascript">
             window.addEventListener('load', (event) => {
                 console.log(213)
-                fetch('https://api.quotable.io/random?tags=inspirational, famous-quotes',{
+                fetch('https://api.quotable.io/random?tags=inspirational,famous-quotes',{
                     method: 'GET',
-                    //body: JSON.stringify({"file_id" : e.id})
+                    //body: JSON.stringify({"tags" : "inspirational, famous-quotes"})
                 })
                     .then(response => response.json())
                     .then((data)=>{
                         console.log(data);
-                        document.getElementById("quote").innerHTML = data.content;
-                        document.getElementById("qauthor").innerHTML = data.author;
+                        if(data.content != undefined){
+                            document.getElementById("quote").innerHTML = '"'+data.content+'"';
+                            document.getElementById("qauthor").innerHTML = '-'+data.author;
+                        }else{}
+
                 })
             });
         </script>

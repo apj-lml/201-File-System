@@ -130,8 +130,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/forms/add-form" method="POST" name="uploadForm_form" id="uploadForm_form" enctype="multipart/form-data">
-<!-- 
+        <form action="/forms/add-form" method="POST" name="uploadForm_form" id="uploadForm_form" enctype="multipart/form-data" onsubmit="loadingScreen('block')">
+        <!-- 
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="form_name" placeholder="Form Name">
             <label for="form_name">Form Name</label>
@@ -139,13 +139,13 @@
 
           <div class="mb-3">
             <label for="form_file" class="form-label">You can upload multiple files</label>
-            <input class="form-control" type="file" id="dform" name="dform" multiple>
+            <input class="form-control" type="file" id="dform" name="dform" multiple required>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="uploadForm_form" onclick="loadingScreen('block')">Upload</button>
+        <button type="submit" class="btn btn-primary" form="uploadForm_form">Upload</button>
       </div>
     </div>
   </div>
