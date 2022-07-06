@@ -345,7 +345,6 @@ def insert_employee():
 						print('Invalid file submitted')
 						return jsonify('Invalid File Submitted! Only PDF (.pdf) Files are allowed.'), 406
 
-	print("NEW ID: ", new_user.id)
 
 	for afile in request.files:
 		files = request.files.getlist(afile)
@@ -381,8 +380,6 @@ def insert_employee():
 # ---------------------------------------------------------------------------- #
 
 	return jsonify('Successfully Saved to Database!'), 200
-
-
 
 @employees.route('delete-file', methods=['POST', 'GET'])
 @login_required

@@ -1,13 +1,14 @@
-from datetime import datetime
+import calendar
+from datetime import date, datetime
 from gc import collect
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import current_user, login_user, logout_user, login_required
 #from flask.ext.principal import Principal, Permission, RoleNeed
 from flask_principal import Principal, Permission, RoleNeed
-from sqlalchemy import desc
+from sqlalchemy import desc, extract
 
 from . import db
-from .models import College, Family_Background, Masteral, Other_Information, User, Vocational_Course
+from .models import College, Family_Background, Masteral, Other_Information, Uploaded_File, User, Vocational_Course
 
 views = Blueprint('views', __name__)
 
@@ -21,7 +22,31 @@ def page_not_found(e):
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-	return render_template('dashboard.html')
+	new_uploaded_File = Uploaded_File.query.filter_by(file_tag = 'dform').all()
+	column_keys = Uploaded_File.__table__.columns.keys()
+	# Temporary dictionary to keep the return value from table
+	rows_dic_temp = {}
+	rows_dic = []
+	# Iterate through the returned output data set
+	for row in new_uploaded_File:
+		for col in column_keys:
+			rows_dic_temp[col] = getattr(row, col)
+		rows_dic.append(rows_dic_temp)
+		rows_dic_temp= {}
+
+	current_year = date.today().year
+	print(current_year)
+	month = date.today().month
+	print(month)
+	day = date.today().strftime("%d")
+	print("today ",day)
+	num_days = calendar.monthrange(current_year, month)
+	print(num_days[1])
+		
+	get_bday_celebs = User.query.filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
+
+	print(get_bday_celebs)
+	return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs)
 
 @views.route('/admin/dashboard', methods=['GET', 'POST'])
 @login_required

@@ -113,6 +113,7 @@ def create_app():
 	from .emergencyContact import emergencyContact
 	from .appointment import appointment
 	from .staff_movement import staff_movement
+	from .downloadableForms import DownloadableForms
 
 
 
@@ -138,6 +139,7 @@ def create_app():
 	app.register_blueprint(emergencyContact, url_prefix = '/emergencyContact')
 	app.register_blueprint(appointment, url_prefix = '/appointment')
 	app.register_blueprint(staff_movement, url_prefix = '/staff_movement')
+	app.register_blueprint(DownloadableForms, url_prefix = '/forms')
 
 
 

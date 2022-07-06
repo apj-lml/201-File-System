@@ -28,35 +28,6 @@
                             <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
                                                 
                             <h1 class="mb-5 mt-0 trajan"><span style="font-size: larger;">PANGASINAN</span> <br> IRRIGATION MANAGEMENT OFFICE</h1>
-                            <!-- Signup form-->
-                            <!-- * * * * * * * * * * * * * * *-->
-                            <!-- * * SB Forms Contact Form * *-->
-                            <!-- * * * * * * * * * * * * * * *-->
-                            <!-- This form is pre-integrated with SB Forms.-->
-                            <!-- To make this form functional, sign up at-->
-                            <!-- https://startbootstrap.com/solution/contact-forms-->
-                            <!-- to get an API token!-->
-                            <!-- <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
-             
-                                <div class="row">
-                                    <div class="col">
-                                        <input class="form-control form-control-lg" id="emailAddress" type="email" placeholder="Email Address" data-sb-validations="required,email" />
-                                        <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:required">Email Address is required.</div>
-                                        <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:email">Email Address Email is not valid.</div>
-                                    </div>
-                                    <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
-                                </div>
-
-                                <div class="d-none" id="submitSuccessMessage">
-                                    <div class="text-center mb-3">
-                                        <div class="fw-bolder">Form submission successful!</div>
-                                        <p>To activate this form, sign up at</p>
-                                        <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                    </div>
-                                </div>
-
-                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                            </form> -->
                         </div>
                     </div>
                 </div>
@@ -94,74 +65,69 @@
         <section class="showcase">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-1.jpg')"> -->
-                      <!-- <h3 class="m-auto showcase-text">Something in here</h3> -->
-                    </div>
-                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
-                        <p class="lead mb-0">Click on the link below to download the form.</p>
-                        <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            First form
-                          </a>
-                          <a href="#" class="list-group-item list-group-item-action"> Second form</a>
-                          <a href="#" class="list-group-item list-group-item-action"> Third form</a>
-                          <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
-                          <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-0">
                     <!-- <div class="col-lg-6 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-2.jpg')"></div> -->
                     <div class="col-lg-6 my-auto showcase-text">
                         <h2><i class="bi bi-megaphone"></i> Announcements</h2>
                         <p class="lead mb-0">Some Announcements and Job Vacancies here.</p>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="showcase bg-light">
+            
+            <div class="container-fluid p-0">
                 <div class="row g-0">
                     <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
-                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                    <div class="col-lg-6 order-lg-1 showcase-text">
                         <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
-                        <p class="lead mb-0">List of Celebrators.</p>
+                        <h4><i>Month of {{today_date.strftime('%B')}}</i></h4>
+                        <ul>
+                            {% for celebs in bday_celebs %}
+                                <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.first_name}} {{celebs.last_name}}</li>
+                            {% endfor %}
+                        </ul>
+                        
                     </div>
+                    <div class="col-lg-6 order-lg-1 showcase-text">
+                        <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
+                        <p class="lead mb-0">Click on the link below to download the form.</p>
+                        <!-- <div class="list-group">
+                          <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                            First form
+                          </a>
+                          
+                          <a href="#" class="list-group-item list-group-item-action"> Second form</a>
+                          <a href="#" class="list-group-item list-group-item-action"> Third form</a>
+                          <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
+                          <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
+                        </div> -->
+                        <ol class="list-group list-group-numbered" id="myUL">
+                            
+                            {% for file in dforms %}
+                            <li class="list-group-item list-group-item-action"><a href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+
                 </div>
             </div>
         </section>
         <!-- Testimonials-->
-        <section class="testimonials text-center bg-light">
+        <!-- <section class="testimonials text-center bg-light">
             <div class="container">
-                <!-- <h2 class="mb-5">Put Something Here</h2> -->
-                <!-- <div class="row">
-                    <div class="col-lg-4">
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="static/assets/img/testimonials-1.jpg" alt="..." />
-                            <h5>Margaret E.</h5>
-                            <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="static/assets/img/testimonials-2.jpg" alt="..." />
-                            <h5>Fred S.</h5>
-                            <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super nice landing pages."</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" src="static/assets/img/testimonials-3.jpg" alt="..." />
-                            <h5>Sarah W.</h5>
-                            <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
-                        </div>
-                    </div>
-                </div> -->
+
             </div>
-        </section>
+        </section> -->
         <!-- Call to Action-->
         <section class="call-to-action text-white text-center" id="signup">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
-                        <!-- <h2 class="mb-4">Put something here</h2> -->
+                        <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="150px" height="150px" class="d-inline-block align-text-center mb-2">
+                        <h2 class="mb-4">Pangasinan <br> Irrigation Management Office</h2>
+                        <p>"<i id="quote"></i>"</p>
+                        <p class="text-end fs-6">-<b id="qauthor"></b></p>
                     </div>
                 </div>
             </div>
@@ -204,3 +170,22 @@
         </footer>
 
 		{% endblock %}
+
+        {% block scripts %}
+        <script type="application/javascript">
+            window.addEventListener('load', (event) => {
+                console.log(213)
+                fetch('https://api.quotable.io/random?tags=inspirational, famous-quotes',{
+                    method: 'GET',
+                    //body: JSON.stringify({"file_id" : e.id})
+                })
+                    .then(response => response.json())
+                    .then((data)=>{
+                        console.log(data);
+                        document.getElementById("quote").innerHTML = data.content;
+                        document.getElementById("qauthor").innerHTML = data.author;
+                })
+            });
+        </script>
+        {% endblock %}
+

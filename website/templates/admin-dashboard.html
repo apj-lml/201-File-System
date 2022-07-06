@@ -31,6 +31,7 @@
         line-height: 18px;
     }
 }
+.dataTables_wrapper { min-height: 300px; }
 </style>
 
 
@@ -110,110 +111,111 @@
 				<!-- <div class="flex-column text-end">
 					<a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Toggle Column</a>
 				</div> -->
-				<div class="table-responsive mb-5">
-					<table class="table table-striped table-hover" id="list_of_employees" style="width: 100%;">
-						<thead>
-						  <tr id="tableHeading">
-							<th scope="col">id</th>
-							<th scope="col">timestamp</th>
-							<th scope="col">employee_id</th>
-							<th scope="col">email</th>
-							<th scope="col">password</th>
-							<th scope="col">last_name</th>
-							<th scope="col">first_name</th>
-							<th scope="col">middle_name</th>
-							<th scope="col">name_extn</th>
-							<th scope="col">position_title</th>
-							<th scope="col">salary_grade</th>
-							<th scope="col">employment_status</th>
-							<th scope="col">section</th>
-							<th scope="col">unit</th>
-							<th scope="col">birthdate</th>
-							<th scope="col">age</th>
-							<th scope="col">place_of_birth</th>
-							<th scope="col">sex</th>
-							<th scope="col">civil_status</th>
-							<th scope="col">height</th>
-							<th scope="col">weight</th>
-							<th scope="col">blood_type</th>
-							<th scope="col">religion</th>
-							<th scope="col">dependents</th>
-							<th scope="col">mobile_no</th>
-							<th scope="col">telephone_no</th>
-							<th scope="col">gsis</th>
-							<th scope="col">pagibig</th>
-							<th scope="col">philhealth</th>
-							<th scope="col">sss</th>
-							<th scope="col">tin</th>
-							<th scope="col">atm</th>
-							<th scope="col">umid</th>
-							<th scope="col">philsys</th>
-							<th scope="col">citizenship</th>
-							<th scope="col">dual_citizenship</th>
-							<th scope="col">indicate_country</th>
-							<th scope="col">p_house_block_lot</th>
-							<th scope="col">p_street</th>
-							<th scope="col">p_subdivision_village</th>
-							<th scope="col">p_barangay</th>
-							<th scope="col">p_city_municipality</th>
-							<th scope="col">p_province</th>
-							<th scope="col">p_zip_code</th>
-							<th scope="col">pres_house_block_lot</th>
-							<th scope="col">pres_street</th>
-							<th scope="col">pres_subdivision_village</th>
-							<th scope="col">pres_barangay</th>
-							<th scope="col">pres_city_municipality</th>
-							<th scope="col">pres_province</th>
-							<th scope="col">pres_zip_code</th>
-							<!-- <th scope="col">highest_educational_attainment</th> -->
-							<th scope="col">elementary_school</th>
-							<th scope="col">e_period_of_attendance_from</th>
-							<th scope="col">e_period_of_attendance_to</th>
-							<th scope="col">e_highest_level</th>
-							<th scope="col">e_scholarship_academic_honor</th>
-							<th scope="col">high_school</th>
-							<th scope="col">hs_period_of_attendance_from</th>
-							<th scope="col">hs_period_of_attendance_to</th>
-							<th scope="col">hs_highest_level</th>
-							<th scope="col">hs_scholarship_academic_honor</th>
-							<!-- <th scope="col">v_school</th>
-							<th scope="col">vocational_trade_course</th>
-							<th scope="col">v_period_of_attendance_from</th>
-							<th scope="col">v_period_of_attendance_to</th>
-							<th scope="col">v_highest_level</th>
-							<th scope="col">v_scholarship_academic_honor</th>
-							<th scope="col">c_school</th>
-							<th scope="col">c_degree_course</th>
-							<th scope="col">c_period_of_attendance_from</th>
-							<th scope="col">c_period_of_attendance_to</th>
-							<th scope="col">c_highest_level_units_earned</th>
-							<th scope="col">c_scholarship_academic_honor</th>
-							<th scope="col">gs_school</th>
-							<th scope="col">gs_degree_course</th>
-							<th scope="col">gs_period_of_attendance_from</th>
-							<th scope="col">gs_period_of_attendance_to</th>
-							<th scope="col">gs_highest_level_units_earned</th>
-							<th scope="col">gs_scholarship_academic_honor</th>
-							<th scope="col">doc_school</th>
-							<th scope="col">doc_degree_course</th>
-							<th scope="col">doc_period_of_attendance_from</th>
-							<th scope="col">doc_period_of_attendance_to</th>
-							<th scope="col">doc_highest_level_units_earned</th>
-							<th scope="col">doc_scholarship_academic_honor</th> -->
-							<!-- <th scope="col">cs_eligibility</th>
-							<th scope="col">cs_rating</th>
-							<th scope="col">place_of_examination_conferment</th>
-							<th scope="col">license_no</th>
-							<th scope="col">date_of_validity</th> -->
-							<th scope="col">type_of_user</th>
-							<th scope="col">Controls</th>
-						  </tr>
-						</thead>
-						<tbody class="align-middle">
 
-						</tbody>
-					  </table>
-				</div>		
+					<div id="demo" class="mb-5" style="height: 600px;">
+						<table class="table table-striped table-hover display" id="list_of_employees" style="width: 100%;" cellpadding="0" cellspacing="0" id="example" width="100%">
+							<thead>
+							  <tr id="tableHeading">
+								<th scope="col">id</th>
+								<th scope="col">timestamp</th>
+								<th scope="col">employee_id</th>
+								<th scope="col">email</th>
+								<th scope="col">password</th>
+								<th scope="col">last_name</th>
+								<th scope="col">first_name</th>
+								<th scope="col">middle_name</th>
+								<th scope="col">name_extn</th>
+								<th scope="col">position_title</th>
+								<th scope="col">salary_grade</th>
+								<th scope="col">employment_status</th>
+								<th scope="col">section</th>
+								<th scope="col">unit</th>
+								<th scope="col">birthdate</th>
+								<th scope="col">age</th>
+								<th scope="col">place_of_birth</th>
+								<th scope="col">sex</th>
+								<th scope="col">civil_status</th>
+								<th scope="col">height</th>
+								<th scope="col">weight</th>
+								<th scope="col">blood_type</th>
+								<th scope="col">religion</th>
+								<th scope="col">dependents</th>
+								<th scope="col">mobile_no</th>
+								<th scope="col">telephone_no</th>
+								<th scope="col">gsis</th>
+								<th scope="col">pagibig</th>
+								<th scope="col">philhealth</th>
+								<th scope="col">sss</th>
+								<th scope="col">tin</th>
+								<th scope="col">atm</th>
+								<th scope="col">umid</th>
+								<th scope="col">philsys</th>
+								<th scope="col">citizenship</th>
+								<th scope="col">dual_citizenship</th>
+								<th scope="col">indicate_country</th>
+								<th scope="col">p_house_block_lot</th>
+								<th scope="col">p_street</th>
+								<th scope="col">p_subdivision_village</th>
+								<th scope="col">p_barangay</th>
+								<th scope="col">p_city_municipality</th>
+								<th scope="col">p_province</th>
+								<th scope="col">p_zip_code</th>
+								<th scope="col">pres_house_block_lot</th>
+								<th scope="col">pres_street</th>
+								<th scope="col">pres_subdivision_village</th>
+								<th scope="col">pres_barangay</th>
+								<th scope="col">pres_city_municipality</th>
+								<th scope="col">pres_province</th>
+								<th scope="col">pres_zip_code</th>
+								<!-- <th scope="col">highest_educational_attainment</th> -->
+								<th scope="col">elementary_school</th>
+								<th scope="col">e_period_of_attendance_from</th>
+								<th scope="col">e_period_of_attendance_to</th>
+								<th scope="col">e_highest_level</th>
+								<th scope="col">e_scholarship_academic_honor</th>
+								<th scope="col">high_school</th>
+								<th scope="col">hs_period_of_attendance_from</th>
+								<th scope="col">hs_period_of_attendance_to</th>
+								<th scope="col">hs_highest_level</th>
+								<th scope="col">hs_scholarship_academic_honor</th>
+								<!-- <th scope="col">v_school</th>
+								<th scope="col">vocational_trade_course</th>
+								<th scope="col">v_period_of_attendance_from</th>
+								<th scope="col">v_period_of_attendance_to</th>
+								<th scope="col">v_highest_level</th>
+								<th scope="col">v_scholarship_academic_honor</th>
+								<th scope="col">c_school</th>
+								<th scope="col">c_degree_course</th>
+								<th scope="col">c_period_of_attendance_from</th>
+								<th scope="col">c_period_of_attendance_to</th>
+								<th scope="col">c_highest_level_units_earned</th>
+								<th scope="col">c_scholarship_academic_honor</th>
+								<th scope="col">gs_school</th>
+								<th scope="col">gs_degree_course</th>
+								<th scope="col">gs_period_of_attendance_from</th>
+								<th scope="col">gs_period_of_attendance_to</th>
+								<th scope="col">gs_highest_level_units_earned</th>
+								<th scope="col">gs_scholarship_academic_honor</th>
+								<th scope="col">doc_school</th>
+								<th scope="col">doc_degree_course</th>
+								<th scope="col">doc_period_of_attendance_from</th>
+								<th scope="col">doc_period_of_attendance_to</th>
+								<th scope="col">doc_highest_level_units_earned</th>
+								<th scope="col">doc_scholarship_academic_honor</th> -->
+								<!-- <th scope="col">cs_eligibility</th>
+								<th scope="col">cs_rating</th>
+								<th scope="col">place_of_examination_conferment</th>
+								<th scope="col">license_no</th>
+								<th scope="col">date_of_validity</th> -->
+								<th scope="col">type_of_user</th>
+								<th scope="col">Controls</th>
+							  </tr>
+							</thead>
+							<tbody class="align-middle">
+							</tbody>
+						  </table>
+					</div>		
+	
 			</div>
 		</div>
 	  </div>
@@ -429,7 +431,7 @@
 						<label for="salary_grade">Salary Grade</label>
 					  </div>
 					  <div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form">
+						<select class="form-select" id="step" name="step" value="" form="update_form">
 						  <option value="1">1</option>
 						  <option value="2">2</option>
 						  <option value="3">3</option>
@@ -481,23 +483,51 @@
 {%block scripts%}
 <script type="text/javascript">
 $(document).ready(function() {
-    var products_table = $('#list_of_employees').DataTable( {
+	var $table = $("#demo table");
+    $table.DataTable( {
 		language: {
             searchBuilder: {
                 title: `<a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Toggle Column</a>`,
 				add: `Add Filter`
             }
         },
+		autoWidth: false,
 		bLengthChange: true,
 		scrollX: true,
-		// responsive: true,
 		colReorder: true,
-        //dom: 'QBfrtip',
-		
 		dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'B><'col-sm-4 col-md-4'f>>
 				<'row'<'col-sm-12'tr>>
 				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
 		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+
+
+		"fnDrawCallback": function() {
+			var $dataTable = $table.dataTable();
+			$dataTable.fnAdjustColumnSizing(false);
+
+			// TableTools
+			if (typeof(TableTools) != "undefined") {
+				var tableTools = TableTools.fnGetInstance(table);
+				if (tableTools != null && tableTools.fnResizeRequired()) {
+					tableTools.fnResizeButtons();
+				}
+			}
+			//
+			var $dataTableWrapper = $table.closest(".dataTables_wrapper");
+			var panelHeight = $dataTableWrapper.parent().height();
+
+			var toolbarHeights = 0;
+			$dataTableWrapper.find(".fg-toolbar").each(function(i, obj) {
+				toolbarHeights = toolbarHeights + $(obj).height();
+			});
+
+			var scrollHeadHeight = $dataTableWrapper.find(".dataTables_scrollHead").height();
+			var height = panelHeight - toolbarHeights - scrollHeadHeight;
+			$dataTableWrapper.find(".dataTables_scrollBody").height(height - 24);
+
+			$dataTable._fnScrollDraw();
+		},
+
 		buttons: [
 			
 				{
@@ -646,18 +676,39 @@ $(document).ready(function() {
 			  searchable: false,
               render: function ( data, type, row ) {
                 return `
-				<div class="d-sm-flex flex-row">
-					<a href="/employees/my-profile/${data.id}" class="btn btn-warning btn-sm m-2" title="View employee info" id="${data.id}">
-						<i class="bi bi-eye-fill"></i>
+				<div class="dropdown">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-collection"></i> Actions
 					</a>
-					<a class="btn btn-secondary btn-sm m-2" title="Staff Movement" id="${data.id}" onclick = "staff_movement(this)" data-bs-toggle="modal" data-bs-target="#staff_movement">
-						<i class="bi bi-person-lines-fill"></i>
-					</a>
-				</div>`;
+					<ul class="dropdown-menu dropdown-menu-start position-absolute" aria-labelledby="dropdownMenuLink">
+						<li><a class="dropdown-item" href="/print-preview/${data.id}"><i class="bi bi-printer"></i> PDS Print Preview</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a href="/employees/my-profile/${data.id}" class="dropdown-item"><i class="bi bi-person-lines-fill"></i> Employee Profile</a></li>
+						<li><a href="/family-background/${data.id}" class="dropdown-item"><i class="bi bi-people-fill"></i> Family Background</a></li>
+						<li><a class="dropdown-item" href="/work-experience/${data.id}"><i class="bi bi-journals"></i> Work Experience</a></li>
+						<li><a class="dropdown-item" href="/voluntary-work/${data.id}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
+						<li><a class="dropdown-item" href="/learning-development/${data.id}"><i class="bi bi-lightbulb"></i>  Learning & Development</a></li>
+						<li><a class="dropdown-item" href="/other-information/${data.id}"><i class="bi bi-pen"></i> Other Information</a></li>
+						<li><a class="dropdown-item" href="/questions/${data.id}"><i class="bi bi-question-octagon"></i> Questions</a></li>
+						<li><a class="dropdown-item" href="/character-reference/${data.id}"><i class="bi bi-person-video2"></i> Character References</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="/employees/service-record/${data.id}"><i class="bi bi-card-list"></i> Service Record</a></li>
+						<li><a class="dropdown-item" href="/appointment/${data.id}"><i class="bi bi-card-heading"></i> Appointments</a></li>
+						<li><a class="dropdown-item" href="/covid-vaccine/${data.id}"><i class="fas fa-syringe"></i> COVID-19 Vaccination</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="/tshirt-sizes/${data.id}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
+						<li><a class="dropdown-item" href="/emergency-contact/${data.id}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
+						<li><a class="dropdown-item" href="/other-questions/${data.id}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
+						<li>
+					</ul>
+					`;
               }
             }
         ]
     } );
+
+
+
 
 $('a.toggle-vis').on( 'click', function (e) {
 		// Get the column API object
