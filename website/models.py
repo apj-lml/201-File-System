@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
 
 	# original_station = db.Column(db.String(150))
 	date_hired_in_nia = db.Column(db.String(150), nullable=True)
+	date_hired_in_nia_pimo = db.Column(db.String(150), nullable=True)
 	no_of_years_in_nia = db.Column(db.String(150), nullable=True)
 
 	date_of_last_step_increment = db.Column(db.String(150), nullable=True)

@@ -329,12 +329,8 @@
                     </div>
                   </div>
                   
-                
-
-                  <!-- TODO -->
                   <div class="d-md-flex flex-row">
-                    <!-- TODO -->
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating col-md-4 mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_original_appointment">*Date of Original Appointment</label>
                       <small class="text-muted" style="font-size: 12px;">*Refers to original appointment as permanent/casual/coterminous or first government service.</small>
@@ -345,11 +341,15 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" {{'' if current_user.type_of_user == 'user'}} required>
-                      <label for="item_no" >Date Hired in NIA</label>
+                      <label for="date_hired_in_nia" >Date Hired in NIA</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
+                      <input type="date" class="form-control" id="date_hired_in_nia_pimo" name ="date_hired_in_nia_pimo" placeholder="Date Hired in NIA PIMO" value="{{user_profile.date_hired_in_nia_pimo if user_profile.date_hired_in_nia_pimo is not none else ''}}" form="update_form" {{'' if current_user.type_of_user == 'user'}} required>
+                      <label for="date_hired_in_nia_pimo" >Date Hired in NIA PIMO</label>
+                    </div>
+                    <div class="form-floating col-md-2 mb-3 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
-                      <label for="item_no">Years in Service<span class="is-required">*</span></label>
+                      <label for="no_of_years_in_nia">Years in Service<span class="is-required">*</span></label>
                       <small class="text-muted" style="font-size: 12px;">*Refers to the no. of Years in Service in NIA.</small>
                     </div>
                   </div>
