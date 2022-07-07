@@ -325,7 +325,7 @@
                     <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_assumption" style="font-size: 12px;">Date of Assumption to Duty</label>
-                      <small class="text-muted" style="font-size: 12px;">*Refers to your current position.</small>
+                      <small class="" style="font-size: 12px; color:red;">*Refers to your current position.</small>
                     </div>
                   </div>
                   
@@ -333,14 +333,14 @@
                     <div class="form-floating col-md-4 mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_original_appointment">*Date of Original Appointment</label>
-                      <small class="text-muted" style="font-size: 12px;">*Refers to original appointment as permanent/casual/coterminous or first government service.</small>
+                      <small class="" style="font-size: 12px; color:red;">*Refers to original appointment as permanent/casual/coterminous or first government service.</small>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user' }}>
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" {{'' if current_user.type_of_user == 'user'}} required>
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" onchange="validate_no_dependents(this)" {{'' if current_user.type_of_user == 'user'}} required>
                       <label for="date_hired_in_nia" >Date Hired in NIA</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -350,7 +350,7 @@
                     <div class="form-floating col-md-2 mb-3 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
                       <label for="no_of_years_in_nia">Years in Service<span class="is-required">*</span></label>
-                      <small class="text-muted" style="font-size: 12px;">*Refers to the no. of Years in Service in NIA.</small>
+                      <small class="" style="font-size: 12px; color:red">*Refers to the no. of Years in Service in NIA.</small>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -431,7 +431,7 @@
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form" required>
                       <label for="name_extn">No. of Dependent/s<small style="font-size: 14px;"> (21 y/o below )</small></label>
-                      <small class="text-muted" style="font-size: 12px; color: red">*Applicable to employees hired on or before 1989</small>
+                      <small class="" style="font-size: 12px; color: red">*Applicable to employees hired on or before 1989</small>
                     </div>      
                   </div>
                   <div class="d-md-flex flex-row">
@@ -1829,6 +1829,21 @@
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 <script type="text/javascript">
 
+function validate_no_dependents(date_hired_in_nia){
+  console.log("Im Here");
+  var pickedDatestr = "1989-12-31";
+  var pickedDate = new Date(pickedDatestr);
+  console.log(pickedDate);
+  console.log(date_hired_in_nia.value);
+  if(date_hired_in_nia.value <= pickedDatestr){
+      document.getElementById("dependents").readOnly = false;
+  }else{
+    document.getElementById("dependents").readOnly = true;
+    document.getElementById("dependents").value = "";
+
+  }
+}
+
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && e.key === 's' && e.ctrlKey || e.ctrlKey && e.key === 'S') {
     e.preventDefault();
@@ -1837,6 +1852,7 @@ document.addEventListener('keydown', e => {
     });
 
 window.addEventListener("load", function() {
+  validate_no_dependents(document.getElementById('date_hired_in_nia'));
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
   
