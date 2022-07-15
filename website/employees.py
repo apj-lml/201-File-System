@@ -33,6 +33,15 @@ def page_not_found(e):
 def get_employees(emp_id):
 	if request.method == 'GET' and emp_id == "0" :
 		user = User.query.all()
+		# session.query(
+		# 	User
+		# ).join(
+		# 	Document
+		# ).join(
+		# 	DocumentsPermissions
+		# ).filter(
+		# 	User.email == "user@email.com"
+		# ).all()
 		column_keys = User.__table__.columns.keys()
 	# Temporary dictionary to keep the return value from table
 		rows_dic_temp = {}

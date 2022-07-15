@@ -1,5 +1,6 @@
 # from email.policy import default
 #from email.policy import default
+from email.policy import default
 from pickle import NONE
 from time import timezone
 
@@ -17,6 +18,8 @@ class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	timestamp = db.Column(db.DateTime(timezone=True), server_default=func.now())
 	status_remarks = db.Column(db.String(50))
+	is_validated = db.Column(db.String(50), default="VALIDATED")
+	desc_remarks = db.Column(db.String(150))
 	employee_id = db.Column(db.Integer, unique=True, nullable=False)
 	email = db.Column(db.String(150), unique=False, nullable=True)
 	password = db.Column(db.String(150), nullable=False)
