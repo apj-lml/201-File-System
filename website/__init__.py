@@ -7,7 +7,7 @@ from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 import jinja2
 from babel.dates import format_date, format_datetime, format_time
 from datetime import datetime
-
+import time
 
 # from website.models import User
 
@@ -27,7 +27,8 @@ DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
 
-
+os.environ["TZ"] = "Asia/Manila"
+time.tzset()
 
 
 def create_app():
