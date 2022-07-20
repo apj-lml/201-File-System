@@ -27,8 +27,8 @@ DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
 
-os.environ["TZ"] = "Asia/Manila"
-time.tzset()
+# os.environ["TZ"] = "America/Los_Angeles"
+# time.tzset()
 
 
 def create_app():
@@ -46,6 +46,7 @@ def create_app():
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
+
 	# app.config.from_pyfile('mysettings.cfg')
 	
 	# babel.init_app(babel)

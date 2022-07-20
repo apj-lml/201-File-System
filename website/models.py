@@ -16,8 +16,10 @@ from sqlalchemy_serializer import SerializerMixin
 import time
 import os
 
-os.environ["TZ"] = "Asia/Manila"
-time.tzset()
+# os.environ["TZ"] = "Asia/Jerusalem"
+# time.tzset()
+
+
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
