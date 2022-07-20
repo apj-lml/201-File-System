@@ -29,6 +29,8 @@ UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
 
 
 def create_app():
+	
+
 	app = Flask(__name__)
 	app.config['SECRET_KEY'] = '201 File System Key'
 
@@ -167,6 +169,8 @@ def create_app():
 			identity.provides.add(UserNeed(current_user.id))
 		if hasattr(current_user, 'type_of_user'):
 			identity.provides.add(RoleNeed(str(current_user.type_of_user)))
+
+	
 
 	return app
 
