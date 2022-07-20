@@ -129,8 +129,8 @@ class User(db.Model, UserMixin):
 	hs_scholarship_academic_honor = db.Column(db.String(150))
 
 	type_of_user = db.Column(db.String(150), default='user')
-	last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
-	#last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
+	#last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
+	last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
 	
 	uploaded_files = db.relationship('Uploaded_File')
 	service_record = db.relationship('Service_Record')

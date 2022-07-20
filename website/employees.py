@@ -4,6 +4,7 @@ from copyreg import constructor
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
+import pytz
 from .models import Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
 from . import db
 #from datetime import datetime
@@ -67,8 +68,13 @@ def my_profile(emp_id):
 		else:
 			user = User.query.get(emp_id)
 		# print(user)
+
+		tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to from UTC (Asia/Manila)
+		utc = pytz.timezone('UTC')
+		value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
+		local_dt = value.astimezone(tz)
 		
-		return render_template('employee_profile.html', user_profile = user)
+		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt)
 
 	return jsonify({})
 
