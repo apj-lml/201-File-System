@@ -27,9 +27,6 @@ DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
 
-# os.environ["TZ"] = "America/Los_Angeles"
-# time.tzset()
-
 
 def create_app():
 	app = Flask(__name__)
