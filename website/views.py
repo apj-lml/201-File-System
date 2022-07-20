@@ -5,10 +5,14 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import current_user, login_user, logout_user, login_required
 #from flask.ext.principal import Principal, Permission, RoleNeed
 from flask_principal import Principal, Permission, RoleNeed
+import pytz
 from sqlalchemy import desc, extract
 
 from . import db
 from .models import College, Family_Background, Masteral, Other_Information, Uploaded_File, User, Vocational_Course
+
+UTC = pytz.utc
+PST = pytz.timezone('Asia/Manila')
 
 views = Blueprint('views', __name__)
 
@@ -52,7 +56,7 @@ def dashboard():
 @login_required
 @admin_permission.require(http_exception=403)
 def admin_dashboard():
-	return render_template('admin-dashboard.html', date_now = datetime.utcnow())
+	return render_template('admin-dashboard.html', date_now = datetime.now(PST))
 
 @views.route('/learning-development/<emp_id>', methods=['GET', 'POST'])
 @login_required

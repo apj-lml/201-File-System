@@ -13,9 +13,11 @@ from sqlalchemy.orm import column_property
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime, date
 from sqlalchemy_serializer import SerializerMixin
-import time
+import time, pytz
 import os
 
+UTC = pytz.utc
+PST = pytz.timezone('Asia/Manila')
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -127,7 +129,8 @@ class User(db.Model, UserMixin):
 	hs_scholarship_academic_honor = db.Column(db.String(150))
 
 	type_of_user = db.Column(db.String(150), default='user')
-	last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
+	last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
+	#last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
 	
 	uploaded_files = db.relationship('Uploaded_File')
 	service_record = db.relationship('Service_Record')
