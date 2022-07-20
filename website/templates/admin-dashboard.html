@@ -131,6 +131,7 @@
 								<th scope="col">id</th>
 								<th scope="col">timestamp</th>
 								<th scope="col">employee_id</th>
+								<th scope="col">is_validated</th>
 								<th scope="col">email</th>
 								<th scope="col">password</th>
 								<th scope="col">last_name</th>
@@ -244,54 +245,55 @@
 				<li><a href="#" class="toggle-vis" data-column="0">id</a></li>
 				<li><a href="#" class="toggle-vis" data-column="1">timestamp</a></li>
 				<li><a href="#" class="toggle-vis" data-column="2">employee_id</a></li>
-				<li><a href="#" class="toggle-vis" data-column="3">email</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="4">password</a></li>
-				<li><a href="#" class="toggle-vis" data-column="5">last_name</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="6">first_name</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="7">middle_name</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="8">name_extn</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="9">position_title</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="10">salary_grade</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="11">employment_status</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="12">section</a></li>
-				<li><a href="#" class="toggle-vis" data-column="13">unit</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="14">birthdate</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="15">age</a></li>
-				<li><a href="#" class="toggle-vis" data-column="16">place_of_birth</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="17">sex</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="18">civil_status</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="19">height</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="20">weight</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="21">blood_type</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="22">religion</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="23">dependents</a></li>
-				<li><a href="#" class="toggle-vis" data-column="24">mobile_no</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="25">telephone_no</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="26">gsis</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="27">pagibig</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="28">philhealth</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="29">sss</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="30">tin</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="31">atm</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="32">umid</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="33">philsys</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="34">citizenship</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="35">dual_citizenship</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="36">indicate_country</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="37">p_house_block_lot</a></li>
-				<li><a href="#" class="toggle-vis" data-column="38">p_street</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="39">p_subdivision_village</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="40">p_barangay</a></li>
-				<li><a href="#" class="toggle-vis" data-column="41">p_city_municipality</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="42">p_province</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="43">p_zip_code</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="44">pres_house_block_lot</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="45">pres_street</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="46">pres_subdivision_village</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="47">pres_barangay</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="48">pres_city_municipality</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="49">pres_province</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="50">pres_zip_code</a></li>
+				<li><a href="#" class="toggle-vis" data-column="3">is_validated</a></li>
+				<li><a href="#" class="toggle-vis" data-column="4">email</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="5">password</a></li>
+				<li><a href="#" class="toggle-vis" data-column="6">last_name</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="7">first_name</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="8">middle_name</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="9">name_extn</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="10">position_title</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="11">salary_grade</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="12">employment_status</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="13">section</a></li>
+				<li><a href="#" class="toggle-vis" data-column="14">unit</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="15">birthdate</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="16">age</a></li>
+				<li><a href="#" class="toggle-vis" data-column="17">place_of_birth</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="18">sex</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="19">civil_status</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="20">height</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="21">weight</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="22">blood_type</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="23">religion</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="24">dependents</a></li>
+				<li><a href="#" class="toggle-vis" data-column="25">mobile_no</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="26">telephone_no</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="27">gsis</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="28">pagibig</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="29">philhealth</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="30">sss</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="31">tin</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="32">atm</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="33">umid</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="34">philsys</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="35">citizenship</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="36">dual_citizenship</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="37">indicate_country</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="38">p_house_block_lot</a></li>
+				<li><a href="#" class="toggle-vis" data-column="39">p_street</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="40">p_subdivision_village</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="41">p_barangay</a></li>
+				<li><a href="#" class="toggle-vis" data-column="42">p_city_municipality</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="43">p_province</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="44">p_zip_code</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="45">pres_house_block_lot</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="46">pres_street</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="47">pres_subdivision_village</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="48">pres_barangay</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="49">pres_city_municipality</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="50">pres_province</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="51">pres_zip_code</a></li>
 				<!-- <li><a href="#" class="toggle-vis" data-column="51">highest_educational_attainment</a></li>  -->
 				<li><a href="#" class="toggle-vis" data-column="52">elementary_school</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="53">e_period_of_attendance_from</a></li> 
@@ -506,6 +508,7 @@ $(document).ready(function() {
             }
         },
 		//autoWidth: false,
+		responsive: true,
 		bLengthChange: true,
 		//scrollX: true,
 		colReorder: true,
@@ -602,6 +605,7 @@ $(document).ready(function() {
 			{ "data": "id"},
 			{ "data": "timestamp", visible: false },
 			{ "data": "employee_id", visible: true },
+			{ "data": "is_validated", visible: true },
 			{ "data": "email", visible: false },
 			{ "data": "password", visible: false },
 			{ "data": "last_name", visible: true },
@@ -695,6 +699,8 @@ $(document).ready(function() {
 						<i class="bi bi-collection"></i> Actions
 					</a>
 					<ul class="dropdown-menu dropdown-menu-start position-absolute" aria-labelledby="dropdownMenuLink" style="z-index: 1080">
+						<li><a class="dropdown-item" href="/employees/validate/${data.id}"><i class="bi bi-person-check-fill"></i> Validate/<i class="bi bi-person-x-fill"></i> Invalidate</a></li>
+						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/print-preview/${data.id}"><i class="bi bi-printer"></i> PDS Print Preview</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a href="/employees/my-profile/${data.id}" class="dropdown-item"><i class="bi bi-person-lines-fill"></i> Employee Profile</a></li>

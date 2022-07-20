@@ -466,16 +466,33 @@ def update_password(emp_id):
 			return jsonify('Successfully changed your password!')
 	return "ok", 200
 
+@employees.route('validate/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def validate_emp(emp_id):
+	if request.method == "GET":
+		#formdata = request.form.to_dict()
+		user = User.query.get(emp_id)
+		print ("HERE", user.is_validated)
+		if user.is_validated != 'VALIDATED':
+			user.is_validated = 'VALIDATED'
+		else:
+			user.is_validated = 'NOT VALIDATED'
+		db.session.commit()
+			#return jsonify('Successfully changed your password!')
+	return redirect(url_for("views.admin_dashboard"))
+
 @employees.context_processor
 def inject_today_date():
     return {'today_date': datetime.datetime.utcnow()}
 
 @employees.context_processor
-def utility_pricessor():
+def utility_processor():
 	def inject_count_files(file_tag, emp_id):
 		count_files = Uploaded_File.query.filter_by(user_id = emp_id, file_tag = file_tag)
 		counted_files = count_files.count()
 		# if(count_files != 0):
 		# 	output = f"You have uploaded "
-		return f"You have uploaded {counted_files} file(s) in this field."
+		#return f"You have uploaded {counted_files} file(s) in this field."
+		return counted_files
 	return dict(count_files = inject_count_files)

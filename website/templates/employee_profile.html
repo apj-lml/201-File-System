@@ -45,6 +45,10 @@
       position:absolute;
       top:-50px;
       right: 0;
+      z-index: 999;
+    }
+    small>p{
+      margin-bottom: 1;
     }
   </style>
 {% endblock %}
@@ -131,7 +135,7 @@
       <li></li>
   </ul>
 
-  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container-fluid mb-5" tabindex="0">
+  <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container mb-5" tabindex="0">
     <div class="container">
 
       <div class="row">
@@ -164,16 +168,22 @@
               </div> -->
 
               <div class="card mb-3" id="header" id="content">
-                <img class="ribbon" src="{{url_for('static', filename='img/verified.png')}}" width="100vw">
+                {% if current_user.type_of_user == 'admin' %}
+                  {% if user_profile.is_validated == 'VALIDATED' %}
+                    <img class="ribbon img-fluid" src="{{url_for('static', filename='img/validated3.png')}}" width="170">
+                  {% endif %}
+                {% endif %}
                 <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   99+
                 </span> -->
                 <div class="card-body">
-                <h3 class="card-title">PERSONAL INFORMATION</h3>
-                <div class="d-md-flex flex-row"> 
+                <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
+                <i class="text-muted">This form is last updated on {{ user_profile.last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
+
+                <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating col-md-3 mb-3 p-1">
                     <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                    <label for="status_remarks">Employee ID Number<span class="is-required">*</span></label>
+                    <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
                   </div>
                   <div class="form-floating col-md-3 mb-3 p-1">
                     <!-- <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> -->
@@ -187,7 +197,7 @@
 
                   {% if current_user.type_of_user == 'admin' %}
                   <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: red; font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{'*' if user_profile.desc_remarks is not none and user_profile.desc_remarks != '' }}{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                  <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                     <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
                   </div>
                   {% endif %}
@@ -209,7 +219,7 @@
                     <div class="form-floating col-md-2 col-sm-12 p-1">
                       <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="name_extn">Name Extension</label>
-                      <small class="" style="font-size: 12px; color: red;">*Eg. Jr. / Sr. / III</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. Jr. / Sr. / III</p></small>
 
                     </div>
                   </div>
@@ -351,7 +361,7 @@
                     <div class="form-floating col-md-2 col-sm-12 p-1">
                       <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_assumption" style="font-size: 12px;">Date of Assumption to Duty</label>
-                      <small class="" style="font-size: 12px; color:red;">*Refers to your current position.</small>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Refers to your current position.</p></small>
                     </div>
                   </div>
                   
@@ -359,7 +369,7 @@
                     <div class="form-floating col-md-4 p-1">
                       <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_original_appointment">*Date of Original Appointment</label>
-                      <small class="" style="font-size: 12px; color:red;line-height: normal;"><p style="line-height: normal;">*Refers to original appointment as permanent / casual / coterminous or first government service.</p></small>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Refers to original appointment as permanent / casual / coterminous or first government service.</p></small>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
                       <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user' }}>
@@ -378,7 +388,7 @@
                     <div class="form-floating col-md-4 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
                       <label for="no_of_years_in_nia">Years in Service<span class="is-required">*</span></label>
-                      <small class="" style="font-size: 12px; color:red">*Refers to the no. of Years in Service in NIA.</small>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255)"><p style="line-height: normal;">*Refers to the no. of Years in Service in NIA.</p></small>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -459,14 +469,14 @@
                     <div class="form-floating col-md-3 col-sm-12 p-1">
                       <input type="text" class="form-control" id="dependents" name ="dependents" placeholder="Dependents" value="{{user_profile.dependents}}" form="update_form" required>
                       <label for="name_extn">No. of Dependent/s<small style="font-size: 14px;"> (21 y/o below )</small></label>
-                      <small class="" style="font-size: 12px; color: red">*Applicable to employees hired on or before 1989</small>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255)"><p style="line-height: normal;">*Applicable to employees hired on or before 1989</p></small>
                     </div>      
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
+                    <div class="form-floating col-md-3 col-sm-12 p-1">
                       <input type="text" class="form-control" id="mobile_no" name ="mobile_no" pattern="[0-9]+" title="Please enter 11 digit long number only." maxlength="11" minlength="11" placeholder="Mobile No." value="{{user_profile.mobile_no}}" form="update_form" required>
                       <label for="mobile_no">Mobile No.<span class="is-required">*</span></label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. 09122354653</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 09122354653</p></small>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <input type="text" class="form-control" id="telephone_no" name ="telephone_no" placeholder="Telephone No." value="{{user_profile.telephone_no}}" form="update_form">
@@ -492,10 +502,11 @@
                       <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="{{user_profile.philhealth}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill p-1">
                       <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" pattern="[0-9]+" minlength="10" maxlength="10">
                       <label for="name_extn">SSS No.</label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. 0226413283</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 0226413283</p></small>
+
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -507,15 +518,17 @@
                       <input type="hidden" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
                       <!-- <label for="name_extn">ATM Card No. (Optional)</label>
                     </div> -->
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill p-1">
                       <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" minlength="18" maxlength="18">
                       <label for="name_extn">GSIS UMID No.</label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. CRN-0111-9316875-2</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. CRN-0111-9316875-2</p></small>
+
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill p-1">
                       <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" minlength="19" maxlength="19" form="update_form">
                       <label for="name_extn">PhilSys</label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. PSN-1234-567-8912-3</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. PSN-1234-567-8912-3</p></small>
+
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -523,10 +536,11 @@
                       <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="{{user_profile.solo_parent if user_profile.solo_parent is not none else ''}}" form="update_form">
                       <label for="solo_parent">Solo Parent ID No.</label>
                     </div>
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fil p-1">
                       <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" minlength="24" maxlength="24" form="update_form">
                       <label for="voters_id_no">Voter's ID No.</label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. 3022-0201B-C0272ESA20000</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 3022-0201B-C0272ESA20000</p></small>
+
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="pwd" name ="pwd" placeholder="ATM Card No." value="{{user_profile.pwd if user_profile.pwd is not none else ''}}" form="update_form">
@@ -534,10 +548,10 @@
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill mb-3 p-1">
+                    <div class="form-floating flex-fill p-1">
                       <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}" minlength="13" maxlength="13" form="update_form" >
                       <label for="driver_license" >Driver's License No.</label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. A14-22-000321</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. A14-22-000321</p></small>
 
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -554,10 +568,10 @@
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
+                    <div class="form-floating col-md-4 col-sm-12 p-1">
                       <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="{{user_profile.passport_no if user_profile.passport_no is not none else '' }}" minlength="9" maxlength="9" form="update_form" >
                       <label for="passport_no">Passport No.</label>
-                      <small class="text-muted" style="font-size: 12px;">*Eg. EB6684441</small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. EB6684441</p></small>
                     </div>
                     <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
                       <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" form="update_form" >
@@ -1473,42 +1487,41 @@
             <div class="card mb-3" id="footer">
               <div class="card-body">
               <h3 class="card-title">Upload Supporting Documents</h3>
-                <p class="text-muted">An asterisk (*) in uploading of Supporting Documents indicates that the field accepts multiple files to upload.</p>
-              <div class="card shadow-sm mb-3">
-                <div class="card-body">
-                  <div class="d-md-flex flex-row">
-                    <div class="flex-fill mb-3 p-1">
-                      <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
-                      <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
-                      <p class="text-muted">{{count_files("certificate_of_live_birth", user_profile.id)}}</p>
+                <p class="" style="color:rgb(0, 30, 255);">An asterisk (*) in uploading of Supporting Documents indicates that the field accepts multiple files to upload.</p>
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="psa" class="form-label">Upload Certificate of Live Birth</label>
+                        <input class="form-control" type="file" id="certificate_of_live_birth" name="certificate_of_live_birth" form="update_form">
+                        <p class='{{ "text-muted" if count_files("certificate_of_live_birth", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("certificate_of_live_birth", user_profile.id)}} file(s) in this field.</p>
+                      </div>
+                      <div class="flex-fill mb-3 p-1">
+                        <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
+                        <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
+                        <p class='{{ "text-muted" if count_files("marriage_certificate", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("marriage_certificate", user_profile.id)}} file(s) in this field.</p>
+                      </div>
                     </div>
-                    <div class="flex-fill mb-3 p-1">
-                      <label for="marriage_cert" class="form-label">Upload Marriage Certificate</label>
-                      <input class="form-control" type="file" id="marriage_certificate" name="marriage_certificate" form="update_form">
-                      <p class="text-muted">{{count_files("marriage_certificate", user_profile.id)}}</p>
                     </div>
                   </div>
-                  </div>
-                </div>
-
                 <div class="card shadow-sm mb-3">
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="flex-fill mb-3 p-1">
                         <label for="transcript_of_records" class="form-label">*Upload Transcript of Records</label>
                         <input class="form-control" type="file" id="transcript_of_records" name="transcript_of_records" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("transcript_of_records", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("transcript_of_records", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("transcript_of_records", user_profile.id)}} file(s) in this field.</p>
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="diploma" class="form-label">*Upload Diploma</label>
                         <input class="form-control" type="file" id="diploma" name="diploma" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("diploma", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("diploma", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("diploma", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="tesda_nc" class="form-label">*Upload TESDA National Certificate (NC)</label>
                         <input class="form-control" type="file" id="tesda_nc" name="tesda_nc" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("tesda_nc", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("tesda_nc", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("tesda_nc", user_profile.id)}} file(s) in this field.</p>
                       </div>
                     </div>
                   </div>
@@ -1520,19 +1533,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="career_service_eligibility" class="form-label">*Upload Career Service Eligibility</label>
                         <input class="form-control" type="file" id="career_service_eligibility" name="career_service_eligibility" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("career_service_eligibility", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("career_service_eligibility", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("career_service_eligibility", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="prc_license" class="form-label">Upload PRC License</label>
                         <input class="form-control" type="file" id="prc_license" name="prc_license" form="update_form">
-                        <p class="text-muted">{{count_files("prc_license", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("prc_license", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("prc_license", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="driver_license" class="form-label">Upload Driver's License</label>
                         <input class="form-control" type="file" id="driver_license" name="driver_license" form="update_form">
-                        <p class="text-muted">{{count_files("driver_license", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("driver_license", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("driver_license", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1540,7 +1553,7 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="security_guard_license" class="form-label">Upload Security Guard License</label>
                         <input class="form-control" type="file" id="security_guard_license" name="security_guard_license" form="update_form">
-                        <p class="text-muted">{{count_files("security_guard_license", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("security_guard_license", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("security_guard_license", user_profile.id)}} file(s) in this field.</p>
                       </div>
                     </div>
                   </div>
@@ -1552,19 +1565,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="office_id" class="form-label">Upload Office ID</label>
                         <input class="form-control" type="file" id="office_id" name="office_id" form="update_form">
-                        <p class="text-muted">{{count_files("office_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("office_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("office_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="gsis_id" class="form-label">Upload GSIS UMID ID</label>
                         <input class="form-control" type="file" id="gsis_id" name="gsis_id" form="update_form">
-                        <p class="text-muted">{{count_files("gsis_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("gsis_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("gsis_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="philhealth_id" class="form-label">Upload PhilHealth ID</label>
                         <input class="form-control" type="file" id="philhealth_id" name="philhealth_id" form="update_form">
-                        <p class="text-muted">{{count_files("philhealth_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("philhealth_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("philhealth_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1572,19 +1585,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="loyalty_card_plus" class="form-label">Upload Loyalty Card Plus ID</label>
                         <input class="form-control" type="file" id="loyalty_card_plus" name="loyalty_card_plus" form="update_form">
-                        <p class="text-muted">{{count_files("loyalty_card_plus", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("loyalty_card_plus", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("loyalty_card_plus", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="sss_umid_id" class="form-label">Upload SSS UMID ID</label>
                         <input class="form-control" type="file" id="sss_umid_id" name="sss_umid_id" form="update_form">
-                        <p class="text-muted">{{count_files("sss_umid_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("sss_umid_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("sss_umid_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="tin_id" class="form-label">Upload TIN ID</label>
                         <input class="form-control" type="file" id="tin_id" name="tin_id" form="update_form">
-                        <p class="text-muted">{{count_files("tin_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("tin_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("tin_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1592,19 +1605,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="national_id" class="form-label">Upload National ID</label>
                         <input class="form-control" type="file" id="national_id" name="national_id" form="update_form">
-                        <p class="text-muted">{{count_files("national_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("national_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("national_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="solo_parent_id" class="form-label">Upload Solo Parent ID</label>
                         <input class="form-control" type="file" id="solo_parent_id" name="solo_parent_id" form="update_form">
-                        <p class="text-muted">{{count_files("solo_parent_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("solo_parent_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("solo_parent_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="pwd_id" class="form-label">Upload PWD ID</label>
                         <input class="form-control" type="file" id="pwd_id" name="pwd_id" form="update_form">
-                        <p class="text-muted">{{count_files("pwd_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("pwd_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("pwd_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1617,13 +1630,13 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload Passport ID</label>
                         <input class="form-control" type="file" id="passport_id" name="passport_id" form="update_form">
-                        <p class="text-muted">{{count_files("passport_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("passport_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("passport_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="atm_card" class="form-label">Upload Voter's ID</label>
                         <input class="form-control" type="file" id="voters_id" name="voters_id" form="update_form">
-                        <p class="text-muted">{{count_files("voters_id", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("voters_id", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("voters_id", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1637,19 +1650,19 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload Latest Appointment</label>
                         <input class="form-control" type="file" id="latest_appointment" name="latest_appointment" form="update_form">
-                        <p class="text-muted">{{count_files("latest_appointment", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("latest_appointment", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("latest_appointment", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="position_description_form" class="form-label">*Upload Position Description Form</label>
                         <input class="form-control" type="file" id="position_description_form" name="position_description_form" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("position_description_form", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("position_description_form", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("position_description_form", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="oath_of_office" class="form-label">*Upload Oath of Office</label>
                         <input class="form-control" type="file" id="oath_of_office" name="oath_of_office" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("oath_of_office", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("oath_of_office", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("oath_of_office", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1658,19 +1671,19 @@
                       <div class="col-sm-4 mb-3 p-1">
                         <label for="assumption_to_duty" class="form-label">*Upload Assumption to Duty</label>
                         <input class="form-control" type="file" id="assumption_to_duty" name="assumption_to_duty" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("assumption_to_duty", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("assumption_to_duty", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("assumption_to_duty", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">*Upload Notice of Step Increment</label>
                         <input class="form-control" type="file" id="nosi" name="nosi" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("nosi", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("nosi", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("nosi", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">*Upload Notice of Salary/Wage Adjustment</label>
                         <input class="form-control" type="file" id="nosa" name="nosa" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("nosa", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("nosa", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("nosa", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1680,7 +1693,7 @@
                       <div class="flex-fill mb-3 p-1 ">
                         <label for="ld_cert" class="form-label">*Upload Memorandum/Designation</label>
                         <input class="form-control" type="file" id="memorandum_designation" name="memorandum_designation" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("memorandum_designation", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("memorandum_designation", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("memorandum_designation", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1694,13 +1707,13 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="service_employment_record" class="form-label">*Upload Service / Employment Record</label>
                         <input class="form-control" type="file" id="service_employment_record" name="service_employment_record" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("service_employment_record", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("service_employment_record", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("service_employment_record", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="certificate_of_employment" class="form-label">*Upload Certificate of Employment</label>
                         <input class="form-control" type="file" id="certificate_of_employment" name="certificate_of_employment" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("certificate_of_employment", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("certificate_of_employment", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("certificate_of_employment", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1715,13 +1728,13 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">*Upload IPCR</label>
                         <input class="form-control" type="file" id="ipcr" name="ipcr" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("ipcr", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("ipcr", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("ipcr", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">*Upload SALN</label>
                         <input class="form-control" type="file" id="saln" name="saln" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("saln", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("saln", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("saln", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
 
@@ -1735,13 +1748,13 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload NBI Clearance</label>
                         <input class="form-control" type="file" id="nbi_clearance" name="nbi_clearance" form="update_form">
-                        <p class="text-muted">{{count_files("nbi_clearance", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("nbi_clearance", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("nbi_clearance", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                       <div class="flex-fill mb-3 p-1">
                         <label for="ld_cert" class="form-label">*Upload Medical Records</label>
                         <input class="form-control" type="file" id="medical_records" name="medical_records" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("medical_records", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("medical_records", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("medical_records", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1755,7 +1768,7 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">*Upload Others</label>
                         <input class="form-control" type="file" id="others" name="others" form="update_form" multiple>
-                        <p class="text-muted">{{count_files("others", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("others", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("others", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
@@ -1768,7 +1781,7 @@
                       <div class="flex-fill mb-3 p-1">
                         <label for="latest_appointment" class="form-label">Upload Work Experience Sheet</label>
                         <input class="form-control" type="file" id="wes" name="wes" form="update_form">
-                        <p class="text-muted">{{count_files("wes", user_profile.id)}}</p>
+                        <p class='{{ "text-muted" if count_files("wes", user_profile.id) > 0 else "text-danger" }}'>You have uploaded {{count_files("wes", user_profile.id)}} file(s) in this field.</p>
 
                       </div>
                     </div>
