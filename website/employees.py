@@ -54,6 +54,7 @@ def get_employees(emp_id):
 			rows_dic.append(rows_dic_temp)
 			rows_dic_temp= {}
 			# print(rows_dic)
+		db.session.close()
 		return jsonify(rows_dic)
 
 
@@ -74,6 +75,8 @@ def my_profile(emp_id):
 		value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
 		local_dt = value.astimezone(tz)
 		
+		db.session.close()
+
 		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt)
 
 	return jsonify({})
