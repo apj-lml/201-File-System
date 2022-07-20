@@ -13,6 +13,11 @@ from sqlalchemy.orm import column_property
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime, date
 from sqlalchemy_serializer import SerializerMixin
+import time
+import os
+
+os.environ["TZ"] = "Asia/Manila"
+time.tzset()
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
