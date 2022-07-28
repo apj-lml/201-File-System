@@ -178,7 +178,7 @@ def update_employee(emp_id):
 		# 	print(k,v)
 		# 	# formdata.update({k: None})
 		# else:
-		if type(v) is str:
+		if type(v) is str and k != 'comments_remarks':
 			formdata.update({k: v.upper()})
 		else:
 			formdata.update({k: v})

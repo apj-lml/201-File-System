@@ -4,6 +4,9 @@
 
 {%block cssperfile %} 
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+<!-- Theme included stylesheets -->
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
   <style>
     /* label{
       font-size:.2vw;
@@ -50,6 +53,103 @@
     small>p{
       margin-bottom: 1;
     }
+
+.chat-btn {
+    position: fixed;
+    left: 95%;
+    top: 80%;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.chat-btn .close {
+    display: none
+}
+
+.chat-btn i {
+    transition: all 0.9s ease
+}
+
+#check:checked~.chat-btn i {
+    display: block;
+    pointer-events: auto;
+    transform: rotate(180deg)
+}
+
+#check:checked~.chat-btn .comment {
+    display: none
+}
+
+.chat-btn i {
+    font-size: 22px;
+    color: #fff !important
+}
+
+.chat-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: blue;
+    color: #fff;
+    font-size: 22px;
+    border: none
+}
+
+.wrapper {
+    position: absolute;
+    right: 20px;
+    bottom: 100px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    opacity: 0;
+    transition: all 0.4s
+}
+
+#check:checked~.wrapper {
+    opacity: 1
+}
+
+.header {
+    padding: 13px;
+    background-color: blue;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 10px;
+    color: #fff
+}
+
+.chat-form {
+    padding: 15px
+}
+
+.chat-form input,
+textarea,
+button {
+    margin-bottom: 10px
+}
+
+.chat-form textarea {
+    resize: none
+}
+
+.form-control:focus,
+.btn:focus {
+    box-shadow: none
+}
+
+/* .btn,
+.btn:focus,
+.btn:hover {
+    background-color: blue;
+    border: blue
+} */
+
+#check {
+    display: none !important
+}
   </style>
 {% endblock %}
 
@@ -135,6 +235,25 @@
       <li></li>
   </ul>
 
+  <!-- <input type="checkbox" id="check" style="z-index:9999;"> 
+  <label class="chat-btn" for="check">
+     <i class="fa fa-commenting-o comment"></i>
+     <i class="fa fa-close close"></i> 
+  </label> 
+    <div class="wrapper" style="z-index:180;"> 
+      <div class="header"> 
+      <h6>Let's Chat - Online</h6>
+     </div> 
+      <div class="text-center p-2">
+        <span>Please fill out the form to start chat!</span>
+      </div> <div class="chat-form">
+        <input type="text" class="form-control" placeholder="Name">
+        <input type="text" class="form-control" placeholder="Email">
+        <textarea class="form-control" placeholder="Your Text Message"></textarea>
+        <button class="btn btn-success btn-block">Submit</button>
+      </div>
+    </div> -->
+  
   <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container mb-5" tabindex="0">
     <div class="container">
 
@@ -180,6 +299,24 @@
                 <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
                 <i class="text-muted">Last updated on {{last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
 
+                <div class="accordion" id="accordionFlushExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Comments/Remarks
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse {{ '' if current_user.type_of_user == 'admin' else 'show' }}" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <div id="editor">
+            
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <input name="comments_remarks" id="desc_remarks2" type="hidden" form="update_form">
+                
                 <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating col-md-3 mb-3 p-1">
                     <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
@@ -187,7 +324,7 @@
                   </div>
                   <div class="form-floating col-md-3 mb-3 p-1">
                     <!-- <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> -->
-                    <select class="form-select" id="status_remarks" name="status_remarks" value="{{user_profile.status_remarks}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
+                    <select class="form-select" id="status_remarks" name="status_remarks" value="{{user_profile.status_remarks}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user' else ''}}>
                       <option class="" value="{{user_profile.status_remarks}}" selected disabled hidden>{{user_profile.status_remarks}}</option>
                       <option value="JOB ORDER">ACTIVE</option>
                       <option value="PERMANENT">INACTIVE</option>
@@ -226,7 +363,7 @@
                   <!-- TODO -->
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="employment_status" name="employment_status" aria-label="Floating label select example" value="{{user_profile.employment_status}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="employment_status" name="employment_status" value="{{user_profile.employment_status}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.employment_status}}" selected disabled hidden>{{user_profile.employment_status}}</option>
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
@@ -242,11 +379,11 @@
                     </div>
                     
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="{{user_profile.position_title}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="job_grade" name="job_grade" value="{{user_profile.job_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="job_grade" name="job_grade" value="{{user_profile.job_grade}}" form="update_form" required {{'disabled' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.job_grade if user_profile.job_grade is not none else ''}}" selected disabled hidden>{{user_profile.job_grade if user_profile.job_grade is not none else ''}}</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -274,7 +411,7 @@
 
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="salary_grade" name="salary_grade" value="{{user_profile.salary_grade}}" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="salary_grade" name="salary_grade" value="{{user_profile.salary_grade}}" form="update_form" required {{'disabled' if current_user.type_of_user == 'user'}}>
                         <option value="{{user_profile.salary_grade}}" selected disabled hidden>{{user_profile.salary_grade}}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -307,7 +444,7 @@
 
                     </div>
                     <div class="form-floating col-md-1 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="step" name="step" aria-label="Floating label select example" form="update_form" required {{'' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="step" name="step" form="update_form" required {{'disabled' if current_user.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.step if user_profile.step is not none else ''}}" selected hidden>{{user_profile.step if user_profile.step is not none else '' }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -334,7 +471,7 @@
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 p-1">
-                      <select class="form-select" id="section" name="section" aria-label="Floating label select example" value="{{user_profile.section}}" form="update_form">
+                      <select class="form-select" id="section" name="section" value="{{user_profile.section}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                           <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option>
                           <option value="Administrative & Finance">Administrative & Finance</option>
                           <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
@@ -348,7 +485,7 @@
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="{{user_profile.unit}}" form="update_form">
+                      <select class="form-select" id="unit" name="unit" value="{{user_profile.unit}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                         <option class="" value="{{user_profile.unit}}" selected disabled hidden>{{user_profile.unit}}</option>
                         <option value="Administrative Unit">Administrative Unit</option>
                         <option value="Finance Unit">Finance Unit</option>
@@ -378,15 +515,15 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" onchange="validate_no_dependents(this)" {{'' if current_user.type_of_user == 'user'}} required>
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" onchange="validate_no_dependents(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
                       <label for="date_hired_in_nia" >Date Hired in NIA</label>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia_pimo" name ="date_hired_in_nia_pimo" placeholder="Date Hired in NIA PIMO" value="{{user_profile.date_hired_in_nia_pimo if user_profile.date_hired_in_nia_pimo is not none else ''}}" form="update_form" {{'' if current_user.type_of_user == 'user'}} required>
+                      <input type="date" class="form-control" id="date_hired_in_nia_pimo" name ="date_hired_in_nia_pimo" placeholder="Date Hired in NIA PIMO" value="{{user_profile.date_hired_in_nia_pimo if user_profile.date_hired_in_nia_pimo is not none else ''}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}} required>
                       <label for="date_hired_in_nia_pimo" >Date Hired in NIA PIMO</label>
                     </div>
                     <div class="form-floating col-md-4 p-1">
-                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'' if current_user.type_of_user == 'user'}} required>
+                      <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
                       <label for="no_of_years_in_nia">Years in Service<span class="is-required">*</span></label>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255)"><p style="line-height: normal;">*Refers to the no. of Years in Service in NIA.</p></small>
                     </div>
@@ -581,7 +718,7 @@
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
-                        <select class="form-select" id="citizenship" name="citizenship" aria-label="Floating label select example" value="{{user_profile.citizenship}}" form="update_form">
+                        <select class="form-select" id="citizenship" name="citizenship"  value="{{user_profile.citizenship}}" form="update_form">
                           <option value="Filipino" selected>Filipino</option>
                           <option value="Dual Citizen">Dual Citizen</option>
                         </select>
@@ -643,7 +780,7 @@
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <div class="form-floating">
-                        <select class="form-select" id="same_as_permanent_address" name="same_as_permanent_address" aria-label="Floating label select example" onchange="sameAsPermanent()" form="update_form">
+                        <select class="form-select" id="same_as_permanent_address" name="same_as_permanent_address"  onchange="sameAsPermanent()" form="update_form">
                             <option value="YES" {{ "selected" if user_profile.same_as_permanent_address == "YES" else "" }}>YES</option>
                             <option value="NO"  {{ "selected" if user_profile.same_as_permanent_address == "NO" else "" }}>NO</option>
                         </select>
@@ -847,7 +984,7 @@
                             <label for="vocational_trade_course">Vocational / Trade Course</label>
                           </div>
                           <div class="form-floating col-sm-3 mb-3 p-1">
-                            <select class="form-select" id="v_highest_level[1]" name="v_highest_level[1]" aria-label="Floating label select example" form="add_vocational_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[1]'), document.getElementById('v_scholarship_academic_honor[1]'), document.getElementById('v_period_of_attendance_from[1]'), document.getElementById('v_period_of_attendance_to[1]'))">
+                            <select class="form-select" id="v_highest_level[1]" name="v_highest_level[1]"  form="add_vocational_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[1]'), document.getElementById('v_scholarship_academic_honor[1]'), document.getElementById('v_period_of_attendance_from[1]'), document.getElementById('v_period_of_attendance_to[1]'))">
                               {% if user_profile.v_highest_level %}
                               <option class="" value="{{user_profile.v_highest_level}}" selected disabled hidden>{{user_profile.v_highest_level}}</option>
                               {% else %}
@@ -913,7 +1050,7 @@
                               <label for="vocational_trade_course">Vocational / Trade Course</label>
                             </div>
                             <div class="form-floating col-sm-3 mb-3 p-1">
-                              <select class="form-select" id="v_highest_level[{{count_update_vocational.value}}]" name="v_highest_level[{{count_update_vocational.value}}]" aria-label="Floating label select example" value="{{vocational.v_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[{{count_update_vocational.value}}]'), document.getElementById('v_scholarship_academic_honor[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_from[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_to[{{count_update_vocational.value}}]'))">  
+                              <select class="form-select" id="v_highest_level[{{count_update_vocational.value}}]" name="v_highest_level[{{count_update_vocational.value}}]"  value="{{vocational.v_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('v_highest_grade_year_units[{{count_update_vocational.value}}]'), document.getElementById('v_scholarship_academic_honor[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_from[{{count_update_vocational.value}}]'), document.getElementById('v_period_of_attendance_to[{{count_update_vocational.value}}]'))">  
                                 {% if user_profile.v_highest_level is not none %}
                                 <option class="" value="{{vocational.v_highest_level}}" selected hidden>{{vocational.v_highest_level}}</option>
                                 {% else %}
@@ -1063,7 +1200,7 @@
                                 <label for="c_degree_course[1]">Degree</label>
                               </div>
                               <div class="form-floating col-sm-3 mb-3 p-1">
-                                <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]" aria-label="Floating label select example" value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))"> 
+                                <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))"> 
                                   <option class="" value="" selected hidden></option>
                                   <option value="GRADUATED">GRADUATED</option>
                                   <option value="UNDERGRADUATE">UNDERGRADUATE</option>
@@ -1138,7 +1275,7 @@
                               <label for="gs_degree_course">Degree / Course</label>
                             </div>
                             <div class="form-floating col-sm-3 mb-3 p-1">
-                              <select class="form-select" id="gs_highest_level_units_earned[{{count_update_masteral.value}}]" name="gs_highest_level_units_earned[{{count_update_masteral.value}}]" aria-label="Floating label select example" value="{{masteral.gs_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[{{count_update_masteral.value}}]'), document.getElementById('gs_scholarship_academic_honor[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_from[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_to[{{count_update_masteral.value}}]'))">
+                              <select class="form-select" id="gs_highest_level_units_earned[{{count_update_masteral.value}}]" name="gs_highest_level_units_earned[{{count_update_masteral.value}}]"  value="{{masteral.gs_highest_level_units_earned}}" form="update_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[{{count_update_masteral.value}}]'), document.getElementById('gs_scholarship_academic_honor[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_from[{{count_update_masteral.value}}]'), document.getElementById('gs_period_of_attendance_to[{{count_update_masteral.value}}]'))">
                                 <option class="" value="{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else ''}}" selected hidden>{{masteral.gs_highest_level_units_earned if masteral.gs_highest_level_units_earned is not none else ''}}</option>
                                 <option value="GRADUATED">GRADUATED</option>
                                 <option value="UNDERGRADUATE">UNDERGRADUATE</option>
@@ -1191,7 +1328,7 @@
                         <label for="gs_degree_course">Degree / Course</label>
                       </div>
                       <div class="form-floating col-sm-3 mb-3 p-1">
-                        <select class="form-select" id="gs_highest_level_units_earned[1]" name="gs_highest_level_units_earned[1]" aria-label="Floating label select example" value="" form="add_masteral_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[1]'), document.getElementById('gs_scholarship_academic_honor[1]'), document.getElementById('gs_period_of_attendance_from[1]'), document.getElementById('gs_period_of_attendance_to[1]'))">
+                        <select class="form-select" id="gs_highest_level_units_earned[1]" name="gs_highest_level_units_earned[1]"  value="" form="add_masteral_form" onchange="graduated(this, document.getElementById('gs_highest_grade_year_units[1]'), document.getElementById('gs_scholarship_academic_honor[1]'), document.getElementById('gs_period_of_attendance_from[1]'), document.getElementById('gs_period_of_attendance_to[1]'))">
                           <option class="" value="" selected hidden></option>
                           <option value="GRADUATED">GRADUATED</option>
                           <option value="UNDERGRADUATE">UNDERGRADUATE</option>
@@ -1868,14 +2005,42 @@
 {%block scripts %}
 <script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
+
+<!-- Main Quill library -->
+<!-- <script src="//cdn.quilljs.com/1.3.6/quill.js"></script> -->
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
 <script type="text/javascript">
 
+var options = {
+  //debug: 'info',
+  // modules: {
+  //   toolbar: [
+  //     ['font'],
+
+  //   ]
+  // },
+
+  {%  if user_profile.type_of_user == 'admin'  %}
+  placeholder: 'Compose an epic remark...',
+  readOnly: false,
+  theme: 'snow'
+  
+  {% else %}
+  placeholder: 'No Comment/Remarks',
+  readOnly: true,
+  {% endif %}
+};
+
+var container = document.getElementById('editor');
+var editor = new Quill(container, options);
+
 function validate_no_dependents(date_hired_in_nia){
-  console.log("Im Here");
+  //console.log("Im Here");
   var pickedDatestr = "1989-12-31";
   var pickedDate = new Date(pickedDatestr);
-  console.log(pickedDate);
-  console.log(date_hired_in_nia.value);
+  // console.log(pickedDate);
+  // console.log(date_hired_in_nia.value);
   if(date_hired_in_nia.value <= pickedDatestr){
       document.getElementById("dependents").readOnly = false;
   }else{
@@ -1892,7 +2057,24 @@ document.addEventListener('keydown', e => {
       }
     });
 
+    
+// var container = document.getElementById('editor');
+// var editor = new Quill(container, options);
+
 window.addEventListener("load", function() {
+
+var text = editor.getText(0, editor.getLength());
+var delta = editor.getContents();
+
+{% if user_profile.comments_remarks is not none and user_profile.comments_remarks != "" %}
+
+  editor.setContents(JSON.parse({{user_profile.comments_remarks|tojson}}));
+
+{% endif %}
+
+
+//console.log(JSON.parse({{user_profile.desc_remarks|tojson}}))
+
   validate_no_dependents(document.getElementById('date_hired_in_nia'));
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))
   graduated(document.getElementById('hs_highest_level'), document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))
@@ -2031,10 +2213,14 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       document.getElementById("update_form").addEventListener("submit",(e)=>{
       //alert("update form")
       e.preventDefault();
+
+      document.getElementById("desc_remarks2").value = JSON.stringify(editor.getContents());;
       let formData = new FormData(formElem);
-      loadingScreen('block')
-      const data = {}
-      formData.forEach((value, key) => (data[key] = value))
+      loadingScreen('block');
+      const data = {};
+      formData.forEach((value, key) => (data[key] = value));
+
+
     
       // console.log(data)
       fetch('/employees/update-employee/{{user_profile.id}}', {
