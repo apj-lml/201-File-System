@@ -1161,7 +1161,7 @@
                         </div>
                         <div class="d-md-flex flex-row">
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="text" class="form-control" id="gs_highest_grade_year_units[{{count_update_masteral.value}}]" name ="gs_highest_grade_year_units[{{count_update_masteral.value}}]" placeholder="Highest Level" value="{{masteral.gs_highest_grade_year_units if masteral.gs_highest_grade_year_units is not none else ''}}" form="update_form">
+                            <input type="text" class="form-control" id="gs_highest_grade_year_units[{{count_update_masteral.value}}]" name ="gs_highest_grade_year_units[{{count_update_masteral.value}}]" placeholder="Highest Level" value="{{masteral.gs_highest_grade_year_units if masteral.gs_highest_grade_year_units is not none else 'meme'}}" form="update_form">
                             <label for="gs_highest_grade_year_units">Units Earned</label>
                           </div>   
                           <div class="form-floating flex-fill mb-3 p-1">
@@ -1944,6 +1944,8 @@ function validate_length(el){
 }
 
 function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
+  period_of_attendance_to.type = "number"
+
       if(highest_level.value == 'GRADUATED'){
         highest_grade_year_units.readOnly = true;
         //highest_grade_year_units.disabled = true;
@@ -1952,22 +1954,26 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         period_of_attendance_to.readOnly = false
 
       }else if(highest_level.value == "CURRENTLY ENROLLED"){
-        highest_grade_year_units.readOnly = true;
+        highest_grade_year_units.readOnly = false;
         //highest_grade_year_units.disabled = true;
         scholarship_academic_honor.readOnly = true;
         period_of_attendance_to.readOnly = true;
+        period_of_attendance_to.type = "text"
         period_of_attendance_to.value = "PRESENT"
         // period_of_attendance_from.value = ""
-        highest_grade_year_units.value = "";
+        // highest_grade_year_units.value = "";
       }else{
         period_of_attendance_to.readOnly = false;
         highest_grade_year_units.readOnly = false;
         //highest_grade_year_units.disabled = false;
         scholarship_academic_honor.readOnly = true;
+        
       }
     }
 
     function doc_graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
+      period_of_attendance_to.type = "number"
+
       if(highest_level.value == 'GRADUATED'){
         highest_grade_year_units.readOnly = true;
         //highest_grade_year_units.disabled = true;
@@ -1976,10 +1982,13 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         period_of_attendance_to.readOnly = false
 
       }else if(highest_level.value == "CURRENTLY ENROLLED"){
-        period_of_attendance_to.readOnly = false;
+        period_of_attendance_to.readOnly = true;
         highest_grade_year_units.readOnly = false;
         //highest_grade_year_units.disabled = false;
         scholarship_academic_honor.readOnly = true;
+
+        period_of_attendance_to.type = "text"
+        period_of_attendance_to.value = "PRESENT"
       }
     }
 
