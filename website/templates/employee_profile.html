@@ -54,18 +54,18 @@
       margin-bottom: 1;
     }
 
-.chat-btn {
+/* .chat-btn {
     position: fixed;
     left: 95%;
     top: 80%;
     cursor: pointer;
     z-index: 9999;
-}
-
+} */
+/* 
 .chat-btn .close {
     display: none
-}
-
+} */
+/* 
 .chat-btn i {
     transition: all 0.9s ease
 }
@@ -140,16 +140,9 @@ button {
     box-shadow: none
 }
 
-/* .btn,
-.btn:focus,
-.btn:hover {
-    background-color: blue;
-    border: blue
-} */
-
 #check {
     display: none !important
-}
+} */
   </style>
 {% endblock %}
 
@@ -222,7 +215,7 @@ button {
   </symbol>
   </svg>
 
-  <ul class="circles">
+  <ul class="circles" style="z-index: -99;" >
       <li></li>
       <li></li>
       <li></li>
@@ -275,14 +268,27 @@ button {
               <div id="hiddenFields">
 
               </div>
-              <!-- <div class="card text-white bg-blue shadow-sm mb-3" >
-                <div class="card-header"><h3 class="card-title"><i class="bi bi-info-circle"></i> Notice!</h3> </div>
-                <div class="card-body">
-                  <ul>
-                    <li><p class="card-text">Please fill out all necessary fields.</p></li>
-                    <li><p class="card-text">File uploading only accepts PDF files. </p></li>
-                    <li><p class="card-text">An asterisk "*" in uploading of supporting documents denotes that the field can accept multiple files to upload. </p></li>
-                  </ul>
+
+                      <div class="accordion mb-3" id="accordionFlushExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                              Comments/Remarks
+                            </button>
+                          </h2>
+                          <div id="flush-collapseOne" class="accordion-collapse collapse {{ '' if current_user.type_of_user == 'admin' else 'show' }}" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                              <div id="editor">
+                  
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <input name="comments_remarks" id="desc_remarks2" type="hidden" form="update_form">
+
+                    <!-- </div>
+                  </div>
                 </div>
               </div> -->
 
@@ -299,23 +305,7 @@ button {
                 <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
                 <i class="text-muted">Last updated on {{last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
 
-                <div class="accordion" id="accordionFlushExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Comments/Remarks
-                      </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse {{ '' if current_user.type_of_user == 'admin' else 'show' }}" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                        <div id="editor">
-            
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <input name="comments_remarks" id="desc_remarks2" type="hidden" form="update_form">
+
                 
                 <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating col-md-3 mb-3 p-1">
@@ -2012,19 +2002,39 @@ button {
 
 <script type="text/javascript">
 
+var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  [{ 'align': [] }],
+
+//  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+ // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+
+
+  ['clean']                                         // remove formatting button
+];
+
 var options = {
   //debug: 'info',
-  // modules: {
-  //   toolbar: [
-  //     ['font'],
-
-  //   ]
-  // },
+  modules: {
+    toolbar: {
+      container: toolbarOptions,  // Selector for toolbar container
+    }
+  },
 
   {%  if user_profile.type_of_user == 'admin'  %}
   placeholder: 'Compose an epic remark...',
   readOnly: false,
-  theme: 'snow'
+  //theme: 'snow',
   
   {% else %}
   placeholder: 'No Comment/Remarks',
@@ -2033,7 +2043,13 @@ var options = {
 };
 
 var container = document.getElementById('editor');
-var editor = new Quill(container, options);
+var editor = new Quill(container, {
+  modules: {
+    toolbar : toolbarOptions
+  },
+  readOnly: false,
+  theme: 'snow'
+});
 
 function validate_no_dependents(date_hired_in_nia){
   //console.log("Im Here");
