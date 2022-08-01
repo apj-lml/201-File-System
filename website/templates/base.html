@@ -289,7 +289,7 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
 <script type="text/javascript">
 
 window.addEventListener('load', (event) => {
-  {% if current_user.comments_remarks is not none and current_user.comments_remarks != '{"ops":[{"insert":"\\n"}]}' %}
+  {% if current_user.comments_remarks is not none and current_user.comments_remarks != '{"ops":[{"insert":"\\n"}]}' and current_user.is_authenticated %}
 
   console.log("{{current_user.comments_remarks}}")
     Swal.fire({
@@ -302,6 +302,7 @@ window.addEventListener('load', (event) => {
                     `
                     <div id="t_notification"></div>
                     `,
+                background: "#faf8f5 url({{ url_for('static', filename='img/testbg33.png') }})",
                     didOpen: ()=>{
 
                         var container = document.getElementById('t_notification');

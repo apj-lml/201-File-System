@@ -268,6 +268,7 @@ button {
               <div id="hiddenFields">
 
               </div>
+              {% if current_user.type_of_user == 'admin' %}
 
                       <div class="accordion mb-3" id="accordionFlushExample">
                         <div class="accordion-item">
@@ -286,6 +287,9 @@ button {
                         </div>
                       </div>
                       <input name="comments_remarks" id="desc_remarks2" type="hidden" form="update_form">
+
+                      {% endif %}
+
 
                     <!-- </div>
                   </div>
@@ -2042,6 +2046,8 @@ var options = {
   {% endif %}
 };
 
+{% if current_user.type_of_user == 'admin' %}
+
 var container = document.getElementById('editor');
 var editor = new Quill(container, {
   modules: {
@@ -2050,6 +2056,9 @@ var editor = new Quill(container, {
   readOnly: false,
   theme: 'snow'
 });
+
+{% endif %}
+
 
 function validate_no_dependents(date_hired_in_nia){
   //console.log("Im Here");
@@ -2079,12 +2088,16 @@ document.addEventListener('keydown', e => {
 
 window.addEventListener("load", function() {
 
+{% if current_user.type_of_user == 'admin' %}
+
 var text = editor.getText(0, editor.getLength());
 var delta = editor.getContents();
 
-{% if user_profile.comments_remarks is not none and user_profile.comments_remarks != "" %}
+  {% if user_profile.comments_remarks is not none and user_profile.comments_remarks != "" %}
 
-  editor.setContents(JSON.parse({{user_profile.comments_remarks|tojson}}));
+    editor.setContents(JSON.parse({{user_profile.comments_remarks|tojson}}));
+
+  {% endif %}
 
 {% endif %}
 
