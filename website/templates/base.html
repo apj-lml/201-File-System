@@ -220,7 +220,7 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
                 <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
                 <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li>
+                <li><a class="dropdown-item" href="/listOfExpiry/"><i class="bi bi-box-seam"></i> Others</a></li>
               </ul>
             </li>
           </ul>
@@ -291,7 +291,6 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
 window.addEventListener('load', (event) => {
   {% if current_user.comments_remarks is not none and current_user.comments_remarks != '{"ops":[{"insert":"\\n"}]}' and current_user.is_authenticated %}
 
-  console.log("{{current_user.comments_remarks}}")
     Swal.fire({
                 //icon: 'info',
                 // title: 'Oops...',
@@ -302,7 +301,7 @@ window.addEventListener('load', (event) => {
                     `
                     <div id="t_notification"></div>
                     `,
-                background: "#faf8f5 url({{ url_for('static', filename='img/testbg33.png') }})",
+                background: "#faf8f5 url({{ url_for('static', filename='img/testbg.png') }})",
                     didOpen: ()=>{
 
                         var container = document.getElementById('t_notification');

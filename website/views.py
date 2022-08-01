@@ -49,7 +49,6 @@ def dashboard():
 		
 	get_bday_celebs = User.query.filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
 
-	print(get_bday_celebs)
 	return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs)
 
 @views.route('/admin/dashboard', methods=['GET', 'POST'])
