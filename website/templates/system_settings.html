@@ -37,11 +37,13 @@
     <div class="card-body">
       <div class="card text-white bg-blue shadow-sm mb-3" >
         <div class="card-header">
-          <h3 class="card-title"><i class="bi bi-stickies-fill"></i> List of Expiring IDs</h3>
+          <h3 class="card-title"><i class="bi bi-stickies-fill"></i> System Settings</h3>
          </div>
         <div class="card-body">
           <ul>
-          <li><p class="card-text">You can click on the link to download the forms.</p></li>
+          <li><p class="card-text">Changes made will affect the entire system.</p></li>
+          <li><p class="card-text">This settings applies to all users.</p></li>
+
           </ul>
         </div>
       </div>
@@ -56,7 +58,7 @@
                               <div class="col-md-12 mb-3">
                                 <div class="card shadow-sm" >
                                   <div class="card-body">
-                                  <h3 class="card-title">List of Expiring Licenses/IDs (6 months)</h3>
+                                  <h3 class="card-title">Section/Unit</h3>
                                     
                                     {% for expiring_ids in expiring_ids %}
                                     <li>{{expiring_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
@@ -64,17 +66,26 @@
                                     </div>
                                   </div>
                               </div>
-                              <div class="col-md-12">
+                              <div class="col-md-12 mb-3">
                                 <div class="card shadow-sm">
                                   <div class="card-body">
-                                  <h3 class="card-title">List of Expired Licenses/IDs</h3>
+                                  <h3 class="card-title">Person Administering Oath</h3>
                                     {% for expired_ids in expired_ids %}
                                     <li>{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
                                     {% endfor %}
                                     </div>
                                   </div>
                               </div>
-
+                              <div class="col-md-12 mb-3">
+                                <div class="card shadow-sm">
+                                  <div class="card-body">
+                                  <h3 class="card-title">Enable/Disable Fields</h3>
+                                    {% for expired_ids in expired_ids %}
+                                    <li>{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
+                                    {% endfor %}
+                                    </div>
+                                  </div>
+                              </div>
                             </div>
                         </div>
                     </div>

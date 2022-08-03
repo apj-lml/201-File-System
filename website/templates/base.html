@@ -218,9 +218,11 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
               </a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
+                <li><a class="dropdown-item" href="/listOfExpiry/"><i class="bi bi-credit-card-2-front"></i> List of Expiring Licenses/IDs</a></li>
                 <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/listOfExpiry/"><i class="bi bi-box-seam"></i> Others</a></li>
+                <li><a class="dropdown-item" href="/systemSettings/sys-settings"><i class="bi bi-gear"></i> System Settings</a></li>
+
               </ul>
             </li>
           </ul>
@@ -291,7 +293,16 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
 window.addEventListener('load', (event) => {
   {% if current_user.comments_remarks is not none and current_user.comments_remarks != '{"ops":[{"insert":"\\n"}]}' and current_user.is_authenticated %}
 
-    Swal.fire({
+  const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-primary',
+    // cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+
+swalWithBootstrapButtons.fire({
                 //icon: 'info',
                 // title: 'Oops...',
                 toast: true,
@@ -301,7 +312,7 @@ window.addEventListener('load', (event) => {
                     `
                     <div id="t_notification"></div>
                     `,
-                background: "#faf8f5 url({{ url_for('static', filename='img/testbg.png') }})",
+                background: "#fff url({{ url_for('static', filename='img/testbg.png') }})",
                     didOpen: ()=>{
 
                         var container = document.getElementById('t_notification');

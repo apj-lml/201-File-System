@@ -116,6 +116,7 @@ def create_app():
 	from .staff_movement import staff_movement
 	from .downloadableForms import DownloadableForms
 	from .listOfExpiry import listOfExpiry
+	from .systemSettings import systemSettings
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -142,6 +143,7 @@ def create_app():
 	app.register_blueprint(staff_movement, url_prefix = '/staff_movement')
 	app.register_blueprint(DownloadableForms, url_prefix = '/forms')
 	app.register_blueprint(listOfExpiry, url_prefix = '/listOfExpiry')
+	app.register_blueprint(systemSettings, url_prefix = '/systemSettings')
 
 
 

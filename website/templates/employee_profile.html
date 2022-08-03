@@ -1500,7 +1500,7 @@ button {
 <!-- ----------------------------------------------------------------------- -->
             <!-- </form> -->
           <!-- <form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data"> -->
-            <div class="card mb-3">
+            <div class="card mb-3" id="cse_scroll">
               <div class="card-body">
                 <h3 class="card-title">Civil Service Eligibility</h3>
                 <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Civil Service Eligibility is not applicable.</p>
@@ -1605,7 +1605,7 @@ button {
               </div>
               <div class="d-md-flex flex-row">
                 <div class="flex-fill mb-3 mx-4 p-1">
-                  <button type="button" class="btn btn-success btn-sm disabled" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++">Add</button>
+                  <button type="button" class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++" {{'disabled' if current_user.type_of_user == 'user'}}>Add</button>
                 </div>
               </div>
             </div>
@@ -2015,7 +2015,7 @@ var toolbarOptions = [
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
+ // [{ 'direction': 'rtl' }],                         // text direction
 
   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
  // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],

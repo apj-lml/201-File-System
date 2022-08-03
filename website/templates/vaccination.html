@@ -71,7 +71,7 @@
           <div class="card-body">
             <div class="d-md-flex flex-row col-sm-4">
               <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="are_you_covid_vac" name="" aria-label="Floating label select example" value="">
+                <select class="form-select" id="are_you_covid_vac" name="" value="" {{'disabled' if current_user.type_of_user == 'user'}}>
                     {% if user_profile.vaccine %}
                         <option value="YES" selected disabled hidden>YES</option>
                     {% else %}
@@ -94,11 +94,11 @@
                 <input type="hidden" class="form-control" name ="vac_id" id="vac_id" placeholder="ID" form="vaccine_form" value="{{user_profile.vaccine[0].id if user_profile.vaccine else ''}}">
                 <div class="d-md-flex flex-row">
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" name ="vac_id_no" id="vac_id_no" placeholder="Vaccine ID no." value="{{user_profile.vaccine[0].vac_id_no if user_profile.vaccine else ''}}" form="vaccine_form">
+                    <input type="text" class="form-control" name ="vac_id_no" id="vac_id_no" placeholder="Vaccine ID no." value="{{user_profile.vaccine[0].vac_id_no if user_profile.vaccine else ''}}" form="vaccine_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                     <label for="vac_id_no">Vaccine ID no.</label>
                   </div>
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="{{user_profile.vaccine[0].vac_brand if user_profile.vaccine else ''}}" form="vaccine_form">
+                    <select class="form-select" id="vac_brand" name="vac_brand" aria-label="Floating label select example" value="{{user_profile.vaccine[0].vac_brand if user_profile.vaccine else ''}}" form="vaccine_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                         {% if user_profile.vaccine %}
                         <option value="{{user_profile.vaccine[0].vac_brand}}" selected hidden>{{user_profile.vaccine[0].vac_brand}}</option>
                         {% else %}
@@ -120,24 +120,24 @@
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="vaccine_form" value="{{ user_profile.vaccine[0].vac_place if user_profile.vaccine else ''}}" required>
+                    <input type="text" class="form-control" name ="vac_place" id="vac_place" placeholder="Place of Vaccination (Municipality, Province)" form="vaccine_form" value="{{ user_profile.vaccine[0].vac_place if user_profile.vaccine else ''}}" required {{'readonly' if current_user.type_of_user == 'user'}}>
                     <label for="vac_place">Place of Vaccine (Municipality, Province)</label>
                   </div>
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                    <input type="date" class="form-control" name ="vac_first_dose" id="vac_first_dose" placeholder="Date of First Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_first_dose if user_profile.vaccine else ''}}">
+                    <input type="date" class="form-control" name ="vac_first_dose" id="vac_first_dose" placeholder="Date of First Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_first_dose if user_profile.vaccine else ''}}" {{'readonly' if current_user.type_of_user == 'user'}}>
                     <label for="vac_date">Date of First Dose</label>
                   </div>
                   <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                    <input type="date" class="form-control" name ="vac_second_dose" id="vac_second_dose" placeholder="Date of Second Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_second_dose if user_profile.vaccine else '' }}">
+                    <input type="date" class="form-control" name ="vac_second_dose" id="vac_second_dose" placeholder="Date of Second Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_second_dose if user_profile.vaccine else '' }}" {{'readonly' if current_user.type_of_user == 'user'}}>
                     <label for="vac_date">Date of Second Dose</label>
                   </div>
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="flex-fill mb-3 p-1 col-md-6">
                     <label for="vac_date">Vaccination Card</label>
-                    <input type="file" class="form-control" name ="vaccine_card" id="vaccine_card" placeholder="Date of First Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_first_dose if user_profile.vaccine else ''}}" required multiple>
+                    <input type="file" class="form-control" name ="vaccine_card" id="vaccine_card" placeholder="Date of First Dose" form="vaccine_form" value="{{user_profile.vaccine[0].vac_first_dose if user_profile.vaccine else ''}}" required multiple {{'disabled' if current_user.type_of_user == 'user'}}>
                   </div>
                 </div>
               </div>
@@ -151,7 +151,7 @@
             <div class="card-body">
               <div class="d-md-flex flex-row col-sm-6">
                 <div class="form-floating flex-fill mb-3 p-1">
-                  <select class="form-select" id="do_you_have_booster">
+                  <select class="form-select" id="do_you_have_booster" {{'disabled' if current_user.type_of_user == 'user'}}>
                     {% if user_profile.vaccine and user_profile.vaccine[0].booster_brand is not none %}
                     <option value="YES" selected disabled hidden>YES</option>
                     {% else %}
@@ -212,7 +212,7 @@
               <div class="d-md-flex flex-row">
                 <div class="flex-fill mb-3 p-1 col-md-6">
                   <label for="vac_date">1st Dose Booster Shot ID Card</label>
-                  <input type="file" class="form-control" name ="booster_shot_card_first_dose" id="booster_shot_card_first_dose" placeholder="Date of First Dose" form="vaccine_form" value="" multiple required>
+                  <input type="file" class="form-control" name ="booster_shot_card_first_dose" id="booster_shot_card_first_dose" placeholder="Date of First Dose" form="vaccine_form" value="" multiple required {{'disabled' if current_user.type_of_user == 'user'}}>
                 </div>
               </div>
             </div>
@@ -222,7 +222,7 @@
           <div class="card-body">
             <div class="d-md-flex flex-row col-sm-6">
               <div class="form-floating flex-fill mb-3 p-1">
-                <select class="form-select" id="do_you_have_booster2">
+                <select class="form-select" id="do_you_have_booster2" {{'disabled' if current_user.type_of_user == 'user'}}>
                   {% if user_profile.vaccine and user_profile.vaccine[0].booster_brand2 is not none %}
                   <option value="YES" selected disabled hidden>YES</option>
                   {% else %}
@@ -284,7 +284,7 @@
             <div class="d-md-flex flex-row">
               <div class="flex-fill mb-3 p-1 col-md-6">
                 <label for="booster_shot_card_second_dose">2nd Dose Booster Shot ID Card</label>
-                <input type="file" class="form-control" name ="booster_shot_card_second_dose" id="booster_shot_card_second_dose" form="vaccine_form" value="" multiple>
+                <input type="file" class="form-control" name ="booster_shot_card_second_dose" id="booster_shot_card_second_dose" form="vaccine_form" value="" multiple {{'disabled' if current_user.type_of_user == 'user'}}>
               </div>
             </div>
           </div>
@@ -294,7 +294,8 @@
             <!--                            IF NO VACCINE YET                            -->
             <!-- ----------------------------------------------------------------------- -->
         <div class="col-sm-12 text-center">
-          <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-md" form="vaccine_form">Submit</button>
+
+<button type="submit" id="submit_covid_btn" class="btn btn-primary btn-md" form="vaccine_form" {{ 'disabled' if current_user.type_of_user == 'user' }}>Submit</button>
         </div>
         
     </div>
@@ -322,7 +323,7 @@
                           <td>{{file.file_tag}}</td>
                           <td><a href="{{file.file_path}}\{{file.file_name}}" target="_blank">{{file.file_name}}</a></td>
                           <td>
-                            <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{file.id}}" onclick = "delete_file(this)">
+                            <a class="btn btn-danger btn-sm m-2 {{ 'disabled' if current_user.type_of_user == 'user' }}" title="Remove" id="{{file.id}}" onclick = "delete_file(this)" >
                               <i class="bi bi-trash"></i>
                             </a>
                           </td>
@@ -347,10 +348,11 @@
 {% endblock %}
 
 {%block scripts%}
+
+{% if current_user.type_of_user == 'admin' %}
 <script src="{{ url_for('static', filename='vaccine-validations.js') }}"></script>
+{% endif %}
 <script type="text/javascript">
-
-
    window.addEventListener('load',()=>{ 
 
     $('#uploaded_file_table').DataTable({

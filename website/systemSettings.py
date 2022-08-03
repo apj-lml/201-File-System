@@ -11,12 +11,12 @@ from . import db
 
 # import pprint
 
-listOfExpiry = Blueprint('listOfExpiry', __name__)
+systemSettings = Blueprint('systemSettings', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 
 admin_permission = Permission(RoleNeed('admin'))
 
-@listOfExpiry.errorhandler(403)
+@systemSettings.errorhandler(403)
 def page_not_found(e):
     session['redirected_from'] = request.url
     return redirect(url_for('auth.login'))
@@ -25,10 +25,10 @@ def page_not_found(e):
 # ---------------------------------------------------------------------------- #
 #                               GET EXPIRING IDS                               #
 # ---------------------------------------------------------------------------- #
-@listOfExpiry.route('/', methods=['POST', 'GET'])
+@systemSettings.route('/sys-settings', methods=['POST', 'GET'])
 @login_required
-# @admin_permission.require(http_exception=403)
-def get_list_of_expiry():
+@admin_permission.require(http_exception=403)
+def sys_settings():
     if request.method == "GET":
         date_now_plus_6_mos = datetime.date.today() + relativedelta(months=+6)
         date_now = datetime.date.today()
@@ -60,4 +60,4 @@ def get_list_of_expiry():
         for expiry in get_expired:
             print(expiry.User.last_name)
             print(expiry.Career_Service.date_of_validity) 
-        return render_template('list_of_expiring_ids.html', expiring_ids = get_expiry, expired_ids = get_expired)
+        return render_template('system_settings.html', expiring_ids = get_expiry, expired_ids = get_expired)
