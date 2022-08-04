@@ -102,7 +102,6 @@
 
       window.addEventListener('load', function() {
 
-        
         //code to restrict max date of birthdate
           var dtToday = new Date();
       
@@ -134,8 +133,6 @@
           }
 
       })
-      
-    
           
       document.getElementById("same_as_permanent_address").addEventListener("change", function(e){
           sameAsPermanent();
@@ -162,8 +159,6 @@
               document.getElementById('indicate_country').removeAttribute('disabled');	
           }
       });
-
-
 
       function employment_status(){
 

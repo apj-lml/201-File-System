@@ -510,11 +510,11 @@ button {
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 mb-3 p-1">
                       <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" onchange="validate_no_dependents(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
-                      <label for="date_hired_in_nia" >Date Hired in NIA</label>
+                      <label for="date_hired_in_nia" >Date Hired in NIA<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
                       <input type="date" class="form-control" id="date_hired_in_nia_pimo" name ="date_hired_in_nia_pimo" placeholder="Date Hired in NIA PIMO" value="{{user_profile.date_hired_in_nia_pimo if user_profile.date_hired_in_nia_pimo is not none else ''}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}} required>
-                      <label for="date_hired_in_nia_pimo" >Date Hired in NIA PIMO</label>
+                      <label for="date_hired_in_nia_pimo" >Date Hired in NIA PIMO<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-4 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
@@ -1996,7 +1996,7 @@ button {
 {%block scripts %}
 <script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 
-{%  if user_profile.type_of_user == 'admin'  %}
+{%  if current_user.type_of_user == 'admin'  %}
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 {% endif %}
 
@@ -2095,8 +2095,6 @@ var delta = editor.getContents();
     editor.setContents(JSON.parse({{user_profile.comments_remarks|tojson}}));
 
   {% endif %}
-
-
 
   validate_no_dependents(document.getElementById('date_hired_in_nia'));
   graduated(document.getElementById('e_highest_level'), document.getElementById('e_highest_grade_year_units'), document.getElementById('e_scholarship_academic_honor'), document.getElementById('e_period_of_attendance_from'), document.getElementById('e_period_of_attendance_to'))

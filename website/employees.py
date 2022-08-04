@@ -482,11 +482,25 @@ def validate_emp(emp_id):
 	if request.method == "GET":
 		#formdata = request.form.to_dict()
 		user = User.query.get(emp_id)
-		print ("HERE", user.is_validated)
-		if user.is_validated != 'VALIDATED':
-			user.is_validated = 'VALIDATED'
-		else:
-			user.is_validated = 'NOT VALIDATED'
+		# print ("HERE", user.is_validated)
+		# if user.is_validated != 'VALIDATED':
+		user.is_validated = 'VALIDATED'
+		# else:
+		# 	user.is_validated = 'NOT VALIDATED'
+		db.session.commit()
+			#return jsonify('Successfully changed your password!')
+	return redirect(url_for("views.admin_dashboard"))
+
+@employees.route('not-validated/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def not_validated_emp(emp_id):
+	if request.method == "GET":
+		#formdata = request.form.to_dict()
+		user = User.query.get(emp_id)
+
+		user.is_validated = 'NOT VALIDATED'
+
 		db.session.commit()
 			#return jsonify('Successfully changed your password!')
 	return redirect(url_for("views.admin_dashboard"))

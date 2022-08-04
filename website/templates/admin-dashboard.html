@@ -359,7 +359,7 @@
 				
 				<div class="d-sm-flex flex-row"> 
 					<!-- <div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="update_form" >
+						<select class="form-select" id="step" name="step" value="" form="update_form" >
 						  <option value="ACTIVE">ACTIVE</option>
 						  <option value="INACTIVE">INACTIVE</option>
 						  <option value="SEPARATED">DETAILED</option>
@@ -369,7 +369,7 @@
 						<label for="step">Status</label>
 					  </div> -->
 					  <div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="update_status" name="status" aria-label="Floating label select example" value="">
+						<select class="form-select" id="update_status" name="status" value="">
 							<option value="JOB ORDER">Job Order</option>
 							<option value="PERMANENT">Permanent</option>
 							<option value="CASUAL">Casual</option>
@@ -392,7 +392,7 @@
 				</div>
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating mb-3 p-1 col-sm-6">
-						<select class="form-select" id="section" name="section" aria-label="Floating label select example" value="" form="update_form">
+						<select class="form-select" id="section" name="section" value="" form="update_form">
 							<option value="Administrative & Finance">Administrative & Finance</option>
 							<option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
 							<option value="Engineering">Engineering</option>
@@ -405,7 +405,7 @@
 						<label for="section">Section</label>
 					  </div>
 					  <div class="form-floating mb-3 p-1 col-sm-6">
-						<select class="form-select" id="unit" name="unit" aria-label="Floating label select example" value="" form="update_form">
+						<select class="form-select" id="unit" name="unit" value="" form="update_form">
 						  <option value="Administrative Unit">Administrative Unit</option>
 						  <option value="Finance Unit">Finance Unit</option>
 						  <option value="Cashiering Unit">Cashiering Unit</option>
@@ -417,7 +417,7 @@
 				</div>
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="salary_grade" name="salary_grade" aria-label="Floating label select example" value="" form="update_form">
+						<select class="form-select" id="salary_grade" name="salary_grade" value="" form="update_form">
 						  <option value="1">1</option>
 						  <option value="2">2</option>
 						  <option value="3">3</option>
@@ -563,19 +563,19 @@ $(document).ready(function() {
 					exportOptions: {
 						columns: [':visible']
 					}
-            	},
+            	 },
 					{
 					text: 'Copy',
 					extend: 'copyHtml5',
 					exportOptions: {
-						columns: [':visible']
+						//columns: [':visible']
 					}
 				},
 				{
 					text: 'Excel',
 					extend: 'excelHtml5',
 					exportOptions: {
-						columns: [':visible']
+					//	columns: [':visible']
 					}
 				},
 				{
@@ -699,7 +699,8 @@ $(document).ready(function() {
 						<i class="bi bi-collection"></i> Actions
 					</a>
 					<ul class="dropdown-menu dropdown-menu-start position-absolute" aria-labelledby="dropdownMenuLink" style="z-index: 1080">
-						<li><a class="dropdown-item" href="/employees/validate/${data.id}"><i class="bi bi-person-check-fill"></i> Validate/<i class="bi bi-person-x-fill"></i> Invalidate</a></li>
+						<li><a class="dropdown-item" href="/employees/validate/${data.id}"><i class="bi bi-person-check-fill"></i> Validated</a></li>
+						<li><a class="dropdown-item" href="/employees/not-validated/${data.id}"><i class="bi bi-person-x-fill"></i> Not Validated</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/print-preview/${data.id}"><i class="bi bi-printer"></i> PDS Print Preview</a></li>
 						<li><hr class="dropdown-divider"></li>
