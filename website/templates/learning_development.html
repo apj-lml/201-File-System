@@ -28,86 +28,74 @@
 		<li></li>
 	  </ul>
 	<div class="row mb-3">
-		<!-- <div class="col-sm-12">
-			<button class="btn btn-secondary btn-sm m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">New Service Record</button>
-		</div> -->
 		<div class="card container">
 			<div class="card-body">
-				<!-- <h3 class="card-title">Learning & Development</h3> -->
-				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<div class="card text-white bg-blue shadow-sm mb-3" >
 					<div class="card-header">
 						<h3 class="card-title"><i class="bi bi-lightbulb"></i> Learning & Development</h3>
 					</div>
 					<div class="card-body">
-					  <!-- <h5 class="card-title">Description</h5> -->
 					  <ul>
 						<li><p class="card-text">Please fill out all necessary fields.</p></li>
 						<li><p class="card-text">Take note that updating your file attachment will overwirte the old attachment.</p></li>
 					  </ul>
 					</div>
 				</div>
-					  <!-- <input type="hidden" class="form-control" id="ld_no_fields" name ="ld_no_fields" placeholder="No. of Fields" min="1" max="10" form="add_ld_form" value="1"> -->
-						<div class="card shadow-sm mb-3">
-						  <div class="card-body">
-
-						  <div class="d-md-flex flex-row">
+				<div class="card shadow-sm mb-3">
+					<div class="card-body">
+						<div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
-							  <textarea type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form" rows="8" required></textarea>
-							  <label for="ld_program[1]">Title of L&D Interventions / Training Programs</label>
+								<textarea type="text" class="form-control" name ="ld_program" placeholder="Interventions/Training Program" form="add_ld_form" rows="8" required></textarea>
+								<label for="ld_program[1]">Title of L&D Interventions / Training Programs</label>
 							</div>
-							</div>
-							<div class="d-md-flex flex-row">
-								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form" required>
+						</div>
+						<div class="d-md-flex flex-row">
+							<div class="form-floating flex-fill mb-3 p-1">
+								<input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_ld_form" max="9999-12-31" required>
 								<label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
-								</div>
-								<div class="form-floating flex-fill mb-3 p-1">
-								<input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form" required>
+							</div>
+							<div class="form-floating flex-fill mb-3 p-1">
+								<input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form" max="5000-12-31" required>
 								<label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
-								</div>
-								<div class="form-floating flex-fill mb-3 p-1">
-									<input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required step="any" min="1">
-									<label for="ld_no_hours[1]">Number of Hours</label>
-								  </div>
-								  <div class="form-floating flex-fill mb-3 p-1">
-									<select class="form-select" id="ld_type" name="ld_type" aria-label="Floating label select example" form="add_ld_form">
-										<option value="TECHNICAL">TECHNICAL</option>
-										<option value="MANAGERIAL">MANAGERIAL</option>
-										<option value="SUPERVISORY">SUPERVISORY</option>
-										<option value="FOUNDATION">FOUNDATION</option>
-									</select>
-									<label for="ld_type[1]">Type of Learning & Development</label>
-									<!-- <small class="text-muted" style="font-size: 12px;">*Eg. Managerial, Supervisory, Technical, etc.</small> -->
-
-								  </div>
-						  </div>
-						  <div class="d-md-flex flex-row">
+							</div>
+							<div class="form-floating flex-fill mb-3 p-1">
+								<input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required step="any" min="1">
+								<label for="ld_no_hours[1]">Number of Hours</label>
+							</div>
+							<div class="form-floating flex-fill mb-3 p-1">
+								<select class="form-select" id="ld_type" name="ld_type" form="add_ld_form">
+									<option value="TECHNICAL">TECHNICAL</option>
+									<option value="MANAGERIAL">MANAGERIAL</option>
+									<option value="SUPERVISORY">SUPERVISORY</option>
+									<option value="FOUNDATION">FOUNDATION</option>
+								</select>
+								<label for="ld_type[1]">Type of Learning & Development</label>
+							</div>
+						</div>
+						<div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-							  <input type="text" class="form-control" id ="ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="add_ld_form" required>
-							  <label for="ld_sponsored_by">Conducted By</label>
-							  <div class="form-check">
+								<input type="text" class="form-control" id ="ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="add_ld_form" required>
+								<label for="ld_sponsored_by">Conducted By</label>
+								<div class="form-check">
 								<input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="add_ld_form">
 								<label class="form-check-label" for="nia_pimo">
-								  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+									NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
 								</label>
-							  </div>
+								</div>
 							</div>
-						  </div>
-						  <div class="d-md-flex flex-row">
+						</div>
+						<div class="d-md-flex flex-row">
 							<div class="flex-fill mb-3">
 								<label for="ld_attachment">Attachment (Only PDF files are allowed)</label>
 								<input type="file" class="form-control" id="ld_attachment" name ="ld_attachment" form="add_ld_form" required>
-							  </div>
-						  </div>
-
-						  <div class="col-sm-12 text-center">
+							</div>
+						</div>
+						<div class="col-sm-12 text-center">
 							<button type="submit" class="btn btn-primary" form="add_ld_form">Submit</button>
 						</div>
-
-						</div>
-					  </div>
+					</div>
+				</div>
 				
 				  <div class="card shadow-sm mb-3">
 					<div class="card-body">
@@ -190,7 +178,7 @@
 						  <label for="ld_no_hours[1]">Number of Hours</label>
 						</div>
 						  <div class="form-floating flex-fill mb-3 p-1">
-							<select class="form-select" id="update_ld_type" name="ld_type" aria-label="Floating label select example" form="update_ld_form">
+							<select class="form-select" id="update_ld_type" name="ld_type" form="update_ld_form">
 								<option value="TECHNICAL">TECHNICAL</option>
 								<option value="MANAGERIAL">MANAGERIAL</option>
 								<option value="SUPERVISORY">SUPERVISORY</option>

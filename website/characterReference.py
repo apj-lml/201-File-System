@@ -148,3 +148,20 @@ def update_assignatory(emp_id):
         db.session.commit()
     return redirect(request.referrer)
 
+
+# ---------------------------------------------------------------------------- #
+#                                ADD ASSIGNATORY                               #
+# ---------------------------------------------------------------------------- #
+@characterReference.route('add-assignatory/<emp_id>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def add_assignatory(emp_id):
+    if request.method == "POST":
+        #formdata = request.form.to_dict()
+
+        new_assignatory = Assignatory(assignatory = 'ENGR. GERTRUDES A. VIADO', user_id = emp_id)
+        db.session.add(new_assignatory)
+        db.session.commit()
+
+    return redirect(request.referrer)
+

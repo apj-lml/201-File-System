@@ -397,7 +397,7 @@ def insert_employee():
 #                              END OF FILE UPLOAD                              #
 # ---------------------------------------------------------------------------- #
 
-	return jsonify('Successfully Saved to Database!'), 200
+	return jsonify(user_id=new_user.id), 200
 
 @employees.route('delete-file', methods=['POST', 'GET'])
 @login_required

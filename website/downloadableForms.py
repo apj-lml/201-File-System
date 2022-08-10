@@ -1,10 +1,8 @@
-from .models import Token_Verifier, Uploaded_File, User
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app, session
-import json
+from .models import Uploaded_File
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, current_app, session
 from . import db
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Vaccine
 import datetime
 from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
@@ -41,6 +39,8 @@ def get_forms():
 
 	return render_template('downloadable_forms.html', dforms = rows_dic)
 
+
+
 @DownloadableForms.route('/add-form', methods=['POST', 'GET'])
 @login_required
 #@admin_permission.require(http_exception=403)
@@ -48,8 +48,6 @@ def add_forms():
 # ---------------------------------------------------------------------------- #
 #                              UPLOADING OF FILE                               #
 # ---------------------------------------------------------------------------- #
-
-	formdata = request.form.to_dict()
 
 	final_name = ''
 
@@ -68,7 +66,7 @@ def add_forms():
 				if filex.filename == "":
 					print('No file selected')
 				else:
-					if not allowed_file(filex.filename):
+					if not allowed_file(filex.filename, {'pdf','doc','docx','png', 'jpg', 'jpeg'}):
 						print('Invalid file submitted')
 						return jsonify('Invalid File Submitted! Only PDF (.pdf) Files are allowed.'), 406
 

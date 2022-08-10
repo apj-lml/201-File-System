@@ -60,9 +60,6 @@
                                   <div class="card-body">
                                   <h3 class="card-title">Section/Unit</h3>
                                     
-                                    {% for expiring_ids in expiring_ids %}
-                                    <li>{{expiring_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
-                                    {% endfor %}
                                     </div>
                                   </div>
                               </div>
@@ -70,9 +67,7 @@
                                 <div class="card shadow-sm">
                                   <div class="card-body">
                                   <h3 class="card-title">Person Administering Oath</h3>
-                                    {% for expired_ids in expired_ids %}
-                                    <li>{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
-                                    {% endfor %}
+                                    
                                     </div>
                                   </div>
                               </div>
@@ -80,9 +75,7 @@
                                 <div class="card shadow-sm">
                                   <div class="card-body">
                                   <h3 class="card-title">Enable/Disable Fields</h3>
-                                    {% for expired_ids in expired_ids %}
-                                    <li>{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
-                                    {% endfor %}
+                                    
                                     </div>
                                   </div>
                               </div>

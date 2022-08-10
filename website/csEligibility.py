@@ -23,6 +23,7 @@ def page_not_found(e):
 # ---------------------------------------------------------------------------- #
 #                      Add eligibility from update profile                     #
 # ---------------------------------------------------------------------------- #
+# @cse.route('add-eligibility', methods=['POST', 'GET'])
 @cse.route('add-eligibility/<emp_id>', methods=['POST', 'GET'])
 @login_required
 def add_eligibility(emp_id):

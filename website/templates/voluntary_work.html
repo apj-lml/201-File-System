@@ -62,11 +62,11 @@
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="voluntary_work_form" required>
+                        <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date (From)" value="" form="voluntary_work_form" max="9999-12-31" required>
                         <label for="date_from">Inclusive Date (From)</label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="voluntary_work_form" required>
+                        <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date (To)" value="" form="voluntary_work_form" max="9999-12-31" required>
                         <label for="date_to">Inclusive Date (To)</label>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="sf_present" name="sf_present" value = "PRESENT" form="voluntary_work_form" onchange="present_date(document.getElementById('date_to'), this)">

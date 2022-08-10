@@ -490,7 +490,7 @@ button {
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 p-1">
-                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_assumption" style="font-size: 12px;">Date of Assumption to Duty</label>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Refers to your current position.</p></small>
                     </div>
@@ -498,23 +498,23 @@ button {
                   
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 p-1">
-                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" max="9999-12-31" {{'readOnly' if current_user.type_of_user == 'user'}}>
                       <label for="date_of_original_appointment">*Date of Original Appointment</label>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Refers to original appointment as permanent / casual / coterminous or first government service.</p></small>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user' }}>
+                      <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" form="update_form" onchange="validate_no_dependents(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
+                      <input type="date" class="form-control" id="date_hired_in_nia" name ="date_hired_in_nia" placeholder="Date Hired in NIA" value="{{user_profile.date_hired_in_nia if user_profile.date_hired_in_nia is not none else ''}}" max="9999-12-31" form="update_form" onchange="validate_no_dependents(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
                       <label for="date_hired_in_nia" >Date Hired in NIA<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="date_hired_in_nia_pimo" name ="date_hired_in_nia_pimo" placeholder="Date Hired in NIA PIMO" value="{{user_profile.date_hired_in_nia_pimo if user_profile.date_hired_in_nia_pimo is not none else ''}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}} required>
-                      <label for="date_hired_in_nia_pimo" >Date Hired in NIA PIMO<span class="is-required">*</span></label>
+                      <input type="date" class="form-control" id="date_hired_in_nia_pimo" name ="date_hired_in_nia_pimo" placeholder="Date Hired in NIA PIMO" value="{{user_profile.date_hired_in_nia_pimo if user_profile.date_hired_in_nia_pimo is not none else ''}}" form="update_form" max="9999-12-31" {{'readOnly' if current_user.type_of_user == 'user'}} required>
+                      <label for="date_hired_in_nia_pimo">Date Hired in NIA PIMO<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-4 p-1">
                       <input type="number" class="form-control" id="no_of_years_in_nia" name ="no_of_years_in_nia" placeholder="No of Years in Service." value="{{user_profile.no_of_years_in_nia if user_profile.no_of_years_in_nia is not none else ''}}" form="update_form" min="0" max="99" oninput="validate_length(this)" {{'readOnly' if current_user.type_of_user == 'user'}} required>
@@ -525,18 +525,18 @@ button {
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="daily_rate" name ="" value="{{user_profile.daily_rate if user_profile.daily_rate is not none else ''}}" oninput="" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <input type="hidden" class="form-control" id="" name ="daily_rate" form="update_form">
+                      <input type="hidden" class="form-control" name ="daily_rate" form="update_form">
                       <label for="daily_rate">Daily Rate (Php)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="monthly_rate" name ="" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate if user_profile.monthly_rate is not none else ''}}" oninput="//this.value = this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <input type="hidden" class="form-control" id="" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="update_form">
+                      <input type="text" class="form-control" id="monthly_rate" name ="" placeholder="Monthly Rate (Php)" value="{{user_profile.monthly_rate if user_profile.monthly_rate is not none else ''}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="hidden" class="form-control" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="update_form">
                       <label for="monthly_rate">Monthly Rate (Php)<span class="is-required">*</span></label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
-                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="date" class="form-control" id="birthdate" name ="birthdate" placeholder="Birthdate" value="{{user_profile.birthdate}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="birthdate">Birthdate<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-1 col-sm-12 mb-3 p-1">
@@ -686,7 +686,7 @@ button {
 
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="driver_license_validity" name ="driver_license_validity" placeholder="Driver's License Date of Validity" value="{{user_profile.driver_license_validity}}" form="update_form" >
+                      <input type="date" class="form-control" id="driver_license_validity" name ="driver_license_validity" placeholder="Driver's License Date of Validity" value="{{user_profile.driver_license_validity}}" max="9999-12-31" form="update_form" >
                       <label for="driver_license_validity" style="font-size: 13px;">Driver's License Date of Validity</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -694,7 +694,7 @@ button {
                       <label for="security_guard">Security Guard License No.</label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="date" class="form-control" id="security_guard_validity" name ="security_guard_validity" placeholder="Security Guard License No." value="{{user_profile.security_guard_validity}}" form="update_form">
+                      <input type="date" class="form-control" id="security_guard_validity" name ="security_guard_validity" placeholder="Security Guard License No." value="{{user_profile.security_guard_validity}}" max="9999-12-31" form="update_form">
                       <label for="security_guard_validity" style="font-size: 11.5px;">Security Guard License Date of Validity</label>
                     </div>
                   </div>
@@ -705,7 +705,7 @@ button {
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. EB6684441</p></small>
                     </div>
                     <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
-                      <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" form="update_form" >
+                      <input type="date" class="form-control" id="passport_validity" name ="passport_validity" placeholder="Passport Date of Validity" value="{{user_profile.passport_validity}}" max="9999-12-31" form="update_form" >
                       <label for="passport_validity">Passport Date of Validity</label>
                     </div>
                   </div>
@@ -1007,7 +1007,7 @@ button {
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="form-floating col-sm-4 mb-3 p-1">
-                          <input type="date" class="form-control" id="v_date_of_validity[1]" name ="v_date_of_validity[1]" placeholder="Date of Validity of NC II" form="add_vocational_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                          <input type="date" class="form-control" id="v_date_of_validity[1]" name ="v_date_of_validity[1]" placeholder="Date of Validity of NC II" form="add_vocational_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                           <label for="v_period_of_attendance_from">Date of Validity of NC II</label>
                         </div>
                       </div>
@@ -1072,7 +1072,7 @@ button {
                           </div>
                           <div class="d-md-flex flex-row">
                             <div class="form-floating col-sm-4 mb-3 p-1">
-                              <input type="date" class="form-control" id="v_date_of_validity[{{count_update_vocational.value}}]" name ="v_date_of_validity[{{count_update_vocational.value}}]" placeholder="Date of Validity of NC II" value="{{vocational.v_date_of_validity}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                              <input type="date" class="form-control" id="v_date_of_validity[{{count_update_vocational.value}}]" name ="v_date_of_validity[{{count_update_vocational.value}}]" placeholder="Date of Validity of NC II" value="{{vocational.v_date_of_validity}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                               <label for="v_date_of_validity">Date of Validity of NC II</label>
                             </div>
                           </div>
@@ -1520,11 +1520,11 @@ button {
                                 <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" value="{{cse.date_of_examination}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                                <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" value="{{cse.date_of_examination}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                                 <label for="date_of_examination">Date of Examination / Conferment From</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="date" class="form-control" name ="date_of_examination_to[{{count_update_cse.value}}]" value="{{cse.date_of_examination_to}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                                <input type="date" class="form-control" name ="date_of_examination_to[{{count_update_cse.value}}]" value="{{cse.date_of_examination_to}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                                 <label for="date_of_examination_to">Date of Examination / Conferment To</label>
                               </div>
                             </div>
@@ -1544,7 +1544,7 @@ button {
                                 <label for="license_no">License Number</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="date" class="form-control" name ="date_of_validity[{{count_update_cse.value}}]" placeholder="Date of Validity" value="{{cse.date_of_validity}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> 
+                                <input type="date" class="form-control" name ="date_of_validity[{{count_update_cse.value}}]" placeholder="Date of Validity" value="{{cse.date_of_validity}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}> 
                                 <label for="date_of_validity">Date of Validity</label>
                               </div>
                             </div>
@@ -1570,11 +1570,11 @@ button {
                             <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="" form="add_cse_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                            <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="" form="add_cse_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                             <label for="date_of_examination">Date of Examination From</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="" form="add_cse_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                            <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="" form="add_cse_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                             <label for="date_of_examination_to">Date of Examination To</label>
                           </div>
                         </div>
@@ -1594,7 +1594,7 @@ button {
                             <label for="license_no">License Number</label>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
-                            <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" value="" form="add_cse_form" {{'readonly' if current_user.type_of_user == 'user'}}> 
+                            <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" value="" form="add_cse_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}> 
                             <label for="date_of_validity">Date of Validity</label>
                           </div>
                         </div>

@@ -57,10 +57,14 @@
                                 <div class="card shadow-sm" >
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expiring Licenses/IDs (6 months)</h3>
-                                    
-                                    {% for expiring_ids in expiring_ids %}
-                                    <li>{{expiring_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
-                                    {% endfor %}
+                                    {% if expiring_ids is not none  %}
+                                      {% for expiring_ids in expiring_ids %}
+                                      <li>{{expiring_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
+                                      {% endfor %}
+
+                                    {% else %}
+                                      <h3 class="text-muted fst-italic">Noting in here..</h3>
+                                    {% endif %}
                                     </div>
                                   </div>
                               </div>
@@ -68,9 +72,13 @@
                                 <div class="card shadow-sm">
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expired Licenses/IDs</h3>
+                                  {% if expired_ids is not none  %}
                                     {% for expired_ids in expired_ids %}
                                     <li>{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
                                     {% endfor %}
+                                  {% else %}
+                                    <h3 class="text-muted fst-italic">Noting in here..</h3>
+                                  {% endif %}
                                     </div>
                                   </div>
                               </div>

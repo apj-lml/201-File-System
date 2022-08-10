@@ -219,10 +219,10 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
                 <li><a class="dropdown-item" href="/listOfExpiry/"><i class="bi bi-credit-card-2-front"></i> List of Expiring Licenses/IDs</a></li>
-                <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
+                <!-- <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li> -->
+                <li><a class="dropdown-item" href="/signup"><i class="bi bi-person-plus-fill"></i> Register User</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/systemSettings/sys-settings"><i class="bi bi-gear"></i> System Settings</a></li>
-
               </ul>
             </li>
           </ul>
@@ -317,7 +317,7 @@ swalWithBootstrapButtons.fire({
 
                         var container = document.getElementById('t_notification');
                         var editor = new Quill(container, {
-                          placeholder: 'No Comment/Remarks',
+                          placeholder: 'No Comments / Remarks',
                           readOnly: true,
                         });
                         editor.setContents(JSON.parse({{current_user.comments_remarks|tojson}}));
