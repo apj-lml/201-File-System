@@ -1,13 +1,10 @@
 from flask import Flask
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
-from os import path
 import os
 from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 import jinja2
-from babel.dates import format_date, format_datetime, format_time
 from datetime import datetime
-import time
 
 # from website.models import User
 
@@ -30,7 +27,6 @@ UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
 
 def create_app():
 	
-
 	app = Flask(__name__)
 	app.config['SECRET_KEY'] = '201 File System Key'
 
@@ -38,10 +34,10 @@ def create_app():
 	#app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	#mysql database online
-	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
@@ -144,7 +140,6 @@ def create_app():
 	app.register_blueprint(DownloadableForms, url_prefix = '/forms')
 	app.register_blueprint(listOfExpiry, url_prefix = '/listOfExpiry')
 	app.register_blueprint(systemSettings, url_prefix = '/systemSettings')
-
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

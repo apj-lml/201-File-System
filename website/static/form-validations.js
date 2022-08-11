@@ -312,45 +312,45 @@
 
     // });
 
-    document.getElementById("section").addEventListener("change", (e)=>{
-      console.log(e.target.value)
-      var units = `<option class='' value='' selected disabled hidden>-</option>`;
-      document.getElementById("unit").innerHTML = units;
-      if(e.target.value == "Administrative & Finance"){
-        units = `
-          <option value="Administrative Unit">Administrative Unit</option>
-          <option value="Finance Unit">Finance Unit</option>
-          <option value="Cashiering Unit">Cashiering Unit</option>
-          <option value="Property Unit">Property Unit</option>
-          <option value="N/A">N/A</option>
-        `;
-      }
-      else if(e.target.value == "Engineering"){
-        units = `
-          <option value="Planning Unit">Planning Unit</option>
-          <option value="Design Unit">Design Unit</option>
-          <option value="Construction Unit">Construction Unit</option>
-          <option value="Institutional Development Unit">Institutional Development Unit</option>
-          <option value="Equipment Unit">Equipment Unit</option>
-          <option value="N/A">N/A</option>
-        `;
-      }
-      else if(e.target.value == "Operation & Maintenance"){
-        units = `
-          <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
-          <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
-          <option value="Lower Agno RIS">Lower Agno RIS</option>
-          <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
-          <option value="N/A">N/A</option>
-        `;
-      }
-      else{
-        units = `
-          <option value="N/A">N/A</option>
-          `;
-      }
-      document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
-    });
+    // document.getElementById("section").addEventListener("change", (e)=>{
+    //   console.log(e.target.value)
+    //   var units = `<option class='' value='' selected disabled hidden>-</option>`;
+    //   document.getElementById("unit").innerHTML = units;
+    //   if(e.target.value == "Administrative & Finance"){
+    //     units = `
+    //       <option value="Administrative Unit">Administrative Unit</option>
+    //       <option value="Finance Unit">Finance Unit</option>
+    //       <option value="Cashiering Unit">Cashiering Unit</option>
+    //       <option value="Property Unit">Property Unit</option>
+    //       <option value="N/A">N/A</option>
+    //     `;
+    //   }
+    //   else if(e.target.value == "Engineering"){
+    //     units = `
+    //       <option value="Planning Unit">Planning Unit</option>
+    //       <option value="Design Unit">Design Unit</option>
+    //       <option value="Construction Unit">Construction Unit</option>
+    //       <option value="Institutional Development Unit">Institutional Development Unit</option>
+    //       <option value="Equipment Unit">Equipment Unit</option>
+    //       <option value="N/A">N/A</option>
+    //     `;
+    //   }
+    //   else if(e.target.value == "Operation & Maintenance"){
+    //     units = `
+    //       <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
+    //       <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
+    //       <option value="Lower Agno RIS">Lower Agno RIS</option>
+    //       <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
+    //       <option value="N/A">N/A</option>
+    //     `;
+    //   }
+    //   else{
+    //     units = `
+    //       <option value="N/A">N/A</option>
+    //       `;
+    //   }
+    //   document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
+    // });
 
 
 

@@ -58,7 +58,9 @@ class User(db.Model, UserMixin):
 	# daily_rate = db.Column(db.Float(10, 2))
 	# monthly_rate = db.Column(db.Float(10, 2))
 
-	section = db.Column(db.String(150))
+	#section = db.Column(db.String(150))
+	section = db.Column(db.Integer, db.ForeignKey('agency__section.section_title'))
+
 	unit = db.Column(db.String(150))
 	birthdate = db.Column(db.Date())
 	age = db.Column(db.String(150))
@@ -132,6 +134,8 @@ class User(db.Model, UserMixin):
 	type_of_user = db.Column(db.String(150), default='user')
 	#last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
 	last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
+
+	acknowledgement = db.Column(db.String(45), default='unchecked')
 	
 	uploaded_files = db.relationship('Uploaded_File')
 	service_record = db.relationship('Service_Record')
@@ -153,8 +157,20 @@ class User(db.Model, UserMixin):
 	emergency_contact = db.relationship('Emergency_Contact') 
 	staff_moved = db.relationship('Staff_Movement')
 	assignatory = db.relationship('Assignatory')
+	#section = db.relationship('Agency_Section')
 
 	# emergency_contact = db.relationship('Emergency_Contact')
+class Agency_Section(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	section_title = db.Column(db.String(150))
+	agency_unit = db.relationship('Agency_Unit')
+	user = db.relationship('User')
+
+
+class Agency_Unit(db.Model, SerializerMixin):
+	id = db.Column(db.Integer, primary_key=True)
+	unit_title = db.Column(db.String(150))
+	agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
 
 class Vocational_Course(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)

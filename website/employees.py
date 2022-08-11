@@ -1,11 +1,11 @@
 
 # from pprint import pprint
-from copyreg import constructor
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 import pytz
-from .models import Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
+from .models import Agency_Section, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -67,6 +67,8 @@ def my_profile(emp_id):
 			return "PAGE NOT FOUND", 404
 		else:
 			user = User.query.get(emp_id)
+			my_agency_section = Agency_Section.query.all()
+
 			#db.session.close()
 
 		# print(user)
@@ -77,7 +79,7 @@ def my_profile(emp_id):
 		local_dt = value.astimezone(tz)
 
 
-		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt)
+		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt, agency_section = my_agency_section)
 
 	return jsonify({})
 
@@ -150,8 +152,11 @@ def update_employee(emp_id):
 					files_to_upload = Uploaded_File(file_name = final_name, file_path = "\\static\\files\\", file_tag = afile, user_id = emp_id)
 					db.session.add(files_to_upload)
 					db.session.commit()
+# --------------------------- END OF FILE UPLOADING -------------------------- #
+
+
 # ---------------------------------------------------------------------------- #
-#                              END OF FILE UPLOAD                              #
+#                                ADDING OF DATA                                #
 # ---------------------------------------------------------------------------- #
 
 	formdata = formdata.copy()
@@ -186,7 +191,10 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF EMPLOYEE PROFILE                         #
 # ---------------------------------------------------------------------------- #
-	# pprint(formdata)
+
+	#if current_user.type_of_user != 'admin':
+	formdata['acknowledgement'] = 'checked'
+
 	
 	#code for automated update
 	for key, value in formdata.items(): 
