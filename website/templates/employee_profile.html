@@ -1112,12 +1112,12 @@ button {
                       {% set count_update_college = namespace(value=1) %}
                       {% for college in user_profile.college %}
                         <div class="card shadow-sm mb-3" id=remove_vocational>
-                         <input type="hidden" name="college_id[{{count_update_college.value}}]" id="college_id[{{count_update_college.value}}]" value="{{college.id}}" form="update_form">
+                         <input type="hidden" name="college_id[{{count_update_college.value}}]" id="college_id[{{count_update_college.value}}]" value="{{college.id}}" form="update_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
   
                           <div class="card-body">
                             <div class="d-md-flex flex-row">
                               <div class="form-floating col-sm-3 mb-3 p-1">
-                                <input type="text" class="form-control" id="c_school[{{count_update_college.value}}]" name ="c_school[{{count_update_college.value}}]" placeholder="" value="{{college.c_school if college.c_school is not none else '' }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                                <input type="text" class="form-control" id="c_school[{{count_update_college.value}}]" name ="c_school[{{count_update_college.value}}]" placeholder="" value="{{college.c_school if college.c_school is not none else '' }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} >
                                 <label for="c_school[1]">School</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
@@ -1181,15 +1181,15 @@ button {
                           <div class="card-body">
                             <div class="d-md-flex flex-row">
                               <div class="form-floating col-sm-3 mb-3 p-1">
-                                <input type="text" class="form-control" id="c_school[1]" name ="c_school[1]" placeholder="c_school[1]" value="" form="add_college_form">
+                                <input type="text" class="form-control" id="c_school[1]" name ="c_school[1]" placeholder="c_school[1]" value="" form="add_college_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
                                 <label for="c_school[1]">School</label>
                               </div>
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_degree_course[1]" name ="c_degree_course[1]" placeholder="c_degree_course[1]" value="" form="add_college_form">
+                                <input type="text" class="form-control" id="c_degree_course[1]" name ="c_degree_course[1]" placeholder="c_degree_course[1]" value="" form="add_college_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
                                 <label for="c_degree_course[1]">Degree</label>
                               </div>
                               <div class="form-floating col-sm-3 mb-3 p-1">
-                                <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))"> 
+                                <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))" {{'disabled' if current_user.type_of_user == 'user'}}> 
                                   <option class="" value="" selected hidden></option>
                                   <option value="GRADUATED">GRADUATED</option>
                                   <option value="UNDERGRADUATE">UNDERGRADUATE</option>
@@ -1201,23 +1201,23 @@ button {
                             </div>
                             <div class="d-md-flex flex-row">
                               <div class="form-floating flex-fill mb-2 p-1">
-                                <input type="number" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)">
+                                <input type="number" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)" {{'readOnly' if current_user.type_of_user == 'user'}}>
                                 <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
                                 <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                               </div>
                               <div class="form-floating flex-fill mb-2 p-1">
-                                <input type="number" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)">
+                                <input type="number" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)" {{'readOnly' if current_user.type_of_user == 'user'}}>
                                 <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
                                 <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
                               </div>
                             </div>
                             <div class="d-md-flex flex-row">
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_highest_grade_year_units[1]" name ="c_highest_grade_year_units[1]" placeholder="Highest Level" value="" form="add_college_form">
+                                <input type="text" class="form-control" id="c_highest_grade_year_units[1]" name ="c_highest_grade_year_units[1]" placeholder="Highest Level" value="" form="add_college_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
                                 <label for="c_highest_grade_year_units[1]">Units Earned</label>
                               </div>   
                               <div class="form-floating flex-fill mb-3 p-1">
-                                <input type="text" class="form-control" id="c_scholarship_academic_honor[1]" name ="c_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="" form="add_college_form">
+                                <input type="text" class="form-control" id="c_scholarship_academic_honor[1]" name ="c_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="" form="add_college_form" {{'readOnly' if current_user.type_of_user == 'user'}}>
                                 <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
                               </div>  
                             </div>
@@ -2080,6 +2080,8 @@ document.addEventListener('keydown', e => {
 
 window.addEventListener("load", function() {
 
+  validate_no_dependents(document.getElementById('date_hired_in_nia'))
+
 {% if current_user.type_of_user == 'admin' %}
 
 var text = editor.getText(0, editor.getLength());
@@ -2268,7 +2270,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-      document.getElementById("desc_remarks2").value = JSON.stringify(editor.getContents());
+          {% if current_user.type_of_user == 'admin' %}
+            document.getElementById("desc_remarks2").value = JSON.stringify(editor.getContents());
+          {% endif %}
       let formData = new FormData(formElem);
       loadingScreen('block');
       const data = {};

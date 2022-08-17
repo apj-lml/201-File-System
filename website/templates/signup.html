@@ -1321,7 +1321,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         if (res.status == 200){}
         return res.json();
       }).then((data)=>{
-          console.log("THIS IS MY DATA: ", data)
           //-- ----------------------------------------------------------------------- -->
           //--                           SUBMIT OF CSE FORM                            -->
           //-- ----------------------------------------------------------------------- -->
@@ -1335,9 +1334,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
             method: 'POST',
             body: formData2
           }).then((res)=>{ 
-            
-            //}) sa pinaka baba may ganito
-            
+     
             if (res.status == 200){
 
              //-- ----------------------------------------------------------------------- -->
@@ -1352,24 +1349,23 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 method: 'POST',
                 body: formData3
               }).then((res)=>{
-               // <!-- ----------------------------------------------------------------------- -->
+                //<!-- ----------------------------------------------------------------------- -->
                 //<!--                           SUBMIT COLLEGE FORM                           -->
-               // <!-- ----------------------------------------------------------------------- -->
+                //<!-- ----------------------------------------------------------------------- -->
                let formData4 = new FormData(document.getElementById("add_college_form"));
               //formData.append('file',  input.files[0])
 
               const data4 = {}
               formData4.forEach((value, key) => (data4[key] = value))
-                
+              
               fetch(`/college/add-college/${data}`, {
                 method: 'POST',
                 body: formData4
               }).then((res)=>{
                 //<!-- ----------------------------------------------------------------------- -->
-               // <!--                          SUBMIT MASTERAL FORM                           -->
-               // <!-- ----------------------------------------------------------------------- -->
+                //<!--                          SUBMIT MASTERAL FORM                           -->
+                //<!-- ----------------------------------------------------------------------- -->
                     let formData5 = new FormData(document.getElementById("add_masteral_form"));
-                    //formData.append('file',  input.files[0])
 
                     const data5 = {}
                     formData5.forEach((value, key) => (data5[key] = value))
@@ -1378,12 +1374,10 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                       method: 'POST',
                       body: formData5
                     }).then((res)=>{
-
                       // <!-- ----------------------------------------------------------------------- -->
                       // <!--                          SUBMIT DOCTORAL FORM                           -->
                       // <!-- ----------------------------------------------------------------------- -->
                         let formData6 = new FormData(document.getElementById("add_doctoral_form"));
-                        //formData.append('file', input.files[0])
 
                         const data6 = {}
                         formData6.forEach((value, key) => (data6[key] = value))
