@@ -54,7 +54,7 @@ def add_doctoral(emp_id):
                 doc_period_of_attendance_from == "" and
                 doc_period_of_attendance_to == "" and
                 doc_highest_level_units_earned == "" and
-                doc_highest_grade_year_units == "" and
+                # doc_highest_grade_year_units == "" and
                 doc_scholarship_academic_honor == ""
                 ): pass
             else:

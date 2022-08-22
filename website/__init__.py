@@ -85,6 +85,15 @@ def create_app():
 			mydatetime = datetime.strptime(value, '%Y-%m-%d')
 			return mydatetime.strftime("%m/%d/%Y")
 
+	# @app.template_filter('query_units')
+	# def query_units(value):
+	# 	agency_section = Agency_Section.query.filter_by(agency_section = value).all()
+	# 	each_section = ""
+	# 	for section in agency_section:
+	# 		each_section = f"<option value='ADMINISTRATIVE UNIT'>ADMINISTRATIVE UNIT</option>"
+
+	# 	return mydatetime.strftime("%m/%d/%Y")
+
 	app.jinja_env.filters['escapejs'] = escapejs
 	# app.jinja_env.filters['format_datetime'] = format_datetime
 
@@ -113,6 +122,7 @@ def create_app():
 	from .downloadableForms import DownloadableForms
 	from .listOfExpiry import listOfExpiry
 	from .systemSettings import systemSettings
+	from .agencyUnit import agencyUnit
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -140,12 +150,13 @@ def create_app():
 	app.register_blueprint(DownloadableForms, url_prefix = '/forms')
 	app.register_blueprint(listOfExpiry, url_prefix = '/listOfExpiry')
 	app.register_blueprint(systemSettings, url_prefix = '/systemSettings')
+	app.register_blueprint(agencyUnit, url_prefix = '/agencyUnit')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #
 
 
-	from .models import User
+	from .models import Agency_Section, User
 
 	create_database(app)
 	

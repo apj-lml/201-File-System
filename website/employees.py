@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 import pytz
-from .models import Agency_Section, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
+from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -34,15 +34,6 @@ def page_not_found(e):
 def get_employees(emp_id):
 	if request.method == 'GET' and emp_id == "0" :
 		user = User.query.all()
-		# session.query(
-		# 	User
-		# ).join(
-		# 	Document
-		# ).join(
-		# 	DocumentsPermissions
-		# ).filter(
-		# 	User.email == "user@email.com"
-		# ).all()
 		column_keys = User.__table__.columns.keys()
 	# Temporary dictionary to keep the return value from table
 		rows_dic_temp = {}
@@ -68,18 +59,15 @@ def my_profile(emp_id):
 		else:
 			user = User.query.get(emp_id)
 			my_agency_section = Agency_Section.query.all()
+			my_agency_unit = Agency_Unit.query.all()
 
-			#db.session.close()
-
-		# print(user)
 
 		tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to from UTC (Asia/Manila)
 		utc = pytz.timezone('UTC')
 		value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
 		local_dt = value.astimezone(tz)
 
-
-		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt, agency_section = my_agency_section)
+		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt, agency_section = my_agency_section, my_agency_unit = my_agency_unit)
 
 	return jsonify({})
 

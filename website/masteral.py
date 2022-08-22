@@ -56,7 +56,7 @@ def add_masteral(emp_id):
                 gs_period_of_attendance_from == "" and
                 gs_period_of_attendance_to == "" and
                 gs_highest_level_units_earned == "" and
-                gs_highest_grade_year_units == "" and
+                # gs_highest_grade_year_units == "" and
                 gs_scholarship_academic_honor == ""
             ): pass
             else:

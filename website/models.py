@@ -166,11 +166,10 @@ class Agency_Section(db.Model, SerializerMixin):
 	agency_unit = db.relationship('Agency_Unit')
 	user = db.relationship('User')
 
-
 class Agency_Unit(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	unit_title = db.Column(db.String(150))
-	agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
+	agency_section = db.Column(db.String(150), db.ForeignKey('agency__section.section_title'))
 
 class Vocational_Course(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)

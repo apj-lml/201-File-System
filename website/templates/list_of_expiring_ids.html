@@ -56,7 +56,7 @@
                               <div class="col-md-12 mb-3">
                                 <div class="card shadow-sm" >
                                   <div class="card-body">
-                                  <h3 class="card-title">List of Expiring Licenses/IDs (6 months)</h3>
+                                  <h3 class="card-title">List of Expiring Licenses/IDs (in 6 months)</h3>
                                     {% if expiring_ids is not none  %}
                                       {% for expiring_ids in expiring_ids %}
                                       <li>{{expiring_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>

@@ -468,19 +468,16 @@ button {
                       <select class="form-select" id="section" name="section" value="{{user_profile.section}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                           <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option>
                           {% for a_section in agency_section %}
-                            <option value="{{a_section.section_title}}">{{a_section.section_title}}</option>
+                            <option value="{{a_section.id}}">{{a_section.section_title}}</option>
                           {% endfor %}
                         </select>
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                       <select class="form-select" id="unit" name="unit" value="{{user_profile.unit}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
-                        <option class="" value="{{user_profile.unit}}" selected disabled hidden>{{user_profile.unit}}</option>
-                        <option value="Administrative Unit">Administrative Unit</option>
-                        <option value="Finance Unit">Finance Unit</option>
-                        <option value="Cashiering Unit">Cashiering Unit</option>
-                        <option value="Property Unit">Property Unit</option>
-                        <option value=""></option>
+                        {% for a_unit in agency_unit %}
+                            <option value="{{a_unit.id}}">{{a_unit.unit_title}}</option>
+                        {% endfor %}
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
@@ -2336,7 +2333,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 
               const data4 = {}
               formData4.forEach((value, key) => (data4[key] = value))
-                
+              console.log(formData4)
               fetch('/college/add-college/{{user_profile.id}}', {
                 method: 'POST',
                 body: formData4
@@ -2369,7 +2366,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                           body: formData6
                         }).then((res)=>{
                             if(res.status == 200){
-                              window.location.reload();
+                               window.location.reload();
                               
                             }
                           
@@ -2448,41 +2445,74 @@ function year_only (el) {
       }
   }
 
-  document.getElementById("section").addEventListener("change", (e)=>{
-      console.log(e.target.value)
-      var units = `<option class='' value='' selected disabled hidden>-</option>`;
-      document.getElementById("unit").innerHTML = units;
-      if(e.target.value == "Administrative & Finance"){
-        units = `
-          <option value="Administrative Unit">Administrative Unit</option>
+  // document.getElementById("section").addEventListener("change", (e)=>{
+  //     console.log(e.target.value)
+  //     var units = `<option class='' value='' selected disabled hidden>-</option>`;
+  //     document.getElementById("unit").innerHTML = units;
+  //     if(e.target.value == "ADMINISTRATIVE & FINANCE"){
+  //       units = `
+  //         <option value="ADMINISTRATIVE UNIT">ADMINISTRATIVE UNIT</option>
+  //         <option value="CASHIERING UNIT">CASHIERING UNIT</option>
+  //         <option value="FINANCE UNIT">FINANCE UNIT</option>
+  //         <option value="PROPERTY UNIT">PROPERTY UNIT</option>
+  //         <option value="PROPERTY UNIT">PROPERTY UNIT</option>
+  //       `;
+  //     }
+  //     else if(e.target.value == "Engineering"){
+  //       units = `
+  //         <option value="Planning Unit">Planning Unit</option>
+  //         <option value="Design Unit">Design Unit</option>
+  //         <option value="Construction Unit">Construction Unit</option>
+  //         <option value="Institutional Development Unit">Institutional Development Unit</option>
+  //         <option value="Equipment Unit">Equipment Unit</option>
+  //         <option value="N/A">N/A</option>
+  //       `;
+  //     }
+  //     else if(e.target.value == "Operation & Maintenance"){
+  //       units = `
+  //         <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
+  //         <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
+  //         <option value="Lower Agno RIS">Lower Agno RIS</option>
+  //         <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
+  //         <option value="N/A">N/A</option>
+  //       `;
+  //     }
+  //     else{
+  //       units = `
+  //         <option value="N/A">N/A</option>
+  //         `;
+  //     }
+  //     document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
+  //   });
 
-        `;
-      }
-      else if(e.target.value == "Engineering"){
-        units = `
-          <option value="Planning Unit">Planning Unit</option>
-          <option value="Design Unit">Design Unit</option>
-          <option value="Construction Unit">Construction Unit</option>
-          <option value="Institutional Development Unit">Institutional Development Unit</option>
-          <option value="Equipment Unit">Equipment Unit</option>
-          <option value="N/A">N/A</option>
-        `;
-      }
-      else if(e.target.value == "Operation & Maintenance"){
-        units = `
-          <option value="Agno-Sinocalan RIS">Agno-Sinocalan RIS</option>
-          <option value="San Fabian-Dumoloc RIS">San Fabian-Dumoloc RIS</option>
-          <option value="Lower Agno RIS">Lower Agno RIS</option>
-          <option value="Ambayoan-Dipalo RIS">Ambayoan-Dipalo RIS</option>
-          <option value="N/A">N/A</option>
-        `;
-      }
-      else{
-        units = `
-          <option value="N/A">N/A</option>
-          `;
-      }
-      document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
+    document.getElementById("section").addEventListener("change", (e)=>{
+      //console.log(e.target.value)
+      var units = "<option class='' value='' selected disabled hidden>-</option>";
+      document.getElementById("unit").innerHTML = units;
+
+      fetch(`/agencyUnit/get-agencyUnit/${e.target.value}`,{
+        method: 'GET',
+      })
+      .then(response => response.json())
+      .then(data => {
+        data.forEach((item, index)=>{
+          console.log(item.unit_title);
+          units += "asdsadsad";
+          //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
+        })
+      })
+
+      // if(e.target.value == "ADMINISTRATIVE & FINANCE"){
+      //   units = `
+      //     <option value="ADMINISTRATIVE UNIT">ADMINISTRATIVE UNIT</option>
+      //     <option value="CASHIERING UNIT">CASHIERING UNIT</option>
+      //     <option value="FINANCE UNIT">FINANCE UNIT</option>
+      //     <option value="PROPERTY UNIT">PROPERTY UNIT</option>
+      //     <option value="PROPERTY UNIT">PROPERTY UNIT</option>
+      //   `;
+      // }
+
+      document.getElementById("unit").innerHTML += units;
     });
 
 </script>

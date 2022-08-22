@@ -1,12 +1,9 @@
 from pprint import pprint
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
+from flask import Blueprint, request, redirect, url_for, session, jsonify
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Career_Service, College, Service_Record, User, Uploaded_File
+from .models import College
 from . import db
-from datetime import datetime
-from .myhelper import allowed_file
-from werkzeug.utils import secure_filename
 import os, os.path
 import json
 
@@ -31,16 +28,18 @@ def add_college(emp_id):
         formdata = request.form.to_dict()
         college_no_fields = formdata["college_no_fields"]
         
-        print(emp_id)
+        print("this is the ID: " + emp_id)
         pprint(formdata)
 # ---------------------------------------------------------------------------- #
 #                                CAPITALIZE DATA                               #
-# ---------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #.
+
         for k,v in formdata.items():
             if type(v) is str:
                 formdata.update({k: v.upper()})
             else:
                 formdata.update({k: v})
+
 # ---------------------------------------------------------------------------- #
         for x in range(1, int(college_no_fields)+1):
             print('IM HERE')
@@ -52,7 +51,7 @@ def add_college(emp_id):
             c_highest_grade_year_units = formdata['c_highest_grade_year_units['+str(x)+']']
             c_scholarship_academic_honor = formdata['c_scholarship_academic_honor['+str(x)+']']
             
-            if(c_school != "" and c_degree_course != "" and c_period_of_attendance_from != "" and c_period_of_attendance_to != "" and c_highest_level_units_earned != "" and c_highest_grade_year_units != "" and c_scholarship_academic_honor != ""):
+            if(c_school != "" and c_degree_course != "" and c_period_of_attendance_from != "" and c_period_of_attendance_to != "" and c_highest_level_units_earned != "" and c_scholarship_academic_honor != ""):
                 new_college = College(
                     c_school = formdata['c_school['+str(x)+']'],
                     c_degree_course = formdata['c_degree_course['+str(x)+']'],
