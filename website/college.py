@@ -32,7 +32,7 @@ def add_college(emp_id):
         pprint(formdata)
 # ---------------------------------------------------------------------------- #
 #                                CAPITALIZE DATA                               #
-# ---------------------------------------------------------------------------- #.
+# ---------------------------------------------------------------------------- #
 
         for k,v in formdata.items():
             if type(v) is str:
@@ -42,7 +42,7 @@ def add_college(emp_id):
 
 # ---------------------------------------------------------------------------- #
         for x in range(1, int(college_no_fields)+1):
-            print('IM HERE')
+            # print('IM HERE')
             c_school = formdata['c_school['+str(x)+']']
             c_degree_course = formdata['c_degree_course['+str(x)+']']
             c_period_of_attendance_from = formdata['c_period_of_attendance_from['+str(x)+']']
