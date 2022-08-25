@@ -474,9 +474,9 @@ button {
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" value="{{user_profile.unit}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="unit" name="unit" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                         {% for a_unit in agency_unit %}
-                            <option value="{{a_unit.id}}">{{a_unit.unit_title}}</option>
+                            <option value="{{a_unit.id}}" selected>{{a_unit.unit_title}}</option>
                         {% endfor %}
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
@@ -2488,7 +2488,8 @@ function year_only (el) {
   //   });
 
   function load_units(e){
-    var units = "<option class='' value='' selected disabled hidden>-</option>";
+    //var units = "<option class='' value='' selected disabled hidden>-</option>";
+    var units = "";
       document.getElementById("unit").innerHTML = units;
       section_el = document.getElementById("section")
       console.log(section_el.value)
