@@ -50,8 +50,8 @@ def get_employees(emp_id):
         #                         .all()
 
 		column_keys1 = User.__table__.columns.keys()
-		column_keys2 = Agency_Section.__table__.columns.keys()
-		column_keys = column_keys1.append("section_title")
+		# column_keys2 = Agency_Section.__table__.columns.keys()
+		# column_keys = column_keys1.append("section_title")
 
 	# # Temporary dictionary to keep the return value from table
 	# 	rows_dic_temp = {}
@@ -67,7 +67,7 @@ def get_employees(emp_id):
 		#print (jsonify(user))
 		#print(json.dumps(rows_dic, indent=4, sort_keys=True, default=str))
 		#print(user)
-		print(output)
+		#print(output)
 		return jsonify(output)
 
 		
