@@ -66,7 +66,7 @@ class User(db.Model, UserMixin):
 	# section_rel = db.relationship("Agency_Section", backref="agency_section")
 
 	unit = db.Column(db.Integer, db.ForeignKey('agency__unit.id'))
-	user_unit_rel = db.relationship("Agency_Unit")
+	#user_unit_rel = db.relationship("Agency_Unit")
 
 	# uploaded_files = db.relationship('Uploaded_File')
 

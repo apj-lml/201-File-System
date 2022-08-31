@@ -465,8 +465,8 @@ button {
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 p-1">
-                      <select class="form-select" id="section" name="section" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
-                          <!-- <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option> -->
+                      <select class="form-select" id="section" name="section" value="{{user_profile.user_section.id}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                        <option value="{{user_profile.user_section.id}}" hidden>{{user_profile.user_section.section_title}}</option>
                           {% for a_section in agency_section %}
                             <option value="{{a_section.id}}">{{a_section.section_title}}</option>
                           {% endfor %}
@@ -474,8 +474,8 @@ button {
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" value="{{user_profile.user_unit_rel.id}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
-                            <option value="{{user_profile.user_unit_rel.id}}" hidden>{{user_profile.user_unit_rel.unit_title}}</option>
+                      <select class="form-select" id="unit" name="unit" value="{{user_profile.user_unit.id}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                            <option value="{{user_profile.user_unit.id}}" hidden>{{user_profile.user_unit.unit_title}}</option>
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
