@@ -51,8 +51,6 @@ def get_all_agencyUnit():
     if request.method == "GET":
         list_of_units = Agency_Unit.query.all()
 
-        pprint(list_of_units)
-
         column_keys = Agency_Unit.__table__.columns.keys()
 	# Temporary dictionary to keep the return value from table
         rows_dic_temp = {}
@@ -64,4 +62,6 @@ def get_all_agencyUnit():
             rows_dic.append(rows_dic_temp)
             rows_dic_temp= {}
 			# print(rows_dic)
+
+        db.session.close()
         return jsonify(rows_dic)

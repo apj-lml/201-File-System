@@ -36,21 +36,20 @@ def page_not_found(e):
 def get_employees(emp_id):
 	if request.method == 'GET' and emp_id == "0" :
 		#user = db.session.query(User, Agency_Section).join(Agency_Section, User.section == Agency_Section.id).all()
-		# user = db.session.query(User).join(Agency_Section).all()
-		user = User.query.all()
+		user = db.session.query(User).all()
+		#user = User.query.all()
 
 		user_schema = UserSchema(many=True)
 		output = user_schema.dump(user)
 
-		
+		db.session.close()
 
 		#user = db.session.query(User).join(Agency_Section).all()
 		#user = db.session.query(User, Agency_Section.section_title)\
         #                         .join(Agency_Section, User.id == Agency_Section.id)\
         #                         .all()
 
-		column_keys1 = User.__table__.columns.keys()
-		# column_keys2 = Agency_Section.__table__.columns.keys()
+		#column_keys = User.__table__.columns.keys()
 		# column_keys = column_keys1.append("section_title")
 
 	# # Temporary dictionary to keep the return value from table
