@@ -1,11 +1,11 @@
 
 # from pprint import pprint
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 import pytz
-from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, Vocational_Course
+from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, UserSchema, Vocational_Course
 from . import db
 #from datetime import datetime
 import datetime
@@ -15,6 +15,8 @@ import os, os.path
 import json
 
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from website import myhelper
 
 ALLOWED_EXTENSIONS = {'pdf'}
 
@@ -33,20 +35,42 @@ def page_not_found(e):
 @admin_permission.require(http_exception=403)
 def get_employees(emp_id):
 	if request.method == 'GET' and emp_id == "0" :
+		#user = db.session.query(User, Agency_Section).join(Agency_Section, User.section == Agency_Section.id).all()
+		# user = db.session.query(User).join(Agency_Section).all()
 		user = User.query.all()
-		column_keys = User.__table__.columns.keys()
-	# Temporary dictionary to keep the return value from table
-		rows_dic_temp = {}
-		rows_dic = []
-	# Iterate through the returned output data set
-		for row in user:
-			for col in column_keys:
-				rows_dic_temp[col] = getattr(row, col)
-			rows_dic.append(rows_dic_temp)
-			rows_dic_temp= {}
-			# print(rows_dic)
-		return jsonify(rows_dic)
 
+		user_schema = UserSchema(many=True)
+		output = user_schema.dump(user)
+
+		
+
+		#user = db.session.query(User).join(Agency_Section).all()
+		#user = db.session.query(User, Agency_Section.section_title)\
+        #                         .join(Agency_Section, User.id == Agency_Section.id)\
+        #                         .all()
+
+		column_keys1 = User.__table__.columns.keys()
+		column_keys2 = Agency_Section.__table__.columns.keys()
+		column_keys = column_keys1.append("section_title")
+
+	# # Temporary dictionary to keep the return value from table
+	# 	rows_dic_temp = {}
+	# 	rows_dic = []
+	# # Iterate through the returned output data set
+	# 	for row in user:
+	# 		for col in column_keys:
+	# 			rows_dic_temp[col] = getattr(row, col)
+	# 		rows_dic.append(rows_dic_temp)
+	# 		rows_dic_temp = {}
+
+
+		#print (jsonify(user))
+		#print(json.dumps(rows_dic, indent=4, sort_keys=True, default=str))
+		#print(user)
+		print(output)
+		return jsonify(output)
+
+		
 
 @employees.route('my-profile/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -60,9 +84,9 @@ def my_profile(emp_id):
 			user = User.query.get(emp_id)
 			my_agency_section = Agency_Section.query.all()
 			my_agency_unit = Agency_Unit.query.all()
+			
 
-
-		tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to from UTC (Asia/Manila)
+		tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to, from UTC is (Asia/Manila)
 		utc = pytz.timezone('UTC')
 		value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
 		local_dt = value.astimezone(tz)

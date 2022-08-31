@@ -5,6 +5,8 @@ import os
 from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 import jinja2
 from datetime import datetime
+from flask_marshmallow import Marshmallow
+
 
 # from website.models import User
 
@@ -12,6 +14,7 @@ from datetime import datetime
 
 
 db = SQLAlchemy(session_options={"autoflush": False})
+ma = Marshmallow()
 
 #sqlite
 #DB_NAME = 'employeeinformation.db'
@@ -49,6 +52,7 @@ def create_app():
 	# change to "redis" and restart to cache again
 
 	db.init_app(app)
+	ma.init_app(app)
 	
 	# ---------------------------------------------------------------------------- #
 	#                            BLUEPRINT REGISTRATION                            #

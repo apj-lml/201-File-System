@@ -1,6 +1,8 @@
 from datetime import datetime
+import json
 import uuid
-
+from sqlalchemy.ext.declarative import DeclarativeMeta
+from flask.json import JSONEncoder
 
 
 #ALLOWED_EXTENSIONS = {'pdf'}
@@ -25,3 +27,43 @@ def format_mydatetime(value):
 
 
 
+
+def join_to_nested_dict(join_result):
+    """
+    Takes a sqlalchemy result and converts it to a dictionary.
+    The models must use the dataclass decorator.
+    Adds results to the right in a key named after the table the right item is contained in.
+    :param List[Tuple[dataclass]] join_result:
+    :return dict:
+    """
+    if len(join_result) == 0:
+        return join_result
+
+    # couldn't be the result of a join without two entries on each row
+    assert(len(join_result[0]) >= 2)
+
+    right_name = join_result[0][1].__tablename__
+    # if there are multiple joins recurse on sub joins
+    if len(join_result[0]) > 2:
+        right = join_to_nested_dict([res[1:] for res in join_result])
+    elif len(join_result[0]) == 2:
+        right = [
+            json.loads(json.dumps(row[1], cls=JSONEncoder))
+            for row in join_result if row[1] is not None
+        ]
+    right_items = {item['id']: item for item in right}
+
+    items = {}
+    for row in join_result:
+        # in the case of a right outer join
+        if row[0] is None:
+            continue
+        if row[0].id not in items:
+            items[row[0].id] = json.loads(json.dumps(row[0], cls=JSONEncoder))
+        # in the case of a left outer join
+        if row[1] is None:
+            continue
+        if right_name not in items[row[0].id]:
+            items[row[0].id][right_name] = []
+        items[row[0].id][right_name].append(right_items[row[1].id])
+    return list(items.values())
