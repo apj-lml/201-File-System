@@ -1,12 +1,14 @@
 # from email.policy import default
 #from email.policy import default
+
 from email.policy import default
 from pickle import NONE
 from time import timezone
+from xml.etree.ElementInclude import include
 
 from sqlalchemy import asc, desc
 
-from . import db
+from . import db, ma
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from sqlalchemy.orm import column_property
@@ -15,6 +17,7 @@ from datetime import datetime, date
 from sqlalchemy_serializer import SerializerMixin
 import time, pytz
 import os
+
 
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
@@ -59,9 +62,14 @@ class User(db.Model, UserMixin):
 	# monthly_rate = db.Column(db.Float(10, 2))
 
 	#section = db.Column(db.String(150))
-	section = db.Column(db.Integer, db.ForeignKey('agency__section.section_title'))
+	section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
+	# section_rel = db.relationship("Agency_Section", backref="agency_section")
 
-	unit = db.Column(db.String(150))
+	unit = db.Column(db.Integer, db.ForeignKey('agency__unit.id'))
+	#user_unit_rel = db.relationship("Agency_Unit")
+
+	# uploaded_files = db.relationship('Uploaded_File')
+
 	birthdate = db.Column(db.Date())
 	age = db.Column(db.String(150))
 	place_of_birth = db.Column(db.String(150))
@@ -159,17 +167,33 @@ class User(db.Model, UserMixin):
 	assignatory = db.relationship('Assignatory')
 	#section = db.relationship('Agency_Section')
 
+	@hybrid_property
+	def fullname(self):
+		if self.fb_middle_name is None or self.fb_middle_name == "N/A" or self.fb_middle_name == "NONE" or self.fb_middle_name == "" :
+			self.fb_middle_name = ""
+		else:
+			self.fb_middle_name = self.fb_middle_name[0] + "."
+		if self.fb_last_name is None or self.fb_last_name == "N/A" or self.fb_last_name == "NONE":
+			self.fb_last_name = ""
+		if self.fb_name_ext is None or self.fb_name_ext == "N/A" or self.fb_name_ext == "NONE":
+			self.fb_name_ext = ""
+		fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
+
+		return fullname
+
 	# emergency_contact = db.relationship('Emergency_Contact')
 class Agency_Section(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	section_title = db.Column(db.String(150))
+	user = db.relationship('User', backref='user_section', lazy=True)
 	agency_unit = db.relationship('Agency_Unit')
-	user = db.relationship('User')
+	# user = db.relationship('User', back_populates="section_rel")
 
 class Agency_Unit(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	unit_title = db.Column(db.String(150))
-	agency_section = db.Column(db.String(150), db.ForeignKey('agency__section.section_title'))
+	agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
+	user = db.relationship('User', backref='user_unit', lazy=True)
 
 class Vocational_Course(db.Model, SerializerMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -292,6 +316,7 @@ class Family_Background(db.Model, SerializerMixin):
 	fb_maiden_name = db.Column(db.String(50))
 	fb_relationship = db.Column(db.String(50))
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 	@hybrid_property
 	def fullname(self):
 		if self.fb_middle_name is None or self.fb_middle_name == "N/A" or self.fb_middle_name == "NONE" or self.fb_middle_name == "" :
@@ -446,3 +471,26 @@ class Assignatory(db.Model, SerializerMixin):
 # 	complete_address = db.Column(db.String(150))
 # 	contact_no = db.Column(db.String(150))
 # 	user_id = db.relationship('user.id')
+
+class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
+	class Meta:
+		model = Agency_Section
+		load_instance = True
+	#	include_fk = True
+	section_title = ma.auto_field()
+
+class AgencyUnitSchema(ma.SQLAlchemyAutoSchema):
+	class Meta:
+		model = Agency_Unit
+		load_instance = True
+	#	include_fk = True
+	unit_title = ma.auto_field()
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+	class Meta:
+		model = User
+		load_instance = True
+	agency_section = ma.Nested(AgencySectionSchema, attribute='user_section')
+	agency_unit = ma.Nested(AgencyUnitSchema, attribute='user_unit')
+
+

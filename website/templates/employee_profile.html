@@ -465,8 +465,8 @@ button {
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 p-1">
-                      <select class="form-select" id="section" name="section" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
-                          <!-- <option class="" value="{{user_profile.section}}" selected disabled hidden>{{user_profile.section}}</option> -->
+                      <select class="form-select" id="section" name="section" value="{{user_profile.user_section.id}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                        <option value="{{user_profile.user_section.id}}" hidden>{{user_profile.user_section.section_title}}</option>
                           {% for a_section in agency_section %}
                             <option value="{{a_section.id}}">{{a_section.section_title}}</option>
                           {% endfor %}
@@ -474,10 +474,8 @@ button {
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
-                        {% for a_unit in agency_unit %}
-                            <option value="{{a_unit.id}}" selected>{{a_unit.unit_title}}</option>
-                        {% endfor %}
+                      <select class="form-select" id="unit" name="unit" value="{{user_profile.user_unit.id}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                            <option value="{{user_profile.user_unit.id}}" hidden>{{user_profile.user_unit.unit_title}}</option>
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
@@ -1924,7 +1922,7 @@ button {
                           </thead>
                           <tbody>
                         {% for file in user_profile.uploaded_files %}
-                            {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' %}
+                            {% if file.file_tag != 'vaccine_card' and file.file_tag != 'booster_shot_card' and file.file_tag != 'appointment' and file.file_tag != 'booster_shot_card_second_dose' and file.file_tag != 'dform' %}
                             <tr>
                               <td>{{file.id}}</td>
                               <td>{{file.file_tag}}</td>
@@ -2078,7 +2076,7 @@ document.addEventListener('keydown', e => {
 window.addEventListener("load", function() {
 
   validate_no_dependents(document.getElementById('date_hired_in_nia'))
-  console.log(document.getElementById("section").value)
+  // console.log(document.getElementById("section").value)
   load_units();
 
 {% if current_user.type_of_user == 'admin' %}
@@ -2488,25 +2486,67 @@ function year_only (el) {
   //   });
 
   function load_units(e){
-    //var units = "<option class='' value='' selected disabled hidden>-</option>";
+    // var units = "<option class='' value='' selected disabled hidden>-</option>";
     var units = "";
-      document.getElementById("unit").innerHTML = units;
       section_el = document.getElementById("section")
-      console.log(section_el.value)
+      //console.log(section_el.value)
 
       fetch(`/agencyUnit/get-agencyUnit/${section_el.value}`,{
         method: 'GET',
       })
       .then(response => response.json())
       .then(data => {
-        data.forEach((item, index)=>{
-          console.log(item.unit_title);
-          //units += "asdsadsad";
-          //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
-        document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
 
+        document.getElementById("unit").innerHTML = "";
+
+        data.forEach((item, index)=>{
+          //console.log(item.unit_title);
+          
+          //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
+          units += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+        //document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+
+        });
+        // console.log(units)
+
+        document.getElementById("unit").insertAdjacentHTML("beforeend", units);
+
+      })
+  }
+
+  var arr_units = []
+  function load_units_new(e){
+    //var units = "<option class='' value='' selected disabled hidden>-</option>";
+    var units = "";
+      document.getElementById("unit").innerHTML = units;
+      section_el = document.getElementById("section")
+      // console.log(section_el.value)
+
+      fetch(`/agencyUnit/get-all-agencyUnit/`,{
+        method: 'GET',
+      })
+      .then(response => {
+        if(response.status == '200'){
+          filter_units();
+        }
+        return response.json()
+      })
+      .then(data => {
+        arr_units = data
+        data.forEach((item, index)=>{
+          document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
         })
       })
+  }
+
+  function filter_units(){
+    arr_units.map((element) => {
+      console.log('inside map : '+element)
+      return {...element, subElements: element.subElements.filter((subElement) => subElement.agency_section == 2)}
+    })
+
+    //console.log(arr_units);
+
   }
 
     document.getElementById("section").addEventListener("change", load_units);

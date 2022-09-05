@@ -134,6 +134,7 @@
 								<th scope="col">is_validated</th>
 								<th scope="col">email</th>
 								<th scope="col">password</th>
+								<th scope="col">fullname</th>
 								<th scope="col">last_name</th>
 								<th scope="col">first_name</th>
 								<th scope="col">middle_name</th>
@@ -222,6 +223,7 @@
 								<th scope="col">date_of_validity</th> -->
 								<th scope="col">type_of_user</th>
 								<th scope="col">Controls</th>
+								
 							  </tr>
 							</thead>
 							<tbody class="align-middle">
@@ -248,6 +250,7 @@
 				<li><a href="#" class="toggle-vis" data-column="3">is_validated</a></li>
 				<li><a href="#" class="toggle-vis" data-column="4">email</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="5">password</a></li>
+				<li><a href="#" class="toggle-vis" data-column="5">fullname</a></li>
 				<li><a href="#" class="toggle-vis" data-column="6">last_name</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="7">first_name</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="8">middle_name</a></li> 
@@ -335,7 +338,7 @@
 				<li><a href="#" class="toggle-vis" data-column="89">license_no</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="90">date_of_validity</a></li>  -->
 				<li><a href="#" class="toggle-vis" data-column="91">type_of_user</a></li>
-				<li><a href="#" class="toggle-vis" data-column="92">Controls</a></li> 
+				<li><a href="#" class="toggle-vis" data-column="92">Controls</a></li>
 			</ul>
 		</div>
 	  </div>
@@ -608,15 +611,25 @@ $(document).ready(function() {
 			{ "data": "is_validated", visible: true },
 			{ "data": "email", visible: false },
 			{ "data": "password", visible: false },
-			{ "data": "last_name", visible: true },
-			{ "data": "first_name", visible: true },
-			{ "data": "middle_name", visible: true },
-			{ "data": "name_extn", visible: true },
-			{ "data": "position_title", visible: false },
+			
+			{
+              data: null,
+			  searchable: false,
+              render: function ( data, type, row ) {
+                return `
+					${data.last_name}, ${data.first_name} ${data.middle_name == "N/A" ? "" : data.middle_name} ${data.name_extn == "N/A" ? "" : data.name_extn}
+					`;
+              }
+            },
+			{ "data": "last_name", visible: false },
+			{ "data": "first_name", visible: false },
+			{ "data": "middle_name", visible: false },
+			{ "data": "name_extn", visible: false },
+			{ "data": "position_title", visible: true },
 			{ "data": "salary_grade", visible: false },
 			{ "data": "employment_status", visible: false },
-			{ "data": "section", visible: true },
-			{ "data": "unit", visible: true },
+			{ "data": "agency_section.section_title", visible: true },
+			{ "data": "agency_unit.unit_title", visible: true },
 			{ "data": "birthdate", visible: false },
 			{ "data": "age", visible: false },
 			{ "data": "place_of_birth", visible: false },
