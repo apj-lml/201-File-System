@@ -474,7 +474,7 @@ button {
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" value="{{user_profile.user_unit.id}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
+                      <select class="form-select" id="unit" name="unit" value="" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                             <option value="{{user_profile.user_unit.id}}" hidden>{{user_profile.user_unit.unit_title}}</option>
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
@@ -2077,6 +2077,7 @@ window.addEventListener("load", function() {
 
   validate_no_dependents(document.getElementById('date_hired_in_nia'))
   // console.log(document.getElementById("section").value)
+  // 
   load_units();
 
 {% if current_user.type_of_user == 'admin' %}
@@ -2510,46 +2511,48 @@ function year_only (el) {
         // console.log(units)
 
         document.getElementById("unit").insertAdjacentHTML("beforeend", units);
+        document.getElementById("unit").value = "{{user_profile.user_unit.id}}";
 
       })
   }
 
-  var arr_units = []
   function load_units_new(e){
-    //var units = "<option class='' value='' selected disabled hidden>-</option>";
+    // var units = "<option class='' value='' selected disabled hidden>-</option>";
     var units = "";
-      document.getElementById("unit").innerHTML = units;
       section_el = document.getElementById("section")
-      // console.log(section_el.value)
+      //console.log(section_el.value)
 
-      fetch(`/agencyUnit/get-all-agencyUnit/`,{
+      fetch(`/agencyUnit/get-agencyUnit/${section_el.value}`,{
         method: 'GET',
       })
-      .then(response => {
-        if(response.status == '200'){
-          filter_units();
-        }
-        return response.json()
-      })
+      .then(response => response.json())
       .then(data => {
-        arr_units = data
+
+        document.getElementById("unit").innerHTML = "";
+
         data.forEach((item, index)=>{
-          document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
-        })
+          //console.log(item.unit_title);
+          
+          //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
+          units += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+        //document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+
+        });
+        // console.log(units)
+
+        document.getElementById("unit").insertAdjacentHTML("beforeend", units);
+
       })
   }
 
-  function filter_units(){
-    arr_units.map((element) => {
-      console.log('inside map : '+element)
-      return {...element, subElements: element.subElements.filter((subElement) => subElement.agency_section == 2)}
-    })
+  // function filter_units(){
+  //   arr_units.map((element) => {
+  //     console.log('inside map : '+element)
+  //     return {...element, subElements: element.subElements.filter((subElement) => subElement.agency_section == 2)}
+  //   })
+  // }
 
-    //console.log(arr_units);
-
-  }
-
-    document.getElementById("section").addEventListener("change", load_units);
+    document.getElementById("section").addEventListener("change", load_units_new);
 
 </script>
 {%endblock%}
