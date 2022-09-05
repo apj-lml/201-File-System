@@ -320,8 +320,8 @@ button {
                     <!-- <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> -->
                     <select class="form-select" id="status_remarks" name="status_remarks" value="{{user_profile.status_remarks}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user' else ''}}>
                       <option class="" value="{{user_profile.status_remarks}}" selected disabled hidden>{{user_profile.status_remarks}}</option>
-                      <option value="JOB ORDER">ACTIVE</option>
-                      <option value="PERMANENT">INACTIVE</option>
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="INACTIVE">INACTIVE</option>
                     </select>
                     <label for="status_remarks">Status<span class="is-required">*</span></label>
                   </div>
