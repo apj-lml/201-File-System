@@ -309,7 +309,7 @@
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 p-1">
-                      <select class="form-select" id="section" name="section" value="" form="update_form">
+                      <select class="form-select" id="section" name="section" value="" form="signup_form">
                           {% for a_section in agency_section %}
                             <option value="{{a_section.id}}">{{a_section.section_title}}</option>
                           {% endfor %}
@@ -317,7 +317,7 @@
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" value="" form="update_form">
+                      <select class="form-select" id="unit" name="unit" value="" form="signup_form">
                            
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
