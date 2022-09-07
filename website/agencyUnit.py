@@ -23,7 +23,7 @@ def page_not_found(e):
 def get_agencyUnit(agencySection):
   
     if request.method == "GET":
-        list_of_units = Agency_Unit.query.filter_by(agency_section = agencySection).all()
+        list_of_units = Agency_Unit.query.filter_by(agency_section = agencySection).order_by(Agency_Unit.unit_title.asc()).all()
 
         pprint(list_of_units)
 

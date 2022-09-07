@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from flask_login import current_user, login_user, logout_user, login_required
 import datetime
 import time
-from .models import Career_Service, User, Vaccine, Vocational_Course
+from .models import Agency_Section, Agency_Unit, Career_Service, User, Vaccine, Vocational_Course
 from . import db
 import os, os.path
 import json
@@ -31,7 +31,7 @@ def login():
 		password = formdata['password']
 
 		user = User.query.filter_by(employee_id=email).first()
-		
+
 		db.session.commit()
 
 		if user:
@@ -182,7 +182,12 @@ def signup():
 
 			return jsonify(finaldata.id)
 	else:
-		return render_template('signup.html')
+		my_agency_section = db.session.query(Agency_Section).order_by(Agency_Section.section_title.asc()).all()
+		# my_agency_unit = db.session.query(Agency_Unit).all()
+
+		agency_section = my_agency_section
+		# agency_unit = my_agency_unit
+		return render_template('signup.html', agency_section=agency_section)
 		
 	#return redirect(url_for('auth.login'))
 

@@ -309,25 +309,16 @@
                       <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 p-1">
-                      <select class="form-select" id="section" name="section" value="" form="signup_form" >
-                          <option value="Administrative & Finance">Administrative & Finance</option>
-                          <option value="Office of the Irrigation Manager">Office of the Irrigation Manager</option>
-                          <option value="Engineering">Engineering</option>
-                          <option value="Operation & Maintenance">Operation & Maintenance</option>
-                          <option value="NISRIP">NISRIP</option>
-                          <option value="CARP-IC">CARP-IC</option>
-                          <option value="Detailed">Detailed</option>
-                          <option value=""></option>
+                      <select class="form-select" id="section" name="section" value="" form="update_form">
+                          {% for a_section in agency_section %}
+                            <option value="{{a_section.id}}">{{a_section.section_title}}</option>
+                          {% endfor %}
                         </select>
                       <label for="section">Section<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="unit" name="unit" value="" form="signup_form" >
-                        <option value="Administrative Unit">Administrative Unit</option>
-                        <option value="Finance Unit">Finance Unit</option>
-                        <option value="Cashiering Unit">Cashiering Unit</option>
-                        <option value="Property Unit">Property Unit</option>
-                        <option value=""></option>
+                      <select class="form-select" id="unit" name="unit" value="" form="update_form">
+                           
                       </select>
                       <label for="name_extn">Unit<span class="is-required">*</span></label>
                     </div>
@@ -1427,7 +1418,8 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
     var age = Math.abs(age_dt.getUTCFullYear() - 1970);
       document.getElementById("age").value = age;
 
-      sameAsPermanent()
+      sameAsPermanent();
+      load_units();
 
   });
 
@@ -1464,6 +1456,66 @@ function year_only (el) {
           triggerToast('Please. Input year only!', 'warning');
       }
   }
+
+  function load_units(e){
+    // var units = "<option class='' value='' selected disabled hidden>-</option>";
+    var units = "";
+      section_el = document.getElementById("section")
+      //console.log(section_el.value)
+
+      fetch(`/agencyUnit/get-agencyUnit/${section_el.value}`,{
+        method: 'GET',
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        document.getElementById("unit").innerHTML = "";
+
+        data.forEach((item, index)=>{
+          //console.log(item.unit_title);
+          
+          //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
+          units += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+        //document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+
+        });
+        // console.log(units)
+
+        document.getElementById("unit").insertAdjacentHTML("beforeend", units);
+
+      })
+  }
+
+  function load_units_new(e){
+    // var units = "<option class='' value='' selected disabled hidden>-</option>";
+    var units = "";
+      section_el = document.getElementById("section")
+      //console.log(section_el.value)
+
+      fetch(`/agencyUnit/get-agencyUnit/${section_el.value}`,{
+        method: 'GET',
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        document.getElementById("unit").innerHTML = "";
+
+        data.forEach((item, index)=>{
+          //console.log(item.unit_title);
+          
+          //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
+          units += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+        //document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
+
+        });
+        // console.log(units)
+
+        document.getElementById("unit").insertAdjacentHTML("beforeend", units);
+
+      })
+  }
+
+    document.getElementById("section").addEventListener("change", load_units_new);
 
 </script>
 {%endblock%}

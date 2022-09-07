@@ -86,7 +86,7 @@ def my_profile(emp_id):
 
 			user_profile = user
 			agency_section = my_agency_section
-			my_agency_unit = my_agency_unit
+			agency_unit = my_agency_unit
 
 			db.session.commit()
 			
@@ -98,7 +98,7 @@ def my_profile(emp_id):
 			last_updated = local_dt
 
 
-		return render_template('employee_profile.html', user_profile=user_profile, agency_section=agency_section, my_agency_unit=my_agency_unit, last_updated=last_updated)
+		return render_template('employee_profile.html', user_profile=user_profile, agency_section=agency_section, agency_unit=agency_unit, last_updated=last_updated)
 		
 	return jsonify({})
 
