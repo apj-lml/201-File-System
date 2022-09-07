@@ -294,7 +294,7 @@
                 </div>
               </div>
               <div class="d-md-flex flex-row">
-                <div class="form-floating col-sm-4 mb-3 p-1">
+                <div class="form-floating flex-fill col-lg-4 mb-3 p-1">
                   <input type="date" class="form-control" id="v_date_of_validity[${x}]" name="v_date_of_validity[${x}]" placeholder="Date of Validity of NC II" form="add_vocational_form" value="">
                   <label for="v_period_of_attendance_from">Date of Validity of NC II</label>
                 </div>

@@ -113,7 +113,7 @@
 	  </svg>
 
 	  <div class="d-flex flex-column" style="height: 100vh; width: 100vw;">
-		<div class="container">
+		<div class="container-fluid-sm container-md">
 			<div class="d-flex justify-content-center flex-row ">
 				<img class="img-fluid" src="{{url_for('static', filename='img/list_of_employees.png')}}" alt="" width="400">
 			</div>
@@ -515,7 +515,10 @@ $(document).ready(function() {
 		bLengthChange: true,
 		//scrollX: true,
 		colReorder: true,
-		dom: `Q<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'B><'col-sm-4 col-md-4'f>>
+		dom: `Q<'row'<'col-sm-6 mb-1 col-md-4'l>
+					<'col-sm-6 mb-1 col-md-4'B>
+					<'col-sm-12 mb-1 col-md-4'f>
+				>
 				<'row'<'col-sm-12'tr>>
 				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
 		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
