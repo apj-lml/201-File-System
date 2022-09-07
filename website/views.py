@@ -47,7 +47,7 @@ def dashboard():
 	num_days = calendar.monthrange(current_year, month)
 	print(num_days[1])
 		
-	get_bday_celebs = User.query.filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
+	get_bday_celebs = User.query.filter(status_remarks = "ACTIVE").filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
 	db.session.commit()
 
 	return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs)
