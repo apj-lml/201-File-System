@@ -1503,7 +1503,7 @@ button {
                           <input type="hidden" id="cse_id[{{count_update_cse.value}}]" name="cse_id[{{count_update_cse.value}}]" value="{{cse.id}}" form="update_form">
                             <div class="card-body">
                             <div class="d-md-flex flex-row">
-                              <div class="form-floating col-sm-4 mb-3 p-1">
+                              <div class="form-floating flex-fill col-md-4 mb-3 p-1">
                                 <input type="text" class="form-control" name ="cs_eligibility[{{count_update_cse.value}}]" placeholder="Eligibility" value="{{cse.cs_eligibility}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                                 <label for="cs_eligibility">Eligibility</label>
                                 <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>

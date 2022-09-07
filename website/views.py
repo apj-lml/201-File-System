@@ -48,6 +48,7 @@ def dashboard():
 	print(num_days[1])
 		
 	get_bday_celebs = User.query.filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
+	db.session.commit()
 
 	return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs)
 
@@ -66,6 +67,8 @@ def learning_development(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(emp_id)
+			db.session.commit()
+
 			return render_template('learning_development.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/family-background/<emp_id>', methods=['GET', 'POST'])
@@ -79,6 +82,8 @@ def family_background(emp_id):
 			user = db.session.query(User).get(int(emp_id))
 			spouse = db.session.query(Family_Background).filter_by(user_id = emp_id, fb_relationship = "SPOUSE")
 			spouse_count = spouse.count()
+			db.session.commit()
+
 			return render_template('family_bg.html', emp_id = emp_id, user_profile = user, spouse = spouse, spouse_count = spouse_count)
 
 @views.route('/covid-vaccine/<emp_id>', methods=['GET', 'POST'])
@@ -90,6 +95,8 @@ def covid_vaccine(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
+
 			return render_template('vaccination.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/change-password/<emp_id>', methods=['GET', 'POST'])
@@ -101,6 +108,8 @@ def change_password(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
+			
 			return render_template('change_password.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/tshirt-sizes/<emp_id>', methods=['GET', 'POST'])
@@ -108,6 +117,7 @@ def change_password(emp_id):
 # @admin_permission.require(http_exception=403)
 def shirt_size(emp_id):
 	user = db.session.query(User).get(int(emp_id))
+	db.session.commit()
 	return render_template('t_shirt_sizes.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/work-experience/<emp_id>', methods=['GET', 'POST'])
@@ -119,6 +129,7 @@ def work_experience(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('work_experience.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/voluntary-work/<emp_id>', methods=['GET', 'POST'])
@@ -130,6 +141,7 @@ def voluntary_work(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('voluntary_work.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/other-information/<emp_id>', methods=['GET', 'POST'])
@@ -141,6 +153,7 @@ def other_information(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('other_information.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/questions/<emp_id>', methods=['GET', 'POST'])
@@ -152,6 +165,7 @@ def questions(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('questions.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/other-questions/<emp_id>', methods=['GET', 'POST'])
@@ -163,6 +177,7 @@ def other_questions(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('other-questions.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/character-reference/<emp_id>', methods=['GET', 'POST'])
@@ -174,6 +189,7 @@ def character_reference(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('character_reference.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/print-preview/<emp_id>', methods=['GET', 'POST'])
@@ -197,6 +213,7 @@ def print_preview(emp_id):
 			membership = db.session.query(Other_Information).filter_by(user_id = emp_id, type="MEMBERSHIP")
 
 			spouse_count = spouse.count()
+			db.session.commit()
 
 			return render_template('print_preview.html',
 				emp_id = emp_id,
@@ -223,6 +240,7 @@ def emergency_contact(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('emergency_contact.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/appointment/<emp_id>', methods=['GET', 'POST'])
@@ -234,6 +252,7 @@ def appointment(emp_id):
 			return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
 		else:
 			user = db.session.query(User).get(int(emp_id))
+			db.session.commit()
 			return render_template('appointment.html', emp_id = emp_id, user_profile = user)
 
 

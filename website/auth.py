@@ -31,6 +31,9 @@ def login():
 		password = formdata['password']
 
 		user = User.query.filter_by(employee_id=email).first()
+		
+		db.session.commit()
+
 		if user:
 			if check_password_hash(user.password, password) and user.status_remarks == 'ACTIVE':
 				login_user(user)

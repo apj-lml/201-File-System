@@ -80,18 +80,26 @@ def my_profile(emp_id):
 		if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
 			return "PAGE NOT FOUND", 404
 		else:
-			user = User.query.get(emp_id)
-			my_agency_section = Agency_Section.query.all()
-			my_agency_unit = Agency_Unit.query.all()
+			user = db.session.query(User).get(emp_id)
+			my_agency_section = db.session.query(Agency_Section).all()
+			my_agency_unit = db.session.query(Agency_Unit).all()
+
+			user_profile = user
+			agency_section = my_agency_section
+			my_agency_unit = my_agency_unit
+
+			db.session.commit()
 			
+			tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to, from UTC is (Asia/Manila)
+			utc = pytz.timezone('UTC')
+			value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
+			local_dt = value.astimezone(tz)
 
-		tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to, from UTC is (Asia/Manila)
-		utc = pytz.timezone('UTC')
-		value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
-		local_dt = value.astimezone(tz)
+			last_updated = local_dt
 
-		return render_template('employee_profile.html', user_profile = user, last_updated = local_dt, agency_section = my_agency_section, my_agency_unit = my_agency_unit)
 
+		return render_template('employee_profile.html', user_profile=user_profile, agency_section=agency_section, my_agency_unit=my_agency_unit, last_updated=last_updated)
+		
 	return jsonify({})
 
 
@@ -317,9 +325,6 @@ def update_employee(emp_id):
 
 
 	return jsonify('Successfully Saved to Database!'), 200
-
-
-
 
 
 @employees.route('add-employee', methods=['POST', 'GET'])
