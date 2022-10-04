@@ -43,7 +43,7 @@ def get_list_of_expiry():
 
         get_expired = db.session.query(User, Career_Service)\
             .filter(User.id == Career_Service.user_id)\
-            .filter(Career_Service.date_of_validity <= date_now)\
+            .filter(Career_Service.date_of_validity < date_now)\
             .filter(extract("day", Career_Service.date_of_validity) <= 31)\
             .filter(User.status_remarks == "ACTIVE")\
             .order_by(Career_Service.date_of_validity).all()
