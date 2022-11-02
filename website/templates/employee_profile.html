@@ -889,6 +889,7 @@ button {
                       <div class="form-floating flex-fill col-lg-3 mb-3 p-1">
                         <select class="form-select" id="hs_highest_level" name="hs_highest_level" value="{{user_profile.hs_highest_level}}" form="update_form" onchange="graduated(this, document.getElementById('hs_highest_grade_year_units'), document.getElementById('hs_scholarship_academic_honor'), document.getElementById('hs_period_of_attendance_from'), document.getElementById('hs_period_of_attendance_to'))" {{'disabled' if current_user.type_of_user == 'user'}}>
                           <option class="" value="{{user_profile.hs_highest_level}}" selected disabled hidden>{{user_profile.hs_highest_level}}</option>
+                          <option value=""></option>
                           <option value="GRADUATED">GRADUATED</option>
                           <option value="UNDERGRADUATE">UNDERGRADUATE</option>
                           <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
@@ -915,6 +916,7 @@ button {
                         <select class="form-select" id="hs_highest_grade_year_units" name="hs_highest_grade_year_units" value="{{user_profile.hs_highest_grade_year_units}}" form="update_form" disabled {{'disabled' if current_user.type_of_user == 'user'}}>
                           <option class="" value="{{user_profile.hs_highest_grade_year_units if user_profile.hs_highest_grade_year_units is not none else ''}}" selected disabled hidden>{{user_profile.hs_highest_grade_year_units if user_profile.hs_highest_grade_year_units is not none else ''}}</option>
                       
+                            <option value=""></option>
                             <option value="FIRST YEAR">FIRST YEAR</option>
                             <option value="SECOND YEAR">SECOND YEAR</option>
                             <option value="THIRD YEAR">THIRD YEAR</option>

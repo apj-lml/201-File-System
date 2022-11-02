@@ -352,9 +352,9 @@
     //   document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
     // });
 
+    //HIGH SCHOOL
 
-
-    document.getElementById('hs_highest_level').addEventListener('change',(e)=>{
+      document.getElementById('hs_highest_level').addEventListener('change',(e)=>{
       // console.log(e.target.value)
       if(e.target.value == 'GRADUATED'){
         document.getElementById('hs_highest_grade_year_units').disabled = true;
