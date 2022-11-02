@@ -165,22 +165,22 @@
 
                 <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating col-md-3 mb-3 p-1">
-                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" form="signup_form">
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" form="signup_form" required>
                     <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
                   </div>
 
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="password" class="form-control" id="password" name ="password" placeholder="Password" form="signup_form">
+                    <input type="password" class="form-control" id="password" name ="password" placeholder="Password" form="signup_form" required>
                     <label for="password">Password<span class="is-required">*</span></label>
                   </div>
 
                   <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="password" class="form-control" id="confirm_password" name ="confirm_password" placeholder="Confirm Password" form="signup_form">
+                    <input type="password" class="form-control" id="confirm_password" name ="confirm_password" placeholder="Confirm Password" form="signup_form" required>
                     <label for="floatingPassword2">Confirm Password<span class="is-required">*</span></label>
                   </div>
                   
                   <div class="form-floating col-md-3 mb-3 p-1">
-                    <select class="form-select" id="status_remarks" name="status_remarks" value="" form="signup_form">
+                    <select class="form-select" id="status_remarks" name="status_remarks" value="" form="signup_form" required>
                       <option value="ACTIVE">ACTIVE</option>
                       <option value="INACTIVE">INACTIVE</option>
                     </select>
@@ -191,11 +191,11 @@
 
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="" form="signup_form" >
+                      <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="" form="signup_form" required >
                       <label for="last_name">Last Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-4 col-sm-12 mb-3 p-1">
-                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="" form="signup_form" >
+                      <input type="text" class="form-control" id="first_name" name ="first_name" placeholder="First Name" value="" form="signup_form" required>
                       <label for="first_name">First Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
@@ -211,7 +211,7 @@
                   <!-- TODO -->
                   <div class="d-md-flex flex-row"> 
                     <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
-                      <select class="form-select" id="employment_status" name="employment_status" value="" form="signup_form" >
+                      <select class="form-select" id="employment_status" name="employment_status" value="" form="signup_form" required>
                         <option value="JOB ORDER">JOB ORDER</option>
                         <option value="PERMANENT">PERMANENT</option>
                         <option value="TEMPORARY">TEMPORARY</option>
@@ -225,7 +225,7 @@
                     </div>
                     
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="" form="signup_form" >
+                      <input type="text" class="form-control" id="position_title" name ="position_title" placeholder="Position Title" value="" form="signup_form" required>
                       <label for="last_name">Position Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
@@ -382,17 +382,17 @@
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="sex" name="sex" value="" form="signup_form"  required>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
                       </select>
                       <label for="sex">Sex<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <select class="form-select" id="civil_status" name="civil_status" value="" form="signup_form" required>
-                        <option value="Single">Single</option>
-                        <option value="Widowed">Widowed</option>
-                        <option value="Married">Married</option>
-                        <option value="Separated">Separated</option>
+                        <option value="SINGLE">SINGLE</option>
+                        <option value="WIDOWED">WIDOWED</option>
+                        <option value="MARRIED">MARRIED</option>
+                        <option value="SEPARATED">SEPARATED</option>
                       </select>
                       <label for="civil_status">Civil Status<span class="is-required">*</span></label>
                     </div>
@@ -451,14 +451,14 @@
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="" form="signup_form" >
-                      <label for="name_extn">GSIS No.<span class="is-required">*</span></label>
+                      <label for="name_extn">GSIS No.<!--<span class="is-required">*</span>--></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="" form="signup_form" >
+                      <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="" form="signup_form" required>
                       <label for="name_extn">Pag-IBIG No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="" form="signup_form" >
+                      <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="" form="signup_form" required>
                       <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill p-1">
@@ -470,7 +470,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="signup_form" >
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="signup_form" required>
                       <label for="name_extn">TIN<span class="is-required">*</span></label>
                     </div>
                     <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
