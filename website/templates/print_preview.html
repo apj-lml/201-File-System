@@ -470,7 +470,7 @@ async function fillForm() {
     
     high_school.setText('{{user_profile.high_school|escapejs if user_profile.high_school is not none and user_profile.high_school != "N/A" and user_profile.high_school != "" else "N/A"}}');
 
-    {% if user_profile.hs_highest_level is not none or user_profile.high_school != "" %}
+    {% if user_profile.hs_highest_level is none or user_profile.hs_highest_level == "" and user_profile.high_school == "" %}
         hs_basic_education.setText('N/A');
     {% else %}
         hs_basic_education.setText('HIGH SCHOOL');

@@ -55,9 +55,6 @@ def create_app():
 	db.init_app(app)
 	ma.init_app(app)
 	
-	# ---------------------------------------------------------------------------- #
-	#                            BLUEPRINT REGISTRATION                            #
-	# ---------------------------------------------------------------------------- #
 
 	_js_escapes = {
         '\\': '\\u005C',
@@ -101,6 +98,10 @@ def create_app():
 
 	app.jinja_env.filters['escapejs'] = escapejs
 	# app.jinja_env.filters['format_datetime'] = format_datetime
+
+	# ---------------------------------------------------------------------------- #
+	#                            BLUEPRINT REGISTRATION                            #
+	# ---------------------------------------------------------------------------- #
 
 	from .auth import auth
 	from .views import views
