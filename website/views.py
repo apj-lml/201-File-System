@@ -1,7 +1,7 @@
 import calendar
 from datetime import date, datetime
 from gc import collect
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, send_file
+from flask import Blueprint, render_template, request, flash, redirect, send_from_directory, url_for, session, send_file
 from flask_login import current_user, login_user, logout_user, login_required
 #from flask.ext.principal import Principal, Permission, RoleNeed
 from flask_principal import Principal, Permission, RoleNeed
@@ -281,7 +281,8 @@ def wes(emp_id):
 @views.route("/gen/<emp_id>")
 def gen_docx(emp_id):
     # template = url_for('static', filename='templates/WES_TEMPLATE.docx')
-    template = Path("/static", "templates", "WES_TEMPLATE.docx")
+    template = send_from_directory('static', "WES_TEMPLATE.docx")
+    # template = Path("/static", "templates", "WES_TEMPLATE.docx")
     # template = ".\\static\\templates\\WES_TEMPLATE.docx"
     
     document = generateWes.from_template(template, emp_id)
