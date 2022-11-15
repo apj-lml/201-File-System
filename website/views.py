@@ -278,8 +278,8 @@ def wes(emp_id):
 
 @views.route("/gen/<emp_id>")
 def gen_docx(emp_id):
-    template = url_for('static', filename='templates/WES_TEMPLATE.docx')
-    # template = "C:\\Users\\MSI\\Desktop\\201-File-System\\website\\static\\templates\\WES_TEMPLATE.docx"
+    # template = url_for('static', filename='templates/WES_TEMPLATE.docx')
+    template = ".\\static\\templates\\WES_TEMPLATE.docx"
     
     document = generateWes.from_template(template, emp_id)
     document.seek(0)
