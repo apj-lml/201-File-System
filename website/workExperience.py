@@ -4,6 +4,8 @@ from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 from sqlalchemy import desc
 from .models import Work_Experience
+from .models import WesDutiesAccomplishmentsSchema
+from .models import WorkExperienceSchema
 from . import db
 from datetime import datetime
 from .myhelper import format_mydatetime
@@ -56,7 +58,7 @@ def add_work_experience(emp_id):
         else:
             get_we = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).all()
             for we in get_we:
-                pprint(we.date_from)
+                # pprint(we.date_from)
                 
                 we_date_from = format_mydatetime(we.date_from)
                 date_from = format_mydatetime(formdata['date_from'])
@@ -104,20 +106,41 @@ def delete_work_experience():
 @login_required
 def view_work_experience():
     if request.method == "POST":
+        work_exp_schema = WorkExperienceSchema(many=True)
+
         formdata  = json.loads(request.data)
-        get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).all()
-        column_keys = Work_Experience.__table__.columns.keys()
-    # Temporary dictionary to keep the return value from table
-        rows_dic_temp = {}
-        rows_dic = []
-    # Iterate through the returned output data set
-        for row in get_we:
-            for col in column_keys:
-                rows_dic_temp[col] = getattr(row, col)
-            rows_dic.append(rows_dic_temp)
-            rows_dic_temp= {}
-            # print(rows_dic)
-        return jsonify(rows_dic)
+        get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).order_by(desc(Work_Experience.date_from)).all()
+
+        print(jsonify(work_exp_schema.dump(get_we)).get_data(True))
+        return jsonify(work_exp_schema.dump(get_we))
+    #     formdata  = json.loads(request.data)
+    #     get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).all()
+        
+    #     column_keys = Work_Experience.__table__.columns.keys()
+    # # Temporary dictionary to keep the return value from table
+    #     rows_dic_temp = {}
+    #     rows_dic = []
+    # # Iterate through the returned output data set
+    #     for row in get_we:
+    #         for col in column_keys:
+    #             rows_dic_temp[col] = getattr(row, col)
+    #         rows_dic.append(rows_dic_temp)
+    #         rows_dic_temp= {}
+    #         # print(rows_dic)
+    #     return jsonify(rows_dic)
+
+
+# @workExperience.route('view-work-experience2', methods=['POST', 'GET'])
+# @login_required
+# def view_work_experience2():
+#     if request.method == "POST":
+
+#         work_exp_schema = WorkExperienceSchema(many=True)
+
+#         formdata  = json.loads(request.data)
+#         get_we = Work_Experience.query.filter_by(id = formdata['work_exp_id']).all()
+
+#         return jsonify(work_exp_schema.dump(get_we))
 
  # ---------------------------------------------------------------------------- #
  #                                   Save WES                                   #
@@ -133,6 +156,7 @@ def update_work_experience(emp_id):
                 formdata.update({k: v.upper()})
             else:
                 formdata.update({k: v})
+
         # pprint(formdata)
         # get_we = Work_Experience.query.get(formdata['id'])
 

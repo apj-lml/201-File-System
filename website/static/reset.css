@@ -1,12 +1,16 @@
 /* html {
 	height: 100%;
   }*/
-  html, body {
+  html {
 	  height: 100vh;
-    /* margin-top: 25px; */
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   } 
   body{
+	  height: 100vh;
+
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     /* margin-top: 25px; */
     padding-top: 70px;
+    /* padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px; */
   }

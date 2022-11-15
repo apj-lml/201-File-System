@@ -38,10 +38,10 @@ def create_app():
 	#app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	#mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
@@ -55,7 +55,6 @@ def create_app():
 	db.init_app(app)
 	ma.init_app(app)
 	
-
 	_js_escapes = {
         '\\': '\\u005C',
         '\'': '\\u0027',
@@ -69,6 +68,7 @@ def create_app():
         u'\u2028': '\\u2028',
         u'\u2029': '\\u2029'
 	}
+
 	# Escape every ASCII character with a value less than 32.
 	_js_escapes.update(('%c' % z, '\\u%04X' % z) for z in range(32))
 
@@ -86,6 +86,18 @@ def create_app():
 		else:
 			mydatetime = datetime.strptime(value, '%Y-%m-%d')
 			return mydatetime.strftime("%m/%d/%Y")
+
+	@app.template_filter('format_mydatetime_2')
+	def format_mydatetime(value):
+		if value == 'PRESENT':
+			return value
+		elif value == 'N/A' or value ==  None:
+			return 'N/A'
+		elif value == '' or value ==  None:
+			return 'N/A'
+		else:
+			mydatetime = datetime.strptime(value, '%Y-%m-%d')
+			return mydatetime.strftime("%B %d, %Y")
 
 	# @app.template_filter('query_units')
 	# def query_units(value):
@@ -129,6 +141,7 @@ def create_app():
 	from .listOfExpiry import listOfExpiry
 	from .systemSettings import systemSettings
 	from .agencyUnit import agencyUnit
+	from .wes import wes
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -157,6 +170,7 @@ def create_app():
 	app.register_blueprint(listOfExpiry, url_prefix = '/listOfExpiry')
 	app.register_blueprint(systemSettings, url_prefix = '/systemSettings')
 	app.register_blueprint(agencyUnit, url_prefix = '/agencyUnit')
+	app.register_blueprint(wes, url_prefix = '/wes')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

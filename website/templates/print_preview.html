@@ -348,7 +348,7 @@ async function fillForm() {
     last_name.setText('{{user_profile.last_name}}');
     first_name.setText('{{user_profile.first_name}}');
     middle_name.setText('{{user_profile.middle_name}}');
-    name_ext.setText('{{user_profile.name_extn if user_profile.name_extn != "N/A" else "N/A"}}');
+    name_ext.setText('{{user_profile.name_extn if user_profile.name_extn != "N/A" and user_profile.name_extn is not none and user_profile.name_extn != "" else "N/A"}}');
     dob.setText('{{user_profile.birthdate.strftime("%m/%d/%Y")}}');
     pob.setText('{{user_profile.place_of_birth}}');
     height.setText('{{user_profile.height}}');

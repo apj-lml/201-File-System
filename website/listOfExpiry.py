@@ -57,7 +57,5 @@ def get_list_of_expiry():
         #     .filter(User.status_remarks == "ACTIVE")\
         #     .order_by(Career_Service.date_of_validity).all()
 
-        for expiry in get_expired:
-            print(expiry.User.last_name)
-            print(expiry.Career_Service.date_of_validity) 
+        
         return render_template('list_of_expiring_ids.html', expiring_ids = get_expiry, expired_ids = get_expired)

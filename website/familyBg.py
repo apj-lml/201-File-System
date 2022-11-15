@@ -204,7 +204,7 @@ def update_family_background(emp_id):
 
 
 # ---------------------------------------------------------------------------- #
-#                                 ADD FAMILY BG                                #
+#                              DELETE FAMILY BG                                #
 # ---------------------------------------------------------------------------- #
 @familyBg.route('delete-familyBg/<emp_id>', methods=['POST', 'GET'])
 @login_required

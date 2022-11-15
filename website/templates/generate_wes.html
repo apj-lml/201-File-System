@@ -1,0 +1,652 @@
+{% extends 'base.html' %}
+
+{% block title %} Work Experience Sheet {% endblock %}
+
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='print-js/print.min.css')}}">
+
+<style type="text/css">
+    table{
+        font-family:'Arial Narrow', sans-serif;
+    }
+
+    .my-font{
+        font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+    .my-font-size{
+        font-size: 9px;
+    }
+    table>td{
+        /* margin-bottom: 3px; */
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+    table>tbody>tr>td>ul>li{
+        padding: 0;
+        margin-left: 40px;
+    }
+    .circle-bullet {
+  list-style-type: circle;
+}
+</style>
+
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<main class="container-lg mt-3">
+	<div class="row mb-3 ms-auto">
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                             GENERATE WES                                -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="card mb-3">
+    <div class="card-body">
+      <div class="card text-white bg-blue shadow-sm mb-3" >
+        <div class="card-header">
+          <h3 class="card-title"><i class="bi bi-file-earmark-text"></i> Work Experience Sheet </h3>
+         </div>
+        <div class="card-body">
+          <ul>
+          <li><p class="card-text">Please input all necessary fields.</p></li>
+          <li><p class="card-text">File uploading only accepts PDF files. </p></li>
+          </ul>
+          <!-- <h5 class="card-title">Description</h5> -->
+        </div>
+      </div>
+
+
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <div class="d-md-flex flex-row table-responsive">
+            <div class="">
+                <table class="table table-bordered table-striped table-hover" id="work_experience_table">
+                    <thead class="text-center">
+                    <tr class="align-middle">
+                      <th colspan="2">Inclusive Dates</th>
+                      <th rowspan="2">Position Title</th>
+                      <th rowspan="2">SG</th>
+                      <th rowspan="2">Step</th>
+                      <th rowspan="2">Agency / Company</th>
+                      <th rowspan="2">Department / Office</th>
+                      <th rowspan="2">Agency / Company Address</th>
+                      <th rowspan="2">Immediate Supervisor</th>
+                      <!-- <th rowspan="2">Monthly Salary</th>
+                      <th rowspan="2">Salary / Job / Pay Grade</th>
+                      <th rowspan="2">Status of Appointment</th>
+                      <th rowspan="2" class="truncate">Government Service</th> -->
+                      <th rowspan="2">Controls</th>
+                    </tr>
+                    <tr class="align-middle">
+                      <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (From)</th>
+                      <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (To)</th>
+    
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {# if user_profile.work_experience is not none #}
+                        {% for work_experience in user_profile.work_experience %}
+                          <tr>
+                            <td>{{work_experience.date_from|format_mydatetime}}</td>
+                            <td>{{work_experience.date_to|format_mydatetime}}</td>
+                            <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.position_title}}</td>
+                            <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.sg}}</td>
+                            <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.step}}</td>
+                            <td>{{work_experience.department_agency_office_company}}</td>
+                            <td>{{work_experience.name_of_office_unit}}</td>
+                            <td>{{work_experience.agency_address}}</td>
+                            <td>{{work_experience.immediate_supervisor}}</td>
+    
+                            <!-- <td>{{work_experience.monthly_salary}}</td>
+                            {% if work_experience.sg == 'N/A' %}
+                            <td>N/A</td>
+                            {% else %}
+                            <td>{{ '%02d' % work_experience.sg|int}} - {{work_experience.step}}</td>
+                            {% endif %}
+                            <td>{{work_experience.status_of_appointment}}</td>
+                            <td>{{work_experience.govt_service}}</td> -->
+                            <td class="text-center"><div class="d-sm-flex flex-row text-center">
+                              <a class="btn btn-primary btn-sm m-2" title="View" id="{{work_experience.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_work_experience(this)">
+                                Accomplishments & Actual Duties
+                              </a>
+                            </div></td>
+                          </tr>
+                        {% endfor %}
+                      {# endif #}
+                    </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <a class="btn btn-primary btn-sm mb-3" href="/gen/{{user_profile.id}}">Generate Word File(.docx)</a>
+            <!-- <button class="btn btn-primary btn-sm mb-3" onclick="print_wes();">Print</button> -->
+            <!-- <button class="btn btn-primary btn-sm mb-3" onclick="print_wes_html2pdf();">Print WES (html2pdf)</button> -->
+          <div class="d-md-flex flex-row">
+            <div class="container" id="wes">
+                <div class="fw-bold fst-italic my-font mb-5">Attachment to CS Form No. 212</div>
+                <table class="table table-bordered border border-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center p-0" style="background-color: #969696;"><h6 class="fst-italic p-0 m-0" style="color:white;">WORK EXPERIENCE SHEET</h6></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row" class="fst-italic" style="background-color: #eaeaea;">
+                                <div class="row">
+                                    <div class="col-md-auto">
+                                        <i class="fw-bold">Instructions:</i>
+                                    </div>
+                                    <div class="col">
+                                        <p>1. Include only the work experiences relevant to the position being applied to.</p>
+                                        <p class="mb-0">2. The duration should include start and finish dates, if known, month in abbreviated form,
+                                            if known, and year in full. For the current position, use the word Present, e.g., 1998-Present.
+                                            Work experience should be listed from most recent first.</p>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        {% for work_experience in user_profile.work_experience %}
+                        <tr>
+                            <td>
+                                <ul>
+                                    <ul>
+                                        <li>
+                                            Duration: {{work_experience.date_from|format_mydatetime_2}} -  {{work_experience.date_to|format_mydatetime_2}}
+                                        </li>
+                                        <li>
+                                            Position: {{work_experience.position_title}} {% if work_experience.sg is not none and work_experience.sg != "" and work_experience.sg != "N/A" %} / {{ '%02d' % work_experience.sg|int }} - {{ '%02d' % work_experience.step|int }} {% endif %}
+                                        </li>
+                                        <li>
+                                            Name of Office/Unit: {{work_experience.name_of_office_unit}}
+                                        </li>
+                                        <li>
+                                            Immediate Supervisor: {{work_experience.immediate_supervisor}}
+                                        </li>
+                                        <li>
+                                            Name of Agency/Organization and Location: {{work_experience.department_agency_office_company}}, {{work_experience.agency_address}}
+                                        </li>
+                                        <ul class="mt-2">
+                                            <li class="circle-bullet">List of Accomplishments and Contributions (if any)</li>
+                                                <ul id="wes_accomplishment{{work_experience.id}}">
+                                                    {% for accomp in work_experience.wda %}
+                                                        {% if accomp.wda_type == 'accomplishment' %}
+                                                            <li class="circle-bullet" id="wes_accomplishment_list{{accomp.id}}">{{accomp.wda}}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                        </ul>
+                                        <ul class="mt-4">
+                                            <li class="circle-bullet">Summary of Actual Duties</li>
+                                                <ul id="wes_summary">
+                                                    {% for summary in work_experience.wda %}
+                                                        {% if summary.wda_type != 'accomplishment' %}
+                                                            <li class="circle-bullet" id="wes_summary_list{{summary.id}}">{{summary.wda}}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                        </ul>
+                                    </ul>
+                                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+
+</div>
+
+</main>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+
+<!-- Modal -->
+<div class="modal fade" id="editAccompModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Accomplishment</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <form action="#" method="POST" name="edit_accomp_form" id="edit_accomp_form"></form>
+                    <label for="edit_wda_accomp" class="form-label">List of Accomplishments</label>
+                    <textarea class="form-control" id="edit_wda_accomp" name="wda" form="edit_accomp_form" rows="7" required></textarea>
+                    <input type="hidden" name="wda_type" id="edit_wda_type" value="accomplishment" form="edit_accomp_form">
+                    <input type="hidden" name="we" id="edit_we" form="edit_accomp_form">
+                    <input type="hidden" name="id" id="edit_wda_id" form="edit_accomp_form">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="edit_accomp_form">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewExpModal">Accomplishments and Actual Duties</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-3 container">
+            <!-- <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3> -->
+                  <form action="#" method="POST" name="update_work_experience_form" id="update_work_experience_form" enctype="multipart/form-data"></form>
+                  <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_work_experience_form">
+  
+                      <div class="card shadow-sm">
+                          <div class="card-body">
+
+                            <table class="table table-bordered border border-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center p-0" style="background-color: #969696;"><h6 class="fst-italic p-0 m-0" style="color:white;">WORK EXPERIENCE SHEET</h6></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row" class="fst-italic" style="background-color: #eaeaea;">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <form action="#" method="POST" name="add_accomp_form" id="add_accomp_form"></form>
+                                                        <label for="wda_accomp" class="form-label">List of Accomplishments</label>
+                                                        <textarea class="form-control" id="wda_accomp" name="wda" form="add_accomp_form" rows="7" required></textarea>
+                                                        <input type="hidden" name="wda_type" id="" value="accomplishment" form="add_accomp_form">
+                                                        <input type="hidden" name="we" id="we_accomp" form="add_accomp_form">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <form action="#" method="POST" name="add_actual_duties_form" id="add_actual_duties_form"></form>
+                                                        <label for="wda_actual_duties" class="form-label">Summary of Actual Duties</label>
+                                                        <textarea class="form-control" id="wda_actual_duties" name="wda" form="add_actual_duties_form" rows="7" required></textarea>
+                                                        <input type="hidden" name="wda_type" id="" value="summary" form="add_actual_duties_form">
+                                                        <input type="hidden" name="we" id="we_summary" form="add_actual_duties_form">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex justify-content-start">
+                                                        <button type="submit" class="btn btn-primary btn-sm" form="add_accomp_form">
+                                                                Add Accomplishments
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex justify-content-start">
+                                                        <button type="submit" class="btn btn-primary btn-sm" form="add_actual_duties_form">
+                                                                Add Actual Duties
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                        </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td>
+                                            <ul>
+                                                <ul>
+                                                    <li>
+                                                        <div class="d-flex flex-row bd-highlight">
+                                                            Duration: <div id="update_date_from"></div> - <div id="update_date_to"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex flex-row bd-highlight">
+                                                            Position: <div id="update_position_title"></div><div id="update_sg"></div>
+                                                             
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex flex-row bd-highlight">
+                                                            Name of Office/Unit: <div id="update_name_of_office_unit"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex flex-row bd-highlight">
+                                                            Immediate Supervisor: <div id="update_immediate_supervisor"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="">
+                                                            Name of Agency/Organization and Location: <div id="update_department_agency_office_company" style="display: inline;"></div>, <div id="update_agency_address" style="display: inline;"></div>
+
+                                                        </div>
+                                                     
+                                                    </li>
+                                                    <ul>
+                                                        <li class="circle-bullet">List of Accomplishments and Contributions (if any)</li>
+                                                            <ul id="list_of_accomplishments">
+                                                                <!-- <li class="circle-bullet"></li>
+                                                                <li class="circle-bullet"></li> -->
+                                                            </ul>
+                                                    </ul>
+                                                    <ul>
+                                                        <li class="circle-bullet">Summary of Actual Duties</li>
+                                                            <ul id="list_of_summary">
+                                                                <!-- <li class="circle-bullet"></li> -->
+                                                            </ul>
+                                                    </ul>
+                                                </ul>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+            
+                                </tbody>
+                            </table>
+                            
+  
+                          </div>
+                      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="update_work_experience_form">Save changes</button>
+        <!-- </div>
+      </div> -->
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+{% endblock %}
+      
+{%block scripts%}
+<script src="{{ url_for('static', filename='html2pdf/html2pdf.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script>
+
+<script type="text/javascript">
+
+function print_wes(){
+        printJS({
+        'printable':'wes',
+        'type':'html',
+        'scanStyles':'false',
+        
+        })
+    }
+
+function print_wes_html2pdf(){
+        var element = document.getElementById('wes');
+        var worker = html2pdf();
+
+        var opt = {
+            margin: .05,
+            filename:     'wes.pdf',
+            image:        { type: 'png' },
+            html2canvas:  { scale: 2, scrollY: 0 },
+            jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' },
+            // pagebreak: {mode: 'avoid-all'},
+            };
+
+        worker.from(element).set(opt).save();
+        // html2pdf(element);
+    }
+
+function view_work_experience(el){
+
+    fetch('/workExperience/view-work-experience',{
+        method: 'POST',
+        body: JSON.stringify({"work_exp_id" : el.id})
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            document.getElementById('update_id').innerHTML = data[0].id;
+            document.getElementById('update_date_from').innerHTML = data[0].date_from;
+            document.getElementById('update_date_to').innerHTML = data[0].date_to;
+            //   if(data[0].date_to == "PRESENT"){
+            //     document.getElementById('update_sf_present').checked = true;
+            //     document.getElementById('update_date_to').value = "";
+            //     document.getElementById('update_date_to').disabled = true;
+            //   }
+            document.getElementById('update_position_title').innerHTML = data[0].position_title;
+            document.getElementById('update_department_agency_office_company').innerHTML = data[0].department_agency_office_company;
+            // document.getElementById('update_monthly_salary').innerHTML = data[0].monthly_salary;
+            // document.getElementById('update_sg').innerHTML = data[0].sg;
+            // document.getElementById('update_step').innerHTML = data[0].step;
+            // document.getElementById('update_status_of_appointment').innerHTML = data[0].status_of_appointment;
+            // document.getElementById('update_govt_service').innerHTML = data[0].govt_service;
+            // document.getElementById('update_govt_service_select').innerHTML = data[0].govt_service;
+
+            document.getElementById('update_name_of_office_unit').innerHTML = data[0].name_of_office_unit;
+            document.getElementById('update_agency_address').innerHTML = data[0].agency_address;
+            document.getElementById('update_immediate_supervisor').innerHTML = data[0].immediate_supervisor;
+
+            document.getElementById('we_accomp').value = data[0].id;
+            document.getElementById('we_summary').value = data[0].id;
+
+            document.getElementById('list_of_accomplishments').innerHTML = "";
+            document.getElementById('list_of_summary').innerHTML = "";
+
+            data[0].wda.forEach(accomp => {
+                if(accomp.wda_type == "accomplishment"){
+                    document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${accomp.id}"> ${accomp.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${accomp.id}" onclick="editAccomp(this, 'accomplishment', ${data[0].id});"><i class="bi bi-pencil"></i></a> | <a href="#" class="" id="${accomp.id}" onclick="deleteAccomp(this, 'accomplishment', ${data[0].id});"><i class="bi bi-trash text-danger"></i></a></li>`;
+                }else if(accomp.wda_type == "summary"){
+                    document.getElementById('list_of_summary').innerHTML += ` <li class="circle-bullet" id="summary${accomp.id}"> ${accomp.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${accomp.id}" onclick="editAccomp(this,'summary', ${data[0].id});"><i class="bi bi-pencil"></i></a> | <a href="#" id="${accomp.id}" onclick="deleteAccomp(this,'summary', ${data[0].id});"><i class="bi bi-trash text-danger"></i></a> </li>`;
+                }
+            });
+
+
+        });
+}
+
+function editAccomp(el, wda_type, wda_id){
+    console.log(el.id)
+    fetch(`/wes/edit-accomp/${el.id}`,{
+        method: 'POST',
+        body: JSON.stringify({"accomp_id" : el.id})
+        })
+        .then(response => response.json())
+
+        .then(data => {
+            console.log(data)
+            document.getElementById('edit_wda_id').value = data.id;
+
+            document.getElementById('edit_wda_accomp').value = data.wda;
+            document.getElementById('edit_wda_type').value = data.wda_type;
+            document.getElementById('edit_we').value = data.we;
+            
+        });
+}
+
+function deleteAccomp(el, wda_type, wda_id){
+
+    Swal.fire({
+    title: 'Are you sure you want to delete this?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+    if (result.isConfirmed) {
+
+        fetch('/wes/delete-accomp',{
+            method: 'POST',
+            body: JSON.stringify({"accomp_id" : el.id})
+            })
+            .then(response => {
+            if(response.status == '200'){
+                if(wda_type == "summary"){
+                    fade(document.getElementById('summary'+el.id));
+                    fade(document.getElementById('wes_summary_list'+el.id));
+                }else{
+                    fade(document.getElementById('wda'+el.id));
+                    fade(document.getElementById('wes_accomplishment_list'+el.id));
+
+                }
+                // document.getElementById('wda'+el.id).remove();
+            }
+            return response.json()
+
+            })
+            .then(data => {
+
+            });
+
+        Swal.fire(
+        'Deleted!',
+        'Successfully deleted.',
+        'success'
+        )
+    }
+    })
+
+  }
+
+
+    document.getElementById('add_accomp_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            let formData1 = new FormData(document.getElementById("add_accomp_form"));
+          
+            const data1 = {}
+                formData1.forEach((value, key) => (data1[key] = value));
+            fetch('/wes/add-accomp', {
+                method: 'POST',
+                body: formData1
+                }).then((res)=>{
+              
+                  return res.json()
+                
+                }).then((data)=>{
+                    if(data.wda_type == "accomplishment"){
+                        document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'accomplishment', ${data.id})"> <i class="bi bi-trash text-danger"></i></a></li>`;
+                        document.getElementById('wes_accomplishment'+data.we).innerHTML += `<li class="circle-bullet" id="wes_accomplishment_list${data.id}"> ${data.wda}</li>`;
+                   
+                    }else if(data.wda_type == "summary"){
+                        document.getElementById('list_of_summary').innerHTML += ` <li class="circle-bullet" id="summary${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'summary', ${data.id})"><i class="bi bi-trash text-danger"></i> </a></li>`;
+                        document.getElementById('wes_summary'+data.we).innerHTML += `<li class="circle-bullet" id="wes_summary_list${data.id}"> ${data.wda}</li>`;
+                    }
+                    document.getElementById("wda_accomp").value == "";
+
+                });//END
+            });
+
+        document.getElementById('edit_accomp_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            let formData1 = new FormData(document.getElementById("edit_accomp_form"));
+          
+            const data1 = {}
+                formData1.forEach((value, key) => (data1[key] = value));
+            fetch('/wes/update-accomp', {
+                method: 'POST',
+                body: formData1
+                }).then((res)=>{
+              
+                  return res.json()
+                
+                }).then((data)=>{
+                    Swal.fire(
+                    'Saved!',
+                    'Successfully updated.',
+                    'success'
+                    )
+                    window.location.reload();
+
+                });//END
+            });
+
+    document.getElementById('add_actual_duties_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            let formData1 = new FormData(document.getElementById("add_actual_duties_form"));
+          
+            const data1 = {}
+                formData1.forEach((value, key) => (data1[key] = value));
+            // console.log(data1)
+            fetch('/wes/add-accomp', {
+                method: 'POST',
+                body: formData1
+                }).then((res)=>{
+              
+                  return res.json()
+                
+                }).then((data)=>{
+
+                    if(data.wda_type == "accomplishment"){
+                        document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'accomplishment', ${data.id})"> <i class="bi bi-trash text-danger"></i></a></li>`;
+                        document.getElementById('wes_accomplishment').innerHTML += `<li class="circle-bullet" id="wes_accomplishment_list${data.id}"> ${data.wda}</li>`;
+                    }else if(data.wda_type == "summary"){
+                        document.getElementById('list_of_summary').innerHTML += `<li class="circle-bullet" id="summary${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this,'summary', ${data.id})"> <i class="bi bi-trash text-danger"></i> </a></li>`;
+                        document.getElementById('wes_summary').innerHTML += `<li class="circle-bullet" id="wes_summary_list${data.id}"> ${data.wda}</li>`;
+                        
+                    }
+                    document.getElementById("wda_actual_duties").value == "";
+
+                });//END
+            });
+
+
+  function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.remove();
+            // element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
+}
+
+
+
+
+
+</script>
+
+{% endblock %}

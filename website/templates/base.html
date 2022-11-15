@@ -172,7 +172,13 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
             <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> COVID-19 Vaccination</a>
+            <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> Vaccinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> Print PDS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/wes/{{current_user.id}}"> <i class="bi bi-file-earmark-text"></i> Print WES</a>
           </li>
           <ul class="navbar-nav navbar-right me-3">
             <li class="nav-item dropdown">
