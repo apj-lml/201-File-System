@@ -16,6 +16,8 @@ from .models import College, Family_Background, Masteral, Other_Information, Upl
 from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
 
+from pathlib import Path
+
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
 
@@ -279,7 +281,8 @@ def wes(emp_id):
 @views.route("/gen/<emp_id>")
 def gen_docx(emp_id):
     # template = url_for('static', filename='templates/WES_TEMPLATE.docx')
-    template = ".\\static\\templates\\WES_TEMPLATE.docx"
+    template = Path("static", "templates", "WES_TEMPLATE.docx")
+    # template = ".\\static\\templates\\WES_TEMPLATE.docx"
     
     document = generateWes.from_template(template, emp_id)
     document.seek(0)
