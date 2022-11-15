@@ -83,6 +83,7 @@
                     <tr class="align-middle">
                       <th colspan="2">Inclusive Dates</th>
                       <th rowspan="2">Position Title</th>
+                      <th rowspan="2">Status</th>
                       <th rowspan="2">SG</th>
                       <th rowspan="2">Step</th>
                       <th rowspan="2">Agency / Company</th>
@@ -108,6 +109,7 @@
                             <td>{{work_experience.date_from|format_mydatetime}}</td>
                             <td>{{work_experience.date_to|format_mydatetime}}</td>
                             <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.position_title}}</td>
+                            <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.status_of_appointment}}</td>
                             <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.sg}}</td>
                             <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.step}}</td>
                             <td>{{work_experience.department_agency_office_company}}</td>
@@ -178,7 +180,7 @@
                                             Duration: {{work_experience.date_from|format_mydatetime_2}} -  {{work_experience.date_to|format_mydatetime_2}}
                                         </li>
                                         <li>
-                                            Position: {{work_experience.position_title}} {% if work_experience.sg is not none and work_experience.sg != "" and work_experience.sg != "N/A" %} / {{ '%02d' % work_experience.sg|int }} - {{ '%02d' % work_experience.step|int }} {% endif %}
+                                            Position: {{work_experience.position_title}} ({{ work_experience.status_of_appointment }})
                                         </li>
                                         <li>
                                             Name of Office/Unit: {{work_experience.name_of_office_unit}}
@@ -341,7 +343,7 @@
                                                     </li>
                                                     <li>
                                                         <div class="d-flex flex-row bd-highlight">
-                                                            Position: <div id="update_position_title"></div><div id="update_sg"></div>
+                                                            Position: <div id="update_position_title"></div> (<div id="update_status_of_appointment"></div>)
                                                              
                                                         </div>
                                                     </li>
@@ -452,6 +454,7 @@ function view_work_experience(el){
             //     document.getElementById('update_date_to').disabled = true;
             //   }
             document.getElementById('update_position_title').innerHTML = data[0].position_title;
+            document.getElementById('update_status_of_appointment').innerHTML = data[0].status_of_appointment;
             document.getElementById('update_department_agency_office_company').innerHTML = data[0].department_agency_office_company;
             // document.getElementById('update_monthly_salary').innerHTML = data[0].monthly_salary;
             // document.getElementById('update_sg').innerHTML = data[0].sg;
