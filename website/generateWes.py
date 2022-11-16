@@ -32,24 +32,9 @@ def get_context(id):
     name_extn = user_profile.name_extn if user_profile.name_extn != "" and user_profile.name_extn is not None and user_profile.name_extn != "N/A" else ""
 
     my_rows['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
-    # my_rows['date_now'] =  date.today().strftime("%B %d, %Y")
 
-    # if isinstance(my_rows, (datetime, date)):
-    #     return obj.isoformat()
 
-    
-    iteration = 0
-    print("LENGTH", len(my_rows["row_contents"]))
-    # print("CONTENT", my_rows["row_contents"])
     for idx, item in enumerate(my_rows["row_contents"]):
-        # for key, value in my_rows["row_contents"][idx].items():
-        # my_rows["row_contents"][idx][item]
-        # for key, value in item.items():
-            # if iteration != len(my_rows['row_contents']):
-        # if  item == 'date_from':
-        print("IDX",item['date_from'])
-
-        # if value != "PRESENT":
         dt_obj = datetime.strptime(item['date_from'],'%Y-%m-%d')
         new_value = datetime.strftime(dt_obj, "%B %d, %Y")
 
@@ -60,14 +45,9 @@ def get_context(id):
         else:
             my_rows["row_contents"][idx]['date_to'] = item['date_to']
 
-
         print("NEW VAL: ", new_value)
 
         my_rows["row_contents"][idx]['date_from'] = new_value
-   
-    
-
-    # print(my_rows)
 
     return my_rows
 

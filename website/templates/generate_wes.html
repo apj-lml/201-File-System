@@ -217,30 +217,47 @@
                                         <ul class="mt-2">
                                             <li class="circle-bullet">List of Accomplishments and Contributions (if any)</li>
                                                 <ul id="wes_accomplishment{{work_experience.id}}">
-                                                    {% if work_experience.wda|length > 0 %}
-                                                        {% for accomp in work_experience.wda %}
-                                                            {% if accomp.wda_type == 'accomplishment' %}
-                                                                <li class="circle-bullet" id="wes_accomplishment_list{{accomp.id}}">{{accomp.wda}}</li>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    {% else %}
-                                                        <li class="circle-bullet" id="">N/A</li>
+                                                        {% if work_experience.wda|length > 0 %}
+                                                            <!-- {# set testing_accomp = namespace(value=0) #} -->
+                                                            {% for accomp in work_experience.wda %}
+                                                                {% if accomp.wda_type == 'accomplishment' %}
+                                                                    <li class="circle-bullet" id="wes_accomplishment_list{{accomp.id}}">{{accomp.wda}}</li>
+                                                                    <!-- {# set testing_accomp.value = testing_accomp.value  + 1 #} -->
+                                                                {% endif %}
 
-                                                    {% endif %}
+                                                            {% endfor %}
+                                                            
+                                                            <!-- {# if testing_accomp.value < 1 #}
+                                                                <li class="circle-bullet" id="">N/A</li>
+                                                            {# endif #} -->
+
+                                                        {% else %}
+                                                            <!-- <li class="circle-bullet" id="">N/A</li> -->
+
+                                                        {% endif %}
                                                 </ul>
                                         </ul>
                                         <ul class="mt-4">
                                             <li class="circle-bullet">Summary of Actual Duties</li>
                                          
                                                 <ul id="wes_summary{{work_experience.id}}">
-                                                    {% if work_experience.wda|length > 0 %}
-                                                        {% for summary in work_experience.wda %}
-                                                            {% if summary.wda_type != 'accomplishment' %}
-                                                                <li class="circle-bullet" id="wes_summary_list{{summary.id}}">{{summary.wda}}</li>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    {% else %}
-                                                        <li class="circle-bullet" id="">N/A</li>
+                                                        {% if work_experience.wda|length > 0 %}
+                                                            {# set testing = namespace(value=0) #}
+
+                                                            {% for summary in work_experience.wda %}
+                                                                {% if summary.wda_type != 'accomplishment' %}
+                                                                    <li class="circle-bullet" id="wes_summary_list{{summary.id}}">{{summary.wda}}</li>
+                                                                    {# set testing.value = testing.value + 1 #}
+                                                                {% endif %}
+
+                                                            {% endfor %}
+
+                                                            <!-- {# if testing.value < 1 #}
+                                                                <li class="circle-bullet" id="">N/A</li>
+                                                            {# endif #} -->
+                                                         
+                                                    <!--{# else #}
+                                                        <li class="circle-bullet" id="">N/A</li> -->
 
                                                     {% endif %}
                                                 </ul>
@@ -498,11 +515,9 @@ function view_work_experience(el){
                 let dtmo = new Intl.DateTimeFormat('en', { month: 'long' }).format(date_to);
                 let dtda = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date_to);
 
-                document.getElementById('update_date_to').innerHTML = data[0].date_to;
+                document.getElementById('update_date_to').innerHTML =  `${dtmo} ${dtda}, ${dtye}`
             }
 
-
-            console.log(`${da}-${mo}-${ye}`);
 
             document.getElementById('update_date_from').innerHTML = `${mo} ${da}, ${ye}`
 
