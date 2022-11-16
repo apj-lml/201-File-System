@@ -74,72 +74,95 @@
       </div>
 
 
-      <div class="card shadow-sm mb-3">
-        <div class="card-body">
-          <div class="d-md-flex flex-row table-responsive">
-            <div class="">
-                <table class="table table-bordered table-striped table-hover" id="work_experience_table">
-                    <thead class="text-center">
-                    <tr class="align-middle">
-                      <th colspan="2">Inclusive Dates</th>
-                      <th rowspan="2">Position Title</th>
-                      <th rowspan="2">Status</th>
-                      <th rowspan="2">SG</th>
-                      <th rowspan="2">Step</th>
-                      <th rowspan="2">Agency / Company</th>
-                      <th rowspan="2">Department / Office</th>
-                      <th rowspan="2">Agency / Company Address</th>
-                      <th rowspan="2">Immediate Supervisor</th>
-                      <!-- <th rowspan="2">Monthly Salary</th>
-                      <th rowspan="2">Salary / Job / Pay Grade</th>
-                      <th rowspan="2">Status of Appointment</th>
-                      <th rowspan="2" class="truncate">Government Service</th> -->
-                      <th rowspan="2">Controls</th>
-                    </tr>
-                    <tr class="align-middle">
-                      <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (From)</th>
-                      <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (To)</th>
-    
-                    </tr>
-                    </thead>
-                    <tbody>
-                      {# if user_profile.work_experience is not none #}
-                        {% for work_experience in user_profile.work_experience %}
-                          <tr>
-                            <td>{{work_experience.date_from|format_mydatetime}}</td>
-                            <td>{{work_experience.date_to|format_mydatetime}}</td>
-                            <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.position_title}}</td>
-                            <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.status_of_appointment}}</td>
-                            <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.sg}}</td>
-                            <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.step}}</td>
-                            <td>{{work_experience.department_agency_office_company}}</td>
-                            <td>{{work_experience.name_of_office_unit}}</td>
-                            <td>{{work_experience.agency_address}}</td>
-                            <td>{{work_experience.immediate_supervisor}}</td>
-    
-                            <!-- <td>{{work_experience.monthly_salary}}</td>
-                            {% if work_experience.sg == 'N/A' %}
-                            <td>N/A</td>
-                            {% else %}
-                            <td>{{ '%02d' % work_experience.sg|int}} - {{work_experience.step}}</td>
-                            {% endif %}
-                            <td>{{work_experience.status_of_appointment}}</td>
-                            <td>{{work_experience.govt_service}}</td> -->
-                            <td class="text-center"><div class="d-sm-flex flex-row text-center">
-                              <a class="btn btn-primary btn-sm m-2" title="View" id="{{work_experience.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_work_experience(this)">
-                                Accomplishments & Actual Duties
-                              </a>
-                            </div></td>
-                          </tr>
-                        {% endfor %}
-                      {# endif #}
-                    </tbody>
-                  </table>
+      <div class="accordion" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                View List of Work Experience
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne">
+            <div class="accordion-body">
+                
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                    <div class="d-md-flex flex-row table-responsive">
+                        <div class="">
+                            <table class="table table-bordered table-striped table-hover" id="work_experience_table">
+                                <thead class="text-center">
+                                <tr class="align-middle">
+                                <th colspan="2">Inclusive Dates</th>
+                                <th rowspan="2">Position Title</th>
+                                <th rowspan="2">Status</th>
+                                <!-- <th rowspan="2">SG</th>
+                                <th rowspan="2">Step</th> -->
+                                <th rowspan="2">Agency / Company</th>
+                                <th rowspan="2">Department / Office</th>
+                                <th rowspan="2">Agency / Company Address</th>
+                                <th rowspan="2">Immediate Supervisor</th>
+                                <!-- <th rowspan="2">Monthly Salary</th>
+                                <th rowspan="2">Salary / Job / Pay Grade</th>
+                                <th rowspan="2">Status of Appointment</th>
+                                <th rowspan="2" class="truncate">Government Service</th> -->
+                                <th rowspan="2">Controls</th>
+                                </tr>
+                                <tr class="align-middle">
+                                <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (From)</th>
+                                <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (To)</th>
+                
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {# if user_profile.work_experience is not none #}
+                                    {% for work_experience in user_profile.work_experience %}
+                                    <tr>
+                                        <td>{{work_experience.date_from|format_mydatetime}}</td>
+                                        <td>{{work_experience.date_to|format_mydatetime}}</td>
+                                        <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.position_title}}</td>
+                                        <td style="word-wrap: break-word; min-width:120px; max-width:120px; white-space:normal;">{{work_experience.status_of_appointment}}</td>
+                                        <!-- <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.sg}}</td>
+                                        <td style="word-wrap: break-word; min-width:60px; max-width:60px; white-space:normal;">{{work_experience.step}}</td> -->
+                                        <td>{{work_experience.department_agency_office_company}}</td>
+                                        <td>{{work_experience.name_of_office_unit}}</td>
+                                        <td>{{work_experience.agency_address}}</td>
+                                        <td>{{work_experience.immediate_supervisor}}</td>
+                
+                                        <!-- <td>{{work_experience.monthly_salary}}</td>
+                                        {% if work_experience.sg == 'N/A' %}
+                                        <td>N/A</td>
+                                        {% else %}
+                                        <td>{{ '%02d' % work_experience.sg|int}} - {{work_experience.step}}</td>
+                                        {% endif %}
+                                        <td>{{work_experience.status_of_appointment}}</td>
+                                        <td>{{work_experience.govt_service}}</td> -->
+                                        <td class="text-center"><div class="d-sm-flex flex-row text-center">
+                                        <a class="btn btn-primary btn-sm m-2" title="View" id="{{work_experience.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_work_experience(this)">
+                                            Accomplishments & Actual Duties
+                                        </a>
+                                        </div></td>
+                                    </tr>
+                                    {% endfor %}
+                                {# endif #}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
             </div>
           </div>
         </div>
-      </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              View Work Experience Sheet
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="flush-headingTwo">
+            <div class="accordion-body">
 
+                
       <div class="card shadow-sm mb-3">
         <div class="card-body">
             <a class="btn btn-primary btn-sm mb-3" href="/gen/{{user_profile.id}}">Generate Word File(.docx)</a>
@@ -194,21 +217,32 @@
                                         <ul class="mt-2">
                                             <li class="circle-bullet">List of Accomplishments and Contributions (if any)</li>
                                                 <ul id="wes_accomplishment{{work_experience.id}}">
-                                                    {% for accomp in work_experience.wda %}
-                                                        {% if accomp.wda_type == 'accomplishment' %}
-                                                            <li class="circle-bullet" id="wes_accomplishment_list{{accomp.id}}">{{accomp.wda}}</li>
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                    {% if work_experience.wda|length > 0 %}
+                                                        {% for accomp in work_experience.wda %}
+                                                            {% if accomp.wda_type == 'accomplishment' %}
+                                                                <li class="circle-bullet" id="wes_accomplishment_list{{accomp.id}}">{{accomp.wda}}</li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <li class="circle-bullet" id="">N/A</li>
+
+                                                    {% endif %}
                                                 </ul>
                                         </ul>
                                         <ul class="mt-4">
                                             <li class="circle-bullet">Summary of Actual Duties</li>
-                                                <ul id="wes_summary">
-                                                    {% for summary in work_experience.wda %}
-                                                        {% if summary.wda_type != 'accomplishment' %}
-                                                            <li class="circle-bullet" id="wes_summary_list{{summary.id}}">{{summary.wda}}</li>
-                                                        {% endif %}
-                                                    {% endfor %}
+                                         
+                                                <ul id="wes_summary{{work_experience.id}}">
+                                                    {% if work_experience.wda|length > 0 %}
+                                                        {% for summary in work_experience.wda %}
+                                                            {% if summary.wda_type != 'accomplishment' %}
+                                                                <li class="circle-bullet" id="wes_summary_list{{summary.id}}">{{summary.wda}}</li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <li class="circle-bullet" id="">N/A</li>
+
+                                                    {% endif %}
                                                 </ul>
                                         </ul>
                                     </ul>
@@ -223,8 +257,11 @@
           </div>
         </div>
       </div>
-
-
+                
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -338,12 +375,12 @@
                                                 <ul>
                                                     <li>
                                                         <div class="d-flex flex-row bd-highlight">
-                                                            Duration: <div id="update_date_from"></div> - <div id="update_date_to"></div>
+                                                            Duration: <div id="update_date_from"></div>&nbsp;-&nbsp;<div id="update_date_to"></div>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="d-flex flex-row bd-highlight">
-                                                            Position: <div id="update_position_title"></div> (<div id="update_status_of_appointment"></div>)
+                                                            Position: <div id="update_position_title"></div>&nbsp;(<div id="update_status_of_appointment"></div>)
                                                              
                                                         </div>
                                                     </li>
@@ -392,7 +429,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" form="update_work_experience_form">Save changes</button>
+          <!-- <button type="submit" class="btn btn-primary" form="update_work_experience_form">Save changes</button> -->
         <!-- </div>
       </div> -->
     </div>
@@ -446,22 +483,33 @@ function view_work_experience(el){
         .then(data => {
             console.log(data)
             document.getElementById('update_id').innerHTML = data[0].id;
-            document.getElementById('update_date_from').innerHTML = data[0].date_from;
-            document.getElementById('update_date_to').innerHTML = data[0].date_to;
-            //   if(data[0].date_to == "PRESENT"){
-            //     document.getElementById('update_sf_present').checked = true;
-            //     document.getElementById('update_date_to').value = "";
-            //     document.getElementById('update_date_to').disabled = true;
-            //   }
+
+
+            let date_from = new Date(data[0].date_from);
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date_from);
+            let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(date_from);
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date_from);
+
+            if(data[0].date_to == "PRESENT"){
+                document.getElementById('update_date_to').innerHTML = data[0].date_to;
+            }else{
+                let date_to = new Date(data[0].date_to);
+                let dtye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date_to);
+                let dtmo = new Intl.DateTimeFormat('en', { month: 'long' }).format(date_to);
+                let dtda = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date_to);
+
+                document.getElementById('update_date_to').innerHTML = data[0].date_to;
+            }
+
+
+            console.log(`${da}-${mo}-${ye}`);
+
+            document.getElementById('update_date_from').innerHTML = `${mo} ${da}, ${ye}`
+
+            
             document.getElementById('update_position_title').innerHTML = data[0].position_title;
             document.getElementById('update_status_of_appointment').innerHTML = data[0].status_of_appointment;
             document.getElementById('update_department_agency_office_company').innerHTML = data[0].department_agency_office_company;
-            // document.getElementById('update_monthly_salary').innerHTML = data[0].monthly_salary;
-            // document.getElementById('update_sg').innerHTML = data[0].sg;
-            // document.getElementById('update_step').innerHTML = data[0].step;
-            // document.getElementById('update_status_of_appointment').innerHTML = data[0].status_of_appointment;
-            // document.getElementById('update_govt_service').innerHTML = data[0].govt_service;
-            // document.getElementById('update_govt_service_select').innerHTML = data[0].govt_service;
 
             document.getElementById('update_name_of_office_unit').innerHTML = data[0].name_of_office_unit;
             document.getElementById('update_agency_address').innerHTML = data[0].agency_address;
@@ -475,9 +523,9 @@ function view_work_experience(el){
 
             data[0].wda.forEach(accomp => {
                 if(accomp.wda_type == "accomplishment"){
-                    document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${accomp.id}"> ${accomp.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${accomp.id}" onclick="editAccomp(this, 'accomplishment', ${data[0].id});"><i class="bi bi-pencil"></i></a> | <a href="#" class="" id="${accomp.id}" onclick="deleteAccomp(this, 'accomplishment', ${data[0].id});"><i class="bi bi-trash text-danger"></i></a></li>`;
+                    document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${accomp.id}"> ${accomp.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${accomp.id}" onclick="editAccomp(this, 'accomplishment');"><i class="bi bi-pencil"></i></a> | <a href="#" class="" id="${accomp.id}" onclick="deleteAccomp(this, 'accomplishment', ${data[0].id});"><i class="bi bi-trash text-danger"></i></a></li>`;
                 }else if(accomp.wda_type == "summary"){
-                    document.getElementById('list_of_summary').innerHTML += ` <li class="circle-bullet" id="summary${accomp.id}"> ${accomp.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${accomp.id}" onclick="editAccomp(this,'summary', ${data[0].id});"><i class="bi bi-pencil"></i></a> | <a href="#" id="${accomp.id}" onclick="deleteAccomp(this,'summary', ${data[0].id});"><i class="bi bi-trash text-danger"></i></a> </li>`;
+                    document.getElementById('list_of_summary').innerHTML += ` <li class="circle-bullet" id="summary${accomp.id}"> ${accomp.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${accomp.id}" onclick="editAccomp(this,'summary');"><i class="bi bi-pencil"></i></a> | <a href="#" id="${accomp.id}" onclick="deleteAccomp(this,'summary', ${data[0].id});"><i class="bi bi-trash text-danger"></i></a> </li>`;
                 }
             });
 
@@ -485,8 +533,8 @@ function view_work_experience(el){
         });
 }
 
-function editAccomp(el, wda_type, wda_id){
-    console.log(el.id)
+function editAccomp(el, wda_type){
+    // console.log(el.id)
     fetch(`/wes/edit-accomp/${el.id}`,{
         method: 'POST',
         body: JSON.stringify({"accomp_id" : el.id})
@@ -494,7 +542,7 @@ function editAccomp(el, wda_type, wda_id){
         .then(response => response.json())
 
         .then(data => {
-            console.log(data)
+            // console.log(data)
             document.getElementById('edit_wda_id').value = data.id;
 
             document.getElementById('edit_wda_accomp').value = data.wda;
@@ -502,6 +550,10 @@ function editAccomp(el, wda_type, wda_id){
             document.getElementById('edit_we').value = data.we;
             
         });
+}
+
+function isEmptyAccomp(id){
+    return document.getElementById(id).innerHTML.trim() == "";
 }
 
 function deleteAccomp(el, wda_type, wda_id){
@@ -524,11 +576,19 @@ function deleteAccomp(el, wda_type, wda_id){
             .then(response => {
             if(response.status == '200'){
                 if(wda_type == "summary"){
-                    fade(document.getElementById('summary'+el.id));
-                    fade(document.getElementById('wes_summary_list'+el.id));
+                    // fade(document.getElementById('summary'+el.id));
+                    // fade(document.getElementById('wes_summary_list'+el.id));
+
+                    document.getElementById('summary'+el.id).remove();
+                    document.getElementById('wes_summary_list'+el.id).remove();
+
+                    if(isEmptyAccomp('wes_summary'+el.id)){
+                        document.getElementById('wes_summary'+wda_id).innerHTML == "<li class='circle-bullet'>N/A<li>";
+                    }
                 }else{
                     fade(document.getElementById('wda'+el.id));
                     fade(document.getElementById('wes_accomplishment_list'+el.id));
+
 
                 }
                 // document.getElementById('wda'+el.id).remove();
@@ -560,20 +620,19 @@ function deleteAccomp(el, wda_type, wda_id){
             fetch('/wes/add-accomp', {
                 method: 'POST',
                 body: formData1
-                }).then((res)=>{
-              
-                  return res.json()
-                
-                }).then((data)=>{
+                }).then(response => response.json())
+                .then((data)=>{
+                    console.log("date.we ng wes_accomplishment: ", data.we);
+
                     if(data.wda_type == "accomplishment"){
-                        document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'accomplishment', ${data.id})"> <i class="bi bi-trash text-danger"></i></a></li>`;
+                        console.log("date.we ng wes_accomplishment: ", data.we);
+
+                        document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${data.id}"> ${data.wda} - <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${data.id}" onclick="editAccomp(this, 'accomplishment');"><i class="bi bi-pencil"></i></a> | <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'accomplishment')"> <i class="bi bi-trash text-danger"></i></a></li>`;
                         document.getElementById('wes_accomplishment'+data.we).innerHTML += `<li class="circle-bullet" id="wes_accomplishment_list${data.id}"> ${data.wda}</li>`;
                    
-                    }else if(data.wda_type == "summary"){
-                        document.getElementById('list_of_summary').innerHTML += ` <li class="circle-bullet" id="summary${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'summary', ${data.id})"><i class="bi bi-trash text-danger"></i> </a></li>`;
-                        document.getElementById('wes_summary'+data.we).innerHTML += `<li class="circle-bullet" id="wes_summary_list${data.id}"> ${data.wda}</li>`;
                     }
-                    document.getElementById("wda_accomp").value == "";
+                    document.getElementById("wda_accomp").value = "";
+                    
 
                 });//END
             });
@@ -618,17 +677,17 @@ function deleteAccomp(el, wda_type, wda_id){
                 
                 }).then((data)=>{
 
-                    if(data.wda_type == "accomplishment"){
-                        document.getElementById('list_of_accomplishments').innerHTML += `<li class="circle-bullet" id="wda${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this, 'accomplishment', ${data.id})"> <i class="bi bi-trash text-danger"></i></a></li>`;
-                        document.getElementById('wes_accomplishment').innerHTML += `<li class="circle-bullet" id="wes_accomplishment_list${data.id}"> ${data.wda}</li>`;
-                    }else if(data.wda_type == "summary"){
-                        document.getElementById('list_of_summary').innerHTML += `<li class="circle-bullet" id="summary${data.id}"> ${data.wda} - <a href="#" id="${data.id}" onclick="deleteAccomp(this,'summary', ${data.id})"> <i class="bi bi-trash text-danger"></i> </a></li>`;
-                        document.getElementById('wes_summary').innerHTML += `<li class="circle-bullet" id="wes_summary_list${data.id}"> ${data.wda}</li>`;
+                  if(data.wda_type == "summary"){
+                        document.getElementById('list_of_summary').innerHTML += `<li class="circle-bullet" id="summary${data.id}"> ${data.wda} -  <a data-bs-toggle="modal" data-bs-target="#editAccompModal" href="#" id="${data.id}" onclick="editAccomp(this, 'accomplishment');"><i class="bi bi-pencil"></i></a> | <a href="#" id="${data.id}" onclick="deleteAccomp(this,'summary', ${data.id})"> <i class="bi bi-trash text-danger"></i> </a></li>`;
+                        document.getElementById('wes_summary'+data.we).innerHTML += `<li class="circle-bullet" id="wes_summary_list${data.id}"> ${data.wda}</li>`;
                         
                     }
                     document.getElementById("wda_actual_duties").value == "";
 
                 });//END
+
+                document.getElementById("wda_actual_duties").value = ""
+
             });
 
 

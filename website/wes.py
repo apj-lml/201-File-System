@@ -34,11 +34,11 @@ def add_accomp():
         # db.session.refresh(new_accomp)
 
         formdata["id"] = new_accomp.id
-        
+        print(formdata)
         return jsonify(**formdata)
 
  # ---------------------------------------------------------------------------- #
- #                                    GET WES                                   #
+ #                                   edit WES                                   #
  # ---------------------------------------------------------------------------- #
 @wes.route('edit-accomp/<accomp_id>', methods=['POST', 'GET'])
 @login_required
