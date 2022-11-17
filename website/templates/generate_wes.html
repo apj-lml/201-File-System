@@ -165,9 +165,8 @@
                 
       <div class="card shadow-sm mb-3">
         <div class="card-body">
-            <a class="btn btn-primary btn-sm mb-3" href="/gen/{{user_profile.id}}">Generate Word File(.docx)</a>
-            <!-- <button class="btn btn-primary btn-sm mb-3" onclick="print_wes();">Print</button> -->
-            <!-- <button class="btn btn-primary btn-sm mb-3" onclick="print_wes_html2pdf();">Print WES (html2pdf)</button> -->
+            <a class="btn btn-primary btn-sm mb-3" href="#" onclick="generate_wes()">Generate WES (.docx)</a>
+            <a class="d-none" href="/gen/{{user_profile.id}}" id="clickMe">Click me</a>
           <div class="d-md-flex flex-row">
             <div class="container" id="wes">
                 <div class="fw-bold fst-italic my-font mb-5">Attachment to CS Form No. 212</div>
@@ -218,21 +217,22 @@
                                             <li class="circle-bullet">List of Accomplishments and Contributions (if any)</li>
                                                 <ul id="wes_accomplishment{{work_experience.id}}">
                                                         {% if work_experience.wda|length > 0 %}
-                                                            <!-- {# set testing_accomp = namespace(value=0) #} -->
+                                                            {% set testing_accomp = namespace(value=0) %}
+
                                                             {% for accomp in work_experience.wda %}
                                                                 {% if accomp.wda_type == 'accomplishment' %}
                                                                     <li class="circle-bullet" id="wes_accomplishment_list{{accomp.id}}">{{accomp.wda}}</li>
-                                                                    <!-- {# set testing_accomp.value = testing_accomp.value  + 1 #} -->
+                                                                    {% set testing_accomp.value = testing_accomp.value  + 1 %}
                                                                 {% endif %}
 
                                                             {% endfor %}
                                                             
-                                                            <!-- {# if testing_accomp.value < 1 #}
+                                                            {% if testing_accomp.value < 1 %}
                                                                 <li class="circle-bullet" id="">N/A</li>
-                                                            {# endif #} -->
+                                                            {% endif %}
 
                                                         {% else %}
-                                                            <!-- <li class="circle-bullet" id="">N/A</li> -->
+                                                            <li class="circle-bullet" id="">N/A</li>
 
                                                         {% endif %}
                                                 </ul>
@@ -242,22 +242,22 @@
                                          
                                                 <ul id="wes_summary{{work_experience.id}}">
                                                         {% if work_experience.wda|length > 0 %}
-                                                            {# set testing = namespace(value=0) #}
+                                                            {% set testing = namespace(tvalue=0) %}
 
                                                             {% for summary in work_experience.wda %}
-                                                                {% if summary.wda_type != 'accomplishment' %}
+                                                                {% if summary.wda_type == 'summary' %}
                                                                     <li class="circle-bullet" id="wes_summary_list{{summary.id}}">{{summary.wda}}</li>
-                                                                    {# set testing.value = testing.value + 1 #}
+                                                                    {% set testing.tvalue = testing.tvalue + 1 %}
                                                                 {% endif %}
 
                                                             {% endfor %}
 
-                                                            <!-- {# if testing.value < 1 #}
+                                                            {% if testing.tvalue < 1 %}
                                                                 <li class="circle-bullet" id="">N/A</li>
-                                                            {# endif #} -->
+                                                            {% endif %}
                                                          
-                                                    <!--{# else #}
-                                                        <li class="circle-bullet" id="">N/A</li> -->
+                                                    {% else %}
+                                                        <li class="circle-bullet" id="">N/A</li>
 
                                                     {% endif %}
                                                 </ul>
@@ -490,6 +490,21 @@ function print_wes_html2pdf(){
         // html2pdf(element);
     }
 
+function convert_date(dateStr){
+    let formatted_date;
+    if(dateStr == "PRESENT"){
+        formatted_date = dateStr;
+    }else{
+        let date_to = new Date(dateStr);
+        let dtye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date_to);
+        let dtmo = new Intl.DateTimeFormat('en', { month: 'long' }).format(date_to);
+        let dtda = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date_to);
+        formatted_date = `${dtmo} ${dtda}, ${dtye}`;
+
+    }
+    return formatted_date
+}
+
 function view_work_experience(el){
 
     fetch('/workExperience/view-work-experience',{
@@ -547,6 +562,48 @@ function view_work_experience(el){
 
         });
 }
+
+function generate_wes(){
+    console.log('{{user_profile.id}}')
+    fetch(`/check-before-gen/{{user_profile.id}}`,{
+        method: 'GET',
+        // body: JSON.stringify({"accomp_id" : el.id})
+        })
+        .then(response => response.json())
+
+        .then(data => {
+            console.log(data)
+
+            if(data != 200){
+                // if ( data.wda && Object.keys(data.wda).length <= 0)
+                //     {
+                        Swal.fire({
+                        title: '<strong>Generate WES Failed!</strong>',
+                        icon: 'error',
+                        html:
+                            `<p>Please make sure that all your inputs are complete for Work Experience with the
+                            <b>Inclusive dates of:</b></p> <p>${convert_date(data.date_from)} - ${convert_date(data.date_to)}</p>
+                            `,
+                        showCloseButton: true,
+                        showCancelButton: true,
+                        focusConfirm: false,
+                        confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Great!',
+                        confirmButtonAriaLabel: 'Thumbs up, great!',
+                        cancelButtonText:
+                            '<i class="fa fa-thumbs-down"></i>',
+                        cancelButtonAriaLabel: 'Thumbs down'
+                        })
+                    // }
+            }else{
+                console.log("Click me ")
+                
+            }
+
+            
+
+        });
+    }
 
 function editAccomp(el, wda_type){
     // console.log(el.id)

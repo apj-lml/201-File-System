@@ -1,23 +1,25 @@
 import calendar
-from datetime import date, datetime
-from gc import collect
+import json
 import os
-from flask import Blueprint, render_template, request, flash, redirect, send_from_directory, url_for, session, send_file, current_app
-from flask_login import current_user, login_user, logout_user, login_required
-#from flask.ext.principal import Principal, Permission, RoleNeed
-from flask_principal import Principal, Permission, RoleNeed
+from datetime import date, datetime
+
+
 import pytz
-from sqlalchemy import desc, extract
-
-from . import generateWes
-
-from . import db
-from .models import College, Family_Background, Masteral, Other_Information, Uploaded_File, User, Vocational_Course
-
 from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
+from flask import (Blueprint, current_app, redirect, render_template,
+                   request, send_file, session, url_for, jsonify)
+from flask_login import current_user, login_required
+#from flask.ext.principal import Principal, Permission, RoleNeed
+from flask_principal import Permission, RoleNeed
+from sqlalchemy import desc, extract
 
-from pathlib import Path
+from . import db, generateWes
+from .models import (College, Family_Background, Masteral, Other_Information,
+                     Uploaded_File, User, Vocational_Course, Work_Experience,
+                     WorkExperienceSchema)
+from .models import Work_Experience
+from .models import WorkExperienceSchema
 
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
@@ -278,14 +280,43 @@ def wes(emp_id):
 
             return render_template('generate_wes.html', emp_id = emp_id, user_profile = user)
 
+@views.route('/check-before-gen/<emp_id>', methods=['GET'])
+def check_before_gen(emp_id):
+    work_exp_schema = WorkExperienceSchema(many=True)
 
-@views.route("/gen/<emp_id>")
+    get_we = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).all()
+
+    my_rows = json.loads(jsonify(row_contents=work_exp_schema.dump(get_we)).get_data(True))
+
+    my_empty_rows = []
+
+    empty_accomp = 0
+    empty_summary = 0
+    wda_len = 0
+
+    for idx, item in enumerate(my_rows["row_contents"]):
+        dt_obj = datetime.strptime(item['date_from'],'%Y-%m-%d')
+        new_value = datetime.strftime(dt_obj, "%B %d, %Y")
+
+        if item['date_to'] != 'PRESENT':
+            dt_obj_date_to = datetime.strptime(item['date_to'],'%Y-%m-%d')
+            new_value_date_to = datetime.strftime(dt_obj_date_to, "%B %d, %Y")
+            my_rows["row_contents"][idx]['date_to'] = new_value_date_to
+        else:
+            my_rows["row_contents"][idx]['date_to'] = item['date_to']
+
+        print("NEW VAL: ", new_value)
+
+        my_rows["row_contents"][idx]['date_from'] = new_value
+
+    return my_rows
+
+
+@views.route("/gen/<emp_id>", methods=['GET', 'POST'])
 def gen_docx(emp_id):
-    # template = url_for('static', filename='templates/WES_TEMPLATE.docx')
-    # template = send_from_directory('static', "WES_TEMPLATE.docx")
-    # template = Path("/static", "templates", "WES_TEMPLATE.docx")
-    template = os.path.join(current_app.root_path, 'static/templates', 'WES_TEMPLATE.docx')
-    
+
+    template = os.path.join(current_app.root_path, 'static/templates', 'WES_TEMPLATE.docx')   
+
     document = generateWes.from_template(template, emp_id)
     document.seek(0)
     
