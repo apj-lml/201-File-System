@@ -563,8 +563,29 @@ function view_work_experience(el){
         });
 }
 
+
+function listOfEmptyFields(arr){
+    var html = '';
+    for(var x = 0; x<arr.length; x++){
+        if(arr[x] == "agency_address"){
+            arr[x] = "Agency / Company Address";
+        }else if(arr[x] == "immediate_supervisor"){
+            arr[x] = "Immediate Supervisor";
+        }else if(arr[x] == "name_of_office_unit"){
+            arr[x] = "Department / Office";
+        }
+        html += `
+            <li>
+                ${arr[x]}
+            </li>
+        `;
+    }
+    return html;
+}
+
 function generate_wes(){
     console.log('{{user_profile.id}}')
+    let empty_field = []
     fetch(`/check-before-gen/{{user_profile.id}}`,{
         method: 'GET',
         // body: JSON.stringify({"accomp_id" : el.id})
@@ -574,30 +595,66 @@ function generate_wes(){
         .then(data => {
             console.log(data)
 
-            if(data != 200){
-                // if ( data.wda && Object.keys(data.wda).length <= 0)
-                //     {
-                        Swal.fire({
+            if(data != '200'){
+                // var result = Object.keys(data).find(key=> (data[key] === '' || data[key] === null));
+       
+                // var result = Object.keys(data).filter(item =>item.value === '' || item.value === null)
+
+                for (var key in data) {
+                    
+                    if(data[key] == "" || data[key] == null)
+                    empty_field.push(key)
+                    // for (var prop in obj.line[key]) {
+                    //     result.innerHTML += "<br/>" + prop + " = " + obj.line[key][prop];
+                    // }
+                }
+
+                console.log(empty_field)
+
+
+                    Swal.fire({
                         title: '<strong>Generate WES Failed!</strong>',
                         icon: 'error',
                         html:
-                            `<p>Please make sure that all your inputs are complete for Work Experience with the
-                            <b>Inclusive dates of:</b></p> <p>${convert_date(data.date_from)} - ${convert_date(data.date_to)}</p>
+                            `<p class='mb-0'>Please make sure that <b><i>Accomplishments & Actual Duties</b></i> are filled out for Work Experience with the
+                            <br><b>Inclusive date of:</b></p> 
+                            
+                            <p>${convert_date(data.date_from)} - ${convert_date(data.date_to)}</p>
+
+                            <p class='mb-0'><b>Please also fill out:</b></p>
+                            ${ listOfEmptyFields(empty_field) }
                             `,
                         showCloseButton: true,
-                        showCancelButton: true,
-                        focusConfirm: false,
+                        focusConfirm: true,
                         confirmButtonText:
-                            '<i class="fa fa-thumbs-up"></i> Great!',
-                        confirmButtonAriaLabel: 'Thumbs up, great!',
-                        cancelButtonText:
-                            '<i class="fa fa-thumbs-down"></i>',
-                        cancelButtonAriaLabel: 'Thumbs down'
+                            '<i class="fa fa-thumbs-up"></i> OK!',
+                        confirmButtonAriaLabel: 'OK!',
+      
                         })
-                    // }
+
+
+
             }else{
-                console.log("Click me ")
-                
+                // console.log(all_data)
+                // if(all_data.agency_address){
+                //     Swal.fire({
+                //         title: '<strong>Generate WES Failed!</strong>',
+                //         icon: 'error',
+                //         html:
+                //             `<p>Please make sure that all your inputs are complete for Work Experience with the
+                //             <b>Inclusive dates of:</b></p> <p>${convert_date(data.date_from)} - ${convert_date(data.date_to)}</p>
+                //             `,
+                //         showCloseButton: true,
+                //         focusConfirm: true,
+                //         confirmButtonText:
+                //             '<i class="fa fa-thumbs-up"></i> OK!',
+                //         confirmButtonAriaLabel: 'OK!',
+      
+                //         })
+                // }else{
+                    console.log("Click me ")
+                //     document.getElementById('clickMe').click();
+                // }
             }
 
             

@@ -292,24 +292,52 @@ def check_before_gen(emp_id):
 
     empty_accomp = 0
     empty_summary = 0
+    empty_agency_address = 0
+    empty_immediate_supervisor = 0
+    empty_name_of_office_unit = 0
     wda_len = 0
 
     for idx, item in enumerate(my_rows["row_contents"]):
-        dt_obj = datetime.strptime(item['date_from'],'%Y-%m-%d')
-        new_value = datetime.strftime(dt_obj, "%B %d, %Y")
+        # dt_obj = datetime.strptime(item['date_from'],'%Y-%m-%d')
+        # new_value = datetime.strftime(dt_obj, "%B %d, %Y")
 
-        if item['date_to'] != 'PRESENT':
-            dt_obj_date_to = datetime.strptime(item['date_to'],'%Y-%m-%d')
-            new_value_date_to = datetime.strftime(dt_obj_date_to, "%B %d, %Y")
-            my_rows["row_contents"][idx]['date_to'] = new_value_date_to
-        else:
-            my_rows["row_contents"][idx]['date_to'] = item['date_to']
+        print("ITEMMMM: ", item)
 
-        print("NEW VAL: ", new_value)
+        if item["agency_address"] != "":
+            empty_agency_address = empty_agency_address + 1
+        if item["immediate_supervisor"] != "":
+            empty_immediate_supervisor = empty_immediate_supervisor + 1
+        if item["name_of_office_unit"] != "":
+            empty_name_of_office_unit = empty_name_of_office_unit + 1
 
-        my_rows["row_contents"][idx]['date_from'] = new_value
+        for idx2, item2 in enumerate(my_rows["row_contents"][idx]["wda"]):
 
-    return my_rows
+            if item2["wda_type"] == 'accomplishment':
+                empty_accomp = empty_accomp + 1
+                # print("HELLO WORLD acc: ", item2["wda_type"])
+
+            elif item2["wda_type"] == 'summary':
+                empty_summary = empty_summary + 1
+                # print("HELLO WORLD SUMM: ", item2["wda_type"])
+
+            # print("before IF acc: ", empty_accomp)
+            print("before IF: ", empty_agency_address)
+        if empty_accomp == 0 or empty_summary == 0 or empty_agency_address == 0 or empty_immediate_supervisor == 0 or empty_name_of_office_unit == 0:
+            return my_rows["row_contents"][idx]
+             
+        empty_agency_address = 0
+        
+        empty_accomp = 0
+        empty_summary = 0
+        wda_len = 0
+        
+            # dt_obj_date_to = datetime.strptime(item['date_to'],'%Y-%m-%d')
+            # new_value_date_to = datetime.strftime(dt_obj_date_to, "%B %d, %Y")
+    
+        # my_rows["row_contents"][idx]['date_from'] = new_value
+
+    # return my_rows <- this is working
+    return '200'
 
 
 @views.route("/gen/<emp_id>", methods=['GET', 'POST'])
