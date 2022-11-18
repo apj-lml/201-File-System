@@ -575,6 +575,7 @@ function listOfEmptyFields(arr){
             arr[x] = "Department / Office";
         }
         html += `
+            <p class='mb-0'><b>Please also fill out:</b></p>
             <li>
                 ${arr[x]}
             </li>
@@ -621,7 +622,7 @@ function generate_wes(){
                             
                             <p>${convert_date(data.date_from)} - ${convert_date(data.date_to)}</p>
 
-                            <p class='mb-0'><b>Please also fill out:</b></p>
+                           
                             ${ listOfEmptyFields(empty_field) }
                             `,
                         showCloseButton: true,
