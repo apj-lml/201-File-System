@@ -2,8 +2,20 @@
 
 {% block title %} NIA {% endblock %}
 
-{%block cssperfile %} 
-
+{% block cssperfile %} 
+    <style rel="stylesheet">
+        select.birthday-select{
+            border: none;
+            background-color:transparent;
+            font-weight: bold;
+            /* font-style: italic; */
+            text-align: left;
+            color: rgb(51,10,113);
+            color: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+            /* width: auto; */
+        }
+        
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -15,9 +27,6 @@
             </div>
         </nav> -->
 		
-
-
-
         <!-- Masthead-->
         <header class="masthead pt-5">
             <div class="container position-relative">
@@ -82,10 +91,26 @@
                     <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
                     <div class="col-lg-6 order-lg-1 showcase-text">
                         <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
-                        <h4><i>Month of {{today_date.strftime('%B')}}</i></h4>
-                        <ul>
+                        <h4>
+                           Month of {# today_date.strftime('%B') #}
+                            <select name="" id="birthday-select" class="birthday-select">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                       </h4>
+                        <ul id="listOfBirthdayCelebrators">
                             {% for celebs in bday_celebs %}
-                                <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.first_name}} {{celebs.last_name}}</li>
+                                <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.last_name}}, {{celebs.first_name}} {{ "" if celebs.name_extn is none or celebs.name_extn == "" or celebs.name_extn == "N/A" else celebs.name_extn }} {{ celebs.middle_name if celebs.middle_name is none or celebs.middle_name == "" or celebs.middle_name == "N/A" else celebs.middle_name }}</li>
                             {% endfor %}
                         </ul>
                         
@@ -177,6 +202,40 @@
 
 
         <script type="application/javascript">
+
+            document.getElementById('birthday-select').addEventListener('change',(e)=>{
+                document.getElementById("listOfBirthdayCelebrators").innerHTML = ``;
+
+                let month = document.getElementById('birthday-select');
+                // console.log(month.value)
+                fetch(`/birthday-celebrators/${month.value}`,{
+                    method: 'GET',
+                    // body: JSON.stringify({"id" : el.id})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // console.log(data);
+                        data.forEach(element => {
+                            var date = new Date(element.birthdate);
+                            day = date.toLocaleDateString(undefined, { // you can use undefined as first argument
+                                        year: "numeric",
+                                        month: "2-digit",
+                                        day: "2-digit",})
+                                        // .getDate();
+                            day = day.split("/")
+                            // console.log(day[1]);
+
+                            document.getElementById("listOfBirthdayCelebrators").innerHTML += `
+                            <li>${day[1]} &#8212; ${element.last_name}, ${element.first_name} ${(element.name_extn == null || element.name_extn == "N/A" || element.name_extn == "") ? "" : element.name_extn} ${(element.middle_name == null || element.middle_name == "N/A" || element.middle_name == "") ? "" : element.middle_name}</li>
+                            `
+                        });
+                        // document.getElementById("update_id").value = data[0].id;
+                        // document.getElementById("update_fullname").value = data[0].fullname;
+                        // document.getElementById("update_address").value = data[0].address;
+                        // document.getElementById("update_contact_no").value = data[0].contact_no;
+                    });
+            });
+
             window.addEventListener('load', (event) => {
                 console.log(213)
                 fetch('https://api.quotable.io/random?tags=inspirational',{
@@ -187,13 +246,20 @@
                     .then((data)=>{
                         console.log(data);
                         if(data.content != undefined){
-                            document.getElementById("quote").innerHTML = '"'+data.content+'"';
-                            document.getElementById("qauthor").innerHTML = '-'+data.author;
+                            document.getElementById("quote").innerHTML = '"'+ data.content +'"';
+                            document.getElementById("qauthor").innerHTML = '-'+ data.author;
                         }
 
                 })
 
+                var selectId = document.getElementById("birthday-select");
 
+                selectId.onchange=function(){
+                var selectedValue = selectId.options[selectId.selectedIndex].value; 
+                var selectedText = selectId.options[selectId.selectedIndex].text;
+
+                selectId.style.width = 75 + (selectedText.length * 8) + "px";
+                }
 
                 });
         </script>

@@ -62,6 +62,26 @@ def dashboard():
 
     return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs)
 
+@views.route('/birthday-celebrators/<mydate>', methods=['GET', 'POST'])
+def birthday_celebrators(mydate):
+    current_year = date.today().year
+
+    dateinput = date(int(current_year), int(mydate), 1)
+
+    print(dateinput)
+    month = dateinput.month
+    day = date.today().strftime("%d")
+
+
+        
+    get_bday_celebs = User.query.filter_by(status_remarks = "ACTIVE").filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
+    db.session.commit()
+
+    print (jsonify(get_bday_celebs))
+    # json.loads(jsonify(row_contents=work_exp_schema.dump(get_we)).get_data(True))
+
+    return jsonify(get_bday_celebs)
+
 @views.route('/admin/dashboard', methods=['GET', 'POST'])
 @login_required
 @admin_permission.require(http_exception=403)
@@ -108,6 +128,19 @@ def covid_vaccine(emp_id):
             db.session.commit()
 
             return render_template('vaccination.html', emp_id = emp_id, user_profile = user)
+
+@views.route('/other-vaccine/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def other_vaccine(emp_id):
+    if request.method == 'GET':
+        if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+            return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+        else:
+            user = db.session.query(User).get(int(emp_id))
+            db.session.commit()
+
+            return render_template('other_vaccination.html', emp_id = emp_id, user_profile = user)
 
 @views.route('/change-password/<emp_id>', methods=['GET', 'POST'])
 @login_required

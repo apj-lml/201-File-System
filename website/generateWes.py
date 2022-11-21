@@ -45,7 +45,7 @@ def get_context(id):
         else:
             my_rows["row_contents"][idx]['date_to'] = item['date_to']
 
-        print("NEW VAL: ", new_value)
+        # print("NEW VAL: ", new_value)
 
         my_rows["row_contents"][idx]['date_from'] = new_value
 

@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %} Vaccine Information {% endblock %}
+
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<main class="container mt-3">
+	<div class="row mb-3 ms-auto">
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 VACCINE                                 -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="card mb-3">
+    <div class="card-body">
+      <div class="card text-white bg-blue shadow-sm mb-3" >
+        <div class="card-header">
+          <h3 class="card-title"><i class="fas fa-syringe"></i> Other Vaccinations</h3>
+         </div>
+        <div class="card-body">
+          <ul>
+          <li><p class="card-text">Please input all necessary fields.</p></li>
+          <li><p class="card-text">File uploading only accepts PDF files. </p></li>
+          </ul>
+          <!-- <h5 class="card-title">Description</h5> -->
+        </div>
+      </div>
+      
+      <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
+      <div class="card text-white shadow-sm mb-3" >
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center nowrap" id="hobbies_table" width = "100%">
+              <thead class="">
+              <tr class="align-middle">
+                <th></th>
+                <th>2020</th>
+                <th>2021</th>
+                <th>2022</th>
+                <th>2023</th>
+                <th>2024</th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td>
+                      Pneumococcal Vaccine
+                    </td>
+                    <td>
+                      Pneumococcal Vaccine
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+    </div>
+
+
+</main>
+
+{% endblock %}
+
+
+
+{%block scripts%}
+
+{% if current_user.type_of_user == 'admin' %}
+<!-- <script src="{{ url_for('static', filename='vaccine-validations.js') }}"></script> USE THIS FOR DISABLING-->
+{% endif %}
+
+<script src="{{ url_for('static', filename='vaccine-validations.js') }}"></script>
+
+<script type="text/javascript">
+   window.addEventListener('load',()=>{ 
+
+    $('#uploaded_file_table').DataTable({
+      responsive: true,
+      dom: 'ftrip'
+    });
+
+        document.getElementById('vaccine_form').addEventListener('submit',(e)=>{
+            loadingScreen("block");
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                           SUBMIT OF VACCINE FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            if (document.getElementById('vac_id').value == ""){
+                var url = '/vaccine/add-vaccine/{{user_profile.id}}'
+            }else{
+                var url = '/vaccine/update-vaccine/{{user_profile.id}}'
+            }
+            let formData4 = new FormData(document.getElementById("vaccine_form"));
+                
+                const data4 = {}
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                if (res.status == 200){
+                    console.log("SUCCESSFULY SUBMITTED ALL DATA")
+                    return res.json()
+                }
+                
+                }).then((data)=>{
+                  loadingScreen("none");
+                  window.location.reload();
+
+                });//END VACCINE
+
+             
+    })
+});
+
+function delete_file(e){
+  // alert(e.id)
+  loadingScreen("block")
+  fetch('/employees/delete-file',{
+    method: 'POST',
+    body: JSON.stringify({"file_id" : e.id})
+  })
+	.then(response => response.json())
+	.then((data)=>{
+    window.location.reload();
+  })
+	.catch(err => console.error(err));
+}
+   
+
+
+</script>
+{%endblock%}

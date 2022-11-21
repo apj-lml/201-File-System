@@ -18,6 +18,8 @@ from sqlalchemy_serializer import SerializerMixin
 import time, pytz
 import os
 
+from dataclasses import dataclass
+
 from sqlalchemy.inspection import inspect
 
 UTC = pytz.utc
@@ -38,8 +40,17 @@ class Serializer(object):
 # --------------------------------- end test --------------------------------- #
 
 
-
+@dataclass
 class User(db.Model, UserMixin):
+    id: int
+    birthdate: datetime
+    # def __post_init__(self):
+    #     self.birthdate = datetime.strptime(self.birthdate, "%Y-%m-%d")
+    last_name: str
+    first_name: str
+    middle_name: str
+    name_extn: str
+
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime(timezone=True), server_default=func.now())
     status_remarks = db.Column(db.String(50))
@@ -52,6 +63,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     middle_name = db.Column(db.String(150))
+    middle_initial = db.Column(db.String(150))
     name_extn = db.Column(db.String(150))
     #position_id = db.relationship("Position", back_populates="user", uselist = False)
     employment_status = db.Column(db.String(150))
@@ -182,6 +194,7 @@ class User(db.Model, UserMixin):
     emergency_contact = db.relationship('Emergency_Contact') 
     staff_moved = db.relationship('Staff_Movement')
     assignatory = db.relationship('Assignatory')
+    assignatory = db.relationship('Other_Vaccine')
     #section = db.relationship('Agency_Section')
 
     @hybrid_property
@@ -197,6 +210,9 @@ class User(db.Model, UserMixin):
         fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
 
         return fullname
+    
+    def as_dict(self):
+       return {c.name: str((getattr(self, c.name))) for c in self.__table__.columns}
 
     # emergency_contact = db.relationship('Emergency_Contact')
 class Agency_Section(db.Model, SerializerMixin):
@@ -306,6 +322,15 @@ class Vaccine(db.Model, SerializerMixin):
     booster_place2 = db.Column(db.String(150))
     booster_date2 = db.Column(db.String(150))
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Other_Vaccine(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    vac_brand = db.Column(db.String(150))
+    vac_type = db.Column(db.String(150))
+    vac_place = db.Column(db.String(150))
+    vac_date = db.Column(db.Date())
+    vac_year = db.Column(db.String(150))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Staff_Movement(db.Model, SerializerMixin):
@@ -515,7 +540,7 @@ class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
 class AgencyUnitSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Agency_Unit
-        load_instance = True
+        # load_instance = True
     #	include_fk = True
     unit_title = ma.auto_field()
 
