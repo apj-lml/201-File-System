@@ -92,8 +92,9 @@
                     <div class="col-lg-6 order-lg-1 showcase-text">
                         <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
                         <h4>
-                           Month of {# today_date.strftime('%B') #}
-                            <select name="" id="birthday-select" class="birthday-select">
+                           Month of 
+                            <select name="" id="birthday-select" value="{{ today_date.strftime('%m') }}" class="birthday-select">
+                                <option value="{{ today_date.strftime('%m') }}" selected hidden>{{ today_date.strftime('%B') }}</option>
                                 <option value="1">January</option>
                                 <option value="2">February</option>
                                 <option value="3">March</option>
