@@ -59,7 +59,7 @@ def from_template(template, emp_id):
 
     template = DocxTemplate(template)
     context = get_context(emp_id)  # gets the context used to render the document
-
+    
     target_file = BytesIO()
     template.render(context)
     template.save(target_file)

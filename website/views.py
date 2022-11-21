@@ -72,8 +72,6 @@ def birthday_celebrators(mydate):
     month = dateinput.month
     day = date.today().strftime("%d")
 
-
-        
     get_bday_celebs = User.query.filter_by(status_remarks = "ACTIVE").filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
     db.session.commit()
 

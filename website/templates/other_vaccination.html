@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Vaccine Information {% endblock %}
+{% block title %} Other Vaccine Information {% endblock %}
 
 {%block cssperfile %}
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
@@ -8,6 +8,11 @@
 <style type="text/css">
 	div.dtsb-searchBuilder div.dtsb-titleRow {
     	display: none;
+}
+
+table#other_vac_table {
+  table-layout: fixed;
+  width: 100%;
 }
 </style>
 
@@ -31,7 +36,7 @@
   <li></li>
 </ul>
 
-<main class="container mt-3">
+<main class="container-fluid mt-3">
 	<div class="row mb-3 ms-auto">
 <!-- ----------------------------------------------------------------------- -->
 <!--                                 VACCINE                                 -->
@@ -56,10 +61,10 @@
       <div class="card text-white shadow-sm mb-3" >
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered table-striped text-center nowrap" id="hobbies_table" width = "100%">
+            <table class="table table-bordered table-striped text-center nowrap" id="other_vac_table" width = "100%">
               <thead class="">
               <tr class="align-middle">
-                <th></th>
+                <th>Type of Vaccine</th>
                 <th>2020</th>
                 <th>2021</th>
                 <th>2022</th>
@@ -67,14 +72,57 @@
                 <th>2024</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody class="text-start">
                   <tr>
                     <td>
                       Pneumococcal Vaccine
                     </td>
                     <td>
-                      Pneumococcal Vaccine
+                      <div class="row">
+                        <div class="col-12">
+                          Brand: PPSV23 (Pneumovax23®)
+                        </div>
+                        <div class="col-12">
+                          Location: PIMO Conference Room, Urdaneta City, Pangasinan
+                        </div>
+                        <div class="col-12">
+                          Date: November 21, 2022
+                        </div>
+                      </div>
                     </td>
+                    <td>
+                      <div class="row">
+                        <div class="col-12">
+                          Brand: PPSV23 (Pneumovax23®)
+                        </div>
+                        <div class="col-12">
+                          Location: PIMO Conference Room, Urdaneta City, Pangasinan
+                        </div>
+                        <div class="col-12">
+                          Date: November 21, 2022
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="row">
+                        <div class="col-12">
+                          Brand: PPSV23 (Pneumovax23®)
+                        </div>
+                        <div class="col-12">
+                          Location: PIMO Conference Room, Urdaneta City, Pangasinan
+                        </div>
+                        <div class="col-12">
+                          Date: November 21, 2022
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+
                   </tr>
               </tbody>
             </table>
