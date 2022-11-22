@@ -565,7 +565,7 @@ function view_work_experience(el){
 
 
 function listOfEmptyFields(arr){
-    var html = '';
+    var html = "<p class='mb-0'><b>Please also fill out:</b></p>";
     for(var x = 0; x<arr.length; x++){
         if(arr[x] == "agency_address"){
             arr[x] = "Agency / Company Address";
@@ -575,7 +575,7 @@ function listOfEmptyFields(arr){
             arr[x] = "Department / Office";
         }
         html += `
-            <p class='mb-0'><b>Please also fill out:</b></p>
+            
             <li>
                 ${arr[x]}
             </li>
