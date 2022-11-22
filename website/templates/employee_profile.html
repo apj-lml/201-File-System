@@ -347,12 +347,12 @@ button {
                       <label for="middle_name">Middle Name<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 p-1">
-                      <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" value="{{user_profile.middle_initial if user_profile.middle_initial is not none}}" form="update_form" required>
+                      <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" value="{{user_profile.middle_initial if user_profile.middle_initial is not none}}" form="update_form" pattern="[A-Za-z]+" title="Do not input special characters such as .*/\ and numbers" required>
                       <label for="middle_initial">Middle Initial</label>
-                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. Jr. / Sr. / III</p></small>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Input letter only</p></small>
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 p-1">
-                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} >
+                      <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} pattern="[A-Za-z]+" title="Do not input special characters such as .*/\ and numbers" >
                       <label for="name_extn">Name Extension</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. Jr. / Sr. / III</p></small>
                     </div>
