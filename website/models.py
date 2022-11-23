@@ -194,7 +194,7 @@ class User(db.Model, UserMixin):
     emergency_contact = db.relationship('Emergency_Contact') 
     staff_moved = db.relationship('Staff_Movement')
     assignatory = db.relationship('Assignatory')
-    other_vaccine = db.relationship('Other_Vaccine')
+    other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
 
     @hybrid_property

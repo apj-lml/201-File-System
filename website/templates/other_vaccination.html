@@ -46,89 +46,219 @@ table#other_vac_table {
     <div class="card-body">
       <div class="card text-white bg-blue shadow-sm mb-3" >
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-syringe"></i> Other Vaccinations</h3>
+          <h3 class="card-title"><i class="fas fa-syringe"></i> Influenza Vaccinations</h3>
          </div>
         <div class="card-body">
-          <ul>
+          <!-- <ul>
           <li><p class="card-text">Please input all necessary fields.</p></li>
           <li><p class="card-text">File uploading only accepts PDF files. </p></li>
-          </ul>
-          <!-- <h5 class="card-title">Description</h5> -->
+          </ul> -->
+          <!-- <h3 class="card-title">Pneumococcal Vaccinations</h3> -->
+
+          {{user_profile.other_vaccine[0].vac_year}}
+
+          <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
+          <div class="card text-white shadow-sm mb-3" >
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table text-center nowrap" id="other_vac_table" width = "100%">
+                  <thead class="">
+                  <tr class="align-middle">
+                    <th>2020</th>
+                    <th>2021</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>2024</th>
+                  </tr>
+                  </thead>
+                  <tbody class="text-start">
+                      <tr>
+                         {% if user_profile.other_vaccine[0].vac_type == "pneumococcal" %}
+                        <td>
+                          <div class="row">
+                           <!-- 2020 -->
+                            <div class="col-12">
+                              Brand: {{ user_profile.other_vaccine[0].vac_year if user_profile.other_vaccine[0].vac_year == "2020" else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Location: {{ user_profile.other_vaccine[0].vac_place if user_profile.other_vaccine[0].vac_year == "2020" else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Date: {{ user_profile.other_vaccine[0].vac_date if user_profile.other_vaccine[0].vac_year == "2020" else "N/A" }}
+                            </div>
+                          </div>
+
+                        </td>
+                        <td>
+                          <div class="row">
+                            <!-- 2021 -->
+                             <div class="col-12">
+                               Brand: {{ user_profile.other_vaccine[1].vac_year if user_profile.other_vaccine[1].vac_year == "2021" else "N/A" }}
+                             </div>
+                             <div class="col-12">
+                               Location: {{ user_profile.other_vaccine[1].vac_place if user_profile.other_vaccine[1].vac_year == "2021" else "N/A" }}
+                             </div>
+                             <div class="col-12">
+                               Date: {{ user_profile.other_vaccine[1].vac_date if user_profile.other_vaccine[1].vac_year == "2021" else "N/A" }}
+                             </div>
+                           </div>
+
+                        </td>
+
+                        <td>
+                          <div class="row">
+                           <!-- 2022 -->
+                            <div class="col-12">
+                              Brand: {{ user_profile.other_vaccine[2].vac_year if user_profile.other_vaccine[2] and user_profile.other_vaccine[2].vac_year == "2022" and user_profile.other_vaccine[2].vac_year else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Location: {{ user_profile.other_vaccine[2].vac_place if user_profile.other_vaccine[2] and user_profile.other_vaccine[2].vac_year == "2022" and user_profile.other_vaccine[2].vac_year else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Date: {{ user_profile.other_vaccine[2].vac_date if user_profile.other_vaccine[2] and user_profile.other_vaccine[2].vac_year == "2022" and user_profile.other_vaccine[2].vac_year else "N/A" }}
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="row">
+                           <!-- 2022 -->
+                            <div class="col-12">
+                              Brand: {{ user_profile.other_vaccine[3].vac_year if user_profile.other_vaccine[3].vac_year == "2022" else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Location: {{ user_profile.other_vaccine[3].vac_place if user_profile.other_vaccine[3].vac_year == "2022" else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Date: {{ user_profile.other_vaccine[3].vac_date if user_profile.other_vaccine[3].vac_year == "2022" else "N/A" }}
+                            </div>
+                          </div>
+                        </td>
+                       
+                        <td>
+                          <div class="row">
+                           <!-- 2022 -->
+                            <div class="col-12">
+                              Brand: {{ user_profile.other_vaccine[4].vac_year if user_profile.other_vaccine[4].vac_year == "2022" else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Location: {{ user_profile.other_vaccine[4].vac_place if user_profile.other_vaccine[4].vac_year == "2022" else "N/A" }}
+                            </div>
+                            <div class="col-12">
+                              Date: {{ user_profile.other_vaccine[4].vac_date if user_profile.other_vaccine[4].vac_year == "2022" else "N/A" }}
+                            </div>
+                          </div>
+                        </td>
+                          {% endif %}
+    
+                      </tr>
+    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>  
+    
+
         </div>
       </div>
       
-      <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
-      <div class="card text-white shadow-sm mb-3" >
+
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="card text-white bg-blue shadow-sm mb-3" >
+        <div class="card-header">
+          <h3 class="card-title"><i class="fas fa-syringe"></i> Pneumococcal Vaccinations </h3>
+         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped text-center nowrap" id="other_vac_table" width = "100%">
-              <thead class="">
-              <tr class="align-middle">
-                <th>Type of Vaccine</th>
-                <th>2020</th>
-                <th>2021</th>
-                <th>2022</th>
-                <th>2023</th>
-                <th>2024</th>
-              </tr>
-              </thead>
-              <tbody class="text-start">
-                  <tr>
-                    <td>
-                      Pneumococcal Vaccine
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col-12">
-                          Brand: PPSV23 (Pneumovax23®)
-                        </div>
-                        <div class="col-12">
-                          Location: PIMO Conference Room, Urdaneta City, Pangasinan
-                        </div>
-                        <div class="col-12">
-                          Date: November 21, 2022
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col-12">
-                          Brand: PPSV23 (Pneumovax23®)
-                        </div>
-                        <div class="col-12">
-                          Location: PIMO Conference Room, Urdaneta City, Pangasinan
-                        </div>
-                        <div class="col-12">
-                          Date: November 21, 2022
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col-12">
-                          Brand: PPSV23 (Pneumovax23®)
-                        </div>
-                        <div class="col-12">
-                          Location: PIMO Conference Room, Urdaneta City, Pangasinan
-                        </div>
-                        <div class="col-12">
-                          Date: November 21, 2022
-                        </div>
-                      </div>
-                    </td>
-                    <td>
+          <!-- <ul>
+          <li><p class="card-text">Please input all necessary fields.</p></li>
+          <li><p class="card-text">File uploading only accepts PDF files. </p></li>
+          </ul> -->
+          <!-- <h3 class="card-title">Pneumococcal Vaccinations</h3> -->
 
-                    </td>
-                    <td>
 
-                    </td>
-
+          <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
+          <div class="card text-white shadow-sm mb-3" >
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center nowrap" id="other_vac_table" width = "100%">
+                  <thead class="">
+                  <tr class="align-middle">
+                    <!-- <th>Type of Vaccine</th> -->
+                    <th>2020</th>
+                    <th>2021</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>2024</th>
                   </tr>
-              </tbody>
-            </table>
-          </div>
+                  </thead>
+                  <tbody class="text-start">
+                      <tr>
+                        <!-- <td>
+                          Pneumococcal Vaccine
+                        </td> -->
+                        <td>
+                          <div class="row">
+                            <div class="col-12">
+                              Brand: PPSV23 (Pneumovax23®)
+                            </div>
+                            <div class="col-12">
+                              Location: PIMO Conference Room, Urdaneta City, Pangasinan
+                            </div>
+                            <div class="col-12">
+                              Date: November 21, 2022
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row">
+                            <div class="col-12">
+                              Brand: PPSV23 (Pneumovax23®)
+                            </div>
+                            <div class="col-12">
+                              Location: PIMO Conference Room, Urdaneta City, Pangasinan
+                            </div>
+                            <div class="col-12">
+                              Date: November 21, 2022
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row">
+                            <div class="col-12">
+                              Brand: PPSV23 (Pneumovax23®)
+                            </div>
+                            <div class="col-12">
+                              Location: PIMO Conference Room, Urdaneta City, Pangasinan
+                            </div>
+                            <div class="col-12">
+                              Date: November 21, 2022
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+    
+                        </td>
+                        <td>
+    
+                        </td>
+    
+                      </tr>
+    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>  
+    
+
         </div>
       </div>
+      
 
     </div>
   </div>
