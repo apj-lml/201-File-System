@@ -68,8 +68,10 @@ def add_work_experience(emp_id):
                 else:
                     we_date_to = format_mydatetime(we.date_to)
 
-                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to and current_user.id != 262 and current_user.id != 135:    
-                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                
+                if current_user.id != 262 and current_user.id != 135:
+                    if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:    
+                        return jsonify('You Can\'t Enter Overlapping Dates!'), 406
 
 
         if 'nia_pimo' in formdata:
@@ -171,8 +173,9 @@ def update_work_experience(emp_id):
                     we_date_to = format_mydatetime(we.date_to)
                 
 
-                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to and current_user.id != 262 and current_user.id != 135:
-                    return jsonify('You Can\'t Enter Overlapping Dates!'), 406
+                if current_user.id != 262 and current_user.id != 135:
+                    if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to:
+                        return jsonify('You Can\'t Enter Overlapping Dates!'), 406
             # else:
             if 'nia_pimo' in formdata:
                 formdata['department_agency_office_company'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
