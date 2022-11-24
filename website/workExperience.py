@@ -171,7 +171,7 @@ def update_work_experience(emp_id):
                     we_date_to = format_mydatetime(we.date_to)
                 
 
-                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to and current_user.id != 262 and current_user.id != 262:
+                if we_date_from <= date_from <= we_date_to or we_date_from <= date_to <= we_date_to and current_user.id != 262 and current_user.id != 135:
                     return jsonify('You Can\'t Enter Overlapping Dates!'), 406
             # else:
             if 'nia_pimo' in formdata:
