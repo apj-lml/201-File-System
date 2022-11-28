@@ -61,7 +61,7 @@ def from_template(template, emp_id):
     context = get_context(emp_id)  # gets the context used to render the document
     
     target_file = BytesIO()
-    template.render(context)
+    template.render(context, autoescape=True)
     template.save(target_file)
 
     return target_file
