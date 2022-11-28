@@ -1019,8 +1019,9 @@ table#other_vac_table {
 
 function delete_file(e){
   // alert(e.id)
+
   loadingScreen("block")
-  fetch('/employees/delete-file',{
+  fetch('/employees/delete-file', {
     method: 'POST',
     body: JSON.stringify({"file_id" : e.id})
   })

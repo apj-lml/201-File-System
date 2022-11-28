@@ -506,14 +506,13 @@ def update_password(emp_id):
 @login_required
 #@admin_permission.require(http_exception=403)
 def reset_password(emp_id):
-	if request.method == "POST":
+	if request.method == "GET":
 		# formdata = request.form.to_dict()
 		user = User.query.get(emp_id)
-		
 
 		user.password = generate_password_hash('pimopassword')
 		db.session.commit()
-		return jsonify('Successfully changed your password!')
+	return jsonify(message = 'Reset password success!')
 
 @employees.route('validate/<emp_id>', methods=['POST', 'GET'])
 @login_required

@@ -718,7 +718,7 @@ $(document).ready(function() {
 						<li><a class="dropdown-item" href="/employees/validate/${data.id}"><i class="bi bi-person-check-fill"></i> Validated</a></li>
 						<li><a class="dropdown-item" href="/employees/not-validated/${data.id}"><i class="bi bi-person-x-fill"></i> Not Validated</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="/employees/reset-password/${data.id}"><i class="bi bi-unlock-fill"></i> Reset Password</a></li>
+						<li><a class="dropdown-item" href="#" id='${data.id}' onclick="reset_password(this)";><i class="bi bi-unlock-fill"></i> Reset Password</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/print-preview/${data.id}"><i class="bi bi-printer"></i> Print PDS</a></li>
 						<li><a class="dropdown-item" href="/wes/${data.id}"><i class="bi bi-printer-fill"></i> Print WES</a></li>
@@ -774,6 +774,31 @@ $('a.toggle-vis').on( 'click', function (e) {
 			// var table = $('#character_ref_table').DataTable();
 			table.ajax.reload();
 		});
+
+	}
+
+	function reset_password(el){
+
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "This will reset the user's password to \"pimopassword\".",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, reset it!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				//console.log(el.id)
+				fetch(`/employees/reset-password/${el.id}`,{
+					method: 'GET'
+				})
+					.then(response => response.json())
+					.then(data => {
+						//console.log(data)
+						triggerToast(data['message'])
+					});
+			}
+		  })
+
 
 	}
 
