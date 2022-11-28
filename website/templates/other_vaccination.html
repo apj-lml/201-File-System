@@ -42,13 +42,187 @@ table#other_vac_table {
 <!--                                 VACCINE                                 -->
 <!-- ----------------------------------------------------------------------- -->
 
+
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="card text-white shadow-sm mb-3" >
+      <div class="card-header bg-blue">
+        <h3 class="card-title"><i class="fas fa-syringe"></i> COVID-19 Vaccinations </h3>
+       </div>
+      <div class="card-body">
+        <button class="btn btn-primary mb-2">Add COVID-19 Vaccination</button>
+        <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
+        <div class="card text-white shadow-sm mb-3" >
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped text-center nowrap" id="other_vac_table" width = "100%">
+                <thead class="">
+                <tr class="align-middle">
+                  <!-- <th>Type of Vaccine</th> -->
+                  <th>1st Dose</th>
+                  <th>2nd Dose</th>
+                  <th>1st Booster</th>
+                  <th>2nd Booster</th>
+                  <!-- <th>2024</th> -->
+                </tr>
+                </thead>
+                <tbody class="text-start">
+                  <tr>
+                    {% for covid_vaccine in user_profile.vaccine %}
+
+                    <td>
+                      <table class="table">
+                        <tbody>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Brand:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.vac_brand }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Location:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.vac_place }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Date:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.vac_first_dose }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+
+                    <td>
+                      <table class="table">
+                        <tbody>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Brand:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.vac_brand }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Location:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.vac_place }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Date:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.vac_second_dose }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+
+                    <td>
+                      <table class="table">
+                        <tbody>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Brand:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.booster_brand }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Location:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.booster_place }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Date:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.booster_date }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+
+                    <td>
+                      <table class="table">
+                        <tbody>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Brand:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.booster_brand2 }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Location:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.booster_place2 }}
+                            </td>
+                          </tr>
+                          <tr class="text-center">
+                            <td class="text-end">
+                              Date:
+                            </td>
+                            <td class="text-start">
+                              {{ covid_vaccine.booster_date2 }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+
+                    {% endfor %}
+        
+                  </tr>
+
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>  
+  
+
+      </div>
+    </div>
+    
+
+  </div>
+</div>
+
+
 <div class="card mb-3">
     <div class="card-body">
-      <div class="card text-white bg-blue shadow-sm mb-3" >
-        <div class="card-header">
+
+      <div class="card text-white shadow-sm mb-3" >
+        <div class="card-header bg-blue">
           <h3 class="card-title"><i class="fas fa-syringe"></i> Influenza Vaccinations</h3>
          </div>
         <div class="card-body">
+        <button class="btn btn-primary mb-2">Add Influenza Vaccination</button>
+
           <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
           <div class="card text-white shadow-sm mb-3" >
             <div class="card-body">
@@ -109,7 +283,7 @@ table#other_vac_table {
                                   Brand:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                               <tr class="text-center">
@@ -117,7 +291,7 @@ table#other_vac_table {
                                   Location:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                               <tr class="text-center">
@@ -125,7 +299,7 @@ table#other_vac_table {
                                   Date:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                             </tbody>
@@ -174,7 +348,7 @@ table#other_vac_table {
                                     Brand:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -182,7 +356,7 @@ table#other_vac_table {
                                     Location:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -190,7 +364,7 @@ table#other_vac_table {
                                     Date:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                               </tbody>
@@ -239,7 +413,7 @@ table#other_vac_table {
                                       Brand:
                                     </td>
                                     <td class="text-start w-50">
-                                      N/A
+                                      None
                                     </td>
                                   </tr>
                                   <tr class="text-center">
@@ -247,7 +421,7 @@ table#other_vac_table {
                                       Location:
                                     </td>
                                     <td class="text-start w-50">
-                                      N/A
+                                      None
                                     </td>
                                   </tr>
                                   <tr class="text-center">
@@ -255,7 +429,7 @@ table#other_vac_table {
                                       Date:
                                     </td>
                                     <td class="text-start w-50">
-                                      N/A
+                                      None
                                     </td>
                                   </tr>
                                 </tbody>
@@ -304,7 +478,7 @@ table#other_vac_table {
                                     Brand:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -312,7 +486,7 @@ table#other_vac_table {
                                     Location:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -320,7 +494,7 @@ table#other_vac_table {
                                     Date:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                               </tbody>
@@ -369,7 +543,7 @@ table#other_vac_table {
                                       Brand:
                                     </td>
                                     <td class="text-start w-50">
-                                      N/A
+                                      None
                                     </td>
                                   </tr>
                                   <tr class="text-center">
@@ -377,7 +551,7 @@ table#other_vac_table {
                                       Location:
                                     </td>
                                     <td class="text-start w-50">
-                                      N/A
+                                      None
                                     </td>
                                   </tr>
                                   <tr class="text-center">
@@ -385,7 +559,7 @@ table#other_vac_table {
                                       Date:
                                     </td>
                                     <td class="text-start w-50">
-                                      N/A
+                                      None
                                     </td>
                                   </tr>
                                 </tbody>
@@ -409,21 +583,15 @@ table#other_vac_table {
     </div>
   </div>
 
-
   
-  <div class="card mb-3">
+<div class="card mb-3">
     <div class="card-body">
-      <div class="card text-white bg-blue shadow-sm mb-3" >
-        <div class="card-header">
+      <div class="card text-white shadow-sm mb-3" >
+        <div class="card-header bg-blue">
           <h3 class="card-title"><i class="fas fa-syringe"></i> Pneumococcal Vaccinations </h3>
          </div>
         <div class="card-body">
-          <!-- <ul>
-          <li><p class="card-text">Please input all necessary fields.</p></li>
-          <li><p class="card-text">File uploading only accepts PDF files. </p></li>
-          </ul> -->
-          <!-- <h3 class="card-title">Pneumococcal Vaccinations</h3> -->
-
+      <button class="btn btn-primary mb-2">Add Pneumococcal Vaccination</button>
 
           <form action="#" method="POST" name="vaccine_form" id="vaccine_form" enctype="multipart/form-data"></form>
           <div class="card text-white shadow-sm mb-3" >
@@ -486,7 +654,7 @@ table#other_vac_table {
                                 Brand:
                               </td>
                               <td class="text-start w-50">
-                                N/A
+                                None
                               </td>
                             </tr>
                             <tr class="text-center">
@@ -494,7 +662,7 @@ table#other_vac_table {
                                 Location:
                               </td>
                               <td class="text-start w-50">
-                                N/A
+                                None
                               </td>
                             </tr>
                             <tr class="text-center">
@@ -502,7 +670,7 @@ table#other_vac_table {
                                 Date:
                               </td>
                               <td class="text-start w-50">
-                                N/A
+                                None
                               </td>
                             </tr>
                           </tbody>
@@ -551,7 +719,7 @@ table#other_vac_table {
                                   Brand:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                               <tr class="text-center">
@@ -559,7 +727,7 @@ table#other_vac_table {
                                   Location:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                               <tr class="text-center">
@@ -567,7 +735,7 @@ table#other_vac_table {
                                   Date:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                             </tbody>
@@ -616,7 +784,7 @@ table#other_vac_table {
                                     Brand:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -624,7 +792,7 @@ table#other_vac_table {
                                     Location:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -632,7 +800,7 @@ table#other_vac_table {
                                     Date:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                               </tbody>
@@ -681,7 +849,7 @@ table#other_vac_table {
                                   Brand:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                               <tr class="text-center">
@@ -689,7 +857,7 @@ table#other_vac_table {
                                   Location:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                               <tr class="text-center">
@@ -697,7 +865,7 @@ table#other_vac_table {
                                   Date:
                                 </td>
                                 <td class="text-start w-50">
-                                  N/A
+                                  None
                                 </td>
                               </tr>
                             </tbody>
@@ -746,7 +914,7 @@ table#other_vac_table {
                                     Brand:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -754,7 +922,7 @@ table#other_vac_table {
                                     Location:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                                 <tr class="text-center">
@@ -762,7 +930,7 @@ table#other_vac_table {
                                     Date:
                                   </td>
                                   <td class="text-start w-50">
-                                    N/A
+                                    None
                                   </td>
                                 </tr>
                               </tbody>

@@ -3,6 +3,8 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from flask_principal import Permission, RoleNeed
 import pytz
 from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, UserSchema, Vocational_Course
@@ -498,6 +500,20 @@ def update_password(emp_id):
 			db.session.commit()
 			return jsonify('Successfully changed your password!')
 	return "ok", 200
+
+
+@employees.route('reset-password/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def reset_password(emp_id):
+	if request.method == "POST":
+		# formdata = request.form.to_dict()
+		user = User.query.get(emp_id)
+		
+
+		user.password = generate_password_hash('pimopassword')
+		db.session.commit()
+		return jsonify('Successfully changed your password!')
 
 @employees.route('validate/<emp_id>', methods=['POST', 'GET'])
 @login_required

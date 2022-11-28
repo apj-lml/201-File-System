@@ -179,7 +179,6 @@ class User(db.Model, UserMixin):
     career_service = db.relationship('Career_Service', order_by="desc(Career_Service.date_of_examination)")
     vocational_course = db.relationship('Vocational_Course')
     learning_development = db.relationship('Learning_Development', order_by="desc(Learning_Development.ld_date_from)")
-    vaccine = db.relationship('Vaccine')
     familyBg = db.relationship('Family_Background', order_by=lambda: Family_Background.fb_date_of_birth)
     college = db.relationship('College')
     shirt = db.relationship('Shirt')
@@ -194,6 +193,8 @@ class User(db.Model, UserMixin):
     emergency_contact = db.relationship('Emergency_Contact') 
     staff_moved = db.relationship('Staff_Movement')
     assignatory = db.relationship('Assignatory')
+    vaccine = db.relationship('Vaccine')
+
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
 

@@ -227,25 +227,6 @@ button {
       <li></li>
       <li></li>
   </ul>
-
-  <!-- <input type="checkbox" id="check" style="z-index:9999;"> 
-  <label class="chat-btn" for="check">
-     <i class="fa fa-commenting-o comment"></i>
-     <i class="fa fa-close close"></i> 
-  </label> 
-    <div class="wrapper" style="z-index:180;"> 
-      <div class="header"> 
-      <h6>Let's Chat - Online</h6>
-     </div> 
-      <div class="text-center p-2">
-        <span>Please fill out the form to start chat!</span>
-      </div> <div class="chat-form">
-        <input type="text" class="form-control" placeholder="Name">
-        <input type="text" class="form-control" placeholder="Email">
-        <textarea class="form-control" placeholder="Your Text Message"></textarea>
-        <button class="btn btn-success btn-block">Submit</button>
-      </div>
-    </div> -->
   
   <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example col-sm-12 container-fluid-sm container-md mb-5" tabindex="0">
     <div class="container-fluid-sm container-md">
@@ -327,7 +308,7 @@ button {
 
                   {% if current_user.type_of_user == 'admin' %}
                   <div class="form-floating flex-fill mb-3 p-1">
-                  <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                  <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                     <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
                   </div>
                   {% endif %}
