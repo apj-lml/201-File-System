@@ -58,6 +58,11 @@
 <!-- <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script> -->
 
 <script type="text/javascript">
+//import { PDFDocument, PDFName, PDFPage, rgb } from 'pdf-lib';
+
+/* Copies a PDFPage object */
+
+
 
 fillForm();
 loadingScreen('block');
@@ -380,7 +385,7 @@ async function fillForm() {
     gsis.setText('{{user_profile.gsis}}');
     pagibig.setText('{{user_profile.pagibig}}');
     philhealth.setText('{{user_profile.philhealth}}');
-    sss.setText('{{user_profile.sss if user_profile.sss is not none and user_profile.sss != "" else "N/A"}}');
+    sss.setText('{{user_profile.sss if user_profile.sss is not none and user_profile.sss != "" and user_profile.sss != "N/A" and user_profile.sss != "NONE" else "N/A"}}');
     tin.setText('{{user_profile.tin}}');
     agency_employee_no.setText('{{user_profile.employee_id}}');
     citizenship.check();
@@ -451,26 +456,29 @@ async function fillForm() {
     child11_bdate.setText('{{child[10].fb_date_of_birth|format_mydatetime if child[10] and child[10].fb_date_of_birth is not none else ""}}');
     child12_bdate.setText('{{child[11].fb_date_of_birth|format_mydatetime if child[11] and child[11].fb_date_of_birth is not none else ""}}');
 
-    elementary_school.setText('{{user_profile.elementary_school|escapejs if user_profile.elementary_school is not none or elementary_school != "N/A" else "N/A"}}');
+    elementary_school.setText('{{user_profile.elementary_school|escapejs if user_profile.elementary_school is not none and user_profile.elementary_school != "N/A" and user_profile.elementary_school != "" else "N/A"}}');
     e_basic_education.setText('{{"ELEMENTARY" if user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
-    e_period_of_attendance_from.setText('{{user_profile.e_period_of_attendance_from if user_profile.e_period_of_attendance_from is not none or e_period_of_attendance_from != "N/A" else "N/A"}}');
-    e_period_of_attendance_to.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_period_of_attendance_to is not none or e_period_of_attendance_to != "N/A" else "N/A"}}');
+
+    e_period_of_attendance_from.setText('{{user_profile.e_period_of_attendance_from if user_profile.e_period_of_attendance_from is not none and user_profile.e_period_of_attendance_from != "N/A" and user_profile.e_period_of_attendance_from != "" else "N/A"}}');
+    e_period_of_attendance_to.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_period_of_attendance_to is not none and user_profile.e_period_of_attendance_to != "N/A" and user_profile.e_period_of_attendance_to != "" else "N/A"}}');
+
 
     {% if user_profile.e_highest_level == "GRADUATED" %}
-    e_highest_grade_year_units.setText('GRADUATED')
-    {% elif user_profile.e_highest_level != "GRADUATED" or user_profile.e_highest_level == "CURRENTLY ENROLLED" and user_profile.e_highest_level is not none %}
-    e_highest_grade_year_units.setText('{{user_profile.e_highest_grade_year_units}}');
+        e_highest_grade_year_units.setText('GRADUATED')
+    {% elif user_profile.e_highest_level != "GRADUATED" and user_profile.e_highest_level is not none and user_profile.e_highest_level != "" %}
+        e_highest_grade_year_units.setText('{{user_profile.hs_highest_grade_year_units}}');
     {% else %}
-    e_highest_grade_year_units.setText('N/A');
+        e_highest_grade_year_units.setText('N/A');
     {% endif %}
 
-
     e_year_graduated.setText('{{user_profile.e_period_of_attendance_to if user_profile.e_highest_level is not none and user_profile.e_highest_level == "GRADUATED" else "N/A"}}');
-    e_scholarship_academic_honor.setText('{{user_profile.e_scholarship_academic_honor if user_profile.e_scholarship_academic_honor is not none or e_scholarship_academic_honor != "N/A" else "N/A"}}');
+    e_scholarship_academic_honor.setText('{{user_profile.e_scholarship_academic_honor if user_profile.e_scholarship_academic_honor is not none and user_profile.e_scholarship_academic_honor != "N/A" and user_profile.e_scholarship_academic_honor != "" else "N/A"}}');
     
+
+
     high_school.setText('{{user_profile.high_school|escapejs if user_profile.high_school is not none and user_profile.high_school != "N/A" and user_profile.high_school != "" else "N/A"}}');
 
-    {% if user_profile.hs_highest_level is none or user_profile.hs_highest_level == "" and user_profile.high_school == "" %}
+    {% if user_profile.hs_highest_level is none or user_profile.hs_highest_level == "" or user_profile.high_school == "" %}
         hs_basic_education.setText('N/A');
     {% else %}
         hs_basic_education.setText('HIGH SCHOOL');
@@ -1948,6 +1956,68 @@ wes_govt_2[14].setText(`{{user_profile.work_experience[29].govt_service if user_
 
 
 
+
+    //<!-- ----------------------------------------------------------------------- -->
+    //<!--                 SEPARATE SHEET FOR PAGE 2.2 - WES                       -->
+    //<!-- ----------------------------------------------------------------------- -->
+
+    
+    const formUrl_addtional_sheet_wes_3 = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
+
+    const formPdfBytes_addtional_sheet_wes_3 = await fetch(formUrl_addtional_sheet_wes_3).then(res => res.arrayBuffer())
+
+    // srcDoc is the second pdf file
+    const srcDocWes3 = await PDFLib.PDFDocument.load(formPdfBytes_addtional_sheet_wes_3);
+
+    const formWes3 = srcDocWes3.getForm();
+
+    var wes_from_2 = [];
+    var wes_to_2 = [];
+    var wes_position_2 = [];
+    var wes_agency_2 = [];
+    var wes_salary_2 = [];
+    var wes_sg_step_2 = [];
+    var wes_status_appointment_2 = [];
+    var wes_govt_2 = [];
+
+    for (var x = 0; x<15; x++){
+        wes_from_2[x] = formWes3.getTextField(`wes_from${x+1}_x`);
+        wes_to_2[x] = formWes3.getTextField(`wes_to${x+1}_x`)
+        wes_position_2[x] = formWes3.getTextField(`wes_position${x+1}_x`)
+        wes_agency_2[x] = formWes3.getTextField(`wes_agency${x+1}_x`)
+        wes_salary_2[x] = formWes3.getTextField(`wes_salary${x+1}_x`)
+        wes_sg_step_2[x] = formWes3.getTextField(`wes_sg_step${x+1}_x`)
+        wes_status_appointment_2[x] = formWes3.getTextField(`wes_status_appointment${x+1}_x`)
+        wes_govt_2[x] = formWes3.getTextField(`wes_govt${x+1}_x`)
+    }
+
+
+    //WES 34
+    wes_from_2[0].setText(`{{user_profile.work_experience[15].date_from|format_mydatetime if user_profile.work_experience[15] and user_profile.work_experience|length > 0 else 'N/A'}}`)
+    wes_to_2[0].setText(`{{user_profile.work_experience[15].date_to|format_mydatetime if user_profile.work_experience|length > 15 else 'N/A'}}`)
+    wes_position_2[0].setText(`{{user_profile.work_experience[15].position_title|escapejs if user_profile.work_experience|length > 15 else 'N/A'}}`)
+    wes_agency_2[0].setText(`{{user_profile.work_experience[15].department_agency_office_company|escapejs if user_profile.work_experience|length > 15 else 'N/A'}}`)
+    wes_salary_2[0].setText(`{{user_profile.work_experience[15].monthly_salary if user_profile.work_experience|length > 15 else 'N/A'}}`)
+
+    {% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" %}
+        wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[0].step }}`)
+    {% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" %}
+        wes_sg_step_2[0].setText(`N/A`)
+    {% else %}
+        wes_sg_step_2[0].setText(`N/A`)
+    {% endif %}
+    wes_status_appointment_2[0].setText(`{{user_profile.work_experience[15].status_of_appointment if user_profile.work_experience|length > 15 else 'N/A'}}`)
+    wes_govt_2[0].setText(`{{user_profile.work_experience[15].govt_service if user_profile.work_experience|length > 15 else 'N/A'}}`)
+
+
+
+    //<!-- ----------------------------------------------------------------------- -->
+    //<!--         END OF SEPARATE SHEET FOR PAGE 2.2 - WES                        -->
+    //<!-- ----------------------------------------------------------------------- -->
+
+
+
+
     //<!-- ----------------------------------------------------------------------- -->
     //<!--                        SEPARATE SHEET FOR PAGE 3                        -->
     //<!-- ----------------------------------------------------------------------- -->
@@ -2542,9 +2612,10 @@ const form6 = page6.getForm();
         pdfDoc.addPage(firstPage)
     {% endif %}
 
-    {% if user_profile.work_experience|length > 15 or user_profile.career_service|length > 7 %}
+    {% if user_profile.work_experience|length > 15 and user_profile.career_service|length > 7 %}
        pdfDoc.addPage(secondPage)
     {% endif %}
+
 
 
     {% if user_profile.voluntary_work|length > 6 or user_profile.learning_development|length > 11 %}
