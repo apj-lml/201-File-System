@@ -1992,23 +1992,74 @@ wes_govt_2[14].setText(`{{user_profile.work_experience[29].govt_service if user_
     }
 
 
-    //WES 34
-    wes_from_2[0].setText(`{{user_profile.work_experience[15].date_from|format_mydatetime if user_profile.work_experience[15] and user_profile.work_experience|length > 0 else 'N/A'}}`)
-    wes_to_2[0].setText(`{{user_profile.work_experience[15].date_to|format_mydatetime if user_profile.work_experience|length > 15 else 'N/A'}}`)
-    wes_position_2[0].setText(`{{user_profile.work_experience[15].position_title|escapejs if user_profile.work_experience|length > 15 else 'N/A'}}`)
-    wes_agency_2[0].setText(`{{user_profile.work_experience[15].department_agency_office_company|escapejs if user_profile.work_experience|length > 15 else 'N/A'}}`)
-    wes_salary_2[0].setText(`{{user_profile.work_experience[15].monthly_salary if user_profile.work_experience|length > 15 else 'N/A'}}`)
+    //WES 30
+    wes_from_2[0].setText(`{{user_profile.work_experience[30].date_from|format_mydatetime if user_profile.work_experience[30] and user_profile.work_experience|length > 0 else 'N/A'}}`)
+    wes_to_2[0].setText(`{{user_profile.work_experience[30].date_to|format_mydatetime if user_profile.work_experience|length > 30 else 'N/A'}}`)
+    wes_position_2[0].setText(`{{user_profile.work_experience[30].position_title|escapejs if user_profile.work_experience|length > 30 else 'N/A'}}`)
+    wes_agency_2[0].setText(`{{user_profile.work_experience[30].department_agency_office_company|escapejs if user_profile.work_experience|length > 30 else 'N/A'}}`)
+    wes_salary_2[0].setText(`{{user_profile.work_experience[30].monthly_salary if user_profile.work_experience|length > 30 else 'N/A'}}`)
 
-    {% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" %}
-        wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[0].step }}`)
-    {% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" %}
+    {% if user_profile.work_experience[30] and user_profile.work_experience[30].sg != "N/A" %}
+        wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[30].sg|int }} - {{ user_profile.work_experience[0].step }}`)
+    {% elif user_profile.work_experience[30] and user_profile.work_experience[30].sg == "N/A" %}
         wes_sg_step_2[0].setText(`N/A`)
     {% else %}
         wes_sg_step_2[0].setText(`N/A`)
     {% endif %}
-    wes_status_appointment_2[0].setText(`{{user_profile.work_experience[15].status_of_appointment if user_profile.work_experience|length > 15 else 'N/A'}}`)
-    wes_govt_2[0].setText(`{{user_profile.work_experience[15].govt_service if user_profile.work_experience|length > 15 else 'N/A'}}`)
+    wes_status_appointment_2[0].setText(`{{user_profile.work_experience[30].status_of_appointment if user_profile.work_experience|length > 30 else 'N/A'}}`)
+    wes_govt_2[0].setText(`{{user_profile.work_experience[30].govt_service if user_profile.work_experience|length > 30 else 'N/A'}}`)
 
+    //WES 31
+    wes_from_2[1].setText(`{{user_profile.work_experience[31].date_from|format_mydatetime if user_profile.work_experience[31] and user_profile.work_experience|length > 0 else 'N/A'}}`)
+    wes_to_2[1].setText(`{{user_profile.work_experience[31].date_to|format_mydatetime if user_profile.work_experience|length > 31 else 'N/A'}}`)
+    wes_position_2[1].setText(`{{user_profile.work_experience[31].position_title|escapejs if user_profile.work_experience|length > 31 else 'N/A'}}`)
+    wes_agency_2[1].setText(`{{user_profile.work_experience[31].department_agency_office_company|escapejs if user_profile.work_experience|length > 31 else 'N/A'}}`)
+    wes_salary_2[1].setText(`{{user_profile.work_experience[31].monthly_salary if user_profile.work_experience|length > 31 else 'N/A'}}`)
+
+    {% if user_profile.work_experience[31] and user_profile.work_experience[31].sg != "N/A" %}
+        wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[31].sg|int }} - {{ user_profile.work_experience[0].step }}`)
+    {% elif user_profile.work_experience[31] and user_profile.work_experience[31].sg == "N/A" %}
+        wes_sg_step_2[1].setText(`N/A`)
+    {% else %}
+        wes_sg_step_2[1].setText(`N/A`)
+    {% endif %}
+    wes_status_appointment_2[1].setText(`{{user_profile.work_experience[31].status_of_appointment if user_profile.work_experience|length > 31 else 'N/A'}}`)
+    wes_govt_2[1].setText(`{{user_profile.work_experience[31].govt_service if user_profile.work_experience|length > 31 else 'N/A'}}`)
+
+    //WES 32
+    wes_from_2[1].setText(`{{user_profile.work_experience[32].date_from|format_mydatetime if user_profile.work_experience[32] and user_profile.work_experience|length > 0 else 'N/A'}}`)
+    wes_to_2[1].setText(`{{user_profile.work_experience[32].date_to|format_mydatetime if user_profile.work_experience|length > 32 else 'N/A'}}`)
+    wes_position_2[1].setText(`{{user_profile.work_experience[32].position_title|escapejs if user_profile.work_experience|length > 32 else 'N/A'}}`)
+    wes_agency_2[1].setText(`{{user_profile.work_experience[32].department_agency_office_company|escapejs if user_profile.work_experience|length > 32 else 'N/A'}}`)
+    wes_salary_2[1].setText(`{{user_profile.work_experience[32].monthly_salary if user_profile.work_experience|length > 32 else 'N/A'}}`)
+
+    {% if user_profile.work_experience[32] and user_profile.work_experience[32].sg != "N/A" %}
+        wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[32].sg|int }} - {{ user_profile.work_experience[0].step }}`)
+    {% elif user_profile.work_experience[32] and user_profile.work_experience[32].sg == "N/A" %}
+        wes_sg_step_2[1].setText(`N/A`)
+    {% else %}
+        wes_sg_step_2[1].setText(`N/A`)
+    {% endif %}
+    wes_status_appointment_2[1].setText(`{{user_profile.work_experience[32].status_of_appointment if user_profile.work_experience|length > 32 else 'N/A'}}`)
+    wes_govt_2[1].setText(`{{user_profile.work_experience[32].govt_service if user_profile.work_experience|length > 32 else 'N/A'}}`)
+
+
+    //WES 33
+    wes_from_2[1].setText(`{{user_profile.work_experience[33].date_from|format_mydatetime if user_profile.work_experience[33] and user_profile.work_experience|length > 0 else 'N/A'}}`)
+    wes_to_2[1].setText(`{{user_profile.work_experience[33].date_to|format_mydatetime if user_profile.work_experience|length > 33 else 'N/A'}}`)
+    wes_position_2[1].setText(`{{user_profile.work_experience[33].position_title|escapejs if user_profile.work_experience|length > 33 else 'N/A'}}`)
+    wes_agency_2[1].setText(`{{user_profile.work_experience[33].department_agency_office_company|escapejs if user_profile.work_experience|length > 33 else 'N/A'}}`)
+    wes_salary_2[1].setText(`{{user_profile.work_experience[33].monthly_salary if user_profile.work_experience|length > 33 else 'N/A'}}`)
+
+    {% if user_profile.work_experience[33] and user_profile.work_experience[33].sg != "N/A" %}
+        wes_sg_step_2[1].setText(`{{ '%02d' % user_profile.work_experience[33].sg|int }} - {{ user_profile.work_experience[0].step }}`)
+    {% elif user_profile.work_experience[33] and user_profile.work_experience[33].sg == "N/A" %}
+        wes_sg_step_2[1].setText(`N/A`)
+    {% else %}
+        wes_sg_step_2[1].setText(`N/A`)
+    {% endif %}
+    wes_status_appointment_2[1].setText(`{{user_profile.work_experience[33].status_of_appointment if user_profile.work_experience|length > 33 else 'N/A'}}`)
+    wes_govt_2[1].setText(`{{user_profile.work_experience[33].govt_service if user_profile.work_experience|length > 33 else 'N/A'}}`)
 
 
     //<!-- ----------------------------------------------------------------------- -->
@@ -2605,17 +2656,20 @@ const form6 = page6.getForm();
     const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2])
     const [firstPage, secondPage, thirdPage] = copiedPages;
 
-    // const copiedPages2 = await pdfDoc.copyPages(srcDoc2, [0])
-    // const [firstPage2] = copiedPages2;
 
     {% if child[12] or college[1] or user_profile.vocational_course[1] or masteral[1] %}
         pdfDoc.addPage(firstPage)
     {% endif %}
 
-    {% if user_profile.work_experience|length > 15 and user_profile.career_service|length > 7 %}
+    {% if user_profile.work_experience|length > 15 or user_profile.career_service|length > 7 %}
        pdfDoc.addPage(secondPage)
     {% endif %}
 
+    {% if user_profile.work_experience|length > 30 %}
+        const wesPage3 = await pdfDoc.copyPages(srcDocWes3, [1])
+        const [wesSecondPagePage3] = wesPage3;
+        pdfDoc.addPage(wesSecondPagePage3)
+    {% endif %}
 
 
     {% if user_profile.voluntary_work|length > 6 or user_profile.learning_development|length > 11 %}
