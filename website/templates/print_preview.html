@@ -63,19 +63,32 @@
         const mainForm = mainPdfDoc.getForm();
 
         const mainFields = mainForm.getFields();
+
+        fetch('/employees/my-profile/{{user_profile.id}}',{
+            method: 'POST',
+            //body: JSON.stringify({"work_exp_id" : el.id})
+        })
+            .then(response => {
+          response.json()
+        })
+            .then(data => {
+                console.log('data: ',data)
+                // triggerToast(data)
+                //window.location.reload()
+            });
+
         mainFields.forEach(field => {
+
+            //console.log('{{user_profile}}');
          if(field instanceof PDFLib.PDFTextField){
             var myfield = mainForm.getTextField(field.getName());
-            myfield.setText("HELLO");
+            var user_profile_field = "user_profile."+field.getName();
+            myfield.setText(``);
             console.log(field.getName())
           }else{
             //console.log("not a text field");
            }
 
-            //console.log(mainForm.getTextField(field.getName()));
-
-            //console.log(field.getName());
-            //console.log(field.getTextField());
         });
       
         mainForm.flatten();
