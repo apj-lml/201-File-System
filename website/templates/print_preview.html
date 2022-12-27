@@ -2743,6 +2743,150 @@ const form6 = page6.getForm();
     //<!--                     END OF SEPARATE SHEET FOR PAGE 3.4                  -->
     //<!-- ----------------------------------------------------------------------- -->
 
+
+    //<!-- ----------------------------------------------------------------------- -->
+    //<!--              START OF SEPARATE SHEET FOR PAGE 3.5                       -->
+    //<!-- ----------------------------------------------------------------------- -->
+
+    const formUrlpage4ld = "{{ url_for('static', filename='page_3.2.1_revised.pdf') }}";
+    const formPdfBytesPage4ld = await fetch(formUrlpage4ld).then(res => res.arrayBuffer())
+
+    const page4ld = await PDFLib.PDFDocument.load(formPdfBytesPage4ld);
+
+    const form4ld = page4ld.getForm();
+
+    var ld_page_4 = [];
+    var ld_from_page_4 = [];
+    var ld_to_page_4 = [];
+    var ld_no_hours_page_4 = [];
+    var ld_type_page_4 = [];
+    var ld_sponsored_by_page_4 = [];
+
+    for (var zx = 0; zx < 16; zx++){
+        ld_page_4[zx] = form4ld.getTextField(`ld${zx+1}`)
+        ld_from_page_4[zx] = form4ld.getTextField(`ld_from${zx+1}`)
+        ld_to_page_4[zx] = form4ld.getTextField(`ld_to${zx+1}`)
+        ld_no_hours_page_4[zx] = form4ld.getTextField(`ld_no_hours${zx+1}`)
+        ld_type_page_4[zx] = form4ld.getTextField(`ld_type${zx+1}`)
+        ld_sponsored_by_page_4[zx] = form4ld.getTextField(`ld_sponsored_by${zx+1}`)
+    }
+
+    ld_page_4[0].setText('{{user_profile.learning_development[75].ld_program|escapejs if user_profile.learning_development[75] and user_profile.learning_development|length > 75 else "N/A" }}');
+    ld_from_page_4[0].setText('{{user_profile.learning_development[75].ld_date_from|format_mydatetime if user_profile.learning_development[75] and user_profile.learning_development|length > 75 else "N/A" }}');
+    ld_to_page_4[0].setText('{{user_profile.learning_development[75].ld_date_to|format_mydatetime if user_profile.learning_development[75] and user_profile.learning_development|length > 75 else "N/A" }}');
+    ld_no_hours_page_4[0].setText('{{user_profile.learning_development[75].ld_no_hours if user_profile.learning_development[75] and user_profile.learning_development|length > 75 else "N/A" }}');
+    ld_type_page_4[0].setText('{{user_profile.learning_development[75].ld_type if user_profile.learning_development[75] and user_profile.learning_development|length > 75 else "N/A" }}');
+    ld_sponsored_by_page_4[0].setText('{{user_profile.learning_development[75].ld_sponsored_by if user_profile.learning_development[75] and user_profile.learning_development|length > 75 else "N/A" }}');
+
+    ld_page_4[1].setText('{{user_profile.learning_development[76].ld_program|escapejs if user_profile.learning_development[76] and user_profile.learning_development|length > 76 else "" }}');
+    ld_from_page_4[1].setText('{{user_profile.learning_development[76].ld_date_from|format_mydatetime if user_profile.learning_development[76] and user_profile.learning_development|length > 76 else "" }}');
+    ld_to_page_4[1].setText('{{user_profile.learning_development[76].ld_date_to|format_mydatetime if user_profile.learning_development[76] and user_profile.learning_development|length > 76 else "" }}');
+    ld_no_hours_page_4[1].setText('{{user_profile.learning_development[76].ld_no_hours if user_profile.learning_development[76] and user_profile.learning_development|length > 76 else "" }}');
+    ld_type_page_4[1].setText('{{user_profile.learning_development[76].ld_type if user_profile.learning_development[76] and user_profile.learning_development|length > 76 else "" }}');
+    ld_sponsored_by_page_4[1].setText('{{user_profile.learning_development[76].ld_sponsored_by if user_profile.learning_development[76] and user_profile.learning_development|length > 76 else "" }}');
+    
+    ld_page_4[2].setText('{{user_profile.learning_development[77].ld_program|escapejs if user_profile.learning_development[77] and user_profile.learning_development|length > 77 else "" }}');
+    ld_from_page_4[2].setText('{{user_profile.learning_development[77].ld_date_from|format_mydatetime if user_profile.learning_development[77] and user_profile.learning_development|length > 77 else "" }}');
+    ld_to_page_4[2].setText('{{user_profile.learning_development[77].ld_date_to|format_mydatetime if user_profile.learning_development[77] and user_profile.learning_development|length > 77 else "" }}');
+    ld_no_hours_page_4[2].setText('{{user_profile.learning_development[77].ld_no_hours if user_profile.learning_development[77] and user_profile.learning_development|length > 77 else "" }}');
+    ld_type_page_4[2].setText('{{user_profile.learning_development[77].ld_type if user_profile.learning_development[77] and user_profile.learning_development|length > 77 else "" }}');
+    ld_sponsored_by_page_4[2].setText('{{user_profile.learning_development[77].ld_sponsored_by if user_profile.learning_development[77] and user_profile.learning_development|length > 77 else "" }}');
+
+    ld_page_4[3].setText('{{user_profile.learning_development[78].ld_program|escapejs if user_profile.learning_development[78] and user_profile.learning_development|length > 78 else "" }}');
+    ld_from_page_4[3].setText('{{user_profile.learning_development[78].ld_date_from|format_mydatetime if user_profile.learning_development[78] and user_profile.learning_development|length > 78 else "" }}');
+    ld_to_page_4[3].setText('{{user_profile.learning_development[78].ld_date_to|format_mydatetime if user_profile.learning_development[78] and user_profile.learning_development|length > 78 else "" }}');
+    ld_no_hours_page_4[3].setText('{{user_profile.learning_development[78].ld_no_hours if user_profile.learning_development[78] and user_profile.learning_development|length > 78 else "" }}');
+    ld_type_page_4[3].setText('{{user_profile.learning_development[78].ld_type if user_profile.learning_development[78] and user_profile.learning_development|length > 78 else "" }}');
+    ld_sponsored_by_page_4[3].setText('{{user_profile.learning_development[78].ld_sponsored_by if user_profile.learning_development[78] and user_profile.learning_development|length > 78 else "" }}');
+
+    ld_page_4[4].setText('{{user_profile.learning_development[79].ld_program|escapejs if user_profile.learning_development[79] and user_profile.learning_development|length > 79 else "" }}');
+    ld_from_page_4[4].setText('{{user_profile.learning_development[79].ld_date_from|format_mydatetime if user_profile.learning_development[79] and user_profile.learning_development|length > 79 else "" }}');
+    ld_to_page_4[4].setText('{{user_profile.learning_development[79].ld_date_to|format_mydatetime if user_profile.learning_development[79] and user_profile.learning_development|length > 79 else "" }}');
+    ld_no_hours_page_4[4].setText('{{user_profile.learning_development[79].ld_no_hours if user_profile.learning_development[79] and user_profile.learning_development|length > 79 else "" }}');
+    ld_type_page_4[4].setText('{{user_profile.learning_development[79].ld_type if user_profile.learning_development[79] and user_profile.learning_development|length > 79 else "" }}');
+    ld_sponsored_by_page_4[4].setText('{{user_profile.learning_development[79].ld_sponsored_by if user_profile.learning_development[79] and user_profile.learning_development|length > 79 else "" }}');
+    
+    ld_page_4[5].setText('{{user_profile.learning_development[80].ld_program|escapejs if user_profile.learning_development[80] and user_profile.learning_development|length > 80 else "" }}');
+    ld_from_page_4[5].setText('{{user_profile.learning_development[80].ld_date_from|format_mydatetime if user_profile.learning_development[80] and user_profile.learning_development|length > 80 else "" }}');
+    ld_to_page_4[5].setText('{{user_profile.learning_development[80].ld_date_to|format_mydatetime if user_profile.learning_development[80] and user_profile.learning_development|length > 80 else "" }}');
+    ld_no_hours_page_4[5].setText('{{user_profile.learning_development[80].ld_no_hours if user_profile.learning_development[80] and user_profile.learning_development|length > 80 else "" }}');
+    ld_type_page_4[5].setText('{{user_profile.learning_development[80].ld_type if user_profile.learning_development[80] and user_profile.learning_development|length > 80 else "" }}');
+    ld_sponsored_by_page_4[5].setText('{{user_profile.learning_development[80].ld_sponsored_by if user_profile.learning_development[80] and user_profile.learning_development|length > 80 else "" }}');
+    
+    ld_page_4[6].setText('{{user_profile.learning_development[81].ld_program|escapejs if user_profile.learning_development[81] and user_profile.learning_development|length > 81 else "" }}');
+    ld_from_page_4[6].setText('{{user_profile.learning_development[81].ld_date_from|format_mydatetime if user_profile.learning_development[81] and user_profile.learning_development|length > 81 else "" }}');
+    ld_to_page_4[6].setText('{{user_profile.learning_development[81].ld_date_to|format_mydatetime if user_profile.learning_development[81] and user_profile.learning_development|length > 81 else "" }}');
+    ld_no_hours_page_4[6].setText('{{user_profile.learning_development[81].ld_no_hours if user_profile.learning_development[81] and user_profile.learning_development|length > 81 else "" }}');
+    ld_type_page_4[6].setText('{{user_profile.learning_development[81].ld_type if user_profile.learning_development[81] and user_profile.learning_development|length > 81 else "" }}');
+    ld_sponsored_by_page_4[6].setText('{{user_profile.learning_development[81].ld_sponsored_by if user_profile.learning_development[81] and user_profile.learning_development|length > 81 else "" }}');
+    
+    ld_page_4[7].setText('{{user_profile.learning_development[82].ld_program|escapejs if user_profile.learning_development[82] and user_profile.learning_development|length > 82 else "" }}');
+    ld_from_page_4[7].setText('{{user_profile.learning_development[82].ld_date_from|format_mydatetime if user_profile.learning_development[82] and user_profile.learning_development|length > 82 else "" }}');
+    ld_to_page_4[7].setText('{{user_profile.learning_development[82].ld_date_to|format_mydatetime if user_profile.learning_development[82] and user_profile.learning_development|length > 82 else "" }}');
+    ld_no_hours_page_4[7].setText('{{user_profile.learning_development[82].ld_no_hours if user_profile.learning_development[82] and user_profile.learning_development|length > 82 else "" }}');
+    ld_type_page_4[7].setText('{{user_profile.learning_development[82].ld_type if user_profile.learning_development[82] and user_profile.learning_development|length > 82 else "" }}');
+    ld_sponsored_by_page_4[7].setText('{{user_profile.learning_development[82].ld_sponsored_by if user_profile.learning_development[82] and user_profile.learning_development|length > 82 else "" }}');
+    
+    ld_page_4[8].setText('{{user_profile.learning_development[83].ld_program|escapejs if user_profile.learning_development[83] and user_profile.learning_development|length > 83 else "" }}');
+    ld_from_page_4[8].setText('{{user_profile.learning_development[83].ld_date_from|format_mydatetime if user_profile.learning_development[83] and user_profile.learning_development|length > 83 else "" }}');
+    ld_to_page_4[8].setText('{{user_profile.learning_development[83].ld_date_to|format_mydatetime if user_profile.learning_development[83] and user_profile.learning_development|length > 83 else "" }}');
+    ld_no_hours_page_4[8].setText('{{user_profile.learning_development[83].ld_no_hours if user_profile.learning_development[83] and user_profile.learning_development|length > 83 else "" }}');
+    ld_type_page_4[8].setText('{{user_profile.learning_development[83].ld_type if user_profile.learning_development[83] and user_profile.learning_development|length > 83 else "" }}');
+    ld_sponsored_by_page_4[8].setText('{{user_profile.learning_development[83].ld_sponsored_by if user_profile.learning_development[83] and user_profile.learning_development|length > 83 else "" }}');
+
+    ld_page_4[9].setText('{{user_profile.learning_development[84].ld_program|escapejs if user_profile.learning_development[84] and user_profile.learning_development|length > 84 else "" }}');
+    ld_from_page_4[9].setText('{{user_profile.learning_development[84].ld_date_from|format_mydatetime if user_profile.learning_development[84] and user_profile.learning_development|length > 84 else "" }}');
+    ld_to_page_4[9].setText('{{user_profile.learning_development[84].ld_date_to|format_mydatetime if user_profile.learning_development[84] and user_profile.learning_development|length > 84 else "" }}');
+    ld_no_hours_page_4[9].setText('{{user_profile.learning_development[84].ld_no_hours if user_profile.learning_development[84] and user_profile.learning_development|length > 84 else "" }}');
+    ld_type_page_4[9].setText('{{user_profile.learning_development[84].ld_type if user_profile.learning_development[84] and user_profile.learning_development|length > 84 else "" }}');
+    ld_sponsored_by_page_4[9].setText('{{user_profile.learning_development[84].ld_sponsored_by if user_profile.learning_development[84] and user_profile.learning_development|length > 84 else "" }}');
+
+    ld_page_4[10].setText('{{user_profile.learning_development[85].ld_program|escapejs if user_profile.learning_development[85] and user_profile.learning_development|length > 85 else "" }}');
+    ld_from_page_4[10].setText('{{user_profile.learning_development[85].ld_date_from|format_mydatetime if user_profile.learning_development[85] and user_profile.learning_development|length > 85 else "" }}');
+    ld_to_page_4[10].setText('{{user_profile.learning_development[85].ld_date_to|format_mydatetime if user_profile.learning_development[85] and user_profile.learning_development|length > 85 else "" }}');
+    ld_no_hours_page_4[10].setText('{{user_profile.learning_development[85].ld_no_hours if user_profile.learning_development[85] and user_profile.learning_development|length > 85 else "" }}');
+    ld_type_page_4[10].setText('{{user_profile.learning_development[85].ld_type if user_profile.learning_development[85] and user_profile.learning_development|length > 85 else "" }}');
+    ld_sponsored_by_page_4[10].setText('{{user_profile.learning_development[85].ld_sponsored_by if user_profile.learning_development[85] and user_profile.learning_development|length > 85 else "" }}');
+
+    ld_page_4[11].setText('{{user_profile.learning_development[86].ld_program|escapejs if user_profile.learning_development[86] and user_profile.learning_development|length > 86 else "" }}');
+    ld_from_page_4[11].setText('{{user_profile.learning_development[86].ld_date_from|format_mydatetime if user_profile.learning_development[86] and user_profile.learning_development|length > 86 else "" }}');
+    ld_to_page_4[11].setText('{{user_profile.learning_development[86].ld_date_to|format_mydatetime if user_profile.learning_development[86] and user_profile.learning_development|length > 86 else "" }}');
+    ld_no_hours_page_4[11].setText('{{user_profile.learning_development[86].ld_no_hours if user_profile.learning_development[86] and user_profile.learning_development|length > 86 else "" }}');
+    ld_type_page_4[11].setText('{{user_profile.learning_development[86].ld_type if user_profile.learning_development[86] and user_profile.learning_development|length > 86 else "" }}');
+    ld_sponsored_by_page_4[11].setText('{{user_profile.learning_development[86].ld_sponsored_by if user_profile.learning_development[86] and user_profile.learning_development|length > 86 else "" }}');
+
+    ld_page_4[12].setText('{{user_profile.learning_development[87].ld_program|escapejs if user_profile.learning_development[87] and user_profile.learning_development|length > 87 else "" }}');
+    ld_from_page_4[12].setText('{{user_profile.learning_development[87].ld_date_from|format_mydatetime if user_profile.learning_development[87] and user_profile.learning_development|length > 87 else "" }}');
+    ld_to_page_4[12].setText('{{user_profile.learning_development[87].ld_date_to|format_mydatetime if user_profile.learning_development[87] and user_profile.learning_development|length > 87 else "" }}');
+    ld_no_hours_page_4[12].setText('{{user_profile.learning_development[87].ld_no_hours if user_profile.learning_development[87] and user_profile.learning_development|length > 87 else "" }}');
+    ld_type_page_4[12].setText('{{user_profile.learning_development[87].ld_type if user_profile.learning_development[87] and user_profile.learning_development|length > 87 else "" }}');
+    ld_sponsored_by_page_4[12].setText('{{user_profile.learning_development[87].ld_sponsored_by if user_profile.learning_development[87] and user_profile.learning_development|length > 87 else "" }}');
+    
+    ld_page_4[13].setText('{{user_profile.learning_development[88].ld_program|escapejs if user_profile.learning_development[88] and user_profile.learning_development|length > 88 else "" }}');
+    ld_from_page_4[13].setText('{{user_profile.learning_development[88].ld_date_from|format_mydatetime if user_profile.learning_development[88] and user_profile.learning_development|length > 88 else "" }}');
+    ld_to_page_4[13].setText('{{user_profile.learning_development[88].ld_date_to|format_mydatetime if user_profile.learning_development[88] and user_profile.learning_development|length > 88 else "" }}');
+    ld_no_hours_page_4[13].setText('{{user_profile.learning_development[88].ld_no_hours if user_profile.learning_development[88] and user_profile.learning_development|length > 88 else "" }}');
+    ld_type_page_4[13].setText('{{user_profile.learning_development[88].ld_type if user_profile.learning_development[88] and user_profile.learning_development|length > 88 else "" }}');
+    ld_sponsored_by_page_4[13].setText('{{user_profile.learning_development[88].ld_sponsored_by if user_profile.learning_development[88] and user_profile.learning_development|length > 88 else "" }}');
+
+    ld_page_4[14].setText('{{user_profile.learning_development[89].ld_program|escapejs if user_profile.learning_development[89] and user_profile.learning_development|length > 89 else "" }}');
+    ld_from_page_4[14].setText('{{user_profile.learning_development[89].ld_date_from|format_mydatetime if user_profile.learning_development[89] and user_profile.learning_development|length > 89 else "" }}');
+    ld_to_page_4[14].setText('{{user_profile.learning_development[89].ld_date_to|format_mydatetime if user_profile.learning_development[89] and user_profile.learning_development|length > 89 else "" }}');
+    ld_no_hours_page_4[14].setText('{{user_profile.learning_development[89].ld_no_hours if user_profile.learning_development[89] and user_profile.learning_development|length > 89 else "" }}');
+    ld_type_page_4[14].setText('{{user_profile.learning_development[89].ld_type if user_profile.learning_development[89] and user_profile.learning_development|length > 89 else "" }}');
+    ld_sponsored_by_page_4[14].setText('{{user_profile.learning_development[89].ld_sponsored_by if user_profile.learning_development[89] and user_profile.learning_development|length > 89 else "" }}');
+
+    ld_page_4[15].setText('{{user_profile.learning_development[90].ld_program|escapejs if user_profile.learning_development[90] and user_profile.learning_development|length > 90 else "" }}');
+    ld_from_page_4[15].setText('{{user_profile.learning_development[90].ld_date_from|format_mydatetime if user_profile.learning_development[90] and user_profile.learning_development|length > 90 else "" }}');
+    ld_to_page_4[15].setText('{{user_profile.learning_development[90].ld_date_to|format_mydatetime if user_profile.learning_development[90] and user_profile.learning_development|length > 90 else "" }}');
+    ld_no_hours_page_4[15].setText('{{user_profile.learning_development[90].ld_no_hours if user_profile.learning_development[90] and user_profile.learning_development|length > 90 else "" }}');
+    ld_type_page_4[15].setText('{{user_profile.learning_development[90].ld_type if user_profile.learning_development[90] and user_profile.learning_development|length > 90 else "" }}');
+    ld_sponsored_by_page_4[15].setText('{{user_profile.learning_development[90].ld_sponsored_by if user_profile.learning_development[90] and user_profile.learning_development|length > 90 else "" }}');
+
+    //<!-- ----------------------------------------------------------------------- -->
+    //<!--                     END OF SEPARATE SHEET FOR PAGE 3.5                  -->
+    //<!-- ----------------------------------------------------------------------- -->
+
     
 
 
@@ -2844,16 +2988,30 @@ const form6 = page6.getForm();
 
         pdfDoc.addPage(thirdPage4)
     {% endif %}
+    
 
     {% if user_profile.learning_development|length > 59 %}
     //form6.flatten(); // flatten form before copying
 
-    const ldCopyPage3 = await pdfDoc.copyPages(page6, [0])
+    form3ld.flatten();
+
+    const ldCopyPage3 = await pdfDoc.copyPages(page3ld, [0])
 
     const [ldPage3] = ldCopyPage3;
 
     pdfDoc.addPage(ldPage3)
-{% endif %}
+
+    {% endif %}
+
+    {% if user_profile.learning_development|length > 75 %}
+    //form6.flatten(); // flatten form before copying
+
+    const ldCopyPage4 = await pdfDoc.copyPages(page4ld, [0])
+
+    const [ldPage4] = ldCopyPage4;
+
+    pdfDoc.addPage(ldPage4)
+    {% endif %}
 
     
     {% if user_profile.doctoral|length > 0 and user_profile.doctoral[0].doc_school != none and user_profile.doctoral[0].doc_school != 'N/A' and  user_profile.doctoral[0].doc_school != '' %}
