@@ -105,6 +105,18 @@ def my_profile(emp_id):
 	return jsonify({})
 
 
+@employees.route('get-singular-employee/<emp_id>', methods=['POST', 'GET'])
+@login_required
+def get_singular_employee(emp_id):
+	user = db.session.query(User).get(emp_id)
+	user_schema = UserSchema()
+	# user_schema = UserSchema(many=True)
+	output = user_schema.dump(user)
+
+	db.session.close()
+	return jsonify(output)
+
+
 @employees.route('update-employee/<emp_id>', methods=['POST', 'GET'])
 @login_required
 # @admin_permission.require(http_exception=403)

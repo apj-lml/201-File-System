@@ -64,15 +64,15 @@
 
         const mainFields = mainForm.getFields();
 
-        fetch('/employees/my-profile/{{user_profile.id}}',{
-            method: 'POST',
+        fetch('/employees/get-singular-employee/{{user_profile.id}}',{
+            method: 'GET',
             //body: JSON.stringify({"work_exp_id" : el.id})
         })
-            .then(response => {
-          response.json()
+        .then(response => {
+          return response.json()
         })
             .then(data => {
-                console.log('data: ',data)
+                console.log('data: ', data)
                 // triggerToast(data)
                 //window.location.reload()
             });

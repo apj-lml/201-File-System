@@ -358,6 +358,8 @@ class Family_Background(db.Model, SerializerMixin):
     fb_date_of_birth = db.Column(db.String(50))
     fb_maiden_name = db.Column(db.String(50))
     fb_relationship = db.Column(db.String(50))
+    # user = db.relationship('User', backref='user_family_background', lazy=True)
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     @hybrid_property
@@ -373,6 +375,7 @@ class Family_Background(db.Model, SerializerMixin):
         fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
 
         return fullname
+
 
 class College(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -528,7 +531,7 @@ class Assignatory(db.Model, SerializerMixin):
 # 	user_id = db.relationship('user.id')
 
 # ---------------------------------------------------------------------------- #
-#                      I don't remember if this is working                     #
+#                   This is a working sample and used in WES                   #
 # ---------------------------------------------------------------------------- #
 
 class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
@@ -545,19 +548,18 @@ class AgencyUnitSchema(ma.SQLAlchemyAutoSchema):
     #	include_fk = True
     unit_title = ma.auto_field()
 
+class FamilyBackgroundSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Family_Background
+        include_fk = True
+
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
-        load_instance = True
     agency_section = ma.Nested(AgencySectionSchema, attribute='user_section')
     agency_unit = ma.Nested(AgencyUnitSchema, attribute='user_unit')
+    family_background = ma.Nested(FamilyBackgroundSchema, many=True)
 
-# ------------------------------------ III ----------------------------------- #
-
-
-# ---------------------------------------------------------------------------- #
-#                   This is a working sample and used in WES                   #
-# ---------------------------------------------------------------------------- #
 class WesDutiesAccomplishmentsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Wes_Duties_Accomplishments
