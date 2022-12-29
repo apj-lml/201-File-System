@@ -253,6 +253,7 @@
                 <label for="doc_scholarship_academic_honor">Scholarship / Academic Honor</label>
               </div>   
             </div>
+            
           <a href="#" onclick="document.getElementById('doctoral_no_fields').value--;document.getElementById('remove_doctoral${x}').remove(); return false">Remove</a>
 
           </div>

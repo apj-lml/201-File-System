@@ -565,7 +565,6 @@ class WesDutiesAccomplishmentsSchema(ma.SQLAlchemyAutoSchema):
         model = Wes_Duties_Accomplishments
         include_fk = True
 
-
 class WorkExperienceSchema(ma.SQLAlchemyAutoSchema):
 
     wda = ma.Nested(WesDutiesAccomplishmentsSchema, many=True)
