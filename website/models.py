@@ -358,6 +358,7 @@ class Family_Background(db.Model, SerializerMixin):
     fb_date_of_birth = db.Column(db.String(50))
     fb_maiden_name = db.Column(db.String(50))
     fb_relationship = db.Column(db.String(50))
+    user = db.relationship('User', backref='user_family_background', lazy=True)
     # user = db.relationship('User', backref='user_family_background', lazy=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -537,28 +538,29 @@ class Assignatory(db.Model, SerializerMixin):
 class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Agency_Section
-        load_instance = True
-    #	include_fk = True
+        # load_instance = True
+        # include_fk = True
     section_title = ma.auto_field()
 
 class AgencyUnitSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Agency_Unit
         # load_instance = True
-    #	include_fk = True
+        # include_fk = True
     unit_title = ma.auto_field()
 
 class FamilyBackgroundSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Family_Background
-        include_fk = True
+        # include_fk = True
+    fb_last_name = ma.auto_field()
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
     agency_section = ma.Nested(AgencySectionSchema, attribute='user_section')
     agency_unit = ma.Nested(AgencyUnitSchema, attribute='user_unit')
-    family_background = ma.Nested(FamilyBackgroundSchema, many=True)
+    family_background = ma.Nested(FamilyBackgroundSchema, attribute='user_family_background', many=True)
 
 class WesDutiesAccomplishmentsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

@@ -109,6 +109,7 @@ def my_profile(emp_id):
 @login_required
 def get_singular_employee(emp_id):
 	user = db.session.query(User).get(emp_id)
+	# user = User.query.filter_by(id = emp_id).all()
 	user_schema = UserSchema()
 	# user_schema = UserSchema(many=True)
 	output = user_schema.dump(user)
