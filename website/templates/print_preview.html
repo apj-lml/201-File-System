@@ -57,6 +57,8 @@
 
 /* Copies a PDFPage object */
 
+const { PDFDocument } = PDFLib
+
 
 
 fillForm();
@@ -1372,48 +1374,51 @@ async function fillForm() {
     {% endif %}
 
 
-    {% if user_profile.college|length > 1 %}
-        
-        c_school2.setText('{{user_profile.college[1].c_school if user_profile.college|length > 1 else ""}}');
-        c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college|length > 1 else ""}}');
-        c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college|length > 1 else ""}}');
-        c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college|length > 1 else ""}}');
+        {% if user_profile.college|length > 1 %}
+            
+            c_school2.setText('{{user_profile.college[1].c_school if user_profile.college|length > 1 else ""}}');
+            c_degree_course2.setText('{{user_profile.college[1].c_degree_course if user_profile.college|length > 1 else ""}}');
+            c_period_of_attendance_from2.setText('{{user_profile.college[1].c_period_of_attendance_from if user_profile.college|length > 1 else ""}}');
+            c_period_of_attendance_to2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college|length > 1 else ""}}');
 
-        c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_grade_year_units }}');
+            c_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else user_profile.college[1].c_highest_grade_year_units }}');
 
-        c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
+            c_year_graduated2.setText('{{user_profile.college[1].c_period_of_attendance_to if user_profile.college[1].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
 
-        c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor|escapejs if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
+            c_scholarship_academic_honor2.setText('{{user_profile.college[1].c_scholarship_academic_honor|escapejs if user_profile.college[1].c_scholarship_academic_honor != "" else "N/A"}}');
 
+        {% endif %}
+
+
+        {% if user_profile.masteral|length > 1 %}
+
+            gs_year_graduated2.setText('{{user_profile.masteral[1].gs_period_of_attendance_to if user_profile.masteral[1] is defined and user_profile.masteral[1].gs_highest_level_units_earned == "GRADUATED" else "N/A"}}');
+            gs_scholarship_academic_honor2.setText('{{user_profile.masteral[1].gs_scholarship_academic_honor if user_profile.masteral[1] is defined and user_profile.masteral[1].gs_scholarship_academic_honor != "" and user_profile.masteral[1].gs_scholarship_academic_honor is not none else "N/A"}}');
+
+            gs_school2.setText('{{user_profile.masteral[1].gs_school|escapejs if user_profile.masteral|length > 1 else "N/A"}}');
+            gs_degree_course2.setText('{{user_profile.masteral[1].gs_degree_course if user_profile.masteral|length > 1 else "N/A"}}');
+            gs_period_of_attendance_from2.setText('{{user_profile.masteral[1].gs_period_of_attendance_from if user_profile.masteral|length > 1 else "N/A"}}');
+            gs_period_of_attendance_to2.setText('{{user_profile.masteral[1].gs_period_of_attendance_to if user_profile.masteral|length > 1 else "N/A"}}');
+        {% endif %}
+
+
+
+    {% endif %}
+
+    {% if user_profile.masteral|length > 1 %}
+        {% if user_profile.masteral[1].gs_highest_level_units_earned == "GRADUATED" %}
+            gs_highest_grade_year_units2.setText('GRADUATED')
+        {% elif user_profile.masteral[1].gs_highest_level_units_earned != "GRADUATED" and user_profile.masteral[1].gs_highest_level_units_earned is not none %}
+            gs_highest_grade_year_units2.setText('{{user_profile.masteral[1].gs_highest_grade_year_units}}');
+        {% else %}
+            gs_highest_grade_year_units2.setText('N/A');
+        {% endif %}
     {% else %}
-        // c_highest_grade_year_units2.setText("");
-        // c_school2.setText('');
-        // c_degree_course2.setText('');
-        // c_period_of_attendance_from2.setText('');
-        // c_period_of_attendance_to2.setText('');
-        // c_year_graduated2.setText("");
-        // c_scholarship_academic_honor2.setText("");
+       // gs_highest_grade_year_units2.setText("N/A");
     {% endif %}
 
-
-    gs_school2.setText('{{user_profile.masteral[1].gs_school if user_profile.masteral|length > 0 else ""}}');
-    gs_degree_course2.setText('{{user_profile.masteral[1].gs_degree_course if user_profile.masteral|length > 0 else ""}}');
-    gs_period_of_attendance_from2.setText('{{user_profile.masteral[1].gs_period_of_attendance_from if user_profile.masteral|length > 0 else ""}}');
-    gs_period_of_attendance_to2.setText('{{user_profile.masteral[1].gs_period_of_attendance_to if user_profile.masteral|length > 0 else ""}}');
-
-    {% if user_profile.masteral|length > 0 %}
-        gs_year_graduated2.setText('{{user_profile.masteral[1].gs_period_of_attendance_to if user_profile.masteral[1].gs_highest_grade_year_units == "GRADUATED" else "" }}');
-    {% else %}
-        gs_year_graduated2.setText("");
-    {% endif %}
-
-    {% if user_profile.masteral|length > 0 %}
-        gs_highest_grade_year_units2.setText('{{"GRADUATED" if user_profile.masteral[1].gs_highest_level_units_earned == "GRADUATED" else "" }}');
-    {% else %}
-        gs_highest_grade_year_units2.setText("")
-    {% endif %}
-        gs_scholarship_academic_honor2.setText('{{user_profile.masteral[1].gs_scholarship_academic_honor if user_profile.masteral|length > 0 else ""}}');
-    {% endif %}
+    
+ 
 
    
     //<!-- ----------------------------------------------------------------------- -->
@@ -3076,50 +3081,49 @@ const form6 = page6.getForm();
     // srcDoc2 is for the page 2 of masteral and doctoral
 
     // const formUrl3 = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
-    // const formPdfBytes3 = await fetch(formUrl3).then(res => res.arrayBuffer())
-    // const srcDoc2 = await PDFLib.PDFDocument.load(formPdfBytes3);
-    // const form3 = srcDoc2.getForm()
 
-    // const doc_school3 = form3.getTextField('gs_school');
-    // const doc_degree_course3 = form3.getTextField('gs_degree_course');
-    // const doc_period_of_attendance_from3 = form3.getTextField('gs_period_of_attendance_from');
-    // const doc_period_of_attendance_to3 = form3.getTextField('gs_period_of_attendance_to');
-    // const doc_highest_grade_year_units3 = form3.getTextField('gs_highest_level');
-    // const doc_year_graduated3 = form3.getTextField('gs_year_graduated');
-    // const doc_scholarship_academic_honor3 = form3.getTextField('gs_scholarship_academic_honor');
+    {% if user_profile.doctoral|length > 0 %}
+    console.log('andito ako sa unang doctoral')
+    const formUrlpage1Doctoral = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
+    const formPdfBytesPage1Doctoral = await fetch(formUrlpage1Doctoral).then(res => res.arrayBuffer())
 
-    const doc_school3 = form2.getTextField('gs_school');
-    const doc_degree_course3 = form2.getTextField('gs_degree_course');
-    const doc_period_of_attendance_from3 = form2.getTextField('gs_period_of_attendance_from');
-    const doc_period_of_attendance_to3 = form2.getTextField('gs_period_of_attendance_to');
-    const doc_highest_grade_year_units3 = form2.getTextField('gs_highest_level');
-    const doc_year_graduated3 = form2.getTextField('gs_year_graduated');
-    const doc_scholarship_academic_honor3 = form2.getTextField('gs_scholarship_academic_honor');
+    const page1Doctoral = await PDFLib.PDFDocument.load(formPdfBytesPage1Doctoral);
 
-    doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else ""}}')
+    const form1Doctoral = page1Doctoral.getForm();
+    
+    const doc_school3 = form1Doctoral.getTextField('gs_school');
+    const doc_degree_course3 = form1Doctoral.getTextField('gs_degree_course');
+    const doc_period_of_attendance_from3 = form1Doctoral.getTextField('gs_period_of_attendance_from');
+    const doc_period_of_attendance_to3 = form1Doctoral.getTextField('gs_period_of_attendance_to');
+    const doc_highest_grade_year_units3 = form1Doctoral.getTextField('gs_highest_level');
+    const doc_year_graduated3 = form1Doctoral.getTextField('gs_year_graduated');
+    const doc_scholarship_academic_honor3 = form1Doctoral.getTextField('gs_scholarship_academic_honor');
+
+    // doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else ""}}')
+    doc_school3.setText('ANDITO AKO')
     doc_degree_course3.setText('{{user_profile.doctoral[0].doc_degree_course if user_profile.doctoral|length > 0 else ""}}')
     doc_period_of_attendance_from3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_from if user_profile.doctoral|length > 0 else ""}}')
     doc_period_of_attendance_to3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.doctoral|length > 0 else ""}}')
 
-    {% if user_profile.doctoral|length > 0 %}
-        doc_year_graduated3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.masteral[0].doc_highest_grade_year_units == "GRADUATED" else "" }}')
+    {% if user_profile.doctoral[0].doc_highest_level_units_earned == "GRADUATED"  %}
+        doc_year_graduated3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to}}')
     {% else %}
-        doc_year_graduated3.setText("")
+        doc_year_graduated3.setText('NASA ELSE')
     {% endif %}
 
-    {% if user_profile.doctoral|length > 0 %}
-        doc_highest_grade_year_units3.setText('{{"GRADUATED" if user_profile.masteral[0].doc_highest_level_units_earned == "GRADUATED" else user_profile.masteral[0].doc_highest_grade_year_units }}')
-        doc_scholarship_academic_honor3.setText('{{user_profile.doctoral[0].doc_scholarship_academic_honor if user_profile.doctoral[0].doc_scholarship_academic_honor is defined or user_profile.doctoral[0].doc_scholarship_academic_honor is not none else "N/A"}}')
+    doc_highest_grade_year_units3.setText('{{"GRADUATED" if user_profile.doctoral[0].doc_highest_level_units_earned == "GRADUATED" else user_profile.doctoral[0].doc_highest_grade_year_units }}')
+    doc_scholarship_academic_honor3.setText('{{user_profile.doctoral[0].doc_scholarship_academic_honor if user_profile.doctoral[0].doc_scholarship_academic_honor is defined or user_profile.doctoral[0].doc_scholarship_academic_honor is not none else "N/A"}}')
 
-    {% else %}
-        doc_highest_grade_year_units3.setText("")
-        doc_scholarship_academic_honor3.setText("")
     {% endif %}
-    
+
+
+
+
+
     form2.flatten(); // flatten form before copying
 
-    const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1, 2])
-    const [firstPage, secondPage, thirdPage] = copiedPages;
+    const copiedPages = await pdfDoc.copyPages(srcDoc, [0, 1])
+    const [firstPage, secondPage] = copiedPages;
 
 
     {% if child[12] or college[1] or user_profile.vocational_course[1] or masteral[1] %}
@@ -3127,7 +3131,7 @@ const form6 = page6.getForm();
     {% endif %}
 
     {% if user_profile.work_experience|length > 15 or user_profile.career_service|length > 7 %}
-       pdfDoc.addPage(secondPage)
+        pdfDoc.addPage(secondPage)
     {% endif %}
 
     {% if user_profile.work_experience|length > 30 %}
@@ -3137,15 +3141,11 @@ const form6 = page6.getForm();
         pdfDoc.addPage(wesSecondPagePage3)
     {% endif %}
 
-
     {% if user_profile.voluntary_work|length > 6 or user_profile.learning_development|length > 11 %}
-
         form4.flatten(); // flatten form before copying
         const copiedPages3 = await pdfDoc.copyPages(page4, [2])
-        
         const [thirdPage2] = copiedPages3;
         pdfDoc.addPage(thirdPage2)
-
     {% endif %}
 
     {% if user_profile.voluntary_work|length > 8 or user_profile.learning_development|length > 27 %}
@@ -3159,11 +3159,8 @@ const form6 = page6.getForm();
 
     {% if user_profile.learning_development|length > 43 %}
         form6.flatten(); // flatten form before copying
-
         const copiedPages5 = await pdfDoc.copyPages(page6, [0])
-
         const [thirdPage4] = copiedPages5;
-
         pdfDoc.addPage(thirdPage4)
     {% endif %}
     
@@ -3190,21 +3187,54 @@ const form6 = page6.getForm();
     pdfDoc.addPage(ldPage4)
     {% endif %}
 
-    
-    {% if user_profile.doctoral|length > 0 and user_profile.doctoral[0].doc_school != none and user_profile.doctoral[0].doc_school != 'N/A' and  user_profile.doctoral[0].doc_school != '' %}
-        //pdfDoc.addPage(firstPage2)
-    {% endif %}
 
     console.log("IM HERE")
 
     form.flatten();
 
-    const pdfBytes = await pdfDoc.save()
+    const pdfBytes = pdfDoc.save()
 
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-    document.getElementById('pdf').src = pdfDataUri;
+    const testPdfDataUri = await pdfDoc.saveAsBase64();
+
+    // Opening PDF in iframe
+    //document.getElementById('pdf').src = pdfDataUri;
+
+
+    // decode base64 string, remove space for IE compatibility
+    var binary = atob(testPdfDataUri.replace(/\s/g, ''));
+    var len = binary.length;
+    var buffer = new ArrayBuffer(len);
+    var view = new Uint8Array(buffer);
+    for (var i = 0; i < len; i++) {
+        view[i] = binary.charCodeAt(i);
+    }
+
+    var blob = new Blob( [view], { type: "application/pdf" });
+    var url = URL.createObjectURL(blob);
+
+    //var file = new Blob([pdfDataUri], {type: 'application/pdf'});
+    //var fileURL = URL.createObjectURL(file);
+    window.open(url);
+
+
+    //downloadPDF(pdfDataUri);
+
+
+    //window.location.href = 'data:application/pdf;base64,' + pdfDataUri;
 
 }
+
+function downloadPDF(pdf) {
+    const linkSource = pdf;
+    const downloadLink = document.createElement("a");
+    const fileName = "vct_illustration.pdf";
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+}
+
 
 </script>
 {%endblock%}
