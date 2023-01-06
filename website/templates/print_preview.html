@@ -43,8 +43,51 @@
 <main class="container h-100 mt-5" id="pds" >
 
     
-    <iframe id="pdf" style="width: 100%; height: 100%;" type="application/pdf" onload="loadingScreen('none')"></iframe>
+    <!-- <iframe id="pdf" style="width: 100%; height: 100%;" type="application/pdf" onload=""></iframe> -->
 
+    <!-- <div id="message-div" class="bg-info border d-flex aligns-items-center justify-content-center" style="height:100px">
+        <p>This is a content</p>
+   </div> -->
+
+   <div class="card mb-3">
+    <div class="card-body">
+      <div class="card text-white bg-blue shadow-sm mb-3" >
+        <div class="card-header">
+          <h3 class="card-title"><i class="bi bi-printer"></i> Print PDS</h3>
+         </div>
+        <div class="card-body">
+          <ul>
+            <li><p class="card-text">Please wait while your PDS is generating.</p></li>
+            <li><p class="card-text">Do not leave the page in able for your PDS to generate.</p></li>
+            <li><p class="card-text">Your PDS will open in a new browser tab after sucessful generation.</p></li>
+          </ul>
+          <!-- <h5 class="card-title">Description</h5> -->
+        </div>
+      </div>
+        <div class="d-flex justify-content-center" id="loading-section">
+            <div class="spinner-grow text-primary m-1" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary m-1" style="width: 3rem; height: 3rem;" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success m-1" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger m-1" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning m-1" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-info m-1" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-dark m-1" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+      </div>
 
 </main>
 {% endblock %}
@@ -57,12 +100,14 @@
 
 /* Copies a PDFPage object */
 
+try {
+
 const { PDFDocument } = PDFLib
 
 
 
 fillForm();
-loadingScreen('block');
+//loadingScreen('block');
 
 
 async function fillForm() {
@@ -3078,12 +3123,8 @@ const form6 = page6.getForm();
     //<!--                   SEPARATE SHEET FOR GRADUATE STUDIES                   -->
     //<!-- ----------------------------------------------------------------------- -->
 
-    // srcDoc2 is for the page 2 of masteral and doctoral
-
-    // const formUrl3 = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
-
     {% if user_profile.doctoral|length > 0 %}
-    console.log('andito ako sa unang doctoral')
+    //console.log('dito ako sa unang page')
     const formUrlpage1Doctoral = "{{ url_for('static', filename='my_pds_template2.pdf') }}";
     const formPdfBytesPage1Doctoral = await fetch(formUrlpage1Doctoral).then(res => res.arrayBuffer())
 
@@ -3099,8 +3140,8 @@ const form6 = page6.getForm();
     const doc_year_graduated3 = form1Doctoral.getTextField('gs_year_graduated');
     const doc_scholarship_academic_honor3 = form1Doctoral.getTextField('gs_scholarship_academic_honor');
 
-    // doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else ""}}')
-    doc_school3.setText('ANDITO AKO')
+    doc_school3.setText('{{user_profile.doctoral[0].doc_school if user_profile.doctoral|length > 0 else ""}}')
+    // doc_school3.setText('ANDITO AKO')
     doc_degree_course3.setText('{{user_profile.doctoral[0].doc_degree_course if user_profile.doctoral|length > 0 else ""}}')
     doc_period_of_attendance_from3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_from if user_profile.doctoral|length > 0 else ""}}')
     doc_period_of_attendance_to3.setText('{{user_profile.doctoral[0].doc_period_of_attendance_to if user_profile.doctoral|length > 0 else ""}}')
@@ -3117,7 +3158,12 @@ const form6 = page6.getForm();
     {% endif %}
 
 
-
+    {% if user_profile.doctoral|length > 0 %}
+        form1Doctoral.flatten();
+        const doctoralPagePage1 = await pdfDoc.copyPages(page1Doctoral, [0])
+        const [docPage1] = doctoralPagePage1;
+        pdfDoc.addPage(docPage1)
+    {% endif %}
 
 
     form2.flatten(); // flatten form before copying
@@ -3188,7 +3234,7 @@ const form6 = page6.getForm();
     {% endif %}
 
 
-    console.log("IM HERE")
+    // console.log("IM HERE")
 
     form.flatten();
 
@@ -3215,7 +3261,13 @@ const form6 = page6.getForm();
 
     //var file = new Blob([pdfDataUri], {type: 'application/pdf'});
     //var fileURL = URL.createObjectURL(file);
+
+    loadingScreen('none')
+    document.getElementById("loading-section").innerHTML = "<h6 class='text-muted'>Success! Please look at the newly opened tab to view your PDS or <h6>&nbsp<a href='/print-preview/{{user_profile.id}}'>regenerate new PDS.</a>"
+
+
     window.open(url);
+
 
 
     //downloadPDF(pdfDataUri);
@@ -3228,13 +3280,15 @@ const form6 = page6.getForm();
 function downloadPDF(pdf) {
     const linkSource = pdf;
     const downloadLink = document.createElement("a");
-    const fileName = "vct_illustration.pdf";
+    const fileName = "pds.pdf";
 
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
 }
-
+}catch(err){
+    document.getElementById("loading-section").innerHTML = "<h6 class='text-muted'>Error generating your PDS. Please try to refresh the page or contact system administrator.<h6>"
+}
 
 </script>
 {%endblock%}

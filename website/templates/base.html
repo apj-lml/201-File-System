@@ -258,7 +258,33 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
 
   {% block content %}{% endblock %}
 
-<div class="loading" id="loading">Loading&#8230;</div>
+<!-- <div class="loading" id="loading">Loading&#8230;</div> -->
+<div class="loading" id="loading">
+  <div class="d-flex justify-content-center" id="loading-section">
+      <div class="spinner-grow text-primary m-1" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-secondary m-1" style="width: 3rem; height: 3rem;" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-success m-1" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-danger m-1" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-warning m-1" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-info m-1" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-dark m-1" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+  </div>
+</div>
+
 
 <div class="position-absolute d-flex justify-content-center align-items-center w-100 top-50" style="z-index: 1000;">
   <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 600px;">
