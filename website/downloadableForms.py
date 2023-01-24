@@ -66,9 +66,9 @@ def add_forms():
 				if filex.filename == "":
 					print('No file selected')
 				else:
-					if not allowed_file(filex.filename, {'pdf','doc','docx','png', 'jpg', 'jpeg'}):
+					if not allowed_file(filex.filename, {'pdf','doc','docx','png', 'jpg', 'jpeg', 'xls', 'xlsx', 'xlsm'}):
 						print('Invalid file submitted')
-						return jsonify('Invalid File Submitted! Only PDF (.pdf) Files are allowed.'), 406
+						return jsonify('Invalid File Submitted! Only PDF, Word, Excel files are allowed.'), 406
 
 
 	for afile in request.files:
