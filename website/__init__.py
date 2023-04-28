@@ -42,7 +42,7 @@ def create_app():
 
 	#mysql database online
 	
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
@@ -143,6 +143,7 @@ def create_app():
 	from .systemSettings import systemSettings
 	from .agencyUnit import agencyUnit
 	from .wes import wes
+	from .afl import afl
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -172,6 +173,7 @@ def create_app():
 	app.register_blueprint(systemSettings, url_prefix = '/systemSettings')
 	app.register_blueprint(agencyUnit, url_prefix = '/agencyUnit')
 	app.register_blueprint(wes, url_prefix = '/wes')
+	app.register_blueprint(afl, url_prefix = '/afl')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

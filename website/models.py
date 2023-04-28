@@ -194,6 +194,7 @@ class User(db.Model, UserMixin):
     staff_moved = db.relationship('Staff_Movement')
     assignatory = db.relationship('Assignatory')
     vaccine = db.relationship('Vaccine')
+    afl = db.relationship('Afl')
 
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
@@ -216,6 +217,32 @@ class User(db.Model, UserMixin):
        return {c.name: str((getattr(self, c.name))) for c in self.__table__.columns}
 
     # emergency_contact = db.relationship('Emergency_Contact')
+
+class Afl(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    leave_id = db.Column(db.Integer)
+    other_remarks = db.Column(db.String(150))
+    wph = db.Column(db.Integer)
+    wph_remarks = db.Column(db.String(150))
+    abroad = db.Column(db.Integer)
+    abroad_remarks = db.Column(db.String(150))
+    in_hospital = db.Column(db.String(150))
+    out_patient = db.Column(db.Integer)
+    out_patient_illness = db.Column(db.String(150))
+    slbw_illness = db.Column(db.String(150))
+    masters = db.Column(db.Integer)
+    bar = db.Column(db.Integer)
+    monetization = db.Column(db.Integer)
+    terminal_leave = db.Column(db.Integer)
+    no_working_days_applied_for = db.Column(db.String(150))
+    date_from = db.Column(db.Date())
+    date_to = db.Column(db.Date())
+    inclusive_dates = db.Column(db.String(150))
+    approval = db.Column(db.Integer)
+    disapproval_remarks = db.Column(db.String(150))
+    commutation = db.Column(db.Integer)
+
 class Agency_Section(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     section_title = db.Column(db.String(150))
