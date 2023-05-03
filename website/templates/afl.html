@@ -56,7 +56,7 @@
 				<form id="add_afl_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<div class="card text-white bg-blue shadow-sm mb-3" >
 					<div class="card-header">
-						<h3 class="card-title"><i class="bi bi-calendar-week"></i> Application for Leave</h3>
+						<h3 class="card-title"><i class="bi bi-calendar-week"></i> Application for Leave - {{ user_profile.section.section_title }}</h3>
 					</div>
 					<div class="card-body">
 					  <ul>
@@ -206,13 +206,13 @@
 		
 								<div class="mb-3 p-1 col-md-12">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="1" id="study_master" name="study_master" disabled>
+										<input class="form-check-input" type="checkbox" value="stl1" id="study_master" name="study_master" form="add_afl_form" disabled>
 										<label class="form-check-label" for="study_master">
 											Completion of Master's Degree
 										</label>
 									  </div>
 									  <div class="form-check">
-										<input class="form-check-input" type="checkbox" value="1" id="study_review" name="study_review" disabled>
+										<input class="form-check-input" type="checkbox" value="stl2" id="study_review" name="study_review" form="add_afl_form" disabled>
 										<label class="form-check-label" for="study_review">
 											BAR/Board Examination Review
 										</label>
@@ -225,7 +225,7 @@
 							 
 								<div class="mb-3 p-1 col-md-6">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="CTO" id="cto" name="cto" disabled>
+										<input class="form-check-input" type="checkbox" value="CTO" id="cto" name="cto" form="add_afl_form" required disabled>
 										<label class="form-check-label" for="out_patient">
 											CTO<span class="is-required">*</span>
 										</label>
@@ -601,6 +601,15 @@
 			cb_solo_pl.check();
 		}else if (leave_id == 8){
 			cb_stl.check();
+			var masters = document.getElementById('study_master');
+			var review = document.getElementById('study_review');
+			if(masters.checked){
+				cb_masters.check();
+			}
+			if(review.checked){
+				cb_bar_review.check();
+			}
+
 		}else if (leave_id == 9){
 			cb_vawcl.check();
 		}else if (leave_id == 10){
@@ -617,25 +626,42 @@
 		}
 
 		var wph = document.getElementById('wph');
+		var wph_remarks = document.getElementById('wph_remarks');
+
 		if(wph.checked){
 			cb_within_ph.check();
+			tb_within_ph.setText(wph_remarks.value);
 		}
 
 		var out_abroad = document.getElementById('out_abroad');
+		var abroad_remarks = document.getElementById('abroad_remarks');
+
 		if(out_abroad.checked){
 			cb_abroad.check();
+			tb_abroad.setText(abroad_remarks.value);
+
 		}
 
 		var in_hospital = document.getElementById('in_hospital');
+		var in_hospital_illness = document.getElementById('in_hospital_illness');
+
 		if(in_hospital.checked){
 			cb_hospital.check();
+			tb_hospital.setText(in_hospital_illness.value)
 		}
 
 		var out_patient = document.getElementById('out_patient');
+		var out_patient_illness = document.getElementById('out_patient_illness');
+
 		if(out_patient.checked){
 			cb_out_patient.check();
+			tb_out_patient.setText(out_patient_illness.value)
 		}
 
+		var cto = document.getElementById('cto');
+		if(cto.checked){
+			tb_others.setText('CTO');
+		}
 
 		var numberToWord = convertNumberToWords(no_working_days_applied_for.value);
 
@@ -660,6 +686,7 @@
 
 		tb_inclusive_dates.setText(inclusive_dates);
 
+		//tb_assignatory.setText('{{user_profile.assignatory[0].assignatory}}');
 	
 		form.flatten();
 
@@ -754,6 +781,8 @@ function leave_type(leave_type){
 		study_review.disabled = true;
 		study_master.checked = false;
 		study_review.checked = false;
+		cto.disabled = true;
+		cto.checked = false;
 	}else if(leave_type.value == 3){
 		wph.disabled = true;
 		wph_remarks.disabled = true;
@@ -776,6 +805,9 @@ function leave_type(leave_type){
 		study_review.disabled = true;
 		study_master.checked = false;
 		study_review.checked = false;
+		cto.disabled = true;
+		cto.checked = false;
+
 	}else if(leave_type.value == 8){
 		wph.disabled = true;
 		wph_remarks.disabled = true;
@@ -796,6 +828,9 @@ function leave_type(leave_type){
 
 		study_master.disabled = false;
 		study_review.disabled = false;
+
+		cto.disabled = true;
+		cto.checked = false;
 
 	}else if(leave_type.value == 11){
 		wph.disabled = true;
@@ -822,6 +857,9 @@ function leave_type(leave_type){
 		study_review.disabled = true;
 		study_master.checked = false;
 		study_review.checked = false;
+
+		cto.disabled = true;
+		cto.checked = false;
 		
 	}else if(leave_type.value == 99){
 		wph.disabled = true;
@@ -849,7 +887,7 @@ function leave_type(leave_type){
 		study_master.checked = false;
 		study_review.checked = false;
 		cto.disabled = false;
-
+		cto.checked = true;
 		
 	}else{
 		wph.disabled = true;
@@ -875,7 +913,7 @@ function leave_type(leave_type){
 		out_abroad.checked = false;
 
 		cto.disabled = true;
-
+		cto.checked = false;
 	}
 }
 

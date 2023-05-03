@@ -246,6 +246,7 @@ class Afl(db.Model, SerializerMixin):
 class Agency_Section(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     section_title = db.Column(db.String(150))
+    section_chief = db.Column(db.String(150))
     user = db.relationship('User', backref='user_section', lazy=True)
     agency_unit = db.relationship('Agency_Unit')
     # user = db.relationship('User', back_populates="section_rel")
@@ -253,6 +254,7 @@ class Agency_Section(db.Model, SerializerMixin):
 class Agency_Unit(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     unit_title = db.Column(db.String(150))
+    unit_head = db.Column(db.String(150))
     agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
     user = db.relationship('User', backref='user_unit', lazy=True)
 
