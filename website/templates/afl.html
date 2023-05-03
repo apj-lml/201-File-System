@@ -4,16 +4,38 @@
 
 {%block cssperfile %} 
 <style type="text/css">
-	div.dtsb-searchBuilder div.dtsb-titleRow {
-    	display: none;
-}
+
+	.scroll-container {
+		position: relative;
+		height: 600px;
+		overflow-y: scroll;
+		scroll-behavior: smooth;
+	}
+	.highlight {
+		background-color: yellow; /* set the highlight color */
+		transition: background-color 1s ease-out; /* add a transition */
+	  }
+	  
+	  .fade-out {
+		background-color: transparent !important; /* set the background color to transparent */
+	  }
+
+	  .is-required {
+		color: red;
+		font-size: 15px;
+		margin-left: 5px;
+	  }
+
 </style>
 
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
+
 {% endblock %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+
 <main class="container-fluid mt-4 ps-5 pe-5 pb-5">
 	<ul class="circles">
 		<li></li>
@@ -28,6 +50,7 @@
 		<li></li>
 	  </ul>
 	<div class="row mb-3 mt-4">
+
 		<div class="card col-md-8">
 			<div class="card-body">
 				<form id="add_afl_form" action="#" method="POST" enctype="multipart/form-data"></form>
@@ -42,307 +65,639 @@
 					  </ul>
 					</div>
 				</div>
-				<div class="card shadow-sm mb-3">
-					<div class="card-body">
-						<div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1">
-								<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form">
-									<option value="1">Vacation Leave</option>
-									<option value="2">Mandatory/Forced Leave</option>
-									<option value="3">Sick Leave</option>
-									<option value="4">Maternity Leave</option>
-									<option value="5">Paternity Leave</option>
-									<option value="6">Special Privilege Leave</option>
-									<option value="7">Solo Parent Leave</option>
-									<option value="8">Study Leave </option>
-									<option value="9">10-Day VAWC Leave</option>
-									<option value="10">Special Leave Benefits for Women</option>
-									<option value="11">Special Emergency (Calamity) Leave</option>
-									<option value="12">Adoption Leave</option>
-								</select>
-								<label for="leave_id">Type of Leave</label>
-							</div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-								<input type="date" class="form-control" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="add_afl_form" max="9999-12-31" required>
-								<label for="ld_date_from[1]">Inclusive Date From</label>
-							</div>
-							<div class="form-floating flex-fill mb-3 p-1">
-								<input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_afl_form" max="5000-12-31" required>
-								<label for="ld_date_to[1]">Inclusive Date To</label>
-							</div>
-						</div>
-						<div class="d-md-flex flex-row">
-							<div class="form-floating flex-fill mb-3 p-1">
-								<input type="number" class="form-control" name ="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1">
-								<label for="no_working_days_applied_for">Number of Working Days Applied for</label>
-							</div>
-						</div>
+	
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card shadow-sm mb-3">
+							<div class="card-body">
+								<div class="d-md-flex flex-row">
+									<div class="form-floating flex-fill mb-3 p-1">
+										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Inclusive Date of Attendance From" form="add_afl_form" max="9999-12-31" readonly>
+										<label for="date_of_filing">Date of Filing<span class="is-required">*</span></label>
+									</div>
+								</div>
+								<div class="d-md-flex flex-row">
+									<div class="form-floating flex-fill mb-3 p-1">
+										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value)">
+											<option value="1">Vacation Leave</option>
+											<option value="2">Mandatory/Forced Leave</option>
+											<option value="3">Sick Leave</option>
+											<option value="4">Maternity Leave</option>
+											<option value="5">Paternity Leave</option>
+											<option value="6">Special Privilege Leave</option>
+											<option value="7">Solo Parent Leave</option>
+											<option value="8">Study Leave </option>
+											<option value="9">10-Day VAWC Leave</option>
+											<option value="10">Rehabilitation Privilage</option>
+											<option value="11">Special Leave Benefits for Women</option>
+											<option value="12">Special Emergency (Calamity) Leave</option>
+											<option value="13">Adoption Leave</option>
+											<option value="99">Others</option>
+										</select>
+										<label for="leave_id">Type of Leave <span class="is-required">*</span></label>
+									</div>
+								</div>
+								<div class="d-md-flex flex-row">
+									<div class="form-floating flex-fill mb-3 p-1">
+										<input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date of Attendance From" form="add_afl_form" max="5000-12-31" onchange="getBusinessDays(this.value, document.getElementById('date_to').value)" required>
+										<label for="date_from">Inclusive Date From<span class="is-required">*</span></label>
+									</div>
+									<div class="form-floating flex-fill mb-3 p-1">
+										<input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date of Attendance To" form="add_afl_form" max="5000-12-31" onchange="getBusinessDays(document.getElementById('date_from').value, this.value)" required>
+										<label for="date_to">Inclusive Date To<span class="is-required">*</span></label>
+									</div>
+								</div>
+								<div class="d-md-flex flex-column mb-0">
+									<div class="form-floating flex-fill col-sm-12 pb-0 p-1">
+										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1">
+										<label for="no_working_days_applied_for">Number of Working Days Applied for<span class="is-required">*</span></label>
+									</div>
+									<div class="flex-fill col-sm-12 mt-0 pt-0">
+										<span class="is-required">*Please double check the Number of Working Days Applied for</span>	
+									</div>
+								</div>
 
-						<div class="d-md-flex flex-row">
-                            <h6>In case of Vacation/Special Privilage Leave:</h6>
-                        </div>
-						<div class="d-md-flex flex-row">
-							<div class="mb-3 p-1 col-md-6">
-								<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="wph" name="wph">
-                                    <label class="form-check-label" for="wph">
-                                      Within the Philippines
-                                    </label>
-                                    <div class="form-floating flex-fill mb-3 p-1">
-                                        <input type="text" class="form-control" name ="wph_remarks" placeholder="Remarks" form="add_afl_form">
-                                        <label for="wph_remarks">Remarks</label>
-                                    </div>
-                                  </div>
-							</div>
-                            <div class="mb-3 p-1 col-md-6">
-								<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="abroad" name="abroad">
-                                    <label class="form-check-label" for="abroad">
-                                      Abroad
-                                    </label>
-                                    <div class="form-floating flex-fill mb-3 p-1">
-                                        <input type="text" class="form-control" name ="abroad_remarks" placeholder="Remarks" form="add_afl_form">
-                                        <label for="abroad_remarks">Remarks</label>
-                                    </div>
-                                  </div>
 							</div>
 						</div>
-                        <div class="d-md-flex flex-row">
-                            <h6>In case of Sick Leave:</h6>
-                        </div>
-						<div class="d-md-flex flex-row">
-							<div class="mb-3 p-1 col-md-6">
-								<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="in_hospital" name="in_hospital">
-                                    <label class="form-check-label" for="in_hospital">
-                                        In Hospital
-                                    </label>
-                                    <div class="form-floating flex-fill mb-3 p-1">
-                                        <input type="text" class="form-control" name ="in_hospital_illness" placeholder="(Specify Illness)" form="add_afl_form">
-                                        <label for="in_hospital_illness">(Specify Illness)</label>
-                                    </div>
-                                  </div>
-							</div>
-                            <div class="mb-3 p-1 col-md-6">
-								<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="out_patient" name="out_patient">
-                                    <label class="form-check-label" for="out_patient">
-                                        Out Patient
-                                    </label>
-                                    <div class="form-floating flex-fill mb-3 p-1">
-                                        <input type="text" class="form-control" name ="out_patient_illness" placeholder="(Specify Illness)" form="add_afl_form">
-                                        <label for="out_patient_illness">(Specify Illness)</label>
-                                    </div>
-                                  </div>
-							</div>
+						<div class="col-sm-12 text-center mt-5 mb-5">
+							<button type="submit" class="btn btn-primary" form="add_afl_form">Print Application for Leave</button>
 						</div>
-
-                        <div class="d-md-flex flex-row">
-                            <h6>In case of Special Leave Benefits for Women:</h6>
-                        </div>
-
-                        <div class="d-md-flex flex-row">
-							<div class="mb-3 p-1 col-md-6">
-								<div class="form-check">
-                                    <!-- <label class="form-check-label" for="in_hospital">
-                                         (Specify Illness)
-                                    </label> -->
-                                    <div class="form-floating flex-fill mb-3 p-1">
-                                        <input type="text" class="form-control" name ="in_hospital_illness" placeholder="(Specify Illness)" form="add_afl_form">
-                                        <label for="in_hospital_illness">(Specify Illness)</label>
-                                    </div>
-                                  </div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card shadow-sm mb-3">
+							<div class="card-body">
+								<div class="d-md-flex flex-row">
+									<h6><i>In case of Vacation/Special Privilage Leave:</i></h6>
+								</div>
+								<div class="d-md-flex flex-row">
+									<div class="mb-3 p-1 col-md-6">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="wph" name="wph" checked onchange="within_ph(this)">
+											<label class="form-check-label" for="wph">
+											  Within the Philippines
+											</label>
+											<div class="form-floating flex-fill mb-3 p-1">
+												<input type="text" class="form-control" name ="wph_remarks" id="wph_remarks" placeholder="Remarks" form="add_afl_form">
+												<label for="wph_remarks">Remarks</label>
+											</div>
+										  </div>
+									</div>
+									<div class="mb-3 p-1 col-md-6">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="out_abroad" name="out_abroad" onchange="out_abroad(this)">
+											<label class="form-check-label" for="out_abroad">
+											  Abroad
+											</label>
+											<div class="form-floating flex-fill mb-3 p-1">
+												<input type="text" class="form-control" name ="abroad_remarks" id="abroad_remarks" placeholder="Remarks" form="add_afl_form">
+												<label for="abroad_remarks">Remarks</label>
+											</div>
+										  </div>
+									</div>
+								</div>
+								<div class="d-md-flex flex-row">
+									<h6><i>In case of Sick Leave:</i></h6>
+								</div>
+								<div class="d-md-flex flex-row">
+									<div class="mb-3 p-1 col-md-6">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="in_hospital" name="in_hospital" onchange="in_hospital(this);" disabled>
+											<label class="form-check-label" for="in_hospital">
+												In Hospital
+											</label>
+											<div class="form-floating flex-fill mb-3 p-1">
+												<input type="text" class="form-control" name ="in_hospital_illness" id="in_hospital_illness" placeholder="(Specify Illness)" form="add_afl_form" required disabled>
+												<label for="in_hospital_illness">(Specify Illness)<span class="is-required">*</span></label>
+											</div>
+										  </div>
+									</div>
+									<div class="mb-3 p-1 col-md-6">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="out_patient" name="out_patient" onchange="out_patient(this);" disabled>
+											<label class="form-check-label" for="out_patient">
+												Out Patient
+											</label>
+											<div class="form-floating flex-fill mb-3 p-1">
+												<input type="text" class="form-control" name ="out_patient_illness" id="out_patient_illness" placeholder="(Specify Illness)" form="add_afl_form" required disabled>
+												<label for="out_patient_illness">(Specify Illness)<span class="is-required">*</span></label>
+											</div>
+										  </div>
+									</div>
+								</div>
+		
+								<div class="d-md-flex flex-row">
+									<h6><i>In case of Special Leave Benefits for Women:</i></h6>
+								</div>
+		
+								<div class="d-md-flex flex-row">
+									<div class="mb-3 p-1 col-md-6">
+										<div class="form-check">
+											<div class="form-floating flex-fill mb-3 p-1">
+												<input type="text" class="form-control" name ="slbw" id="slbw" placeholder="(Specify Illness)" form="add_afl_form" required disabled>
+												<label for="in_hospital_illness">(Specify Illness)<span class="is-required">*</span></label>
+											</div>
+										  </div>
+									</div>
+								</div>
+		
+								<div class="d-md-flex flex-row">
+									<h6><i>In case of Study Leave:</i></h6>
+								</div>
+		
+								<div class="mb-3 p-1 col-md-12">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="1" id="study_master" name="study_master" disabled>
+										<label class="form-check-label" for="study_master">
+											Completion of Master's Degree
+										</label>
+									  </div>
+									  <div class="form-check">
+										<input class="form-check-input" type="checkbox" value="1" id="study_review" name="study_review" disabled>
+										<label class="form-check-label" for="study_review">
+											BAR/Board Examination Review
+										</label>
+									  </div>
+								</div>
+		
+								<div class="d-md-flex flex-row">
+									<h6><i>Other purpose:</i></h6>
+								</div>
+							 
+								<div class="mb-3 p-1 col-md-6">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="CTO" id="cto" name="cto" disabled>
+										<label class="form-check-label" for="out_patient">
+											CTO<span class="is-required">*</span>
+										</label>
+									  </div>
+								</div>
+		
 							</div>
-						</div>
-
-                        <div class="d-md-flex flex-row">
-                            <h6>Commutation</h6>
-                        </div>
-						<div class="d-md-flex flex-row">
-							<div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Not Requested</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">Requested</label>
-                              </div>
-						</div>
-
-						<div class="col-sm-12 text-center">
-							<button type="submit" class="btn btn-primary" form="add_afl_form">Print AFL</button>
 						</div>
 					</div>
 				</div>
-				
-				  <!-- <div class="card shadow-sm mb-3">
-					<div class="card-body">
-						<div class="col-sm-12">
-								<div class="table-responsive">
-									<table class="table table-striped text-left" id="ld_table" width = "100%">
-										<colgroup>
-											<col style="width: 5%" />
-											<col style="width: 30%" />
-											<col style="width: 14.28%" />
-											<col style="width: 14.28%" />
-											<col style="width: 10%" />
-											<col style="width: 14.28%" />
-											<col style="width: 20%" />
-											<col style="width: 14.28%" />
-											<col style="width: 14.28%" />
-										</colgroup>
-										<thead class="">
-										<tr>
-											<th scope="col">ID</th>
-											<th scope="col">Title of L&D Interventions / Training Programs</th>
-											<th scope="col">Inclusive Date (From)</th>
-											<th scope="col">Inclusive Date (To)</th>
-											<th scope="col">No. of Training Hours</th>
-											<th scope="col">Type of L&D</th>
-											<th scope="col">Conducted By</th>
-											<th scope="col">Attachment</th>
-											<th scope="col">Controls</th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr>
-										</tr>
-										</tbody>
-									</table>
-								</div>
-						</div>
-					</div>
-				</div> -->
 
 			</div>
 		</div>
+		<div class="card col-md-4" style="height: 650px;">
+			<div class="card-body">
+				<div class="scroll-container p-3" id="scrolling_div">
+					<div id="scrollspyHeading1">
+						<h4 id="">1. Vacation Leave*</h4>
+						<p>
+							It shall be filed five (5) days in advance, whenever possible, of the effective date of such leave. Vacation leave within in the Philippines or out_abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
+						</p>
+					</div>
+					<div id="scrollspyHeading2">
+						<h4 id="">2. Mandatory/Forced leave</h4>
+						<p>
+							Annual five-day vacation leave shall be forfeited if not taken during the year. In case the scheduled leave has been cancelled in the exigency of the service by the head of agency, it shall no longer be deducted from the accumulated vacation leave. Availment of one (1) day or more Vacation Leave (VL) shall be considered for complying the mandatory/forced leave subject to the conditions under Section 25, Rule XVI of the Omnibus Rules Implementing E.O. No. 292.
+						</p>
+					</div>
+
+					<div id="scrollspyHeading3">
+					<h4 id="">3. Sick leave*</h4>
+						<ul>
+							<li>It shall be filed immediately upon employee's return from such leave.</li>
+							<li>If filed in advance or exceeding five (5) days, application shall be accompanied by a medical certificate. In case medical consultation was not availed of, an affidavit should be executed by an applicant.</li>
+						</ul>
+					</div>
+
+					<div id="scrollspyHeading4">
+						<h4 id="">4. Maternity leave* – 105 days</h4>
+						<ul>
+							<li>Proof of pregnancy e.g. ultrasound, doctor’s certificate on the expected date of delivery</li>
+							<li>Accomplished Notice of Allocation of Maternity Leave Credits (CS Form No. 6a), if needed</li>
+							<li>Seconded female employees shall enjoy maternity leave with full pay in the recipient agency.</li>
+						</ul>
+					</div>
+
+					<div id="scrollspyHeading5">
+						<h4 id="">5. Paternity leave – 7 days</h4>
+						<p>
+							Proof of child’s delivery e.g. birth certificate, medical certificate and marriage contract.
+						</p>
+					</div>
+					<div id="scrollspyHeading6">
+						<h4 id="">6. Special Privilege leave – 3 days</h4>
+						<p>
+							It shall be filed/approved for at least one (1) week prior to availment, except on emergency cases. Special privilege leave within the Philippines or out_abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
+						</p>
+					</div>
+
+					<div id="scrollspyHeading7">
+						<h4 id="">7. Solo Parent leave – 7 days</h4>
+						<p>
+							It shall be filed in advance or whenever possible five (5) days before going on such leave with updated Solo Parent Identification Card.
+						</p>
+					</div>
+
+					<div id="scrollspyHeading8">
+						<h4 id="">8. Study leave* – up to 6 months</h4>
+						<ul>
+							<li>Shall meet the agency’s internal requirements, if any;</li>
+							<li>Contract between the agency head or authorized representative and the employee concerned.</li>
+						</ul>
+					</div>
+					
+					<div id="scrollspyHeading9">
+						<h4 id="">9. VAWC leave – 10 days</h4>
+						<ul>
+							<li>It shall be filed in advance or immediately upon the woman employee’s return from such leave.</li>
+							<li>It shall be accompanied by any of the following supporting documents:
+								<ol>
+									<li>Barangay Protection Order (BPO) obtained from the barangay;</li>
+									<li>Temporary/Permanent Protection Order (TPO/PPO) obtained from the court;</li>
+									<li>If the protection order is not yet issued by the barangay or the court, a certification issued by the Punong Barangay/Kagawad or Prosecutor or the Clerk of Court that the application for the BPO, TPO or PPO has been filed with the said office shall be sufficient to support the application for the ten-day leave; or</li>
+									<li>Temporary/Permanent Protection Order (TPO/PPO) obtained from the court;</li>
+									<li>In the absence of the BPO/TPO/PPO or the certification, a police report specifying the details of the occurrence of violence on the victim and a medical certificate may be considered, at the discretion of the immediate supervisor of the woman employee concerned.</li>
+								</ol>
+							</li>
+						</ul>
+					</div>
+					
+					<div id="scrollspyHeading10">
+						<h4 id="">10. Rehabilitation leave* – up to 6 months</h4>
+						<ul>
+							<li>Application shall be made within one (1) week from the time of the accident except when a longer period is warranted.</li>
+							<li>Letter request supported by relevant reports such as the police report, if any,</li>
+							<li>Medical certificate on the nature of the injuries, the course of treatment involved, and the need to undergo rest, recuperation, and rehabilitation, as the case may be.</li>
+							<li>Written concurrence of a government physician should be obtained relative to the recommendation for rehabilitation if the attending physician is a private practitioner, particularly on the duration of the period of rehabilitation.</li>
+						</ul>
+					</div>
+
+					<div id="scrollspyHeading11">
+						<h4 id="">11. Special leave benefits for women* – up to 2 months</h4>
+						<ul>
+							<li>The application may be filed in advance, that is, at least five (5) days prior to the scheduled date of the gynecological surgery that will be undergone by the employee. In case of emergency, the application for special leave shall be filed immediately upon employee’s return but during confinement the agency shall be notified of said surgery.</li>
+							<li>The application shall be accompanied by a medical certificate filled out by the proper medical authorities, e.g. the attending surgeon accompanied by a clinical summary reflecting the gynecological disorder which shall be addressed or was addressed by the said surgery; the histopathological report; the operative technique used for the surgery; the duration of the surgery including the perioperative period (period of confinement around surgery); as well as the employees estimated period of recuperation for the same.</li>
+						</ul>
+					</div>
+
+					<div id="scrollspyHeading12">
+						<h4 id="">12. Special Emergency (Calamity) leave – up to 5 days</h4>
+						<ul>
+							<li>The special emergency leave can be applied for a maximum of five (5) straight working days or staggered basis within thirty (30) days from the actual occurrence of the natural calamity/disaster. Said privilege shall be enjoyed once a year, not in every instance of calamity or disaster.</li>
+							<li>The head of office shall take full responsibility for the grant of special emergency leave and verification of the employee’s eligibility to be granted thereof. Said verification shall include: validation of place of residence based on latest available records of the affected employee; verification that the place of residence is covered in the declaration of calamity area by the proper government agency; and such other proofs as may be necessary.</li>
+						</ul>
+					</div>
+
+					<div id="scrollspyHeading14">
+						<h4 id="">13. Monetization of leave credits</h4>
+						<p>
+							Application for monetization of fifty percent (50%) or more of the accumulated leave credits shall be accompanied by letter request to the head of the agency stating the valid and justifiable reasons.
+						</p>
+					</div>
+
+					<div id="scrollspyHeading15">
+						<h4 id="">14. Terminal leave*</h4>
+						<p>
+							Proof of employee’s resignation or retirement or separation from the service.
+						</p>
+					</div>
+					<div id="scrollspyHeading13">
+						<h4 id="">15. Adoption Leave</h4>
+						<p>
+							Application for adoption leave shall be filed with an authenticated copy of the Pre-Adoptive Placement Authority issued by the Department of Social Welfare and Development (DSWD).
+						</p>
+					</div>
+				  </div>
+			</div>
+		</div>
+
 	</div>
 </main>
 
-<!-- ----------------------------------------------------------------------- -->
-<!--                                 Modals                                  -->
-<!-- ----------------------------------------------------------------------- -->
-<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
-	<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
-	  <div class="modal-content">
-		<div class="modal-header text-white bg-blue">
-		  <h5 class="modal-title" id="viewExpModal"><i class="bi bi-lightbulb"></i>Edit Learning & Development</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-		  <div class="row mb-3 container">
-			<div class="card mb-3">
-				<div class="card-body">
-					<form action="#" method="POST" name="update_ld_form" id="update_ld_form" enctype="multipart/form-data"></form>
-                <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_ld_form">
-					<div class="d-md-flex flex-row">
-						<div class="form-floating flex-fill mb-3 p-1">
-						  <textarea class="form-control" id ="update_ld_program" name ="ld_program" placeholder="Interventions/Training Program" form="update_ld_form" required></textarea>
-						  <label for="ld_program[1]">Title of L&D Interventions / Training Programs</label>
-						</div>
-					</div>
-					<div class="d-md-flex flex-row">
-						<div class="form-floating flex-fill mb-3 p-1">
-						  <input type="date" class="form-control"  id ="update_ld_date_from" name ="ld_date_from" placeholder="Inclusive Date of Attendance From" form="update_ld_form" required>
-						  <label for="ld_date_from[1]">Inclusive Date of Attendance From</label>
-						</div>
-						<div class="form-floating flex-fill mb-3 p-1">
-						  <input type="date" class="form-control" id ="update_ld_date_to" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="update_ld_form" required>
-						  <label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
-						</div>
-					  </div>
-					  <div class="d-md-flex flex-row">
-						<div class="form-floating col-sm-4 mb-3 p-1">
-						  <input type="number" class="form-control" id ="update_ld_no_hours" name ="ld_no_hours" placeholder="Rating" form="update_ld_form" required>
-						  <label for="ld_no_hours[1]">Number of Hours</label>
-						</div>
-						  <div class="form-floating flex-fill mb-3 p-1">
-							<select class="form-select" id="update_ld_type" name="leave_id" form="update_ld_form">
-								<option value="TECHNICAL">TECHNICAL</option>
-								<option value="MANAGERIAL">MANAGERIAL</option>
-								<option value="SUPERVISORY">SUPERVISORY</option>
-								<option value="FOUNDATION">FOUNDATION</option>
-							</select>
-							<label for="update_ld_no_hours" style="font-size: 12px;">Type of Learning & Development</label>
-							<small class="text-muted" style="font-size: 12px;">*Eg. Managerial, Supervisory, Technical, etc.</small>
 
-						  </div>
-					  </div>
-					  <div class="d-md-flex flex-row">
-						<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-						  <input type="text" class="form-control" id ="update_ld_sponsored_by" name ="ld_sponsored_by" placeholder="Conducted By" form="update_ld_form" required>
-						  <label for="ld_sponsored_by[1]">Conducted By</label>
-						  <div class="form-check">
-							<input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="update_ld_form">
-							<label class="form-check-label" for="update_nia_pimo">
-							  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
-							</label>
-						  </div>
-						</div>
-					  </div>
-					  <div class="d-md-flex flex-row">
-						<div class="flex-fill mb-3">
-							<label for="ld_attachment">Attachment (Only PDF files are allowed)</label>
-							<input type="file" class="form-control" id="update_ld_attachment" name ="ld_attachment" form="update_ld_form">
-
-							<small class="text-muted" style="font-size: 12px;">This will overwirte your previous uploaded attachment (<span id="old_ld_attachement"></span>).</small>
-						  </div>
-					  </div>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary" form="update_ld_form">Save changes</button>
-				</div>
-				</div>
-				</div>
-			</div>
-		</div>
-	</div>
-  </div>
 
 {% endblock %}
 
 {%block scripts%}
 <script type="text/javascript">
 
+	var daily_salary = {
+        1:503.09,
+        2:534.59,
+        3:566.63,
+        4:600.63,
+        5:636.68,
+        6:674.86,
+        7:715.36,
+        8:761.72,
+        9:817.04,
+        10:874.22,
+        11:943.36,
+        12:1042.63,
+        13:1146.90,
+        14:1261.59,
+        15:1387.77,
+        16:1526.54
+      }
+
+      var job_grade_monthly_salary = {
+        2:{1:"13000.00",	2:13111,	3:13223,	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
+        3:{1:13819.00,	2:13927,	3:14036,	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
+        4:{1:14678.00,	2:14793,	3:14909,	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
+        5:{1:15586.00,	2:16166,	3:16745,	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
+        6:{1:19744.00,	2:19928,	3:20111,	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
+        7:{1:21129.00,	2:21620,	3:22111,	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
+        8:{1:27000.00,	2:27604,	3:28209,	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
+        9:{1:31320.00,	2:32037,	3:32755,	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
+        10:{1:36619.00,	2:38010,	3:39401,	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
+        11:{1:46725.00,	2:51386,	3:56046,	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
+        12:{1:80003.00,	2:82987,	3:85970,	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
+        13:{1:102690.00,	2:106586,	3:110486,	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
+        14:{1:131124.00,	2:133372,	3:135620,	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
+        15:{1:148171.00,	2:150711,	3:153251,	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
+        16:{1:167432.00,	2:170302,	3:173173,	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
+        17:{1:189199.00,	2:192442,	3:195686,	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
+        18:{1:278434.00,	2:284201,	3:289969,	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
+        19:{1:331954.00,	2:339067,	3:346181,	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
+        20:{1:419144.00,	2:422737,	3:426329,	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
+      }
+
+      var casual_job_grade_daily_salary = {
+        2:{1:"590.90",	2:595.95},
+        3:{1:628.13,	2:633.04},
+        4:{1:667.18,	2:"672.40"},
+        5:{1:708.45,	2:734.81},
+        6:{1:897.45,	2:905.81},
+        7:{1:"960.40",	2:982.72},
+        8:{1:1227.27,	2:1254.72},
+        9:{1:1423.63,	2:1456.22},
+        10:{1:"1664.50",	2:1727.72},
+        11:{1:2123.86,	2:2335.72},
+        12:{1:"3636.50",	2:3772.13},
+        13:{1:4667.72,	2:4844.81}
+      }
+
 	document.getElementById('add_afl_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
 
-		loadingScreen('block');
+			var wph = document.getElementById('wph');
+			var wph_remarks = document.getElementById('wph_remarks');
+			var out_abroad = document.getElementById('out_abroad');
+			var abroad_remarks = document.getElementById('abroad_remarks');
+			var in_hospital = document.getElementById('in_hospital');
+			var in_hospital_illness = document.getElementById('in_hospital_illness');
+			var out_patient = document.getElementById('out_patient');
+			var out_patient_illness = document.getElementById('out_patient_illness');
+			var study_master = document.getElementById('study_master');
+			var study_review = document.getElementById('study_review');
+			var slbw = document.getElementById('slbw');
+			var leave_id = document.getElementById('leave_id');
 
+			
+		if(leave_id.value == 1){
+			if(wph.checked == false && out_abroad.checked == false){
+				triggerToast('Please choose if within the Philippines or Abroad', 'error');
+			}else{
+				addAflForm();
+			}
+		}else if(leave_id.value == 3){
+			 if(!in_hospital.checked && !out_patient.checked){
+				triggerToast('Please choose if In Hospital or Out Patient', 'error');
+			}else{
+				addAflForm();
+			}
+		}else{
+			addAflForm();
+		}
+
+
+	});
+
+	function addAflForm(){
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
 
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
+		loadingScreen('block');
 		
-		// console.log(data)
 		fetch('/afl/add-afl/{{emp_id}}', {
 				method: 'POST',
 				body: formData
 			}).then((res)=>{
-				if (res.status == 413){
-					// triggerToast("The selected file exceeds maximum limit size of 50MB."); 
-				}else if (res.status == 406){
-					 triggerToast("Invalid File Submitted.", 'error'); 
-				}else{
-					document.getElementById('add_ld_form').reset();
-				}
 				return res.json();
-
 			}).then((data)=>{
-					triggerToast(data, "success"); //this is the returned error message
-					var table = $('#ld_table').DataTable();
-					table.ajax.reload();
-					nia_pimo();
-					loadingScreen('none');
+				fillForm();
+				loadingScreen('none');
 			})
+	}
 
-	});
+	async function fillForm() {
+
+		const { PDFDocument, StandardFonts } = PDFLib
+		//import { TextFormField } from 'pdf-lib/lib/core/interactive/forms';
+
+		const formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
+	  
+		const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+	  
+		const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+
+		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
+
+	  
+		const form = pdfDoc.getForm()
+	
+		const fields = form.getFields();
+
+		const last_name = form.getTextField('tb_last_name');
+		const first_name = form.getTextField('tb_first_name');
+		const middle_name = form.getTextField('tb_middle_name');
+		const tb_office_section = form.getTextField('tb_office_section');
+		const tb_date_of_filing = form.getTextField('tb_date_of_filing');
+		const tb_position = form.getTextField('tb_position');
+
+		const tb_salary = form.getTextField('tb_salary');
+
+		const cb_vl = form.getCheckBox('cb_vl');
+		const cb_fl = form.getCheckBox('cb_fl');
+		const cb_sl = form.getCheckBox('cb_sl');
+		const cb_ml = form.getCheckBox('cb_ml');
+		const cb_pl = form.getCheckBox('cb_pl');
+		const cb_spl = form.getCheckBox('cb_spl');
+		const cb_solo_pl = form.getCheckBox('cb_solo_pl');
+		const cb_stl = form.getCheckBox('cb_stl');
+		const cb_vawcl = form.getCheckBox('cb_vawcl');
+		const cb_rh = form.getCheckBox('cb_rh');
+		const cb_slbw = form.getCheckBox('cb_slbw');
+		const cb_sel = form.getCheckBox('cb_sel');
+		const cb_al = form.getCheckBox('cb_al');
+		const cb_within_ph = form.getCheckBox('cb_within_ph');
+		const cb_abroad = form.getCheckBox('cb_abroad');
+		const cb_hospital = form.getCheckBox('cb_hospital');
+		const cb_out_patient = form.getCheckBox('cb_out_patient');
+		const cb_masters = form.getCheckBox('cb_masters');
+		const cb_bar_review = form.getCheckBox('cb_bar_review');
+		const cb_monetization = form.getCheckBox('cb_monetization');
+		const cb_terminal = form.getCheckBox('cb_terminal');
+		const cb_comm_not_requested = form.getCheckBox('cb_comm_not_requested');
+		const cb_comm_requested = form.getCheckBox('cb_comm_requested');
+
+		const tb_others = form.getTextField('tb_others');
+		const tb_days_applied_for = form.getTextField('tb_days_applied_for');
+		const tb_inclusive_dates = form.getTextField('tb_inclusive_dates');
+		const tb_as_of = form.getTextField('tb_as_of');
+		const tb_within_ph = form.getTextField('tb_within_ph');
+		const tb_abroad = form.getTextField('tb_abroad');
+		const tb_hospital = form.getTextField('tb_hospital');
+		const tb_out_patient = form.getTextField('tb_out_patient');
+
+		const tb_incase_slbw = form.getTextField('tb_incase_slbw');
+		const tb_immediate_supervisor = form.getTextField('tb_immediate_supervisor');
+
+		//<!-- ----------------------------------------------------------------------- -->
+		//<!--                               FROM FIELDS                               -->
+		//<!-- ----------------------------------------------------------------------- -->
+		const no_working_days_applied_for = document.getElementById('no_working_days_applied_for');
+		const date_of_filing = document.getElementById('date_of_filing');
+		const date_from = document.getElementById('date_from');
+		const date_to = document.getElementById('date_to');
+
+		tb_office_section.setText('PANGASINAN IMO / {{user_profile.user_section.section_title|escapejs}}');
+		last_name.setText('{{user_profile.last_name}}');
+		first_name.setText('{{user_profile.first_name}}');
+		middle_name.setText('{{user_profile.middle_name}}');
+
+		{% if user_profile.employment_status == 'PERMANENT' and user_profile.employment_status == 'COTERMINOUS' %}
+			 tb_salary.setText(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}']);
+		{% elif user_profile.employment_status == 'CASUAL' %}
+			 tb_salary.setText(String(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}']));
+		{% elif user_profile.employment_status == 'JOB ORDER' %}
+			 tb_salary.setText(daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}']);
+		{% endif %}
+
+		var date_of_filing_formatted = new Date(date_of_filing.value);
+
+		// Format date as "January 01, 2023"
+		var options = { 
+		month: 'long', 
+		day: '2-digit', 
+		year: 'numeric' 
+		};
+
+		var formattedDateOfFiling = date_of_filing_formatted.toLocaleDateString('en-US', options);
+
+		tb_date_of_filing.setText(String(formattedDateOfFiling));
+		tb_position.setText('{{ user_profile.position_title }}');
+
+		var leave_id = document.getElementById('leave_id').value;
+		if(leave_id == 1){
+			cb_vl.check();
+		}else if(leave_id == 2){
+			cb_fl.check();
+		}else if (leave_id == 3){
+			cb_sl.check();
+		}else if (leave_id == 4){
+			cb_ml.check();
+		}else if (leave_id == 5){
+			cb_pl.check();
+		}else if (leave_id == 6){
+			cb_spl.check();
+		}else if (leave_id == 7){
+			cb_solo_pl.check();
+		}else if (leave_id == 8){
+			cb_stl.check();
+		}else if (leave_id == 9){
+			cb_vawcl.check();
+		}else if (leave_id == 10){
+			cb_rh.check();
+		}else if (leave_id == 11){
+			cb_slbw.check();
+
+			var slbw = document.getElementById('slbw');
+			tb_incase_slbw.setText(slbw.value);
+		}else if (leave_id == 12){
+			cb_sel.check();
+		}else if (leave_id == 13){
+			cb_al.check();
+		}
+
+		var wph = document.getElementById('wph');
+		if(wph.checked){
+			cb_within_ph.check();
+		}
+
+		var out_abroad = document.getElementById('out_abroad');
+		if(out_abroad.checked){
+			cb_abroad.check();
+		}
+
+		var in_hospital = document.getElementById('in_hospital');
+		if(in_hospital.checked){
+			cb_hospital.check();
+		}
+
+		var out_patient = document.getElementById('out_patient');
+		if(out_patient.checked){
+			cb_out_patient.check();
+		}
+
+
+		var numberToWord = convertNumberToWords(no_working_days_applied_for.value);
+
+		if(no_working_days_applied_for.value > 1){
+			tb_days_applied_for.setText(no_working_days_applied_for.value + " ("+ numberToWord.toLowerCase() +") days");
+		}else{
+			tb_days_applied_for.setText(numberToWord.toLowerCase() + " ("+ no_working_days_applied_for.value +") day");
+
+		}
+
+		var date_from_formatted = new Date(date_from.value);
+		var formattedDateFrom = date_from_formatted.toLocaleDateString('en-US', options);
+
+		var date_to_formatted = new Date(date_to.value);
+		var formattedDateTo = date_to_formatted.toLocaleDateString('en-US', options);
+		var inclusive_dates = "";
+		if(formattedDateFrom != formattedDateTo){
+			 inclusive_dates = formattedDateFrom + ' - ' + formattedDateTo;
+		}else{
+			inclusive_dates = formattedDateFrom
+		}
+
+		tb_inclusive_dates.setText(inclusive_dates);
+
+	
+		form.flatten();
+
+		const pdfBytes = pdfDoc.save()
+
+		const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+		const testPdfDataUri = await pdfDoc.saveAsBase64();
+
+		
+		// decode base64 string, remove space for IE compatibility
+		var binary = atob(testPdfDataUri.replace(/\s/g, ''));
+		var len = binary.length;
+		var buffer = new ArrayBuffer(len);
+		var view = new Uint8Array(buffer);
+		for (var i = 0; i < len; i++) {
+			view[i] = binary.charCodeAt(i);
+		}
+	
+		var blob = new Blob( [view], { type: "application/pdf" });
+		var url = URL.createObjectURL(blob);
+	
+		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
+		//var fileURL = URL.createObjectURL(file);
+	
+		loadingScreen('none')
+		//document.getElementById("loading-section").innerHTML = "<h6 class='text-muted'>Success! Please look at the newly opened tab to view your PDS or <h6>&nbsp<a href='/print-preview/{{user_profile.id}}'>regenerate new PDS.</a>"
+	
+	
+		window.open(url);
+	
+	}
 
 (function () {
   'use strict'
+
+
+  document.getElementById('date_of_filing').valueAsDate = new Date();
+
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
@@ -360,111 +715,310 @@
       }, false)
     })
 
-	
-
 })()
 
-document.getElementById('update_ld_form').addEventListener('submit', (e)=>{
-	e.preventDefault();
-	var id = document.getElementById('update_id').value;
-	var url = `/ld/save-ld/${id}/{{user_profile.id}}`;
-            loadingScreen('block');
-            let formData4 = new FormData(document.getElementById("update_ld_form"));
-                
-                const data4 = {}
-                formData4.forEach((value, key) => (data4[key] = value));
-               
-                fetch(url, {
-                method: 'POST',
-                body: formData4
-                }).then((res)=>{
-				if (res.status == 406){
-					triggerToast('Invalid file submitted. Only PDF files are allowed.')
-                }
-                else if (res.status == 200){
-					// triggerToast('Successfully Saved Changes.')
-                    return res.json()
-                }
-                
-                }).then((data)=>{
-					// triggerToast(data)
-					loadingScreen('none');
-					var myModal = document.getElementById('viewExpModal');
-					var modal = bootstrap.Modal.getInstance(myModal).hide()
-					// modal.hide();
-                  $('#ld_table').DataTable().ajax.reload()
-                //   document.getElementById('work_experience_form').reset()
-                //   window.location.reload()
 
-                });//END
-})
+function leave_type(leave_type){
+	var wph = document.getElementById('wph');
+	var wph_remarks = document.getElementById('wph_remarks');
+	var out_abroad = document.getElementById('out_abroad');
+	var abroad_remarks = document.getElementById('abroad_remarks');
+	var in_hospital = document.getElementById('in_hospital');
+	var in_hospital_illness = document.getElementById('in_hospital_illness');
+	var out_patient = document.getElementById('out_patient');
+	var out_patient_illness = document.getElementById('out_patient_illness');
+	var study_master = document.getElementById('study_master');
+	var study_review = document.getElementById('study_review');
+	var slbw = document.getElementById('slbw');
+	var cto = document.getElementById('cto');
 
-function edit_ld(el){
+	var leave_id = document.getElementById('leave_id');
 
-    fetch(`/ld/edit-ld/${el.id}`,{
-		method: 'GET'
-	})
-		.then(response => response.json())
-		.then(data => {
-			console.log(data)
-			document.getElementById('update_id').value = data[0].id;
-			document.getElementById('update_ld_program').value = data[0].ld_program;
-			document.getElementById('update_ld_date_from').value = data[0].ld_date_from;
-			document.getElementById('update_ld_date_to').value = data[0].ld_date_to;
-			document.getElementById('update_ld_no_hours').value = data[0].ld_no_hours;
-			document.getElementById('update_ld_type').value = data[0].leave_id;
-			document.getElementById('update_ld_sponsored_by').value = data[0].ld_sponsored_by;
-			var file_dir = data[0].ld_attachment;
-			document.getElementById('old_ld_attachement').innerHTML = "<a href='"+ file_dir +"' >"+data[0].ld_attachment_file_name+"</a>";
-		});
+	if(leave_type.value == 1 || leave_type.value == 6){
+		wph.disabled = false;
+		wph_remarks.disabled = false;
+		out_abroad.disabled = false;
+		abroad_remarks.disabled = false;
+
+		in_hospital.disabled = true;
+		in_hospital_illness.disabled = true;
+		out_patient.disabled = true;
+		out_patient_illness.disabled = true;
+
+		slbw.disabled = true;
+
+		in_hospital.checked = false;
+		out_patient.checked = false;
+		wph.checked = true;
+		study_master.disabled = true;
+		study_review.disabled = true;
+		study_master.checked = false;
+		study_review.checked = false;
+	}else if(leave_type.value == 3){
+		wph.disabled = true;
+		wph_remarks.disabled = true;
+		out_abroad.disabled = true;
+		abroad_remarks.disabled = true;
+
+		in_hospital.disabled = false;
+		in_hospital_illness.disabled = true;
+		
+		out_patient.disabled = false;
+		out_patient_illness.disabled = false;
+
+		slbw.disabled = true;
+
+		in_hospital.checked = false;
+		out_patient.checked = true;
+		wph.checked = false;
+		out_abroad.checked = false;
+		study_master.disabled = true;
+		study_review.disabled = true;
+		study_master.checked = false;
+		study_review.checked = false;
+	}else if(leave_type.value == 8){
+		wph.disabled = true;
+		wph_remarks.disabled = true;
+		out_abroad.disabled = true;
+		abroad_remarks.disabled = true;
+
+		in_hospital.disabled = true;
+		in_hospital_illness.disabled = true;
+		out_patient.disabled = true;
+		out_patient_illness.disabled = true;
+
+		slbw.disabled = true;
+		
+		in_hospital.checked = false;
+		out_patient.checked = false;
+		wph.checked = false;
+		out_abroad.checked = false;
+
+		study_master.disabled = false;
+		study_review.disabled = false;
+
+	}else if(leave_type.value == 11){
+		wph.disabled = true;
+		wph_remarks.disabled = true;
+		out_abroad.disabled = true;
+		abroad_remarks.disabled = true;
+
+		in_hospital.disabled = true;
+		in_hospital_illness.disabled = true;
+		out_patient.disabled = true;
+		out_patient_illness.disabled = true;
+
+		study_master.disabled = true;
+		study_review.disabled = true;
+
+		slbw.disabled = false;
+		
+		in_hospital.checked = false;
+		out_patient.checked = false;
+		wph.checked = false;
+		out_abroad.checked = false;
+
+		study_master.disabled = true;
+		study_review.disabled = true;
+		study_master.checked = false;
+		study_review.checked = false;
+		
+	}else if(leave_type.value == 99){
+		wph.disabled = true;
+		wph_remarks.disabled = true;
+		out_abroad.disabled = true;
+		abroad_remarks.disabled = true;
+
+		in_hospital.disabled = true;
+		in_hospital_illness.disabled = true;
+		out_patient.disabled = true;
+		out_patient_illness.disabled = true;
+
+		study_master.disabled = true;
+		study_review.disabled = true;
+
+		slbw.disabled = true;
+		
+		in_hospital.checked = false;
+		out_patient.checked = false;
+		wph.checked = false;
+		out_abroad.checked = false;
+
+		study_master.disabled = true;
+		study_review.disabled = true;
+		study_master.checked = false;
+		study_review.checked = false;
+		cto.disabled = false;
+
+		
+	}else{
+		wph.disabled = true;
+		wph_remarks.disabled = true;
+		out_abroad.disabled = true;
+		abroad_remarks.disabled = true;
+
+		in_hospital.disabled = true;
+		in_hospital_illness.disabled = true;
+		out_patient.disabled = true;
+		out_patient_illness.disabled = true;
+
+		study_master.disabled = true;
+		study_review.disabled = true;
+		study_master.checked = false;
+		study_review.checked = false;
+
+		slbw.disabled = true;
+		
+		in_hospital.checked = false;
+		out_patient.checked = false;
+		wph.checked = false;
+		out_abroad.checked = false;
+
+		cto.disabled = true;
+
+	}
+}
+
+
+
+function convertNumberToWords(number) {
+	var words = [
+	  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+	  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
+	];
+	var tensWords = [
+	  '', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
+	];
+  
+	if (number < 20) {
+	  return words[number];
+	}
+  
+	if (number < 100) {
+	  return tensWords[Math.floor(number / 10)] + (number % 10 !== 0 ? '-' : '') + words[number % 10];
+	}
+  
+	if (number < 1000) {
+	  return words[Math.floor(number / 100)] + ' hundred' + (number % 100 !== 0 ? ' and ' : '') + convertNumberToWords(number % 100);
+	}
+  
+	if (number < 1000000) {
+	  return convertNumberToWords(Math.floor(number / 1000)) + ' thousand' + (number % 1000 !== 0 ? ' ' : '') + convertNumberToWords(number % 1000);
+	}
+  
+	if (number < 1000000000) {
+	  return convertNumberToWords(Math.floor(number / 1000000)) + ' million' + (number % 1000000 !== 0 ? ' ' : '') + convertNumberToWords(number % 1000000);
+	}
+
+	
   }
 
 
+  function getBusinessDays(startDate, endDate) {
 
-function delete_ld(el){
-	// alert(el.id)
-	loadingScreen("block");
-	fetch('/ld/delete-ld',{
-		method: 'POST',
-		body: JSON.stringify({"ld_id" : el.id})
-	})
-		.then(response => response.json())
-		.then(data => {
-			// triggerToast(data)
-			window.location.reload()
-		});
-}
+	var days = 0;
+	var currentDate = new Date(startDate);
+	var endDate = new Date(endDate);
 
-function nia_pimo(){
-		var nia_pimo = document.getElementById('nia_pimo');
-		var station_place = document.getElementById('ld_sponsored_by');
-
-		if(nia_pimo.checked){
-			station_place.value = "";
-			station_place.disabled = true;
-			}
-		else{
-			station_place.disabled = false;
-			}
-	
+	while (currentDate <= endDate) {
+	  var dayOfWeek = currentDate.getDay();
+  
+	  if (dayOfWeek != 0 && dayOfWeek != 6) {
+		days++;
+	  }
+  
+	  currentDate.setDate(currentDate.getDate() + 1);
 	}
 
-  function update_nia_pimo(){
-		var nia_pimo = document.getElementById('update_nia_pimo');
-		var station_place = document.getElementById('update_ld_sponsored_by');
 
-		if(nia_pimo.checked){
-			station_place.value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE";
-			station_place.disabled = true;
-			}
-		else{
-			station_place.disabled = false;
-			}
+	document.getElementById('no_working_days_applied_for').value = days;
+	//return days;
+  }
+  
+
+  function scrollToDiv(elemId){
+
+	if(elemId == 99){
+		elemId = 1;
+		var myElement = document.getElementById('scrollspyHeading'+elemId);
+
+		myElement.classList.remove('fade-out');
+		myElement.classList.remove('highlight');
+
+		var topPos = myElement.offsetTop;
 	
+		document.getElementById('scrolling_div').scrollTop = topPos;
+	}else{
+		var myElement = document.getElementById('scrollspyHeading'+elemId);
+
+		myElement.classList.remove('fade-out');
+		myElement.classList.remove('highlight');
+
+		var topPos = myElement.offsetTop;
+	
+		document.getElementById('scrolling_div').scrollTop = topPos;
+		
+		myElement.classList.add('highlight'); // add the highlight class
+		setTimeout(function() {
+			myElement.classList.add('fade-out'); // add the fade-out class after 1 
+			//setTimeout(function() {
+	
+			//},500);
+		}, 1500);
 	}
 
-document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
-document.getElementById('update_nia_pimo').addEventListener('change', update_nia_pimo)
+  }
+
+  function within_ph(elem){
+	var out_abroad = document.getElementById('out_abroad');
+
+	if(elem.checked){
+		out_abroad.checked = false;
+	}
+  }
+
+  function out_abroad(elem){
+	var wph = document.getElementById('wph');
+
+	if(elem.checked){
+		wph.checked = false;
+	}
+  }
+
+  function in_hospital(elem){
+	var out_patient = document.getElementById('out_patient');
+	var in_hospital_illness = document.getElementById('in_hospital_illness');
+	var out_patient_illness = document.getElementById('out_patient_illness');
+
+	if(elem.checked){
+		out_patient.checked = false;
+		out_patient_illness.disabled = true;
+		in_hospital_illness.disabled = false;
+		in_hospital_illness.value = "";
+		out_patient_illness.value = "";
+	}else{
+		in_hospital_illness.disabled = true;
+	}
+  }
+
+  function out_patient(elem){
+	var in_hospital = document.getElementById('in_hospital');
+	var in_hospital_illness = document.getElementById('in_hospital_illness');
+	var out_patient_illness = document.getElementById('out_patient_illness');
+
+	if(elem.checked){
+		in_hospital.checked = false;
+		out_patient_illness.disabled = false;
+		in_hospital_illness.disabled = true;
+		in_hospital_illness.value = "";
+		out_patient_illness.value = "";
+	}else{
+		out_patient_illness.disabled = true;
+
+	}
+  }
+
+
 
 </script>
 {%endblock%}

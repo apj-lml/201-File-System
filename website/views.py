@@ -396,7 +396,6 @@ def afl(emp_id):
             user = db.session.query(User).get(int(emp_id))
             db.session.commit()
 
-
             return render_template('afl.html', emp_id = emp_id, user_profile = user)
 
 

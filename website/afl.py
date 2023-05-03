@@ -88,27 +88,18 @@ def edit_ld(id):
  # ---------------------------------------------------------------------------- #
 @afl.route('add-afl/<emp_id>', methods=['POST', 'GET'])
 @login_required
-def add_learning_and_development(emp_id):
+def print_afl(emp_id):
     formdata = request.form.to_dict()
-    # print('DATA', formdata)
-    if request.method == "POST":
+    # if request.method == "POST":
+    #     print('DATA', formdata)
+    #     formdata['user_id'] = emp_id
 
-        formdata['user_id'] = emp_id
-
-        if 'nia_pimo' in formdata:
-            formdata['ld_sponsored_by'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
-            formdata.pop('nia_pimo')
-
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
-
-        
-
-        
-        return jsonify('Successfully Added')
+    #     for k,v in formdata.items():
+    #         if type(v) is str:
+    #             formdata.update({k: v.upper()})
+    #         else:
+    #             formdata.update({k: v})
+    return jsonify('Success!')
 
  # ---------------------------------------------------------------------------- #
  #                                 DELETE AFL                                   #
