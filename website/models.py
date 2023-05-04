@@ -168,6 +168,10 @@ class User(db.Model, UserMixin):
     hs_highest_grade_year_units = db.Column(db.String(150))
     hs_scholarship_academic_honor = db.Column(db.String(150))
 
+    is_section_chief = db.Column(db.String(150))
+    is_unit_head = db.Column(db.String(150))
+    is_division_manager = db.Column(db.String(150))
+
     type_of_user = db.Column(db.String(150), default='user')
     #last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
     last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
@@ -545,6 +549,7 @@ class Emergency_Contact(db.Model, SerializerMixin):
 class Assignatory(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     assignatory = db.Column(db.String(150), default='GERTRUDES A. VIADO')
+    position_title = db.Column(db.String(150))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 # class Position(db.Model):

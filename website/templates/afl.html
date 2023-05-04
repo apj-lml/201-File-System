@@ -7,12 +7,12 @@
 
 	.scroll-container {
 		position: relative;
-		height: 600px;
+		height: 800px;
 		overflow-y: scroll;
 		scroll-behavior: smooth;
 	}
 	.highlight {
-		background-color: yellow; /* set the highlight color */
+		background-color: rgba(166, 240, 243, 0.8); /* set the highlight color */
 		transition: background-color 1s ease-out; /* add a transition */
 	  }
 	  
@@ -26,15 +26,18 @@
 		margin-left: 5px;
 	  }
 
+
 </style>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">
 
 {% endblock %}
 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <main class="container-fluid mt-4 ps-5 pe-5 pb-5">
 	<ul class="circles">
@@ -56,14 +59,13 @@
 				<form id="add_afl_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<div class="card text-white bg-blue shadow-sm mb-3" >
 					<div class="card-header">
-						<h3 class="card-title"><i class="bi bi-calendar-week"></i> Application for Leave - {{ user_profile.section.section_title }}</h3>
+						<h3 class="card-title"><i class="bi bi-calendar-week"></i> Application for Leave</h3>
 					</div>
-					<div class="card-body">
+					<!-- <div class="card-body">
 					  <ul>
 						<li><p class="card-text">Please fill out all necessary fields.</p></li>
-						<!-- <li><p class="card-text">Take note that updating your file attachment will overwirte the old attachment.</p></li> -->
 					  </ul>
-					</div>
+					</div> -->
 				</div>
 	
 				<div class="row">
@@ -72,41 +74,51 @@
 							<div class="card-body">
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Inclusive Date of Attendance From" form="add_afl_form" max="9999-12-31" readonly>
+										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
 										<label for="date_of_filing">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								</div>
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value)">
-											<option value="1">Vacation Leave</option>
+											<option value="13">Adoption Leave</option>
 											<option value="2">Mandatory/Forced Leave</option>
-											<option value="3">Sick Leave</option>
 											<option value="4">Maternity Leave</option>
-											<option value="5">Paternity Leave</option>
+											<option value="10">Rehabilitation Privilage</option>
+											<option value="3">Sick Leave</option>
+											<option value="12">Special Emergency (Calamity) Leave</option>
+											<option value="11">Special Leave Benefits for Women</option>
 											<option value="6">Special Privilege Leave</option>
 											<option value="7">Solo Parent Leave</option>
 											<option value="8">Study Leave </option>
+											<option value="1">Vacation Leave</option>
 											<option value="9">10-Day VAWC Leave</option>
-											<option value="10">Rehabilitation Privilage</option>
-											<option value="11">Special Leave Benefits for Women</option>
-											<option value="12">Special Emergency (Calamity) Leave</option>
-											<option value="13">Adoption Leave</option>
 											<option value="99">Others</option>
+
 										</select>
 										<label for="leave_id">Type of Leave <span class="is-required">*</span></label>
 									</div>
 								</div>
+								<!-- <div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" id="dateRangeSelection" onchange="changeCalendarMode()">
+									<label class="form-check-label" for="dateRangeSelection">Date Range Selection</label>
+								  </div> -->
 								<div class="d-md-flex flex-row">
-									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date of Attendance From" form="add_afl_form" max="5000-12-31" onchange="getBusinessDays(this.value, document.getElementById('date_to').value)" required>
-										<label for="date_from">Inclusive Date From<span class="is-required">*</span></label>
-									</div>
+									<div class="input-group mb-3">
+										<span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-week"></i></span>
+										<input type="text" class="form-control" placeholder="Inclusive Date/s" aria-label="Inclusive Date/s" aria-describedby="basic-addon1" name ="date_from" id="date_from" required >
+									  </div>
+									<!-- <div class="form-floating flex-fill mb-3 p-1">
+										<input type="text" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date/s" form="add_afl_form" max="5000-12-31" required>
+										<label for="date_from">Inclusive Date/s<span class="is-required">*</span></label>
+									</div> -->
+								</div>
+								<!-- <div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date of Attendance To" form="add_afl_form" max="5000-12-31" onchange="getBusinessDays(document.getElementById('date_from').value, this.value)" required>
 										<label for="date_to">Inclusive Date To<span class="is-required">*</span></label>
 									</div>
-								</div>
+								</div> -->
 								<div class="d-md-flex flex-column mb-0">
 									<div class="form-floating flex-fill col-sm-12 pb-0 p-1">
 										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1">
@@ -220,16 +232,28 @@
 								</div>
 		
 								<div class="d-md-flex flex-row">
-									<h6><i>Other purpose:</i></h6>
+									<h6><i>Other purpose:<span class="is-required">*</span></i></h6>
 								</div>
 							 
-								<div class="mb-3 p-1 col-md-6">
+								<div class="mb-3 p-1 col-md-12">
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="CTO" id="cto" name="cto" form="add_afl_form" required disabled>
-										<label class="form-check-label" for="out_patient">
-											CTO<span class="is-required">*</span>
+										<input class="form-check-input" type="checkbox" value="CTO" id="cto" name="cto" form="add_afl_form" onchange="click_cto(this);" disabled>
+										<label class="form-check-label" for="cto">
+											CTO
 										</label>
-									  </div>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="monetization" name="monetization" form="add_afl_form" onchange="click_monetization(this);" disabled>
+										<label class="form-check-label" for="monetization">
+											Monetization of Leave Credits
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="terminal" name="terminal" form="add_afl_form" onchange="click_terminal(this);" disabled>
+										<label class="form-check-label" for="terminal">
+											Terminal Leave
+										</label>
+									</div>
 								</div>
 		
 							</div>
@@ -239,7 +263,7 @@
 
 			</div>
 		</div>
-		<div class="card col-md-4" style="height: 650px;">
+		<div class="card col-md-4" style="height: 850px;">
 			<div class="card-body">
 				<div class="scroll-container p-3" id="scrolling_div">
 					<div id="scrollspyHeading1">
@@ -373,8 +397,10 @@
 {% endblock %}
 
 {%block scripts%}
-<script type="text/javascript">
 
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script type="text/javascript">
 	var daily_salary = {
         1:503.09,
         2:534.59,
@@ -395,25 +421,25 @@
       }
 
       var job_grade_monthly_salary = {
-        2:{1:"13000.00",	2:13111,	3:13223,	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
-        3:{1:13819.00,	2:13927,	3:14036,	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
-        4:{1:14678.00,	2:14793,	3:14909,	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
-        5:{1:15586.00,	2:16166,	3:16745,	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
-        6:{1:19744.00,	2:19928,	3:20111,	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
-        7:{1:21129.00,	2:21620,	3:22111,	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
-        8:{1:27000.00,	2:27604,	3:28209,	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
-        9:{1:31320.00,	2:32037,	3:32755,	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
-        10:{1:36619.00,	2:38010,	3:39401,	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
-        11:{1:46725.00,	2:51386,	3:56046,	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
-        12:{1:80003.00,	2:82987,	3:85970,	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
-        13:{1:102690.00,	2:106586,	3:110486,	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
-        14:{1:131124.00,	2:133372,	3:135620,	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
-        15:{1:148171.00,	2:150711,	3:153251,	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
-        16:{1:167432.00,	2:170302,	3:173173,	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
-        17:{1:189199.00,	2:192442,	3:195686,	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
-        18:{1:278434.00,	2:284201,	3:289969,	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
-        19:{1:331954.00,	2:339067,	3:346181,	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
-        20:{1:419144.00,	2:422737,	3:426329,	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
+        2:{1:"13000.00",	2:"13111.00",	3:"13223.00",	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
+        3:{1:"13819.00",	2:"13927.00",	3:"14036.00",	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
+        4:{1:"14678.00",	2:"14793.00",	3:"14909.00",	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
+        5:{1:"15586.00",	2:"16166.00",	3:"16745.00",	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
+        6:{1:"19744.00",	2:"19928.00",	3:"20111.00",	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
+        7:{1:"21129.00",	2:"21620.00",	3:"22111.00",	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
+        8:{1:"27000.00",	2:"27604.00",	3:"28209.00",	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
+        9:{1:"31320.00",	2:"32037.00",	3:"32755.00",	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
+        10:{1:"36619.00",	2:"38010.00",	3:"39401.00",	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
+        11:{1:"46725.00",	2:"51386.00",	3:"56046.00",	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
+        12:{1:"80003.00",	2:"82987.00",	3:"85970.00",	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
+        13:{1:"102690.00",	2:"106586.00",	3:"110486.00",	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
+        14:{1:"131124.00",	2:"133372.00",	3:"135620.00",	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
+        15:{1:"148171.00",	2:"150711.00",	3:"153251.00",	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
+        16:{1:"167432.00",	2:"170302.00",	3:"173173.00",	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
+        17:{1:"189199.00",	2:"192442.00",	3:"195686.00",	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
+        18:{1:"278434.00",	2:"284201.00",	3:"289969.00",	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
+        19:{1:"331954.00",	2:"339067.00",	3:"346181.00",	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
+        20:{1:"419144.00",	2:"422737.00",	3:"426329.00",	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
       }
 
       var casual_job_grade_daily_salary = {
@@ -446,7 +472,9 @@
 			var study_review = document.getElementById('study_review');
 			var slbw = document.getElementById('slbw');
 			var leave_id = document.getElementById('leave_id');
-
+			var cto = document.getElementById('cto');
+			var monetization = document.getElementById('monetization');
+			var terminal = document.getElementById('terminal');
 			
 		if(leave_id.value == 1){
 			if(wph.checked == false && out_abroad.checked == false){
@@ -460,7 +488,13 @@
 			}else{
 				addAflForm();
 			}
-		}else{
+		}else if(leave_id.value == 99){
+			if(!monetization.checked && !cto.checked && !cto.terminal){
+			   triggerToast('Please choose other purpose', 'error');
+		   }else{
+			   addAflForm();
+		   }
+	   }else{
 			addAflForm();
 		}
 
@@ -482,13 +516,22 @@
 				return res.json();
 			}).then((data)=>{
 				fillForm();
-				loadingScreen('none');
+				
 			})
+
+			setTimeout(loadingScreen('none'), 2000);
 	}
 
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	
 	async function fillForm() {
 
-		const { PDFDocument, StandardFonts } = PDFLib
+		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
+		// Register the fontkit instance with PDF-lib
+
 		//import { TextFormField } from 'pdf-lib/lib/core/interactive/forms';
 
 		const formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
@@ -497,9 +540,15 @@
 	  
 		const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
-		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
+		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
+		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
 
+	  // Embed the Cambria font
 	  
+		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
+
+
 		const form = pdfDoc.getForm()
 	
 		const fields = form.getFields();
@@ -548,6 +597,8 @@
 
 		const tb_incase_slbw = form.getTextField('tb_incase_slbw');
 		const tb_immediate_supervisor = form.getTextField('tb_immediate_supervisor');
+		const tb_div_manager = form.getTextField('tb_div_manager');
+		const tb_div_manager_position = form.getTextField('tb_div_manager_position');
 
 		//<!-- ----------------------------------------------------------------------- -->
 		//<!--                               FROM FIELDS                               -->
@@ -558,17 +609,41 @@
 		const date_to = document.getElementById('date_to');
 
 		tb_office_section.setText('PANGASINAN IMO / {{user_profile.user_section.section_title|escapejs}}');
-		last_name.setText('{{user_profile.last_name}}');
-		first_name.setText('{{user_profile.first_name}}');
-		middle_name.setText('{{user_profile.middle_name}}');
+		tb_office_section.updateAppearances(timesRomanFont);
 
-		{% if user_profile.employment_status == 'PERMANENT' and user_profile.employment_status == 'COTERMINOUS' %}
-			 tb_salary.setText(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}']);
-		{% elif user_profile.employment_status == 'CASUAL' %}
-			 tb_salary.setText(String(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}']));
-		{% elif user_profile.employment_status == 'JOB ORDER' %}
-			 tb_salary.setText(daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}']);
+		{% if user_profile.is_section_chief == 1 or user_profile.is_division_manager == 1%}
+			tb_immediate_supervisor.setText('N/A')
+		{% else %}
+
+			{% if user_profile.user_unit.id == 12 or user_profile.user_unit.id == 13 or user_profile.user_unit.id == 14 or user_profile.user_unit.id == 15 or user_profile.user_unit.id == 21 %}
+				tb_immediate_supervisor.setText('{{user_profile.user_unit.unit_head|escapejs}}');
+			{% else %}
+				tb_immediate_supervisor.setText('{{user_profile.user_section.section_chief|escapejs}}');
+			{% endif %}
+
 		{% endif %}
+
+		tb_immediate_supervisor.updateAppearances(timesRomanFont);
+
+		last_name.setText('{{user_profile.last_name}}');
+		last_name.updateAppearances(timesRomanFont);
+
+		first_name.setText('{{user_profile.first_name}}');
+		first_name.updateAppearances(timesRomanFont);
+
+		middle_name.setText('{{user_profile.middle_name}}');
+		middle_name.updateAppearances(timesRomanFont);
+
+
+		{% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
+			 tb_salary.setText(String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+		{% elif user_profile.employment_status == 'CASUAL' %}
+			 tb_salary.setText(String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+		{% elif user_profile.employment_status == 'JOB ORDER' %}
+			 tb_salary.setText(String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
+		{% endif %}
+
+		tb_salary.updateAppearances(timesRomanFont);
 
 		var date_of_filing_formatted = new Date(date_of_filing.value);
 
@@ -582,7 +657,10 @@
 		var formattedDateOfFiling = date_of_filing_formatted.toLocaleDateString('en-US', options);
 
 		tb_date_of_filing.setText(String(formattedDateOfFiling));
-		tb_position.setText('{{ user_profile.position_title }}');
+		tb_date_of_filing.updateAppearances(timesRomanFont);
+		
+		tb_position.setText('{{ user_profile.position_title|escapejs }}');
+		tb_position.updateAppearances(timesRomanFont);
 
 		var leave_id = document.getElementById('leave_id').value;
 		if(leave_id == 1){
@@ -619,6 +697,8 @@
 
 			var slbw = document.getElementById('slbw');
 			tb_incase_slbw.setText(slbw.value);
+			tb_incase_slbw.updateAppearances(timesRomanFont);
+
 		}else if (leave_id == 12){
 			cb_sel.check();
 		}else if (leave_id == 13){
@@ -631,6 +711,8 @@
 		if(wph.checked){
 			cb_within_ph.check();
 			tb_within_ph.setText(wph_remarks.value);
+			tb_within_ph.updateAppearances(timesRomanFont);
+
 		}
 
 		var out_abroad = document.getElementById('out_abroad');
@@ -639,6 +721,7 @@
 		if(out_abroad.checked){
 			cb_abroad.check();
 			tb_abroad.setText(abroad_remarks.value);
+			tb_abroad.updateAppearances(timesRomanFont);
 
 		}
 
@@ -648,6 +731,8 @@
 		if(in_hospital.checked){
 			cb_hospital.check();
 			tb_hospital.setText(in_hospital_illness.value)
+			tb_hospital.updateAppearances(timesRomanFont);
+
 		}
 
 		var out_patient = document.getElementById('out_patient');
@@ -656,38 +741,62 @@
 		if(out_patient.checked){
 			cb_out_patient.check();
 			tb_out_patient.setText(out_patient_illness.value)
+			tb_out_patient.updateAppearances(timesRomanFont);
+
 		}
 
 		var cto = document.getElementById('cto');
 		if(cto.checked){
 			tb_others.setText('CTO');
+			tb_others.updateAppearances(timesRomanFont);
+
+		}
+
+		var monetization = document.getElementById('monetization');
+		if(monetization.checked){
+			cb_monetization.check();
+		}
+
+		var terminal = document.getElementById('terminal');
+		if(terminal.checked){
+			cb_terminal.check();
 		}
 
 		var numberToWord = convertNumberToWords(no_working_days_applied_for.value);
 
 		if(no_working_days_applied_for.value > 1){
-			tb_days_applied_for.setText(no_working_days_applied_for.value + " ("+ numberToWord.toLowerCase() +") days");
+			tb_days_applied_for.setText(numberToWord.toUpperCase() + " ("+  no_working_days_applied_for.value  +") days");
 		}else{
-			tb_days_applied_for.setText(numberToWord.toLowerCase() + " ("+ no_working_days_applied_for.value +") day");
+			tb_days_applied_for.setText(numberToWord.toUpperCase() + " ("+ no_working_days_applied_for.value +") day");
 
 		}
 
-		var date_from_formatted = new Date(date_from.value);
-		var formattedDateFrom = date_from_formatted.toLocaleDateString('en-US', options);
+		tb_days_applied_for.updateAppearances(timesRomanFont);
 
-		var date_to_formatted = new Date(date_to.value);
-		var formattedDateTo = date_to_formatted.toLocaleDateString('en-US', options);
-		var inclusive_dates = "";
-		if(formattedDateFrom != formattedDateTo){
-			 inclusive_dates = formattedDateFrom + ' - ' + formattedDateTo;
-		}else{
-			inclusive_dates = formattedDateFrom
-		}
+		//var date_from_formatted = new Date(date_from.value);
+		//var formattedDateFrom = date_from_formatted.toLocaleDateString('en-US', options);
 
-		tb_inclusive_dates.setText(inclusive_dates);
+		//var date_to_formatted = new Date(date_to.value);
+		//var formattedDateTo = date_to_formatted.toLocaleDateString('en-US', options);
 
-		//tb_assignatory.setText('{{user_profile.assignatory[0].assignatory}}');
-	
+		//var inclusive_dates = "";
+		//if(formattedDateFrom != formattedDateTo){
+		//	 inclusive_dates = formattedDateFrom + ' - ' + formattedDateTo;
+		//}else{
+		//	inclusive_dates = formattedDateFrom
+		//}
+
+
+		tb_inclusive_dates.setText(date_from.value);
+		tb_inclusive_dates.updateAppearances(timesRomanFont);
+
+
+		tb_div_manager.setText('{{user_profile.assignatory[0].assignatory}}');
+		tb_div_manager.updateAppearances(timesRomanFont);
+
+		tb_div_manager_position.setText('{{user_profile.assignatory[0].position_title}}');
+		tb_div_manager_position.updateAppearances(timesRomanFontItalic);
+
 		form.flatten();
 
 		const pdfBytes = pdfDoc.save()
@@ -719,9 +828,67 @@
 	
 	}
 
+
+	  function changeCalendarMode(){
+		const dateRangeSelection = document.getElementById('dateRangeSelection');
+		var mode = "multiple";
+		if(dateRangeSelection.checked){
+			mode = "range";
+		}else{
+			mode = "multiple";
+		}
+		drawCalendar(mode);
+	  }
+
+
+	  function drawCalendar(mode){
+		const fp = flatpickr("#date_from", {
+			mode: mode,
+			altInput: true,
+			altFormat: "F j, Y",
+			dateFormat: "F j, Y",
+			readOnly: false,
+			//dateFormat: "m/d/Y",
+			onChange: function(selectedDates) {
+			  const sortedDates = selectedDates.sort((a, b) => a - b);
+			  const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
+			  let lastRange = 0;
+		  
+			  for (let i = 1; i < sortedDates.length; i++) {
+				const diffInMs = sortedDates[i] - sortedDates[i - 1];
+				const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+		  
+				if (diffInDays === 1) {
+				  dateRanges[lastRange].push(new Date(sortedDates[i]).toLocaleDateString());
+				} else {
+				  lastRange++;
+				  dateRanges.push([new Date(sortedDates[i]).toLocaleDateString()]);
+				}
+			  }
+			  //console.log(dateRanges);
+			}
+		  });
+
+		  //fp.destroy();
+		  //console.log(fp.days);
+		  fp.clear();
+		  fp.redraw();
+
+	  }
+
+	  //function getFp(){
+		//const fp = document.querySelector("#date_from")._flatpickr;
+		
+		//console.log(fp.selectedDates);
+
+	  //}
+
+
 (function () {
   'use strict'
+  
 
+  drawCalendar('range');
 
   document.getElementById('date_of_filing').valueAsDate = new Date();
 
@@ -758,6 +925,8 @@ function leave_type(leave_type){
 	var study_review = document.getElementById('study_review');
 	var slbw = document.getElementById('slbw');
 	var cto = document.getElementById('cto');
+	var monetization = document.getElementById('monetization');
+	var terminal = document.getElementById('terminal');
 
 	var leave_id = document.getElementById('leave_id');
 
@@ -781,8 +950,14 @@ function leave_type(leave_type){
 		study_review.disabled = true;
 		study_master.checked = false;
 		study_review.checked = false;
+
 		cto.disabled = true;
+		monetization.disabled = true;
+		terminal.disabled = true;
+
 		cto.checked = false;
+		monetization.checked = false;
+		terminal.checked = false;
 	}else if(leave_type.value == 3){
 		wph.disabled = true;
 		wph_remarks.disabled = true;
@@ -805,8 +980,14 @@ function leave_type(leave_type){
 		study_review.disabled = true;
 		study_master.checked = false;
 		study_review.checked = false;
+
 		cto.disabled = true;
+		monetization.disabled = true;
+		terminal.disabled = true;
+
 		cto.checked = false;
+		monetization.checked = false;
+		terminal.checked = false;
 
 	}else if(leave_type.value == 8){
 		wph.disabled = true;
@@ -830,7 +1011,12 @@ function leave_type(leave_type){
 		study_review.disabled = false;
 
 		cto.disabled = true;
+		monetization.disabled = true;
+		terminal.disabled = true;
+
 		cto.checked = false;
+		monetization.checked = false;
+		terminal.checked = false;
 
 	}else if(leave_type.value == 11){
 		wph.disabled = true;
@@ -859,7 +1045,12 @@ function leave_type(leave_type){
 		study_review.checked = false;
 
 		cto.disabled = true;
+		monetization.disabled = true;
+		terminal.disabled = true;
+
 		cto.checked = false;
+		monetization.checked = false;
+		terminal.checked = false;
 		
 	}else if(leave_type.value == 99){
 		wph.disabled = true;
@@ -887,7 +1078,8 @@ function leave_type(leave_type){
 		study_master.checked = false;
 		study_review.checked = false;
 		cto.disabled = false;
-		cto.checked = true;
+		monetization.disabled = false;
+		terminal.disabled = false;
 		
 	}else{
 		wph.disabled = true;
@@ -913,7 +1105,12 @@ function leave_type(leave_type){
 		out_abroad.checked = false;
 
 		cto.disabled = true;
+		monetization.disabled = true;
+		terminal.disabled = true;
+
 		cto.checked = false;
+		monetization.checked = false;
+		terminal.checked = false;
 	}
 }
 
@@ -1022,6 +1219,51 @@ function convertNumberToWords(number) {
 		wph.checked = false;
 	}
   }
+
+  function click_cto(elem){
+	var monetization = document.getElementById('monetization');
+	var terminal = document.getElementById('terminal');
+	if(elem.checked){
+		monetization.checked = false;
+		terminal.checked = false;
+	}
+
+  }
+
+  function click_monetization(elem){
+	const fp = document.querySelector("#date_from")._flatpickr;
+
+	var cto = document.getElementById('cto');
+	var terminal = document.getElementById('terminal');
+	const dateFromInput = document.querySelector('#date_from');
+	if(elem.checked){
+		scrollToDiv(14);
+		cto.checked = false;
+		terminal.checked = false;
+		fp.clear();
+		fp.close();
+		//fp.destroy();
+		dateFromInput.disabled = true;
+	}
+  }
+
+  function click_terminal(elem){
+
+	const fp = document.querySelector("#date_from")._flatpickr;
+	
+	var cto = document.getElementById('cto');
+	var monetization = document.getElementById('monetization');
+
+	if(elem.checked){
+	scrollToDiv(15);
+
+		cto.checked = false;
+		monetization.checked = false;
+		fp.clear();
+		fp.close();
+	}
+  }
+
 
   function in_hospital(elem){
 	var out_patient = document.getElementById('out_patient');

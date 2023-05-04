@@ -608,7 +608,7 @@ button {
                       <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill p-1">
-                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" minlength="3" maxlength="10">
+                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" minlength="3" maxlength="10" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <label for="name_extn">SSS No.</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 0226413283</p></small>
 
