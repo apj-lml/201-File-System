@@ -54,9 +54,9 @@
 	  </ul>
 	<div class="row mb-3 mt-4">
 
-		<div class="card col-md-8">
+		<div class="card col-md-8 col-sm-12	">
 			<div class="card-body">
-				<form id="add_afl_form" action="#" method="POST" enctype="multipart/form-data"></form>
+			<form id="add_afl_form" action="#" method="POST" class="needs-validation" novalidate>
 				<div class="card text-white bg-blue shadow-sm mb-3" >
 					<div class="card-header">
 						<h3 class="card-title"><i class="bi bi-calendar-week"></i> Application for Leave</h3>
@@ -67,24 +67,35 @@
 					  </ul>
 					</div> -->
 				</div>
-	
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="card shadow-sm mb-3">
+			
+				<div class="d-flex flex-column">
+					<div class="d-flex flex-md-row flex-sm-column flex-xs-column">
+						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 align-self-start m-1">
+
 							<div class="card-body">
+								{% if current_user.type_of_user != 'user' %}
+
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
+										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" >
 										<label for="date_of_filing">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								</div>
+								{% else %}
+									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" >
+									<div class="form-floating flex-fill mb-3 p-1">
+										<input type="date" class="form-control" name ="" id="date_of_filing_display" placeholder="Date of Filing" disabled >
+										<label for="date_of_filing_display">Date of Filing<span class="is-required">*</span></label>
+									</div>
+								{% endif %}
+
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value)">
 											<option value="13">Adoption Leave</option>
 											<option value="2">Mandatory/Forced Leave</option>
 											<option value="4">Maternity Leave</option>
-											<option value="10">Rehabilitation Privilage</option>
+											<option value="10">Rehabilitation Privilege</option>
 											<option value="3">Sick Leave</option>
 											<option value="12">Special Emergency (Calamity) Leave</option>
 											<option value="11">Special Leave Benefits for Women</option>
@@ -104,10 +115,19 @@
 									<label class="form-check-label" for="dateRangeSelection">Date Range Selection</label>
 								  </div> -->
 								<div class="d-md-flex flex-row">
-									<div class="input-group mb-3">
+									<!-- <div class="input-group mb-3">
 										<span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-week"></i></span>
 										<input type="text" class="form-control" placeholder="Inclusive Date/s" aria-label="Inclusive Date/s" aria-describedby="basic-addon1" name ="date_from" id="date_from" required >
-									  </div>
+									  </div> -->
+
+									  <div class="col-sm-12 mb-3 has-validation">
+										<label for="date_from" class="form-label">Inclusive Date/s<span class="is-required">*</span></label>
+										<input type="date" class="form-control" id="date_from" name ="date_from" placeholder="Select date..." form="add_afl_form" required>
+										<div class="invalid-feedback">
+											Please provide inclusive date/s.
+										  </div>  
+									</div>
+
 									<!-- <div class="form-floating flex-fill mb-3 p-1">
 										<input type="text" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date/s" form="add_afl_form" max="5000-12-31" required>
 										<label for="date_from">Inclusive Date/s<span class="is-required">*</span></label>
@@ -120,48 +140,48 @@
 									</div>
 								</div> -->
 								<div class="d-md-flex flex-column mb-0">
-									<div class="form-floating flex-fill col-sm-12 pb-0 p-1">
-										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1">
+									<div class="form-floating flex-fill col-sm-12 pb-0 p-1 has-validation">
+										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1" max="999">
 										<label for="no_working_days_applied_for">Number of Working Days Applied for<span class="is-required">*</span></label>
+										<div class="invalid-feedback">
+											Please provide a valid number of working days (min: 1 | max: 999)
+										  </div>  
 									</div>
-									<div class="flex-fill col-sm-12 mt-0 pt-0">
-										<span class="is-required">*Please double check the Number of Working Days Applied for</span>	
-									</div>
+									
 								</div>
-
+							<div class="col-sm-12 text-center mt-5 mb-5 flex-fill">
+								<button type="submit" class="btn btn-primary" form="add_afl_form">Print Application for Leave</button>
+							</div> 
 							</div>
 						</div>
-						<div class="col-sm-12 text-center mt-5 mb-5">
-							<button type="submit" class="btn btn-primary" form="add_afl_form">Print Application for Leave</button>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="card shadow-sm mb-3">
+
+
+						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
 							<div class="card-body">
 								<div class="d-md-flex flex-row">
-									<h6><i>In case of Vacation/Special Privilage Leave:</i></h6>
+									<h6><i>In case of Vacation/Special Privilege Leave:</i></h6>
 								</div>
 								<div class="d-md-flex flex-row">
 									<div class="mb-3 p-1 col-md-6">
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="1" id="wph" name="wph" checked onchange="within_ph(this)">
+											<input class="form-check-input" type="checkbox" value="1" id="wph" name="wph" onchange="click_within_ph(this)" disabled>
 											<label class="form-check-label" for="wph">
 											  Within the Philippines
 											</label>
-											<div class="form-floating flex-fill mb-3 p-1">
-												<input type="text" class="form-control" name ="wph_remarks" id="wph_remarks" placeholder="Remarks" form="add_afl_form">
+											<div class="form-floating flex-fill">
+												<input type="text" class="form-control" name ="wph_remarks" id="wph_remarks" placeholder="Remarks" form="add_afl_form" disabled>
 												<label for="wph_remarks">Remarks</label>
 											</div>
 										  </div>
 									</div>
 									<div class="mb-3 p-1 col-md-6">
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="1" id="out_abroad" name="out_abroad" onchange="out_abroad(this)">
+											<input class="form-check-input" type="checkbox" value="1" id="out_abroad" name="out_abroad" onchange="click_out_abroad(this)" disabled>
 											<label class="form-check-label" for="out_abroad">
 											  Abroad
 											</label>
-											<div class="form-floating flex-fill mb-3 p-1">
-												<input type="text" class="form-control" name ="abroad_remarks" id="abroad_remarks" placeholder="Remarks" form="add_afl_form">
+											<div class="form-floating flex-fill">
+												<input type="text" class="form-control" name ="abroad_remarks" id="abroad_remarks" placeholder="Remarks" form="add_afl_form" disabled>
 												<label for="abroad_remarks">Remarks</label>
 											</div>
 										  </div>
@@ -173,7 +193,7 @@
 								<div class="d-md-flex flex-row">
 									<div class="mb-3 p-1 col-md-6">
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="1" id="in_hospital" name="in_hospital" onchange="in_hospital(this);" disabled>
+											<input class="form-check-input" type="checkbox" value="1" id="in_hospital" name="in_hospital" onchange="click_in_hospital(this);" disabled>
 											<label class="form-check-label" for="in_hospital">
 												In Hospital
 											</label>
@@ -185,7 +205,7 @@
 									</div>
 									<div class="mb-3 p-1 col-md-6">
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="1" id="out_patient" name="out_patient" onchange="out_patient(this);" disabled>
+											<input class="form-check-input" type="checkbox" value="1" id="out_patient" name="out_patient" onchange="click_out_patient(this);" disabled>
 											<label class="form-check-label" for="out_patient">
 												Out Patient
 											</label>
@@ -259,17 +279,21 @@
 							</div>
 						</div>
 					</div>
-				</div>
 
+
+					
+				</div>
+			</form>
 			</div>
 		</div>
-		<div class="card col-md-4" style="height: 850px;">
+		
+		<div class="card col-md-4 col-sm-12" style="height: 850px;">
 			<div class="card-body">
 				<div class="scroll-container p-3" id="scrolling_div">
 					<div id="scrollspyHeading1">
 						<h4 id="">1. Vacation Leave*</h4>
 						<p>
-							It shall be filed five (5) days in advance, whenever possible, of the effective date of such leave. Vacation leave within in the Philippines or out_abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
+							It shall be filed five (5) days in advance, whenever possible, of the effective date of such leave. Vacation leave within in the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
 						</p>
 					</div>
 					<div id="scrollspyHeading2">
@@ -305,7 +329,7 @@
 					<div id="scrollspyHeading6">
 						<h4 id="">6. Special Privilege leave – 3 days</h4>
 						<p>
-							It shall be filed/approved for at least one (1) week prior to availment, except on emergency cases. Special privilege leave within the Philippines or out_abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
+							It shall be filed/approved for at least one (1) week prior to availment, except on emergency cases. Special privilege leave within the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
 						</p>
 					</div>
 
@@ -401,6 +425,78 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <script type="text/javascript">
+
+	(function () {
+		'use strict'
+		
+		drawCalendar('range');
+	  
+		document.getElementById('date_of_filing').valueAsDate = new Date();
+	  
+		{% if current_user.type_of_user == 'user' %}
+	  
+		document.getElementById('date_of_filing_display').valueAsDate = new Date();
+		{% endif %}
+	  
+	  
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
+	  
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+		  .forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+			  if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			  }else{
+				event.preventDefault()
+				event.stopPropagation()
+				  var wph = document.getElementById('wph');
+				  var wph_remarks = document.getElementById('wph_remarks');
+				  var out_abroad = document.getElementById('out_abroad');
+				  var abroad_remarks = document.getElementById('abroad_remarks');
+				  var in_hospital = document.getElementById('in_hospital');
+				  var in_hospital_illness = document.getElementById('in_hospital_illness');
+				  var out_patient = document.getElementById('out_patient');
+				  var out_patient_illness = document.getElementById('out_patient_illness');
+				  var study_master = document.getElementById('study_master');
+				  var study_review = document.getElementById('study_review');
+				  var slbw = document.getElementById('slbw');
+				  var leave_id = document.getElementById('leave_id');
+				  var cto = document.getElementById('cto');
+				  var monetization = document.getElementById('monetization');
+				  var terminal = document.getElementById('terminal');
+				  if(leave_id.value == 1){
+					  if(wph.checked == false && out_abroad.checked == false){
+						  triggerToast('Please choose if within the Philippines or Abroad', 'error');
+					  }else{
+						  addAflForm();
+					  }
+				  }else if(leave_id.value == 3){
+					  if(!in_hospital.checked && !out_patient.checked){
+						  triggerToast('Please choose if In Hospital or Out Patient', 'error');
+					  }else{
+						  addAflForm();
+					  }
+				  }else if(leave_id.value == 99){
+					  if(!monetization.checked && !cto.checked && !cto.terminal){
+					  triggerToast('Please choose other purpose', 'error');
+				  }else{
+					  addAflForm();
+				  }
+			  }else{
+					  addAflForm();
+				  }
+	  
+			  }
+	  
+			  form.classList.add('was-validated')
+			}, false)
+		  })
+	  
+	  })()
+
 	var daily_salary = {
         1:503.09,
         2:534.59,
@@ -457,49 +553,10 @@
         13:{1:4667.72,	2:4844.81}
       }
 
-	document.getElementById('add_afl_form').addEventListener('submit', (e)=>{
-		e.preventDefault();
+	//document.getElementById('add_afl_form').addEventListener('submit', (e)=>{
+	//	e.preventDefault();
 
-			var wph = document.getElementById('wph');
-			var wph_remarks = document.getElementById('wph_remarks');
-			var out_abroad = document.getElementById('out_abroad');
-			var abroad_remarks = document.getElementById('abroad_remarks');
-			var in_hospital = document.getElementById('in_hospital');
-			var in_hospital_illness = document.getElementById('in_hospital_illness');
-			var out_patient = document.getElementById('out_patient');
-			var out_patient_illness = document.getElementById('out_patient_illness');
-			var study_master = document.getElementById('study_master');
-			var study_review = document.getElementById('study_review');
-			var slbw = document.getElementById('slbw');
-			var leave_id = document.getElementById('leave_id');
-			var cto = document.getElementById('cto');
-			var monetization = document.getElementById('monetization');
-			var terminal = document.getElementById('terminal');
-			
-		if(leave_id.value == 1){
-			if(wph.checked == false && out_abroad.checked == false){
-				triggerToast('Please choose if within the Philippines or Abroad', 'error');
-			}else{
-				addAflForm();
-			}
-		}else if(leave_id.value == 3){
-			 if(!in_hospital.checked && !out_patient.checked){
-				triggerToast('Please choose if In Hospital or Out Patient', 'error');
-			}else{
-				addAflForm();
-			}
-		}else if(leave_id.value == 99){
-			if(!monetization.checked && !cto.checked && !cto.terminal){
-			   triggerToast('Please choose other purpose', 'error');
-		   }else{
-			   addAflForm();
-		   }
-	   }else{
-			addAflForm();
-		}
-
-
-	});
+	//});
 
 	function addAflForm(){
 		var formElem = document.getElementById("add_afl_form");
@@ -847,8 +904,26 @@
 			altInput: true,
 			altFormat: "F j, Y",
 			dateFormat: "F j, Y",
-			readOnly: false,
+			//readOnly: false,
+			allowInput: true,
 			//dateFormat: "m/d/Y",
+			onReady: function(selectedDates, dateStr, instance) {
+				let el2 = instance.element;
+				let el = instance.altInput;
+				function preventInput(event) {
+					event.preventDefault();
+					return false;
+				};
+				el2.attributes.required = "required";
+
+				el.onkeypress = el.onkeydown = el.onkeyup = preventInput; // disable key events
+				el.onpaste = preventInput; // disable pasting using mouse context menu
+		
+				el.style.caretColor = 'transparent'; // hide blinking cursor
+				el.style.cursor = 'pointer'; // override cursor hover type text
+				el.style.color = '#585858'; // prevent text color change on focus
+				el.style.backgroundColor = 'f7f7f7'; // prevent bg color change on focus
+			},
 			onChange: function(selectedDates) {
 			  const sortedDates = selectedDates.sort((a, b) => a - b);
 			  const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
@@ -872,7 +947,7 @@
 		  //fp.destroy();
 		  //console.log(fp.days);
 		  fp.clear();
-		  fp.redraw();
+		  //fp.redraw();
 
 	  }
 
@@ -884,32 +959,7 @@
 	  //}
 
 
-(function () {
-  'use strict'
-  
 
-  drawCalendar('range');
-
-  document.getElementById('date_of_filing').valueAsDate = new Date();
-
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-
-})()
 
 
 function leave_type(leave_type){
@@ -934,7 +984,7 @@ function leave_type(leave_type){
 		wph.disabled = false;
 		wph_remarks.disabled = false;
 		out_abroad.disabled = false;
-		abroad_remarks.disabled = false;
+		abroad_remarks.disabled = true;
 
 		in_hospital.disabled = true;
 		in_hospital_illness.disabled = true;
@@ -1204,19 +1254,37 @@ function convertNumberToWords(number) {
 
   }
 
-  function within_ph(elem){
+  function click_within_ph(elem){
 	var out_abroad = document.getElementById('out_abroad');
+	var abroad_remarks = document.getElementById('abroad_remarks');
+	var wph_remarks = document.getElementById('wph_remarks');
 
 	if(elem.checked){
 		out_abroad.checked = false;
+		abroad_remarks.value = "";
+		abroad_remarks.disabled = true;
+		wph_remarks.disabled = false;
+	}else{
+		elem.checked = true;
+		out_abroad.checked = false;
+
 	}
   }
 
-  function out_abroad(elem){
+  function click_out_abroad(elem){
 	var wph = document.getElementById('wph');
+	var wph_remarks = document.getElementById('wph_remarks');
+	var abroad_remarks = document.getElementById('abroad_remarks');
 
 	if(elem.checked){
 		wph.checked = false;
+		wph_remarks.value = "";
+		wph_remarks.disabled = true;
+		abroad_remarks.disabled = false;
+	}else{
+		elem.checked = true;
+		wph.checked = false;
+
 	}
   }
 
@@ -1226,6 +1294,8 @@ function convertNumberToWords(number) {
 	if(elem.checked){
 		monetization.checked = false;
 		terminal.checked = false;
+	}else{
+		elem.checked = true;
 	}
 
   }
@@ -1244,6 +1314,8 @@ function convertNumberToWords(number) {
 		fp.close();
 		//fp.destroy();
 		dateFromInput.disabled = true;
+	}else{
+		elem.checked = true;
 	}
   }
 
@@ -1261,11 +1333,13 @@ function convertNumberToWords(number) {
 		monetization.checked = false;
 		fp.clear();
 		fp.close();
+	}else{
+		elem.checked = true;
 	}
   }
 
 
-  function in_hospital(elem){
+  function click_in_hospital(elem){
 	var out_patient = document.getElementById('out_patient');
 	var in_hospital_illness = document.getElementById('in_hospital_illness');
 	var out_patient_illness = document.getElementById('out_patient_illness');
@@ -1277,11 +1351,12 @@ function convertNumberToWords(number) {
 		in_hospital_illness.value = "";
 		out_patient_illness.value = "";
 	}else{
-		in_hospital_illness.disabled = true;
+		in_hospital_illness.disabled = false;
+		elem.checked = true;
 	}
   }
 
-  function out_patient(elem){
+  function click_out_patient(elem){
 	var in_hospital = document.getElementById('in_hospital');
 	var in_hospital_illness = document.getElementById('in_hospital_illness');
 	var out_patient_illness = document.getElementById('out_patient_illness');
@@ -1293,7 +1368,8 @@ function convertNumberToWords(number) {
 		in_hospital_illness.value = "";
 		out_patient_illness.value = "";
 	}else{
-		out_patient_illness.disabled = true;
+		out_patient_illness.disabled = false;
+		elem.checked = true;
 
 	}
   }
