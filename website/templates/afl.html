@@ -26,6 +26,22 @@
 		margin-left: 5px;
 	  }
 
+	  @media (max-width: 768px) {
+		/* CSS styles for mobile devices */
+		.main-card{
+			padding: 5px;
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+		.main-card .card-body{
+			padding: 8px;
+			margin: 0;
+		}
+
+		#no_working_days_applied_for_label{
+			font-size: 12px;
+		}
+	  }
 
 </style>
 
@@ -54,8 +70,8 @@
 	  </ul>
 	<div class="row mb-3 mt-4">
 
-		<div class="card col-md-8 col-sm-12	">
-			<div class="card-body">
+		<div class="card col-md-8 col-sm-12	main-card">
+			<div class="card-body ">
 			<form id="add_afl_form" action="#" method="POST" class="needs-validation" novalidate>
 				<div class="card text-white bg-blue shadow-sm mb-3" >
 					<div class="card-header">
@@ -69,8 +85,8 @@
 				</div>
 			
 				<div class="d-flex flex-column">
-					<div class="d-flex flex-md-row flex-sm-column flex-xs-column">
-						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 align-self-start m-1">
+					<div class="d-md-flex flex-md-row flex-sm-column">
+						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
 
 							<div class="card-body">
 								{% if current_user.type_of_user != 'user' %}
@@ -142,7 +158,7 @@
 								<div class="d-md-flex flex-column mb-0">
 									<div class="form-floating flex-fill col-sm-12 pb-0 p-1 has-validation">
 										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1" max="999">
-										<label for="no_working_days_applied_for">Number of Working Days Applied for<span class="is-required">*</span></label>
+										<label id="no_working_days_applied_for_label" for="no_working_days_applied_for">Number of Working Days Applied for<span class="is-required">*</span></label>
 										<div class="invalid-feedback">
 											Please provide a valid number of working days (min: 1 | max: 999)
 										  </div>  
@@ -154,7 +170,6 @@
 							</div> 
 							</div>
 						</div>
-
 
 						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
 							<div class="card-body">
@@ -283,6 +298,7 @@
 
 					
 				</div>
+
 			</form>
 			</div>
 		</div>
@@ -488,6 +504,7 @@
 			  }else{
 					  addAflForm();
 				  }
+				  form.reset();
 	  
 			  }
 	  
@@ -573,10 +590,10 @@
 				return res.json();
 			}).then((data)=>{
 				fillForm();
+				///setTimeout(loadingScreen('none'), 2000);
 				
 			})
 
-			setTimeout(loadingScreen('none'), 2000);
 	}
 
 	function numberWithCommas(x) {
