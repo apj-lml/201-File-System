@@ -504,7 +504,7 @@
 			  }else{
 					  addAflForm();
 				  }
-				  form.reset();
+				  
 	  
 			  }
 	  
@@ -897,8 +897,10 @@
 		loadingScreen('none')
 		//document.getElementById("loading-section").innerHTML = "<h6 class='text-muted'>Success! Please look at the newly opened tab to view your PDS or <h6>&nbsp<a href='/print-preview/{{user_profile.id}}'>regenerate new PDS.</a>"
 	
-	
 		window.open(url);
+
+		form.reset();
+
 	
 	}
 
