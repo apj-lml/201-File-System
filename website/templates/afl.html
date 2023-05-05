@@ -899,12 +899,10 @@
 	
 		window.open(url);
 
-		var forms = document.querySelectorAll('.needs-validation')
-
-		Array.prototype.slice.call(forms)
-		  .forEach(function (myform) {
-			myform.reset();
-		  });
+		const myform = document.querySelector('#add_afl_form');
+		myform.classList.remove('was-validated');
+		//myform.reset();
+	
 
 	}
 
