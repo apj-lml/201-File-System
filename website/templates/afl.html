@@ -166,7 +166,10 @@
 									
 								</div>
 							<div class="col-sm-12 text-center mt-5 mb-5 flex-fill">
-								<button type="submit" class="btn btn-primary" form="add_afl_form">Print Application for Leave</button>
+								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form">
+									<span id="mySpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  									Loading...
+								</button>
 							</div> 
 							</div>
 						</div>
@@ -294,9 +297,6 @@
 							</div>
 						</div>
 					</div>
-
-
-					
 				</div>
 
 			</form>
@@ -442,8 +442,6 @@
 
 <script type="text/javascript">
 
-
-
 	(function () {
 		'use strict'
 
@@ -460,6 +458,12 @@
 		document.getElementById('date_of_filing_display').valueAsDate = new Date();
 		{% endif %}
 	  
+		loadPdf();
+
+		const spinnerElement = document.getElementById('mySpinner');
+		spinnerElement.style.display = 'none';
+
+		document.getElementById('submitBtn').textContent = "Print Application for Leave";
 	  
 		// Fetch all the forms we want to apply custom Bootstrap validation styles to
 		var forms = document.querySelectorAll('.needs-validation')
@@ -516,7 +520,7 @@
 			}, false)
 		  })
 
-	  loadPdf();
+	  
 	  })()
 
 	var daily_salary = {
@@ -606,12 +610,24 @@
 
 	async function loadPdf(){
 		
-		formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
-	  
-		formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
-	  
-		pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+		if ('caches' in window) {
+			//const pdfUrl = 'path/to/your/file.pdf';
 
+			formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
+	  
+		
+			// Try to fetch the PDF file from the cache
+			caches.match(formUrl).then((response) => {
+			  if (response) {
+				// If the file is in the cache, load it
+				loadPdfFromCache(response);
+			  } else {
+				// If the file is not in the cache, fetch and store it
+				fetchAndCachePdf(formUrl);
+			  }
+			});
+		  }
+		  
 	}
 	async function fillForm() {
 
@@ -625,7 +641,6 @@
 	  
 		//formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 	  
-		//pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
 		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
 		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
@@ -916,7 +931,6 @@
 		const myform = document.querySelector('#add_afl_form');
 		myform.classList.remove('was-validated');
 		//myform.reset();
-	
 
 	}
 
@@ -986,15 +1000,41 @@
 
 	  }
 
-	  //function getFp(){
-		//const fp = document.querySelector("#date_from")._flatpickr;
-		
-		//console.log(fp.selectedDates);
-
-	  //}
-
-
-
+	  function loadPdfFromCache(response) {
+		response.blob().then((blob) => {
+		  const url = URL.createObjectURL(blob);
+	  
+		  fetch(url)
+			.then((res) => res.arrayBuffer())
+			.then((formPdfBytes) => {
+			  return PDFLib.PDFDocument.load(formPdfBytes);
+			})
+			.then((myPdfDoc) => {
+				
+			   pdfDoc = myPdfDoc;
+			   console.log(pdfDoc);
+			})
+			.catch((error) => {
+			  // Handle any errors that occurred during loading or processing
+			});
+		});
+	  }
+	  
+	  function fetchAndCachePdf(pdfUrl) {
+		// Fetch the PDF file from the server
+		fetch(pdfUrl).then((response) => {
+		  // Clone the response to store it in the cache
+		  const clone = response.clone();
+		  
+		  // Store the response in the cache
+		  caches.open('pdf-cache').then((cache) => {
+			cache.put(pdfUrl, clone);
+		  });
+		  
+		  // Load the PDF file
+			loadPdfFromCache(response);
+		});
+	  }
 
 
 function leave_type(leave_type){
