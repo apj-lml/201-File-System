@@ -650,6 +650,9 @@
 		const tb_div_manager = form.getTextField('tb_div_manager');
 		const tb_div_manager_position = form.getTextField('tb_div_manager_position');
 
+		const tb_certifier = form.getTextField('tb_certifier');
+		const tb_certifier_position = form.getTextField('tb_certifier_position');
+
 		//<!-- ----------------------------------------------------------------------- -->
 		//<!--                               FROM FIELDS                               -->
 		//<!-- ----------------------------------------------------------------------- -->
@@ -823,18 +826,6 @@
 
 		tb_days_applied_for.updateAppearances(timesRomanFont);
 
-		//var date_from_formatted = new Date(date_from.value);
-		//var formattedDateFrom = date_from_formatted.toLocaleDateString('en-US', options);
-
-		//var date_to_formatted = new Date(date_to.value);
-		//var formattedDateTo = date_to_formatted.toLocaleDateString('en-US', options);
-
-		//var inclusive_dates = "";
-		//if(formattedDateFrom != formattedDateTo){
-		//	 inclusive_dates = formattedDateFrom + ' - ' + formattedDateTo;
-		//}else{
-		//	inclusive_dates = formattedDateFrom
-		//}
 
 
 		tb_inclusive_dates.setText(date_from.value);
@@ -846,6 +837,18 @@
 
 		tb_div_manager_position.setText('{{user_profile.assignatory[0].position_title}}');
 		tb_div_manager_position.updateAppearances(timesRomanFontItalic);
+
+		{% if user_profile.is_primary_afl_certifier == 1 %}
+			tb_certifier.setText('{{ secondary_certifier[0].first_name }} {{ secondary_certifier[0].middle_initial }}. {{ secondary_certifier[0].last_name }}');
+			tb_certifier_position.setText(toTitleCase('{{ secondary_certifier[0].position_title }}'));
+		{% else %}
+			tb_certifier.setText('FRANCIS CARLO L. ZACARIAS');
+			tb_certifier_position.setText('Industrial Relations Management/Development Officer C');
+		{% endif %}
+		tb_certifier.updateAppearances(timesRomanFont);
+		tb_certifier_position.updateAppearances(timesRomanFontItalic);
+
+		
 
 		form.flatten();
 
@@ -882,6 +885,11 @@
 
 	}
 
+	function toTitleCase(str) {
+		return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+		  return match.toUpperCase();
+		});
+	  }
 
 	  function changeCalendarMode(){
 		const dateRangeSelection = document.getElementById('dateRangeSelection');

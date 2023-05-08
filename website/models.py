@@ -163,9 +163,14 @@ class User(db.Model, UserMixin):
     hs_highest_grade_year_units = db.Column(db.String(150))
     hs_scholarship_academic_honor = db.Column(db.String(150))
 
-    is_section_chief = db.Column(db.String(150))
-    is_unit_head = db.Column(db.String(150))
-    is_division_manager = db.Column(db.String(150))
+    is_section_chief = db.Column(db.Integer, default=0)
+    is_unit_head = db.Column(db.Integer, default=0)
+    is_division_manager = db.Column(db.Integer, default=0)
+
+    is_primary_afl_certifier = db.Column(db.Integer, default=0)
+    is_secondary_afl_certifier = db.Column(db.Integer, default=0)
+
+
 
     type_of_user = db.Column(db.String(150), default='user')
     #last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))

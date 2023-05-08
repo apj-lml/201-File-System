@@ -394,9 +394,15 @@ def afl(emp_id):
             return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
         else:
             user = db.session.query(User).get(int(emp_id))
-            db.session.commit()
+            primary_certifier = db.session.query(User).filter_by(is_primary_afl_certifier = 1).all()
+            secondary_certifier = db.session.query(User).filter_by(is_secondary_afl_certifier = 1).all()
 
-            return render_template('afl.html', emp_id = emp_id, user_profile = user)
+            # db.session.commit()
+
+            print(secondary_certifier[0].last_name)
+
+
+            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier)
 
 @views.route('/rol/<emp_id>', methods=['GET', 'POST'])
 @login_required
