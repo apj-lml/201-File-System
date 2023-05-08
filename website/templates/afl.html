@@ -442,9 +442,15 @@
 
 <script type="text/javascript">
 
+
+
 	(function () {
 		'use strict'
-		
+
+		var formUrl;
+		var formPdfBytes;
+		var pdfDoc;
+
 		drawCalendar('range');
 	  
 		document.getElementById('date_of_filing').valueAsDate = new Date();
@@ -504,14 +510,13 @@
 			  }else{
 					  addAflForm();
 				  }
-				  
-	  
 			  }
 	  
 			  form.classList.add('was-validated')
 			}, false)
 		  })
-	  
+
+	  loadPdf();
 	  })()
 
 	var daily_salary = {
@@ -593,14 +598,21 @@
 				///setTimeout(loadingScreen('none'), 2000);
 				
 			})
-
 	}
 
 	function numberWithCommas(x) {
 		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	}
 
-	
+	async function loadPdf(){
+		
+		formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
+	  
+		formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+	  
+		pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+
+	}
 	async function fillForm() {
 
 		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
@@ -608,11 +620,12 @@
 
 		//import { TextFormField } from 'pdf-lib/lib/core/interactive/forms';
 
-		const formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
+
+		//formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
 	  
-		const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+		//formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 	  
-		const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+		//pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
 		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
 		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
@@ -899,6 +912,7 @@
 	
 		window.open(url);
 
+		loadPdf();
 		const myform = document.querySelector('#add_afl_form');
 		myform.classList.remove('was-validated');
 		//myform.reset();
