@@ -1,10 +1,5 @@
-# from email.policy import default
-#from email.policy import default
 
-from email.policy import default
-from pickle import NONE
 from time import timezone
-from xml.etree.ElementInclude import include
 
 from sqlalchemy import asc, desc
 
@@ -199,6 +194,7 @@ class User(db.Model, UserMixin):
     assignatory = db.relationship('Assignatory')
     vaccine = db.relationship('Vaccine')
     afl = db.relationship('Afl')
+    records_of_leave = db.relationship('Records_Of_Leave')
 
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
@@ -221,6 +217,13 @@ class User(db.Model, UserMixin):
        return {c.name: str((getattr(self, c.name))) for c in self.__table__.columns}
 
     # emergency_contact = db.relationship('Emergency_Contact')
+
+class Records_Of_Leave(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    vacation = db.Column(db.Numeric(precision=10, scale=3))
+    sick = db.Column(db.Numeric(precision=10, scale=3))
+
 
 class Afl(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -261,6 +264,8 @@ class Agency_Unit(db.Model, SerializerMixin):
     unit_head = db.Column(db.String(150))
     agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
     user = db.relationship('User', backref='user_unit', lazy=True)
+
+    
 
 class Vocational_Course(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)

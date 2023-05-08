@@ -398,6 +398,18 @@ def afl(emp_id):
 
             return render_template('afl.html', emp_id = emp_id, user_profile = user)
 
+@views.route('/rol/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def rol(emp_id):
+    if request.method == 'GET':
+        if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+            return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+        else:
+            user = db.session.query(User).get(int(emp_id))
+            db.session.commit()
+
+            return render_template('rol.html', emp_id = emp_id, user_profile = user)
 
 @views.context_processor
 def inject_today_date():

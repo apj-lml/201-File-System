@@ -166,7 +166,7 @@
 									
 								</div>
 							<div class="col-sm-12 text-center mt-5 mb-5 flex-fill">
-								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form">
+								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" disabled>
 									<span id="mySpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   									Loading...
 								</button>
@@ -439,6 +439,7 @@
 {%block scripts%}
 
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="{{ url_for('static', filename='sgjg.js') }}"></script>
 
 <script type="text/javascript">
 
@@ -454,20 +455,11 @@
 		document.getElementById('date_of_filing').valueAsDate = new Date();
 	  
 		{% if current_user.type_of_user == 'user' %}
-	  
 		document.getElementById('date_of_filing_display').valueAsDate = new Date();
 		{% endif %}
 	  
-		loadPdf();
 
-		const spinnerElement = document.getElementById('mySpinner');
-		spinnerElement.style.display = 'none';
-
-		document.getElementById('submitBtn').textContent = "Print Application for Leave";
-	  
-		// Fetch all the forms we want to apply custom Bootstrap validation styles to
 		var forms = document.querySelectorAll('.needs-validation')
-	  
 		// Loop over them and prevent submission
 		Array.prototype.slice.call(forms)
 		  .forEach(function (form) {
@@ -520,64 +512,20 @@
 			}, false)
 		  })
 
+		  loadPdf();
+
+		  const spinnerElement = document.getElementById('mySpinner');
+		  spinnerElement.style.display = 'none';
+		  var submitBtn = document.getElementById('submitBtn');
+		  submitBtn.textContent = "Print Application for Leave";
+		  submitBtn.disabled = false;
+		
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  var forms = document.querySelectorAll('.needs-validation')
 	  
 	  })()
 
-	var daily_salary = {
-        1:503.09,
-        2:534.59,
-        3:566.63,
-        4:600.63,
-        5:636.68,
-        6:674.86,
-        7:715.36,
-        8:761.72,
-        9:817.04,
-        10:874.22,
-        11:943.36,
-        12:1042.63,
-        13:1146.90,
-        14:1261.59,
-        15:1387.77,
-        16:1526.54
-      }
 
-      var job_grade_monthly_salary = {
-        2:{1:"13000.00",	2:"13111.00",	3:"13223.00",	4:13334,	5:13446,	6:13557,	7:13669,	8:13780},
-        3:{1:"13819.00",	2:"13927.00",	3:"14036.00",	4:14144,	5:14253,	6:14361,	7:14470,	8:14578},
-        4:{1:"14678.00",	2:"14793.00",	3:"14909.00",	4:15024,	5:15140,	6:15255,	7:15371,	8:15486},
-        5:{1:"15586.00",	2:"16166.00",	3:"16745.00",	4:17325,	5:17905,	6:18485,	7:19064,	8:19644},
-        6:{1:"19744.00",	2:"19928.00",	3:"20111.00",	4:20295,	5:20478,	6:20662,	7:20845,	8:21029},
-        7:{1:"21129.00",	2:"21620.00",	3:"22111.00",	4:22602,	5:23094,	6:23585,	7:24076,	8:24567},
-        8:{1:"27000.00",	2:"27604.00",	3:"28209.00",	4:28813,	5:29417,	6:30021,	7:30626,	8:31230},
-        9:{1:"31320.00",	2:"32037.00",	3:"32755.00",	4:33472,	5:34189,	6:34906,	7:35624,	8:36341},
-        10:{1:"36619.00",	2:"38010.00",	3:"39401.00",	4:40792,	5:42182,	6:43573,	7:44964,	8:46355},
-        11:{1:"46725.00",	2:"51386.00",	3:"56046.00",	4:60707,	5:65367,	6:70028,	7:74688,	8:79349},
-        12:{1:"80003.00",	2:"82987.00",	3:"85970.00",	4:88954,	5:91937,	6:94921,	7:97904,	8:100888},
-        13:{1:"102690.00",	2:"106586.00",	3:"110486.00",	4:114379,	5:118275,	6:122171,	7:126068,	8:129964},
-        14:{1:"131124.00",	2:"133372.00",	3:"135620.00",	4:137868,	5:140115,	6:142363,	7:144611,	8:146859},
-        15:{1:"148171.00",	2:"150711.00",	3:"153251.00",	4:155791,	5:158331,	6:160871,	7:163411,	8:165951},
-        16:{1:"167432.00",	2:"170302.00",	3:"173173.00",	4:176043,	5:178914,	6:181784,	7:184655,	8:187525},
-        17:{1:"189199.00",	2:"192442.00",	3:"195686.00",	4:198929,	5:202172,	6:205415,	7:208659,	8:211902},
-        18:{1:"278434.00",	2:"284201.00",	3:"289969.00",	4:295736,	5:301504,	6:307271,	7:313039,	8:318806},
-        19:{1:"331954.00",	2:"339067.00",	3:"346181.00",	4:353294,	5:360408,	6:367521,	7:374635,	8:381748},
-        20:{1:"419144.00",	2:"422737.00",	3:"426329.00",	4:429922,	5:433514,	6:437107,	7:440699,	8:444292}
-      }
-
-      var casual_job_grade_daily_salary = {
-        2:{1:"590.90",	2:595.95},
-        3:{1:628.13,	2:633.04},
-        4:{1:667.18,	2:"672.40"},
-        5:{1:708.45,	2:734.81},
-        6:{1:897.45,	2:905.81},
-        7:{1:"960.40",	2:982.72},
-        8:{1:1227.27,	2:1254.72},
-        9:{1:1423.63,	2:1456.22},
-        10:{1:"1664.50",	2:1727.72},
-        11:{1:2123.86,	2:2335.72},
-        12:{1:"3636.50",	2:3772.13},
-        13:{1:4667.72,	2:4844.81}
-      }
 
 	//document.getElementById('add_afl_form').addEventListener('submit', (e)=>{
 	//	e.preventDefault();

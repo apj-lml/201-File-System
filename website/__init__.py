@@ -40,7 +40,7 @@ def create_app():
 	#mysql database offline
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
-	#mysql database online
+	# #mysql database online
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -143,6 +143,7 @@ def create_app():
 	from .agencyUnit import agencyUnit
 	from .wes import wes
 	from .afl import afl
+	from .rol import rol
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -173,6 +174,7 @@ def create_app():
 	app.register_blueprint(agencyUnit, url_prefix = '/agencyUnit')
 	app.register_blueprint(wes, url_prefix = '/wes')
 	app.register_blueprint(afl, url_prefix = '/afl')
+	app.register_blueprint(rol, url_prefix = '/rol')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

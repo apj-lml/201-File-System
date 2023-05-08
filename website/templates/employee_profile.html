@@ -1977,6 +1977,8 @@ button {
 {%block scripts %}
 <!-- <script src="{{ url_for('static', filename='updateprofile.js') }}"></script> -->
 
+<script src="{{ url_for('static', filename='sgjg.js') }}"></script>
+
 {%  if current_user.type_of_user == 'admin'  %}
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 {% endif %}
