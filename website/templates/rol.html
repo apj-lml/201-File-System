@@ -49,7 +49,7 @@
 <!--                                  FORMS                                  -->
 <!-- ----------------------------------------------------------------------- -->
 
-<div class="card mb-3">
+<div class="card mb-3 mt-4">
     <div class="card-body">
       <div class="card text-white bg-blue shadow-sm mb-3" >
         <div class="card-header">
@@ -59,87 +59,98 @@
           <div class="row text-center">
             <div class="col-sm-12 mb-3">
                 <div class="form-floating col-sm-12 has-validation">
-                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name">
+                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.last_name }}, {{ user_profile.first_name }} {%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %} {{ user_profile.middle_name }} {% endif %}">
                   <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
                 </div>
          
             </div>
-            <div class="col-sm-12 mb-3">
+            <div class="col-sm-12">
               <div class="row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-6 mb-3">
                     <div class="form-floating has-validation">
-                      <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Name">
+                      <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
                       <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-3 mb-3">
                     <div class="form-floating has-validation">
-                      <input type="text" class="form-control" name ="jg" id="jg" placeholder="Name">
+                      <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" disabled value="{{ user_profile.job_grade }}">
                       <label class="text-blue fw-bold" id="jg" for="jg">Job Grade</label>
                     </div>
                 </div>
+                <div class="col-sm-12 col-md-3 mb-3">
+                  <div class="form-floating has-validation">
+                    <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" disabled placeholder="Monthly/Daily Rate">
+                    <label class="text-blue fw-bold" for="monthly_daily_salary">Monthly/Daily Rate</label>
+                  </div>
               </div>
-            </div>
-            <div class="col-sm-12 col-md-3 mb-3">
-                <div class="form-floating has-validation">
-                  <input type="text" class="form-control" name ="monthly_salary" id="monthly_salary" placeholder="Name">
-                  <label class="text-blue fw-bold" id="monthly_salary" for="monthly_salary">Monthly Salary</label>
-                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       
       <div class="card shadow-sm col-md-12 mb-3" >
-        <!-- <div class="card-header">
-          <h3 class="card-title"><i class="bi bi-stickies-fill"></i> Click on the link to Download the Form</h3>
-         </div> -->
         <div class="card-body">
             <div class="container-fluid p-0">
-                <div class="row g-0">
-                    <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-1.jpg')"> -->
-                      <!-- <h3 class="m-auto showcase-text">Something in here</h3> -->
-                    </div>
                     <div class="order-lg-1 my-auto showcase-text">
-                        <!-- <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2> -->
-                        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="input-group mb-3 col-md-6">
-                              <span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-search"></i></span>
-                              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="myInput" onkeyup="myFunction()" placeholder="Search form..">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-sm-12 text-center mb-3">
+                            <h1>EARNED LEAVES as of<br> {{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] else 'N/A' }}</h1>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4 col-sm-12 mb-3">
+                                <div class="card">
+                                  <h5 class="card-header text-center bg-blue text-white"> Vacation Leave</h5>
+                                  <div class="card-body">
+                                    <h1 class="card-title text-center">{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}</h1>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-sm-12 mb-3">
+                                <div class="card">
+                                  <h5 class="card-header text-center bg-blue text-white">Sick Leave</h5>
+                                  <div class="card-body">
+                                    <h1 class="card-title text-center">{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-sm-12 mb-3">
+                                <div class="card">
+                                  <h5 class="card-header text-center bg-blue text-white">Total Earned Leaves</h5>
+                                  <div class="card-body">
+                                    <h1 class="card-title text-center">{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
+                                  </div>
+                                </div>
+                              </div>
+                 
+                          </div>
+                          <div class="col-sm-12 col-md-4 mt-3">
+                            <div class="card">
+                              <h5 class="card-header text-center bg-purple text-white">Total Money Value</h5>
+                              <div class="card-body">
+                                <h1 class="card-title text-center" id="total_money_value">0</h1>
+                              </div>
                             </div>
                           </div>
-                          {% if current_user.type_of_user == "admin" %}
-                          <div class="col-md-6">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadFormModal"><i class="bi bi-upload"></i> Upload Form</button>
+                          <div class="col-sm-12 text-center mt-5">
+                            <button href="#" class="btn btn-primary" onclick="fillForm();"><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
                           </div>
-                          {% endif %}
+                          <div class="col-sm-12 text-center mt-3">
+                            {% if current_user.type_of_user == "admin" %}
+                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadRolModal">
+                                <i class="bi bi-upload"></i> UPLOAD RECORDS OF LEAVE
+                              </button>
+                            {% endif %}
+                          </div>
                         </div>
 
-
-                        <!-- <p class="lead mb-0">Click on the link below to download the form.</p> -->
-
-                        <ol class="list-group list-group-numbered" id="myUL">
-
-                          <!-- <li class="list-group-item list-group-item-action"><a href="#" class=""><i class="bi bi-file-earmark-arrow-down-fill"></i> Second form</a></li>
-                          <li class="list-group-item list-group-item-action"><a href="#" class=""><i class="bi bi-file-earmark-arrow-down-fill"></i> Third form</a></li>
-                          <li class="list-group-item list-group-item-action"><a href="#" class=""><i class="bi bi-file-earmark-arrow-down-fill"></i> Fourth form</a></li> -->
-                            {% for file in dforms %}
-                            <li class="list-group-item list-group-item-action"><a href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a> {% if current_user.type_of_user == "admin" %} &#8212; <a href="#" style="color:red" id="{{file.id}}" onclick="deleteForm(this.id)"><i class="bi bi-trash"></i> Delete </a> {% endif %}</li>
-                            {% endfor %}
-                        </ol>
-
                     </div>
-                </div>
+    
                 </div>
         </div>
 
       </div>
-
-
-
-
 
         </div>
         </div>
@@ -147,104 +158,215 @@
     </main>
 
     <!-- Modal -->
-<div class="modal fade" id="uploadFormModal" tabindex="-1" aria-labelledby="uploadFormModal" aria-hidden="true">
+<div class="modal fade" id="uploadRolModal" tabindex="-1" aria-labelledby="uploadRolModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="uploadFormModalLabel">Upload Form</h5>
+        <h5 class="modal-title" id="uploadRolModalLabel">Upload Records of Leave</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/forms/add-form" method="POST" name="uploadForm_form" id="uploadForm_form" enctype="multipart/form-data" onsubmit="loadingScreen('block')">
-        <!-- 
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="form_name" placeholder="Form Name">
-            <label for="form_name">Form Name</label>
-          </div> -->
-
+        <form action="#" method="POST" name="rol_form" id="rol_form" enctype="multipart/form-data" onsubmit="loadingScreen('block')">
           <div class="mb-3">
-            <label for="form_file" class="form-label">You can upload multiple files</label>
-            <input class="form-control" type="file" id="dform" name="dform" multiple required>
+            <label for="form_file" class="form-label">You can only upload 1 file at a time.</label>
+            <input class="form-control" type="file" id="rolFile" name="rolFile" form="rol_form" required>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="uploadForm_form">Upload</button>
+        <button type="submit" class="btn btn-primary" form="rol_form">Upload</button>
       </div>
     </div>
   </div>
 </div>
 
 
-
 {% endblock %}
 
 {%block scripts%}
+<script src="{{ url_for('static', filename='sgjg.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+
+
 <script type="text/javascript">
 
+  async function fillForm() {
 
-  function deleteForm(id) {
-    const swalWithBootstrapButtons = Swal.mixin()
+		loadingScreen('block')
 
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure you?',
-      text: "Are you sure you want to delete this? You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-      cancelButtonText: 'Cancel',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
+		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
 
-        //loadingScreen("block")
-        fetch('/employees/delete-file',{
-          method: 'POST',
-          body: JSON.stringify({"file_id" : id})
-        })
-        .then(response => response.json())
-        .then((data)=>{
-          console.log(data)
-        })
+		formUrl = "{{ url_for('static', filename='leave-cert-template1.pdf') }}";
+	  
+    const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+  
+    const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Form has been deleted.',
-          'success'
-        ).then((result)=>{
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        })
+    const page = pdfDoc.getPages()[0];
+    // Define the bold font
+    const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+	  
+		const timesRomanBoldFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
+		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
+		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
 
-      }else{
+	  // Embed the Cambria font
+	  
+		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
+
+    const form = pdfDoc.getForm();
 
 
-      }
-      
-    })
+
+    const cert_content = form.getTextField('cert_content');
+    const cert_content_closing = form.getTextField('cert_content_closing');
+    const tb_vl = form.getTextField('tb_vl');
+    const tb_sl = form.getTextField('tb_sl');
+    const tb_total = form.getTextField('tb_total');
+    
+    const name = `{{ user_profile.first_name }} {{ user_profile.middle_initial }}{%if user_profile.name_extn != 'N/A' or user_profile.name_extn != '' %}.{% endif %} {{ user_profile.last_name }}{%if user_profile.name_extn != 'N/A'  %} ,{{ user_profile.name_extn }}{% endif %}`;
+    const positionTitle = toTitleCase("{{ user_profile.position_title }}");
+    const asOf = "{{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] }}";
+    const status = "{{ user_profile.employment_status }}";
+    const normalText = "This is to certify that " + name + ", "+ positionTitle +" of National Irrigation Administration " +
+                       "– Pangasinan Irrigation Management Office on a Permanent Status " +
+                       "had an accumulated leave credits as of "+ asOf +", to wit: ";
+
+
+    const currentDate = new Date();
+
+    // Get the day and suffix
+    const day = currentDate.getDate();
+    const daySuffix = getDaySuffix(day);
+
+    // Get the month
+    const month = currentDate.toLocaleString('default', { month: 'long' });
+
+    // Get the year
+    const year = currentDate.getFullYear();
+
+    // Format the date
+    const formattedDate = `${day}${daySuffix} day of ${month}, ${year}`;
+
+    cert_content_closing.setText(`Issued this ${formattedDate} at the NIA-Pangasinan Irrigation Management Office, Bayaoas, Urdaneta City, Pangasinan.`);
+
+    const timesBoldFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+    
+    // Set the text content with rich formatting
+    cert_content.setText(normalText);
+
+    tb_vl.setText("{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}");
+    tb_sl.setText("{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
+    tb_total.setText("{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
+    
+    cert_content.updateAppearances(timesRomanFont);
+    cert_content_closing.updateAppearances(timesRomanFont);
+    tb_vl.updateAppearances(timesRomanFont);
+    tb_sl.updateAppearances(timesRomanFont);
+    tb_total.updateAppearances(timesRomanFont);
+        
+    form.flatten();
+
+
+		const pdfBytes = pdfDoc.save()
+
+		const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+		const testPdfDataUri = await pdfDoc.saveAsBase64();
+		
+		// decode base64 string, remove space for IE compatibility
+		var binary = atob(testPdfDataUri.replace(/\s/g, ''));
+		var len = binary.length;
+		var buffer = new ArrayBuffer(len);
+		var view = new Uint8Array(buffer);
+		for (var i = 0; i < len; i++) {
+			view[i] = binary.charCodeAt(i);
+		}
+	
+		var blob = new Blob( [view], { type: "application/pdf" });
+		var url = URL.createObjectURL(blob);
+	
+		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
+		//var fileURL = URL.createObjectURL(file);
+	
+		loadingScreen('none')
+		window.open(url, 'leave_certification');
+
   }
 
-function myFunction() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('myInput');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("myUL");
-  li = ul.getElementsByTagName('li');
+  function toTitleCase(str) {
+		return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+		  return match.toUpperCase();
+		});
+	  }
 
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
+  // Function to get the suffix for the day
+function getDaySuffix(day) {
+  if (day >= 11 && day <= 13) {
+    return 'th';
+  }
+
+  switch (day % 10) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
   }
 }
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+  var monthly_daily = 0;
+  var total_earned_leaves = {{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else '0'}} ;
+
+  {% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    monthly_daily = job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'];
+	{% elif user_profile.employment_status == 'CASUAL' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    monthly_daily = (casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])*22;
+	{% elif user_profile.employment_status == 'JOB ORDER' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
+    monthly_daily = daily_salary['{{ user_profile.salary_grade }}'];
+	{% endif %}
+
+  document.getElementById('total_money_value').innerHTML = 'Php '+numberWithCommas(((total_earned_leaves*monthly_daily)*(0.0481927)).toFixed(2));
+
+
+    document.getElementById('rol_form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      var url = `/rol/add-rol/{{user_profile.id}}`;
+      loadingScreen('block');
+      let formData4 = new FormData(document.getElementById("rol_form"));
+                    
+      const data4 = {}
+      formData4.forEach((value, key) => (data4[key] = value));
+      
+      fetch(url, {
+          method: 'POST',
+          body: formData4
+        }).then((res)=>{
+            if (res.status == 406){
+              triggerToast('Invalid file submitted. Only Excel files are allowed.');
+                    }
+                    else if (res.status == 200){
+                        return res.json()
+                    }
+                    
+              }).then((data)=>{
+                loadingScreen('none');
+                var myModal = document.getElementById('uploadRolModal');
+                // var modal = bootstrap.Modal.getInstance(myModal).hide()
+              });//END
+    });
 
    
 </script>

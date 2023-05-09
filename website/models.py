@@ -60,6 +60,7 @@ class User(db.Model, UserMixin):
     middle_name = db.Column(db.String(150))
     middle_initial = db.Column(db.String(150))
     name_extn = db.Column(db.String(150))
+    maiden_name = db.Column(db.String(150))
     #position_id = db.relationship("Position", back_populates="user", uselist = False)
     employment_status = db.Column(db.String(150))
     position_title = db.Column(db.String(150))
@@ -199,7 +200,7 @@ class User(db.Model, UserMixin):
     assignatory = db.relationship('Assignatory')
     vaccine = db.relationship('Vaccine')
     afl = db.relationship('Afl')
-    records_of_leave = db.relationship('Records_Of_Leave')
+    rol = db.relationship('Records_Of_Leave', backref='user')
 
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
@@ -228,6 +229,7 @@ class Records_Of_Leave(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     vacation = db.Column(db.Numeric(precision=10, scale=3))
     sick = db.Column(db.Numeric(precision=10, scale=3))
+    as_of = db.Column(db.Date())
 
 
 class Afl(db.Model, SerializerMixin):

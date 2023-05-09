@@ -480,6 +480,12 @@ button {
                       <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
+
+                    <div class="form-floating col-md-4 mb-3 p-1">
+                      <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="{{user_profile.maiden_name }}" form="update_form" {{'readonly' if user_profile.sex == 'MALE' else 'required'}}>
+                      <label for="maiden_name">Maiden Name<span class="is-required">*</span></label>
+                    </div>
+
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 mb-3 p-1">
@@ -522,10 +528,10 @@ button {
                       <label for="name_extn">Place of Birth<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <select class="form-select" id="sex" name="sex" value="{{user_profile.sex}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}} required>
+                      <select class="form-select" id="sex" name="sex" value="{{user_profile.sex}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}} onchange="change_gender(this);" required>
                         <option class="" value="{{user_profile.sex}}" selected disabled hidden>{{user_profile.sex}}</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
                       </select>
                       <label for="sex">Sex<span class="is-required">*</span></label>
                     </div>
@@ -2478,6 +2484,17 @@ function year_only (el) {
   //     }
   //     document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
   //   });
+
+  function change_gender(e){
+    var maiden = document.getElementById('maiden_name');
+    maiden.value = "";
+
+    if(e.value == 'MALE'){
+      maiden.readOnly = true;
+    }else{
+      maiden.readOnly = false;
+    }
+  }
 
   function load_units(e){
     // var units = "<option class='' value='' selected disabled hidden>-</option>";

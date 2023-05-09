@@ -1,14 +1,15 @@
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Learning_Development, User, Records_Of_Leave
+from .models import Records_Of_Leave, User, Records_Of_Leave
 from . import db
 import datetime
 import time
-from .myhelper import allowed_file, my_random_string
+from .myhelper import my_random_string
 from werkzeug.utils import secure_filename
 import json
 import os, os.path
+import pandas
 
 rol = Blueprint('rol', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -20,9 +21,11 @@ def page_not_found(e):
 	session['redirected_from'] = request.url
 	return redirect(url_for('auth.login'))
 
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+ALLOWED_EXTENSIONS = {'xls', 'xlsx'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # ---------------------------------------------------------------------------- #
 #                                    GET rol                                   #
@@ -32,8 +35,8 @@ def page_not_found(e):
 # @admin_permission.require(http_exception=403)
 def get_rol(emp_id):
     if request.method == "GET":
-        get_ld = Learning_Development.query.filter_by(user_id = emp_id).all()
-        column_keys = Learning_Development.__table__.columns.keys()
+        get_ld = Records_Of_Leave.query.filter_by(user_id = emp_id).all()
+        column_keys = Records_Of_Leave.__table__.columns.keys()
     # Temporary dictionary to keep the return value from table
         rows_dic_temp = {}
         rows_dic = []
@@ -61,8 +64,8 @@ def get_rol(emp_id):
 # @admin_permission.require(http_exception=403)
 def edit_ld(id):
     if request.method == "GET":
-        get_ld = Learning_Development.query.filter_by(id = id).all()
-        column_keys = Learning_Development.__table__.columns.keys()
+        get_ld = Records_Of_Leave.query.filter_by(id = id).all()
+        column_keys = Records_Of_Leave.__table__.columns.keys()
     # Temporary dictionary to keep the return value from table
         rows_dic_temp = {}
         rows_dic = []
@@ -88,18 +91,55 @@ def edit_ld(id):
  # ---------------------------------------------------------------------------- #
 @rol.route('add-rol/<emp_id>', methods=['POST', 'GET'])
 @login_required
-def print_rol(emp_id):
-    formdata = request.form.to_dict()
-    # if request.method == "POST":
-    #     print('DATA', formdata)
-    #     formdata['user_id'] = emp_id
+def add_rol(emp_id):
 
-    #     for k,v in formdata.items():
-    #         if type(v) is str:
-    #             formdata.update({k: v.upper()})
-    #         else:
-    #             formdata.update({k: v})
-    return jsonify('Success!')
+    file = request.files['rolFile']
+    
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+        if file and allowed_file(file.filename):
+ 
+            # Parse the data as a Pandas DataFrame type
+            data = pandas.read_excel(file)
+            
+            for index, row in data.iterrows():
+                user_id = row['ID']
+                vacation = row['VACATION_LEAVE']
+                sick = row['SICK_LEAVE']
+                as_of = row['UPDATED_AS_OF']
+
+                # check_rol = Records_Of_Leave.query.get(user_id).first()
+                check_rol = db.session.query(Records_Of_Leave).filter(Records_Of_Leave.user_id == user_id).first()
+
+                if check_rol:
+                    print('HERE HERE2')
+                    check_rol.vacation = vacation,
+                    check_rol.sick = sick,
+                    check_rol.user_id = user_id,
+                    check_rol.as_of = as_of
+                    db.session.commit()
+                    
+                    
+                else:
+                    print('HERE HERE')
+                    new_rol = Records_Of_Leave(
+                        vacation = vacation,
+                        sick = sick,
+                        user_id = user_id,
+                        as_of = as_of
+                            )
+                    db.session.add(new_rol)
+                    
+
+            db.session.commit()
+
+            json_data = data.to_json()
+
+            
+            return json_data
+        return jsonify('Invalid file submitted. Only excel files are allowed'), 406
+        
+
 
  # ---------------------------------------------------------------------------- #
  #                                 DELETE rol                                   #
@@ -110,7 +150,7 @@ def delete_learning_and_development():
 	if request.method == "POST":
 		formdata  = json.loads(request.data)
 		
-		rol = Learning_Development.query.get(formdata['ld_id'])
+		rol = Records_Of_Leave.query.get(formdata['ld_id'])
 
 		os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], rol.ld_attachment_file_name))
 		db.session.delete(rol)
@@ -123,7 +163,7 @@ def delete_learning_and_development():
 def update_ld(id, emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
-        get_we = Learning_Development.query.get(id)
+        get_we = Records_Of_Leave.query.get(id)
         formdata.pop('id')
 
         final_name = ''

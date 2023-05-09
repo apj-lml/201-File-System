@@ -48,6 +48,38 @@ background: linear-gradient(152deg, rgba(33,82,2,0.9192051820728291) 2%, rgba(0,
 background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
 }
 
+.bg-purple{
+  background: rgb(255,1,232);
+background: -moz-linear-gradient(152deg, rgba(255,1,232,1) 32%, rgba(156,19,218,1) 76%);
+background: -webkit-linear-gradient(152deg, rgba(255,1,232,1) 32%, rgba(156,19,218,1) 76%);
+background: linear-gradient(152deg, rgba(255,1,232,1) 32%, rgba(156,19,218,1) 76%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff01e8",endColorstr="#9c13da",GradientType=1);
+}
+
+.bg-dark-blue{
+  background: rgb(1,185,255);
+  background: -moz-linear-gradient(152deg, rgba(1,185,255,1) 32%, rgba(19,70,218,1) 76%);
+  background: -webkit-linear-gradient(152deg, rgba(1,185,255,1) 32%, rgba(19,70,218,1) 76%);
+  background: linear-gradient(152deg, rgba(1,185,255,1) 32%, rgba(19,70,218,1) 76%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#01b9ff",endColorstr="#1346da",GradientType=1);
+}
+
+.bg-brown{
+  background: rgb(235,224,221);
+background: -moz-linear-gradient(71deg, rgba(235,224,221,1) 0%, rgba(191,150,138,1) 100%);
+background: -webkit-linear-gradient(71deg, rgba(235,224,221,1) 0%, rgba(191,150,138,1) 100%);
+background: linear-gradient(71deg, rgba(235,224,221,1) 0%, rgba(191,150,138,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ebe0dd",endColorstr="#bf968a",GradientType=1);
+}
+
+.bg-orange{
+  background: rgb(131,58,180);
+background: -moz-linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+background: -webkit-linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endColorstr="#fcb045",GradientType=1);
+}
+
 .text-blue{
   color: rgb(51,10,113);
   color:linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
@@ -187,6 +219,9 @@ background: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/afl/{{current_user.id}}"> <i class="bi bi-calendar-week"></i> Print AFL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rol/{{current_user.id}}"> <i class="bi bi-calendar-week"></i> Records of Leave</a>
           </li>
           <ul class="navbar-nav navbar-right me-3">
             <li class="nav-item dropdown">

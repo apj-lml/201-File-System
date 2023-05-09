@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+
+{% block title %} Records of Leave {% endblock %}
+
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<main class="container mt-3">
+	<div class="row mb-3 ms-auto">
+    <!-- <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul> -->
+<!-- ----------------------------------------------------------------------- -->
+<!--                                  FORMS                                  -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="card mb-3 mt-4">
+    <div class="card-body">
+      <div class="card text-white bg-blue shadow-sm mb-3" >
+        <div class="card-header">
+          <h3 class="card-title"><i class="bi bi-journals"></i> Records of Leave</h3>
+         </div>
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-sm-12 mb-3">
+                <div class="form-floating col-sm-12 has-validation">
+                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" value="{{ user_profile.last_name }}, {{ user_profile.first_name }} {%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %} {{ user_profile.middle_name }} {% endif %}">
+                  <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
+                </div>
+         
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 mb-3">
+                    <div class="form-floating has-validation">
+                      <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" value="{{ user_profile.position_title }}">
+                      <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 mb-3">
+                    <div class="form-floating has-validation">
+                      <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" value="{{ user_profile.job_grade }}">
+                      <label class="text-blue fw-bold" id="jg" for="jg">Job Grade</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 mb-3">
+                  <div class="form-floating has-validation">
+                    <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" placeholder="Monthly/Daily Rate">
+                    <label class="text-blue fw-bold" for="monthly_daily_salary">Monthly/Daily Rate</label>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card shadow-sm col-md-12 mb-3" >
+        <div class="card-body">
+            <div class="container-fluid p-0">
+                    <div class="order-lg-1 my-auto showcase-text">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-sm-12 text-center mb-3">
+                            <h1>EARNED LEAVES as of<br> {{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] else 'N/A' }}</h1>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4 col-sm-12 mb-3">
+                                <div class="card">
+                                  <h5 class="card-header text-center bg-blue text-white"> Vacation Leave</h5>
+                                  <div class="card-body">
+                                    <h1 class="card-title text-center">{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}</h1>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-sm-12 mb-3">
+                                <div class="card">
+                                  <h5 class="card-header text-center bg-blue text-white">Sick Leave</h5>
+                                  <div class="card-body">
+                                    <h1 class="card-title text-center">{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-sm-12 mb-3">
+                                <div class="card">
+                                  <h5 class="card-header text-center bg-blue text-white">Total Earned Leaves</h5>
+                                  <div class="card-body">
+                                    <h1 class="card-title text-center">{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
+                                  </div>
+                                </div>
+                              </div>
+                 
+                          </div>
+                          <div class="col-sm-12 col-md-4 mt-3">
+                            <div class="card">
+                              <h5 class="card-header text-center bg-purple text-white">Total Money Value</h5>
+                              <div class="card-body">
+                                <h1 class="card-title text-center" id="total_money_value">0</h1>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 text-center mt-5">
+                            <button href="#" class="btn btn-primary" onclick="fillForm();"><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
+                          </div>
+                          <div class="col-sm-12 text-center mt-3">
+                            {% if current_user.type_of_user == "admin" %}
+                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadRolModal">
+                                <i class="bi bi-upload"></i> UPLOAD RECORDS OF LEAVE
+                              </button>
+                            {% endif %}
+                          </div>
+                        </div>
+
+                    </div>
+    
+                </div>
+        </div>
+
+      </div>
+
+        </div>
+        </div>
+    </div>
+    </main>
+
+    <!-- Modal -->
+<div class="modal fade" id="uploadRolModal" tabindex="-1" aria-labelledby="uploadRolModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadRolModalLabel">Upload Records of Leave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" name="rol_form" id="rol_form" enctype="multipart/form-data" onsubmit="loadingScreen('block')">
+          <div class="mb-3">
+            <label for="form_file" class="form-label">You can only upload 1 file at a time.</label>
+            <input class="form-control" type="file" id="rolFile" name="rolFile" form="rol_form" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="rol_form">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{%block scripts%}
+<script src="{{ url_for('static', filename='sgjg.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfkit@0.13.0/js/pdfkit.standalone.min.js"></script>
+
+
+<script type="text/javascript">
+
+  async function fillForm() {
+  
+    const pdfDoc = new PDFDocument();
+
+    loadingScreen('block');
+  
+    const formUrl = "{{ url_for('static', filename='leave-cert-template1.pdf') }}";
+    const formPdfBytes = await fetch(formUrl).then((res) => res.arrayBuffer());
+  
+    const page = pdfDoc.addPage();
+    const fontPath = "{{url_for('static', filename='/fonts/cambriab.ttf')}}";
+  
+    const boldFontPath = "{{url_for('static', filename='/fonts/cambriab.ttf')}}";
+  
+    const boldFontBytes = await fetch(boldFontPath).then((res) => res.arrayBuffer());
+    pdfDoc.registerFont('bold', boldFontBytes);
+  
+    const cert_content = page.text('cert_content');
+    const cert_content_closing = page.text('cert_content_closing');
+    const tb_vl = page.text('tb_vl');
+    const tb_sl = page.text('tb_sl');
+    const tb_total = page.text('tb_total');
+  
+    const name = `{{ user_profile.first_name }} {{ user_profile.middle_initial }}{%if user_profile.name_extn != 'N/A' or user_profile.name_extn != '' %}.{% endif %} {{ user_profile.last_name }}{%if user_profile.name_extn != 'N/A'  %} ,{{ user_profile.name_extn }}{% endif %}`;
+    const positionTitle = toTitleCase("{{ user_profile.position_title }}");
+    const asOf = "{{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] }}";
+    const status = "{{ user_profile.employment_status }}";
+    const normalText = "This is to certify that " + name + ", " + positionTitle + " of National Irrigation Administration " +
+                       "– Pangasinan Irrigation Management Office on a Permanent Status " +
+                       "had an accumulated leave credits as of " + asOf + ", to wit: ";
+  
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const daySuffix = getDaySuffix(day);
+    const month = currentDate.toLocaleString('default', { month: 'long' });
+    const year = currentDate.getFullYear();
+    const formattedDate = `${day}${daySuffix} day of ${month}, ${year}`;
+  
+    cert_content_closing.text(`Issued this ${formattedDate} at the NIA-Pangasinan Irrigation Management Office, Bayaoas, Urdaneta City, Pangasinan.`);
+  
+    cert_content.text(normalText, { align: 'justify', width: 400, font: 'Cambria', fontSize: 12 });
+  
+    tb_vl.text("{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}");
+    tb_sl.text("{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
+    tb_total.text("{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
+  
+    pdfDoc.end();
+
+// Create an empty array to collect the PDF data chunks
+const chunks = [];
+
+pdfDoc.on('data', chunk => {
+  chunks.push(chunk);
+});
+
+pdfDoc.on('end', () => {
+  // Combine the PDF data chunks into a single Uint8Array
+  const pdfData = new Uint8Array(
+    chunks.reduce((acc, chunk) => [...acc, ...chunk], [])
+  );
+
+  // Create a Blob from the PDF data
+  const blob = new Blob([pdfData], { type: 'application/pdf' });
+
+  // Create a URL for the Blob
+  const pdfUrl = URL.createObjectURL(blob);
+
+  // Open the PDF in a new browser window
+  window.open(pdfUrl, '_blank');
+});
+
+
+  }
+
+
+  function toTitleCase(str) {
+		return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+		  return match.toUpperCase();
+		});
+	  }
+
+  // Function to get the suffix for the day
+function getDaySuffix(day) {
+  if (day >= 11 && day <= 13) {
+    return 'th';
+  }
+
+  switch (day % 10) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
+  }
+}
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+  var monthly_daily = 0;
+  var total_earned_leaves = {{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else '0'}} ;
+
+  {% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    monthly_daily = job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'];
+	{% elif user_profile.employment_status == 'CASUAL' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    monthly_daily = (casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])*22;
+	{% elif user_profile.employment_status == 'JOB ORDER' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
+    monthly_daily = daily_salary['{{ user_profile.salary_grade }}'];
+	{% endif %}
+
+  document.getElementById('total_money_value').innerHTML = 'Php '+numberWithCommas(((total_earned_leaves*monthly_daily)*(0.0481927)).toFixed(2));
+
+
+    document.getElementById('rol_form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      var url = `/rol/add-rol/{{user_profile.id}}`;
+      loadingScreen('block');
+      let formData4 = new FormData(document.getElementById("rol_form"));
+                    
+      const data4 = {}
+      formData4.forEach((value, key) => (data4[key] = value));
+      
+      fetch(url, {
+          method: 'POST',
+          body: formData4
+        }).then((res)=>{
+            if (res.status == 406){
+              triggerToast('Invalid file submitted. Only PDF files are allowed.');
+                    }
+                    else if (res.status == 200){
+                        return res.json()
+                    }
+                    
+              }).then((data)=>{
+                loadingScreen('none');
+                var myModal = document.getElementById('uploadRolModal');
+                // var modal = bootstrap.Modal.getInstance(myModal).hide()
+              });//END
+    });
+
+   
+</script>
+{%endblock%}
