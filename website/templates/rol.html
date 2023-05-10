@@ -50,110 +50,119 @@
 <!-- ----------------------------------------------------------------------- -->
 
 <div class="card mb-3 mt-4">
-    <div class="card-body">
-      <div class="card text-white bg-blue shadow-sm mb-3" >
-        <div class="card-header">
-          <h3 class="card-title"><i class="bi bi-journals"></i> Records of Leave</h3>
-         </div>
-        <div class="card-body">
-          <div class="row text-center">
-            <div class="col-sm-12 mb-3">
-                <div class="form-floating col-sm-12 has-validation">
-                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.last_name }}, {{ user_profile.first_name }} {%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %} {{ user_profile.middle_name }} {% endif %}">
-                  <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
-                </div>
-         
+  <div class="card-body">
+    <div class="card text-white bg-blue shadow-sm mb-3" >
+      <div class="card-header">
+        <h3 class="card-title"><i class="bi bi-journals"></i> Records of Leave</h3>
+       </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <!-- <div class="row col-sm-12 mb-3"> -->
+            <div class="col-sm-12 col-md-8 mb-3 ">
+              <div class="form-floating has-validation">
+                <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.last_name }}, {{ user_profile.first_name }}{%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %}{{ user_profile.middle_name }} {% endif %}">
+                <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
+              </div>
             </div>
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="col-sm-12 col-md-6 mb-3">
-                    <div class="form-floating has-validation">
-                      <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
-                      <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
-                    </div>
+            
+              <div class="col-sm-12 col-md-4 mb-3 ">
+                <div class="form-floating has-validation">
+                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.employment_status }}">
+                  <label class="text-blue fw-bold" id="emp_name" for="emp_name">Employment Status</label>
                 </div>
-                <div class="col-sm-12 col-md-3 mb-3">
-                    <div class="form-floating has-validation">
-                      <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" disabled value="{{ user_profile.job_grade }}">
-                      <label class="text-blue fw-bold" id="jg" for="jg">Job Grade</label>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-3 mb-3">
+              </div>
+          <!-- </div> -->
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12 col-md-6 mb-3">
                   <div class="form-floating has-validation">
-                    <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" disabled placeholder="Monthly/Daily Rate">
-                    <label class="text-blue fw-bold" for="monthly_daily_salary">Monthly/Daily Rate</label>
+                    <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
+                    <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
                   </div>
               </div>
+              <div class="col-sm-12 col-md-3 mb-3">
+                  <div class="form-floating has-validation">
+                    <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" disabled value="{{ user_profile.job_grade }}">
+                    <label class="text-blue fw-bold" id="jg" for="jg">Job Grade</label>
+                  </div>
               </div>
+              <div class="col-sm-12 col-md-3 mb-3">
+                <div class="form-floating has-validation">
+                  <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" disabled placeholder="Monthly/Daily Rate">
+                  <label class="text-blue fw-bold" for="monthly_daily_salary">Monthly/Daily Rate</label>
+                </div>
+            </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="card shadow-sm col-md-12 mb-3" >
-        <div class="card-body">
-            <div class="container-fluid p-0">
-                    <div class="order-lg-1 my-auto showcase-text">
-                        <div class="row d-flex justify-content-center">
-                          <div class="col-sm-12 text-center mb-3">
-                            <h1>EARNED LEAVES as of<br> {{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] else 'N/A' }}</h1>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-4 col-sm-12 mb-3">
-                                <div class="card">
-                                  <h5 class="card-header text-center bg-blue text-white"> Vacation Leave</h5>
-                                  <div class="card-body">
-                                    <h1 class="card-title text-center">{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}</h1>
-                                  </div>
+    </div>
+    
+    <div class="card shadow-sm col-md-12 mb-3" >
+      <div class="card-body">
+          <div class="container-fluid p-0">
+                  <div class="order-lg-1 my-auto showcase-text">
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-sm-12 text-center mb-3">
+                          <h1>EARNED LEAVES as of<br> {{ user_profile.rol[0].as_of.strftime('%B %d, %Y') if user_profile.rol[0] else 'N/A' }}</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 mb-3">
+                              <div class="card">
+                                <h5 class="card-header text-center bg-blue text-white"> Vacation Leave</h5>
+                                <div class="card-body">
+                                  <h1 class="card-title text-center">{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}</h1>
                                 </div>
-                              </div>
-                              <div class="col-md-4 col-sm-12 mb-3">
-                                <div class="card">
-                                  <h5 class="card-header text-center bg-blue text-white">Sick Leave</h5>
-                                  <div class="card-body">
-                                    <h1 class="card-title text-center">{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-4 col-sm-12 mb-3">
-                                <div class="card">
-                                  <h5 class="card-header text-center bg-blue text-white">Total Earned Leaves</h5>
-                                  <div class="card-body">
-                                    <h1 class="card-title text-center">{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
-                                  </div>
-                                </div>
-                              </div>
-                 
-                          </div>
-                          <div class="col-sm-12 col-md-4 mt-3">
-                            <div class="card">
-                              <h5 class="card-header text-center bg-purple text-white">Total Money Value</h5>
-                              <div class="card-body">
-                                <h1 class="card-title text-center" id="total_money_value">0</h1>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-sm-12 text-center mt-5">
-                            <button href="#" class="btn btn-primary" onclick="fillForm();"><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
-                          </div>
-                          <div class="col-sm-12 text-center mt-3">
-                            {% if current_user.type_of_user == "admin" %}
-                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadRolModal">
-                                <i class="bi bi-upload"></i> UPLOAD RECORDS OF LEAVE
-                              </button>
-                            {% endif %}
+                            <div class="col-md-4 col-sm-12 mb-3">
+                              <div class="card">
+                                <h5 class="card-header text-center bg-blue text-white">Sick Leave</h5>
+                                <div class="card-body">
+                                  <h1 class="card-title text-center">{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 mb-3">
+                              <div class="card">
+                                <h5 class="card-header text-center bg-blue text-white">Total Earned Leaves</h5>
+                                <div class="card-body">
+                                  <h1 class="card-title text-center">{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}</h1>
+                                </div>
+                              </div>
+                            </div>
+               
+                        </div>
+                        <div class="col-sm-12 col-md-4 mt-3">
+                          <div class="card">
+                            <h5 class="card-header text-center bg-purple text-white">Total Money Value</h5>
+                            <div class="card-body">
+                              <h1 class="card-title text-center" id="total_money_value">0</h1>
+                            </div>
                           </div>
                         </div>
 
-                    </div>
-    
-                </div>
-        </div>
+                        <div class="col-sm-12 text-center mt-5">
+                          <button href="#" class="btn btn-primary" onclick="fillForm();" {{ 'disabled' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
+                        </div>
+                        <div class="col-sm-12 text-center mt-3">
+                          {% if current_user.type_of_user == "admin" %}
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadRolModal">
+                              <i class="bi bi-upload"></i> UPLOAD RECORDS OF LEAVE
+                            </button>
+                          {% endif %}
+                        </div>
+                      </div>
 
+                  </div>
+  
+              </div>
       </div>
 
-        </div>
-        </div>
+    </div>
+
+      </div>
+      </div>
     </div>
     </main>
 
@@ -334,7 +343,7 @@ function getDaySuffix(day) {
     monthly_daily = (casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])*22;
 	{% elif user_profile.employment_status == 'JOB ORDER' %}
     document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
-    monthly_daily = daily_salary['{{ user_profile.salary_grade }}'];
+    monthly_daily = (daily_salary['{{ user_profile.salary_grade }}'])*22;
 	{% endif %}
 
   document.getElementById('total_money_value').innerHTML = 'Php '+numberWithCommas(((total_earned_leaves*monthly_daily)*(0.0481927)).toFixed(2));

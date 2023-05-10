@@ -412,6 +412,7 @@ def rol(emp_id):
 
             return render_template('rol.html', emp_id = emp_id, user_profile = user)
 
+
 @views.context_processor
 def inject_today_date():
     return {'today_date': datetime.utcnow()}

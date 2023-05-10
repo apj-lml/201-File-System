@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %} List of Retirees {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+
+.truncate {
+  max-width:150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body{
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+}
+
+th{
+  text-align: center;
+}
+td{
+  text-align: left;
+}
+</style>
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<main class="mt-4 mb-4">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                         LIST OF RETIREES                                -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="row">
+    <!-- <div class="card">
+        <div class="card-body"> -->
+              <div class="card shadow-sm mb-3 col-sm-12">
+                <div class="card-body">
+
+                    <div class="card text-white bg-blue shadow-sm mb-3" >
+                      <div class="card-header"><h3 class="card-title text-center"><i class="bi bi-journals"></i> List of Optional Retirees (Ages 60-63)</h3> </div>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped" id="retiree_table" width = "100%">
+                        <thead class="">
+                        <tr class="align-middle">
+                          <th style="word-wrap: break-word; min-width:160px; max-width:250px; white-space:normal;">Name</th>
+                          <th style="word-wrap: break-word; min-width:160px; max-width:250px; white-space:normal;">Position Title</th>
+                          <th style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Employment Status</th>
+                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;">JG / SG</th>
+                          <th style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Birthdate</th>
+                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;">Age</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {# if getListOfRetirees is not none #}
+                            {% for retiree in getListOfRetirees %}
+                              <tr>
+                                <td>{{retiree.proper_fullname}}</td>
+                                <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{retiree.position_title}}</td>
+                                <td class="text-center">{{retiree.employment_status}}</td>
+                                {% if retiree.employment_status == "PERMANENT" or retiree.employment_status == "CASUAL" or retiree.employment_status == "TEMPORARY" %}
+                                <td class="text-center">{{ '%02d' % retiree.job_grade|int}} - {{retiree.step}}</td>
+                                {% else %}
+                                <td class="text-center">{{ '%02d' % retiree.salary_grade|int}} - 1</td>
+                                {% endif %}
+                                <td class="text-center">{{retiree.birthdate.strftime('%B %d, %Y')}}</td>
+                                <td class="text-center">{{retiree.age}}</td>
+                                
+                              </tr>
+                            {% endfor %}
+                          {# endif #}
+                        </tbody>
+                      </table>
+                    </div>
+   
+                </div>
+              </div>
+
+              <div class="card shadow-sm mb-3 col-sm-12">
+                <div class="card-body">
+
+                    <div class="card text-white bg-blue shadow-sm mb-3" >
+                      <div class="card-header"><h3 class="card-title text-center"><i class="bi bi-journals"></i> List of Compulsory Retirees (Ages 64)</h3> </div>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped" id="compulsory_table" width = "100%">
+                        <thead class="">
+                        <tr class="align-middle">
+                          <th style="word-wrap: break-word; min-width:160px; max-width:250px; white-space:normal;">Name</th>
+                          <th style="word-wrap: break-word; min-width:160px; max-width:250px; white-space:normal;">Position Title</th>
+                          <th style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Employment Status</th>
+                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;">JG / SG</th>
+                          <th style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Birthdate</th>
+                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;">Age</th>
+                          <th style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Effectivity of Separation</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {# if getListOfRetirees is not none #}
+                            {% for cRetiree in getListOfCompulsoryRetirees %}
+                              <tr>
+                                <td>{{cRetiree.proper_fullname}}</td>
+                                <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{cRetiree.position_title}}</td>
+                                <td class="text-center">{{cRetiree.employment_status}}</td>
+                                <td class="text-center">{{ '%02d' % cRetiree.salary_grade|int}} - {{cRetiree.step}}</td>
+                                <td class="text-center">{{cRetiree.birthdate.strftime('%B %d, %Y')}}</td>
+                                <td class="text-center">{{cRetiree.age}}</td>
+                                <td class="text-center">{{cRetiree.effectivityOfSeparation().strftime('%B %d, %Y')}}</td>
+                              </tr>
+                            {% endfor %}
+                          {# endif #}
+                        </tbody>
+                      </table>
+                    </div>
+   
+                </div>
+              </div>
+
+            <!-- <button type="submit" id="update_covid_btn" class="btn btn-primary btn-sm" form="retiree_form">Update</button> -->
+        <!-- </div>
+    </div> -->
+	</div>
+
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+
+   window.addEventListener('load',()=>{
+
+    $('#retiree_table').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          extend : 'excel', 
+          text: 'Export to Excel',
+          title: 'Optional Retirees'
+        }
+      ],
+      columnDefs:[{targets:3,className:"truncate"}],
+        createdRow: function(row){
+          var td = $(row).find(".truncate");
+          td.attr("title", td.html());
+      },
+      responsive: false,
+      order: [],
+        dom: `<'row'<'col-sm-2'l><'col-sm-8'f><'col-sm-2'B>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+    });
+
+    $('#compulsory_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+             {
+              extend : 'excel', 
+              text: 'Export to Excel',
+              title: 'Compulsory Retirees'
+            }
+        ],
+      columnDefs:[{targets:3,className:"truncate"}],
+        createdRow: function(row){
+          var td = $(row).find(".truncate");
+          td.attr("title", td.html());
+      },
+      responsive: false,
+      order: [],
+        dom: `<'row'<'col-sm-2'l><'col-sm-8'f><'col-sm-2'B>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+    });
+
+
+
+});
+
+
+</script>
+{%endblock%}

@@ -1,0 +1,927 @@
+{% extends 'base.html' %}
+
+{% block title %} Loyalty Awardees {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+
+.truncate {
+  max-width:150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body{
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+}
+
+th{
+  text-align: center;
+}
+td{
+  text-align: left;
+}
+</style>
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<main class="mt-4 mb-4">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                         WORK EXPERIENCE                                 -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="row">
+    <div class="card">
+        <div class="card-body">
+          <div class="card text-white bg-blue shadow-sm mb-3" >
+              <div class="card-header"><h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3> </div>
+              <div class="card-body">
+                <!-- <h5 class="card-title">Description</h5> -->
+                <ul>
+                  <li><p class="card-text">Please fill out all necessary fields.</p></li>
+                  <li><p class="card-text">Check the PRESENT checkbox to indicate that you are currently employed.</p></li>
+                </ul>
+              </div>
+					  </div>
+          
+          <form action="#" method="POST" name="work_experience_form" id="work_experience_form" enctype="multipart/form-data"></form>
+              <div class="card shadow-sm mb-2">
+                  <div class="card-body">
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="date" class="form-control" name ="date_from" id="date_from" max="{{today_date.strftime('%Y-%m-%d')}}" placeholder="Inclusive Date (From)" value="" form="work_experience_form" required onchange="document.getElementById('date_to').setAttribute('min', document.getElementById('date_from').value)">
+                        <label for="date_from">Inclusive Date (From)</label>
+                      </div>
+                      <div class="form-floating flex-fill p-1">
+                        <input type="date" class="form-control" name ="date_to" id="date_to" max="{{today_date.strftime('%Y-%m-%d')}}"  placeholder="Inclusive Date (To)" value="" form="work_experience_form" required>
+                        <label for="date_to">Inclusive Date (To)</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="sf_present" name="sf_present" value = "PRESENT" form="work_experience_form">
+                          <label class="form-check-label" for="sf_present">
+                            PRESENT
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating col-sm-6 mb-3 p-1">
+                        <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" value="" form="work_experience_form" required>
+                        <label for="date_from">Position Title</label>
+                      </div>
+                     
+                      <div class="form-floating col-sm-3 mb-3 p-1">
+                        <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="monthly_salary" placeholder="Monthly Salary" value="" step=".01" form="work_experience_form" onblur="" required>
+                        <label for="monthly_salary">Monthly Salary</label>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control" name ="department_agency_office_company" id="department_agency_office_company" placeholder="Agency / Company" value="" form="work_experience_form" required>
+                        <label for="department_agency_office_company">Agency / Company Name</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="work_experience_form">
+                          <label class="form-check-label" for="nia_pimo">
+                            NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-floating col-sm-6 mb-3 p-1">
+                        <input type="text" class="form-control" name ="name_of_office_unit" id="name_of_office_unit" placeholder="Department / Office" value="" form="work_experience_form" required>
+                        <label for="department_agency_office_company">Name of Office / Section / Unit</label>
+                      </div>
+                    </div>
+
+
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" onchange="" value="" form="work_experience_form">
+                          <option value="N/A" selected>N/A</option>
+                          <option value="PERMANENT">PERMANENT</option>
+                          <option value="TEMPORARY">TEMPORARY</option>
+                          <option value="COTERMINOUS">COTERMINOUS</option>
+                          <option value="CASUAL">CASUAL</option>
+                          <option value="JOB ORDER">JOB ORDER</option>
+                          <option value="CONTRACT OF SERVICE">CONTRACT OF SERVICE</option>
+                          <option value="FULL-TIME">FULL-TIME</option>
+                          <option value="PART-TIME">PART-TIME</option>
+                          <option value="PROBATIONARY">PROBATIONARY</option>
+                          <option value="FIXED-TERM">FIXED-TERM</option>
+                          <option value="PROJECT BASED">PROJECT BASED</option>
+                          <option value="REGULAR">REGULAR</option>
+                          <option value="CONTRACTUAL">CONTRACTUAL</option>
+                          <option value="SEASONAL">SEASONAL</option>
+
+                        </select>
+                        <label for="status_of_appointment">Status of Appointment</label>
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="sg" name="sg" aria-label="Floating label select example" value="" form="work_experience_form" disabled>
+                          <option value="N/A" selected>N/A</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                          <option value="24">24</option>
+                          <option value="25">25</option>
+                          <option value="26">26</option>
+                        </select>
+                        <label for="sg">Salary / Job / Pay Grade</label>
+                        <!-- <input type="text" name="sg" form="work_experience_form"> -->
+                      </div>
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select" id="step" name="step" aria-label="Floating label select example" value="" form="work_experience_form" disabled>
+                          <option value="N/A" selected>N/A</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                        </select>
+                        <label for="step">Step</label>
+                        <!-- <input type="text" name="step" form="work_experience_form"> -->
+
+                      </div>
+                      
+                      <input type="hidden" id="govt_service_save" name="govt_service" value="N" form="work_experience_form">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <select class="form-select status_of_apppointment" id="govt_service_select" name="govt_service_select" onchange="document.getElementById('govt_service_save').value=this.value;" disabled>
+                          <option value="Y">YES</option>
+                          <option value="N" selected>NO</option>
+                        </select>
+                        <label for="govt_service">Government Service</label>
+                      </div>
+                    </div>
+
+
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating col-sm-6 mb-3 p-1">
+                        <input type="text" class="form-control" name ="agency_address" id="agency_address" placeholder="Agency / Company Address" value="" form="work_experience_form" required>
+                        <label for="department_agency_office_company">Agency / Company Address</label>
+                      </div>
+                      <div class="form-floating col-sm-6 mb-3 p-1">
+                        <input type="text" class="form-control" name ="immediate_supervisor" id="immediate_supervisor" placeholder="Immediate Supervisor" value="" form="work_experience_form" required>
+                        <label for="department_agency_office_company">Name of Immediate Supervisor</label>
+                      </div>
+                    </div>
+
+                    
+
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" id="submit_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Submit</button>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="col-sm-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-striped" id="work_experience_table" width = "100%">
+                        <thead class="">
+                        <tr class="align-middle">
+                          <th colspan="2" style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;">Inclusive Dates</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Position Title</th>
+                          <!-- <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Sg</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Step</th> -->
+                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Agency / Company</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Department / Office</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Agency / Company Address</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Immediate Supervisor</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Monthly Salary</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Salary / Job / Pay Grade</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Status of Appointment</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:65px; max-width:65px; white-space:normal;" class="truncate">Government Service</th>
+                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Controls</th>
+                        </tr>
+                        <tr class="align-middle">
+                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (From)</th>
+                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (To)</th>
+  
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {# if user_profile.work_experience is not none #}
+                            {% for work_experience in user_profile.work_experience %}
+                              <tr>
+                                <td>{{work_experience.date_from|format_mydatetime}}</td>
+                                <td>{{work_experience.date_to|format_mydatetime}}</td>
+                                <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.position_title}}</td>
+                                <!-- <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.sg}}</td>
+                                <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{work_experience.step}}</td> -->
+                                <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;white-space:normal;">{{work_experience.department_agency_office_company}}</td>
+                                <td>{{work_experience.name_of_office_unit}}</td>
+                                <td>{{work_experience.agency_address}}</td>
+                                <td>{{work_experience.immediate_supervisor}}</td>
+
+                                <td>{{work_experience.monthly_salary}}</td>
+                                {% if work_experience.sg == 'N/A' %}
+                                <td>N/A</td>
+                                {% else %}
+                                <td>{{ '%02d' % work_experience.sg|int}} - {{work_experience.step}}</td>
+                                {% endif %}
+                                <td>{{work_experience.status_of_appointment}}</td>
+                                <td>{{work_experience.govt_service}}</td>
+                                <td class="text-center"><div class="d-sm-flex flex-row text-center">
+                                  <a class="btn btn-danger btn-sm m-2" title="Remove" id="{{work_experience.id}}" onclick = "delete_work_experience(this)">
+                                    <i class="bi bi-trash"></i>
+                                  </a>
+                                  <a class="btn btn-primary btn-sm m-2" title="View" id="{{work_experience.id}}" data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "view_work_experience(this)">
+                                    <i class="bi bi-pencil"></i>
+                                  </a>
+                                </div></td>
+                              </tr>
+                            {% endfor %}
+                          {# endif #}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- <button type="submit" id="update_covid_btn" class="btn btn-primary btn-sm" form="work_experience_form">Update</button> -->
+        </div>
+    </div>
+	</div>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewExpModal">Edit Work Experience</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3 container">
+          <!-- <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title"><i class="bi bi-journals"></i> Work Experience</h3> -->
+                <form action="#" method="POST" name="update_work_experience_form" id="update_work_experience_form" enctype="multipart/form-data"></form>
+                <input type="hidden" class="form-control" name ="id" id="update_id" placeholder="" value="" form="update_work_experience_form">
+
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill p-1">
+                              <input type="date" class="form-control" name ="date_from" id="update_date_from" max="{{today_date.strftime('%Y-%m-%d')}}" placeholder="Inclusive Date (From)" value="" form="update_work_experience_form" required onchange="document.getElementById('date_to').setAttribute('min', document.getElementById('date_from').value)">
+                              <label for="update_date_from">Inclusive Date (From)</label>
+                            </div>
+                            <div class="form-floating flex-fill p-1">
+                              <input type="date" class="form-control" name ="date_to" id="update_date_to" max="{{today_date.strftime('%Y-%m-%d')}}"  placeholder="Inclusive Date (To)" value="" form="update_work_experience_form" required>
+                              <label for="update_date_to">Inclusive Date (To)</label>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="update_sf_present" name="sf_present" value = "PRESENT" form="update_work_experience_form">
+                                <label class="form-check-label" for="update_sf_present">
+                                  PRESENT
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="position_title" id="update_position_title" placeholder="Position Title" value="" form="update_work_experience_form" required>
+                              <label for="date_from">Position Title</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="text" class="form-control" name ="department_agency_office_company" id="update_department_agency_office_company" placeholder="Department / Office / Agency / Company" value="" form="update_work_experience_form" required>
+                              <label for="date_to" style="font-size: 12px">Department / Office / Agency / Company</label>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="update_work_experience_form">
+                                <label class="form-check-label" for="update_nia_pimo">
+                                  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-floating col-sm-2 mb-3 p-1">
+                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" step=".01" form="update_work_experience_form" required>
+                              <label for="date_to">Monthly Salary</label>
+                            </div>
+                          </div> -->
+                          
+
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating col-sm-6 mb-3 p-1">
+                              <input type="text" class="form-control" name ="position_title" id="update_position_title" placeholder="Position Title" value="" form="update_work_experience_form" required>
+                              <label for="date_from">Position Title</label>
+                            </div>
+                           
+                            <div class="form-floating col-sm-3 mb-3 p-1">
+                              <input type="text" class="form-control trailing-decimal-input" name ="monthly_salary" id="update_monthly_salary" placeholder="Monthly Salary" value="" step=".01" form="update_work_experience_form" onblur="" required>
+                              <label for="monthly_salary">Monthly Salary</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill p-1">
+                              <input type="text" class="form-control" name ="department_agency_office_company" id="update_department_agency_office_company" placeholder="Agency / Company" value="" form="update_work_experience_form" required>
+                              <label for="update_department_agency_office_company">Agency / Company Name</label>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="update_nia_pimo" name="nia_pimo" value = "NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE" form="update_work_experience_form">
+                                <label class="form-check-label" for="update_nia_pimo">
+                                  NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-floating col-sm-6 mb-3 p-1">
+                              <input type="text" class="form-control" name ="name_of_office_unit" id="update_name_of_office_unit" placeholder="Department / Office" value="" form="update_work_experience_form" required>
+                              <label for="update_name_of_office_unit" style="font-size: 12px">Name of Office / Section / Unit</label>
+                            </div>
+                          </div>
+
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select status_of_appointment2" id="update_status_of_appointment" name="status_of_appointment" form="update_work_experience_form" required>
+                                <option value="N/A" selected>N/A</option>
+                                <option value="PERMANENT">PERMANENT</option>
+                                <option value="TEMPORARY">TEMPORARY</option>
+                                <option value="COTERMINOUS">COTERMINOUS</option>
+                                <option value="CASUAL">CASUAL</option>
+                                <option value="JOB ORDER">JOB ORDER</option>
+                                <option value="CONTRACT OF SERVICE">CONTRACT OF SERVICE</option>
+                                <option value="FULL-TIME">FULL-TIME</option>
+                                <option value="PART-TIME">PART-TIME</option>
+                                <option value="PROBATIONARY">PROBATIONARY</option>
+                                <option value="FIXED-TERM">FIXED-TERM</option>
+                                <option value="PROJECT BASED">PROJECT BASED</option>
+                                <option value="REGULAR">REGULAR</option>
+                                <option value="CONTRACTUAL">CONTRACTUAL</option>
+                                <option value="SEASONAL">SEASONAL</option>
+                              </select>
+                              <label for="update_status_of_appointment">Status of Appointment</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="update_sg" name="sg" value="" form="update_work_experience_form" required>
+                                <option value="N/A" selected>N/A</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                              </select>
+                              <label for="sg">Salary / Job / Pay Grade</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select" id="update_step" name="step" value="" form="update_work_experience_form" required>
+                                <option value="N/A" selected>N/A</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                              </select>
+                              <label for="step">Step</label>
+                            </div>
+                            <!-- this is saved in the database --><input type="hidden" id="update_govt_service" name="govt_service" form="update_work_experience_form">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <select class="form-select status_of_appointment2" id="update_govt_service_select" name="update_govt_service_select" value="" disabled required>
+                                <option value="Y">YES</option>
+                                <option value="N">NO</option>
+                              </select>
+                              <label for="govt_service">Government Service</label>
+                            </div>
+                          </div>
+                          
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating col-sm-6 mb-3 p-1">
+                              <input type="text" class="form-control" name ="agency_address" id="update_agency_address" placeholder="Agency / Company Address" value="" form="update_work_experience_form" required>
+                              <label for="update_agency_address">Agency / Company Address</label>
+                            </div>
+                            <div class="form-floating col-sm-6 mb-3 p-1">
+                              <input type="text" class="form-control" name ="immediate_supervisor" id="update_immediate_supervisor" placeholder="Immediate Supervisor" value="" form="update_work_experience_form" required>
+                              <label for="update_immediate_supervisor">Name of Immediate Supervisor</label>
+                            </div>
+                          </div>
+
+                        </div>
+                    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="update_work_experience_form">Save changes</button>
+      <!-- </div>
+    </div> -->
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+
+$('.trailing-decimal-input').on('change', function (e) {
+var intRegex = /^\d+$/;
+var floatRegex = /^((\d+(\.\d *)?)|((\d*\.)?\d+))$/;
+if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).val().replace(/,/gi, ""))) {
+    var num = $(this).val().replace(/,/gi, "");
+    var float_num = parseFloat(num);
+    var final = parseFloat((float_num).toFixed(2)).toLocaleString("en-EN",{
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2 });
+      
+    $(this).val(final);
+  
+}else{
+  $(this).val("")
+}
+
+});
+function nia_pimo(){
+		var nia_pimo = document.getElementById('nia_pimo');
+		var station_place = document.getElementById('department_agency_office_company');
+		var agency_address = document.getElementById('agency_address');
+
+    agency_address.value = "";
+
+		if(nia_pimo.checked){
+			station_place.value = "";
+			station_place.disabled = true;
+
+      agency_address.value = "BAYAOAS, URDANETA CITY, PANGASINAN";
+
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+
+  function update_nia_pimo(){
+		var nia_pimo = document.getElementById('update_nia_pimo');
+		var station_place = document.getElementById('update_department_agency_office_company');
+		var agency_address = document.getElementById('update_agency_address');
+
+    agency_address.value = "";
+
+		if(nia_pimo.checked){
+			station_place.value = "";
+			station_place.disabled = true;
+
+      agency_address.value = "BAYAOAS, URDANETA CITY, PANGASINAN";
+
+			}
+		else{
+			station_place.disabled = false;
+			}
+	
+	}
+document.getElementById('nia_pimo').addEventListener('change', nia_pimo)
+document.getElementById('update_nia_pimo').addEventListener('change', update_nia_pimo)
+
+
+var sf_present = document.getElementById('sf_present');
+	sf_present.addEventListener('change',()=>{
+		var service_to = document.getElementById('date_to');
+		if(sf_present.checked){
+			service_to.disabled = true;
+			service_to.value = ''
+			}
+		else{
+			service_to.disabled = false;
+			}
+	})
+
+  var update_sf_present = document.getElementById('update_sf_present');
+	update_sf_present.addEventListener('change',()=>{
+		var service_to = document.getElementById('update_date_to');
+		if(update_sf_present.checked){
+			service_to.disabled = true;
+			service_to.value = ''
+			}
+		else{
+			service_to.disabled = false;
+			}
+	})
+
+  function delete_work_experience(el){
+    fetch('/workExperience/delete-work-experience',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => {
+      response.json()
+    })
+		.then(data => {
+			// triggerToast(data)
+			window.location.reload()
+		});
+  }
+
+  function view_work_experience(el){
+
+    document.getElementById('update_sf_present').checked = false;
+    // document.getElementById('update_date_to').value = "";
+    document.getElementById('update_date_to').disabled = false;
+
+    validate_status2();
+
+    fetch('/workExperience/view-work-experience',{
+		method: 'POST',
+		body: JSON.stringify({"work_exp_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			// console.log(data)
+      document.getElementById('update_id').value = data[0].id;
+      document.getElementById('update_date_from').value = data[0].date_from;
+      document.getElementById('update_date_to').value = data[0].date_to;
+      if(data[0].date_to == "PRESENT"){
+        document.getElementById('update_sf_present').checked = true;
+        document.getElementById('update_date_to').value = "";
+        document.getElementById('update_date_to').disabled = true;
+      }
+      document.getElementById('update_position_title').value = data[0].position_title;
+      document.getElementById('update_department_agency_office_company').value = data[0].department_agency_office_company;
+      document.getElementById('update_monthly_salary').value = data[0].monthly_salary;
+      document.getElementById('update_sg').value = data[0].sg;
+      document.getElementById('update_step').value = data[0].step;
+      document.getElementById('update_status_of_appointment').value = data[0].status_of_appointment;
+      document.getElementById('update_govt_service').value = data[0].govt_service;
+      document.getElementById('update_govt_service_select').value = data[0].govt_service;
+
+      document.getElementById('update_name_of_office_unit').value = data[0].name_of_office_unit;
+      document.getElementById('update_agency_address').value = data[0].agency_address;
+      document.getElementById('update_immediate_supervisor').value = data[0].immediate_supervisor;
+
+		});
+  }
+
+
+   window.addEventListener('load',()=>{
+
+    $('#work_experience_table').DataTable({
+      columnDefs:[{targets:3,className:"truncate"}],
+        createdRow: function(row){
+          var td = $(row).find(".truncate");
+          td.attr("title", td.html());
+      },
+      responsive: false,
+      order: [],
+        dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+    });
+
+      document.getElementById('update_work_experience_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            let formData1 = new FormData(document.getElementById("update_work_experience_form"));
+          
+            const data1 = {}
+                formData1.forEach((value, key) => (data1[key] = value));
+            // console.log(data1)
+            fetch('/workExperience/save-work-experience/{{user_profile.id}}', {
+                method: 'POST',
+                body: formData1
+                }).then((res)=>{
+                  if (res.status == 200){
+                      window.location.reload()
+
+                  }else if (res.status == 406){
+                    triggerToast("You Can\'t Enter Overlapping Dates", 'warning')
+                  }
+                  return res.json()
+                
+                }).then((data)=>{
+
+
+                });//END
+            });
+
+        document.getElementById('work_experience_form').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            //-- ----------------------------------------------------------------------- -->
+            //--                   SUBMIT OF WORK EXPERIENCE FORM                        -->
+            //-- ----------------------------------------------------------------------- -->
+
+            var url = '/workExperience/add-work-experience/{{user_profile.id}}'
+            
+            let formData4 = new FormData(document.getElementById("work_experience_form"));
+                
+                const data4 = {};
+                formData4.forEach((value, key) => (data4[key] = value));
+               
+                fetch(url, {
+                method: 'POST',
+                body: formData4
+                }).then((res)=>{
+                  console.log(res.status)
+                if (res.status == 200){
+                    triggerToast("Successfully Added Work Experience", 'success');
+                    document.getElementById('work_experience_form').reset();
+                    window.location.reload();
+                }else if (res.status == 406){
+                  triggerToast("You Can\'t Enter Overlapping Dates", 'warning');
+                }
+                return res.json();
+
+                }).then((data)=>{
+                  //triggerToast(data, 'success');
+
+                  // $('#work_experience_table').DataTable().ajax.reload()
+
+                });//END
+
+             
+    })
+});
+
+function validate_status2(){
+
+
+    var value = document.getElementById("update_status_of_appointment").value;
+ 
+
+    var sg = document.getElementById("update_sg");
+    var step = document.getElementById("update_step");
+    var govt_service_save = document.getElementById("update_govt_service");
+    var govt_service_select = document.getElementById("update_govt_service_select");
+
+    if (value == "JOB ORDER" || value == "CONTRACT OF SERVICE"){
+      sg.disabled = false;
+      govt_service_select.disabled = true;
+      govt_service_select.value = "N";
+      govt_service_save.value = "N";
+      
+      // sg.value = "1";
+      // step.value = "1";
+      step.disabled = false;
+
+      document.querySelectorAll("#sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = false;
+        }
+    });
+
+    }else{
+      
+      step.disabled = false;
+      sg.disabled = false;
+      govt_service_select.disabled = false;
+
+      govt_service_save.value = govt_service_select.value;
+
+      // sg.value = "1";
+      // step.value = "1";
+
+
+      if (value == "PERMANENT" || value == "TEMPORARY"){
+        sg.disabled = false;
+        step.disabled = false;
+
+        document.querySelectorAll("#update_sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+
+      document.querySelectorAll("#update_step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+      }
+      else if (value == "COTERMINOUS"){
+        sg.disabled = false;
+        step.disabled = false;
+
+        document.querySelectorAll("#update_sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+
+      document.querySelectorAll("#update_step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+      }
+      else if (value == "CASUAL"){
+        sg.disabled = false;
+        step.disabled = false;
+
+        document.querySelectorAll("#update_sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+
+      document.querySelectorAll("#update_step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+      govt_service_save.value = "Y";
+
+
+      }
+      else{
+
+
+        document.querySelectorAll("#update_sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = false;
+        }
+      });
+
+      document.querySelectorAll("#update_step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = false;
+        }
+      });
+
+      sg.value = "N/A";
+      step.value = "N/A";
+      govt_service_save.value = "N";
+      //sg.disabled = true;
+      //step.disabled = true;
+      //govt_service_select.disabled = true;
+
+      }
+      
+  }
+}
+
+function validate_status(){
+  var value = document.getElementById("status_of_appointment").value;
+    var sg = document.getElementById("sg");
+    var step = document.getElementById("step");
+    var govt_service_save = document.getElementById("govt_service_save");
+    var govt_service_select = document.getElementById("govt_service_select");
+
+    if (value == "JOB ORDER" || value == "CONTRACT OF SERVICE"){
+      sg.disabled = false;
+      govt_service_select.disabled = true;
+      govt_service_select.value = "N";
+      govt_service_save.value = "N";
+      
+      
+      sg.value = "1";
+      step.value = "1";
+      step.disabled = false;
+
+      document.querySelectorAll("#sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = false;
+        }
+    });
+
+    }else{
+      govt_service_save.value = govt_service_select.value;
+      govt_service_select.disabled = false;
+
+      sg.value = "1";
+      step.value = "1";
+
+
+      if (value == "PERMANENT" || value == "TEMPORARY"){
+        sg.disabled = false;
+        step.disabled = false;
+
+        document.querySelectorAll("#sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+
+      document.querySelectorAll("#step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+      }
+      else if (value == "COTERMINOUS"){
+        sg.disabled = false;
+        step.disabled = false;
+
+        document.querySelectorAll("#sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+
+      document.querySelectorAll("#step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+      }
+      else if (value == "CASUAL"){
+        sg.disabled = false;
+        step.disabled = false;
+
+        document.querySelectorAll("#sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+
+      document.querySelectorAll("#step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = true;
+        }
+      });
+      }
+      else{
+        sg.disabled = true;
+        step.disabled = true;
+
+        document.querySelectorAll("#sg option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = false;
+        }
+      });
+
+      document.querySelectorAll("#step option").forEach(opt => {
+        if (opt.value == "N/A") {
+            opt.disabled = false;
+        }
+      });
+
+      sg.value = "N/A";
+      step.value = "N/A";
+      govt_service_save.value = "N";
+      govt_service_select.disabled = true;
+
+      }
+      
+  }
+}
+
+$('.status_of_appointment').on('change', validate_status);
+$('.status_of_appointment2').on('change', validate_status2);
+
+
+</script>
+{%endblock%}

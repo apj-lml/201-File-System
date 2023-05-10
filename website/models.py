@@ -8,7 +8,7 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 from sqlalchemy.orm import column_property
 from sqlalchemy.ext.hybrid import hybrid_property
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from sqlalchemy_serializer import SerializerMixin
 import time, pytz
 import os
@@ -16,6 +16,7 @@ import os
 from dataclasses import dataclass
 
 from sqlalchemy.inspection import inspect
+from dateutil.relativedelta import relativedelta
 
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
@@ -37,14 +38,6 @@ class Serializer(object):
 
 @dataclass
 class User(db.Model, UserMixin):
-    id: int
-    birthdate: datetime
-    # def __post_init__(self):
-    #     self.birthdate = datetime.strptime(self.birthdate, "%Y-%m-%d")
-    last_name: str
-    first_name: str
-    middle_name: str
-    name_extn: str
 
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime(timezone=True), server_default=func.now())
@@ -207,20 +200,33 @@ class User(db.Model, UserMixin):
 
     @hybrid_property
     def fullname(self):
-        if self.fb_middle_name is None or self.fb_middle_name == "N/A" or self.fb_middle_name == "NONE" or self.fb_middle_name == "" :
-            self.fb_middle_name = ""
-        else:
-            self.fb_middle_name = self.fb_middle_name[0] + "."
-        if self.fb_last_name is None or self.fb_last_name == "N/A" or self.fb_last_name == "NONE":
-            self.fb_last_name = ""
-        if self.fb_name_ext is None or self.fb_name_ext == "N/A" or self.fb_name_ext == "NONE":
-            self.fb_name_ext = ""
-        fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
+        return f"{self.first_name} {self.middle_name} {self.last_name} {self.name_extn}".strip()
 
-        return fullname
+        
+    @hybrid_property
+    def proper_fullname(self):
+        if self.name_extn == "N/A" or self.name_extn == "N/A":
+            return f"{self.last_name}, {self.first_name} {self.last_name}".strip()
+        else:
+            return f"{self.last_name}, {self.first_name} {self.name_extn} {self.last_name}".strip()
     
+
     def as_dict(self):
        return {c.name: str((getattr(self, c.name))) for c in self.__table__.columns}
+
+    @property
+    def age(self):
+        today = datetime.now().date()
+        age = relativedelta(today, self.birthdate).years
+        return age
+
+    
+    def effectivityOfSeparation(self):
+        year_to_add = relativedelta(years=64)
+        one_day = timedelta(days=1)
+        updated_date = self.birthdate + year_to_add + one_day
+
+        return updated_date
 
     # emergency_contact = db.relationship('Emergency_Contact')
 

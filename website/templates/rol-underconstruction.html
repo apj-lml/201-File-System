@@ -57,30 +57,38 @@
          </div>
         <div class="card-body">
           <div class="row text-center">
-            <div class="col-sm-12 mb-3">
-                <div class="form-floating col-sm-12 has-validation">
-                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" value="{{ user_profile.last_name }}, {{ user_profile.first_name }} {%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %} {{ user_profile.middle_name }} {% endif %}">
+            <!-- <div class="row col-sm-12 mb-3"> -->
+              <div class="col-sm-12 col-md-8 mb-3 ">
+                <div class="form-floating has-validation">
+                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.last_name }}, {{ user_profile.first_name }}{%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %}{{ user_profile.middle_name }} {% endif %}">
                   <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
                 </div>
-         
-            </div>
+              </div>
+              
+                <div class="col-sm-12 col-md-4 mb-3 ">
+                  <div class="form-floating has-validation">
+                    <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.employment_status }}">
+                    <label class="text-blue fw-bold" id="emp_name" for="emp_name">Employment Status</label>
+                  </div>
+                </div>
+            <!-- </div> -->
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-12 col-md-6 mb-3">
                     <div class="form-floating has-validation">
-                      <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" value="{{ user_profile.position_title }}">
+                      <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
                       <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
                     <div class="form-floating has-validation">
-                      <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" value="{{ user_profile.job_grade }}">
+                      <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" disabled value="{{ user_profile.job_grade }}">
                       <label class="text-blue fw-bold" id="jg" for="jg">Job Grade</label>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3">
                   <div class="form-floating has-validation">
-                    <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" placeholder="Monthly/Daily Rate">
+                    <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" disabled placeholder="Monthly/Daily Rate">
                     <label class="text-blue fw-bold" for="monthly_daily_salary">Monthly/Daily Rate</label>
                   </div>
               </div>
@@ -96,7 +104,7 @@
                     <div class="order-lg-1 my-auto showcase-text">
                         <div class="row d-flex justify-content-center">
                           <div class="col-sm-12 text-center mb-3">
-                            <h1>EARNED LEAVES as of<br> {{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] else 'N/A' }}</h1>
+                            <h1>EARNED LEAVES as of<br> {{ user_profile.rol[0].as_of.strftime('%B %d, %Y') if user_profile.rol[0] else 'N/A' }}</h1>
                           </div>
                           <div class="row">
                               <div class="col-md-4 col-sm-12 mb-3">
@@ -133,8 +141,9 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-sm-12 text-center mt-5">
-                            <button href="#" class="btn btn-primary" onclick="fillForm();"><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
+                            <button href="#" class="btn btn-primary" onclick="fillForm();" {{ 'disabled' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
                           </div>
                           <div class="col-sm-12 text-center mt-3">
                             {% if current_user.type_of_user == "admin" %}
@@ -187,83 +196,151 @@
 {%block scripts%}
 <script src="{{ url_for('static', filename='sgjg.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdfkit@0.13.0/js/pdfkit.standalone.min.js"></script>
-
+<!-- <script src="https://unpkg.com/pdf-lib@1.4.0"></script> -->
+<script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+<script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
 <script type="text/javascript">
+  const { PDFDocument, StandardFonts, layoutMultilineText, rgb } = PDFLib
 
   async function fillForm() {
-  
-    const pdfDoc = new PDFDocument();
 
-    loadingScreen('block');
+		loadingScreen('block')
+
+
+		formUrl = "{{ url_for('static', filename='leave-cert-template3.pdf') }}";
+	  
+    const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
   
-    const formUrl = "{{ url_for('static', filename='leave-cert-template1.pdf') }}";
-    const formPdfBytes = await fetch(formUrl).then((res) => res.arrayBuffer());
-  
-    const page = pdfDoc.addPage();
-    const fontPath = "{{url_for('static', filename='/fonts/cambriab.ttf')}}";
-  
-    const boldFontPath = "{{url_for('static', filename='/fonts/cambriab.ttf')}}";
-  
-    const boldFontBytes = await fetch(boldFontPath).then((res) => res.arrayBuffer());
-    pdfDoc.registerFont('bold', boldFontBytes);
-  
-    const cert_content = page.text('cert_content');
-    const cert_content_closing = page.text('cert_content_closing');
-    const tb_vl = page.text('tb_vl');
-    const tb_sl = page.text('tb_sl');
-    const tb_total = page.text('tb_total');
-  
-    const name = `{{ user_profile.first_name }} {{ user_profile.middle_initial }}{%if user_profile.name_extn != 'N/A' or user_profile.name_extn != '' %}.{% endif %} {{ user_profile.last_name }}{%if user_profile.name_extn != 'N/A'  %} ,{{ user_profile.name_extn }}{% endif %}`;
-    const positionTitle = toTitleCase("{{ user_profile.position_title }}");
-    const asOf = "{{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] }}";
-    const status = "{{ user_profile.employment_status }}";
-    const normalText = "This is to certify that " + name + ", " + positionTitle + " of National Irrigation Administration " +
-                       "– Pangasinan Irrigation Management Office on a Permanent Status " +
-                       "had an accumulated leave credits as of " + asOf + ", to wit: ";
-  
+    const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+
+    const page = pdfDoc.getPages()[0];
+	  
+		const timesRomanBoldFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
+		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
+		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
+
+
+    // Fetch custom font
+    const fonturl = "{{ url_for('static', filename='/fonts/Cambria.ttf') }}"
+    const fontBytes = await fetch(fonturl).then(res => res.arrayBuffer())
+
+	  // Embed the Cambria font
+	  
+		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
+
+    pdfDoc.registerFontkit(fontkit);
+    const cambria = await pdfDoc.embedFont(fontBytes,{
+      subset: true, 
+      features: { liga: false }, 
+    });
+
+
+
+
+
     const currentDate = new Date();
+
+    // Get the day and suffix
     const day = currentDate.getDate();
     const daySuffix = getDaySuffix(day);
+
+    // Get the month
     const month = currentDate.toLocaleString('default', { month: 'long' });
+
+    // Get the year
     const year = currentDate.getFullYear();
+
+    // Format the date
     const formattedDate = `${day}${daySuffix} day of ${month}, ${year}`;
+
+    const pages = pdfDoc.getPages();
+    const firstPage = pages[0];
+    const { width, height } = firstPage.getSize();
+
+
+    const text = `This is to certify that MA. CRISTINA GRACE GAUDIA CANCILLER ADSADD, Utility Worker A of National Irrigation Administration – Pangasinan Irrigation Management Office on a Permanent Status had an accumulated leave credits as of March 31, 2023, to wit:`;
+
+    var fontSize = 12;
+    var lineHeight = 15;
+    var startingPositon = 650;
+    var x = 50;
+
+
+    const multiText = layoutMultilineText(text, {
+      alignment: 'left', 
+      font: cambria,
+      fontSize: fontSize,
+      lineHeight: lineHeight,
+      bounds: { width: width-50, height: 10000  }
+   })
+
+   const linesTextArray = multiText.lines.map(line => line.text);
+
+    //console.log(linesTextArray);
+    
+
+    var newLinesTextArray = justifyLines(linesTextArray, 100);
+
+    console.log(newLinesTextArray);
+    
+      for(let i = 0; i < newLinesTextArray.length; i++) {
+
+          page.drawText(`${newLinesTextArray[i]}`, {
+            x: x,
+            y: startingPositon,
+            size: fontSize,
+            maxWidth: width - 80,
+            font: cambria
+          })
+        // move position down
+          startingPositon = startingPositon - (lineHeight)
+          }
+
+
+		const pdfBytes = pdfDoc.save()
+
+		const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+		const testPdfDataUri = await pdfDoc.saveAsBase64();
+		
+		// decode base64 string, remove space for IE compatibility
+		var binary = atob(testPdfDataUri.replace(/\s/g, ''));
+		var len = binary.length;
+		var buffer = new ArrayBuffer(len);
+		var view = new Uint8Array(buffer);
+		for (var i = 0; i < len; i++) {
+			view[i] = binary.charCodeAt(i);
+		}
+	
+		var blob = new Blob( [view], { type: "application/pdf" });
+		var url = URL.createObjectURL(blob);
+	
+		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
+		//var fileURL = URL.createObjectURL(file);
+	
+		loadingScreen('none')
+		window.open(url, 'leave_certification');
+
+  }
+
+
+  function justifyLine(line, len) {
+    // split line into words
+    const words = line.split(/ +/);
+    // compute number of characters used by words
+    const numChars = words.reduce((len, word) => len + word.length, 0);
+    let numSpacesToDistribute = len - numChars;
+    return words.map((word, ndx) => {
+      const numGaps = words.length - ndx - 1;
+      const padding = numSpacesToDistribute / numGaps | 0;
+      numSpacesToDistribute -= padding;
+      return word.padEnd(word.length + padding);
+    }).join('');
+  }
   
-    cert_content_closing.text(`Issued this ${formattedDate} at the NIA-Pangasinan Irrigation Management Office, Bayaoas, Urdaneta City, Pangasinan.`);
-  
-    cert_content.text(normalText, { align: 'justify', width: 400, font: 'Cambria', fontSize: 12 });
-  
-    tb_vl.text("{{ user_profile.rol[0].vacation if user_profile.rol[0] else 'N/A' }}");
-    tb_sl.text("{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
-    tb_total.text("{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
-  
-    pdfDoc.end();
-
-// Create an empty array to collect the PDF data chunks
-const chunks = [];
-
-pdfDoc.on('data', chunk => {
-  chunks.push(chunk);
-});
-
-pdfDoc.on('end', () => {
-  // Combine the PDF data chunks into a single Uint8Array
-  const pdfData = new Uint8Array(
-    chunks.reduce((acc, chunk) => [...acc, ...chunk], [])
-  );
-
-  // Create a Blob from the PDF data
-  const blob = new Blob([pdfData], { type: 'application/pdf' });
-
-  // Create a URL for the Blob
-  const pdfUrl = URL.createObjectURL(blob);
-
-  // Open the PDF in a new browser window
-  window.open(pdfUrl, '_blank');
-});
-
-
+  function justifyLines(lines, len) {
+    return lines.map(line => justifyLine(line, len));
   }
 
 
@@ -327,7 +404,7 @@ function getDaySuffix(day) {
           body: formData4
         }).then((res)=>{
             if (res.status == 406){
-              triggerToast('Invalid file submitted. Only PDF files are allowed.');
+              triggerToast('Invalid file submitted. Only Excel files are allowed.');
                     }
                     else if (res.status == 200){
                         return res.json()

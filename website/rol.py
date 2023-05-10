@@ -108,27 +108,26 @@ def add_rol(emp_id):
                 sick = row['SICK_LEAVE']
                 as_of = row['UPDATED_AS_OF']
 
-                # check_rol = Records_Of_Leave.query.get(user_id).first()
-                check_rol = db.session.query(Records_Of_Leave).filter(Records_Of_Leave.user_id == user_id).first()
+                check_user = User.query.filter_by(id=user_id).first()
+                if check_user:
+                    check_rol = db.session.query(Records_Of_Leave).filter(Records_Of_Leave.user_id == user_id).first()
 
-                if check_rol:
-                    print('HERE HERE2')
-                    check_rol.vacation = vacation,
-                    check_rol.sick = sick,
-                    check_rol.user_id = user_id,
-                    check_rol.as_of = as_of
-                    db.session.commit()
-                    
-                    
-                else:
-                    print('HERE HERE')
-                    new_rol = Records_Of_Leave(
-                        vacation = vacation,
-                        sick = sick,
-                        user_id = user_id,
-                        as_of = as_of
-                            )
-                    db.session.add(new_rol)
+                    if check_rol:
+                        check_rol.vacation = vacation,
+                        check_rol.sick = sick,
+                        check_rol.user_id = user_id,
+                        check_rol.as_of = as_of
+                        db.session.commit()
+                        
+                        
+                    else:
+                        new_rol = Records_Of_Leave(
+                            vacation = vacation,
+                            sick = sick,
+                            user_id = user_id,
+                            as_of = as_of
+                                )
+                        db.session.add(new_rol)
                     
 
             db.session.commit()
