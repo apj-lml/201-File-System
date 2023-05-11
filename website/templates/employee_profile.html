@@ -480,6 +480,10 @@ button {
                       <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
+                    <div class="form-floating col-md-4 mb-3 p-1">
+                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="{{user_profile.first_day_in_service}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
+                      <label for="first_day_in_service">First Day in Service (No GAP)</label>
+                    </div>
 
                   </div>
                   <div class="d-md-flex flex-row">
@@ -1493,7 +1497,7 @@ button {
               <div class="card-body">
                 <h3 class="card-title">Civil Service Eligibility</h3>
                 <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Civil Service Eligibility is not applicable.</p>
-                  <input type="text" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.career_service|length}}" form="update_form">
+                  <input type="hidden" class="form-control" id="cs_update_no_fields" name ="cs_update_no_fields" placeholder="No. of Fields" min="1" max="10" value="{{user_profile.career_service|length}}" form="update_form">
                   {% if user_profile.career_service %}
                   <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="0" form="add_cse_form">
 

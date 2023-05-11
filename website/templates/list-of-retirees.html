@@ -83,7 +83,7 @@ td{
                                 <td class="text-center">{{ '%02d' % retiree.salary_grade|int}} - 1</td>
                                 {% endif %}
                                 <td class="text-center">{{retiree.birthdate.strftime('%B %d, %Y')}}</td>
-                                <td class="text-center">{{retiree.age}}</td>
+                                <td class="text-center">{{retiree.getAge}}</td>
                                 
                               </tr>
                             {% endfor %}
@@ -122,9 +122,13 @@ td{
                                 <td>{{cRetiree.proper_fullname}}</td>
                                 <td style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">{{cRetiree.position_title}}</td>
                                 <td class="text-center">{{cRetiree.employment_status}}</td>
-                                <td class="text-center">{{ '%02d' % cRetiree.salary_grade|int}} - {{cRetiree.step}}</td>
+                                {% if cRetiree.employment_status == "PERMANENT" or cRetiree.employment_status == "CASUAL" or cRetiree.employment_status == "TEMPORARY" %}
+                                <td class="text-center">{{ '%02d' % cRetiree.job_grade|int}} - {{cRetiree.step}}</td>
+                                {% else %}
+                                <td class="text-center">{{ '%02d' % cRetiree.salary_grade|int}} - 1</td>
+                                {% endif %}
                                 <td class="text-center">{{cRetiree.birthdate.strftime('%B %d, %Y')}}</td>
-                                <td class="text-center">{{cRetiree.age}}</td>
+                                <td class="text-center">{{cRetiree.getAge}}</td>
                                 <td class="text-center">{{cRetiree.effectivityOfSeparation().strftime('%B %d, %Y')}}</td>
                               </tr>
                             {% endfor %}

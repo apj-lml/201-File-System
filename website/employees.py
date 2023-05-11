@@ -38,11 +38,37 @@ def page_not_found(e):
 def get_employees(emp_id):
 	if request.method == 'GET' and emp_id == "0" :
 		#user = db.session.query(User, Agency_Section).join(Agency_Section, User.section == Agency_Section.id).all()
-		user = db.session.query(User).all()
-		#user = User.query.all()
+		# user = db.session.query(User).all()
+
+		# for myuser in user:
+		# 	if myuser.employment_status == 'JOB ORDER':
+		# 		myuser.sgjg = myuser.salary_grade
+		# 	else:
+		# 		myuser.sgjg = myuser.job_grade
+		# #user = User.query.all()
+
+		# user_schema = UserSchema(many=True)
+		# output = user_schema.dump(user)
+
+		# db.session.commit()
+		# db.session.close()
+
+		users = User.query.all()
+
+		user_sgjg = {}  # Dictionary to store sgjg attribute for each user
+
+		for user in users:
+			if user.employment_status == 'JOB ORDER':
+				user_sgjg[user.id] = user.salary_grade
+			else:
+				user_sgjg[user.id] = user.job_grade
 
 		user_schema = UserSchema(many=True)
-		output = user_schema.dump(user)
+
+		# Update output with sgjg attribute
+		output = user_schema.dump(users)
+		for user_data in output:
+			user_data['sgjg'] = user_sgjg.get(user_data['id'])
 
 		db.session.close()
 

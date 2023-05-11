@@ -40,19 +40,8 @@
 {% endblock %}
 
 {% block content %}
-<main class="d-flex flex-row">
-	<ul class="circles">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
+<main>
+
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="bootstrap" viewBox="0 0 118 94">
 		  <title>Bootstrap</title>
@@ -110,20 +99,27 @@
 		<symbol id="geo-fill" viewBox="0 0 16 16">
 		  <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
 		</symbol>
-	  </svg>
-
-	  <div class="d-flex flex-column" style="height: 100vh; width: 100vw;">
-		<div class="container-fluid-sm container-md">
-			<div class="d-flex justify-content-center flex-row ">
-				<img class="img-fluid" src="{{url_for('static', filename='img/list_of_employees.png')}}" alt="" width="400">
-			</div>
-			<div class="d-flex justify-content-center flex-row">
-				<!-- <div class="flex-column text-end">
-					<a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Toggle Column</a>
-				</div> -->
+	</svg>
+	  <div class="container-fluid">
+		<!-- <ul class="circles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul> -->
+		<div class="col-sm-12 text-center">
+			<img class="img-fluid" src="{{url_for('static', filename='img/list_of_employees.png')}}" alt="" width="400">
+		</div>
+		<div class="col-sm-12">
+			<div class="container-fluid">
 				<div class="card shadow-sm mb-3">
 					<div class="card-body">
-						{{date_now.strftime('%Y-%m-%d %H:%M:%S')}}
 					<div id="demo" class="mb-5">
 						<table class="table table-striped table-hover" id="list_of_employees" style="width: 100%;z-index:-99999;" cellpadding="0" cellspacing="0" id="example" width="100%">
 							<thead>
@@ -140,7 +136,8 @@
 								<th scope="col">middle_name</th>
 								<th scope="col">name_extn</th>
 								<th scope="col">position_title</th>
-								<th scope="col">salary_grade</th>
+								<th scope="col">sg_jg</th>
+								<th scope="col">step</th>
 								<th scope="col">employment_status</th>
 								<th scope="col">section</th>
 								<th scope="col">unit</th>
@@ -232,10 +229,10 @@
 					</div>		
 					</div>
 				</div>
-
 			</div>
 		</div>
 	  </div>
+	  
 	  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 		<div class="offcanvas-header">
 		  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Toggle Column</h5>
@@ -515,12 +512,15 @@ $(document).ready(function() {
 		bLengthChange: true,
 		//scrollX: true,
 		colReorder: true,
-		dom: `Q<'row'<'col-sm-6 mb-1 col-md-4'l>
+		dom: `Q<'row'
+					<'col-sm-6 mb-1 col-md-4'l>
 					<'col-sm-6 mb-1 col-md-4'B>
 					<'col-sm-12 mb-1 col-md-4'f>
 				>
 				<'row'<'col-sm-12'tr>>
-				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+				<'row'<'col-sm-12 col-md-5'i>
+				<'col-sm-12 col-md-7'p>
+				>`,
 		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
 
 
@@ -629,8 +629,9 @@ $(document).ready(function() {
 			{ "data": "middle_name", visible: false },
 			{ "data": "name_extn", visible: false },
 			{ "data": "position_title", visible: true },
-			{ "data": "salary_grade", visible: false },
-			{ "data": "employment_status", visible: false },
+			{ "data": "sgjg", visible: true },
+			{ "data": "step", visible: true },
+			{ "data": "employment_status", visible: true },
 			{ "data": "agency_section.section_title", visible: true },
 			{ "data": "agency_unit.unit_title", visible: true },
 			{ "data": "birthdate", visible: false },

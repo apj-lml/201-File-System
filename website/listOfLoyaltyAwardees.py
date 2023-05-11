@@ -29,32 +29,8 @@ def page_not_found(e):
 # @admin_permission.require(http_exception=403)
 def get_list_of_expiry():
     if request.method == "GET":
-        date_now_plus_6_mos = datetime.date.today() + relativedelta(months=+6)
-        date_now = datetime.date.today()
 
-        get_expiry = db.session.query(User, Career_Service)\
-            .filter(User.id == Career_Service.user_id)\
-            .filter(Career_Service.date_of_validity > date_now)\
-            .filter(Career_Service.date_of_validity <= date_now_plus_6_mos)\
-            .filter(extract("day", Career_Service.date_of_validity) <= 31)\
-            .filter(User.status_remarks == "ACTIVE")\
-            .order_by(Career_Service.date_of_validity).all()
-
-        get_expired = db.session.query(User, Career_Service)\
-            .filter(User.id == Career_Service.user_id)\
-            .filter(Career_Service.date_of_validity < date_now)\
-            .filter(extract("day", Career_Service.date_of_validity) <= 31)\
-            .filter(User.status_remarks == "ACTIVE")\
-            .order_by(Career_Service.date_of_validity).all()
-
-        # get_expiry_drivers = db.session.query(User, Career_Service)\
-        #     .filter(User.id == Career_Service.user_id)\
-        #     .filter(Career_Service.date_of_validity >= date_now)\
-        #     .filter(Career_Service.date_of_validity <= date_now_plus_6_mos)\
-        #     .filter(extract("day", Career_Service.date_of_validity) <= 31)\
-        #     .filter(User.position_title.like("%DRIVER%") )\
-        #     .filter(User.status_remarks == "ACTIVE")\
-        #     .order_by(Career_Service.date_of_validity).all()
+        getListOfawardees = User.query.filter(User.status_remarks == "ACTIVE").filter(User.employment_status != "JOB ORDER").all()
 
         
-        return render_template('list_of_expiring_ids.html', expiring_ids = get_expiry, expired_ids = get_expired)
+        return render_template('list-of-loyalty-awardees.html', getListOfawardees = getListOfawardees)

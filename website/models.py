@@ -69,6 +69,7 @@ class User(db.Model, UserMixin):
     date_hired_in_nia = db.Column(db.String(150), nullable=True)
     date_hired_in_nia_pimo = db.Column(db.String(150), nullable=True)
     no_of_years_in_nia = db.Column(db.String(150), nullable=True)
+    first_day_in_service = db.Column(db.Date())
 
     date_of_last_step_increment = db.Column(db.String(150), nullable=True)
     date_of_original_appointment = db.Column(db.String(150), nullable=True)
@@ -215,7 +216,7 @@ class User(db.Model, UserMixin):
        return {c.name: str((getattr(self, c.name))) for c in self.__table__.columns}
 
     @property
-    def age(self):
+    def getAge(self):
         today = datetime.now().date()
         age = relativedelta(today, self.birthdate).years
         return age
@@ -227,6 +228,26 @@ class User(db.Model, UserMixin):
         updated_date = self.birthdate + year_to_add + one_day
 
         return updated_date
+
+    def getYearsInService(self):
+        today = datetime.now().date()
+        yearsInService = relativedelta(today, self.first_day_in_service).years
+        return yearsInService
+
+    def awardClaimingYear(self):
+        one_year = relativedelta(years=1)
+        if self.getYearsInService() <= 10:
+            year_to_add = relativedelta(years=10)
+        else:
+            year_to_add = relativedelta(years=5)
+
+        if self.first_day_in_service:
+            if self.first_day_in_service.month > 6:
+                updated_date = self.first_day_in_service + year_to_add + one_year
+            else:
+                updated_date = self.first_day_in_service + year_to_add
+            
+            return updated_date
 
     # emergency_contact = db.relationship('Emergency_Contact')
 
