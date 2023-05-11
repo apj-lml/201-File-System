@@ -224,7 +224,7 @@
 
 	  // Embed the Cambria font
 	  
-		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambria.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
 		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
 
     pdfDoc.registerFontkit(fontkit);
