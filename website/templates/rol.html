@@ -196,6 +196,8 @@
 {%block scripts%}
 <script src="{{ url_for('static', filename='sgjg.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+<script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+<script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
 
 <script type="text/javascript">
@@ -222,12 +224,16 @@
 
 	  // Embed the Cambria font
 	  
-		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambria.ttf')}}").then(res => res.arrayBuffer());
 		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
 
+    pdfDoc.registerFontkit(fontkit);
+    const cambria = await pdfDoc.embedFont(cambriaFontBytes,{
+      subset: true, 
+      features: { liga: false }, 
+    });
+
     const form = pdfDoc.getForm();
-
-
 
     const cert_content = form.getTextField('cert_content');
     const cert_content_closing = form.getTextField('cert_content_closing');
@@ -237,11 +243,16 @@
     
     const name = `{{ user_profile.first_name }} {{ user_profile.middle_initial }}{%if user_profile.name_extn != 'N/A' or user_profile.name_extn != '' %}.{% endif %} {{ user_profile.last_name }}{%if user_profile.name_extn != 'N/A'  %} ,{{ user_profile.name_extn }}{% endif %}`;
     const positionTitle = toTitleCase("{{ user_profile.position_title }}");
-    const asOf = "{{ user_profile.rol[0].as_of.strftime('%B %m, %Y') if user_profile.rol[0] }}";
+    const employmentStatus = toTitleCase("{{ user_profile.employment_status }}");
+    const asOf = "{{ user_profile.rol[0].as_of.strftime('%B %d, %Y') if user_profile.rol[0] }}";
     const status = "{{ user_profile.employment_status }}";
-    const normalText = "This is to certify that " + name + ", "+ positionTitle +" of National Irrigation Administration " +
-                       "– Pangasinan Irrigation Management Office on a Permanent Status " +
-                       "had an accumulated leave credits as of "+ asOf +", to wit: ";
+    const totalAccumulated = "{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] and user_profile.employment_status != 'JOB ORDER' else 'N/A' }}"
+
+    const normalText = "This certification is issued to " + name + ", holding the position "+ positionTitle +
+                       " on "+ employmentStatus + " status at the National Irrigation Administration - Pangasinan Irrigation Management Office, " +
+                       "has earned accumulated a total of "+ totalAccumulated +" leave credits as of "+ asOf +"." +
+                       "\n \n"+
+                       "The breakdown of which is as follows:";
 
 
     const currentDate = new Date();
@@ -270,11 +281,11 @@
     tb_sl.setText("{{ user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
     tb_total.setText("{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
     
-    cert_content.updateAppearances(timesRomanFont);
-    cert_content_closing.updateAppearances(timesRomanFont);
-    tb_vl.updateAppearances(timesRomanFont);
-    tb_sl.updateAppearances(timesRomanFont);
-    tb_total.updateAppearances(timesRomanFont);
+    cert_content.updateAppearances(cambria);
+    cert_content_closing.updateAppearances(cambria);
+    tb_vl.updateAppearances(cambria);
+    tb_sl.updateAppearances(cambria);
+    tb_total.updateAppearances(cambria);
         
     form.flatten();
 
@@ -346,8 +357,11 @@ function getDaySuffix(day) {
     monthly_daily = (daily_salary['{{ user_profile.salary_grade }}'])*22;
 	{% endif %}
 
-  document.getElementById('total_money_value').innerHTML = 'Php '+numberWithCommas(((total_earned_leaves*monthly_daily)*(0.0481927)).toFixed(2));
-
+  {% if user_profile.employment_status != 'JOB ORDER' %}
+    document.getElementById('total_money_value').innerHTML = 'Php '+numberWithCommas(((total_earned_leaves*monthly_daily)*(0.0481927)).toFixed(2));
+  {% else %}
+    document.getElementById('total_money_value').innerHTML = 'N/A';
+  {% endif %}
 
     document.getElementById('rol_form').addEventListener('submit', (e)=>{
       e.preventDefault();
