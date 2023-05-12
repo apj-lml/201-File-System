@@ -57,27 +57,41 @@ td{
                 <div class="card-header"><h3 class="card-title text-center"><i class="bi bi-journals"></i> List of Loyalty Awardees</h3> </div>
               </div>
               <div class="table-responsive">
+                <!-- <div id="userstable_filter"></div> -->
                 <table class="table table-bordered table-striped" id="loyalty_awardees_table" width = "100%">
                   <thead class="">
                   <tr class="align-middle">
-                    <th style="word-wrap: break-word; min-width:160px; max-width:250px; white-space:normal;">Name</th>
-                    <th style="word-wrap: break-word; min-width:160px; max-width:250px; white-space:normal;">First Day in Service <br>(No Gap)</th>
-                    <th style="word-wrap: break-word; min-width:75px; max-width:90px; white-space:normal;">Number of Years in Service</th>
-                    <th style="word-wrap: break-word; min-width:75px; max-width:90px; white-space:normal;">Claiming Year</th>
+                    <th>Name</th>
+                    <th>First Day in Service <br>(No Gap)</th>
+                    <th>Number of Years in Service</th>
+                    <th>Claiming Year</th>
                   </tr>
                   </thead>
                   <tbody>
                     {# if getListOfawardees is not none #}
                       {% for awardee in getListOfawardees %}
                         <tr>
-                          <td>{{awardee.proper_fullname}}</td>
-                          <td class="text-center">{{awardee.first_day_in_service.strftime('%B %d, %Y')  if awardee.awardClaimingYear() is not none }}</td>
-                          <td class="text-center">{{awardee.getYearsInService()}}</td>
-                          <td class="text-center">{{awardee.awardClaimingYear().strftime('%B %d, %Y') if awardee.awardClaimingYear() is not none }}</td>
+                          <td class="text-center align-middle">{{awardee.proper_fullname}}</td>
+                          <td class="text-center align-middle">{{awardee.first_day_in_service.strftime('%B %d, %Y') if awardee.awardClaimingYear() is not none }}</td>
+                          <td class="text-center align-middle">{{awardee.getYearsInService() if awardee.getYearsInService() is not none }}</td>
+                          <td class="text-wrap align-middle">
+                            {% if awardee.awardClaimingYear() %}
+                                {% set claiming_years = awardee.awardClaimingYear() %}
+                                {{ claiming_years|join(' | ') }}
+                            {% endif %}
+                          </td>
                         </tr>
                       {% endfor %}
                     {# endif #}
                   </tbody>
+                  <!-- <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Claiming Year</th>
+                    </tr>
+                </tfoot> -->
                 </table>
               </div>
 
@@ -103,7 +117,7 @@ td{
         {
           extend : 'excel', 
           text: 'Export to Excel',
-          title: 'Optional awardees'
+          title: 'Loyalty Awardees'
         }
       ],
       columnDefs:[{targets:3,className:"truncate"}],
@@ -113,9 +127,32 @@ td{
       },
       responsive: false,
       order: [],
-        dom: `<'row'<'col-sm-2'l><'col-sm-8'f><'col-sm-2'B>>
+      dom: `<'row'<'col-sm-2'l><'col-sm-8'f><'col-sm-2'B>>
 				<'row'<'col-sm-12'tr>>
 				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+      initComplete: function () {
+          this.api()
+              .columns(3)
+              .every(function () {
+                  var column = this;
+                  var select = $('<select><option value="">View All</option></select>')
+                      .appendTo( '#userstable_filter' )
+                      .on('change', function () {
+                          var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                          column.search(val ? '^' + val + '$' : '', true, false).draw();
+                      });
+
+                  column
+                      .data()
+                      .unique()
+                      .sort()
+                      .each(function (d, j) {
+                          select.append('<option value="' + d + '">' + d + '</option>');
+                      });
+              });
+      },
+
     });
 
 

@@ -440,6 +440,8 @@
 
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="{{ url_for('static', filename='sgjg.js') }}"></script>
+<script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+<script src="https://unpkg.com/downloadjs@1.4.7"></script>
 
 <script type="text/javascript">
 
@@ -592,11 +594,27 @@
 		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
 		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
 
-	  // Embed the Cambria font
-	  
-		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
 		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
 
+		pdfDoc.registerFontkit(fontkit);
+
+		const cambria = await pdfDoc.embedFont(cambriaFontBytes,{
+			subset: true, 
+			features: { liga: false }, 
+			});
+
+		const cambriaBold = await pdfDoc.embedFont(cambriaBoldFontBytes,{
+			subset: true, 
+			features: { liga: false }, 
+			});
+
+		const cambriaItalic = await pdfDoc.embedFont(cambriaItalicFontBytes,{
+			subset: true, 
+			features: { liga: false }, 
+			});
 
 		const form = pdfDoc.getForm()
 	
@@ -661,7 +679,7 @@
 		const date_to = document.getElementById('date_to');
 
 		tb_office_section.setText('PANGASINAN IMO / {{user_profile.user_section.section_title|escapejs}}');
-		tb_office_section.updateAppearances(timesRomanFont);
+		tb_office_section.updateAppearances(cambriaBold);
 
 		{% if user_profile.is_section_chief == 1 or user_profile.is_division_manager == 1%}
 			tb_immediate_supervisor.setText('N/A')
@@ -675,16 +693,16 @@
 
 		{% endif %}
 
-		tb_immediate_supervisor.updateAppearances(timesRomanFont);
+		tb_immediate_supervisor.updateAppearances(cambriaBold);
 
 		last_name.setText('{{user_profile.last_name}}');
-		last_name.updateAppearances(timesRomanFont);
+		last_name.updateAppearances(cambriaBold);
 
 		first_name.setText('{{user_profile.first_name}}');
-		first_name.updateAppearances(timesRomanFont);
+		first_name.updateAppearances(cambriaBold);
 
 		middle_name.setText('{{user_profile.middle_name}}');
-		middle_name.updateAppearances(timesRomanFont);
+		middle_name.updateAppearances(cambriaBold);
 
 
 		{% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
@@ -695,7 +713,7 @@
 			 tb_salary.setText(String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
 		{% endif %}
 
-		tb_salary.updateAppearances(timesRomanFont);
+		tb_salary.updateAppearances(cambriaBold);
 
 		var date_of_filing_formatted = new Date(date_of_filing.value);
 
@@ -709,10 +727,10 @@
 		var formattedDateOfFiling = date_of_filing_formatted.toLocaleDateString('en-US', options);
 
 		tb_date_of_filing.setText(String(formattedDateOfFiling));
-		tb_date_of_filing.updateAppearances(timesRomanFont);
+		tb_date_of_filing.updateAppearances(cambriaBold);
 		
 		tb_position.setText('{{ user_profile.position_title|escapejs }}');
-		tb_position.updateAppearances(timesRomanFont);
+		tb_position.updateAppearances(cambriaBold);
 
 		var leave_id = document.getElementById('leave_id').value;
 		if(leave_id == 1){
@@ -749,7 +767,7 @@
 
 			var slbw = document.getElementById('slbw');
 			tb_incase_slbw.setText(slbw.value);
-			tb_incase_slbw.updateAppearances(timesRomanFont);
+			tb_incase_slbw.updateAppearances(cambria);
 
 		}else if (leave_id == 12){
 			cb_sel.check();
@@ -763,7 +781,7 @@
 		if(wph.checked){
 			cb_within_ph.check();
 			tb_within_ph.setText(wph_remarks.value);
-			tb_within_ph.updateAppearances(timesRomanFont);
+			tb_within_ph.updateAppearances(cambria);
 
 		}
 
@@ -773,7 +791,7 @@
 		if(out_abroad.checked){
 			cb_abroad.check();
 			tb_abroad.setText(abroad_remarks.value);
-			tb_abroad.updateAppearances(timesRomanFont);
+			tb_abroad.updateAppearances(cambria);
 
 		}
 
@@ -783,7 +801,7 @@
 		if(in_hospital.checked){
 			cb_hospital.check();
 			tb_hospital.setText(in_hospital_illness.value)
-			tb_hospital.updateAppearances(timesRomanFont);
+			tb_hospital.updateAppearances(cambria);
 
 		}
 
@@ -793,14 +811,14 @@
 		if(out_patient.checked){
 			cb_out_patient.check();
 			tb_out_patient.setText(out_patient_illness.value)
-			tb_out_patient.updateAppearances(timesRomanFont);
+			tb_out_patient.updateAppearances(cambria);
 
 		}
 
 		var cto = document.getElementById('cto');
 		if(cto.checked){
 			tb_others.setText('CTO');
-			tb_others.updateAppearances(timesRomanFont);
+			tb_others.updateAppearances(cambria);
 
 		}
 
@@ -823,19 +841,19 @@
 
 		}
 
-		tb_days_applied_for.updateAppearances(timesRomanFont);
+		tb_days_applied_for.updateAppearances(cambriaBold);
 
 
 
 		tb_inclusive_dates.setText(date_from.value);
-		tb_inclusive_dates.updateAppearances(timesRomanFont);
+		tb_inclusive_dates.updateAppearances(cambriaBold);
 
 
 		tb_div_manager.setText('{{user_profile.assignatory[0].assignatory}}');
-		tb_div_manager.updateAppearances(timesRomanFont);
+		tb_div_manager.updateAppearances(cambriaBold);
 
 		tb_div_manager_position.setText('{{user_profile.assignatory[0].position_title}}');
-		tb_div_manager_position.updateAppearances(timesRomanFontItalic);
+		tb_div_manager_position.updateAppearances(cambriaItalic);
 
 		{% if user_profile.is_primary_afl_certifier == 1 %}
 			tb_certifier.setText('{{ secondary_certifier[0].first_name }} {{ secondary_certifier[0].middle_initial }}. {{ secondary_certifier[0].last_name }}');
@@ -844,8 +862,8 @@
 			tb_certifier.setText('FRANCIS CARLO L. ZACARIAS');
 			tb_certifier_position.setText('Industrial Relations Management/Development Officer C');
 		{% endif %}
-		tb_certifier.updateAppearances(timesRomanFont);
-		tb_certifier_position.updateAppearances(timesRomanFontItalic);
+		tb_certifier.updateAppearances(cambriaBold);
+		tb_certifier_position.updateAppearances(cambriaItalic);
 
 		
 
