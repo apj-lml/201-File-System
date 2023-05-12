@@ -235,12 +235,26 @@
 	  
 	  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 		<div class="offcanvas-header">
-		  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Toggle Column</h5>
+		  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Choose Columns</h5>
 		  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		</div>
 		<hr>
 		<div class="offcanvas-body">
-			<ul id="toggle_col">
+			<form action="#" method="POST" id="generateExcel" name="generateExcel">
+				<button class="btn btn-primary btn-sm" form="generateExcel">Generate Excel File</button>
+
+			{% for column in User.__table__.columns %}
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="{{ column.name }}" name="{{ column.name }}"  id="{{ column.name }}" checked>
+					<label class="form-check-label" for="{{ column.name }}">
+						{{ column.name }}
+					</label>
+				</div>
+			{% endfor %}
+
+			</form>
+		
+			<!-- <ul id="toggle_col">
 				<li><a href="#" class="toggle-vis" data-column="0">id</a></li>
 				<li><a href="#" class="toggle-vis" data-column="1">timestamp</a></li>
 				<li><a href="#" class="toggle-vis" data-column="2">employee_id</a></li>
@@ -294,7 +308,7 @@
 				<li><a href="#" class="toggle-vis" data-column="49">pres_city_municipality</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="50">pres_province</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="51">pres_zip_code</a></li>
-				<!-- <li><a href="#" class="toggle-vis" data-column="51">highest_educational_attainment</a></li>  -->
+				
 				<li><a href="#" class="toggle-vis" data-column="52">elementary_school</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="53">e_period_of_attendance_from</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="54">e_period_of_attendance_to</a></li> 
@@ -305,38 +319,10 @@
 				<li><a href="#" class="toggle-vis" data-column="59">hs_period_of_attendance_to</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="60">hs_highest_level</a></li> 
 				<li><a href="#" class="toggle-vis" data-column="61">hs_scholarship_academic_honor</a></li> 
-				<!-- <li><a href="#" class="toggle-vis" data-column="62">v_school</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="63">vocational_trade_course</a></li>
-				<li><a href="#" class="toggle-vis" data-column="64">v_period_of_attendance_from</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="65">v_period_of_attendance_to</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="66">v_highest_level</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="67">v_scholarship_academic_honor</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="68">c_school</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="69">c_degree_course</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="70">c_period_of_attendance_from</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="71">c_period_of_attendance_to</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="72">c_highest_level_units_earned</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="73">c_scholarship_academic_honor</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="74">gs_school</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="75">gs_degree_course</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="76">gs_period_of_attendance_from</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="77">gs_period_of_attendance_to</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="78">gs_highest_level_units_earned</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="79">gs_scholarship_academic_honor</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="80">doc_school</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="81">doc_degree_course</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="82">doc_period_of_attendance_from</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="83">doc_period_of_attendance_to</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="84">doc_highest_level_units_earned</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="85">doc_scholarship_academic_honor</a></li>  -->
-				<!-- <li><a href="#" class="toggle-vis" data-column="86">cs_eligibility</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="87">cs_rating</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="88">place_of_examination_conferment</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="89">license_no</a></li> 
-				<li><a href="#" class="toggle-vis" data-column="90">date_of_validity</a></li>  -->
+
 				<li><a href="#" class="toggle-vis" data-column="91">type_of_user</a></li>
 				<li><a href="#" class="toggle-vis" data-column="92">Controls</a></li>
-			</ul>
+			</ul> -->
 		</div>
 	  </div>
 
@@ -498,6 +484,43 @@
 
 {%block scripts%}
 <script type="text/javascript">
+
+	document.getElementById('generateExcel').addEventListener('submit',(e)=>{
+		e.preventDefault();
+
+		const formElem = document.getElementById("generateExcel");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+
+		loadingScreen('block');
+		
+		fetch('/employees/generate-report', {
+			method: 'POST',
+			body: formData
+		}).then((res)=>{
+			return res.blob();
+		}).then((blob)=>{
+
+			// Create a temporary anchor element
+			const a = document.createElement('a');
+			a.href = URL.createObjectURL(blob);
+			a.download = 'report.xls';
+
+			// Append the anchor element to the document body
+			document.body.appendChild(a);
+
+			// Simulate a click on the anchor element to start the download
+			a.click();
+
+			// Remove the anchor element from the document body
+			document.body.removeChild(a);
+			setTimeout(loadingScreen('none'), 20000);
+			
+		})
+	})
+
 $(document).ready(function() {
 	var $table = $("#demo table");
     $table.DataTable( {

@@ -84,7 +84,10 @@ def birthday_celebrators(mydate):
 @login_required
 @admin_permission.require(http_exception=403)
 def admin_dashboard():
-    return render_template('admin-dashboard.html', date_now = datetime.now(PST))
+    users = db.session.query(User).options(db.defer('acknowledgement')).all()
+    for user in users:
+        print('IDDDDDD: ', user.id)
+    return render_template('admin-dashboard.html', user_profile = users, User = User, College = College, date_now = datetime.now(PST))
 
 @views.route('/learning-development/<emp_id>', methods=['GET', 'POST'])
 @login_required

@@ -368,6 +368,16 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 <script type="text/javascript">
 
 window.addEventListener('load', (event) => {
+
+  AbortSignal.timeout ??= function timeout(ms) {
+    const ctrl = new AbortController()
+    setTimeout(() => {
+      ctrl.abort()
+      triggerToast('Connection Timeout! Please refresh the page and try again.', 'error')
+    }, ms)
+    return ctrl.signal
+    }
+
   {% if current_user.comments_remarks is not none and current_user.comments_remarks != '{"ops":[{"insert":"\\n"}]}' and current_user.is_authenticated %}
 
   const swalWithBootstrapButtons = Swal.mixin({

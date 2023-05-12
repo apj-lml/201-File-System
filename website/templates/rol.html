@@ -248,7 +248,7 @@
     const status = "{{ user_profile.employment_status }}";
     const totalAccumulated = "{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] and user_profile.employment_status != 'JOB ORDER' else 'N/A' }}"
 
-    const normalText = "This certification is issued to " + name + ", holding the position "+ positionTitle +
+    const normalText = "This certification is issued to attest that " + name + ", holding the position "+ positionTitle +
                        " on "+ employmentStatus + " status at the National Irrigation Administration - Pangasinan Irrigation Management Office, " +
                        "has earned accumulated a total of "+ totalAccumulated +" leave credits as of "+ asOf +"." +
                        "\n \n"+

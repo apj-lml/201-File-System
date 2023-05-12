@@ -481,7 +481,7 @@ button {
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="{{user_profile.first_day_in_service}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
+                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="{{user_profile.first_day_in_service}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }} required>
                       <label for="first_day_in_service">First Day in Service (No GAP)</label>
                     </div>
 

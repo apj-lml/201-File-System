@@ -681,7 +681,7 @@
 		tb_office_section.setText('PANGASINAN IMO / {{user_profile.user_section.section_title|escapejs}}');
 		tb_office_section.updateAppearances(cambriaBold);
 
-		{% if user_profile.is_section_chief == 1 or user_profile.is_division_manager == 1%}
+		{% if user_profile.is_section_chief == 1 or user_profile.is_division_manager == 1 %}
 			tb_immediate_supervisor.setText('N/A')
 		{% else %}
 

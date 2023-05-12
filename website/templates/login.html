@@ -65,8 +65,10 @@
   loginData.forEach((value, key) => (data[key] = value))
 
   loadingScreen('block');
+
 	
   fetch('/', {
+		signal: AbortSignal.timeout(30000),
 		method: 'POST',
 		body: JSON.stringify(data),
 	}).then((res)=>{

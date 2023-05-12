@@ -6,7 +6,7 @@ from flask_principal import identity_loaded, Principal, UserNeed, RoleNeed
 import jinja2
 from datetime import datetime
 from flask_marshmallow import Marshmallow
-
+import flask_excel as excel
 
 # from website.models import User
 
@@ -38,10 +38,10 @@ def create_app():
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	# #mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
@@ -54,6 +54,7 @@ def create_app():
 
 	db.init_app(app)
 	ma.init_app(app)
+	excel.init_excel(app)
 	
 	_js_escapes = {
         '\\': '\\u005C',
