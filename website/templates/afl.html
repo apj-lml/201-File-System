@@ -55,6 +55,18 @@
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+	<symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+	  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+	</symbol>
+	<symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+	  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+	</symbol>
+	<symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+	  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+	</symbol>
+  </svg>
+
 <main class="container-fluid mt-4 ps-5 pe-5 pb-5">
 	<ul class="circles">
 		<li></li>
@@ -141,7 +153,7 @@
 										<input type="date" class="form-control" id="date_from" name ="date_from" placeholder="Select date..." form="add_afl_form" required>
 										<div class="invalid-feedback">
 											Please provide inclusive date/s.
-										  </div>  
+										  </div>
 									</div>
 
 									<!-- <div class="form-floating flex-fill mb-3 p-1">
@@ -452,6 +464,11 @@
 		var formPdfBytes;
 		var pdfDoc;
 
+		var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+		var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+		return new bootstrap.Popover(popoverTriggerEl)
+		})
+
 		drawCalendar('range');
 	  
 		document.getElementById('date_of_filing').valueAsDate = new Date();
@@ -528,10 +545,35 @@
 	  })()
 
 
-	//document.getElementById('add_afl_form').addEventListener('submit', (e)=>{
-	//	e.preventDefault();
+	function validateInclusiveDates(dates, leave){
+		var num = 0;
 
-	//});
+		var date_of_filing = document.getElementById('date_of_filing');
+		var submitBtn = document.getElementById('submitBtn');
+		
+		num = getCalendarDays(date_of_filing.value, dates[0][0])+1;
+		
+		if(num <= 5){
+			submitBtn.disabled = true;
+			Swal.fire({
+				title: 'NOTICE!',
+				text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
+				icon: 'warning',
+				allowOutsideClick: false,
+				showCancelButton: false,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'I understand'
+			  }).then((result) => {
+				if (result.isConfirmed) {
+					//document.getElementById("date_from").blur();
+				}
+			  })
+
+		}else{
+			submitBtn.disabled = false;
+		}
+	}
 
 	function addAflForm(){
 		var formElem = document.getElementById("add_afl_form");
@@ -562,7 +604,7 @@
 		if ('caches' in window) {
 			//const pdfUrl = 'path/to/your/file.pdf';
 
-			formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
+			formUrl = "{{ url_for('static', filename='afl-template1.pdf') }}";
 	  
 		
 			// Try to fetch the PDF file from the cache
@@ -586,7 +628,7 @@
 		//import { TextFormField } from 'pdf-lib/lib/core/interactive/forms';
 
 
-		//formUrl = "{{ url_for('static', filename='afl-template2.pdf') }}";
+		//formUrl = "{{ url_for('static', filename='afl-template1.pdf') }}";
 	  
 		//formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 	  
@@ -922,6 +964,8 @@
 			altInput: true,
 			altFormat: "F j, Y",
 			dateFormat: "F j, Y",
+			//"plugins": [new confirmDatePlugin({})],
+			//defaultDate: "2023-05-15",
 			//readOnly: false,
 			allowInput: true,
 			//dateFormat: "m/d/Y",
@@ -942,7 +986,7 @@
 				el.style.color = '#585858'; // prevent text color change on focus
 				el.style.backgroundColor = 'f7f7f7'; // prevent bg color change on focus
 			},
-			onChange: function(selectedDates) {
+			onValueUpdate: function(selectedDates, dateStr, instance) {
 			  const sortedDates = selectedDates.sort((a, b) => a - b);
 			  const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
 			  let lastRange = 0;
@@ -958,13 +1002,15 @@
 				  dateRanges.push([new Date(sortedDates[i]).toLocaleDateString()]);
 				}
 			  }
-			  //console.log(dateRanges);
+			  var leave = document.getElementById('leave_id').value;
+
+			  if(leave == 2){
+				validateInclusiveDates(dateRanges, leave);
+			  }
+			  //document.getElementById("no_working_days_applied_for").focus();
 			}
 		  });
-
 		  //fp.destroy();
-		  //console.log(fp.days);
-		  fp.clear();
 		  //fp.redraw();
 
 	  }
@@ -981,7 +1027,6 @@
 			.then((myPdfDoc) => {
 				
 			   pdfDoc = myPdfDoc;
-			   console.log(pdfDoc);
 			})
 			.catch((error) => {
 			  // Handle any errors that occurred during loading or processing
@@ -1007,6 +1052,10 @@
 
 
 function leave_type(leave_type){
+
+	const fp = document.querySelector("#date_from")._flatpickr;
+	fp.clear();
+
 	var wph = document.getElementById('wph');
 	var wph_remarks = document.getElementById('wph_remarks');
 	var out_abroad = document.getElementById('out_abroad');
@@ -1176,6 +1225,7 @@ function leave_type(leave_type){
 		terminal.disabled = false;
 		
 	}else{
+
 		wph.disabled = true;
 		wph_remarks.disabled = true;
 		out_abroad.disabled = true;
@@ -1205,6 +1255,13 @@ function leave_type(leave_type){
 		cto.checked = false;
 		monetization.checked = false;
 		terminal.checked = false;
+
+		if(leave_type.value == 2){
+			document.getElementById('submitBtn').disabled = true;
+		}else{
+			document.getElementById('submitBtn').disabled = false;
+
+		}
 	}
 }
 
@@ -1260,10 +1317,22 @@ function convertNumberToWords(number) {
 	}
 
 
-	document.getElementById('no_working_days_applied_for').value = days;
-	//return days;
+	//document.getElementById('no_working_days_applied_for').value = days;
+	return days;
   }
   
+  function getCalendarDays(startDate, endDate) {
+	var days = 0;
+	var currentDate = new Date(startDate);
+	var endDate = new Date(endDate);
+  
+	while (currentDate <= endDate) {
+	  days++;
+	  currentDate.setDate(currentDate.getDate() + 1);
+	}
+  
+	return days;
+  }
 
   function scrollToDiv(elemId){
 

@@ -140,6 +140,11 @@ def update_employee(emp_id):
 
     formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
+    if formdata['first_day_in_service'] == '':
+        formdata['first_day_in_service'] = None
+    
+    
+
 # ---------------------------------------------------------------------------- #
 #                              UPLOADING OF FILE                               #
 # ---------------------------------------------------------------------------- #
@@ -147,7 +152,7 @@ def update_employee(emp_id):
 
     for afilex in request.files:
         filesx = request.files.getlist(afilex)
-        print(afilex)
+        
         for filex in filesx:
             if afilex == "wes" :
                 if filex.filename == "":

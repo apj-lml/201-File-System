@@ -481,7 +481,7 @@ button {
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="{{user_profile.first_day_in_service}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }} required>
+                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="{{user_profile.first_day_in_service}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
                       <label for="first_day_in_service">First Day in Service (No GAP)</label>
                     </div>
 
@@ -620,7 +620,7 @@ button {
                     </div>
                     <div class="form-floating flex-fill p-1">
                       <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" minlength="3" maxlength="10" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <label for="name_extn">SSS No.</label>
+                      <label for="name_extn">SSS No.<span class="is-required">*</span></label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 0226413283</p></small>
 
                     </div>
