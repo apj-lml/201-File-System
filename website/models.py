@@ -223,9 +223,8 @@ class User(db.Model, UserMixin):
         return age
     
     def effectivityOfSeparation(self):
-        year_to_add = relativedelta(years=64)
-        one_day = timedelta(days=1)
-        updated_date = self.birthdate + year_to_add + one_day
+        year_to_add = relativedelta(years=65)
+        updated_date = self.birthdate + year_to_add
 
         return updated_date
 
@@ -243,7 +242,7 @@ class User(db.Model, UserMixin):
         if self.first_day_in_service:
             if self.getYearsInService() <= 10:
                 year_to_add = relativedelta(years=10)
-                claiming_years.append(updated_date.strftime('%Y'))
+                # claiming_years.append(updated_date.strftime('%Y'))
             else:
                 # year_divided = (math.floor((self.getYearsInService() - 10) / 5) * 5)
                 year_divided = math.ceil((self.getYearsInService() - 10) / 5) * 5
