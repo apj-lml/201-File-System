@@ -238,25 +238,24 @@ class User(db.Model, UserMixin):
         year_to_add = 0
         claiming_years = []
 
-
         if self.first_day_in_service:
-            if self.getYearsInService() <= 10:
-                year_to_add = relativedelta(years=10)
-                # claiming_years.append(updated_date.strftime('%Y'))
-            else:
-                # year_divided = (math.floor((self.getYearsInService() - 10) / 5) * 5)
-                year_divided = math.ceil((self.getYearsInService() - 10) / 5) * 5
-                year_to_add = relativedelta(years=10) + relativedelta(years=year_divided)
-                for x in range(10, self.getYearsInService()+5, 5):
-                    #checking if month is more than June
-                    if self.first_day_in_service.month > 6:
-                        updated_date = self.first_day_in_service + relativedelta(years=x) + one_year
-                        claiming_years.append(updated_date.strftime('%Y'))
-                    else:
-                        updated_date = self.first_day_in_service + relativedelta(years=x)
-                        claiming_years.append(updated_date.strftime('%Y'))
+            # if self.getYearsInService() <= 10:
+            #     year_to_add = relativedelta(years=10)
+            # else:
+            #     year_divided = math.ceil((self.getYearsInService() - 10) / 5) * 5
+            #     year_to_add = relativedelta(years=10) + relativedelta(years=year_divided)
                 
-                    return claiming_years
+            for x in range(10, 45+5, 5):
+                print(x)
+                #checking if month is more than June
+                if self.first_day_in_service.month > 6:
+                    updated_date = self.first_day_in_service + relativedelta(years=x) + one_year
+                    claiming_years.append(updated_date.strftime('%Y'))
+                else:
+                    updated_date = self.first_day_in_service + relativedelta(years=x)
+                    claiming_years.append(updated_date.strftime('%Y'))
+                
+            return claiming_years
 
     # emergency_contact = db.relationship('Emergency_Contact')
 
