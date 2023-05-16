@@ -41,6 +41,7 @@ def login():
 				if user.type_of_user == 'admin':
 					identity_changed.send(current_app._get_current_object(),
                                   identity=Identity(user.id))
+					# return 500
 					return redirect(url_for('views.admin_dashboard'))
 				elif user.type_of_user == 'super admin':
 					return redirect(url_for('views.super_admin_dashboard'))

@@ -415,6 +415,12 @@ def rol(emp_id):
 
             return render_template('rol.html', emp_id = emp_id, user_profile = user)
 
+@views.route('/500', methods=['GET'])
+# @login_required
+# @admin_permission.require(http_exception=403)
+def get500page():
+    if request.method == 'GET':
+        return render_template('500.html')
 
 @views.context_processor
 def inject_today_date():

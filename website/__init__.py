@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -28,17 +28,21 @@ DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
 
+def page_not_found(e):
+  return render_template('500.html'), 500
 
 def create_app():
 	
 	app = Flask(__name__)
 	app.config['SECRET_KEY'] = '201 File System Key'
 
+	app.register_error_handler(500, page_not_found)
+
 	#sqlite database
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	#app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	# #mysql database online
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
@@ -184,6 +188,8 @@ def create_app():
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #
+
+	
 
 
 	from .models import Agency_Section, User

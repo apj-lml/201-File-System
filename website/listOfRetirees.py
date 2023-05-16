@@ -20,7 +20,7 @@ def page_not_found(e):
 
 
 # ---------------------------------------------------------------------------- #
-#                               GET EXPIRING IDS                               #
+#                               GET RETIREES                                   #
 # ---------------------------------------------------------------------------- #
 @listOfRetirees.route('/', methods=['POST', 'GET'])
 @login_required
@@ -30,7 +30,7 @@ def get_list_of_expiry():
 
         today = datetime.now().date()
         sixty_years_ago = today - relativedelta(years=60)
-        sixty_four_years_ago = today - relativedelta(years=65)
+        sixty_four_years_ago = today - relativedelta(years=64)
 
         getListOfRetirees = User.query.filter(User.birthdate <= sixty_years_ago).filter(User.birthdate > sixty_four_years_ago).filter(User.status_remarks == "ACTIVE").all()
         getListOfCompulsoryRetirees = User.query.filter(User.birthdate <= sixty_years_ago).filter(User.birthdate < sixty_four_years_ago).filter(User.status_remarks == "ACTIVE").all()

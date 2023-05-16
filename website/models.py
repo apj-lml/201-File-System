@@ -221,7 +221,6 @@ class User(db.Model, UserMixin):
         today = datetime.now().date()
         age = relativedelta(today, self.birthdate).years
         return age
-
     
     def effectivityOfSeparation(self):
         year_to_add = relativedelta(years=64)
@@ -239,25 +238,26 @@ class User(db.Model, UserMixin):
         one_year = relativedelta(years=1)
         year_to_add = 0
         claiming_years = []
-        if self.getYearsInService() <= 10:
-            year_to_add = relativedelta(years=10)
-        else:
-            # year_divided = (math.floor((self.getYearsInService() - 10) / 5) * 5)
-            year_divided = math.ceil((self.getYearsInService() - 10) / 5) * 5
-            year_to_add = relativedelta(years=10) + relativedelta(years=year_divided)
+
 
         if self.first_day_in_service:
-            for x in range(10, self.getYearsInService()+5, 5):
-                if self.first_day_in_service.month > 6:
-                    updated_date = self.first_day_in_service + relativedelta(years=x) + one_year
-                    claiming_years.append(updated_date.strftime('%Y'))
-                else:
-                    updated_date = self.first_day_in_service + relativedelta(years=x)
-                    claiming_years.append(updated_date.strftime('%Y'))
-            
-            return claiming_years
-    
-
+            if self.getYearsInService() <= 10:
+                year_to_add = relativedelta(years=10)
+                claiming_years.append(updated_date.strftime('%Y'))
+            else:
+                # year_divided = (math.floor((self.getYearsInService() - 10) / 5) * 5)
+                year_divided = math.ceil((self.getYearsInService() - 10) / 5) * 5
+                year_to_add = relativedelta(years=10) + relativedelta(years=year_divided)
+                for x in range(10, self.getYearsInService()+5, 5):
+                    #checking if month is more than June
+                    if self.first_day_in_service.month > 6:
+                        updated_date = self.first_day_in_service + relativedelta(years=x) + one_year
+                        claiming_years.append(updated_date.strftime('%Y'))
+                    else:
+                        updated_date = self.first_day_in_service + relativedelta(years=x)
+                        claiming_years.append(updated_date.strftime('%Y'))
+                
+                    return claiming_years
 
     # emergency_contact = db.relationship('Emergency_Contact')
 
