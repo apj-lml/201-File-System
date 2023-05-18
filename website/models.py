@@ -39,7 +39,6 @@ class Serializer(object):
 
 @dataclass
 class User(db.Model, UserMixin):
-
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime(timezone=True), server_default=func.now())
     status_remarks = db.Column(db.String(50))
@@ -246,7 +245,6 @@ class User(db.Model, UserMixin):
             #     year_to_add = relativedelta(years=10) + relativedelta(years=year_divided)
                 
             for x in range(10, 45+5, 5):
-                print(x)
                 #checking if month is more than June
                 if self.first_day_in_service.month > 6:
                     updated_date = self.first_day_in_service + relativedelta(years=x) + one_year

@@ -17,6 +17,9 @@ import os, os.path
 import json
 import flask_excel as excel
 from sqlalchemy.orm import load_only, joinedload
+from sqlalchemy import column, inspect
+from flask_excel import make_response_from_records
+
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -46,17 +49,16 @@ def generate_report():
         column_names = values
         c_school_values = []
         
-        # for user in query_sets:
-        #     college_objects = user.college
-        #     if college_objects:
-        #         c_school_values.extend([college.c_school for college in college_objects])
-        # return excel.make_response_from_query_sets(query_sets, column_names, "xls", additional_c_school=c_school_values)
-        
-        # query_sets = User.query.options(joinedload(User.college)).all()
+        query_sets = (
+            User.query
+            .options(load_only(*values))
+            .all()
+        )
 
-        query_sets = User.query.options(load_only(*values)).all()
         column_names = values
         return excel.make_response_from_query_sets(query_sets, column_names, "xls")
+    
+
         
 @employees.route('get-employees/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -142,8 +144,6 @@ def update_employee(emp_id):
 
     if formdata['first_day_in_service'] == '':
         formdata['first_day_in_service'] = None
-    
-    
 
 # ---------------------------------------------------------------------------- #
 #                              UPLOADING OF FILE                               #

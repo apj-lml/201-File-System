@@ -58,6 +58,12 @@ td{
               </div>
               <div class="table-responsive">
                 <!-- <div id="userstable_filter"></div> -->
+                <!-- <select class="form-select" aria-label="Default select example" id="columnSelect">
+                  <option value="0">Name</option>
+                  <option value="1">First Day in Service</option>
+                  <option value="2">Number of Years in Service</option>
+                  <option value="3">Claiming Year</option>
+                </select> -->
                 <table class="table table-bordered table-striped" id="loyalty_awardees_table" width = "100%">
                   <thead class="">
                   <tr class="align-middle">
@@ -84,14 +90,6 @@ td{
                       {% endfor %}
                     {# endif #}
                   </tbody>
-                  <!-- <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Claiming Year</th>
-                    </tr>
-                </tfoot> -->
                 </table>
               </div>
 
@@ -109,54 +107,150 @@ td{
 
 <script type="text/javascript">
 
-   window.addEventListener('load',()=>{
+  window.addEventListener('load',()=>{
 
-    $('#loyalty_awardees_table').DataTable({
+    var table = $('#loyalty_awardees_table').DataTable({
       dom: 'Bfrtip',
       buttons: [
         {
-          extend : 'excel', 
-          text: 'Export to Excel',
+          extend: 'excel',
+          text: '<i class="bi bi-file-earmark-spreadsheet-fill"></i> Export Excel',
           title: 'Loyalty Awardees'
         }
       ],
-      columnDefs:[{targets:3,className:"truncate"}],
-        createdRow: function(row){
-          var td = $(row).find(".truncate");
-          td.attr("title", td.html());
+      "oLanguage": {
+        "sSearch": ""
+      },
+      columnDefs: [{ targets: 3, className: "truncate" }],
+      createdRow: function(row) {
+        var td = $(row).find(".truncate");
+        td.attr("title", td.html());
       },
       responsive: false,
       order: [],
-      dom: `<'row'<'col-sm-2'l><'col-sm-8'f><'col-sm-2'B>>
-				<'row'<'col-sm-12'tr>>
-				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
-      initComplete: function () {
-          this.api()
-              .columns(3)
-              .every(function () {
-                  var column = this;
-                  var select = $('<select><option value="">View All</option></select>')
-                      .appendTo( '#userstable_filter' )
-                      .on('change', function () {
-                          var val = $.fn.dataTable.util.escapeRegex($(this).val());
+      dom: `<'row'<'col-sm-2'l><'col-sm-5 appendRegex'f><'col-sm-3 appendHere'><'col-sm-2'B>>
+            <'row'<'col-sm-12'tr>>
+            <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+            initComplete: function() {
+              var api = this.api();
 
-                          column.search(val ? '^' + val + '$' : '', true, false).draw();
-                      });
+              var searchInput = $('div.dataTables_filter input[type="search"]');
+              var appendRegex = $(`
+              <div class="col-sm-6 ms-auto text-end"
+                <div class="form-check form-switch text-end">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+                  <label class="form-check-label" for="flexSwitchCheckChecked">Exact Match</label>
+                </div>
+              </div>
+              `).appendTo(('div.appendRegex'));
 
-                  column
-                      .data()
-                      .unique()
-                      .sort()
-                      .each(function (d, j) {
-                          select.append('<option value="' + d + '">' + d + '</option>');
-                      });
+              searchInput.attr('placeholder', 'Search...');
+
+              var columnSelect2 = $('<select class="form-select form-select-sm" id="columnSelect"><option value="">Search All</option></select>')
+                .appendTo($('div.appendHere'));
+                //.appendTo($('div.dataTables_filter'));
+        
+              api.columns().every(function() {
+                var column = this;
+        
+                columnSelect2.append('<option value="' + column.index() + '">' + column.header().textContent + '</option>');
               });
-      },
+        
+              $('div.dataTables_filter input[type="search"]').on('keyup', function() {
+                var columnIndex = $('#columnSelect').val();
+                var searchValue = $(this).val();
+                var flexSwitchCheckChecked = $('#flexSwitchCheckChecked').prop('checked');
+                
+                console.log(flexSwitchCheckChecked);
 
+                api.columns().search('').draw(); // Reset search on all columns
+        
+                if (columnIndex !== '') {
+                  if (columnIndex === '3') {
+                    if(!flexSwitchCheckChecked){
+                      api.columns([columnIndex, 4]).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  } else {
+                    if(!flexSwitchCheckChecked){
+                      api.column(columnIndex).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  }
+                }
+
+              });
+
+              $('#columnSelect').on('change', function() {
+                var columnIndex = $('#columnSelect').val();
+                var searchValue = $(this).val();
+                var flexSwitchCheckChecked = $('#flexSwitchCheckChecked').prop('checked');
+                
+                console.log(flexSwitchCheckChecked);
+
+                api.columns().search('').draw(); // Reset search on all columns
+        
+                if (columnIndex !== '') {
+                  if (columnIndex === '3') {
+                    if(!flexSwitchCheckChecked){
+                      api.columns([columnIndex, 4]).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  } else {
+                    if(!flexSwitchCheckChecked){
+                      api.column(columnIndex).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  }
+                }
+
+              });
+
+              $('#flexSwitchCheckChecked').on('change', function() {
+                var columnIndex = $('#columnSelect').val();
+                var searchValue = $(this).val();
+                var flexSwitchCheckChecked = $('#flexSwitchCheckChecked').prop('checked');
+                
+                console.log(flexSwitchCheckChecked);
+
+                //api.columns().search('').draw(); // Reset search on all columns
+        
+                if (columnIndex !== '') {
+                  if (columnIndex === '3') {
+                    if(!flexSwitchCheckChecked){
+                      api.columns([columnIndex, 4]).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  } else {
+                    if(!flexSwitchCheckChecked){
+                      api.column(columnIndex).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  }
+                }
+
+              });
+
+
+
+            }
     });
-
+  
 
 });
+
 
 
 </script>
