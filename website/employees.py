@@ -56,7 +56,17 @@ def generate_report():
         )
 
         column_names = values
-        return excel.make_response_from_query_sets(query_sets, column_names, "xls")
+        # return excel.make_response_from_query_sets(query_sets, column_names, "xls")
+        columns_to_export_user = ['id', 'last_name', 'email']  # Specify the columns you want to export
+        columns_to_export_college = ['id', 'c_school']  # Specify the columns you want to export
+
+        users = db.session.query(column(User.id), column(User.last_name), column(User.email)).all()
+        colleges = db.session.query(column(College.id), column(College.c_school)).all()
+
+
+        response = excel.make_response_from_tables(db.session, [users, colleges], "xls")
+
+        return response
     
 
         
