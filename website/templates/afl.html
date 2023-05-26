@@ -11,9 +11,15 @@
 		overflow-y: scroll;
 		scroll-behavior: smooth;
 	}
-	.highlight {
+	.highlight2 {
 		background-color: rgba(166, 240, 243, 0.8); /* set the highlight color */
 		transition: background-color 1s ease-out; /* add a transition */
+		
+	  }
+
+	  .highlight {
+		box-shadow: 0 0 8px 1px #48abe0,
+					0 0 9px 2px #ff1493;
 	  }
 	  
 	  .fade-out {
@@ -112,7 +118,7 @@
 								{% else %}
 									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" >
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="" id="date_of_filing_display" placeholder="Date of Filing" disabled >
+										<input type="date" class="form-control" name="" id="date_of_filing_display" placeholder="Date of Filing" disabled >
 										<label for="date_of_filing_display">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								{% endif %}
@@ -186,7 +192,7 @@
 							</div>
 						</div>
 
-						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
+						<div class="card shadow-sm mb-3 col-sm-12 col-md-6">
 							<div class="card-body">
 								<div class="d-md-flex flex-row">
 									<h6><i>In case of Vacation/Special Privilege Leave:</i></h6>
@@ -315,70 +321,70 @@
 			</div>
 		</div>
 		
-		<div class="card col-md-4 col-sm-12" style="height: 850px;">
-			<div class="card-body">
+		<div class="card col-md-4 col-sm-12 m-0 p-0" style="height: 850px;">
+			<div class="card-body m-0 p-0">
 				<div class="scroll-container p-3" id="scrolling_div">
-					<div id="scrollspyHeading1">
+					<div id="scrollspyHeading1" class="rounded p-3">
 						<h4 id="">1. Vacation Leave*</h4>
-						<p>
+						<p class="mb-0">
 							It shall be filed five (5) days in advance, whenever possible, of the effective date of such leave. Vacation leave within in the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
 						</p>
 					</div>
-					<div id="scrollspyHeading2">
+					<div id="scrollspyHeading2" class="rounded p-3">
 						<h4 id="">2. Mandatory/Forced leave</h4>
-						<p>
+						<p class="mb-0">
 							Annual five-day vacation leave shall be forfeited if not taken during the year. In case the scheduled leave has been cancelled in the exigency of the service by the head of agency, it shall no longer be deducted from the accumulated vacation leave. Availment of one (1) day or more Vacation Leave (VL) shall be considered for complying the mandatory/forced leave subject to the conditions under Section 25, Rule XVI of the Omnibus Rules Implementing E.O. No. 292.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading3">
+					<div id="scrollspyHeading3" class="rounded p-3">
 					<h4 id="">3. Sick leave*</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>It shall be filed immediately upon employee's return from such leave.</li>
 							<li>If filed in advance or exceeding five (5) days, application shall be accompanied by a medical certificate. In case medical consultation was not availed of, an affidavit should be executed by an applicant.</li>
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading4">
+					<div id="scrollspyHeading4" class="rounded p-3">
 						<h4 id="">4. Maternity leave* – 105 days</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>Proof of pregnancy e.g. ultrasound, doctor’s certificate on the expected date of delivery</li>
 							<li>Accomplished Notice of Allocation of Maternity Leave Credits (CS Form No. 6a), if needed</li>
 							<li>Seconded female employees shall enjoy maternity leave with full pay in the recipient agency.</li>
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading5">
+					<div id="scrollspyHeading5" class="rounded p-3">
 						<h4 id="">5. Paternity leave – 7 days</h4>
-						<p>
+						<p class="mb-0">
 							Proof of child’s delivery e.g. birth certificate, medical certificate and marriage contract.
 						</p>
 					</div>
-					<div id="scrollspyHeading6">
+					<div id="scrollspyHeading6" class="rounded p-3">
 						<h4 id="">6. Special Privilege leave – 3 days</h4>
-						<p>
+						<p class="mb-0">
 							It shall be filed/approved for at least one (1) week prior to availment, except on emergency cases. Special privilege leave within the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading7">
+					<div id="scrollspyHeading7" class="rounded p-3">
 						<h4 id="">7. Solo Parent leave – 7 days</h4>
-						<p>
+						<p class="mb-0">
 							It shall be filed in advance or whenever possible five (5) days before going on such leave with updated Solo Parent Identification Card.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading8">
+					<div id="scrollspyHeading8" class="rounded p-3">
 						<h4 id="">8. Study leave* – up to 6 months</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>Shall meet the agency’s internal requirements, if any;</li>
 							<li>Contract between the agency head or authorized representative and the employee concerned.</li>
 						</ul>
 					</div>
 					
-					<div id="scrollspyHeading9">
+					<div id="scrollspyHeading9" class="rounded p-3">
 						<h4 id="">9. VAWC leave – 10 days</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>It shall be filed in advance or immediately upon the woman employee’s return from such leave.</li>
 							<li>It shall be accompanied by any of the following supporting documents:
 								<ol>
@@ -392,9 +398,9 @@
 						</ul>
 					</div>
 					
-					<div id="scrollspyHeading10">
+					<div id="scrollspyHeading10" class="rounded p-3">
 						<h4 id="">10. Rehabilitation leave* – up to 6 months</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>Application shall be made within one (1) week from the time of the accident except when a longer period is warranted.</li>
 							<li>Letter request supported by relevant reports such as the police report, if any,</li>
 							<li>Medical certificate on the nature of the injuries, the course of treatment involved, and the need to undergo rest, recuperation, and rehabilitation, as the case may be.</li>
@@ -402,38 +408,38 @@
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading11">
+					<div id="scrollspyHeading11" class="rounded p-3">
 						<h4 id="">11. Special leave benefits for women* – up to 2 months</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>The application may be filed in advance, that is, at least five (5) days prior to the scheduled date of the gynecological surgery that will be undergone by the employee. In case of emergency, the application for special leave shall be filed immediately upon employee’s return but during confinement the agency shall be notified of said surgery.</li>
 							<li>The application shall be accompanied by a medical certificate filled out by the proper medical authorities, e.g. the attending surgeon accompanied by a clinical summary reflecting the gynecological disorder which shall be addressed or was addressed by the said surgery; the histopathological report; the operative technique used for the surgery; the duration of the surgery including the perioperative period (period of confinement around surgery); as well as the employees estimated period of recuperation for the same.</li>
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading12">
+					<div id="scrollspyHeading12" class="rounded p-3">
 						<h4 id="">12. Special Emergency (Calamity) leave – up to 5 days</h4>
-						<ul>
+						<ul class="mb-0">
 							<li>The special emergency leave can be applied for a maximum of five (5) straight working days or staggered basis within thirty (30) days from the actual occurrence of the natural calamity/disaster. Said privilege shall be enjoyed once a year, not in every instance of calamity or disaster.</li>
 							<li>The head of office shall take full responsibility for the grant of special emergency leave and verification of the employee’s eligibility to be granted thereof. Said verification shall include: validation of place of residence based on latest available records of the affected employee; verification that the place of residence is covered in the declaration of calamity area by the proper government agency; and such other proofs as may be necessary.</li>
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading14">
+					<div id="scrollspyHeading14" class="rounded p-3">
 						<h4 id="">13. Monetization of leave credits</h4>
-						<p>
+						<p class="mb-0"> 
 							Application for monetization of fifty percent (50%) or more of the accumulated leave credits shall be accompanied by letter request to the head of the agency stating the valid and justifiable reasons.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading15">
+					<div id="scrollspyHeading15" class="rounded p-3">
 						<h4 id="">14. Terminal leave*</h4>
-						<p>
+						<p class="mb-0">
 							Proof of employee’s resignation or retirement or separation from the service.
 						</p>
 					</div>
-					<div id="scrollspyHeading13">
+					<div id="scrollspyHeading13" class="rounded p-3">
 						<h4 id="">15. Adoption Leave</h4>
-						<p>
+						<p class="mb-0">
 							Application for adoption leave shall be filed with an authenticated copy of the Pre-Adoptive Placement Authority issued by the Department of Social Welfare and Development (DSWD).
 						</p>
 					</div>
@@ -457,8 +463,8 @@
 
 <script type="text/javascript">
 
-	(function () {
-		'use strict'
+		var fp;
+		fp = document.querySelector("#date_from")._flatpickr;
 
 		var formUrl;
 		var formPdfBytes;
@@ -542,22 +548,31 @@
 		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
 		  var forms = document.querySelectorAll('.needs-validation')
 	  
-	  })()
+
 
 
 	function validateInclusiveDates(dates, leave){
+
 		var num = 0;
 
 		var date_of_filing = document.getElementById('date_of_filing');
 		var submitBtn = document.getElementById('submitBtn');
+		var $leaveVal = "";
 		
 		num = getCalendarDays(date_of_filing.value, dates[0][0])+1;
-		
+
+		if(leave == 2){
+			$leaveVal = "Mandatory/Forced Leave";
+		}else if(leave == 99){
+			$leaveVal = "Compesatory Time-Off (CTO)";
+		}
+
 		if(num <= 5){
 			submitBtn.disabled = true;
 			Swal.fire({
 				title: 'NOTICE!',
-				text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
+				// text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
+				text: `Please be advised that the application for ${$leaveVal} shall be filed five (5) days in advance, whenever possible, of the effective date of such leave.`,
 				icon: 'warning',
 				allowOutsideClick: false,
 				showCancelButton: false,
@@ -694,6 +709,7 @@
 		const cb_terminal = form.getCheckBox('cb_terminal');
 		const cb_comm_not_requested = form.getCheckBox('cb_comm_not_requested');
 		const cb_comm_requested = form.getCheckBox('cb_comm_requested');
+		const cb_others= form.getCheckBox('Others');
 
 		const tb_others = form.getTextField('tb_others');
 		const tb_days_applied_for = form.getTextField('tb_days_applied_for');
@@ -815,6 +831,8 @@
 			cb_sel.check();
 		}else if (leave_id == 13){
 			cb_al.check();
+		}else if (leave_id == 99){
+			cb_others.check();
 		}
 
 		var wph = document.getElementById('wph');
@@ -824,7 +842,6 @@
 			cb_within_ph.check();
 			tb_within_ph.setText(wph_remarks.value);
 			tb_within_ph.updateAppearances(cambria);
-
 		}
 
 		var out_abroad = document.getElementById('out_abroad');
@@ -959,7 +976,7 @@
 
 
 	  function drawCalendar(mode){
-		const fp = flatpickr("#date_from", {
+		 fp = flatpickr("#date_from", {
 			mode: mode,
 			altInput: true,
 			altFormat: "F j, Y",
@@ -1007,6 +1024,13 @@
 			  if(leave == 2){
 				validateInclusiveDates(dateRanges, leave);
 			  }
+
+			var cto = document.getElementById('cto');
+
+			  if(leave == 99 && cto.checked){
+				validateInclusiveDates(dateRanges, leave);
+
+			  }
 			  //document.getElementById("no_working_days_applied_for").focus();
 			}
 		  });
@@ -1053,7 +1077,6 @@
 
 function leave_type(leave_type){
 
-	const fp = document.querySelector("#date_from")._flatpickr;
 	fp.clear();
 
 	var wph = document.getElementById('wph');
@@ -1220,9 +1243,19 @@ function leave_type(leave_type){
 		study_review.disabled = true;
 		study_master.checked = false;
 		study_review.checked = false;
+		
 		cto.disabled = false;
+		if(cto.checked){
+			cto.checked = true;
+		}else{
+			cto.checked = true;
+		}
+
+		
 		monetization.disabled = false;
+
 		terminal.disabled = false;
+
 		
 	}else{
 
@@ -1312,7 +1345,6 @@ function convertNumberToWords(number) {
 	  if (dayOfWeek != 0 && dayOfWeek != 6) {
 		days++;
 	  }
-  
 	  currentDate.setDate(currentDate.getDate() + 1);
 	}
 
@@ -1336,6 +1368,15 @@ function convertNumberToWords(number) {
 
   function scrollToDiv(elemId){
 
+	// Select all elements with the class
+	var elements = document.querySelectorAll(".highlight");
+
+	// Loop through each element and remove the CSS class
+	elements.forEach(function(element) {
+		element.classList.remove("highlight");
+	});
+
+
 	if(elemId == 99){
 		elemId = 1;
 		var myElement = document.getElementById('scrollspyHeading'+elemId);
@@ -1354,15 +1395,13 @@ function convertNumberToWords(number) {
 
 		var topPos = myElement.offsetTop;
 	
-		document.getElementById('scrolling_div').scrollTop = topPos;
+		document.getElementById('scrolling_div').scrollTop = topPos - 20;
 		
 		myElement.classList.add('highlight'); // add the highlight class
-		setTimeout(function() {
-			myElement.classList.add('fade-out'); // add the fade-out class after 1 
-			//setTimeout(function() {
-	
-			//},500);
-		}, 1500);
+
+		//setTimeout(function() {
+			//myElement.classList.add('fade-out'); // add the fade-out class after 1 
+		//}, 1500);
 	}
 
   }
@@ -1402,11 +1441,27 @@ function convertNumberToWords(number) {
   }
 
   function click_cto(elem){
+
+	//const dateRanges = [[new Date(fp.selectedDates[0]).toLocaleDateString()]];
+
+
+	//const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
 	var monetization = document.getElementById('monetization');
 	var terminal = document.getElementById('terminal');
 	if(elem.checked){
 		monetization.checked = false;
 		terminal.checked = false;
+
+		const dateRanges = [];
+
+		fp.selectedDates.forEach(date => {
+		const formattedDate = new Date(date).toLocaleDateString();
+		dateRanges.push([formattedDate]);
+		});
+	
+		validateInclusiveDates(dateRanges, elem.value)
+
+		console.log(dateRanges);
 	}else{
 		elem.checked = true;
 	}
@@ -1414,16 +1469,19 @@ function convertNumberToWords(number) {
   }
 
   function click_monetization(elem){
-	const fp = document.querySelector("#date_from")._flatpickr;
+	var submitBtn = document.getElementById('submitBtn');
+	submitBtn.disabled = false;
 
 	var cto = document.getElementById('cto');
 	var terminal = document.getElementById('terminal');
 	const dateFromInput = document.querySelector('#date_from');
+	
+	
 	if(elem.checked){
 		scrollToDiv(14);
 		cto.checked = false;
 		terminal.checked = false;
-		fp.clear();
+		//fp.clear();
 		fp.close();
 		//fp.destroy();
 		dateFromInput.disabled = true;
@@ -1433,9 +1491,9 @@ function convertNumberToWords(number) {
   }
 
   function click_terminal(elem){
+	var submitBtn = document.getElementById('submitBtn');
+	submitBtn.disabled = false;
 
-	const fp = document.querySelector("#date_from")._flatpickr;
-	
 	var cto = document.getElementById('cto');
 	var monetization = document.getElementById('monetization');
 
@@ -1444,7 +1502,7 @@ function convertNumberToWords(number) {
 
 		cto.checked = false;
 		monetization.checked = false;
-		fp.clear();
+		//fp.clear();
 		fp.close();
 	}else{
 		elem.checked = true;
@@ -1486,7 +1544,6 @@ function convertNumberToWords(number) {
 
 	}
   }
-
 
 
 </script>

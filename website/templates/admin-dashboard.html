@@ -32,6 +32,24 @@
     }
 }
 .dataTables_wrapper { min-height: 300px; }
+
+.accordion--custom .accordion-header {
+  display: flex; /* make flex element */
+  align-items: center; /* aligning child items */
+  /*column-gap: 1rem;  adding gap between items in row */
+  padding-left: 1rem;
+}
+
+/* small udjustments */
+.accordion--custom .accordion-header .accordion-button {
+  padding-left: 0;
+  background: none;
+}
+
+.accordion--custom .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
 </style>
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
@@ -241,17 +259,224 @@
 		<hr>
 		<div class="offcanvas-body">
 			<form action="#" method="POST" id="generateExcel" name="generateExcel">
-				<button class="btn btn-primary btn-sm" form="generateExcel">Generate Excel File</button>
+				<button class="btn btn-primary btn-sm mb-2" form="generateExcel">Generate Excel File</button>
 
-			{% for column in User.__table__.columns %}
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="{{ column.name }}" name="{{ column.name }}"  id="{{ column.name }}" checked>
-					<label class="form-check-label" for="{{ column.name }}">
-						{{ column.name }}
-					</label>
+			<div class="accordion accordion--custom" id="accordionExample">
+
+				<div class="accordion-item">
+				  <div class="accordion-header" id="headingOne">
+					<input class="form-check-input m-0 mainCb" type="checkbox" name="personal" checked onchange="cbIsChecked(this)">
+					<a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<label class="form-check-label ms-1" for="personalInfo">
+							Personal Information
+						</label>
+					</a>
+					</div>
+				  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+					<div class="accordion-body mt-0 pt-0">
+						{% for columnUser in User.__table__.columns %}
+							<div class="form-check">
+								<input class="form-check-input personal" type="checkbox" value="{{ columnUser.name }}" name="personal[{{ columnUser.name }}]"  id="{{ columnUser.name }}" checked>
+								<label class="form-check-label" for="{{ columnUser.name }}">
+									{{ columnUser.name }}
+								</label>
+							</div>
+						{% endfor %}
+					</div>
+				  </div>
 				</div>
-			{% endfor %}
 
+
+				<div class="accordion-item accordion--custom">
+				  <div class="accordion-header" id="headingTwo">
+					<input class="form-check-input m-0 mainCb" type="checkbox" name="college" onchange="cbIsChecked(this)">
+					<a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						<label class="form-check-label ms-1" for="">
+							College
+						</label>
+					</a>
+				</div>
+				  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+					<!-- <hr class="m-0 p-0"> -->
+					<div class="accordion-body pt-0">
+						{% for columnCollege in College.__table__.columns %}
+							<div class="form-check">
+								<input class="form-check-input college" type="checkbox" value="{{ columnCollege.name }}" name="college[{{ columnCollege.name }}]"  id="{{ columnCollege.name }}" >
+								<label class="form-check-label" for="{{ columnCollege.name }}">
+									{{ columnCollege.name }}
+								</label>
+							</div>
+						{% endfor %}
+					</div>
+				  </div>
+				</div>
+
+
+				<div class="accordion-item accordion--custom">
+				  <div class="accordion-header" id="headingThree">
+					<input class="form-check-input m-0 mainCb" type="checkbox" name="masteral" onchange="cbIsChecked(this)">
+
+					<a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						<label class="form-check-label ms-1" for="">
+							Masteral
+						</label>
+					</a>
+				</div>
+				  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+					<div class="accordion-body pt-0">
+						{% for columnMasteral in Masteral.__table__.columns %}
+							<div class="form-check">
+								<input class="form-check-input masteral" type="checkbox" value="{{ columnMasteral.name }}" name="masteral[{{ columnMasteral.name }}]"  id="{{ columnMasteral.name }}">
+								<label class="form-check-label" for="{{ columnMasteral.name }}">
+									{{ columnMasteral.name }}
+								</label>
+							</div>
+						{% endfor %}
+					</div>
+				  </div>
+				</div>
+
+
+				<div class="accordion-item accordion--custom">
+					<div class="accordion-header" id="headingFour">
+					<input class="form-check-input m-0 mainCb" type="checkbox" name="doctoral" onchange="cbIsChecked(this)">
+					  <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+						<label class="form-check-label ms-1" for="">
+							Doctoral
+						</label>
+					  </a>
+					</div>
+					<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+					  <div class="accordion-body pt-0">
+						  {% for columnDoctoral in Doctoral.__table__.columns %}
+							  <div class="form-check">
+								  <input class="form-check-input doctoral" type="checkbox" value="{{ columnDoctoral.name }}" name="doctoral[{{ columnDoctoral.name }}]"  id="{{ columnDoctoral.name }}">
+								  <label class="form-check-label" for="{{ columnDoctoral.name }}">
+									  {{ columnDoctoral.name }}
+								  </label>
+							  </div>
+						  {% endfor %}
+					  </div>
+					</div>
+				  </div>
+
+
+				  <div class="accordion-item accordion--custom">
+					<div class="accordion-header" id="headingFive">
+					<input class="form-check-input m-0 mainCb" type="checkbox" name="vC" onchange="cbIsChecked(this)">
+					  <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+						<label class="form-check-label ms-1" for="">
+							Vocational Course
+						</label>
+					  </a>
+					</div>
+					<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+					  <div class="accordion-body pt-0">
+						  {% for columnVc in Vocational_Course.__table__.columns %}
+							  <div class="form-check">
+								  <input class="form-check-input vC" type="checkbox" value="{{ columnVc.name }}" name="vc[{{ columnVc.name }}]"  id="{{ columnVc.name }}">
+								  <label class="form-check-label" for="{{ columnVc.name }}">
+									  {{ columnVc.name }}
+								  </label>
+							  </div>
+						  {% endfor %}
+					  </div>
+					</div>
+				  </div>
+
+
+				  <div class="accordion-item accordion--custom">
+					<div class="accordion-header" id="headingSix">
+					<input class="form-check-input m-0 mainCb" type="checkbox" name="shirt" onchange="cbIsChecked(this)">
+					  <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+						<label class="form-check-label ms-1" for="">
+							Shirt Sizes
+						</label>
+					  </a>
+					</div>
+					<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+					  <div class="accordion-body pt-0">
+						  {% for columnShirt in Shirt.__table__.columns %}
+							  <div class="form-check">
+								  <input class="form-check-input shirt" type="checkbox" value="{{ columnShirt.name }}" name="shirt[{{ columnShirt.name }}]"  id="{{ columnShirt.name }}">
+								  <label class="form-check-label" for="{{ columnShirt.name }}">
+									  {{ columnShirt.name }}
+								  </label>
+							  </div>
+						  {% endfor %}
+					  </div>
+					</div>
+				  </div>
+
+
+				  <div class="accordion-item accordion--custom">
+					<div class="accordion-header" id="headingSeven">
+					  <input class="form-check-input m-0 mainCb" type="checkbox" name="lD" onchange="cbIsChecked(this)">
+					  <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+						<label class="form-check-label ms-1" for="">
+							Learning Development
+						</label>
+					  </a>
+					</div>
+					<div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+					  <div class="accordion-body pt-0">
+						  {% for columnLd in Learning_Development.__table__.columns %}
+							  <div class="form-check">
+								  <input class="form-check-input lD" type="checkbox" value="{{ columnLd.name }}" name="ld[{{ columnLd.name }}]"  id="{{ columnLd.name }}">
+								  <label class="form-check-label" for="{{ columnLd.name }}">
+									  {{ columnLd.name }}
+								  </label>
+							  </div>
+						  {% endfor %}
+					  </div>
+					</div>
+				  </div>
+				  <div class="accordion-item accordion--custom">
+					<div class="accordion-header" id="headingEight">
+					  <input class="form-check-input m-0 mainCb" type="checkbox" name="eligibility" onchange="cbIsChecked(this)">
+					  <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+						<label class="form-check-label ms-1" for="">
+							Eligibility
+						</label>
+					  </a>
+					</div>
+					<div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+					  <div class="accordion-body pt-0">
+						  {% for columnEligibility in Career_Service.__table__.columns %}
+							  <div class="form-check">
+								  <input class="form-check-input eligibility" type="checkbox" value="{{ columnEligibility.name }}" name="eligibility[{{ columnEligibility.name }}]"  id="{{ columnEligibility.name }}">
+								  <label class="form-check-label" for="{{ columnEligibility.name }}">
+									  {{ columnEligibility.name }}
+								  </label>
+							  </div>
+						  {% endfor %}
+					  </div>
+					</div>
+				  </div>
+				  <div class="accordion-item accordion--custom">
+					<div class="accordion-header" id="headingNine">
+						<input class="form-check-input m-0 mainCb" type="checkbox" name="eC" onchange="cbIsChecked(this)">
+						<a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+							<label class="form-check-label ms-1" for="">
+								Emergency Contact
+							</label>
+						</a>
+					</div>
+					<div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+					  <div class="accordion-body pt-0">
+						  {% for columnEc in Emergency_Contact.__table__.columns %}
+							  <div class="form-check">
+								  <input class="form-check-input eC" type="checkbox" value="{{ columnEc.name }}" name="eC[{{ columnEc.name }}]"  id="{{ columnEc.name }}">
+								  <label class="form-check-label" for="{{ columnEc.name }}">
+									  {{ columnEc.name }}
+								  </label>
+							  </div>
+						  {% endfor %}
+					  </div>
+					</div>
+				  </div>
+
+			  </div>
 			</form>
 		
 			<!-- <ul id="toggle_col">
@@ -488,6 +713,13 @@
 	document.getElementById('generateExcel').addEventListener('submit',(e)=>{
 		e.preventDefault();
 
+
+		var chks = document.getElementsByClassName('mainCb');
+		var l = chks.length;
+		while (l--){
+			chks[l].disabled = true;
+		}
+
 		const formElem = document.getElementById("generateExcel");
 		let formData = new FormData(formElem);
 
@@ -506,7 +738,7 @@
 			// Create a temporary anchor element
 			const a = document.createElement('a');
 			a.href = URL.createObjectURL(blob);
-			a.download = 'report.xls';
+			a.download = 'report.xlsx';
 
 			// Append the anchor element to the document body
 			document.body.appendChild(a);
@@ -516,8 +748,15 @@
 
 			// Remove the anchor element from the document body
 			document.body.removeChild(a);
+
+			var chks = document.getElementsByClassName('mainCb');
+			var l = chks.length;
+			while (l--){
+				chks[l].disabled = false;
+			}
+
 			setTimeout(loadingScreen('none'), 20000);
-			
+
 		})
 	})
 
@@ -772,8 +1011,6 @@ $(document).ready(function() {
     } );
 
 
-
-
 $('a.toggle-vis').on( 'click', function (e) {
 		// Get the column API object
 		var column = products_table.column( $(this).attr('data-column') );
@@ -802,7 +1039,6 @@ $('a.toggle-vis').on( 'click', function (e) {
 	}
 
 	function reset_password(el){
-
 		Swal.fire({
 			title: 'Are you sure?',
 			text: "This will reset the user's password to \"pimopassword\".",
@@ -822,8 +1058,6 @@ $('a.toggle-vis').on( 'click', function (e) {
 					});
 			}
 		  })
-
-
 	}
 
 	document.getElementById("section").addEventListener("change", (e)=>{
@@ -865,6 +1099,15 @@ $('a.toggle-vis').on( 'click', function (e) {
       }
       document.getElementById("unit").insertAdjacentHTML("afterbegin", units);
     });
+
+
+	function cbIsChecked(el){
+		var chks = document.getElementsByClassName(el.getAttribute('name'));
+		var l = chks.length;
+		while (l--){
+			chks[l].checked = el.checked;
+		}
+	}
 
 </script>
 {%endblock%}

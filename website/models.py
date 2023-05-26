@@ -179,7 +179,8 @@ class User(db.Model, UserMixin):
     vocational_course = db.relationship('Vocational_Course')
     learning_development = db.relationship('Learning_Development', order_by="desc(Learning_Development.ld_date_from)")
     familyBg = db.relationship('Family_Background', order_by=lambda: Family_Background.fb_date_of_birth)
-    college = db.relationship('College')
+    # college = db.relationship('College')
+    college = db.relationship('College', backref='user')
     shirt = db.relationship('Shirt')
     masteral = db.relationship('Masteral')
     doctoral = db.relationship('Doctoral')
@@ -304,8 +305,6 @@ class Agency_Unit(db.Model, SerializerMixin):
     unit_head = db.Column(db.String(150))
     agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
     user = db.relationship('User', backref='user_unit', lazy=True)
-
-    
 
 class Vocational_Course(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -581,10 +580,10 @@ class Character_Reference(db.Model, SerializerMixin):
 
 class Emergency_Contact(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
-    last_name = db.Column(db.String(100))
-    first_name = db.Column(db.String(100))
-    middle_name = db.Column(db.String(100))
-    name_ext = db.Column(db.String(100))
+    # last_name = db.Column(db.String(100))
+    # first_name = db.Column(db.String(100))
+    # middle_name = db.Column(db.String(100))
+    # name_ext = db.Column(db.String(100))
     fullname = db.Column(db.String(100))
     relationship = db.Column(db.String(50))
     address = db.Column(db.String(150))

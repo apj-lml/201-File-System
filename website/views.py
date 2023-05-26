@@ -17,9 +17,9 @@ from sqlalchemy import desc, extract
 from . import db, generateWes
 from .models import (College, Family_Background, Masteral, Other_Information,
                      Uploaded_File, User, Vocational_Course, Work_Experience,
-                     WorkExperienceSchema)
-from .models import Work_Experience
-from .models import WorkExperienceSchema
+                     WorkExperienceSchema, Doctoral, Vocational_Course, Voluntary_Work,
+                     Learning_Development, Shirt, Career_Service, Emergency_Contact, UserSchema)
+
 
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
@@ -68,26 +68,40 @@ def birthday_celebrators(mydate):
 
     dateinput = date(int(current_year), int(mydate), 1)
 
-    print(dateinput)
+    # month = dateinput.month
+    # day = date.today().strftime("%d")
+
+    # Extract month and day from the date
     month = dateinput.month
-    day = date.today().strftime("%d")
+    day = dateinput.day
 
     get_bday_celebs = User.query.filter_by(status_remarks = "ACTIVE").filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
     db.session.commit()
 
-    print (jsonify(get_bday_celebs))
-    # json.loads(jsonify(row_contents=work_exp_schema.dump(get_we)).get_data(True))
+    user_schema = UserSchema(many=True)
+    serialized_data = user_schema.dump(get_bday_celebs)
 
-    return jsonify(get_bday_celebs)
+    return jsonify(serialized_data)
 
 @views.route('/admin/dashboard', methods=['GET', 'POST'])
 @login_required
 @admin_permission.require(http_exception=403)
 def admin_dashboard():
     users = db.session.query(User).options(db.defer('acknowledgement')).all()
-    for user in users:
-        print('IDDDDDD: ', user.id)
-    return render_template('admin-dashboard.html', user_profile = users, User = User, College = College, date_now = datetime.now(PST))
+
+    return render_template('admin-dashboard.html', user_profile = users,
+                                                     User = User, 
+                                                     College = College, 
+                                                     Masteral = Masteral,
+                                                     Doctoral = Doctoral,
+                                                     Vocational_Course = Vocational_Course,
+                                                     Work_Experience = Work_Experience,
+                                                     Voluntary_Work = Voluntary_Work,
+                                                     Learning_Development = Learning_Development,
+                                                     Career_Service = Career_Service,
+                                                     Shirt = Shirt,
+                                                     Emergency_Contact = Emergency_Contact,
+                                                     date_now = datetime.now(PST))
 
 @views.route('/learning-development/<emp_id>', methods=['GET', 'POST'])
 @login_required

@@ -1,13 +1,13 @@
 
 # from pprint import pprint
 
-from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, current_app, send_file, send_from_directory
 from flask_login import current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_principal import Permission, RoleNeed
 import pytz
-from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, UserSchema, Vocational_Course
+from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, UserSchema, Vocational_Course, Shirt, Learning_Development, Career_Service, Emergency_Contact
 from . import db
 #from datetime import datetime
 import datetime
@@ -15,11 +15,11 @@ from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
 import os, os.path
 import json
-import flask_excel as excel
 from sqlalchemy.orm import load_only, joinedload
-from sqlalchemy import column, inspect
-from flask_excel import make_response_from_records
+from sqlalchemy import column, inspect, text
 
+import xlsxwriter
+import pandas as pd
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -44,32 +44,71 @@ def generate_report():
         formdata = request.form.to_dict()
         # Extract the values from formdata as a list
         values = list(formdata.values())
-
-        # query_sets = User.query.all()
-        column_names = values
-        c_school_values = []
         
-        query_sets = (
-            User.query
-            .options(load_only(*values))
-            .all()
-        )
+        merged_data = {}
 
-        column_names = values
-        # return excel.make_response_from_query_sets(query_sets, column_names, "xls")
-        columns_to_export_user = ['id', 'last_name', 'email']  # Specify the columns you want to export
-        columns_to_export_college = ['id', 'c_school']  # Specify the columns you want to export
+        for key, value in formdata.items():
+            prefix = key.split('[')[0]  # Extract the prefix before the '[' character
+            if prefix not in merged_data:
+                merged_data[prefix] = []
+            merged_data[prefix].append(value)
 
-        users = db.session.query(column(User.id), column(User.last_name), column(User.email)).all()
-        colleges = db.session.query(column(College.id), column(College.c_school)).all()
+        # Save the DataFrame to an Excel file
+        static_folder = current_app.root_path + '/static'
+        output_file = "Output.xlsx"
+        output_path = os.path.join(static_folder, output_file)  # Full path to the output file
+        writer = pd.ExcelWriter(output_path, engine="xlsxwriter")
 
+        if merged_data['personal']:
+            users = User.query.with_entities(*[getattr(User, column) for column in merged_data['personal']]).all()
+            df_user = pd.DataFrame(users)
+            df_user.to_excel(writer, sheet_name="User", index=False)
 
-        response = excel.make_response_from_tables(db.session, [users, colleges], "xls")
+        if 'college' in merged_data:
+            colleges = College.query.with_entities(*[getattr(College, column) for column in merged_data['college']]).all()
+            df_college = pd.DataFrame(colleges)
+            df_college.to_excel(writer, sheet_name="College", index=False)
 
-        return response
+        if 'masteral' in merged_data:
+            masteral = Masteral.query.with_entities(*[getattr(Masteral, column) for column in merged_data['masteral']]).all()
+            df_masteral = pd.DataFrame(masteral)
+            df_masteral.to_excel(writer, sheet_name="Masteral", index=False)
+
+        if 'doctoral' in merged_data:
+            doctoral = Doctoral.query.with_entities(*[getattr(Doctoral, column) for column in merged_data['doctoral']]).all()
+            df_doctoral = pd.DataFrame(doctoral)
+            df_doctoral.to_excel(writer, sheet_name="Doctoral", index=False)
+
+        if 'vc' in merged_data:
+            vc = Vocational_Course.query.with_entities(*[getattr(Vocational_Course, column) for column in merged_data['vc']]).all()
+            df_vc = pd.DataFrame(vc)
+            df_vc.to_excel(writer, sheet_name="Vocational Course", index=False)
+
+        if 'shirt' in merged_data:
+            shirt = Shirt.query.with_entities(*[getattr(Shirt, column) for column in merged_data['shirt']]).all()
+            df_shirt = pd.DataFrame(shirt)
+            df_shirt.to_excel(writer, sheet_name="Shirt Sizes", index=False)
+
+        if 'ld' in merged_data:
+            ld = Shirt.query.with_entities(*[getattr(Learning_Development, column) for column in merged_data['ld']]).all()
+            df_ld = pd.DataFrame(ld)
+            df_ld.to_excel(writer, sheet_name="Learning & Development", index=False)
+
+        if 'eligibility' in merged_data:
+            eligibility = Career_Service.query.with_entities(*[getattr(Career_Service, column) for column in merged_data['eligibility']]).all()
+            df_eligibility = pd.DataFrame(eligibility)
+            df_eligibility.to_excel(writer, sheet_name="Eligibility", index=False)
+
+        if 'eC' in merged_data:
+            eC = Emergency_Contact.query.with_entities(*[getattr(Emergency_Contact, column) for column in merged_data['eC']]).all()
+            df_eC = pd.DataFrame(eC)
+            df_eC.to_excel(writer, sheet_name="Emergency Contact", index=False)
+
+        writer.close()
+        # Send the file for download
+        return send_from_directory(static_folder, output_file, as_attachment=True)
+
     
-
-        
 @employees.route('get-employees/<emp_id>', methods=['POST', 'GET'])
 @login_required
 @admin_permission.require(http_exception=403)
@@ -228,11 +267,9 @@ def update_employee(emp_id):
     vocational_no_update_fields = formdata['vocational_no_update_fields']
     doctoral_no_update_fields = formdata['doctoral_no_update_fields']
 
-
 # ---------------------------------------------------------------------------- #
 #              popping unnecessary data before saving to database              #
 # ---------------------------------------------------------------------------- #
-
 
     formdata.pop('employee_id')
 
@@ -255,13 +292,11 @@ def update_employee(emp_id):
 
     #if current_user.type_of_user != 'admin':
     formdata['acknowledgement'] = 'checked'
-
     
     #code for automated update
     for key, value in formdata.items(): 
         setattr(user, key, value)
     db.session.commit()
-
 
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF VOCATIONAL COURSE                        #
@@ -363,9 +398,6 @@ def update_employee(emp_id):
                         ))
 
         db.session.commit()
-
-
-
     return jsonify('Successfully Saved to Database!'), 200
 
 
