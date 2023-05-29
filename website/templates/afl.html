@@ -651,9 +651,14 @@
 		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
 		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
 
-		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
+
+		const cambriaFontBytes = await fetch("https://fonts.cdnfonts.com/css/tt-jenevers-trl").then(res => res.arrayBuffer());
 		const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
 		const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
+		
 		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
 
 		pdfDoc.registerFontkit(fontkit);

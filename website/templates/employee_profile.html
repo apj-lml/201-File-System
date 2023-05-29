@@ -289,8 +289,6 @@ button {
                 <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
                 <i class="text-muted">Last updated on {{last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
 
-
-                
                 <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating col-md-3 mb-3 p-1">
                     <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
@@ -514,7 +512,7 @@ button {
                     </div>
                     
                     <div class="form-floating col-md-6 mb-3 p-1">
-                      <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="{{user_profile.maiden_name }}" form="update_form" {{'readonly' if user_profile.sex == 'MALE' else 'required' }}>
+                      <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="{{user_profile.maiden_name if user_profile.maiden_name and user_profile.maiden_name is not none and user_profile.maiden_name != '' else 'N/A'}}" form="update_form" {{'readonly' if user_profile.sex == 'MALE' else 'required' }}>
                       <label for="maiden_name">Maiden Name [Put N/A if not applicable]<span class="is-required">*</span></label>
                     </div>
 
