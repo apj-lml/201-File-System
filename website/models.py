@@ -185,7 +185,7 @@ class User(db.Model, UserMixin):
     masteral = db.relationship('Masteral')
     doctoral = db.relationship('Doctoral')
     work_experience = db.relationship('Work_Experience', order_by="desc(Work_Experience.date_from)")
-    voluntary_work = db.relationship('Voluntary_Work', order_by="desc(Voluntary_Work.date_from)")
+    voluntary_work = db.relationship('Voluntary_Work', order_by="desc(Voluntary_Work.date_to)")
     other_information = db.relationship('Other_Information')
     questions = db.relationship('Questions')
     other_questions = db.relationship('Other_Questions')

@@ -581,7 +581,7 @@
 				confirmButtonText: 'I understand'
 			  }).then((result) => {
 				if (result.isConfirmed) {
-					//document.getElementById("date_from").blur();
+					fp.clear();
 				}
 			  })
 
@@ -1448,6 +1448,7 @@ function convertNumberToWords(number) {
 	//const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
 	var monetization = document.getElementById('monetization');
 	var terminal = document.getElementById('terminal');
+
 	if(elem.checked){
 		monetization.checked = false;
 		terminal.checked = false;
@@ -1462,6 +1463,7 @@ function convertNumberToWords(number) {
 		validateInclusiveDates(dateRanges, elem.value)
 
 		console.log(dateRanges);
+		
 	}else{
 		elem.checked = true;
 	}
