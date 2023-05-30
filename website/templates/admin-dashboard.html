@@ -286,6 +286,7 @@
 								columnUser.name != 'is_division_manager' and 
 								columnUser.name != 'is_primary_afl_certifier' and 
 								columnUser.name != 'is_secondary_afl_certifier' and
+								columnUser.name != 'acknowledgement' and
 								columnUser.name != 'same_as_permanent_address' 
 								%}
 
@@ -293,8 +294,31 @@
 									<input class="form-check-input personal" type="checkbox" value="{{ columnUser.name }}" name="personal[{{ columnUser.name }}]"  id="{{ columnUser.name }}" checked>
 									<label class="form-check-label" for="{{ columnUser.name }}">
 
-										{{ columnUser.name|replace("_"," ")|title }}
-
+										{% if columnUser.name == 'id' %}
+											ID
+										{% elif columnUser.name == 'gsis' %}
+											GSIS
+										{% elif columnUser.name == 'sss' %}
+											SSS
+										{% elif columnUser.name == 'tin' %}
+											TIN
+										{% elif columnUser.name == 'atm' %}
+											ATM
+										{% elif columnUser.name == 'umid' %}
+											UMID
+										{% elif columnUser.name == 'philsys' %}
+											PHILSYS
+										{% elif columnUser.name == 'pwd' %}
+											PWD
+										{% elif columnUser.name == 'indicate_country' %}
+											Indicated Country (Dual Citizenship)
+										{% elif columnUser.name == 'p_zip_code' %}
+											[Permanent] Zip Code
+										{% elif columnUser.name == 'pres_zip_code' %}
+											[Present] Zip Code
+										{% else %}
+											{{ columnUser.name|replace("hs_", "High School_")|replace("pres_", "[present]_")|replace("p_", "[permanent]_")|replace("_"," ")|title }}
+										{% endif %}
 
 									</label>
 								</div>
