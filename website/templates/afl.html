@@ -619,7 +619,7 @@
 		if ('caches' in window) {
 			//const pdfUrl = 'path/to/your/file.pdf';
 
-			formUrl = "{{ url_for('static', filename='afl-template1.pdf') }}";
+			formUrl = "{{ url_for('static', filename='afl-templatee.pdf') }}";
 	  
 		
 			// Try to fetch the PDF file from the cache
@@ -642,8 +642,6 @@
 
 		//import { TextFormField } from 'pdf-lib/lib/core/interactive/forms';
 
-
-		//formUrl = "{{ url_for('static', filename='afl-template1.pdf') }}";
 	  
 		//formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 	  
@@ -758,7 +756,7 @@
 		last_name.setText('{{user_profile.last_name}}');
 		last_name.updateAppearances(cambriaBold);
 
-		first_name.setText('{{user_profile.first_name}}{{", " + user_profile.name_extn + "." if user_profile.name_extn is not none and user_profile.name_extn != "N/A" and user_profile.name_extn != ""}}');
+		first_name.setText('{{user_profile.first_name}} {{ user_profile.name_extn + "." if user_profile.name_extn is not none and user_profile.name_extn != "N/A" and user_profile.name_extn != ""}}');
 		first_name.updateAppearances(cambriaBold);
 
 		middle_name.setText('{{user_profile.middle_name}}');
