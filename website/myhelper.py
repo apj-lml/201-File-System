@@ -67,3 +67,9 @@ def join_to_nested_dict(join_result):
             items[row[0].id][right_name] = []
         items[row[0].id][right_name].append(right_items[row[1].id])
     return list(items.values())
+
+def ConvertToDict(lst):
+    keys = lst[::2]  # slice the list to get keys
+    values = lst[1::2]  # slice the list to get values
+    res_dict = {keys[i]: values[i] for i in range(len(keys))}
+    return res_dict

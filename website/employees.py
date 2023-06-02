@@ -7,9 +7,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_principal import Permission, RoleNeed
 import pytz
-from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, UserSchema, Vocational_Course, Shirt, Learning_Development, Career_Service, Emergency_Contact
+from .models import Agency_Section, Agency_Unit, Career_Service, College, Doctoral, Masteral, Service_Record, User, Uploaded_File, UserSchema, Vocational_Course, Shirt, Learning_Development,\
+     Career_Service, Emergency_Contact, Service_Record
 from . import db
-#from datetime import datetime
+# from datetime import datetime
 import datetime
 from .myhelper import allowed_file, my_random_string
 from werkzeug.utils import secure_filename
@@ -18,12 +19,17 @@ import json
 from sqlalchemy.orm import load_only, joinedload
 from sqlalchemy import column, inspect, text
 
+from openpyxl import load_workbook
+from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
+
 import xlsxwriter
 import pandas as pd
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from website import myhelper
+from io import BytesIO
 
 ALLOWED_EXTENSIONS = {'pdf'}
 
@@ -224,7 +230,6 @@ def update_employee(emp_id):
         
         # print(f'print file: {file}')
         for file in files:
-            print(f'print file: {file.filename}')
 
             if file.filename == "":
             #if afile not in request.files:
@@ -239,7 +244,6 @@ def update_employee(emp_id):
                 
                 # my_file = Path(current_app.config['UPLOAD_FOLDER']+'\\'+final_name)
                 # if my_file.is_file():
-                # 	print('file already exist')
 
                 if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
                     print('path does not exist... creating path')
@@ -444,7 +448,6 @@ def insert_employee():
 
     for afilex in request.files:
         filesx = request.files.getlist(afilex)
-        print(afilex)
         for filex in filesx:
             if afilex == "wes" :
                 if filex.filename == "":
@@ -467,7 +470,6 @@ def insert_employee():
         
         # print(f'print file: {file}')
         for file in files:
-            print(f'print file: {file.filename}')
 
             if file.filename == "":
             #if afile not in request.files:
@@ -505,7 +507,6 @@ def delete_file():
         formdata  = json.loads(request.data)
         
         my_file = Uploaded_File.query.get(formdata['file_id'])
-        print(my_file)
         os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], my_file.file_name))
         db.session.delete(my_file)
         db.session.commit()
@@ -528,6 +529,126 @@ def service_record(emp_id):
         return redirect(url_for('employees.service_record', emp_id = emp_id, user=user))
     return render_template('service_record.html', emp_id = emp_id, user=user)
 
+@employees.route('print-service-record/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def print_service_record(emp_id):
+    emp_service_record = Service_Record.query.filter_by(user_id = emp_id).all()
+
+    if emp_service_record:
+        # Load the Excel template
+        template_path = current_app.root_path + '/static'
+        file_name = 'service_record.xlsx'
+
+        workbook = load_workbook(template_path + '/' + file_name)
+        sheet = workbook['Sheet1']
+
+        # Get the starting row for displaying service records
+        start_row = 24
+
+        # Calculate the number of rows to insert
+        num_rows = len(emp_service_record)
+
+        rowDiff = start_row -  num_rows
+        print("DIIIIIIIIIIIIIIFFFFF==========>>>>",rowDiff)
+        if rowDiff > 0:
+            sheet.insert_rows(39, rowDiff)
+
+        # Iterate over the service records and populate the rows
+        for i, record in enumerate(emp_service_record):
+            row = start_row + i
+            
+            sheet[f'A{row}'].value = record.service_from
+            sheet[f'B{row}'].value = record.service_to
+            sheet[f'C{row}'].value = record.designation
+            sheet[f'E{row}'].value = record.status
+            sheet[f'F{row}'].value = record.salary
+            sheet[f'G{row}'].value = record.per
+            sheet[f'H{row}'].value = record.station_place
+            sheet[f'I{row}'].value = record.leave_wo_pay
+            sheet[f'J{row}'].value = record.separation_date
+            sheet[f'K{row}'].value = record.separation_cause
+            # ... add more fields as needed
+
+        # Create a temporary file-like object to hold the workbook data
+        buffer = BytesIO()
+
+        # Save the modified workbook to the buffer
+        workbook.save(buffer)
+        buffer.seek(0)  # Reset the buffer position to the start
+
+        # Send the workbook as a response for download
+        return send_file(
+            buffer,
+            attachment_filename='modified.xlsx',
+            as_attachment=True
+        )
+    else:
+        return "No service record found for the given employee ID."
+
+
+    # return render_template('service_record.html', emp_id = emp_id, user=user)
+
+@employees.route('service-record-by-batch/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def service_record_by_batch(emp_id):
+    user = db.session.query(User).get(emp_id)
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+
+        service_froms = request.form.getlist('service_from')
+        service_tos = request.form.getlist('service_to')
+        designations = request.form.getlist('designation')
+        statuses = request.form.getlist('status')
+        salaries = request.form.getlist('salary')
+        pers = request.form.getlist('per')
+        station_places = request.form.getlist('station_place')
+        leaves_wo_pay = request.form.getlist('leave_wo_pay')
+        separation_dates = request.form.getlist('separation_date')
+        separation_causes = request.form.getlist('separation_cause')
+
+        for i in range(len(service_froms)):
+
+            service_from = datetime.datetime.strptime(service_froms[i], '%m/%d/%Y').date()
+
+            if separation_dates[i] != "" and separation_date is not None:
+                separation_date = datetime.datetime.strptime(separation_dates[i], '%m/%d/%Y').date()
+            else:
+                separation_date = None
+
+            if service_tos[i] != 'Present' and service_tos[i] != 'PRESENT' and service_tos[i] != 'present':
+                # print(service_tos[i])
+
+                service_to = datetime.datetime.strptime(service_tos[i], '%m/%d/%Y').date()
+            else:
+                service_to = 'Present'
+
+            service_record = Service_Record(
+                service_from=service_from,
+                service_to=service_to,
+                designation=designations[i],
+                status=statuses[i],
+                salary=salaries[i],
+                per=pers[i],
+                station_place=station_places[i],
+                leave_wo_pay=leaves_wo_pay[i],
+                separation_date=separation_date,
+                separation_cause=separation_causes[i],
+                user_id=emp_id
+            )
+            
+            db.session.add(service_record)
+
+        # formdata['user_id'] = emp_id
+        # new_service_record = Service_Record(**formdata)
+        # db.session.add(new_service_record)
+        db.session.commit()
+        return redirect(url_for('employees.service_record', emp_id = emp_id, user=user))
+    return render_template('service_record.html', emp_id = emp_id, user=user)
+    # return 'hello'
+
+
 
 @employees.route('get-service-record/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -546,7 +667,6 @@ def get_service_record(emp_id):
                 rows_dic_temp[col] = getattr(row, col)
             rows_dic.append(rows_dic_temp)
             rows_dic_temp= {}
-            print(rows_dic)
         return jsonify(rows_dic)
 
     return render_template('service_record.html', emp_id = emp_id)
@@ -559,7 +679,6 @@ def update_password(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         user = User.query.get(emp_id)
-        print (user.password)
 
         if not check_password_hash(user.password, formdata['current_password']):
             return jsonify('Wrong password submitted!'), 403

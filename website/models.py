@@ -344,14 +344,15 @@ class Token_Verifier(db.Model, SerializerMixin):
 
 class Service_Record(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
-    service_from = db.Column(db.String(50))
-    service_to = db.Column(db.String(50))
+    service_from = db.Column(db.String(150))
+    service_to = db.Column(db.String(150))
     designation = db.Column(db.String(150))
     status = db.Column(db.String(50))
     salary = db.Column(db.String(50))
+    per = db.Column(db.String(50))
     station_place = db.Column(db.String(150))
     leave_wo_pay = db.Column(db.String(50))
-    separation_date = db.Column(db.String(50), nullable=True)
+    separation_date = db.Column(db.String(150), nullable=True)
     separation_cause = db.Column(db.String(50), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
