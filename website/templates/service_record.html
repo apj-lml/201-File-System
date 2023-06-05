@@ -277,24 +277,25 @@
 		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Add Service Record by Batch</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
-		<button class="btn btn-primary mb-3" type="button" onclick="generateTable()">Generate Table</button>
-		<br>
-		<!-- <textarea name="excel_data" style="width:250px;height:150px;"></textarea><br> -->
-		<!-- <label for="floatingTextarea2">Paste excel data here:</label> -->
-
-		<div class="mb-3">
-			<textarea class="form-control" placeholder="Paste excel data here:" id="excel_data" name="excel_data" style="height: 250px"></textarea>
-		</div>
-
-		<div class="modal-body">
-		<form enctype="multipart/form-data" id="add_service_record_by_batch" action="/employees/service-record-by-batch/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
-
-
-			<div class="table-responsive">
-				<div id="excel_table"></div>
+		<div class="container">
+			
+			<div class="mb-3 mt-3">
+				<textarea class="form-control" placeholder="Paste excel data here:" id="excel_data" name="excel_data" style="height: 250px"></textarea>
 			</div>
-
+			<button class="btn btn-primary mb-3" type="button" onclick="generateTable()">Generate Table</button>
+	
+			<div class="modal-body">
+			<form enctype="multipart/form-data" id="add_service_record_by_batch" action="/employees/service-record-by-batch/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+	
+	
+				<div class="table-responsive">
+					<div id="excel_table"></div>
+				</div>
+	
+			</div>
 		</div>
+
+		
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		  <button type="submit" class="btn btn-primary">Save Record</button>

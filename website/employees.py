@@ -20,10 +20,9 @@ from sqlalchemy.orm import load_only, joinedload
 from sqlalchemy import column, inspect, text
 
 from openpyxl import load_workbook
-from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
+from openpyxl.utils import range_boundaries
+from openpyxl.utils.dataframe import dataframe_to_rows
 
-import xlsxwriter
 import pandas as pd
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -533,49 +532,71 @@ def service_record(emp_id):
 @login_required
 #@admin_permission.require(http_exception=403)
 def print_service_record(emp_id):
-    emp_service_record = Service_Record.query.filter_by(user_id = emp_id).all()
-
+     
+    emp_service_record = Service_Record.query.filter_by(user_id=emp_id).limit(100).all()
+    user = User.query.get(emp_id)
     if emp_service_record:
-        # Load the Excel template
+        # Load the Excel template using openpyxl
         template_path = current_app.root_path + '/static'
         file_name = 'service_record.xlsx'
-
         workbook = load_workbook(template_path + '/' + file_name)
-        sheet = workbook['Sheet1']
+        sheet = workbook.active
+
+        sheet['B12'].value = user.last_name
+        
+        sheet['D12'].value = user.first_name
+        
+        if user.name_extn is not None and user.name_extn != "" and user.name_extn != "N/A":
+            sheet['D12'].value = user.first_name + " " + user.name_extn
+
+
+        sheet['F12'].value = user.middle_initial
+        sheet['B15'].value = user.birthdate
+        sheet['D15'].value = user.place_of_birth
+
 
         # Get the starting row for displaying service records
         start_row = 24
 
-        # Calculate the number of rows to insert
-        num_rows = len(emp_service_record)
+        # Calculate the range of cells to copy
+        copy_start_row = start_row + 1
+        copy_end_row = copy_start_row + len(emp_service_record) - 1
+        copy_range = f'A{copy_start_row}:K{copy_end_row}'
 
-        rowDiff = start_row -  num_rows
-        print("DIIIIIIIIIIIIIIFFFFF==========>>>>",rowDiff)
-        if rowDiff > 0:
-            sheet.insert_rows(39, rowDiff)
+        # Convert the list of Service_Record objects to a list of dictionaries
+        record_dict_list = []
+        for record in emp_service_record:
+            record_dict = {
+                'service_from': record.service_from,
+                'service_to': record.service_to,
+                'designation': record.designation,
+                'status': record.status,
+                'salary': record.salary,
+                'per': record.per,
+                'station_place': record.station_place,
+                'leave_wo_pay': record.leave_wo_pay,
+                'separation_date': record.separation_date,
+                'separation_cause': record.separation_cause
+            }
+            record_dict_list.append(record_dict)
 
-        # Iterate over the service records and populate the rows
-        for i, record in enumerate(emp_service_record):
-            row = start_row + i
-            
-            sheet[f'A{row}'].value = record.service_from
-            sheet[f'B{row}'].value = record.service_to
-            sheet[f'C{row}'].value = record.designation
-            sheet[f'E{row}'].value = record.status
-            sheet[f'F{row}'].value = record.salary
-            sheet[f'G{row}'].value = record.per
-            sheet[f'H{row}'].value = record.station_place
-            sheet[f'I{row}'].value = record.leave_wo_pay
-            sheet[f'J{row}'].value = record.separation_date
-            sheet[f'K{row}'].value = record.separation_cause
-            # ... add more fields as needed
+        # Create a DataFrame from the list of dictionaries
+        df = pd.DataFrame(record_dict_list)
 
-        # Create a temporary file-like object to hold the workbook data
+        # Copy the range of cells
+        copied_data = list(dataframe_to_rows(df, index=False, header=False))
+
+        # Paste the copied data to the desired location
+        for row, record in enumerate(copied_data, start=start_row):
+            for col, value in enumerate(record, start=1):
+                sheet.cell(row=row, column=col).value = value
+
+        # Save the modified workbook to a temporary file-like object
         buffer = BytesIO()
-
-        # Save the modified workbook to the buffer
         workbook.save(buffer)
-        buffer.seek(0)  # Reset the buffer position to the start
+
+        # Reset the buffer position to the start
+        buffer.seek(0)
 
         # Send the workbook as a response for download
         return send_file(
@@ -583,10 +604,6 @@ def print_service_record(emp_id):
             attachment_filename='modified.xlsx',
             as_attachment=True
         )
-    else:
-        return "No service record found for the given employee ID."
-
-
     # return render_template('service_record.html', emp_id = emp_id, user=user)
 
 @employees.route('service-record-by-batch/<emp_id>', methods=['POST', 'GET'])
@@ -612,7 +629,7 @@ def service_record_by_batch(emp_id):
 
             service_from = datetime.datetime.strptime(service_froms[i], '%m/%d/%Y').date()
 
-            if separation_dates[i] != "" and separation_date is not None:
+            if separation_dates[i] != "" and separation_dates is not None:
                 separation_date = datetime.datetime.strptime(separation_dates[i], '%m/%d/%Y').date()
             else:
                 separation_date = None
