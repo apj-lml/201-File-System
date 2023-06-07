@@ -4,7 +4,9 @@
 
 {%block cssperfile %} 
 <style>
-
+	#service_record_table td {
+		text-align: left;
+	  }
 </style>
 
 
@@ -13,15 +15,13 @@
 {% endblock %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+
 <main class="container">
 	
 	<div class="row">
+
 		<div class="col-sm-12 mt-5">
-			<button class="btn btn-secondary btn-sm mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Service Record</button>
-			<button class="btn btn-secondary btn-sm mb-5" data-bs-toggle="modal" data-bs-target="#addByBatch">Add Service Record By Batch</button>
-			<button class="btn btn-secondary btn-sm mb-5" id="print_service_record" onclick="printServiceRecord()">Print Service Record</button>
-		</div>
-		<div class="col-sm-12">
 			<h1 class="text-center fw-bold">SERVICE RECORD</h1>
 		</div>
 		<div class="col-sm-12 mt-5">
@@ -57,15 +57,19 @@
 							<small class="fw-light"><i>(if married woman, give also maiden name)</i></small>
 						</div>
 						<div class="col-12">
-							<input type="text" class="form-control border-0 text-center" placeholder="N/A" value="{{ user.maiden_name }}">
+							<input type="text" class="form-control border-0 text-center" placeholder="N/A" value="{{ user.maiden_name if user.maiden_name and user.maiden_name != 'N/A' and user.maiden_name != '' else 'N/A' }}" style="background-color: white;" readonly>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="row">
 						<div class="d-inline-flex flex-row-reverse justify-content-center">
-							<span class="border-bottom border-dark">{{today_date.strftime('%B %d, %Y')}}</span>
+							<!-- <span class="border-bottom border-dark">{{today_date.strftime('%B %d, %Y')}}</span> -->
+							<input type="text" class="form-control border-0 text-center p-0" placeholder="N/A" id="datePrepared" value="{{today_date.strftime('%B %d, %Y')}}" {{'readonly' if current_user.type_of_user == 'user'}} style="background-color: white;">
+							
 						</div>
+					<hr class="m-0 p-0">
+
 						<div class="d-inline-flex flex-row-reverse justify-content-center">
 							<i>Date Prepared</i>
 						</div>
@@ -77,7 +81,7 @@
 				<div class="col-sm-2">
 					<div class="row">
 						<div class="col-12  border-dark border-bottom">
-							<h6 class="fw-bold text-center">{{user.birthdate}}</h6>
+							<h6 class="fw-bold text-center">{{user.birthdate.strftime('%B %d, %Y')}}</h6>
 						</div>
 						<div class="col-12"><h6 class="text-center"><i>Date</i></h6></div>
 					</div>
@@ -102,6 +106,13 @@
 				<p class="fw-light text-center"><i>This is to certify that the employee named herein above actually rendered services in this office as shown by the service record below, eachline of which is supported by appointment and other papers actually issud by this office and approved by the authorities concerned.</i></p>
 			</div>
 		</div>
+		<div class="col-sm-12 mt-5">
+			{% if current_user.type_of_user != 'user' %}
+			<button class="btn btn-secondary btn-sm mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-circle"></i> Add Service Record</button>
+			<button class="btn btn-secondary btn-sm mb-5" data-bs-toggle="modal" data-bs-target="#addByBatch"><i class="bi bi-database-add"></i> Add Service Record By Batch</button>
+			{% endif %}
+			<button class="btn btn-secondary btn-sm mb-5" id="print_service_record" onclick="printServiceRecord()"><i class="bi bi-printer-fill"></i> Print Service Record</button>
+		</div>
 		<div class="col-sm-12">
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered text-center display" id="service_record_table" style="width: 100%;">
@@ -112,15 +123,18 @@
 						<th  rowspan="2">STATION/PLACE OF ASSIGNMENT</th>
 						<th  rowspan="2">LEAVE W/O PAY</th>
 						<th  colspan="2">SEPARATION</th>
+						{% if current_user.type_of_user != 'user' %}
+						<th  rowspan="2">CONTROLS</th>
+						{% endif %}
 					  </tr>
 					  <tr class="align-middle">
-						<th >FROM</th>
-						<th >TO</th>
-						<th >DESIGNATION</th>
+						<th width="120px">FROM</th>
+						<th width="120px">TO</th>
+						<th width="170px">POSITION TITLE / SG / JG</th>
 						<th >STATUS</th>
 						<th >SALARY</th>
-						<th >DATE</th>
-						<th >CAUSE</th>
+						<th  width="120px">DATE</th>
+						<th  width="120px">REMARKS</th>
 					  </tr>
 					</thead>
 					<tbody>
@@ -129,18 +143,36 @@
 				  </table>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<p class="fw-light mb-0">This superseeds all Service Records previously issued inconsistent herewith.</p>
-				<p class="fw-bold">INVALID IF THERE ARE ERASURES.</p>
+		<div class="row my-3">
+			<div class="col-sm-6">
+				<div class="col-sm-12">
+					<p class="fw-light mb-0">This superseeds all Service Records previously issued inconsistent herewith.</p>
+					<p class="fw-bold">INVALID IF THERE ARE ERASURES.</p>
+				</div>
+	
+				<div class="col-sm-12 mt-3">
+					<p><i>Certified Correct:</i></p>
+				</div>
+				<div class="col-sm-12 mt-5">
+					<p class="fw-bold mb-0">FRANCIS CARLO L. ZACARIAS</p>
+					<p class="mt-0"><i>Industrial Relations Management/Development Officer C</i></p>
+				</div>
 			</div>
-			<div class="col-sm-12 mt-3">
-				<p><i>Certified Correct:</i></p>
+			<div class="col-sm-6">
+				<div class="col-sm-12">
+					<div class="form-floating">
+						<textarea type="email" class="form-control" id="sr_remarks" placeholder="Comments/Remarks" style="height: 150px;" {{'readonly' if current_user.type_of_user == 'user'}}>{{user.service_record_remarks}}</textarea>
+						<label for="sr_remarks">Comments/Remarks</label>
+					</div>
+				</div>
+			{% if current_user.type_of_user != 'user' %}
+
+				<div class="col-sm-12">
+					<button class="btn btn-primary btn-sm mt-2" onclick="saveRemarks()">Save Comments/Remarks</button>
+				</div>
+			{% endif %}
 			</div>
-			<div class="col-sm-12 mt-5">
-				<p class="fw-bold mb-0">FRANCIS CARLO L. ZACARIAS</p>
-				<p class="mt-0"><i>Industrial Relations Management/Development Officer C</i></p>
-			</div>
+
 		</div>
 	</div>
 
@@ -204,7 +236,7 @@
 							<option value="Job Order">Job Order</option>
 							<option value="Permanent">Permanent</option>
 							<option value="Casual">Casual</option>
-							<option value="Coterminous">Coterminous</option>
+							<option value="Co-Term.">Co-Term.</option>
 							<option value="Separated">Separated</option>
 						</select>
 						<label for="middle_name">Employment Status</label>
@@ -277,7 +309,7 @@
 		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Add Service Record by Batch</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
-		<div class="container">
+		<div class="modal-body">
 			
 			<div class="mb-3 mt-3">
 				<textarea class="form-control" placeholder="Paste excel data here:" id="excel_data" name="excel_data" style="height: 250px"></textarea>
@@ -287,10 +319,9 @@
 			<div class="modal-body">
 			<form enctype="multipart/form-data" id="add_service_record_by_batch" action="/employees/service-record-by-batch/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
 	
-	
-				<div class="table-responsive">
-					<div id="excel_table"></div>
-				</div>
+
+				<div id="excel_table" style="overflow-y:scroll;"></div>
+
 	
 			</div>
 		</div>
@@ -305,13 +336,120 @@
 	</div>
   </div>
 
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                               EDIT MODAL                                -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div class="modal fade" id="editSrModal" tabindex="-1" aria-labelledby="editSrModalLabel" aria-hidden="true" data-bs-backdrop="static">
+	<div class="modal-dialog modal-dialog-scrollable modal-lg">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Add Service Record</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form id="save_service_record" action="/employees/save-sr/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+				<input type="hidden" class="form-control" id="update_id" name ="update_id" placeholder="ID" value="" required>
+
+				<div class="d-sm-flex flex-row"> 
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="date" class="form-control" id="update_service_from" name ="update_service_from" placeholder="Service From" value="" required>
+					  <label for="update_service_from">Service From</label>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="date" class="form-control" id="update_service_to" name ="update_service_to" placeholder="Service To" value="" required>
+					  <label for="update_service_to">Service To</label>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					  <div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="update_sf_present" name="update_sf_present" value = "Present">
+						<label class="form-check-label" for="update_sf_present">
+						  PRESENT
+						</label>
+					  </div>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row"> 
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="text" class="form-control" id="update_designation" name ="update_designation" placeholder="Designation" value="" required>
+					  <label for="update_designation">Position Title</label>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<select class="form-select" id="update_status" name="update_status" aria-label="Employment Status" value="">
+							<option value="Job Order">Job Order</option>
+							<option value="Permanent">Permanent</option>
+							<option value="Casual">Casual</option>
+							<option value="Co-Term.">Co-Term.</option>
+							<option value="Separated">Separated</option>
+						</select>
+						<label for="update_status">Employment Status</label>
+						  <div class="invalid-feedback">
+							This is required.
+						  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="text" class="form-control" id="update_salary" name ="update_salary" placeholder="Salary" value="" required>
+					  <label for="salary">Salary</label>
+					  <div class="invalid-feedback">
+						This is required.
+					  </div>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" id="update_station_place" name ="update_station_place" placeholder="Station/ Place of Assignment" value="" required>
+						<label for="update_station_place">Station/ Place of Assignment</label>
+						<div class="valid-feedback">
+							Looks good!
+						  </div>
+						  <div class="invalid-feedback">
+							This is required.
+						  </div>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <input type="text" class="form-control" id="update_leave_wo_pay" name ="update_leave_wo_pay" placeholder="Leave W/O Pay" value="None">
+					  <label for="update_leave_wo_pay">Leave W/O Pay</label>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="date" class="form-control" id="update_separation_date" name ="update_separation_date" placeholder="Separation Date" value="">
+						<label for="update_separation_date">Separation Date</label>
+					</div>
+				</div>
+				<div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="update_separation_cause" name ="update_separation_cause" placeholder="Separation Cause" value=""></textarea>
+					  <label for="update_separation_cause">Separation Cause</label>
+					</div>
+				</div>
+
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary">Save Record</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+
 {% endblock %}
 
 {%block scripts%}
-<script type="text/javascript">
-(function () {
-  'use strict'
 
+<script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+<script type="text/javascript">
+
+	
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
 
@@ -341,57 +479,29 @@
 			}
 	})
 
-	var products_table = $('#service_record_table').DataTable( {
+	var update_sf_present = document.getElementById('update_sf_present');
+	update_sf_present.addEventListener('change',()=>{
+		var update_service_to = document.getElementById('update_service_to');
+		if(update_sf_present.checked){
+			update_service_to.disabled = true;
+			update_service_to.value = ''
+			}
+		else{
+			update_service_to.disabled = false;
+			}
+	})
+
+
+	var service_record_table = $('#service_record_table').DataTable({
 
 		bSortCellsTop: true,
 		scrollX: true,
 		// responsive: true,
 
-		dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'B><'col-sm-4 col-md-4'f>>
-				<'row'<'col-sm-12'tr>>
-				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+		//dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'B><'col-sm-4 col-md-4'f>>
+		//		<'row'<'col-sm-12'tr>>
+		//		<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
 		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		buttons: [
-			
-				{
-					extend: 'print',
-					customize: function ( win ) {
-						$(win.document.body)
-							.css( 'font-size', '10pt' )
-							.prepend(
-								'<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
-							);
-	
-						$(win.document.body).find( 'table' )
-							.addClass( 'compact text-center' )
-							.css( 'font-size', 'inherit' );
-					},
-					exportOptions: {
-						columns: [':visible']
-					}
-            	},
-					{
-					text: 'Copy',
-					extend: 'copyHtml5',
-					exportOptions: {
-						columns: [':visible']
-					}
-				},
-				{
-					text: 'Excel',
-					extend: 'excelHtml5',
-					exportOptions: {
-						columns: [':visible']
-					}
-				},
-				{
-					text: 'PDF',
-					extend: 'pdfHtml5',
-					exportOptions: {
-						columns: [':visible']
-					}
-				},
-        ],
         "ajax": {
             "method" : "GET",
             "url": "/employees/get-service-record/{{emp_id}}",
@@ -399,51 +509,193 @@
         },
 
         "columns": [
+			{
+				"data": "service_from",
+				"render": function (data) {
+					if (data){
 
-			{ "data": "service_from"},
-			{ "data": "service_to"},
+					var date = new Date(data);
+					var monthNames = [
+					  "January", "February", "March", "April", "May", "June",
+					  "July", "August", "September", "October", "November", "December"
+					];
+					var month = monthNames[date.getMonth()];
+					var day = date.getDate();
+					var year = date.getFullYear();
+				  
+					// Add zero padding to day if necessary
+					if (day < 10) {
+					  day = "0" + day;
+					}
+				  
+					return month + " " + day + ", " + year;
+				}else{
+					return '';
+				}
+			}
+
+			},
+			{
+				"data": "service_to",
+				"render": function (data) {
+					if (data){
+
+					var date = new Date(data);
+					var monthNames = [
+					  "January", "February", "March", "April", "May", "June",
+					  "July", "August", "September", "October", "November", "December"
+					];
+					var month = monthNames[date.getMonth()];
+					var day = date.getDate();
+					var year = date.getFullYear();
+				  
+					// Add zero padding to day if necessary
+					if (day < 10) {
+					  day = "0" + day;
+					}
+				  
+					return month + " " + day + ", " + year;
+				}else{
+					return '';
+				}
+				}
+			},
 			{ "data": "designation"},
 			{ "data": "status"},
 			{ "data": "salary"},
 			{ "data": "station_place"},
 			{ "data": "leave_wo_pay"},
-			{ "data": "separation_date"},
+			{
+				"data": "separation_date",
+				"render": function (data) {
+					if (data){
+						var date = new Date(data);
+						var monthNames = [
+						  "January", "February", "March", "April", "May", "June",
+						  "July", "August", "September", "October", "November", "December"
+						];
+						var month = monthNames[date.getMonth()];
+						var day = date.getDate();
+						var year = date.getFullYear();
+					  
+						// Add zero padding to day if necessary
+						if (day < 10) {
+						  day = "0" + day;
+						}
+					  
+						return month + " " + day + ", " + year;
+					}else{
+						return '';
+					}
+
+				}
+			},
 			{ "data": "separation_cause"},
-            // {
-            //   data: null,
-			//   searchable: false,
-            //   render: function ( data, type, row ) {
-            //     return `
-			// 	<div class="d-sm-flex flex-row">
-			// 		<a href="/employees/my-profile/${data.id}" class="btn btn-warning btn-sm m-2" title="View employee info" id="${data.id}">
-			// 			<i class="bi bi-eye-fill"></i>
-			// 		</a>
-			// 		<a class="btn btn-danger btn-sm m-2" title="Remove this Product" id="${data.id}" onclick = "delete_product(this)">
-			// 			<i class="bi bi-trash"></i>
-			// 		</a>
-			// 	</div>`;
-            //   }
-            // }
+
+			{% if current_user.type_of_user != 'user' %}
+
+			{
+			data: null,
+			searchable: false,
+			render: function ( data, type, row ) {
+				return `
+			<div class="d-sm-flex flex-row align-middle">
+				<a class="btn btn-primary btn-sm m-1" title="Edit" data-bs-toggle="modal" data-bs-target="#editSrModal" id="${data.id}" onclick="fetchData(this)">
+					<i class="bi bi-pencil-fill"></i>
+				</a>
+				<a class="btn btn-danger btn-sm m-1" title="Delete Service Record" id="${data.id}" onclick = "delete_service_record(this)">
+					<i class="bi bi-trash"></i>
+				</a>
+			</div>`;
+			}
+
+			}
+			{% endif %}
+
         ]
     } );
 
-})()
 
 
+
+function delete_service_record(el){
+	// alert(el.id)
+	loadingScreen("block");
+	fetch('/employees/delete-service-record',{
+		method: 'POST',
+		body: JSON.stringify({"sr_id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			triggerToast('Service Record Deleted!','success')
+			//window.location.reload()
+			service_record_table.ajax.reload();
+			loadingScreen("none");
+
+		});
+}
+
+function fetchData(el){
+	fetch('/employees/get-sr/{{ user.id }}', {
+		method: 'POST',
+		body: JSON.stringify({"edit_id" : el.id})
+	})
+	.then((res) => {
+		return res.json();
+	})
+	.then((jsonData) => {
+		var editSrId = document.getElementById('update_id');
+		var update_service_from = document.getElementById('update_service_from');
+		var update_service_to = document.getElementById('update_service_to');
+		var update_designation = document.getElementById('update_designation');
+		var update_status = document.getElementById('update_status');
+		var update_salary = document.getElementById('update_salary');
+		var update_station_place = document.getElementById('update_station_place');
+		var update_leave_wo_pay = document.getElementById('update_leave_wo_pay');
+		var update_separation_date = document.getElementById('update_separation_date');
+		var update_separation_cause = document.getElementById('update_separation_cause');
+		var update_sf_present = document.getElementById('update_sf_present');
+
+		editSrId.value = jsonData.id
+
+		update_service_from.value = jsonData.service_from
+
+		if(jsonData.service_to == 'Present'){
+			update_service_to.value = ""
+			update_sf_present.checked = true;
+			update_service_to.disabled = true;
+
+		}else{
+			update_service_to.value = jsonData.service_to
+			update_sf_present.checked = false;
+			update_service_to.disabled = false;
+		}
+
+		update_designation.value = jsonData.designation
+		update_status.value = jsonData.status
+		update_salary.value = jsonData.salary
+		update_station_place.value = jsonData.station_place
+		update_leave_wo_pay.value = jsonData.leave_wo_pay
+		update_separation_date.value = jsonData.separation_date
+		update_separation_cause.value = jsonData.separation_cause
+
+		//console.log(jsonData.id)
+	});
+}
 
 function generateTable() {
     var data = $('textarea[name=excel_data]').val();
 	var rows = data.split("\n");
 
 	var table = $(`
-		<table class="table table-striped table-bordered text-center display">
+		<table class="table table-striped table-bordered text-center">
 			<thead>
 				<tr class="align-middle">
-					<th  colspan="2">SERVICE <i>(Inclusive Dates)</i></th>
-					<th  colspan="4">RECORD OF APPOINTMENT</th>
-					<th  rowspan="2">STATION/PLACE <br>OF ASSIGNMENT</th>
-					<th  rowspan="2">LEAVE W/O PAY</th>
-					<th  colspan="2">SEPARATION</th>
+					<th colspan="2">SERVICE <i>(Inclusive Dates)</i></th>
+					<th colspan="4">RECORD OF APPOINTMENT</th>
+					<th rowspan="2">STATION/PLACE <br>OF ASSIGNMENT</th>
+					<th rowspan="2">LEAVE W/O PAY</th>
+					<th colspan="2">SEPARATION</th>
 				</tr>
 					<tr class="align-middle">
 					<th >FROM</th>
@@ -476,6 +728,7 @@ function generateTable() {
 					elName = "status"
 				}else if(x == 5){
 					elName = "salary"
+					//cells[x].replace(/\s/g, '');
 				}else if(x == 6){
 					elName = "per"
 				}else if(x == 7){
@@ -487,7 +740,7 @@ function generateTable() {
 				}else if(x == 10){
 					elName = "separation_cause"
 				}
-				row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[x]}" style="font-size:11px; width: auto;" readonly/></td>`);
+				row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[x].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
 			}
 		}
 		table.append(row);
@@ -498,41 +751,233 @@ function generateTable() {
 
 	}
 
-	function printServiceRecord(){
-		//loadingScreen('block');
-		fetch('/employees/print-service-record/{{user.id}}', {
-			method: 'GET',
-			//body: formData
-		}).then((res)=>{
-			return res.blob();
-		}).then((blob)=>{
 
-			// Create a temporary anchor element
-			const a = document.createElement('a');
-			a.href = URL.createObjectURL(blob);
-			a.download = 'report.xlsx';
+	async function fillForm(serviceRecord) {
 
-			// Append the anchor element to the document body
-			document.body.appendChild(a);
+		const count = Object.keys(serviceRecord).length;
+		
+		//console.log(count)
 
-			// Simulate a click on the anchor element to start the download
-			a.click();
+		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
+		let formUrl = "";
+		if(count <= 20){
+			formUrl = "{{ url_for('static', filename='service_record.pdf') }}";
+		}else if(count >= 21 && count <= 40){
+			formUrl = "{{ url_for('static', filename='service_record2.pdf') }}";
+		}else if(count >= 41 && count <= 60){
+			formUrl = "{{ url_for('static', filename='service_record3.pdf') }}";
 
-			// Remove the anchor element from the document body
-			document.body.removeChild(a);
+		}
+		 
 
-			var chks = document.getElementsByClassName('mainCb');
-			var l = chks.length;
-			while (l--){
-				chks[l].disabled = false;
+		const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+	  
+		const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+
+		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
+		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
+
+		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+
+		pdfDoc.registerFontkit(fontkit);
+
+		const cambria = await pdfDoc.embedFont(cambriaFontBytes,{
+			subset: true, 
+			features: { liga: false }, 
+			});
+
+		const cambriaBold = await pdfDoc.embedFont(cambriaBoldFontBytes,{
+			subset: true, 
+			features: { liga: false }, 
+			});
+
+		const form = pdfDoc.getForm()
+
+		var from = [];
+		var to = [];
+		var designation = [];
+		var status = [];
+		var salary = [];
+		var per = [];
+		var station = [];
+		var lwp = [];
+		var separation_date = [];
+		var separation_cause = [];
+
+
+		var options = { 
+			month: 'long', 
+			day: '2-digit', 
+			year: 'numeric' 
+			};
+
+		var options2 = { 
+			month: '2-digit', 
+			day: '2-digit', 
+			year: 'numeric' 
+			};
+
+		
+		var date_prepared = form.getTextField('date_prepared');
+		var comments_remarks = form.getTextField('comments_remarks');
+
+		var date_prepared_val = document.getElementById('datePrepared')
+		var date_of_prepared_formatted = new Date(date_prepared_val.value);
+
+		var formattedDateOfFiling = date_of_prepared_formatted.toLocaleDateString('en-US', options);
+
+		date_prepared.setText(String(formattedDateOfFiling));
+		date_prepared.updateAppearances(cambriaBold);
+		
+		var sr_remarks = document.getElementById('sr_remarks'); 
+		comments_remarks.setText(sr_remarks.value);
+		comments_remarks.updateAppearances(cambria);
+
+
+
+		for (var x = 1; x<=count; x++){
+			from[x] = form.getTextField(`from${x}`);
+			to[x] = form.getTextField(`to${x}`)
+			designation[x] = form.getTextField(`designation${x}`)
+			status[x] = form.getTextField(`status${x}`)
+			salary[x] = form.getTextField(`salary${x}`)
+			per[x] = form.getTextField(`per${x}`)
+			station[x] = form.getTextField(`station${x}`)
+			lwp[x] = form.getTextField(`lwp${x}`)
+			separation_date[x] = form.getTextField(`separation_date${x}`)
+			separation_cause[x] = form.getTextField(`separation_cause${x}`)
+		}
+	
+		// Parse the JSON string into a JavaScript object
+		// const jsonObject = JSON.parse(serviceRecord)
+
+		var y = 1;
+
+
+
+		for (let key in serviceRecord) {
+			//if (y > 20) {
+				//break; // Break out of the loop if the counter reaches 20
+			  //}
+
+			// Access the value using the property name (key)
+			const value = serviceRecord[key];
+
+			var date_from = new Date(value['service_from']);
+			var date_to = new Date(value['service_to']);
+			if (value['separation_date'] != ''){
+			var my_separation_date = new Date(value['separation_date']);
+			var formattedSeparationDate = my_separation_date.toLocaleDateString('en-US', options2);
+
+			}else{
+				var formattedSeparationDate = ''
 			}
 
-			//setTimeout(loadingScreen('none'), 20000);
 
-		});
+			var formattedDateFrom = date_from.toLocaleDateString('en-US', options2);
+			var formattedDateTo = date_from.toLocaleDateString('en-US', options2);
+
+
+
+			from[y].setText(String(formattedDateFrom));
+			from[y].updateAppearances(cambria);
+
+			to[y].setText(String(formattedDateTo))
+			to[y].updateAppearances(cambria);
+
+			designation[y].setText(value['designation']);
+			designation[y].updateAppearances(cambria);
+
+			status[y].setText(value['status']);
+			status[y].updateAppearances(cambria);
+			
+			salary[y].setText(value['salary']);
+			salary[y].updateAppearances(cambria);
+
+			per[y].setText(value['per']);
+			per[y].updateAppearances(cambria);
+
+			station[y].setText(value['station_place']);
+			station[y].updateAppearances(cambria);
+
+			lwp[y].setText(value['leave_wo_pay']);
+			lwp[y].updateAppearances(cambria);
+
+			separation_date[y].setText(String(formattedSeparationDate));
+			separation_date[y].updateAppearances(cambria);
+
+			separation_cause[y].setText(value['separation_cause']);
+			separation_cause[y].updateAppearances(cambria);
+			y++;
+		  }
+		  
+
+		x = 0; 	
+
+		//var date_of_filing_formatted = new Date(date_of_filing.value);
+
+		// Format date as "January 01, 2023"
+		//var options = { 
+		//month: 'long', 
+		//day: '2-digit', 
+		//year: 'numeric' 
+		//};
+
+
+		form.flatten();
+
+		const pdfBytes = pdfDoc.save()
+
+		const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+		const testPdfDataUri = await pdfDoc.saveAsBase64();
+
+		
+		// decode base64 string, remove space for IE compatibility
+		var binary = atob(testPdfDataUri.replace(/\s/g, ''));
+		var len = binary.length;
+		var buffer = new ArrayBuffer(len);
+		var view = new Uint8Array(buffer);
+		for (var i = 0; i < len; i++) {
+			view[i] = binary.charCodeAt(i);
+		}
+	
+		var blob = new Blob( [view], { type: "application/pdf" });
+		var url = URL.createObjectURL(blob);
+	
+		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
+		//var fileURL = URL.createObjectURL(file);
+	
+		loadingScreen('none')
+		window.open(url);
+
 	}
 
+	function printServiceRecord() {
+		fetch('/employees/print-service-record/{{user.id}}')
+			.then((res) => {
+				return res.json();
+			})
+			.then((jsonData) => {
+				fillForm(jsonData)
+			});
+	}
 
+	function saveRemarks() {
+		sr_remarks = document.getElementById('sr_remarks').value;
+		fetch('/employees/save-sr-remarks/{{ user.id }}',{
+			method: 'POST',
+			body: JSON.stringify({"sr_remarks" : sr_remarks})
+		})
+			.then(response => response.json())
+			.then(data => {
+				triggerToast('Remarks Saved!','success')
+				//window.location.reload()
+				service_record_table.ajax.reload();
+				loadingScreen("none");
+	
+			});
+	}
 
 	
 

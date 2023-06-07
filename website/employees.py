@@ -511,6 +511,65 @@ def delete_file():
         db.session.commit()
     return jsonify('{message: File Deleted Successfully}')
 
+@employees.route('save-sr-remarks/<user_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def save_sr_remarks(user_id):
+    if request.method == "POST":
+        formdata = json.loads(request.data)
+        usr = User.query.filter_by(id=user_id).first()
+        print(usr.last_name)
+        usr.service_record_remarks = formdata['sr_remarks']
+
+        db.session.commit()
+    return jsonify('{message: File Deleted Successfully}')
+
+@employees.route('save-sr/<user_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def save_sr(user_id):
+    user = db.session.query(User).get(user_id)
+    if request.method == "POST":
+
+        formdata = request.form.to_dict()
+        if 'update_sf_present' in formdata:
+            formdata['update_service_to'] = 'Present'
+            formdata.pop('update_sf_present')
+        formdata['user_id'] = user_id
+
+        update_id = formdata['update_id']
+        
+        print(formdata)
+        sr = Service_Record.query.get(update_id)
+        sr.service_from = formdata['update_service_from']
+        sr.service_to = formdata['update_service_to']
+        sr.designation = formdata['update_designation']
+        sr.status = formdata['update_status']
+        sr.salary = formdata['update_salary']
+        sr.station_place = formdata['update_station_place']
+        sr.leave_wo_pay = formdata['update_leave_wo_pay']
+        sr.separation_date = formdata['update_separation_date']
+        sr.separation_cause = formdata['update_separation_cause']
+
+        db.session.commit()
+
+        return redirect(url_for('employees.service_record', emp_id = user_id, user=user))
+    return render_template('service_record.html', emp_id = user_id, user=user)
+
+
+@employees.route('delete-service-record', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def delete_service_record():
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+    
+        sr = Service_Record.query.get(formdata['sr_id'])
+
+        db.session.delete(sr)
+        db.session.commit()
+    return jsonify('{message: File Deleted Successfully}')
+
 @employees.route('service-record/<emp_id>', methods=['POST', 'GET'])
 @login_required
 #@admin_permission.require(http_exception=403)
@@ -532,79 +591,29 @@ def service_record(emp_id):
 @login_required
 #@admin_permission.require(http_exception=403)
 def print_service_record(emp_id):
-     
+    
     emp_service_record = Service_Record.query.filter_by(user_id=emp_id).limit(100).all()
-    user = User.query.get(emp_id)
+
     if emp_service_record:
-        # Load the Excel template using openpyxl
-        template_path = current_app.root_path + '/static'
-        file_name = 'service_record.xlsx'
-        workbook = load_workbook(template_path + '/' + file_name)
-        sheet = workbook.active
+        # Convert the list of objects to a list of dictionaries
+        records = [record.to_dict() for record in emp_service_record]
 
-        sheet['B12'].value = user.last_name
-        
-        sheet['D12'].value = user.first_name
-        
-        if user.name_extn is not None and user.name_extn != "" and user.name_extn != "N/A":
-            sheet['D12'].value = user.first_name + " " + user.name_extn
+        # Return the records as JSON
+        return jsonify(records)
+    return jsonify('')
 
 
-        sheet['F12'].value = user.middle_initial
-        sheet['B15'].value = user.birthdate
-        sheet['D15'].value = user.place_of_birth
+@employees.route('get-sr/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def get_sr(emp_id):
+    formdata  = json.loads(request.data)
+    sr = Service_Record.query.filter_by(id=formdata['edit_id']).first()
+    if sr:
+        return jsonify(sr.serialize())
 
+    return jsonify('')
 
-        # Get the starting row for displaying service records
-        start_row = 24
-
-        # Calculate the range of cells to copy
-        copy_start_row = start_row + 1
-        copy_end_row = copy_start_row + len(emp_service_record) - 1
-        copy_range = f'A{copy_start_row}:K{copy_end_row}'
-
-        # Convert the list of Service_Record objects to a list of dictionaries
-        record_dict_list = []
-        for record in emp_service_record:
-            record_dict = {
-                'service_from': record.service_from,
-                'service_to': record.service_to,
-                'designation': record.designation,
-                'status': record.status,
-                'salary': record.salary,
-                'per': record.per,
-                'station_place': record.station_place,
-                'leave_wo_pay': record.leave_wo_pay,
-                'separation_date': record.separation_date,
-                'separation_cause': record.separation_cause
-            }
-            record_dict_list.append(record_dict)
-
-        # Create a DataFrame from the list of dictionaries
-        df = pd.DataFrame(record_dict_list)
-
-        # Copy the range of cells
-        copied_data = list(dataframe_to_rows(df, index=False, header=False))
-
-        # Paste the copied data to the desired location
-        for row, record in enumerate(copied_data, start=start_row):
-            for col, value in enumerate(record, start=1):
-                sheet.cell(row=row, column=col).value = value
-
-        # Save the modified workbook to a temporary file-like object
-        buffer = BytesIO()
-        workbook.save(buffer)
-
-        # Reset the buffer position to the start
-        buffer.seek(0)
-
-        # Send the workbook as a response for download
-        return send_file(
-            buffer,
-            attachment_filename='modified.xlsx',
-            as_attachment=True
-        )
-    # return render_template('service_record.html', emp_id = emp_id, user=user)
 
 @employees.route('service-record-by-batch/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -632,7 +641,7 @@ def service_record_by_batch(emp_id):
             if separation_dates[i] != "" and separation_dates is not None:
                 separation_date = datetime.datetime.strptime(separation_dates[i], '%m/%d/%Y').date()
             else:
-                separation_date = None
+                separation_date = ""
 
             if service_tos[i] != 'Present' and service_tos[i] != 'PRESENT' and service_tos[i] != 'present':
                 # print(service_tos[i])

@@ -24,8 +24,8 @@
   <link href="{{ url_for('static', filename='spinner.css') }}" rel="stylesheet">
 
 
-  <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet">
-
+  <!-- <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <!-- <link href="{{ url_for('static', filename='quill-1.3.6/bootstrap-icons.css') }}" rel="stylesheet"> -->
 
 
@@ -199,7 +199,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
             </li>
           </ul>
           <li class="nav-item">
-            <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
+            <a class="nav-link {{'' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
           </li>
           <li class="nav-item">
             <!-- <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a> -->

@@ -119,9 +119,6 @@ async function fillForm() {
 
   const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
-
-
-
   const form = pdfDoc.getForm()
 
     const last_name = form.getTextField('last_name');

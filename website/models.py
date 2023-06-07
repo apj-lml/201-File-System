@@ -165,6 +165,7 @@ class User(db.Model, UserMixin):
     is_primary_afl_certifier = db.Column(db.Integer, default=0)
     is_secondary_afl_certifier = db.Column(db.Integer, default=0)
 
+    service_record_remarks = db.Column(db.String(999), default='')
 
 
     type_of_user = db.Column(db.String(150), default='user')
@@ -355,6 +356,22 @@ class Service_Record(db.Model, SerializerMixin):
     separation_date = db.Column(db.String(150), nullable=True)
     separation_cause = db.Column(db.String(50), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'service_from': self.service_from,
+            'service_to': self.service_to,
+            'designation': self.designation,
+            'status': self.status,
+            'salary': self.salary,
+            'per': self.per,
+            'station_place': self.station_place,
+            'leave_wo_pay': self.leave_wo_pay,
+            'separation_date': self.separation_date,
+            'separation_cause': self.separation_cause,
+            'user_id': self.user_id
+        }
 
 class Appointment(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
