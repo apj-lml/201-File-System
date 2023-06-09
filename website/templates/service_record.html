@@ -17,7 +17,7 @@
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
 
-<main class="container">
+<main class="container-fluid">
 	
 	<div class="row">
 
@@ -190,6 +190,7 @@
 		</div>
 		<div class="modal-body">
 			<form enctype="multipart/form-data" id="add_service_record" action="/employees/service-record/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+				<input type="text" value="" name="per" id="per">
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
@@ -249,7 +250,7 @@
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <input type="number" class="form-control" id="salary" name ="salary" placeholder="Salary" value="" required>
+					  <input type="text" class="form-control" id="salary" name ="salary" placeholder="Salary" value="" required>
 					  <label for="salary">Salary</label>
 					  <div class="valid-feedback">
 						Looks good!
@@ -538,8 +539,8 @@
 			{
 				"data": "service_to",
 				"render": function (data) {
-					if (data){
-
+					if (data && data != "Present"){
+					console.log(data)
 					var date = new Date(data);
 					var monthNames = [
 					  "January", "February", "March", "April", "May", "June",
@@ -555,6 +556,9 @@
 					}
 				  
 					return month + " " + day + ", " + year;
+				}else if(data == "Present"){
+					return 'Present';
+
 				}else{
 					return '';
 				}
