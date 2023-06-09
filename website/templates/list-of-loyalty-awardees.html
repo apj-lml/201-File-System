@@ -50,7 +50,7 @@ td{
   <!--                         LIST OF awardeeS                                -->
   <!-- ----------------------------------------------------------------------- -->
   <div class="row text-center d-flex justify-content-center">
-        <div class="card shadow-sm mb-3 col-sm-8">
+        <div class="card shadow-sm mb-3 col-sm-11">
           <div class="card-body">
 
               <div class="card text-white bg-blue shadow-sm mb-3" >
@@ -67,7 +67,9 @@ td{
                 <table class="table table-bordered table-striped" id="loyalty_awardees_table" width = "100%">
                   <thead class="">
                   <tr class="align-middle">
-                    <th>Name</th>
+                    <th width="200px">Name</th>
+                    <th width="50px">Position Title</th>
+                    <th>Employment Status</th>
                     <th>First Day in Service <br>(No Gap)</th>
                     <th>Number of Years in Service</th>
                     <th>Claiming Year</th>
@@ -77,7 +79,9 @@ td{
                     {# if getListOfawardees is not none #}
                       {% for awardee in getListOfawardees %}
                         <tr>
-                          <td class="text-center align-middle">{{awardee.proper_fullname}}</td>
+                          <td class="text-start align-middle">{{awardee.proper_fullname}}</td>
+                          <td class="text-start align-middle">{{awardee.position_title}}</td>
+                          <td class="text-center align-middle">{{awardee.employment_status}}</td>
                           <td class="text-center align-middle">{{awardee.first_day_in_service.strftime('%B %d, %Y') if awardee.awardClaimingYear() is not none }}</td>
                           <td class="text-center align-middle">{{awardee.getYearsInService() if awardee.getYearsInService() is not none }}</td>
                           <td class="text-wrap align-middle">

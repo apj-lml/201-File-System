@@ -38,7 +38,7 @@
 				<div class="col-sm-2">
 					<div class="row">
 						<div class="col-12  border-dark border-bottom">
-							<h6 class="fw-bold text-center">{{user.first_name}}</h6>
+							<h6 class="fw-bold text-center">{{user.first_name}}  {{user.name_extn if user.name_extn != "N/A" and user.name_extn != "" and user.name_extn is not none}}{{"." if user.name_extn != "N/A" and user.name_extn != "" and user.name_extn is not none}}</h6>
 						</div>
 						<div class="col-12"><h6 class="text-center"><i>Given Name</i></h6></div>
 					</div>
@@ -753,6 +753,8 @@ function generateTable() {
 
 
 	async function fillForm(serviceRecord) {
+		loadingScreen("block");
+
 
 		const count = Object.keys(serviceRecord).length;
 		
@@ -818,6 +820,11 @@ function generateTable() {
 			year: 'numeric' 
 			};
 
+		var last_name = form.getTextField('last_name');
+		var first_name = form.getTextField('first_name');
+		var middle_initial = form.getTextField('middle_initial');
+		var birth_date = form.getTextField('birth_date');
+		var birth_place = form.getTextField('birth_place');
 		
 		var date_prepared = form.getTextField('date_prepared');
 		var comments_remarks = form.getTextField('comments_remarks');
@@ -826,6 +833,24 @@ function generateTable() {
 		var date_of_prepared_formatted = new Date(date_prepared_val.value);
 
 		var formattedDateOfFiling = date_of_prepared_formatted.toLocaleDateString('en-US', options);
+
+
+		last_name.setText('{{user.last_name}}');
+		last_name.updateAppearances(cambriaBold);
+
+		first_name.setText('{{user.first_name}} {{user.name_extn if user.name_extn != "N/A" and user.name_extn != "" and user.name_extn is not none}}');
+		first_name.updateAppearances(cambriaBold);
+
+		middle_initial.setText('{{user.middle_initial}}{{ "." if user.middle_initial is not none and user.middle_initial != "" and user.middle_initial != "N/A"}}');
+		middle_initial.updateAppearances(cambriaBold);
+
+		birth_date.setText("{{user.birthdate.strftime('%B %d, %Y')}}");
+		birth_date.updateAppearances(cambriaBold);
+
+		birth_place.setText('{{user.place_of_birth}}');
+		birth_place.updateAppearances(cambriaBold);
+
+
 
 		date_prepared.setText(String(formattedDateOfFiling));
 		date_prepared.updateAppearances(cambriaBold);
