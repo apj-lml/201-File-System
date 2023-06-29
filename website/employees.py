@@ -518,7 +518,6 @@ def save_sr_remarks(user_id):
     if request.method == "POST":
         formdata = json.loads(request.data)
         usr = User.query.filter_by(id=user_id).first()
-        print(usr.last_name)
         usr.service_record_remarks = formdata['sr_remarks']
 
         db.session.commit()
@@ -539,13 +538,14 @@ def save_sr(user_id):
 
         update_id = formdata['update_id']
         
-        print(formdata)
+        # print(formdata)
         sr = Service_Record.query.get(update_id)
         sr.service_from = formdata['update_service_from']
         sr.service_to = formdata['update_service_to']
         sr.designation = formdata['update_designation']
         sr.status = formdata['update_status']
         sr.salary = formdata['update_salary']
+        sr.per = formdata['update_per']
         sr.station_place = formdata['update_station_place']
         sr.leave_wo_pay = formdata['update_leave_wo_pay']
         sr.separation_date = formdata['update_separation_date']

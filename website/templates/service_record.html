@@ -190,9 +190,9 @@
 		</div>
 		<div class="modal-body">
 			<form enctype="multipart/form-data" id="add_service_record" action="/employees/service-record/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
-				<input type="text" value="" name="per" id="per">
+				<input type="hidden" value="/d" name="per" id="per">
 				<div class="d-sm-flex flex-row"> 
-					<div class="form-floating flex-fill mb-3 p-1">
+					<div class="form-floating flex-fill mb-2 p-1">
 					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
 					  <label for="service_from">Service From</label>
 					  <div class="valid-feedback">
@@ -233,12 +233,12 @@
 				</div>
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="status" name="status" aria-label="Floating label select example" value="">
+						<select class="form-select" id="status" name="status" onchange="changeStatus(this)" value="">
 							<option value="Job Order">Job Order</option>
 							<option value="Permanent">Permanent</option>
 							<option value="Casual">Casual</option>
 							<option value="Co-Term.">Co-Term.</option>
-							<option value="Separated">Separated</option>
+							<!-- <option value="Separated">Separated</option> -->
 						</select>
 						<label for="middle_name">Employment Status</label>
 
@@ -350,7 +350,7 @@
 		<div class="modal-body">
 			<form id="save_service_record" action="/employees/save-sr/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<input type="hidden" class="form-control" id="update_id" name ="update_id" placeholder="ID" value="" required>
-
+				<input type="hidden" value="/d" name="update_per" id="update_per">
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="date" class="form-control" id="update_service_from" name ="update_service_from" placeholder="Service From" value="" required>
@@ -384,12 +384,12 @@
 				</div>
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
-						<select class="form-select" id="update_status" name="update_status" aria-label="Employment Status" value="">
+						<select class="form-select" id="update_status" name="update_status" aria-label="Employment Status" onchange="updateChangeStatus(this)" value="">
 							<option value="Job Order">Job Order</option>
 							<option value="Permanent">Permanent</option>
 							<option value="Casual">Casual</option>
 							<option value="Co-Term.">Co-Term.</option>
-							<option value="Separated">Separated</option>
+							<!-- <option value="Separated">Separated</option> -->
 						</select>
 						<label for="update_status">Employment Status</label>
 						  <div class="invalid-feedback">
@@ -403,7 +403,7 @@
 						This is required.
 					  </div>
 
-					  <input type="hidden" class="form-control" id="update_per" name ="update_per" placeholder="Salary" value="" required>
+					  <!-- <input type="hidden" class="form-control" id="update_per" name ="update_per" placeholder="Salary" value="" required> -->
 
 					</div>
 				</div>
@@ -1041,6 +1041,25 @@ function generateTable() {
 			});
 	}
 
+	function changeStatus(el){
+		console.log(el.value);
+		let per = document.getElementById('per');
+		if(el.value == 'Job Order' || el.value == 'Casual'){
+			per.value = '/d';
+		}else{
+			per.value = '/mo';
+		}
+	}
+
+	function updateChangeStatus(el){
+		console.log(el.value);
+		let per = document.getElementById('update_per');
+		if(el.value == 'Job Order' || el.value == 'Casual'){
+			per.value = '/d';
+		}else{
+			per.value = '/mo';
+		}
+	}
 	
 
 
