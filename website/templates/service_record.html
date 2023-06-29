@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Admin Dashboard {% endblock %}
+{% block title %} Service Record {% endblock %}
 
 {%block cssperfile %} 
 <style>
@@ -344,7 +344,7 @@
 	<div class="modal-dialog modal-dialog-scrollable modal-lg">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Add Service Record</h5>
+		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Edit Service Record</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
@@ -402,6 +402,9 @@
 					  <div class="invalid-feedback">
 						This is required.
 					  </div>
+
+					  <input type="hidden" class="form-control" id="update_per" name ="update_per" placeholder="Salary" value="" required>
+
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
@@ -497,6 +500,7 @@
 
 		bSortCellsTop: true,
 		scrollX: true,
+		order: [[0, 'desc']],
 		// responsive: true,
 
 		//dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'B><'col-sm-4 col-md-4'f>>
@@ -510,11 +514,41 @@
         },
 
         "columns": [
-			{
-				"data": "service_from",
-				"render": function (data) {
-					if (data){
+			//{
+			//	"data": "service_from",
+			//	"render": function (data) {
+			//		if (data){
 
+			//		var date = new Date(data);
+			//		var monthNames = [
+			//		  "January", "February", "March", "April", "May", "June",
+			//		  "July", "August", "September", "October", "November", "December"
+			//		];
+			//		var month = monthNames[date.getMonth()];
+			//		var day = date.getDate();
+			//		var year = date.getFullYear();
+				  
+					// Add zero padding to day if necessary
+			//		if (day < 10) {
+			//		  day = "0" + day;
+			//		}
+				  
+			//		return month + " " + day + ", " + year;
+			//	}else{
+			//		return '';
+			//	}
+			//}
+
+			//},
+			{
+				"targets": 0,
+				"data": "service_from", // Specify the original column index or the rendered column index
+				"render": function (data, type, row) {
+				  if (type === "sort") {
+					// Return the original date value for sorting
+					return data;
+				  } else {
+					// Render the formatted date for display
 					var date = new Date(data);
 					var monthNames = [
 					  "January", "February", "March", "April", "May", "June",
@@ -523,24 +557,21 @@
 					var month = monthNames[date.getMonth()];
 					var day = date.getDate();
 					var year = date.getFullYear();
-				  
+					
 					// Add zero padding to day if necessary
 					if (day < 10) {
 					  day = "0" + day;
 					}
-				  
+					
 					return month + " " + day + ", " + year;
-				}else{
-					return '';
+				  }
 				}
-			}
-
-			},
+			  },
 			{
 				"data": "service_to",
 				"render": function (data) {
 					if (data && data != "Present"){
-					console.log(data)
+					//console.log(data)
 					var date = new Date(data);
 					var monthNames = [
 					  "January", "February", "March", "April", "May", "June",
@@ -654,6 +685,7 @@ function fetchData(el){
 		var update_designation = document.getElementById('update_designation');
 		var update_status = document.getElementById('update_status');
 		var update_salary = document.getElementById('update_salary');
+		var update_per = document.getElementById('update_per');
 		var update_station_place = document.getElementById('update_station_place');
 		var update_leave_wo_pay = document.getElementById('update_leave_wo_pay');
 		var update_separation_date = document.getElementById('update_separation_date');
@@ -678,6 +710,7 @@ function fetchData(el){
 		update_designation.value = jsonData.designation
 		update_status.value = jsonData.status
 		update_salary.value = jsonData.salary
+		update_per.value = jsonData.per
 		update_station_place.value = jsonData.station_place
 		update_leave_wo_pay.value = jsonData.leave_wo_pay
 		update_separation_date.value = jsonData.separation_date
