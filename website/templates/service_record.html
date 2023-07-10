@@ -143,7 +143,21 @@
 				  </table>
 			</div>
 		</div>
-		<div class="row my-3">
+		<div class="col-sm-6 mt-3 mb-5">
+			<div class="col-sm-12">
+				<div class="form-floating">
+					<textarea type="email" class="form-control" id="sr_remarks" placeholder="Comments/Remarks" style="height: 150px;" {{'readonly' if current_user.type_of_user == 'user'}}>{{user.service_record_remarks}}</textarea>
+					<label for="sr_remarks">Comments/Remarks</label>
+				</div>
+			</div>
+		{% if current_user.type_of_user != 'user' %}
+
+			<div class="col-sm-12">
+				<button class="btn btn-primary btn-sm mt-2" onclick="saveRemarks()">Save Comments/Remarks</button>
+			</div>
+		{% endif %}
+		</div>
+		<!-- <div class="row my-3">
 			<div class="col-sm-6">
 				<div class="col-sm-12">
 					<p class="fw-light mb-0">This superseeds all Service Records previously issued inconsistent herewith.</p>
@@ -173,7 +187,7 @@
 			{% endif %}
 			</div>
 
-		</div>
+		</div> -->
 	</div>
 
 </main>
@@ -184,33 +198,23 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
 	<div class="modal-dialog modal-dialog-scrollable modal-lg">
 	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Add Service Record</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		<div class="modal-header bg-blue">
+		  <h4 class="text-white m-0 p-0"><i class="bi bi-card-list"></i> </h4>
+		  <h5 class="modal-title text-white ms-auto">ADD SERVICE RECORD</h5>
+		  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
-			<form enctype="multipart/form-data" id="add_service_record" action="/employees/service-record/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+			<form enctype="multipart/form-data" id="add_service_record" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<input type="hidden" value="/d" name="per" id="per">
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-2 p-1">
 					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
 					  <label for="service_from">Service From</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
+					<div class="form-floating flex-fill p-1">
 					  <input type="date" class="form-control" id="service_to" name ="service_to" placeholder="Service To" value="" required>
 					  <label for="first_name">Service To</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
+					  
 					  <div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="sf_present" name="sf_present" value = "Present">
 						<label class="form-check-label" for="sf_present">
@@ -223,12 +227,7 @@
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="designation" name ="designation" placeholder="Designation" value="" required>
 					  <label for="designation">Designation</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
+					  
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
@@ -241,34 +240,28 @@
 							<!-- <option value="Separated">Separated</option> -->
 						</select>
 						<label for="middle_name">Employment Status</label>
-
-						<div class="valid-feedback">
-							Looks good!
-						  </div>
 						  <div class="invalid-feedback">
-							This is required.
+							This field is required.
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="salary" name ="salary" placeholder="Salary" value="" required>
 					  <label for="salary">Salary</label>
-					  <div class="valid-feedback">
-						Looks good!
-					  </div>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
+					  
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
-						<input type="text" class="form-control" id="station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="" required>
-						<label for="designation">Station/ Place of Assignment</label>
-						<div class="valid-feedback">
-							Looks good!
-						  </div>
+						<input type="text" class="form-control" id="station_place" name ="station_place" placeholder="Station/ Place of Assignment" value="NIA-Pangasinan IMO, Urdaneta City" readonly required>
+						<label for="station_place">Station/ Place of Assignment</label>
 						  <div class="invalid-feedback">
-							This is required.
+							This field is required.
+						  </div>
+						  <div class="form-check">
+							<input class="form-check-input" type="checkbox" value="NIA-Pangasinan IMO, Urdaneta City" id="nia_pimo" name="nia_pimo" checked onchange="checkNiaPimo(this)">
+							<label class="form-check-label" for="nia_pimo">
+								NIA-Pangasinan IMO, Urdaneta City
+							</label>
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
@@ -281,13 +274,17 @@
 						<input type="date" class="form-control" id="separation_date" name ="separation_date" placeholder="Separation Date" value="">
 						<label for="designation">Separation Date</label>
 					</div>
-				</div>
-				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
-					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Separation Cause" value=""></textarea>
-					  <label for="salary">Separation Cause</label>
-					</div>
+						<textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Remarks" value=""></textarea>
+						<label for="salary">Remarks</label>
+					  </div>
 				</div>
+				<!-- <div class="d-sm-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="separation_cause" name ="separation_cause" placeholder="Remarks" value=""></textarea>
+					  <label for="salary">Remarks</label>
+					</div>
+				</div> -->
 
 		</div>
 		<div class="modal-footer">
@@ -306,10 +303,11 @@
   <div class="modal fade" id="addByBatch" tabindex="-1" aria-labelledby="addByBatchLabel" aria-hidden="true" data-bs-backdrop="static">
 	<div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
 	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Add Service Record by Batch</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
+		<div class="modal-header bg-blue">
+			
+			<h5 class="modal-title text-white ms-auto"><i class="bi bi-database-add me-2"></i> ADD SERVICE RECORD BY BATCH</h5>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+		  </div>
 		<div class="modal-body">
 			
 			<div class="mb-3 mt-3">
@@ -319,15 +317,10 @@
 	
 			<div class="modal-body">
 			<form enctype="multipart/form-data" id="add_service_record_by_batch" action="/employees/service-record-by-batch/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
-	
-
 				<div id="excel_table" style="overflow-y:scroll;"></div>
-
-	
 			</div>
 		</div>
 
-		
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 		  <button type="submit" class="btn btn-primary">Save Record</button>
@@ -343,28 +336,23 @@
   <div class="modal fade" id="editSrModal" tabindex="-1" aria-labelledby="editSrModalLabel" aria-hidden="true" data-bs-backdrop="static">
 	<div class="modal-dialog modal-dialog-scrollable modal-lg">
 	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title"><i class="bi bi-card-list"></i> Edit Service Record</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		<div class="modal-header bg-blue">
+			<h4 class="text-white m-0 p-0"><i class="bi bi-pencil-fill"></i> </h4>
+			<h5 class="modal-title text-white ms-auto">EDIT SERVICE RECORD</h5>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
-		<div class="modal-body">
-			<form id="save_service_record" action="/employees/save-sr/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
+		<form id="save_service_record" action="#" method="POST" autocomplete="off" class="needs-validation" novalidate>
+			<div class="modal-body">
 				<input type="hidden" class="form-control" id="update_id" name ="update_id" placeholder="ID" value="" required>
 				<input type="hidden" value="/d" name="update_per" id="update_per">
 				<div class="d-sm-flex flex-row"> 
-					<div class="form-floating flex-fill mb-3 p-1">
+					<div class="form-floating flex-fill p-1">
 					  <input type="date" class="form-control" id="update_service_from" name ="update_service_from" placeholder="Service From" value="" required>
 					  <label for="update_service_from">Service From</label>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					</div>
-					<div class="form-floating flex-fill mb-3 p-1">
+					<div class="form-floating flex-fill p-1">
 					  <input type="date" class="form-control" id="update_service_to" name ="update_service_to" placeholder="Service To" value="" required>
 					  <label for="update_service_to">Service To</label>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					  <div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="update_sf_present" name="update_sf_present" value = "Present">
 						<label class="form-check-label" for="update_sf_present">
@@ -377,9 +365,6 @@
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="update_designation" name ="update_designation" placeholder="Designation" value="" required>
 					  <label for="update_designation">Position Title</label>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
@@ -392,30 +377,21 @@
 							<!-- <option value="Separated">Separated</option> -->
 						</select>
 						<label for="update_status">Employment Status</label>
-						  <div class="invalid-feedback">
-							This is required.
-						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <input type="text" class="form-control" id="update_salary" name ="update_salary" placeholder="Salary" value="" required>
 					  <label for="salary">Salary</label>
-					  <div class="invalid-feedback">
-						This is required.
-					  </div>
-
-					  <!-- <input type="hidden" class="form-control" id="update_per" name ="update_per" placeholder="Salary" value="" required> -->
-
 					</div>
 				</div>
 				<div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 						<input type="text" class="form-control" id="update_station_place" name ="update_station_place" placeholder="Station/ Place of Assignment" value="" required>
 						<label for="update_station_place">Station/ Place of Assignment</label>
-						<div class="valid-feedback">
-							Looks good!
-						  </div>
-						  <div class="invalid-feedback">
-							This is required.
+						  <div class="form-check">
+							<input class="form-check-input" type="checkbox" value="NIA-Pangasinan IMO, Urdaneta City" id="update_nia_pimo" name="update_nia_pimo" checked onchange="updateCheckNiaPimo(this)">
+							<label class="form-check-label" for="update_nia_pimo">
+								NIA-Pangasinan IMO, Urdaneta City
+							</label>
 						  </div>
 					</div>
 					<div class="form-floating flex-fill mb-3 p-1">
@@ -428,13 +404,18 @@
 						<input type="date" class="form-control" id="update_separation_date" name ="update_separation_date" placeholder="Separation Date" value="">
 						<label for="update_separation_date">Separation Date</label>
 					</div>
+
+					<div class="form-floating flex-fill mb-3 p-1">
+						<textarea rows="5" style="height:100%;" cols="50" class="form-control" id="update_separation_cause" name ="update_separation_cause" placeholder="Separation Cause" value=""></textarea>
+						<label for="update_separation_cause">Remarks</label>
+					  </div>
 				</div>
-				<div class="d-sm-flex flex-row">
+				<!-- <div class="d-sm-flex flex-row">
 					<div class="form-floating flex-fill mb-3 p-1">
 					  <textarea rows="5" style="height:100%;" cols="50" class="form-control" id="update_separation_cause" name ="update_separation_cause" placeholder="Separation Cause" value=""></textarea>
-					  <label for="update_separation_cause">Separation Cause</label>
+					  <label for="update_separation_cause">Remarks</label>
 					</div>
-				</div>
+				</div> -->
 
 		</div>
 		<div class="modal-footer">
@@ -494,7 +475,6 @@
 			update_service_to.disabled = false;
 			}
 	})
-
 
 	var service_record_table = $('#service_record_table').DataTable({
 
@@ -571,7 +551,6 @@
 				"data": "service_to",
 				"render": function (data) {
 					if (data && data != "Present"){
-					//console.log(data)
 					var date = new Date(data);
 					var monthNames = [
 					  "January", "February", "March", "April", "May", "June",
@@ -651,23 +630,30 @@
     } );
 
 
-
-
 function delete_service_record(el){
-	// alert(el.id)
-	loadingScreen("block");
-	fetch('/employees/delete-service-record',{
-		method: 'POST',
-		body: JSON.stringify({"sr_id" : el.id})
-	})
-		.then(response => response.json())
-		.then(data => {
-			triggerToast('Service Record Deleted!','success')
-			//window.location.reload()
-			service_record_table.ajax.reload();
-			loadingScreen("none");
 
-		});
+	Swal.fire({
+		title: 'Are you sure you want to delete this?',
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Delete',
+	  }).then((result) => {
+		/* Read more about isConfirmed, isDenied below */
+		if (result.isConfirmed) {
+			loadingScreen("block");
+			fetch('/employees/delete-service-record',{
+				method: 'POST',
+				body: JSON.stringify({"sr_id" : el.id})
+			})
+				.then(response => response.json())
+				.then(data => {
+					triggerToast('Service Record Deleted!','success')
+					service_record_table.ajax.reload();
+					loadingScreen("none");
+		
+				});
+		}
+	  });
 }
 
 function fetchData(el){
@@ -702,21 +688,19 @@ function fetchData(el){
 			update_service_to.disabled = true;
 
 		}else{
-			update_service_to.value = jsonData.service_to
+			update_service_to.value = jsonData.service_to;
 			update_sf_present.checked = false;
 			update_service_to.disabled = false;
 		}
 
-		update_designation.value = jsonData.designation
-		update_status.value = jsonData.status
-		update_salary.value = jsonData.salary
-		update_per.value = jsonData.per
-		update_station_place.value = jsonData.station_place
-		update_leave_wo_pay.value = jsonData.leave_wo_pay
-		update_separation_date.value = jsonData.separation_date
-		update_separation_cause.value = jsonData.separation_cause
-
-		//console.log(jsonData.id)
+		update_designation.value = jsonData.designation;
+		update_status.value = jsonData.status;
+		update_salary.value = jsonData.salary;
+		update_per.value = jsonData.per;
+		update_station_place.value = jsonData.station_place;
+		update_leave_wo_pay.value = jsonData.leave_wo_pay;
+		update_separation_date.value = jsonData.separation_date;
+		update_separation_cause.value = jsonData.separation_cause;
 	});
 }
 
@@ -792,10 +776,7 @@ function generateTable() {
 	async function fillForm(serviceRecord) {
 		loadingScreen("block");
 
-
 		const count = Object.keys(serviceRecord).length;
-		
-		//console.log(count)
 
 		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
 		let formUrl = "";
@@ -818,6 +799,8 @@ function generateTable() {
 
 		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
 		const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
+
 
 		pdfDoc.registerFontkit(fontkit);
 
@@ -827,6 +810,11 @@ function generateTable() {
 			});
 
 		const cambriaBold = await pdfDoc.embedFont(cambriaBoldFontBytes,{
+			subset: true, 
+			features: { liga: false }, 
+			});
+
+		const cambriaItalic = await pdfDoc.embedFont(cambriaItalicFontBytes,{
 			subset: true, 
 			features: { liga: false }, 
 			});
@@ -862,6 +850,7 @@ function generateTable() {
 		var middle_initial = form.getTextField('middle_initial');
 		var birth_date = form.getTextField('birth_date');
 		var birth_place = form.getTextField('birth_place');
+		var maiden_name = form.getTextField('maiden_name');
 		
 		var date_prepared = form.getTextField('date_prepared');
 		var comments_remarks = form.getTextField('comments_remarks');
@@ -869,8 +858,22 @@ function generateTable() {
 		var date_prepared_val = document.getElementById('datePrepared')
 		var date_of_prepared_formatted = new Date(date_prepared_val.value);
 
+		var certifier = form.getTextField('certifier');
+		var certifier_pos = form.getTextField('certifier_pos');
+
 		var formattedDateOfFiling = date_of_prepared_formatted.toLocaleDateString('en-US', options);
 
+		{% if user.is_primary_sr_certifier == 1 %}
+			certifier.setText('{{ secondary_certifier[0].first_name }} {{ secondary_certifier[0].middle_initial }}. {{ secondary_certifier[0].last_name }} {{ secondary_certifier[0].name_extn if secondary_certifier[0].name_extn != "N/A" }}');
+			certifier_pos.setText(toTitleCase('{{ secondary_certifier[0].position_title }}'));
+		{% else %}
+			certifier.setText('{{ primary_certifier[0].first_name }} {{ primary_certifier[0].middle_initial }}. {{ primary_certifier[0].last_name }} {{ primary_certifier[0].name_extn if primary_certifier[0].name_extn != "N/A" }}');
+			certifier_pos.setText(toTitleCase('{{ primary_certifier[0].position_title }}'));
+
+		{% endif %}
+
+		certifier.updateAppearances(cambriaBold);
+		certifier_pos.updateAppearances(cambriaItalic);
 
 		last_name.setText('{{user.last_name}}');
 		last_name.updateAppearances(cambriaBold);
@@ -887,15 +890,16 @@ function generateTable() {
 		birth_place.setText('{{user.place_of_birth}}');
 		birth_place.updateAppearances(cambriaBold);
 
-
+		maiden_name.setText('{{user.maiden_name if user.maiden_name and user.maiden_name != "N/A" and user.maiden_name != "" else "N/A"}}');
+		maiden_name.updateAppearances(cambriaBold);
 
 		date_prepared.setText(String(formattedDateOfFiling));
 		date_prepared.updateAppearances(cambriaBold);
 		
 		var sr_remarks = document.getElementById('sr_remarks'); 
+		
 		comments_remarks.setText(sr_remarks.value);
 		comments_remarks.updateAppearances(cambria);
-
 
 
 		for (var x = 1; x<=count; x++){
@@ -938,8 +942,7 @@ function generateTable() {
 
 
 			var formattedDateFrom = date_from.toLocaleDateString('en-US', options2);
-			var formattedDateTo = date_from.toLocaleDateString('en-US', options2);
-
+			var formattedDateTo = date_to.toLocaleDateString('en-US', options2);
 
 
 			from[y].setText(String(formattedDateFrom));
@@ -974,18 +977,7 @@ function generateTable() {
 			y++;
 		  }
 		  
-
 		x = 0; 	
-
-		//var date_of_filing_formatted = new Date(date_of_filing.value);
-
-		// Format date as "January 01, 2023"
-		//var options = { 
-		//month: 'long', 
-		//day: '2-digit', 
-		//year: 'numeric' 
-		//};
-
 
 		form.flatten();
 
@@ -1034,15 +1026,103 @@ function generateTable() {
 			.then(response => response.json())
 			.then(data => {
 				triggerToast('Remarks Saved!','success')
-				//window.location.reload()
 				service_record_table.ajax.reload();
 				loadingScreen("none");
 	
 			});
 	}
 
+
+
+	   document.getElementById('add_service_record').addEventListener('submit', (e)=>{
+		
+		loadingScreen('block');
+		
+		if (document.getElementById('add_service_record').checkValidity()) {
+			e.preventDefault();
+			e.stopPropagation();
+
+		var formElem = document.getElementById("add_service_record");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+
+		fetch('/employees/add-service-record/{{user.id}}', {
+			method: 'POST',
+			body: formData
+		}).then((res)=>{
+			if (res.status == 406){
+				 loadingScreen('none');
+
+			}else if (res.status == 200){
+				var myModalEl = document.getElementById('exampleModal');
+				var modal = bootstrap.Modal.getInstance(myModalEl)
+				modal.hide();
+				
+				triggerToast("Successfully saved to the database.", "success"); //this is the returned error message
+
+			}else{
+				formElem.reset();
+			}
+			return res.json();
+
+		}).then((data)=>{
+				formElem.classList.remove('was-validated');
+				service_record_table.ajax.reload();
+				loadingScreen('none');
+		})
+	}else{
+		loadingScreen('none');
+	}
+	});
+
+	document.getElementById('save_service_record').addEventListener('submit', (e)=>{
+		console.log("dito")
+		loadingScreen('block');
+		e.preventDefault();
+		e.stopPropagation();
+		if (document.getElementById('save_service_record').checkValidity()) {
+			
+		var formElem = document.getElementById("save_service_record");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+
+		fetch('/employees/save-sr/{{user.id}}', {
+			method: 'POST',
+			body: formData
+		}).then((res)=>{
+			if (res.status == 406){
+				 loadingScreen('none');
+				 formElem.classList.remove('was-validated');
+				triggerToast("Overlapping dates detected! Please double check your inputs.", "warning"); //this is the returned error message
+
+			}else if (res.status == 200){
+				var myModalEl = document.getElementById('editSrModal');
+				var modal = bootstrap.Modal.getInstance(myModalEl)
+				modal.hide();
+				triggerToast("Successfully saved to the database.", "success"); //this is the returned error message
+
+			}else{
+				formElem.reset();
+			}
+			return res.json();
+
+		}).then((data)=>{
+				formElem.classList.remove('was-validated');
+				service_record_table.ajax.reload();
+				loadingScreen('none');
+		})
+	}else{
+		loadingScreen('none');
+	}
+	});
+
 	function changeStatus(el){
-		console.log(el.value);
 		let per = document.getElementById('per');
 		if(el.value == 'Job Order' || el.value == 'Casual'){
 			per.value = '/d';
@@ -1052,7 +1132,6 @@ function generateTable() {
 	}
 
 	function updateChangeStatus(el){
-		console.log(el.value);
 		let per = document.getElementById('update_per');
 		if(el.value == 'Job Order' || el.value == 'Casual'){
 			per.value = '/d';
@@ -1060,7 +1139,36 @@ function generateTable() {
 			per.value = '/mo';
 		}
 	}
+
+	function checkNiaPimo(el){
+		let station_place = document.getElementById('station_place');
+		if(el.checked){
+			station_place.value = 'NIA-Pangasinan IMO, Urdaneta City';
+			station_place.readOnly = true;
+		}else{
+			station_place.value = '';
+			station_place.readOnly = false;
+
+		}
+	}
+
+	function updateCheckNiaPimo(el){
+		let station_place = document.getElementById('update_station_place');
+		if(el.checked){
+			station_place.value = 'NIA-Pangasinan IMO, Urdaneta City';
+			station_place.readOnly = true;
+		}else{
+			station_place.value = '';
+			station_place.readOnly = false;
+
+		}
+	}
 	
+	function toTitleCase(str) {
+		return str.toLowerCase().replace(/(?:^|\s)\w/g, function(match) {
+		  return match.toUpperCase();
+		});
+	  }
 
 
 </script>

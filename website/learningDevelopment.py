@@ -177,7 +177,6 @@ def update_ld(id, emp_id):
 
         final_name = ''
         
-        
         for afile in request.files:
             file = request.files[afile]
 
@@ -187,9 +186,7 @@ def update_ld(id, emp_id):
                 if not allowed_file(file.filename):
                     return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
 
-                
                 get_user = User.query.get(emp_id)
-
 
                 os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.ld_attachment_file_name))
 

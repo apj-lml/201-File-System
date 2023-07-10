@@ -7,6 +7,8 @@ import jinja2
 from datetime import datetime
 from flask_marshmallow import Marshmallow
 import flask_excel as excel
+from sqlalchemy import Index
+
 
 # from website.models import User
 
@@ -104,14 +106,7 @@ def create_app():
 			mydatetime = datetime.strptime(value, '%Y-%m-%d')
 			return mydatetime.strftime("%B %d, %Y")
 
-	# @app.template_filter('query_units')
-	# def query_units(value):
-	# 	agency_section = Agency_Section.query.filter_by(agency_section = value).all()
-	# 	each_section = ""
-	# 	for section in agency_section:
-	# 		each_section = f"<option value='ADMINISTRATIVE UNIT'>ADMINISTRATIVE UNIT</option>"
 
-	# 	return mydatetime.strftime("%m/%d/%Y")
 
 	app.jinja_env.filters['escapejs'] = escapejs
 	# app.jinja_env.filters['format_datetime'] = format_datetime

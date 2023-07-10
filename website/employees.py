@@ -17,7 +17,7 @@ from werkzeug.utils import secure_filename
 import os, os.path
 import json
 from sqlalchemy.orm import load_only, joinedload
-from sqlalchemy import column, inspect, text
+from sqlalchemy import column, inspect, text, desc, and_, not_
 
 from openpyxl import load_workbook
 from openpyxl.utils import range_boundaries
@@ -28,6 +28,8 @@ import pandas as pd
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from website import myhelper
+from .myhelper import format_mydatetime
+
 from io import BytesIO
 
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -531,10 +533,38 @@ def save_sr(user_id):
     if request.method == "POST":
 
         formdata = request.form.to_dict()
-        if 'update_sf_present' in formdata:
-            formdata['update_service_to'] = 'Present'
-            formdata.pop('update_sf_present')
         formdata['user_id'] = user_id
+
+        # if 'update_sf_present' in formdata:
+        #     formdata['update_service_to'] = 'Present'
+        #     formdata.pop('update_sf_present')
+        #     formdata.pop('update_nia_pimo')
+
+        if 'update_sf_present' in formdata:
+            get_sr = Service_Record.query.filter(Service_Record.user_id == user_id, Service_Record.service_to == "Present", not_(Service_Record.id == formdata['update_id'])).all()
+            
+            if get_sr:
+                return jsonify('Overlapping dates detected! Please double check inputs1.'), 406
+            else:
+                formdata['update_service_to'] = 'Present'
+                formdata.pop('update_sf_present')
+                formdata.pop('update_nia_pimo')
+        else:   
+            get_sr = Service_Record.query.filter(Service_Record.user_id == user_id, not_(Service_Record.id == formdata['update_id'])).order_by(desc(Service_Record.service_from)).all()
+
+            for sr in get_sr:
+                sr_date_from = format_mydatetime(sr.service_from)
+
+                date_from = format_mydatetime(formdata['update_service_from'])
+                date_to = format_mydatetime(formdata['update_service_to'])
+
+                if sr.service_to == "Present":
+                    sr_date_to = datetime.datetime.utcnow()
+                else:
+                    sr_date_to = format_mydatetime(sr.service_to)
+
+                if sr_date_from <= date_from <= sr_date_to or sr_date_from <= date_to <= sr_date_to:    
+                    return jsonify('Overlapping dates detected! Please double check inputs2.'), 406
 
         update_id = formdata['update_id']
         
@@ -553,8 +583,9 @@ def save_sr(user_id):
 
         db.session.commit()
 
-        return redirect(url_for('employees.service_record', emp_id = user_id, user=user))
-    return render_template('service_record.html', emp_id = user_id, user=user)
+    #     return redirect(url_for('employees.service_record', emp_id = user_id, user=user))
+    # return render_template('service_record.html', emp_id = user_id, user=user)
+    return jsonify('Changes Saved to Database')
 
 
 @employees.route('delete-service-record', methods=['POST', 'GET'])
@@ -570,22 +601,59 @@ def delete_service_record():
         db.session.commit()
     return jsonify('{message: File Deleted Successfully}')
 
+
+@employees.route('add-service-record/<emp_id>', methods=['POST', 'GET'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def add_service_record(emp_id):
+    
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+        formdata['user_id'] = emp_id
+        
+        if 'sf_present' in formdata:
+            get_sr = Service_Record.query.filter_by(user_id = emp_id, service_to = "Present").all()
+            if get_sr:
+                return jsonify('Overlapping dates detected! Please double check inputs.'), 406
+            else:
+                formdata['service_to'] = 'Present'
+                formdata.pop('sf_present')
+                formdata.pop('nia_pimo')
+        else:
+            formdata.pop('nia_pimo')
+
+            get_sr = Service_Record.query.filter_by(user_id = emp_id).order_by(desc(Service_Record.service_from)).all()
+            for sr in get_sr:
+                sr_date_from = format_mydatetime(sr.service_from)
+
+                date_from = format_mydatetime(formdata['service_from'])
+                date_to = format_mydatetime(formdata['service_to'])
+
+                if sr.service_to == "Present":
+                    sr_date_to = datetime.datetime.utcnow()
+                else:
+                    sr_date_to = format_mydatetime(sr.service_to)
+
+                if sr_date_from <= date_from <= sr_date_to or sr_date_from <= date_to <= sr_date_to:    
+                    return jsonify('Overlapping dates detected! Please double check inputs.'), 406
+
+        new_service_record = Service_Record(**formdata)
+        db.session.add(new_service_record)
+        db.session.commit()
+
+        return jsonify(''), 200
+
 @employees.route('service-record/<emp_id>', methods=['POST', 'GET'])
 @login_required
 #@admin_permission.require(http_exception=403)
 def service_record(emp_id):
     user = db.session.query(User).get(emp_id)
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-        if 'sf_present' in formdata:
-            formdata['service_to'] = 'Present'
-            formdata.pop('sf_present')
-        formdata['user_id'] = emp_id
-        new_service_record = Service_Record(**formdata)
-        db.session.add(new_service_record)
-        db.session.commit()
-        return redirect(url_for('employees.service_record', emp_id = emp_id, user=user))
-    return render_template('service_record.html', emp_id = emp_id, user=user)
+    primary_certifier = db.session.query(User).filter_by(is_primary_sr_certifier = 1).all()
+    secondary_certifier = db.session.query(User).filter_by(is_secondary_sr_certifier = 1).all()
+    
+    if request.method == "GET":
+        return render_template('service_record.html', emp_id = emp_id, user=user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier)
+
 
 @employees.route('print-service-record/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -673,7 +741,6 @@ def service_record_by_batch(emp_id):
         return redirect(url_for('employees.service_record', emp_id = emp_id, user=user))
     return render_template('service_record.html', emp_id = emp_id, user=user)
     # return 'hello'
-
 
 
 @employees.route('get-service-record/<emp_id>', methods=['POST', 'GET'])

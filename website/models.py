@@ -10,6 +10,7 @@ from sqlalchemy.orm import column_property
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime, date, timedelta
 from sqlalchemy_serializer import SerializerMixin
+
 import time, pytz
 import os
 import math
@@ -164,6 +165,10 @@ class User(db.Model, UserMixin):
 
     is_primary_afl_certifier = db.Column(db.Integer, default=0)
     is_secondary_afl_certifier = db.Column(db.Integer, default=0)
+
+    is_primary_sr_certifier = db.Column(db.Integer, default=0)
+    is_secondary_sr_certifier = db.Column(db.Integer, default=0)
+
 
     service_record_remarks = db.Column(db.String(999), default='')
 

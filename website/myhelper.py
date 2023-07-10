@@ -19,14 +19,11 @@ def my_random_string(string_length=4):
     return random[0:string_length] # Return the random string.
 
 def format_mydatetime(value):
-    if(value != "PRESENT"):
+    if(value != "PRESENT" and value != "Present"):
         mydatetime = datetime.strptime(value, '%Y-%m-%d')
     else:
         mydatetime = ""
     return mydatetime
-
-
-
 
 def join_to_nested_dict(join_result):
     """
