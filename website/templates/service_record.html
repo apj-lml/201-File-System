@@ -931,7 +931,11 @@ function generateTable() {
 			const value = serviceRecord[key];
 
 			var date_from = new Date(value['service_from']);
-			var date_to = new Date(value['service_to']);
+
+			if(value['service_to'] != 'Present'){
+				var date_to = new Date(value['service_to']);
+			}
+
 			if (value['separation_date'] != ''){
 			var my_separation_date = new Date(value['separation_date']);
 			var formattedSeparationDate = my_separation_date.toLocaleDateString('en-US', options2);
@@ -942,8 +946,12 @@ function generateTable() {
 
 
 			var formattedDateFrom = date_from.toLocaleDateString('en-US', options2);
-			var formattedDateTo = date_to.toLocaleDateString('en-US', options2);
 
+			if(value['service_to'] != 'Present'){
+				var formattedDateTo = date_to.toLocaleDateString('en-US', options2);
+			}else{
+				var formattedDateTo = 'Present';
+			}
 
 			from[y].setText(String(formattedDateFrom));
 			from[y].updateAppearances(cambria);
