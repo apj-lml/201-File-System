@@ -780,7 +780,6 @@ function generateTable() {
 	}
 
 	async function fillForm(serviceRecord, pdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes) {
-		loadingScreen("block");
 
 		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
 		
@@ -1004,6 +1003,7 @@ function generateTable() {
 	}
 
 	function printServiceRecord() {
+
 		fetch('/employees/print-service-record/{{user.id}}')
 			.then((res) => {
 				return res.json();
@@ -1011,6 +1011,7 @@ function generateTable() {
 			.then((jsonData) => {
 				loadPdf(jsonData)
 			});
+			
 	}
 
 	function saveRemarks() {
@@ -1027,8 +1028,6 @@ function generateTable() {
 	
 			});
 	}
-
-
 
 	   document.getElementById('add_service_record').addEventListener('submit', (e)=>{
 		
@@ -1225,6 +1224,7 @@ function generateTable() {
 	  }
 	  
 	  async function loadPdf(jsonData) {
+		
 		if ('caches' in window) {
 		  let formUrl = "";
 	  
@@ -1245,6 +1245,12 @@ function generateTable() {
 		  const cambriaFontBytes = await loadFontFromCache(cambriaFontUrl);
 		  const cambriaBoldFontBytes = await loadFontFromCache(cambriaBoldFontUrl);
 		  const cambriaItalicFontBytes = await loadFontFromCache(cambriaItalicFontUrl);
+
+		  caches.keys().then((cacheNames) => {
+			cacheNames.forEach((cacheName) => {
+			  console.log(cacheName);
+			});
+		  });
 	  
 		  // Try to fetch the PDF file from the cache
 		  caches.match(formUrl).then((response) => {
@@ -1257,6 +1263,9 @@ function generateTable() {
 			}
 		  })
 		  .then((resPdfDoc) => {
+
+			loadingScreen("block");
+
 
 			resPdfDoc.registerFontkit(fontkit);
 
@@ -1271,6 +1280,20 @@ function generateTable() {
 
 
 	  }
+	  
+	  function clearCache(cacheNames = ['font-cache']){
+		//const cacheNames = ['font-cache'];
+
+		Promise.all(
+		cacheNames.map((cacheName) => {
+			return caches.delete(cacheName);
+		})
+		).then(() => {
+		console.log('Caches have been cleared.');
+		});
+	  }
+
+
 
 </script>
 {%endblock%}
