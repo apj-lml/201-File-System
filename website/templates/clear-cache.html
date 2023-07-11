@@ -1,0 +1,13 @@
+<h1 id="title">Clearing Caches...</h1>
+<script type="text/javascript">
+		const cacheNames = ['font-cache', 'pdf-cache'];
+
+		Promise.all(
+		cacheNames.map((cacheName) => {
+			return caches.delete(cacheName);
+		})
+		).then(() => {
+		    console.log('Caches have been cleared.');
+            document.getElementById('title').innerHTML = 'Caches have been cleared.';
+		});
+    </script>

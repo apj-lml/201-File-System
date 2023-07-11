@@ -436,6 +436,13 @@ def get500page():
     if request.method == 'GET':
         return render_template('500.html')
 
+@views.route('/clear-cache', methods=['GET'])
+# @login_required
+# @admin_permission.require(http_exception=403)
+def getClearCache():
+    if request.method == 'GET':
+        return render_template('clear-cache.html')
+
 @views.context_processor
 def inject_today_date():
     return {'today_date': datetime.utcnow()}

@@ -787,7 +787,7 @@ function generateTable() {
 	  
 		//const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
-		//pdfDoc.registerFontkit(fontkit);
+		pdfDoc.registerFontkit(fontkit);
 
 		const cambria = await pdfDoc.embedFont(cambriaFontBytes,{
 			subset: true, 
@@ -1209,18 +1209,29 @@ function generateTable() {
 	  
 	  function fetchAndCachePdf(pdfUrl) {
 		// Fetch the PDF file from the server
-		fetch(pdfUrl).then((response) => {
-		  // Clone the response to store it in the cache
-		  const clone = response.clone();
+		return fetch(pdfUrl)
+		  .then((response) => {
+			if (response.ok) {
+			  // Clone the response to store it in the cache
+			  const clone = response.clone();
 	  
-		  // Store the response in the cache
-		  caches.open('pdf-cache').then((cache) => {
-			cache.put(pdfUrl, clone);
+			  // Store the response in the cache
+			  caches.open('pdf-cache').then((cache) => {
+				cache.put(pdfUrl, clone);
+			  });
+	  
+			  // Load the PDF file and return the promise
+			  return loadPdfFromCache(response);
+			} else {
+			  console.log('Failed to fetch PDF:', response.status, response.statusText);
+			  throw new Error('Failed to fetch PDF');
+			}
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+			throw error;
 		  });
-	  
-		  // Load the PDF file
-		  return loadPdfFromCache(response);
-		});
 	  }
 	  
 	  async function loadPdf(jsonData) {
@@ -1257,6 +1268,7 @@ function generateTable() {
 			if (response) {
 			  // If the file is in the cache, load it
 			  return loadPdfFromCache(response);
+
 			} else {
 			  // If the file is not in the cache, fetch and store it
 			  return fetchAndCachePdf(formUrl);
@@ -1266,9 +1278,6 @@ function generateTable() {
 
 			loadingScreen("block");
 
-
-			resPdfDoc.registerFontkit(fontkit);
-
 			// PDF loaded successfully, you can access the `pdfDoc` object here
 			fillForm(jsonData, resPdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes);
 		  })
@@ -1277,8 +1286,6 @@ function generateTable() {
 			console.log(error);
 		  });
 		}
-
-
 	  }
 	  
 	  function clearCache(cacheNames = ['font-cache']){
