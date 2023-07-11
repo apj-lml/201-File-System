@@ -434,7 +434,14 @@
 <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
 <script type="text/javascript">
 
-	
+	let formUrl;
+	let formPdfBytes;
+	let pdfDoc;
+
+	let cambriaFontBytes;
+	let cambriaBoldFontBytes;
+	let cambriaItalicFontBytes;
+
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.querySelectorAll('.needs-validation')
 
@@ -772,35 +779,14 @@ function generateTable() {
 
 	}
 
-
-	async function fillForm(serviceRecord) {
+	async function fillForm(serviceRecord, pdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes) {
 		loadingScreen("block");
 
-		const count = Object.keys(serviceRecord).length;
-
 		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
-		let formUrl = "";
-		if(count <= 20){
-			formUrl = "{{ url_for('static', filename='service_record.pdf') }}";
-		}else if(count >= 21 && count <= 40){
-			formUrl = "{{ url_for('static', filename='service_record2.pdf') }}";
-		}else if(count >= 41 && count <= 60){
-			formUrl = "{{ url_for('static', filename='service_record3.pdf') }}";
-
-		}
-		 
-
-		const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+		
+		//const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 	  
-		const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
-
-		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
-		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
-
-		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
-		const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
-		const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
-
+		//const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
 
 		pdfDoc.registerFontkit(fontkit);
 
@@ -900,6 +886,9 @@ function generateTable() {
 		
 		comments_remarks.setText(sr_remarks.value);
 		comments_remarks.updateAppearances(cambria);
+
+
+		const count = Object.keys(serviceRecord).length;
 
 
 		for (var x = 1; x<=count; x++){
@@ -1021,7 +1010,7 @@ function generateTable() {
 				return res.json();
 			})
 			.then((jsonData) => {
-				fillForm(jsonData)
+				loadPdf(jsonData)
 			});
 	}
 
@@ -1178,6 +1167,108 @@ function generateTable() {
 		});
 	  }
 
+	  function loadFontFromCache(fontUrl) {
+		return caches.match(fontUrl)
+		  .then((response) => {
+			if (response) {
+			  // Font is found in cache
+			  return response.arrayBuffer();
+			} else {
+			  // Font is not in cache, fetch and store it
+			  return fetch(fontUrl)
+				.then((response) => {
+				  const clone = response.clone();
+				  caches.open('font-cache')
+					.then((cache) => {
+					  cache.put(fontUrl, clone);
+					});
+				  return response.arrayBuffer();
+				});
+			}
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+		  });
+	  }
+	  
+	  function loadPdfFromCache(response) {
+		return response.blob()
+		  .then((blob) => {
+			const url = URL.createObjectURL(blob);
+	  
+			return fetch(url)
+			  .then((res) => res.arrayBuffer())
+			  .then((formPdfBytes) => {
+				return PDFLib.PDFDocument.load(formPdfBytes);
+			  })
+			  .catch((error) => {
+				// Handle any errors that occurred during loading or processing
+				console.log(error);
+			  });
+		  });
+	  }
+	  
+	  function fetchAndCachePdf(pdfUrl) {
+		// Fetch the PDF file from the server
+		fetch(pdfUrl).then((response) => {
+		  // Clone the response to store it in the cache
+		  const clone = response.clone();
+	  
+		  // Store the response in the cache
+		  caches.open('pdf-cache').then((cache) => {
+			cache.put(pdfUrl, clone);
+		  });
+	  
+		  // Load the PDF file
+		  return loadPdfFromCache(response);
+		});
+	  }
+	  
+	  async function loadPdf(jsonData) {
+		if ('caches' in window) {
+		  let formUrl = "";
+	  
+		  const count = Object.keys(jsonData).length;
+	  
+		  if (count <= 20) {
+			formUrl = "{{ url_for('static', filename='service_record.pdf') }}";
+		  } else if (count >= 21 && count <= 40) {
+			formUrl = "{{ url_for('static', filename='service_record2.pdf') }}";
+		  } else if (count >= 41 && count <= 60) {
+			formUrl = "{{ url_for('static', filename='service_record3.pdf') }}";
+		  }
+	  
+		  const cambriaFontUrl = "{{ url_for('static', filename='/fonts/Cambria.ttf') }}";
+		  const cambriaBoldFontUrl = "{{ url_for('static', filename='/fonts/cambriab.ttf') }}";
+		  const cambriaItalicFontUrl = "{{ url_for('static', filename='/fonts/cambriai.ttf') }}";
+	  
+		  const cambriaFontBytes = await loadFontFromCache(cambriaFontUrl);
+		  const cambriaBoldFontBytes = await loadFontFromCache(cambriaBoldFontUrl);
+		  const cambriaItalicFontBytes = await loadFontFromCache(cambriaItalicFontUrl);
+	  
+		  // Try to fetch the PDF file from the cache
+		  caches.match(formUrl).then((response) => {
+			if (response) {
+			  // If the file is in the cache, load it
+			  return loadPdfFromCache(response);
+			} else {
+			  // If the file is not in the cache, fetch and store it
+			  return fetchAndCachePdf(formUrl);
+			}
+		  })
+		  .then((resPdfDoc) => {
+			// PDF loaded successfully, you can access the `pdfDoc` object here
+			fillForm(jsonData, resPdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes);
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+		  });
+		}
+
+
+	  }
 
 </script>
 {%endblock%}
