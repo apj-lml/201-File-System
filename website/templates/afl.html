@@ -919,8 +919,8 @@
 			tb_certifier.setText('{{ secondary_certifier[0].first_name }} {{ secondary_certifier[0].middle_initial }}. {{ secondary_certifier[0].last_name }} {{ secondary_certifier[0].name_extn if secondary_certifier[0].name_extn != "N/A" }}');
 			tb_certifier_position.setText(toTitleCase('{{ secondary_certifier[0].position_title }}'));
 		{% else %}
-			certifier.setText('{{ primary_certifier[0].first_name }} {{ primary_certifier[0].middle_initial }}. {{ primary_certifier[0].last_name }} {{ primary_certifier[0].name_extn if primary_certifier[0].name_extn != "N/A" }}');
-			certifier_pos.setText(toTitleCase('{{ primary_certifier[0].position_title }}'));
+			tb_certifier.setText('{{ primary_certifier[0].first_name }} {{ primary_certifier[0].middle_initial }}. {{ primary_certifier[0].last_name }} {{ primary_certifier[0].name_extn if primary_certifier[0].name_extn != "N/A" }}');
+			tb_certifier_position.setText(toTitleCase('{{ primary_certifier[0].position_title }}'));
 		{% endif %}
 
 		tb_certifier.updateAppearances(cambriaBold);
