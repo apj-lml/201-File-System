@@ -184,7 +184,7 @@
 									
 								</div>
 							<div class="col-sm-12 text-center mt-5 mb-5 flex-fill">
-								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" disabled>
+								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" onclick="loadPdf();" disabled>
 									<span id="mySpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   									Loading...
 								</button>
@@ -537,7 +537,7 @@
 			}, false)
 		  })
 
-		  loadPdf();
+		  //loadPdf();
 
 		  const spinnerElement = document.getElementById('mySpinner');
 		  spinnerElement.style.display = 'none';
@@ -594,6 +594,8 @@
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
 
+		//loadPdf()
+
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
 		loadingScreen('block');
@@ -604,7 +606,7 @@
 			}).then((res)=>{
 				return res.json();
 			}).then((data)=>{
-				fillForm();
+				
 				///setTimeout(loadingScreen('none'), 2000);
 				
 			})
@@ -614,44 +616,110 @@
 		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	}
 
-	async function loadPdf(){
-		
-		if ('caches' in window) {
-			//const pdfUrl = 'path/to/your/file.pdf';
 
-			formUrl = "{{ url_for('static', filename='afl-templateee.pdf') }}";
+	function loadPdfFromCache(response) {
+		return response.blob()
+		  .then((blob) => {
+			const url = URL.createObjectURL(blob);
 	  
-		
-			// Try to fetch the PDF file from the cache
-			caches.match(formUrl).then((response) => {
-			  if (response) {
-				// If the file is in the cache, load it
-				loadPdfFromCache(response);
-			  } else {
-				// If the file is not in the cache, fetch and store it
-				fetchAndCachePdf(formUrl);
-			  }
+			return fetch(url)
+			  .then((res) => res.arrayBuffer())
+			  .then((formPdfBytes) => {
+				return PDFLib.PDFDocument.load(formPdfBytes);
+			  })
+			  .catch((error) => {
+				// Handle any errors that occurred during loading or processing
+				console.log(error);
+			  });
+		  });
+	  }
+
+
+
+	function loadFontFromCache(fontUrl) {
+		return caches.match(fontUrl)
+		  .then((response) => {
+			if (response) {
+			  // Font is found in cache
+			  return response.arrayBuffer();
+			} else {
+			  // Font is not in cache, fetch and store it
+			  return fetch(fontUrl)
+				.then((response) => {
+				  const clone = response.clone();
+				  caches.open('font-cache')
+					.then((cache) => {
+					  cache.put(fontUrl, clone);
+					});
+				  return response.arrayBuffer();
+				});
+			}
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+		  });
+	  }
+	  
+
+	async function loadPdf() {
+		//if ('caches' in window) {
+		loadingScreen("block");
+
+		  let formUrl = "";
+	  
+		  formUrl = "{{ url_for('static', filename='afl-templateee.pdf') }}";
+	  
+		  const cambriaFontUrl = "{{ url_for('static', filename='/fonts/Cambria.ttf') }}";
+		  const cambriaBoldFontUrl = "{{ url_for('static', filename='/fonts/cambriab.ttf') }}";
+		  const cambriaItalicFontUrl = "{{ url_for('static', filename='/fonts/cambriai.ttf') }}";
+	  
+		  const cambriaFontBytes = await loadFontFromCache(cambriaFontUrl);
+		  const cambriaBoldFontBytes = await loadFontFromCache(cambriaBoldFontUrl);
+		  const cambriaItalicFontBytes = await loadFontFromCache(cambriaItalicFontUrl);
+
+		  //SHOW ALL CACHES AVAILABLE
+		  caches.keys().then((cacheNames) => {
+			cacheNames.forEach((cacheName) => {
+			  console.log(cacheName);
 			});
-		  }
-		  
-	}
-	async function fillForm() {
+		  });
+	  
+		  // Try to fetch the PDF file from the cache
+		  caches.match(formUrl).then((response) => {
+			if (response) {
+			  // If the file is in the cache, load it
+			  return loadPdfFromCache(response);
+
+			} else {
+			  // If the file is not in the cache, fetch and store it
+			  return fetchAndCachePdf(formUrl);
+			}
+		  })
+		  .then((resPdfDoc) => {
+			console.log(resPdfDoc)
+			// PDF loaded successfully, you can access the `pdfDoc` object here
+			fillForm(resPdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes);
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+		  });
+		//}
+	  }
+
+	async function fillForm(pdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes) {
 
 		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
 		// Register the fontkit instance with PDF-lib
 
 		//import { TextFormField } from 'pdf-lib/lib/core/interactive/forms';
 
-	  
 		//formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
-	  
 
-		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
-		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
-
-		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
-		const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
-		const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaBoldFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriab.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaItalicFontBytes = await fetch("{{url_for('static', filename='/fonts/cambriai.ttf')}}").then(res => res.arrayBuffer());
 
 		
 		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
@@ -952,7 +1020,7 @@
 		loadingScreen('none')
 		window.open(url);
 
-		loadPdf();
+		//loadPdf();
 		const myform = document.querySelector('#add_afl_form');
 		myform.classList.remove('was-validated');
 	}
@@ -1039,39 +1107,56 @@
 
 	  }
 
-	  function loadPdfFromCache(response) {
-		response.blob().then((blob) => {
-		  const url = URL.createObjectURL(blob);
-	  
-		  fetch(url)
-			.then((res) => res.arrayBuffer())
-			.then((formPdfBytes) => {
-			  return PDFLib.PDFDocument.load(formPdfBytes);
-			})
-			.then((myPdfDoc) => {
-				
-			   pdfDoc = myPdfDoc;
-			})
-			.catch((error) => {
-			  // Handle any errors that occurred during loading or processing
-			});
-		});
+	  function loadFontFromCache(fontUrl) {
+		return caches.match(fontUrl)
+		  .then((response) => {
+			if (response) {
+			  // Font is found in cache
+			  return response.arrayBuffer();
+			} else {
+			  // Font is not in cache, fetch and store it
+			  return fetch(fontUrl)
+				.then((response) => {
+				  const clone = response.clone();
+				  caches.open('font-cache')
+					.then((cache) => {
+					  cache.put(fontUrl, clone);
+					});
+				  return response.arrayBuffer();
+				});
+			}
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+		  });
 	  }
 	  
 	  function fetchAndCachePdf(pdfUrl) {
 		// Fetch the PDF file from the server
-		fetch(pdfUrl).then((response) => {
-		  // Clone the response to store it in the cache
-		  const clone = response.clone();
-		  
-		  // Store the response in the cache
-		  caches.open('pdf-cache').then((cache) => {
-			cache.put(pdfUrl, clone);
+		return fetch(pdfUrl)
+		  .then((response) => {
+			if (response.ok) {
+			  // Clone the response to store it in the cache
+			  const clone = response.clone();
+	  
+			  // Store the response in the cache
+			  caches.open('pdf-cache').then((cache) => {
+				cache.put(pdfUrl, clone);
+			  });
+	  
+			  // Load the PDF file and return the promise
+			  return loadPdfFromCache(response);
+			} else {
+			  console.log('Failed to fetch PDF:', response.status, response.statusText);
+			  throw new Error('Failed to fetch PDF');
+			}
+		  })
+		  .catch((error) => {
+			// Handle any errors that occurred during loading or processing
+			console.log(error);
+			throw error;
 		  });
-		  
-		  // Load the PDF file
-			loadPdfFromCache(response);
-		});
 	  }
 
 

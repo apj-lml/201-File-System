@@ -208,15 +208,30 @@ class User(db.Model, UserMixin):
 
     @hybrid_property
     def fullname(self):
-        return f"{self.first_name} {self.middle_name} {self.last_name} {self.name_extn}".strip()
+        name_extn = ""
+        middle_name = ""
+
+        if self.name_extn != "N/A" and self.name_extn != "":
+            name_extn = self.name_extn
+
+        if self.middle_name != "N/A":
+            middle_name = self.middle_name
+
+        return f"{self.first_name} {middle_name} {self.last_name} {name_extn}".strip()
 
         
     @hybrid_property
     def proper_fullname(self):
-        if self.name_extn == "N/A" or self.name_extn == "N/A":
-            return f"{self.last_name}, {self.first_name} {self.last_name}".strip()
-        else:
-            return f"{self.last_name}, {self.first_name} {self.name_extn} {self.last_name}".strip()
+        name_extn = ""
+        middle_name = ""
+
+        if self.name_extn != "N/A" and self.name_extn != "":
+            name_extn = self.name_extn
+
+        if self.middle_name != "N/A":
+            middle_name = self.middle_name
+
+        return f"{self.last_name}, {self.first_name} {name_extn} {middle_name}".strip()
     
 
     def as_dict(self):

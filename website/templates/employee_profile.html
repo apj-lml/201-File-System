@@ -2078,8 +2078,6 @@ document.addEventListener('keydown', e => {
 window.addEventListener("load", function() {
 
   validate_no_dependents(document.getElementById('date_hired_in_nia'))
-  // console.log(document.getElementById("section").value)
-  // 
   load_units();
 
 {% if current_user.type_of_user == 'admin' %}
@@ -2332,11 +2330,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 //<!--                           SUBMIT COLLEGE FORM                           -->
                // <!-- ----------------------------------------------------------------------- -->
                let formData4 = new FormData(document.getElementById("add_college_form"));
-              //formData.append('file',  input.files[0])
 
               const data4 = {}
               formData4.forEach((value, key) => (data4[key] = value))
-              console.log(formData4)
               fetch('/college/add-college/{{user_profile.id}}', {
                 method: 'POST',
                 body: formData4
@@ -2449,7 +2445,6 @@ function year_only (el) {
   }
 
   // document.getElementById("section").addEventListener("change", (e)=>{
-  //     console.log(e.target.value)
   //     var units = `<option class='' value='' selected disabled hidden>-</option>`;
   //     document.getElementById("unit").innerHTML = units;
   //     if(e.target.value == "ADMINISTRATIVE & FINANCE"){
@@ -2505,7 +2500,6 @@ function year_only (el) {
     // var units = "<option class='' value='' selected disabled hidden>-</option>";
     var units = "";
       section_el = document.getElementById("section")
-      //console.log(section_el.value)
 
       fetch(`/agencyUnit/get-agencyUnit/${section_el.value}`,{
         method: 'GET',
@@ -2516,14 +2510,12 @@ function year_only (el) {
         document.getElementById("unit").innerHTML = "";
 
         data.forEach((item, index)=>{
-          //console.log(item.unit_title);
           
           //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
           units += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
         //document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
 
         });
-        // console.log(units)
 
         document.getElementById("unit").insertAdjacentHTML("beforeend", units);
         document.getElementById("unit").value = "{{user_profile.user_unit.id}}";
@@ -2535,7 +2527,6 @@ function year_only (el) {
     // var units = "<option class='' value='' selected disabled hidden>-</option>";
     var units = "";
       section_el = document.getElementById("section")
-      //console.log(section_el.value)
 
       fetch(`/agencyUnit/get-agencyUnit/${section_el.value}`,{
         method: 'GET',
@@ -2546,14 +2537,12 @@ function year_only (el) {
         document.getElementById("unit").innerHTML = "";
 
         data.forEach((item, index)=>{
-          //console.log(item.unit_title);
           
           //units.concat(`<option value="${item.id} UNIT">${item.unit_title}</option>`);
           units += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
         //document.getElementById("unit").innerHTML += `<option class='' value='${item.id}'>${item.unit_title}</option>`;
 
         });
-        // console.log(units)
 
         document.getElementById("unit").insertAdjacentHTML("beforeend", units);
 

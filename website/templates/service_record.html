@@ -931,7 +931,6 @@ function generateTable() {
 				var formattedSeparationDate = ''
 			}
 
-
 			var formattedDateFrom = date_from.toLocaleDateString('en-US', options2);
 
 			if(value['service_to'] != 'Present'){
@@ -1235,7 +1234,7 @@ function generateTable() {
 	  }
 	  
 	  async function loadPdf(jsonData) {
-		
+		loadingScreen("block");
 		if ('caches' in window) {
 		  let formUrl = "";
 	  
@@ -1257,11 +1256,12 @@ function generateTable() {
 		  const cambriaBoldFontBytes = await loadFontFromCache(cambriaBoldFontUrl);
 		  const cambriaItalicFontBytes = await loadFontFromCache(cambriaItalicFontUrl);
 
-		  caches.keys().then((cacheNames) => {
-			cacheNames.forEach((cacheName) => {
-			  console.log(cacheName);
-			});
-		  });
+		  //SHOW ALL CACHES AVAILABLE
+		  //caches.keys().then((cacheNames) => {
+			//cacheNames.forEach((cacheName) => {
+			//  console.log(cacheName);
+			//});
+		  //});
 	  
 		  // Try to fetch the PDF file from the cache
 		  caches.match(formUrl).then((response) => {
@@ -1275,8 +1275,6 @@ function generateTable() {
 			}
 		  })
 		  .then((resPdfDoc) => {
-
-			loadingScreen("block");
 
 			// PDF loaded successfully, you can access the `pdfDoc` object here
 			fillForm(jsonData, resPdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes);
