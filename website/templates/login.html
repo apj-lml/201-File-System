@@ -7,12 +7,28 @@
 	<link href="{{ url_for('static', filename='signin.css') }}" rel="stylesheet">
 	<!-- <link href="http://fonts.cdnfonts.com/css/mistral" rel="stylesheet"> -->
 	<link href="https://fonts.cdnfonts.com/css/cinzel-decorative-2" rel="stylesheet">
+	<link href="https://fonts.cdnfonts.com/css/trajan-pro" rel="stylesheet">
+                
+	<!-- <link href="https://fonts.cdnfonts.com/css/cambridge" rel="stylesheet"> -->
+	<link href="https://fonts.cdnfonts.com/css/h-haminda-script" rel="stylesheet">
+	<link href="https://fonts.cdnfonts.com/css/teather" rel="stylesheet">
 
+	<link href="https://fonts.cdnfonts.com/css/dream-collection" rel="stylesheet">
+                
     <style>
 		.title{
 			/* font-family: 'Mistral', sans-serif; */
-			font-family: 'Cinzel Decorative', sans-serif;
-			font-size: 40px;
+			/*font-family: 'Cinzel Decorative', sans-serif;*/
+			font-family: 'Trajan Pro', sans-serif;
+			font-size: 30px;
+		}
+		.sub-title{
+			font-family: 'Dream Collection', sans-serif;
+			/*font-family: 'h Haminda Script', sans-serif;*/
+			font-weight: 100;
+			font-size: 60px;
+			line-height: 50px;
+			
 		}
 	</style>
     <!-- Custom styles for login -->
@@ -21,13 +37,17 @@
 
 {% block content %}
 
+
+
+
 <div class="container-fluid text-center outer-box">
 	<main class="shadow-lg form-signin rounded">
-		<img class="mb-4 img-fluid" id="" src="{{url_for('static', filename='img/nia-logo.gif')}}" alt="" width="192" height="192">
+		<img class="img-fluid" id="" src="{{url_for('static', filename='img/nia-logo.gif')}}" alt="" width="192" height="192">
 	  <form id="login_form" action="#" method="POST">
 	    <!-- <h4 class="mb-1 fw-bolder text-white">Pangasinan <br> Irrigation Management Office</h4> -->
 
-	    <h1 class="h3 mb-3 fw-bolder text-white title">Online </br>201 File System</h1>
+	    <h1 class="text-white title">PANGASINAN IMO</h1>
+	    <h6 class="fw-bolder text-white sub-title mb-4 mt-2 pt-2">Online 201 File System</h6>
 
 	    <div class="form-floating mb-3">
 	      <input type="text" name="email" class="form-control" id="floatingInput" inputmode="numeric" pattern="[0-9]+" maxlength="6" placeholder="Employee ID No.">

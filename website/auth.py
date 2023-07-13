@@ -27,10 +27,10 @@ def login():
 	session.clear()
 	if request.method == 'POST':
 		formdata = json.loads(request.data)
-		email = formdata['email'].lstrip('0')
+		employee_id = formdata['email'].lstrip('0')
 		password = formdata['password']
 
-		user = User.query.filter_by(employee_id=email).first()
+		user = User.query.filter_by(employee_id=employee_id).first()
 
 		db.session.commit()
 

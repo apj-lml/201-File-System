@@ -84,6 +84,18 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
   color: rgb(51,10,113);
   color:linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
 }
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+
+
 @font-face {
   font-family: trajan_reg;
   src: url("{{ url_for('static', filename='fonts/TrajanPro-Bold.otf') }}");
@@ -171,6 +183,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+            <!-- <a class="nav-link" href="/dashboard" tabindex="-1" aria-disabled="true"><i class="bi bi-house-fill"></i> Home</a> -->
             <a class="nav-link" href="/dashboard" tabindex="-1" aria-disabled="true"><i class="bi bi-house-fill"></i> Home</a>
           </li>
           <ul class="navbar-nav navbar-right me-3">
@@ -209,9 +222,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
             <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> Vaccinations</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> Print PDS</a>
           </li>
           <li class="nav-item">
@@ -230,6 +240,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
               </a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="/forms"><i class="bi bi-stickies-fill"></i> Downloadable Forms</a></li>
+                <li><a class="nav-link" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> Vaccinations</a></li>
                 <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
                 <li><a class="dropdown-item" href="/emergency-contact/{{current_user.id}}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
                 <li><a class="dropdown-item" href="/other-questions/{{current_user.id}}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
@@ -286,6 +297,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
               <li><a class="dropdown-item" href="/change-password/{{current_user.id}}"><i class="bi bi-shield-lock"></i> Change Password</a></li>
+              <li><a class="dropdown-item" href="#" onclick="clearCache(); return false;" ><i class="bi bi-trash2-fill"></i> Clear Cache</a></li>
               <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
@@ -432,11 +444,11 @@ const Toast = Swal.mixin({
 })
 
 
-
   function loadingScreen(is_display){
     var loading = document.getElementById('loading');
     loading.style.cssText = `display:${is_display}`;
   }
+
   function triggerToast(err_msg, icon='success'){
     // document.getElementById('toastBody').innerHTML = ""
     // document.getElementById('toastBody').innerHTML = err_msg
@@ -448,6 +460,30 @@ const Toast = Swal.mixin({
       icon: icon,
       title: err_msg,
     })
+
+}
+
+function clearCache(){
+
+  Swal.fire({
+    title: 'Error!',
+    text: 'Do you want to continue',
+    icon: 'error',
+    confirmButtonText: 'Cool'
+  })
+
+  const cacheNames = ['font-cache', 'pdf-cache'];
+
+  Promise.all(
+  cacheNames.map((cacheName) => {
+    return caches.delete(cacheName);
+  })
+  ).then(() => {
+   // console.log('Caches have been cleared.');
+    triggerToast('Caches Successfully Cleared!','success')
+  });
+      
+      //loadingScreen("none");
 
 }
 

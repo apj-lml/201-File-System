@@ -803,7 +803,9 @@
 		})
 	})
 
+
 $(document).ready(function() {
+
 	var $table = $("#demo table");
     $table.DataTable( {
 		responsive: true,
@@ -930,36 +932,122 @@ $(document).ready(function() {
               render: function ( data, type, row ) {
                 return `
 				<div class="dropdown">
-					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+					<button
+							class="btn btn-secondary dropdown-toggle bg-transparent text-dark btn-sm ms-3"
+							type="button"
+							data-bs-toggle="dropdown"
+							data-bs-auto-close="outside"
+							aria-expanded="false">
 						<i class="bi bi-collection"></i> Actions
-					</a>
-					<ul class="dropdown-menu dropdown-menu-start position-absolute" aria-labelledby="dropdownMenuLink" style="z-index: 1080">
-						<li><a class="dropdown-item" href="/employees/validate/${data.id}"><i class="bi bi-person-check-fill"></i> Validated</a></li>
-						<li><a class="dropdown-item" href="/employees/not-validated/${data.id}"><i class="bi bi-person-x-fill"></i> Not Validated</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#" id='${data.id}' onclick="reset_password(this)";><i class="bi bi-unlock-fill"></i> Reset Password</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="/print-preview/${data.id}"><i class="bi bi-printer"></i> Print PDS</a></li>
-						<li><a class="dropdown-item" href="/wes/${data.id}"><i class="bi bi-printer-fill"></i> Print WES</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a href="/employees/my-profile/${data.id}" class="dropdown-item"><i class="bi bi-person-lines-fill"></i> Employee Profile</a></li>
-						<li><a href="/family-background/${data.id}" class="dropdown-item"><i class="bi bi-people-fill"></i> Family Background</a></li>
-						<li><a class="dropdown-item" href="/work-experience/${data.id}"><i class="bi bi-journals"></i> Work Experience</a></li>
-						<li><a class="dropdown-item" href="/voluntary-work/${data.id}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
-						<li><a class="dropdown-item" href="/learning-development/${data.id}"><i class="bi bi-lightbulb"></i>  Learning & Development</a></li>
-						<li><a class="dropdown-item" href="/other-information/${data.id}"><i class="bi bi-pen"></i> Other Information</a></li>
-						<li><a class="dropdown-item" href="/questions/${data.id}"><i class="bi bi-question-octagon"></i> Questions</a></li>
-						<li><a class="dropdown-item" href="/character-reference/${data.id}"><i class="bi bi-person-video2"></i> Character References</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="/employees/service-record/${data.id}"><i class="bi bi-card-list"></i> Service Record</a></li>
-						<li><a class="dropdown-item" href="/appointment/${data.id}"><i class="bi bi-card-heading"></i> Appointments</a></li>
-						<li><a class="dropdown-item" href="/covid-vaccine/${data.id}"><i class="fas fa-syringe"></i> COVID-19 Vaccination</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="/tshirt-sizes/${data.id}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
-						<li><a class="dropdown-item" href="/emergency-contact/${data.id}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
-						<li><a class="dropdown-item" href="/other-questions/${data.id}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
+					</button>
+				
+					<ul class="dropdown-menu" aria-labelledby="MyAccountDDM" id="AppDropDownId">
+						
 						<li>
+							<div class="dropend">
+								<a type="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+
+								   <i class="bi bi-person-lines-fill"></i> Profile
+
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="/employees/my-profile/${data.id}" class="dropdown-item"><i class="bi bi-person-lines-fill"></i> Employee Profile</a></li>
+									<li><a href="/family-background/${data.id}" class="dropdown-item"><i class="bi bi-people-fill"></i> Family Background</a></li>
+									<li><a class="dropdown-item" href="/work-experience/${data.id}"><i class="bi bi-journals"></i> Work Experience</a></li>
+									<li><a class="dropdown-item" href="/voluntary-work/${data.id}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
+									<li><a class="dropdown-item" href="/learning-development/${data.id}"><i class="bi bi-lightbulb"></i>  Learning & Development</a></li>
+									<li><a class="dropdown-item" href="/other-information/${data.id}"><i class="bi bi-pen"></i> Other Information</a></li>
+									<li><a class="dropdown-item" href="/questions/${data.id}"><i class="bi bi-question-octagon"></i> Questions</a></li>
+									<li><a class="dropdown-item" href="/character-reference/${data.id}"><i class="bi bi-person-video2"></i> Character References</a></li>
+								</ul>
+							</div>
+						</li>
+
+
+
+						<li>
+							<div class="dropend">
+								<a type="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+								   <i class="bi bi-printer-fill"></i> Print PDS & WES
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="/print-preview/${data.id}"><i class="bi bi-printer"></i> Print PDS</a></li>
+									<li><a class="dropdown-item" href="/wes/${data.id}"><i class="bi bi-printer-fill"></i> Print WES</a></li>
+								</ul>
+							</div>
+						</li>
+												
+						<li><hr class="dropdown-divider"/></li>
+
+						<li><a class="dropdown-item" href="#" id='${data.id}' onclick="reset_password(this)";><i class="bi bi-unlock-fill"></i> Reset Password</a></li>
+
+						<li><hr class="dropdown-divider"></li>
+
+						<li>
+							<div class="dropend">
+								<a type="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+								   <i class="bi bi-calendar-week"></i> AFL & ROL
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="/afl/${data.id}"><i class="bi bi-calendar-week"></i> Print AFL</a></li>
+									<li><a class="dropdown-item" href="/rol/${data.id}"><i class="bi bi-journals"></i> Records of Leave</a></li>
+								</ul>
+							</div>
+						</li>
+
+						<li><hr class="dropdown-divider"></li>
+
+
+						<li>
+							<div class="dropend">
+								<a type="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+								   <i class="bi bi-card-heading"></i> SR & Appointment
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="/employees/service-record/${data.id}"><i class="bi bi-card-list"></i> Service Record</a></li>
+									<li><a class="dropdown-item" href="/appointment/${data.id}"><i class="bi bi-card-heading"></i> Appointments</a></li>
+								</ul>
+							</div>
+						</li>
+
+						<li>
+							<div class="dropend">
+								<a type="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+								   <i class="bi bi-check-all"></i> Validation
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="/employees/validate/${data.id}"><i class="bi bi-person-check-fill"></i> Validated</a></a></li>
+									<li><a class="dropdown-item" href="/employees/not-validated/${data.id}"><i class="bi bi-person-x-fill"></i> Not Validated</a></li>
+								</ul>
+							</div>
+						</li>
+
+						<li><hr class="dropdown-divider"></li>
+
+						<li>
+							<div class="dropend">
+								<a type="button" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+								   aria-expanded="false">
+								   <i class="bi bi-box-seam"></i> | <i class="fas fa-tshirt"></i> | <i class="bi bi-telephone"></i> | <i class="bi bi-question-diamond"></i> | <i class="fas fa-syringe"></i>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="/covid-vaccine/${data.id}"><i class="fas fa-syringe"></i> COVID-19 Vaccination</a></li>
+									<li><a class="dropdown-item" href="/tshirt-sizes/${data.id}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
+									<li><a class="dropdown-item" href="/emergency-contact/${data.id}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
+									<li><a class="dropdown-item" href="/other-questions/${data.id}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
+								</ul>
+							</div>
+						</li>
+
+				
 					</ul>
+
+				</div>
 					`;
               }
             }
@@ -977,7 +1065,7 @@ $('a.toggle-vis').on( 'click', function (e) {
 
 })
 	
-	function staff_movement(el){
+function staff_movement(el){
 		console.log(el.id)
 		var staff_movement_id = document.getElementById("staff_movement_id");
 		staff_movement_id.value = el.id;

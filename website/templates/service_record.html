@@ -208,11 +208,11 @@
 				<input type="hidden" value="/d" name="per" id="per">
 				<div class="d-sm-flex flex-row"> 
 					<div class="form-floating flex-fill mb-2 p-1">
-					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required>
+					  <input type="date" class="form-control" id="service_from" name ="service_from" placeholder="Service From" value="" required max="9999-12-12">
 					  <label for="service_from">Service From</label>
 					</div>
 					<div class="form-floating flex-fill p-1">
-					  <input type="date" class="form-control" id="service_to" name ="service_to" placeholder="Service To" value="" required>
+					  <input type="date" class="form-control" id="service_to" name ="service_to" placeholder="Service To" value="" required max="9999-12-12">
 					  <label for="first_name">Service To</label>
 					  
 					  <div class="form-check">
@@ -1049,6 +1049,8 @@ function generateTable() {
 		}).then((res)=>{
 			if (res.status == 406){
 				 loadingScreen('none');
+				triggerToast("Invalid date inputs detected. Please double check your inputs.", "warning"); //this is the returned error message
+
 
 			}else if (res.status == 200){
 				var myModalEl = document.getElementById('exampleModal');
