@@ -26,13 +26,21 @@ def login():
 	logout_user()
 	session.clear()
 	if request.method == 'POST':
-		formdata = json.loads(request.data)
-		employee_id = formdata['email'].lstrip('0')
-		password = formdata['password']
+		print("Received data:", request.data)  # Add this line to inspect the request data
+		
+		try:
+			formdata = json.loads(request.data)
+			employee_id = formdata['email'].lstrip('0')
+			password = formdata['password']
 
-		user = User.query.filter_by(employee_id=employee_id).first()
+			user = User.query.filter_by(employee_id=employee_id).first()
+		except json.decoder.JSONDecodeError as e:
+			print("JSONDecodeError:", e)
+			return jsonify("invalid_json_data")
 
-		db.session.commit()
+
+
+		# db.session.commit()
 
 		if user:
 			if check_password_hash(user.password, password) and user.status_remarks == 'ACTIVE':

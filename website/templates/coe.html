@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block title %} Certificate of Employment {% endblock %}
+
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<main class="container mt-3">
+	<div class="row mb-3 ms-auto">
+    <!-- <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul> -->
+<!-- ----------------------------------------------------------------------- -->
+<!--                                  FORMS                                  -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="card mb-3 mt-4">
+  <div class="card-body">
+    <div class="card text-white bg-blue shadow-sm mb-3" >
+      <div class="card-header">
+        <h3 class="card-title"><i class="bi bi-journals"></i> Records of Leave</h3>
+       </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <!-- <div class="row col-sm-12 mb-3"> -->
+            <div class="col-sm-12 col-md-8 mb-3 ">
+              <div class="form-floating has-validation">
+                <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.last_name }}, {{ user_profile.first_name }}{%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %}{{ user_profile.middle_name }} {% endif %}">
+                <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
+              </div>
+            </div>
+            
+              <div class="col-sm-12 col-md-4 mb-3 ">
+                <div class="form-floating has-validation">
+                  <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.employment_status }}">
+                  <label class="text-blue fw-bold" id="emp_name" for="emp_name">Employment Status</label>
+                </div>
+              </div>
+          <!-- </div> -->
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12 col-md-6 mb-3">
+                  <div class="form-floating has-validation">
+                    <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
+                    <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
+                  </div>
+              </div>
+              <div class="col-sm-12 col-md-3 mb-3">
+                  <div class="form-floating has-validation">
+                    <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" disabled value="{{ user_profile.job_grade }}">
+                    <label class="text-blue fw-bold" id="jg" for="jg">Job Grade</label>
+                  </div>
+              </div>
+              <div class="col-sm-12 col-md-3 mb-3">
+                <div class="form-floating has-validation">
+                  <input type="text" class="form-control" name ="monthly_daily_salary" id="monthly_daily_salary" disabled placeholder="Monthly/Daily Rate">
+                  <label class="text-blue fw-bold" for="monthly_daily_salary">Monthly/Daily Rate</label>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-12 text-center mt-3">
+      <button href="#" class="btn btn-primary" onclick="fillForm();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> PRINT CERTIFICATION</button>
+    </div>
+
+      </div>
+      </div>
+    </div>
+    </main>
+
+    <!-- Modal -->
+<div class="modal fade" id="uploadRolModal" tabindex="-1" aria-labelledby="uploadRolModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadRolModalLabel">Upload Records of Leave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="POST" name="rol_form" id="rol_form" enctype="multipart/form-data" onsubmit="loadingScreen('block')">
+          <div class="mb-3">
+            <label for="form_file" class="form-label">You can only upload 1 file at a time.</label>
+            <input class="form-control" type="file" id="rolFile" name="rolFile" form="rol_form" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="rol_form">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{%block scripts%}
+<script src="{{ url_for('static', filename='sgjg.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+<script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+<script src="https://unpkg.com/downloadjs@1.4.7"></script>
+
+
+<script type="text/javascript">
+
+  async function fillForm() {
+
+		loadingScreen('block')
+
+		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
+
+		formUrl = "{{ url_for('static', filename='coe_with_compensation.pdf') }}";
+	  
+    const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
+  
+    const pdfDoc = await PDFLib.PDFDocument.load(formPdfBytes);
+
+    const page = pdfDoc.getPages()[0];
+    // Define the bold font
+    const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+	  
+		const timesRomanBoldFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold)
+		const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
+		const timesRomanFontItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
+
+	  // Embed the Cambria font
+	  
+		const cambriaFontBytes = await fetch("{{url_for('static', filename='/fonts/Cambria.ttf')}}").then(res => res.arrayBuffer());
+		//const cambriaFont = await pdfDoc.embedFont(cambriaFontBytes);
+
+    pdfDoc.registerFontkit(fontkit);
+    const cambria = await pdfDoc.embedFont(cambriaFontBytes,{
+      subset: true, 
+      features: { liga: false }, 
+    });
+
+    const form = pdfDoc.getForm();
+
+    const cert_content = form.getTextField('body1');
+    const cert_content_closing = form.getTextField('body2');
+    const tb_basic = form.getTextField('basic');
+    const tb_pera = form.getTextField('pera');
+    const tb_midyear = form.getTextField('midyear');
+    const tb_uniform = form.getTextField('uniform');
+    const tb_cash_gift = form.getTextField('cash_gift');
+    const tb_pei = form.getTextField('pei');
+    const tb_total = form.getTextField('total');
+    
+    const name = `{{ user_profile.first_name }} {{ user_profile.middle_initial }}{%if user_profile.name_extn != 'N/A' or user_profile.name_extn != '' %}.{% endif %} {{ user_profile.last_name }}{%if user_profile.name_extn != 'N/A'  %}, {{ user_profile.name_extn }}{% endif %}`;
+    const positionTitle = toTitleCase("{{ user_profile.position_title }}");
+    const employmentStatus = toTitleCase("{{ user_profile.employment_status }}");
+
+    {% if user_profile.employment_status == "JOB ORDER" %}
+      const sgjgDesc = "SG";
+      const sgjg = "{{ user_profile.salary_grade }}";
+      {% else %}
+      const sgjgDesc = "JG";
+      const sgjg = "{{ user_profile.job_grade }}";
+    {% endif %}
+
+    const normalText = "          This is to certify that "+ name +" is presently employed in the National Irrigation Administration - Pangasinan Irrigation Management Office as " +
+                        positionTitle + " / "+ sgjgDesc + " "+ sgjg +" on a "+ employmentStatus +" Status with an annual gross compensation including allowances & benefits, to wit:";
+
+    const currentDate = new Date();
+
+    // Get the day and suffix
+    const day = currentDate.getDate();
+    const daySuffix = getDaySuffix(day);
+
+    // Get the month
+    const month = currentDate.toLocaleString('default', { month: 'long' });
+
+    // Get the year
+    const year = currentDate.getFullYear();
+
+    // Format the date
+    const formattedDate = `${day}${daySuffix} day of ${month}, ${year}`;
+
+    cert_content_closing.setText(`          Issued this ${formattedDate} at the NIA-Pangasinan Irrigation Management Office, Bayaoas, Urdaneta City, Pangasinan.`);
+
+    const timesBoldFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+    
+    // Set the text content with rich formatting
+    cert_content.setText(normalText);
+
+    {% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
+    //var salary = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    var salary = job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'];
+    {% elif user_profile.employment_status == 'CASUAL' %}
+     // document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+     var salary = (casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])*22;
+    {% elif user_profile.employment_status == 'JOB ORDER' %}
+     // document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
+     var salary = (daily_salary['{{ user_profile.salary_grade }}'])*22;
+    {% endif %}
+
+  
+    tb_total.setText("{{ user_profile.rol[0].vacation + user_profile.rol[0].sick if user_profile.rol[0] else 'N/A' }}");
+    tb_basic.setText((String(numberWithCommas(addZeroes(salary * 12)))));
+    tb_pera.setText((String(numberWithCommas(addZeroes(24000)))));
+    tb_midyear.setText((String(numberWithCommas(addZeroes(salary * 2)))));
+    tb_uniform.setText((String(numberWithCommas(addZeroes(6000.00)))));
+    tb_cash_gift.setText((String(numberWithCommas(addZeroes(5000.00)))));
+    tb_pei.setText((String(numberWithCommas(addZeroes(5000.00)))));
+    tb_total.setText((String(numberWithCommas(addZeroes((salary * 12) + 24000 + (salary * 2) + 6000 + 5000 + 5000)))));
+
+    cert_content.updateAppearances(cambria);
+    cert_content_closing.updateAppearances(cambria);
+    tb_basic.updateAppearances(cambria);
+    tb_pera.updateAppearances(cambria);
+    tb_midyear.updateAppearances(cambria);
+    tb_uniform.updateAppearances(cambria);
+    tb_cash_gift.updateAppearances(cambria);
+    tb_pei.updateAppearances(cambria);
+    tb_total.updateAppearances(cambria);
+
+        
+    form.flatten();
+
+
+		const pdfBytes = pdfDoc.save()
+
+		const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+		const testPdfDataUri = await pdfDoc.saveAsBase64();
+		
+		// decode base64 string, remove space for IE compatibility
+		var binary = atob(testPdfDataUri.replace(/\s/g, ''));
+		var len = binary.length;
+		var buffer = new ArrayBuffer(len);
+		var view = new Uint8Array(buffer);
+		for (var i = 0; i < len; i++) {
+			view[i] = binary.charCodeAt(i);
+		}
+	
+		var blob = new Blob( [view], { type: "application/pdf" });
+		var url = URL.createObjectURL(blob);
+	
+		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
+		//var fileURL = URL.createObjectURL(file);
+	
+		loadingScreen('none')
+		window.open(url, 'leave_certification');
+
+  }
+
+  function addZeroes(num) {
+    // Convert the input number to a fixed number with 2 decimal places
+    return Number(num).toFixed(2);
+  }
+
+  function toTitleCase(str) {
+    return str.replace(/\b\w+\b/g, function(word) {
+      if (/[^\w\s]/.test(word)) {
+        // Word contains special characters, return as is
+        return word;
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+  }
+
+  // Function to get the suffix for the day
+function getDaySuffix(day) {
+  if (day >= 11 && day <= 13) {
+    return 'th';
+  }
+
+  switch (day % 10) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
+  }
+}
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+
+  var monthly_daily = 0;
+
+  {% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    monthly_daily = job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'];
+	{% elif user_profile.employment_status == 'CASUAL' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    monthly_daily = (casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])*22;
+	{% elif user_profile.employment_status == 'JOB ORDER' %}
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(daily_salary['{{ user_profile.salary_grade }}'])));
+    monthly_daily = (daily_salary['{{ user_profile.salary_grade }}'])*22;
+	{% endif %}
+
+
+</script>
+{%endblock%}

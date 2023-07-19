@@ -184,7 +184,7 @@
 									
 								</div>
 							<div class="col-sm-12 text-center mt-5 mb-5 flex-fill">
-								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" onclick="loadPdf();" disabled>
+								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" onclick="" disabled>
 									<span id="mySpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   									Loading...
 								</button>
@@ -514,22 +514,26 @@
 					  if(wph.checked == false && out_abroad.checked == false){
 						  triggerToast('Please choose if within the Philippines or Abroad', 'error');
 					  }else{
-						  addAflForm();
+						//  addAflForm();
+						  loadPdf();
 					  }
 				  }else if(leave_id.value == 3){
 					  if(!in_hospital.checked && !out_patient.checked){
 						  triggerToast('Please choose if In Hospital or Out Patient', 'error');
 					  }else{
-						  addAflForm();
+						//  addAflForm();
+						  loadPdf();
 					  }
 				  }else if(leave_id.value == 99){
 					  if(!monetization.checked && !cto.checked && !cto.terminal){
 					  triggerToast('Please choose other purpose', 'error');
 				  }else{
-					  addAflForm();
+					  //addAflForm();
+					  loadPdf();
 				  }
 			  }else{
-					  addAflForm();
+					  //addAflForm();
+					  loadPdf();
 				  }
 			  }
 	  
@@ -537,7 +541,7 @@
 			}, false)
 		  })
 
-		  //loadPdf();
+
 
 		  const spinnerElement = document.getElementById('mySpinner');
 		  spinnerElement.style.display = 'none';

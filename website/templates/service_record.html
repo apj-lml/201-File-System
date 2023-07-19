@@ -501,32 +501,6 @@
         },
 
         "columns": [
-			//{
-			//	"data": "service_from",
-			//	"render": function (data) {
-			//		if (data){
-
-			//		var date = new Date(data);
-			//		var monthNames = [
-			//		  "January", "February", "March", "April", "May", "June",
-			//		  "July", "August", "September", "October", "November", "December"
-			//		];
-			//		var month = monthNames[date.getMonth()];
-			//		var day = date.getDate();
-			//		var year = date.getFullYear();
-				  
-					// Add zero padding to day if necessary
-			//		if (day < 10) {
-			//		  day = "0" + day;
-			//		}
-				  
-			//		return month + " " + day + ", " + year;
-			//	}else{
-			//		return '';
-			//	}
-			//}
-
-			//},
 			{
 				"targets": 0,
 				"data": "service_from", // Specify the original column index or the rendered column index
@@ -1049,7 +1023,7 @@ function generateTable() {
 		}).then((res)=>{
 			if (res.status == 406){
 				 loadingScreen('none');
-				triggerToast("Invalid date inputs detected. Please double check your inputs.", "warning"); //this is the returned error message
+				triggerToast("Overlapping date inputs detected. Please double check your inputs.", "warning"); //this is the returned error message
 
 
 			}else if (res.status == 200){

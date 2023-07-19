@@ -144,6 +144,7 @@ def create_app():
 	from .wes import wes
 	from .afl import afl
 	from .rol import rol
+	from .coe import coe
 	from .listOfLoyaltyAwardees import listOfLoyaltyAwardees
 	from .listOfRetirees import listOfRetirees
 
