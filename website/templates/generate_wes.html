@@ -459,8 +459,8 @@
 {% endblock %}
       
 {%block scripts%}
-<script src="{{ url_for('static', filename='html2pdf/html2pdf.bundle.min.js') }}"></script>
-<script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='html2pdf/html2pdf.bundle.min.js') }}"></script> -->
+<!-- <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script> -->
 
 <script type="text/javascript">
 
@@ -610,10 +610,6 @@ function generate_wes(){
                     //     result.innerHTML += "<br/>" + prop + " = " + obj.line[key][prop];
                     // }
                 }
-
-                console.log(empty_field)
-
-
                     Swal.fire({
                         title: '<strong>Generate WES Failed!</strong>',
                         icon: 'error',
@@ -623,7 +619,6 @@ function generate_wes(){
                             
                             <p>${convert_date(data.date_from)} - ${convert_date(data.date_to)}</p>
 
-                           
                             ${ listOfEmptyFields(empty_field) }
                             `,
                         showCloseButton: true,
@@ -665,8 +660,7 @@ function generate_wes(){
     }
 
 function editAccomp(el, wda_type){
-    // console.log(el.id)
-    fetch(`/wes/edit-accomp/${el.id}`,{
+    fetch(`/wes/edit-accomp/${el.id}`, {
         method: 'POST',
         body: JSON.stringify({"accomp_id" : el.id})
         })
@@ -675,11 +669,9 @@ function editAccomp(el, wda_type){
         .then(data => {
             // console.log(data)
             document.getElementById('edit_wda_id').value = data.id;
-
             document.getElementById('edit_wda_accomp').value = data.wda;
             document.getElementById('edit_wda_type').value = data.wda_type;
             document.getElementById('edit_we').value = data.we;
-            
         });
 }
 

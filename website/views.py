@@ -346,11 +346,6 @@ def check_before_gen(emp_id):
     wda_len = 0
 
     for idx, item in enumerate(my_rows["row_contents"]):
-        # dt_obj = datetime.strptime(item['date_from'],'%Y-%m-%d')
-        # new_value = datetime.strftime(dt_obj, "%B %d, %Y")
-
-        print("ITEMMMM: ", item)
-
         if item["agency_address"] != "":
             empty_agency_address = empty_agency_address + 1
         if item["immediate_supervisor"] != "":
@@ -429,7 +424,7 @@ def rol(emp_id):
 
             return render_template('rol.html', emp_id = emp_id, user_profile = user)
         
-@views.route('/coe/<emp_id>', methods=['GET', 'POST'])
+@views.route('/coe-menu/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def coe(emp_id):
@@ -441,7 +436,6 @@ def coe(emp_id):
             db.session.commit()
 
             return render_template('coe.html', emp_id = emp_id, user_profile = user)
-
 
 @views.route('/500', methods=['GET'])
 # @login_required

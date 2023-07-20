@@ -1,14 +1,16 @@
-from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app
+from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app, send_file
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Learning_Development, User
+from .models import User, UserSchema
 from . import db
-import datetime
-import time
-from .myhelper import allowed_file, my_random_string
-from werkzeug.utils import secure_filename
+import os
+from io import BytesIO
+from docx.shared import Cm
+from docxtpl import DocxTemplate, InlineImage
+from flask_login import current_user, login_required
 import json
-import os, os.path
+
+from datetime import datetime, date
 
 coe = Blueprint('coe', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -20,159 +22,134 @@ def page_not_found(e):
 	session['redirected_from'] = request.url
 	return redirect(url_for('auth.login'))
 
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# def get_context(id, salary):
+#     """ You can generate your context separately since you may deal with a lot 
+#         of documents. You can carry out computations, etc in here and make the
+#         context look like the sample below.
+#     """
 
-# ---------------------------------------------------------------------------- #
-#                                    GET coe                                   #
-# ---------------------------------------------------------------------------- #
-@coe.route('get-coe/<emp_id>', methods=['POST', 'GET'])
-@login_required
-# @admin_permission.require(http_exception=403)
-def get_coe(emp_id):
-    if request.method == "GET":
-        get_ld = Learning_Development.query.filter_by(user_id = emp_id).all()
-        column_keys = Learning_Development.__table__.columns.keys()
-    # Temporary dictionary to keep the return value from table
-        rows_dic_temp = {}
-        rows_dic = []
-    # Iterate through the returned output data set
-        for row in get_ld:
-            for col in column_keys:
-                rows_dic_temp[col] = getattr(row, col)
-            rows_dic.append(rows_dic_temp)
-            rows_dic_temp= {}
-            print(rows_dic)
+#     user = db.session.query(User).get(id)
+#     user_profile = user
+#     my_rows = json.loads(jsonify(UserSchema().dump(user)).get_data(True))
 
-        return jsonify(rows_dic)
+#     user_profile.position_title = user_profile.position_title.title()
 
-    # if request.method == "POST":
+#     middle_name = user_profile.middle_name[:1] + "." if user_profile.middle_name and user_profile.middle_name != "N/A" else ""
+#     name_extn = user_profile.name_extn if user_profile.name_extn and user_profile.name_extn != "N/A" else ""
+
+#     # user_profile.full_name = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
+
+#     my_rows['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
+#     my_rows['salary'] = salary
+
+#     return my_rows
+
+
+def add_comma(number):
+    return ("{:,.2f}".format(number))
+
+def get_day(date_obj):
+    return date_obj.day
+
+def format_current_date():
+    current_date = datetime.now().date()
+
+    day = current_date.strftime("%d").lstrip("0").rstrip("0")
+    print("==========================>>>>>", get_day(current_date))
+
+    suffix = "th" if 11 <= int( get_day(current_date)) % 100 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(int( get_day(current_date)) % 10, "th")
+    formatted_date = current_date.strftime(f"%d{suffix} day of %B, %Y")
+    return formatted_date
+
+
+def get_context(id, salary):
+    """ You can generate your context separately since you may deal with a lot 
+        of documents. You can carry out computations, etc in here and make the
+        context look like the sample below.
+    """
+    user = db.session.query(User).get(id)
+    user_profile = user
+
+    # Update the position_title to title case
+    user_profile.position_title = user_profile.position_title.title()
+    user_profile.employment_status = user_profile.employment_status.title()
+
+    middle_name = user_profile.middle_name[:1] + "." if user_profile.middle_name and user_profile.middle_name != "N/A" else ""
+    name_extn = user_profile.name_extn if user_profile.name_extn and user_profile.name_extn != "N/A" else ""
+
+    # Calculate and set the full_name field in the serialized JSON
+    user_profile_dict = UserSchema().dump(user_profile)
+    user_profile_dict['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
+    user_profile_dict['salary'] = salary
+
+    conv_salary = user_profile_dict['salary'].split()
+    if len(conv_salary) == 2:
         
-    #     return "ok", 200
- # ---------------------------------------------------------------------------- #
+        salary_string = conv_salary[1].replace(',', '')  # Removing commas from the string
+ 
+        if user_profile_dict['employment_status'] == "Job Order" or user_profile_dict['employment_status'] == "Casual":
+            basic_salary = (float(salary_string) * 22) 
+        else:
+            basic_salary = float(salary_string)
+
+    user_profile_dict['basic_salary'] = float(basic_salary) * 12
+    user_profile_dict['pera'] = 2000.00 * 12
+    user_profile_dict['midyear'] = float(basic_salary) * 2
+    user_profile_dict['uniform'] = 6000.00
+    user_profile_dict['cash_gift'] = 5000.00
+    user_profile_dict['pei'] = 5000.00
+
+    user_profile_dict['total_gross'] = add_comma(float(user_profile_dict['basic_salary']) + float(user_profile_dict['pera']) +  float(user_profile_dict['midyear']) + float(user_profile_dict['uniform']) + float(user_profile_dict['cash_gift']) + float(user_profile_dict['pei']))
+    user_profile_dict['basic_salary'] = add_comma(user_profile_dict['basic_salary'])
+    user_profile_dict['pera'] = add_comma(user_profile_dict['pera'])
+    user_profile_dict['midyear'] = add_comma(user_profile_dict['midyear'])
+    user_profile_dict['uniform'] = add_comma(user_profile_dict['uniform'])
+    user_profile_dict['cash_gift'] = add_comma(user_profile_dict['cash_gift'])
+    user_profile_dict['pei'] = add_comma(user_profile_dict['pei'])
+
+    user_profile_dict['current_date'] = format_current_date()
+
+    # Return the modified serialized data
+    return user_profile_dict
 
 
-# ---------------------------------------------------------------------------- #
-#                                   EDIT coe                                   #
-# ---------------------------------------------------------------------------- #
-@coe.route('edit-coe/<id>', methods=['POST', 'GET'])
-@login_required
-# @admin_permission.require(http_exception=403)
-def edit_ld(id):
-    if request.method == "GET":
-        get_ld = Learning_Development.query.filter_by(id = id).all()
-        column_keys = Learning_Development.__table__.columns.keys()
-    # Temporary dictionary to keep the return value from table
-        rows_dic_temp = {}
-        rows_dic = []
-    # Iterate through the returned output data set
-        for row in get_ld:
-            for col in column_keys:
-                rows_dic_temp[col] = getattr(row, col)
-            rows_dic.append(rows_dic_temp)
-            rows_dic_temp= {}
-            # print(rows_dic)
+def from_template(template, emp_id, salary):
+    target_file = BytesIO()
+    
+    template = DocxTemplate(template)
+    context = get_context(emp_id, salary)  # gets the context used to render the document
+    
+    target_file = BytesIO()
+    template.render(context, autoescape=True)
+    template.save(target_file)
 
-        return jsonify(rows_dic)
+    return target_file
 
-    # if request.method == "POST":
-        
-    #     return "ok", 200
- # ---------------------------------------------------------------------------- #
+@coe.route("/without-compensation/<emp_id>", methods=['GET', 'POST'])
+def coe_without_compensation(emp_id):
+
+    formdata  = json.loads(request.data)
+    template = os.path.join(current_app.root_path, 'static/templates', 'coe-without-compensation.docx')   
+
+    document = from_template(template, emp_id, formdata['monthly_daily_salary'])
+    document.seek(0)
+    
+    return send_file(
+        document, mimetype='application/vnd.openxmlformats-'
+        'officedocument.wordprocessingml.document', as_attachment=True,
+        attachment_filename='WES_TEMPLATE_NEW.docx')
 
 
+@coe.route("/with-compensation/<emp_id>", methods=['GET', 'POST'])
+def coe_with_compensation(emp_id):
 
- # ---------------------------------------------------------------------------- #
- #                                    ADD coe                                   #
- # ---------------------------------------------------------------------------- #
-@coe.route('add-coe/<emp_id>', methods=['POST', 'GET'])
-@login_required
-def print_coe(emp_id):
-    formdata = request.form.to_dict()
-    # if request.method == "POST":
-    #     print('DATA', formdata)
-    #     formdata['user_id'] = emp_id
+    formdata  = json.loads(request.data)
+    template = os.path.join(current_app.root_path, 'static/templates', 'coe-with-compensation.docx')   
 
-    #     for k,v in formdata.items():
-    #         if type(v) is str:
-    #             formdata.update({k: v.upper()})
-    #         else:
-    #             formdata.update({k: v})
-    return jsonify('Success!')
-
- # ---------------------------------------------------------------------------- #
- #                                 DELETE coe                                   #
- # ---------------------------------------------------------------------------- #
-@coe.route('delete-coe', methods=['POST', 'GET'])
-@login_required
-def delete_learning_and_development():
-	if request.method == "POST":
-		formdata  = json.loads(request.data)
-		
-		coe = Learning_Development.query.get(formdata['ld_id'])
-
-		os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], coe.ld_attachment_file_name))
-		db.session.delete(coe)
-		db.session.commit()
-	return jsonify('File Deleted Successfully')
-
-
-@coe.route('save-coe/<id>/<emp_id>', methods=['POST', 'GET'])
-@login_required
-def update_ld(id, emp_id):
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-        get_we = Learning_Development.query.get(id)
-        formdata.pop('id')
-
-        final_name = ''
-        
-        
-        for afile in request.files:
-            file = request.files[afile]
-
-            if file.filename == "":
-                print('No file selected')
-            else:
-                if not allowed_file(file.filename):
-                    return jsonify('Invalid file submitted. Only PDF files are allowed'), 406
-
-                
-                get_user = User.query.get(emp_id)
-
-
-                os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], get_we.ld_attachment_file_name))
-
-                file_extension = file.filename.rsplit('.', 1)[1].lower()
-                file_name = file.filename.rsplit('.', 1)[0]
-                final_name = secure_filename(formdata['ld_program'] + '_' + get_user.last_name +'_' + file_name + f'_{my_random_string()}' +'.'+file_extension)
-                if os.path.isfile(current_app.config['UPLOAD_FOLDER']):
-                    print('path does not exist... creating path')
-                    os.mkdir(current_app.config['UPLOAD_FOLDER'])
-                else:
-                    # print('path exist!')
-                    file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
-
-                    #saving upload info to database
-                    # files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
-                    # db.session.add(files_to_upload)
-                    # db.session.commit()
-                    formdata['ld_attachment'] = '\\static\\files\\' + final_name
-                    formdata['ld_attachment_file_name'] = final_name
-
-        if 'nia_pimo' in formdata:
-            formdata['ld_sponsored_by'] = 'NATIONAL IRRIGATION ADMINISTRATION - PANGASINAN IRRIGATION MANAGEMENT OFFICE'
-            formdata.pop('nia_pimo')
-
-        for key, value in formdata.items():
-            # print(key)
-            if key == 'ld_attachment' or key == 'ld_attachment_file_name':
-                setattr(get_we, key, value)
-            else:
-                setattr(get_we, key, value.upper())
-
-
-        db.session.commit()
-
-        return jsonify('Successfully Saved Changes.')
+    document = from_template(template, emp_id, formdata['monthly_daily_salary'])
+    document.seek(0)
+    
+    return send_file(
+        document, mimetype='application/vnd.openxmlformats-'
+        'officedocument.wordprocessingml.document', as_attachment=True,
+        attachment_filename='WES_TEMPLATE_NEW.docx')

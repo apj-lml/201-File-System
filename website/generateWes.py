@@ -33,7 +33,6 @@ def get_context(id):
 
     my_rows['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
 
-
     for idx, item in enumerate(my_rows["row_contents"]):
         dt_obj = datetime.strptime(item['date_from'],'%Y-%m-%d')
         new_value = datetime.strftime(dt_obj, "%B %d, %Y")
@@ -50,9 +49,6 @@ def get_context(id):
         my_rows["row_contents"][idx]['date_from'] = new_value
 
     return my_rows
-
-
-
 
 def from_template(template, emp_id):
     target_file = BytesIO()

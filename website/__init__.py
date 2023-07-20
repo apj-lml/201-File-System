@@ -178,6 +178,7 @@ def create_app():
 	app.register_blueprint(wes, url_prefix = '/wes')
 	app.register_blueprint(afl, url_prefix = '/afl')
 	app.register_blueprint(rol, url_prefix = '/rol')
+	app.register_blueprint(coe, url_prefix = '/coe')
 	app.register_blueprint(listOfLoyaltyAwardees, url_prefix = '/listOfLoyaltyAwardees')
 	app.register_blueprint(listOfRetirees, url_prefix = '/listOfRetirees')
 
