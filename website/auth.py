@@ -28,24 +28,19 @@ def login():
 	if request.method == 'POST':
 		print("Received data:", request.data)  # Add this line to inspect the request data
 		
-		try:
-			formdata = json.loads(request.data)
-			employee_id = formdata['email'].lstrip('0')
-			password = formdata['password']
+		# try:
+		formdata = json.loads(request.data)
+		employee_id = formdata['email'].lstrip('0')
+		password = formdata['password']
 
-			user = User.query.filter_by(employee_id=employee_id).first()
-		except json.decoder.JSONDecodeError as e:
-			print("JSONDecodeError:", e)
-			return jsonify("invalid_json_data")
-
-
-
-		# db.session.commit()
+		user = User.query.filter_by(employee_id=employee_id).first()
+		# except json.decoder.JSONDecodeError as e:
+		# 	print("JSONDecodeError:", e)
+		# 	return jsonify("invalid_json_data")
 
 		if user:
 			if check_password_hash(user.password, password) and user.status_remarks == 'ACTIVE':
 				login_user(user)
-				#session.permanent = False
 				if user.type_of_user == 'admin':
 					identity_changed.send(current_app._get_current_object(),
                                   identity=Identity(user.id))

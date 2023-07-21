@@ -37,12 +37,9 @@
 
 {% block content %}
 
-
-
-
 <div class="container-fluid text-center outer-box">
 	<main class="shadow-lg form-signin rounded">
-		<img class="img-fluid" id="" src="{{url_for('static', filename='img/nia-logo.gif')}}" alt="" width="192" height="192">
+		<img class="img-fluid" id="login-nia-logo" alt="" width="192" height="192">
 	  <form id="login_form" action="#" method="POST">
 	    <!-- <h4 class="mb-1 fw-bolder text-white">Pangasinan <br> Irrigation Management Office</h4> -->
 
@@ -76,7 +73,24 @@
 
 {%block scripts%}
 <script type="text/javascript">
-	document.getElementById("login_form").addEventListener("submit", function(e){
+
+// Get the <img> element by its ID
+const imgElement = document.getElementById('login-nia-logo');
+
+// URL of the image you want to load
+const imageUrl = "{{url_for('static', filename='img/nia-logo.gif')}}";
+
+// Load the image from cache or network and set it as the src attribute of the <img> element
+loadImageFromCacheOrNetwork(imageUrl).then(response => {
+  if (response && response instanceof Response) {
+    response.blob().then(blob => {
+      const objectURL = URL.createObjectURL(blob);
+      imgElement.src = objectURL;
+    });
+  }
+});
+
+document.getElementById("login_form").addEventListener("submit", function(e){
   e.preventDefault()
   var formElem = document.getElementById("login_form");
   let loginData = new FormData(formElem);
@@ -85,7 +99,6 @@
   loginData.forEach((value, key) => (data[key] = value))
 
   loadingScreen('block');
-
 	
   fetch('/', {
 		signal: AbortSignal.timeout(30000),

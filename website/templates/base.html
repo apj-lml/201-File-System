@@ -498,6 +498,40 @@ function clearCache(){
 
 }
 
+
+// Function to precache images
+function precacheImages(imageUrlsToCache) {
+  imageUrlsToCache.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+}
+
+
+// Function to load images from cache or fetch from the network if not found in cache
+async function loadImageFromCacheOrNetwork(url) {
+	try {
+	  const response = await caches.match(url);
+	  if (response) {
+		return response;
+	  } else {
+		const fetchedResponse = await fetch(url);
+		if (fetchedResponse.ok) {
+		  // Cache the fetched response for future use
+		  const cache = await caches.open('image-cache');
+		  cache.put(url, fetchedResponse.clone());
+		  return fetchedResponse;
+		} else {
+		  throw new Error('Failed to fetch the image');
+		}
+	  }
+	} catch (error) {
+	  console.error(error);
+	}
+  }
+
+
+
 </script>
 {% block scripts %}{% endblock %}
 

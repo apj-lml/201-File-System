@@ -322,6 +322,7 @@ function getDaySuffix(day) {
 	}
 
   function printWithCompensation(){
+    loadingScreen('block')
     var monthly_daily_salary = document.getElementById('monthly_daily_salary');
     fetch('/coe/with-compensation/{{emp_id}}', {
       method: 'POST',
@@ -333,12 +334,13 @@ function getDaySuffix(day) {
             href,
             download: 'coe_{{ user_profile.last_name }}.docx',
           }).click();
-      ///setTimeout(loadingScreen('none'), 2000);
+      setTimeout(loadingScreen('none'), 2000);
       
     })
   }
 
   function printWithoutCompensation(){
+    loadingScreen('block')
     var monthly_daily_salary = document.getElementById('monthly_daily_salary');
     fetch('/coe/without-compensation/{{emp_id}}', {
       method: 'POST',
@@ -350,7 +352,7 @@ function getDaySuffix(day) {
             href,
             download: 'coe_{{ user_profile.last_name }}.docx',
           }).click();
-      ///setTimeout(loadingScreen('none'), 2000);
+      setTimeout(loadingScreen('none'), 2000);
       
     })
   }
