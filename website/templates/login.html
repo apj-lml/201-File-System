@@ -30,6 +30,51 @@
 			line-height: 50px;
 			
 		}
+
+		.center, .wrapper, .outer, .inner, .content, h4 {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			z-index: -1;
+	   }
+		.outer {
+			height: 200px;
+			width: 200px;
+			border-radius: 45%;
+			background-image: -webkit-linear-gradient(left, #795def 25%, #eb3cf9 100%);
+			background-image: -o-linear-gradient(left, #795def 25%, #eb3cf9 100%);
+			background-image: linear-gradient(to right, #795def 25%, #eb3cf9 100%);
+			background-repeat: repeat-x;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FF795DEF", endColorstr="#FFEB3CF9", GradientType=1);
+	   }
+		.inner {
+			height: 175px;
+			width: 175px;
+			border-radius: 45%;
+			background-image: -webkit-linear-gradient(left, #795def 25%, #eb3cf9 100%);
+			background-image: -o-linear-gradient(left, #795def 25%, #eb3cf9 100%);
+			background-image: linear-gradient(to right, #795def 25%, #eb3cf9 100%);
+			background-repeat: repeat-x;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FF795DEF", endColorstr="#FFEB3CF9", GradientType=1);
+	   }
+		.content {
+			height: 150px;
+			width: 150px;
+			background-color: #260e36;
+			border-radius: 45%;
+	   }
+		h4 {
+			text-align: center;
+			vertical-align: middle;
+			color: white;
+			font-size: 24px;
+			padding-bottom: 65px;
+			font-family: 'Roboto', sans-serif;
+			font-weight: 300;
+	   }
+		
 	</style>
     <!-- Custom styles for login -->
 
@@ -37,9 +82,28 @@
 
 {% block content %}
 
-<div class="container-fluid text-center outer-box">
+<div class="container-fluid text-center m-0 p-0 overflow-hidden">
 	<main class="shadow-lg form-signin rounded">
-		<img class="img-fluid" id="login-nia-logo" alt="" width="192" height="192">
+		<!-- <img class="img-fluid" id="login-nia-logo" alt="NIA LOGO" width="192" height="192"> -->
+		<!-- <img src="{{url_for('static', filename='img/nia-logo.png')}}" width="192" height="192"> -->
+		<div class="position-relative mb-4">
+			<div class="" style="z-index: 12;">
+				<img src="{{url_for('static', filename='img/nia-logo.png')}}" width="178" height="178"/>
+			</div>
+
+			<div class="wrapper center" style="z-index: -1;">
+				<div class="outer">
+				</div>
+				<div class="inner">
+				</div>
+				<div class="content">
+				</div>
+			</div>
+			<h4>PIMO</h4>
+			<!-- <img src="{{url_for('static', filename='img/nia-logo.png')}}" width="192" height="192" style="z-index: 12;"> -->
+
+		</div>
+
 	  <form id="login_form" action="#" method="POST">
 	    <!-- <h4 class="mb-1 fw-bolder text-white">Pangasinan <br> Irrigation Management Office</h4> -->
 
@@ -72,23 +136,31 @@
 {% endblock %}
 
 {%block scripts%}
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 <script type="text/javascript">
 
+
+	TweenMax.to('.outer', 5, {rotation:360, animationDelay: 0, ease:Linear.easeNone, repeat:-1});
+TweenMax.to('.inner', 5, {rotation:-360, animationDelay: 1, ease:Linear.easeNone, repeat:-1});
+TweenMax.to('.content', 5, {rotation:360, animationDelay: 2, ease:Linear.easeNone, repeat:-1});
+
+
 // Get the <img> element by its ID
-const imgElement = document.getElementById('login-nia-logo');
+//const imgElement = document.getElementById('login-nia-logo');
 
 // URL of the image you want to load
-const imageUrl = "{{url_for('static', filename='img/nia-logo.gif')}}";
+///const imageUrl = "{{url_for('static', filename='img/nia-logo.gif')}}";
 
 // Load the image from cache or network and set it as the src attribute of the <img> element
-loadImageFromCacheOrNetwork(imageUrl).then(response => {
-  if (response && response instanceof Response) {
-    response.blob().then(blob => {
-      const objectURL = URL.createObjectURL(blob);
-      imgElement.src = objectURL;
-    });
-  }
-});
+//loadImageFromCacheOrNetwork(imageUrl).then(response => {
+  //if (response && response instanceof Response) {
+    //response.blob().then(blob => {
+    //  const objectURL = URL.createObjectURL(blob);
+    //  imgElement.src = objectURL;
+    //});
+ //}
+//});
 
 document.getElementById("login_form").addEventListener("submit", function(e){
   e.preventDefault()
