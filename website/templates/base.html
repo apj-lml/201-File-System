@@ -211,11 +211,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
               </ul>
             </li>
           </ul>
-          {% if current_user.employment_status != 'Job Order' and current_user.type_of_user != 'user' %}
+
           <li class="nav-item">
             <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
           </li>
-          {% endif %}
+
           <li class="nav-item">
             <!-- <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a> -->
             <a class="nav-link" href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a>
