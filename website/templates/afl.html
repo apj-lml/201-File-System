@@ -110,15 +110,14 @@
 								{% if current_user.type_of_user != 'user' %}
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
+										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
 										<label for="date_of_filing">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								</div>
 								{% else %}
-
-									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
+									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name="" id="date_of_filing_display" placeholder="Date of Filing" disabled >
+										<input type="date" class="form-control" name="" id="date_of_filing_display" value="{{ today_date_formatted }}" max="9999-12-31" disabled >
 										<label for="date_of_filing_display">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								{% endif %}
