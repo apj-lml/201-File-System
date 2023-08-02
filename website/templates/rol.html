@@ -208,7 +208,7 @@
 
 		const { PDFDocument, StandardFonts, registerFontkit } = PDFLib
 
-		formUrl = "{{ url_for('static', filename='leave-cert-template1.pdf') }}";
+		formUrl = "{{ url_for('static', filename='leave-cert-template1-final.pdf') }}";
 	  
     const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
   
@@ -257,6 +257,7 @@
 
     const currentDate = new Date();
 
+    console.log(currentDate)
     // Get the day and suffix
     const day = currentDate.getDate();
     const daySuffix = getDaySuffix(day);

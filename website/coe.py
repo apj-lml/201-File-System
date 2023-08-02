@@ -54,11 +54,12 @@ def get_day(date_obj):
 def format_current_date():
     current_date = datetime.now().date()
 
-    day = current_date.strftime("%d").lstrip("0").rstrip("0")
-    print("==========================>>>>>", get_day(current_date))
+    # day = current_date.strftime("%d").lstrip("0").rstrip("0")
+    day = current_date.strftime("%e")
+    print("==========================>>>>>", day)
 
     suffix = "th" if 11 <= int( get_day(current_date)) % 100 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(int( get_day(current_date)) % 10, "th")
-    formatted_date = current_date.strftime(f"%d{suffix} day of %B, %Y")
+    formatted_date = current_date.strftime(f"{day}{suffix} day of %B, %Y")
     return formatted_date
 
 

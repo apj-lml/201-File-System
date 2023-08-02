@@ -105,18 +105,18 @@
 				<div class="d-flex flex-column">
 					<div class="d-md-flex flex-md-row flex-sm-column">
 						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
-
+							<!-- {{ today_date.strftime('%Y-%m-%d') }} -->
 							<div class="card-body">
 								{% if current_user.type_of_user != 'user' %}
-
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" >
+										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
 										<label for="date_of_filing">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								</div>
 								{% else %}
-									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" >
+
+									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" placeholder="Date of Filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="date" class="form-control" name="" id="date_of_filing_display" placeholder="Date of Filing" disabled >
 										<label for="date_of_filing_display">Date of Filing<span class="is-required">*</span></label>
@@ -672,7 +672,7 @@
 
 		  let formUrl = "";
 	  
-		  formUrl = "{{ url_for('static', filename='afl-templateee.pdf') }}";
+		  formUrl = "{{ url_for('static', filename='afl-templateeee.pdf') }}";
 	  
 		  const cambriaFontUrl = "{{ url_for('static', filename='/fonts/Cambria.ttf') }}";
 		  const cambriaBoldFontUrl = "{{ url_for('static', filename='/fonts/cambriab.ttf') }}";

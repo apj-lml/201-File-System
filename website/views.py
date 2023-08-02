@@ -454,3 +454,9 @@ def getClearCache():
 @views.context_processor
 def inject_today_date():
     return {'today_date': datetime.utcnow()}
+
+
+@views.context_processor
+def inject_today_date_formatted():
+    today_date = datetime.utcnow().strftime('%Y-%m-%d')
+    return {'today_date_formatted': today_date}
