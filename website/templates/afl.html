@@ -143,10 +143,12 @@
 										<label for="leave_id">Type of Leave <span class="is-required">*</span></label>
 									</div>
 								</div>
+
 								<!-- <div class="form-check form-switch">
 									<input class="form-check-input" type="checkbox" id="dateRangeSelection" onchange="changeCalendarMode()">
 									<label class="form-check-label" for="dateRangeSelection">Date Range Selection</label>
 								  </div> -->
+
 								<div class="d-md-flex flex-row">
 									<!-- <div class="input-group mb-3">
 										<span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-week"></i></span>
@@ -1402,24 +1404,22 @@ function convertNumberToWords(number) {
 	}
   
 	if (number < 100) {
-	  return tensWords[Math.floor(number / 10)] + (number % 10 !== 0 ? '-' : '') + words[number % 10];
+	  const remainder = number % 10;
+	  return tensWords[Math.floor(number / 10)] + (remainder !== 0 ? '-' + words[remainder] : '');
 	}
   
 	if (number < 1000) {
-	  return words[Math.floor(number / 100)] + ' hundred' + (number % 100 !== 0 ? ' and ' : '') + convertNumberToWords(number % 100);
+	  return words[Math.floor(number / 100)] + ' hundred' + (number % 100 !== 0 ? ' and ' + convertNumberToWords(number % 100) : '');
 	}
   
 	if (number < 1000000) {
-	  return convertNumberToWords(Math.floor(number / 1000)) + ' thousand' + (number % 1000 !== 0 ? ' ' : '') + convertNumberToWords(number % 1000);
+	  return convertNumberToWords(Math.floor(number / 1000)) + ' thousand' + (number % 1000 !== 0 ? ' ' + convertNumberToWords(number % 1000) : '');
 	}
   
 	if (number < 1000000000) {
-	  return convertNumberToWords(Math.floor(number / 1000000)) + ' million' + (number % 1000000 !== 0 ? ' ' : '') + convertNumberToWords(number % 1000000);
+	  return convertNumberToWords(Math.floor(number / 1000000)) + ' million' + (number % 1000000 !== 0 ? ' ' + convertNumberToWords(number % 1000000) : '');
 	}
-
-	
   }
-
 
   function getBusinessDays(startDate, endDate) {
 

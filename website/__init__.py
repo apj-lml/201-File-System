@@ -38,7 +38,7 @@ def create_app():
 	app = Flask(__name__)
 	app.config['SECRET_KEY'] = '201 File System Key'
 
-	# app.register_error_handler(500, page_not_found)
+	#app.register_error_handler(500, page_not_found)
 
 	#sqlite database
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
@@ -46,7 +46,7 @@ def create_app():
 	#mysql database offline
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
-	# #mysql database online
+	#mysql database online
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -183,10 +183,7 @@ def create_app():
 	app.register_blueprint(listOfRetirees, url_prefix = '/listOfRetirees')
 
 
-
 	# ---------------------------- END OF REGISTRATION --------------------------- #
-
-	
 
 
 	from .models import Agency_Section, User
