@@ -194,9 +194,7 @@ def update_ld(id, emp_id):
                     file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], final_name))
 
                     #saving upload info to database
-                    # files_to_upload = Uploaded_File(file_name = final_name, file_path = '\\static\\files\\' + final_name, file_tag = afile, user_id = finaldata.id)
-                    # db.session.add(files_to_upload)
-                    # db.session.commit()
+
                     formdata['ld_attachment'] = '\\static\\files\\' + final_name
                     formdata['ld_attachment_file_name'] = final_name
 
