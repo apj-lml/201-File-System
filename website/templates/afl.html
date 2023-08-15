@@ -107,6 +107,7 @@
 						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
 							<!-- {{ today_date.strftime('%Y-%m-%d') }} -->
 							<div class="card-body">
+								{{ today_date_formatted }}<---def value<br>
 								{% if current_user.type_of_user != 'user' %}
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
@@ -115,7 +116,8 @@
 									</div>
 								</div>
 								{% else %}
-									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
+									hidden field
+									<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<input type="date" class="form-control" name="" id="date_of_filing_display" value="{{ today_date_formatted }}" max="9999-12-31" disabled >
 										<label for="date_of_filing_display">Date of Filing<span class="is-required">*</span></label>
@@ -560,6 +562,8 @@
 
 		var num = 0;
 
+		console.log(dates)
+
 		var date_of_filing = document.getElementById('date_of_filing');
 		var submitBtn = document.getElementById('submitBtn');
 		var $leaveVal = "";
@@ -857,6 +861,7 @@
 		};
 
 		var formattedDateOfFiling = date_of_filing_formatted.toLocaleDateString('en-US', options);
+		
 
 		tb_date_of_filing.setText(String(formattedDateOfFiling));
 		tb_date_of_filing.updateAppearances(cambriaBold);
