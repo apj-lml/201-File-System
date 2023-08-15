@@ -564,21 +564,30 @@
 
 	function validateInclusiveDates(dates, leave){
 
-		console.log("Current Date: -> ",new Date())
+
 		var num = 0;
 
 		var date_of_filing = document.getElementById('date_of_filing');
 		var submitBtn = document.getElementById('submitBtn');
 		var $leaveVal = "";
 
-		//console.log(date_of_filing.value)
+		console.log("not formatted array date: ", formatDate(dates[0][0]))
+		console.log("not formatted date: ", date_of_filing)
 
-		console.log(formatDate(dates[0][0]))
-		console.log(formatDate(date_of_filing.value))
+
+		var date_filing = new Date(date_of_filing.value);
+		var firstDatePicked = new Date(formatDate(dates[0][0]));
+
+		var formatteddate_filing = date_filing.toLocaleDateString("en-US");
+		var formattedfirstDatePicked = firstDatePicked.toLocaleDateString("en-US");
+
+		
+		console.log("filing: ", formatDate(formatteddate_filing))
+		console.log("first pick ", formatDate(formattedfirstDatePicked))
 
 		num = getCalendarDays(
-			formatDate(date_of_filing.value),
-			formatDate(dates[0][0])
+			formatteddate_filing,
+			formattedfirstDatePicked
 							 )+1;
 
 
