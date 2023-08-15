@@ -571,7 +571,7 @@
 		var submitBtn = document.getElementById('submitBtn');
 		var $leaveVal = "";
 
-		console.log("not formatted array date: ", formatDate(dates[0][0]))
+		console.log("not formatted array date: ", formatDate(flatpickr.parseDate(dates[0][0], "d/m/Y")))
 		console.log("not formatted date: ", date_of_filing.value)
 
 
@@ -589,8 +589,6 @@
 			formatteddate_filing,
 			formattedfirstDatePicked
 							 )+1;
-
-
 							 console.log(num)
 
 		if(leave == 2){
