@@ -572,7 +572,7 @@
 		var $leaveVal = "";
 
 		console.log("not formatted array date: ", formatDate(dates[0][0]))
-		console.log("not formatted date: ", date_of_filing)
+		console.log("not formatted date: ", date_of_filing.value)
 
 
 		var date_filing = new Date(date_of_filing.value);
@@ -587,7 +587,7 @@
 
 		num = getCalendarDays(
 			formatteddate_filing,
-			formattedfirstDatePicked
+			dates[0][0]
 							 )+1;
 
 
