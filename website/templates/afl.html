@@ -575,7 +575,7 @@
 		console.log("not formatted date: ", formatDate(flatpickr.parseDate(date_of_filing.value, "d/m/Y")))
 
 
-		var date_filing = new Date(formatDate(flatpickr.parseDate(dates[0][0], "d/m/Y")));
+		var date_filing = new Date(formatDate(flatpickr.parseDate(date_of_filing.value, "d/m/Y")));
 		var firstDatePicked = new Date(formatDate(flatpickr.parseDate(dates[0][0], "d/m/Y")));
 
 		var formatteddate_filing = date_filing.toLocaleDateString("en-US");
@@ -587,7 +587,7 @@
 		console.log("zzzzz--->: ", firstDatePicked )
 		
 		console.log("filing: ", formatDate(formatteddate_filing))
-		console.log("first pick ", formattedfirstDatePicked)
+		console.log("first pick ", formatDate(formattedfirstDatePicked))
 
 		num = getCalendarDays(
 			formatteddate_filing,
