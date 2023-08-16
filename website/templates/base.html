@@ -237,6 +237,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
                   <a class="dropdown-item" href="/wes/{{current_user.id}}"> <i class="bi bi-file-earmark-text"></i> Print WES</a>
                 </li>
               </ul>
+
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li>
                   <a class="dropdown-item" href="/coe/with-compensation/{{current_user.id}}"><i class="bi bi-printer"></i> Print COE (with compensation)</a>
@@ -269,7 +270,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
                 <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
                 <li><a class="dropdown-item" href="/emergency-contact/{{current_user.id}}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
                 <li><a class="dropdown-item" href="/other-questions/{{current_user.id}}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
-                <li><a class="dropdown-item" href="/saln/{{current_user.id}}"><i class="bi bi-file-earmark-text"></i> SALN</a></li>
+                <li><a class="dropdown-item" href="/saln/{{current_user.id}}"><i class="fas fa-book"></i> SALN</a></li>
                  <!-- <li><hr class="dropdown-divider"></li> -->
                 <!-- <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li> -->
               </ul>
@@ -406,6 +407,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 <script type="text/javascript">
 
 window.addEventListener('load', (event) => {
+
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  })
 
   AbortSignal.timeout ??= function timeout(ms) {
     const ctrl = new AbortController()
