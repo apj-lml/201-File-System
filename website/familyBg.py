@@ -50,7 +50,6 @@ def add_family_background(emp_id):
             for xy in range(1, int(formdata['family_count']) + 1):
                 # try:
 
-                
                 if 'fb_last_name['+str(xy)+']' in formdata:
                     fb_last_name = formdata['fb_last_name['+str(xy)+']']
                 else:
@@ -95,6 +94,19 @@ def add_family_background(emp_id):
                     fb_relationship = formdata['fb_relationship['+str(xy)+']']
                 else:
                     fb_relationship = None
+                if 'fb_id['+str(xy)+']' in formdata:
+                    fb_id = formdata['fb_id['+str(xy)+']']
+                else:
+                    fb_id = None
+                if 'fb_id_no['+str(xy)+']' in formdata:
+                    fb_id_no = formdata['fb_id_no['+str(xy)+']']
+                else:
+                    fb_id_no = None
+                if 'fb_date_issued['+str(xy)+']' in formdata:
+                    fb_date_issued = formdata['fb_date_issued['+str(xy)+']']
+                else:
+                    fb_date_issued = None
+
 
                 new_family_bg = Family_Background(
                 fb_last_name = str(fb_last_name).upper(),
@@ -108,6 +120,9 @@ def add_family_background(emp_id):
                 fb_date_of_birth = fb_date_of_birth,
                 fb_maiden_name = str(fb_maiden_name).upper(),
                 fb_relationship = str(fb_relationship).upper(),
+                fb_id = str(fb_id).upper(),
+                fb_id_no = str(fb_id_no).upper(),
+                fb_date_issued = str(fb_date_issued).upper(),
                 user_id = emp_id
                     )
 
@@ -183,7 +198,19 @@ def update_family_background(emp_id):
             fb_relationship = formdata['fb_relationship['+str(xy)+']']
         else:
             fb_relationship = None
-            
+        if 'fb_id['+str(xy)+']' in formdata:
+            fb_id = formdata['fb_id['+str(xy)+']']
+        else:
+            fb_id = None
+        if 'fb_id_no['+str(xy)+']' in formdata:
+            fb_id_no = formdata['fb_id_no['+str(xy)+']']
+        else:
+            fb_id_no = None
+        if 'fb_date_issued['+str(xy)+']' in formdata:
+            fb_date_issued = formdata['fb_date_issued['+str(xy)+']']
+        else:
+            fb_date_issued = None
+    
         familyBg = Family_Background.query.filter_by(id = id)
         familyBg.update(dict(
                         fb_last_name = str(fb_last_name).upper(),
@@ -197,6 +224,9 @@ def update_family_background(emp_id):
                         fb_date_of_birth = fb_date_of_birth,
                         fb_maiden_name = str(fb_maiden_name).upper(),
                         fb_relationship = str(fb_relationship).upper(),
+                        fb_id = str(fb_id).upper(),
+                        fb_id_no = str(fb_id_no).upper(),
+                        fb_date_issued = str(fb_date_issued).upper(),
                         ))
 
     db.session.commit()

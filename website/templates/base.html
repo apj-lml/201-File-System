@@ -270,7 +270,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
                 <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
                 <li><a class="dropdown-item" href="/emergency-contact/{{current_user.id}}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
                 <li><a class="dropdown-item" href="/other-questions/{{current_user.id}}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
-                <li><a class="dropdown-item" href="/saln/{{current_user.id}}"><i class="fas fa-book"></i> SALN</a></li>
+                <!-- <li><a class="dropdown-item" href="/saln/{{current_user.id}}"><i class="fas fa-book"></i> SALN</a></li> -->
                  <!-- <li><hr class="dropdown-divider"></li> -->
                 <!-- <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li> -->
               </ul>
@@ -464,10 +464,10 @@ swalWithBootstrapButtons.fire({
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'center',
+  position: 'top-end',
   showConfirmButton: false,
   showCloseButton: true,
-  timer: 3000,
+  timer: 3500,
   timerProgressBar: true,
   didOpen: (toast) => {
     // toast.addEventListener('mouseenter', Swal.stopTimer)

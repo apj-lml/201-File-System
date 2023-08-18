@@ -202,6 +202,7 @@ class User(db.Model, UserMixin):
     vaccine = db.relationship('Vaccine')
     afl = db.relationship('Afl')
     rol = db.relationship('Records_Of_Leave', backref='user')
+    # real_property = db.relationship('Real_Property', backref='user')
 
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
@@ -278,6 +279,57 @@ class User(db.Model, UserMixin):
             return claiming_years
 
     # emergency_contact = db.relationship('Emergency_Contact')
+
+
+
+class Real_Property(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    rp_description = db.Column(db.String(150))
+    rp_kind = db.Column(db.String(150))
+    rp_exact_location = db.Column(db.String(150))
+    rp_assessed_value = db.Column(db.String(150))
+    rp_current_market_value = db.Column(db.String(150))
+    rp_acquisition_year = db.Column(db.String(150))
+    rp_acquisition_mode = db.Column(db.String(150))
+    rp_acquisition_cost = db.Column(db.String(150))
+    user = db.relationship('User', backref='user_real_property', lazy=True)
+
+
+class Personal_Property(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    pp_description = db.Column(db.String(150))
+    pp_year_acquired = db.Column(db.String(150))
+    pp_acquisition_cost = db.Column(db.String(150))
+    user = db.relationship('User', backref='user_personal_property', lazy=True)
+
+
+class Liability(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    liability_nature = db.Column(db.String(150))
+    liability_creditor = db.Column(db.String(150))
+    liability_outstanding_balance = db.Column(db.String(150))
+    user = db.relationship('User', backref='user_liability', lazy=True)
+
+class Business_Interest(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    business = db.Column(db.String(150))
+    business_address = db.Column(db.String(150))
+    business_nature = db.Column(db.String(150))
+    business_acquisition = db.Column(db.String(150))
+    user = db.relationship('User', backref='user_business_interest', lazy=True)
+
+class Relatives_In_Government(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    relative_name = db.Column(db.String(150))
+    relative_relationship = db.Column(db.String(150))
+    relative_position = db.Column(db.String(150))
+    relative_office_address = db.Column(db.String(150))
+    user = db.relationship('User', backref='user_relative_in_government', lazy=True)
 
 class Records_Of_Leave(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -462,17 +514,20 @@ class Staff_Movement(db.Model, SerializerMixin):
 
 class Family_Background(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
-    fb_last_name = db.Column(db.String(50))
-    fb_first_name = db.Column(db.String(50))
-    fb_middle_name = db.Column(db.String(50))
-    fb_name_ext = db.Column(db.String(50))
-    fb_occupation = db.Column(db.String(50))
+    fb_last_name = db.Column(db.String(150))
+    fb_first_name = db.Column(db.String(150))
+    fb_middle_name = db.Column(db.String(150))
+    fb_name_ext = db.Column(db.String(150))
+    fb_occupation = db.Column(db.String(150))
     fb_employer_business_name = db.Column(db.String(250))
     fb_business_address = db.Column(db.String(250))
-    fb_contact_no = db.Column(db.String(50))
-    fb_date_of_birth = db.Column(db.String(50))
-    fb_maiden_name = db.Column(db.String(50))
-    fb_relationship = db.Column(db.String(50))
+    fb_contact_no = db.Column(db.String(150))
+    fb_date_of_birth = db.Column(db.String(150))
+    fb_maiden_name = db.Column(db.String(150))
+    fb_relationship = db.Column(db.String(150))
+    fb_id = db.Column(db.String(150))
+    fb_id_no = db.Column(db.String(150))
+    fb_date_issued = db.Column(db.String(150))
     user = db.relationship('User', backref='user_family_background', lazy=True)
     # user = db.relationship('User', backref='user_family_background', lazy=True)
 
@@ -658,6 +713,41 @@ class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
         # include_fk = True
     section_title = ma.auto_field()
 
+class RealPropertySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Real_Property
+        # load_instance = True
+        # include_fk = True
+    rp_description = ma.auto_field()
+
+class PersonalPropertySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Personal_Property
+        # load_instance = True
+        # include_fk = True
+    # pp_description = ma.auto_field()
+
+class LiabilitySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Liability
+        # load_instance = True
+        # include_fk = True
+    # pp_description = ma.auto_field()
+
+class BusinessInterestSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Business_Interest
+        # load_instance = True
+        # include_fk = True
+    # pp_description = ma.auto_field()
+
+class RelativeInGovernmentSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Relatives_In_Government
+        # load_instance = True
+        # include_fk = True
+    # pp_description = ma.auto_field()
+
 class AgencyUnitSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Agency_Unit
@@ -677,6 +767,11 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     agency_section = ma.Nested(AgencySectionSchema, attribute='user_section')
     agency_unit = ma.Nested(AgencyUnitSchema, attribute='user_unit')
     family_background = ma.Nested(FamilyBackgroundSchema, attribute='user_family_background', many=True)
+    real_property = ma.Nested(RealPropertySchema, attribute='user_real_property', many=True)
+    personal_property = ma.Nested(PersonalPropertySchema, attribute='user_personal_property', many=True)
+    liability = ma.Nested(LiabilitySchema, attribute='user_liability', many=True)
+    business_interest = ma.Nested(BusinessInterestSchema, attribute='user_business_interest', many=True)
+    relative_in_government = ma.Nested(RelativeInGovernmentSchema, attribute='user_relative_in_government', many=True)
 
 class WesDutiesAccomplishmentsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

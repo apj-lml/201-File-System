@@ -147,6 +147,7 @@ def create_app():
 	from .coe import coe
 	from .listOfLoyaltyAwardees import listOfLoyaltyAwardees
 	from .listOfRetirees import listOfRetirees
+	from .saln import saln
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -181,6 +182,7 @@ def create_app():
 	app.register_blueprint(coe, url_prefix = '/coe')
 	app.register_blueprint(listOfLoyaltyAwardees, url_prefix = '/listOfLoyaltyAwardees')
 	app.register_blueprint(listOfRetirees, url_prefix = '/listOfRetirees')
+	app.register_blueprint(saln, url_prefix = '/saln')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

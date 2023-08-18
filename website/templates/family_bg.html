@@ -104,9 +104,23 @@
 								</div>
 							</div>
 							<div class="d-md-flex flex-row">
-								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
-									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_update_form" value="{{spouse[0].fb_contact_no if spouse[0].fb_contact_no is not none and spouse[0].fb_contact_no != 'NONE' else ''}}">
+								<div class="form-floating mb-3 p-1 col-md-6">
+									<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Spouse's Mobile/Telephone No." form="family_bg_update_form" value="{{spouse[0].fb_contact_no if spouse[0].fb_contact_no is not none and spouse[0].fb_contact_no != 'NONE' else ''}}">
 									<label for="fb_contact_no[1]">Spouse's Mobile/Telephone No.</label>
+								</div>
+							</div>
+							<div class="d-md-flex flex-row">
+								<div class="form-floating flex-fill mb-3 p-1 col-md-4">
+									<input type="text" class="form-control" name ="fb_id[1]" id="spouse_id" placeholder="Spouse " form="family_bg_update_form" value="{{spouse[0].fb_id if spouse[0].fb_id is not none and spouse[0].fb_id != 'NONE' else ''}}" required>
+									<label for="spouse_id[1]">Government Issued ID.</label>
+								</div>
+								<div class="form-floating flex-fill mb-3 p-1 col-md-4">
+									<input type="text" class="form-control" name ="fb_id_no[1]" id="spouse_id_no" placeholder="Spouse " form="family_bg_update_form" value="{{spouse[0].fb_id_no if spouse[0].fb_id_no is not none and spouse[0].fb_id_no != 'NONE' else ''}}" required>
+									<label for="spouse_id_no[1]">ID No.</label>
+								</div>
+								<div class="form-floating flex-fill mb-3 p-1 col-md-4">
+									<input type="date" class="form-control" name ="fb_date_issued[1]" id="spouse_date_issued" form="family_bg_update_form" value="{{spouse[0].fb_date_issued if spouse[0].fb_date_issued is not none and spouse[0].fb_date_issued != 'NONE' else ''}}" required>
+									<label for="spouse_date_issued[1]">Date Issued</label>
 								</div>
 							</div>
 
@@ -154,6 +168,20 @@
 									<div class="form-floating flex-fill mb-3 p-1 col-md-6">
 										<input type="text" class="form-control" name ="fb_contact_no[1]" id="spouse_cn" placeholder="Employer / Business Contact No." form="family_bg_form" value="">
 										<label for="fb_contact_no[1]">Employer / Business Contact No.</label>
+									</div>
+								</div>
+								<div class="d-md-flex flex-row">
+									<div class="form-floating flex-fill mb-3 p-1 col-md-4">
+										<input type="text" class="form-control" name ="fb_id[1]" id="spouse_id" placeholder="Spouse " form="family_bg_form" value="">
+										<label for="spouse_id[1]">Spouse's Government Issued ID.</label>
+									</div>
+									<div class="form-floating flex-fill mb-3 p-1 col-md-4">
+										<input type="text" class="form-control" name ="fb_id_no[1]" id="spouse_id_no" placeholder="Spouse " form="family_bg_form" value="">
+										<label for="spouse_id_no[1]">Spouse's ID No.</label>
+									</div>
+									<div class="form-floating flex-fill mb-3 p-1 col-md-4">
+										<input type="date" class="form-control" name ="fb_date_issued[1]" id="spouse_date_issued" form="family_bg_form" value="">
+										<label for="spouse_date_issued[1]">Date Issued</label>
 									</div>
 								</div>
 							{% endif %}
@@ -419,6 +447,9 @@
 		var spouse_eb = document.getElementById('spouse_bn');
 		var spouse_ba = document.getElementById('spouse_ba');
 		var spouse_cn = document.getElementById('spouse_cn');
+		var spouse_id = document.getElementById('spouse_id');
+		var spouse_id_no = document.getElementById('spouse_id_no');
+		var spouse_date_issued = document.getElementById('spouse_date_issued');
 		if(value == 'NO'){
 			spouse_ln.disabled = true;
 			spouse_fn.disabled = true;
@@ -428,6 +459,9 @@
 			spouse_eb.disabled = true;
 			spouse_ba.disabled = true;
 			spouse_cn.disabled = true;
+			spouse_id.disabled = true;
+			spouse_id_no.disabled = true;
+			spouse_date_issued.disabled = true;
 		}else{
 			spouse_ln.disabled = false;
 			spouse_fn.disabled = false;
@@ -437,6 +471,9 @@
 			spouse_eb.disabled = false;
 			spouse_ba.disabled = false;
 			spouse_cn.disabled = false;
+			spouse_id.disabled = false;
+			spouse_id_no.disabled = false;
+			spouse_date_issued.disabled = false;
 		}
 
 	}
