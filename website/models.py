@@ -185,7 +185,7 @@ class User(db.Model, UserMixin):
     vocational_course = db.relationship('Vocational_Course')
     learning_development = db.relationship('Learning_Development', order_by="desc(Learning_Development.ld_date_from)")
     familyBg = db.relationship('Family_Background', order_by=lambda: Family_Background.fb_date_of_birth)
-    # college = db.relationship('College')
+    #college = db.relationship('College')
     college = db.relationship('College', backref='user')
     shirt = db.relationship('Shirt')
     masteral = db.relationship('Masteral')
@@ -328,7 +328,8 @@ class Relatives_In_Government(db.Model, SerializerMixin):
     relative_name = db.Column(db.String(150))
     relative_relationship = db.Column(db.String(150))
     relative_position = db.Column(db.String(150))
-    relative_office_address = db.Column(db.String(150))
+    relative_agency_office = db.Column(db.String(150))
+    relative_agency_office_address = db.Column(db.String(150))
     user = db.relationship('User', backref='user_relative_in_government', lazy=True)
 
 class Records_Of_Leave(db.Model, SerializerMixin):
@@ -532,6 +533,13 @@ class Family_Background(db.Model, SerializerMixin):
     # user = db.relationship('User', backref='user_family_background', lazy=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    @property
+    def getAge(self):
+        today = datetime.now().date()
+        dob_object = datetime.strptime(self.fb_date_of_birth, "%Y-%m-%d").date()
+        age = relativedelta(today, dob_object).years
+        return age
 
     @hybrid_property
     def fullname(self):

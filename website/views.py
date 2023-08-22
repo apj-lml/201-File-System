@@ -448,7 +448,7 @@ def saln(emp_id):
             user = db.session.query(User).get(int(emp_id))
             db.session.commit()
 
-            return render_template('saln.html', emp_id = emp_id, user_profile = user)
+            return render_template('saln.html', emp_id = emp_id, user_profile = UserSchema().dump(user))
 
 @views.route('/500', methods=['GET'])
 # @login_required

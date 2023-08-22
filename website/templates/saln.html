@@ -52,8 +52,8 @@ td{
   <div class="row mt-5 mb-5">
     <div class="card">
         <div class="card-body">
-          <div class="card text-white bg-blue shadow-sm mb-2" >
-              <div class="card-header"><h3 class="card-title"><i class="bi bi-journals"></i> Statement of Assets, Liabilities, and Net Worth (SALN) </h3> </div>
+          <!-- <div class="card text-white bg-blue shadow-sm mb-2" > -->
+              <!-- <div class="card-header"><h3 class="card-title"><i class="bi bi-journals"></i> Statement of Assets, Liabilities, and Net Worth (SALN) </h3> <button onclick="print_saln()">print</button> </div> -->
               <!-- <div class="card-body">
                 <h5 class="card-title">Note</h5>
                 <ul>
@@ -62,36 +62,40 @@ td{
                 </ul>
               </div> -->
 
-					  </div>
+					  <!-- </div> -->
           
           <div class="row">
             <div class="col-md-12">
               <div class="card shadow-sm mb-2">
                 <div class="card-header bg-blue text-white">
                   <h5 class="mb-0">
-                    <i class="fas fa-user-friends"></i>
-                    PERSONAL INFORMATION
+                    <!-- <i class="fas fa-user-friends"></i> -->
+                    <h3 class="card-title"><i class="bi bi-journals"></i> Statement of Assets, Liabilities, and Net Worth (SALN) <button onclick="print_saln()">print</button> </h3> 
                   </h5>
                 </div>
 
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
-                      <div class="mb-2 col-md-4 px-1">
+                      <div class="mb-2 col-sm-12 col-md-4 px-1">
+                        <label for="rp_kind">DATE OF FILING</label>
+                        <input type="date" class="form-control" id="filing_date" name="filing_date" placeholder="" form="" required>
+                      </div>
+                      <div class="mb-2 col-sm-12 col-md-4 px-1">
                         <label for="filing_type">TYPE OF FILING</label>
-                        <select class="form-select" id="filing_type" name="filing_type" onchange="" value="" form="saln_form">
-                          <option value="N/A" selected>NOT APPLICABLE</option>
-                          <option value="Residential">JOINT FILING</option>
-                          <option value="Commercial">SEPARATE FILING</option>
+                        <select class="form-select" id="filing_type" name="filing_type" onchange="" value="" form="">
+                          <option value="not_applicable" selected>NOT APPLICABLE</option>
+                          <option value="joint_filing">JOINT FILING</option>
+                          <option value="separate_filing">SEPARATE FILING</option>
                         </select>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Husband and wife who are both public officials and employees may file the required statements jointly or separately.</p></small>
 
                       </div>
+                      
                     </div>
                   </div>
                 </div>
               </div>
-
-            <div class="col-md-12 pe-1">
+            <div class="col-md-12">
             <form action="#" method="POST" name="saln_rp_form" id="saln_rp_form" enctype="multipart/form-data"></form>
               <div class="card shadow-sm mb-2">
                 <div class="card-header bg-blue text-white">
@@ -108,27 +112,21 @@ td{
                   </h5>
                 </div>
                   <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                      <i class="fas fa-info-circle"></i> Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household
+                    </div>
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_description">DESCRIPTION</label>
                         <input type="text" class="form-control" id="rp_description" name="rp_description" placeholder="" form="saln_rp_form" required>
+                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
+                      
                       </div>
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_kind">KIND</label>
                         <input type="text" class="form-control" id="rp_kind" name="rp_kind" placeholder="" form="saln_rp_form" required>
+                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
                       </div>
-                      <!-- <div class="form-floating flex-fill mb-3 p-1">
-                        <select class="form-select status_of_appointment" id="status_of_appointment" name="status_of_appointment" onchange="" value="" form="saln_form">
-                          <option value="N/A" selected>N/A</option>
-                          <option value="Residential">Residential</option>
-                          <option value="Commercial">Commercial</option>
-                          <option value="Industrial">Industrial</option>
-                          <option value="Agricultural">Agricultural</option>
-                          <option value="Mixed Use">Mixed Use</option>
-                        </select>
-                        <label for="status_of_appointment">Kind</label>
-                      </div> -->
-
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
@@ -141,10 +139,14 @@ td{
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_assessed_value">ASSESSED VALUE</label>
                         <input type="text" class="form-control trailing-decimal-input" id="rp_assessed_value" name="rp_assessed_value" placeholder="" form="saln_rp_form" required>
+                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+
                       </div>
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                        <input type="text" class="form-control" id="rp_current_market_value" name="rp_current_market_value" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control trailing-decimal-input" id="rp_current_market_value" name="rp_current_market_value" placeholder="" form="saln_rp_form" required>
+                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+
                       </div>
                     </div>
 
@@ -166,7 +168,8 @@ td{
                     </div>
 
                     <div class="col-sm-12 text-center">
-                      <button type="submit" class="btn btn-primary btn-sm" form="saln_rp_form"><i class="fas fa-plus"></i> Add</button>
+                      <button type="submit" class="btn btn-primary btn-sm" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
+                      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button>
                     </div>
 
                   </div>
@@ -174,9 +177,9 @@ td{
             </div>
 
 
-            <div class="col-md-12 ps-1">
+            <div class="col-md-12">
               <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data"></form>
-              <div class="card shadow-sm mb-2" style="height: 442px;">
+              <div class="card shadow-sm mb-2">
                 <div class="card-header bg-blue text-white">
                   <h5 class="mb-0">
                     <i class="fas fa-luggage-cart"></i>
@@ -184,6 +187,9 @@ td{
                   </h5>
                 </div>
                   <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                      <i class="fas fa-info-circle"></i> Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household
+                    </div>
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="pp_description">DESCRIPTION</label>
@@ -193,8 +199,14 @@ td{
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="pp_year_acquired">YEAR ACQUIRED</label>
-                        <input type="number" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only(this)" required>
-                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
+                        <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" onchange="year_only(this)" required>
+                        <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="various_years" name="various_years" onchange="variousYears(this)">
+                          <label class="form-check-label" for="various_years">
+                            VARIOUS YEARS
+                          </label>
+                          </div>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
@@ -204,7 +216,7 @@ td{
                       </div>
                     </div>
 
-                    <div class="col-sm-12 text-center my-auto">
+                    <div class="col-sm-12 text-center">
                       <button type="submit" class="btn btn-primary btn-sm" form="saln_pp_form"><i class="fas fa-plus"></i> Add</button>
                     </div>
 
@@ -231,6 +243,9 @@ td{
                 </h5>
               </div>
                 <div class="card-body">
+                  <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-info-circle"></i> Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household
+                  </div>
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="liability_nature">NATURE</label>
@@ -270,6 +285,9 @@ td{
                 </h5>
               </div>
                 <div class="card-body">
+                  <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
+                  </div>
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
@@ -320,6 +338,9 @@ td{
                 </h5>
               </div>
                 <div class="card-body">
+                  <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-info-circle"></i> Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso
+                  </div>
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="relative_name">NAME OF RELATIVE</label>
@@ -340,11 +361,16 @@ td{
                   <div class="d-md-flex flex-row flex-gap">
 
                     <div class="mb-2 flex-fill px-1">
-                      <label for="relative_office_address">NAME OF AGENCY/OFFICE AND ADDRESS</label>
-                      <input type="text" class="form-control" id="relative_office_address" name="relative_office_address" placeholder="" form="saln_relative_in_government_form" required>
+                      <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
+                      <input type="text" class="form-control" id="relative_agency_office" name="relative_agency_office" placeholder="" form="saln_relative_in_government_form" required>
                     </div>
                   </div>
-
+                  <div class="mb-2 flex-fill px-1">
+                    <div class="mb-2 flex-fill px-1">
+                      <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
+                      <input type="text" class="form-control" id="relative_agency_office_address" name="relative_agency_office_address" placeholder="" form="saln_relative_in_government_form" required>
+                    </div>
+                  </div>
                   <div class="col-sm-12 text-center my-auto">
                     <button type="submit" class="btn btn-primary btn-sm" form="saln_relative_in_government_form"><i class="fas fa-plus"></i> Add</button>
                   </div>
@@ -355,36 +381,7 @@ td{
 
 
         </div>
-              <!-- <div class="card shadow-sm mb-3">
-                <div class="card-body">
-                  <div class="col-sm-12">
-                    <div class="table-responsive">
-                      <table class="table table-bordered table-striped" id="work_experience_table" width = "100%">
-                        <thead class="">
-                        <tr class="align-middle">
-                          <th colspan="2" style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;">Inclusive Dates</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Position Title</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Agency / Company</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Department / Office</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Agency / Company Address</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:160px; max-width:160px; white-space:normal;">Immediate Supervisor</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Monthly Salary</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Salary / Job / Pay Grade</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Status of Appointment</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:65px; max-width:65px; white-space:normal;" class="truncate">Government Service</th>
-                          <th rowspan="2" style="word-wrap: break-word; min-width:75px; max-width:75px; white-space:normal;">Controls</th>
-                        </tr>
-                        <tr class="align-middle">
-                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (From)</th>
-                          <th style="word-wrap: break-word; min-width:40px; max-width:40px; white-space:normal;"> (To)</th>
-  
-                        </tr>
-                        </thead>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+
 
         </div>
     </div>
@@ -393,11 +390,77 @@ td{
 
 </main>
 
+
+<!-- Modal -->
+<div class="modal fade" id="viewRealProperty" tabindex="-1" aria-labelledby="viewRealPropertyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header bg-blue text-white">
+        <h5 class="modal-title" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> View Real Properties</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered text-left" id="ld_table" width = "100%">
+              <!-- <colgroup>
+                <col style="width: 5%" />
+                <col style="width: 30%" />
+                <col style="width: 14.28%" />
+                <col style="width: 14.28%" />
+                <col style="width: 10%" />
+                <col style="width: 14.28%" />
+                <col style="width: 20%" />
+                <col style="width: 14.28%" />
+                <col style="width: 14.28%" />
+                <col style="width: 14.28%" />
+              </colgroup> -->
+              <thead class="">
+              <tr class="align-middle">
+                <th scope="col">ID</th>
+                <th scope="col">DESCRIPTION</th>
+                <th scope="col">KIND</th>
+                <th scope="col">EXACT LOCATION</th>
+                <th scope="col">ASSESSED VALUE</th>
+                <th scope="col">CURRENT FAIR MARKET VALUE</th>
+                <th scope="col">ACQUISITION YEAR</th>
+                <th scope="col">ACQUISITION MODE</th>
+                <th scope="col">ACQUISITION COST</th>
+                <th scope="col">CONTROLS</th>
+              </tr>
+              </thead>
+              <tbody>
+
+                  <tr>
+                    {% for realProperty in user_profile.real_property %}
+                      <td>{{ realProperty.id }}</td>
+                      <td>{{ realProperty.rp_description }}</td>
+                      <td>{{ realProperty.rp_kind }}</td>
+                    {% endfor %}
+                  </tr>
+
+              </tbody>
+            </table>
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {%block scripts%}
 
 <script type="text/javascript">
+
+  (function() {
+    document.getElementById('filing_date').valueAsDate = new Date();
+ })();
 
 $('.trailing-decimal-input').on('change', function (e) {
 var intRegex = /^\d+$/;
@@ -417,10 +480,73 @@ if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).va
 
 });
 
+function formatDate(date) {
+  date = new Date(date);
+  var year = date.getFullYear();
+  var month = (date.getMonth() + 1).toString().padStart(2, '0');
+  var day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
+function print_saln(){
+  var filing_date = document.getElementById('filing_date');
+  var filing_type = document.getElementById('filing_type');
+  var date_filing = new Date(filing_date.value);
+  var formatted_date_filing = date_filing.toLocaleDateString("en-US");
+  fetch('/saln/print/{{user_profile.id}}/'+formatDate(formatted_date_filing)+'/'+filing_type.value, {
+    method: 'GET',
+    }).then((res)=>{
+      if (res.status == 200){
+        triggerToast("SALN is now downloading...!", 'success')
+      }
+      return res.blob()
+    
+    }).then((data)=>{
+
+      // Create a Blob with the content
+      const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+
+      // Create a download link
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = "document.docx"; // Replace with your desired file name
+
+      // Trigger a click event on the link to start the download
+      downloadLink.click();
+
+      // Clean up the URL object after download
+      URL.revokeObjectURL(downloadLink.href);
+    });//END
+
+}
+
+function variousYears(el){
+  var pp_year_acquired = document.getElementById('pp_year_acquired');
+  if (el.checked){
+    pp_year_acquired.value = "VARIOUS YEARS";
+    pp_year_acquired.readOnly = true;
+  }else{
+    pp_year_acquired.value = "";
+    pp_year_acquired.readOnly = false;
+  }
+
+}
+
+
 function year_only (el) {
-  if (el.value.length > 4) {
-      el.value = el.value.slice(0,4); 
-      triggerToast('Please input year only!', 'warning');
+  const inputString = el.value;
+  const cleanedString = inputString.replace(/\s+/g, ' ').trim();
+  console.log(cleanedString.toLowerCase())
+  if(cleanedString.toLowerCase() != "various years"){
+    if (el.value.length != 4 ) {
+      //el.value = el.value.slice(0,4); 
+      el.value = ""; 
+
+      triggerToast('Please input "VARIOUS YEARS" or year only!', 'warning');
+    }
+  }else{
+
   }
 }
 

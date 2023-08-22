@@ -10,8 +10,11 @@ from werkzeug.utils import secure_filename
 from io import BytesIO
 from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
+from dateutil.relativedelta import relativedelta
+
 import json
 import os, os.path
+
 
 saln = Blueprint('saln', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -138,13 +141,13 @@ def add_relative_in_government(emp_id):
 # ---------------------------------------------------------------------------- #
 #                                PRINT SALN                                    #
 # ---------------------------------------------------------------------------- #
-@saln.route('print/<emp_id>', methods=['POST', 'GET'])
+@saln.route('print/<emp_id>/<filing_date>/<filing_type>', methods=['POST', 'GET'])
 @login_required
-def print_saln(emp_id):
+def print_saln(emp_id, filing_date, filing_type):
     # formdata  = json.loads(request.data)
     template = os.path.join(current_app.root_path, 'static/templates', 'SALN_Form.docx')   
 
-    document = from_template(template, emp_id)
+    document = from_template(template, emp_id, filing_date, filing_type)
     document.seek(0)
     
     return send_file(
@@ -154,18 +157,18 @@ def print_saln(emp_id):
 
  # ---------------------------------------------------------------------------- #
 
-def from_template(template, emp_id):
+def from_template(template, emp_id, filing_date, filing_type):
     target_file = BytesIO()
     
     template = DocxTemplate(template)
-    context = get_context(emp_id)  # gets the context used to render the document
+    context = get_context(emp_id, filing_date, filing_type)  # gets the context used to render the document
     
     target_file = BytesIO()
     template.render(context, autoescape=True)
     template.save(target_file)
     return target_file
 
-def get_context(id):
+def get_context(id, filing_date, filing_type):
     user = db.session.query(User).get(id)
     user_profile = user
 
@@ -179,15 +182,28 @@ def get_context(id):
     # Calculate and set the full_name field in the serialized JSON
     user_profile_dict = UserSchema().dump(user_profile)
     user_profile_dict['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
-    user_profile_dict['address'] = user_profile.p_house_block_lot + ", " + user_profile.p_street + ", " + user_profile.p_subdivision_village + ", " + user_profile.p_barangay + ", " + user_profile.p_city_municipality + ", "+ user_profile.p_province + ", "+ user_profile.p_zip_code
+    address = user_profile.p_house_block_lot + ", " + user_profile.p_street + ", " + user_profile.p_subdivision_village + ", " + user_profile.p_barangay + ", " + user_profile.p_city_municipality + ", "+ user_profile.p_province + ", "+ user_profile.p_zip_code
+    final_address = address.replace('N/A,', '')
+    user_profile_dict['address'] = " ".join(final_address.split())
     # user_profile_dict['spouse_last_name'] = user_profile.familyBg.filter_by(fb_relationship='SPOUSE').first()
+
+    children_list = []
+
+    for child in user_profile.familyBg:
+        if child.fb_relationship == 'CHILD':
+            filing_date_object = datetime.datetime.strptime(filing_date, "%Y-%m-%d").date()
+            dob_object = datetime.datetime.strptime(child.fb_date_of_birth, "%Y-%m-%d").date()
+            ageBasedOnInput = relativedelta(filing_date_object, dob_object).years
+            if ageBasedOnInput < 18:
+                child.childAge = ageBasedOnInput
+                child.formattedBirthDate = dob_object.strftime("%B %d, %Y")
+                children_list.append(child)
 
     spouse = None
     for relative in user_profile.familyBg:
         if relative.fb_relationship == 'SPOUSE':
             spouse = relative
             break
-
     user_profile_dict['spouse_last_name'] = spouse.fb_last_name if spouse else "N/A"
     user_profile_dict['spouse_first_name'] = spouse.fb_first_name if spouse else "N/A"
     user_profile_dict['spouse_middle_name'] = spouse.fb_middle_name if spouse else "N/A"
@@ -201,6 +217,16 @@ def get_context(id):
     user_profile_dict['spouse_office_address'] = spouse.fb_business_address if spouse else "N/A"
     user_profile_dict["checkmark"] = "✓"
 
-    print("====================>>>>>>>>>>>>: ", user_profile_dict)
+    date_object = datetime.datetime.strptime(filing_date, "%Y-%m-%d")
+
+    # Format the datetime object as "Month Day, Year"
+    formatted_date = date_object.strftime("%B %d, %Y")
+
+    user_profile_dict["filing_date"] = formatted_date
+    user_profile_dict["filing_type"] = filing_type
+    user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
+
+
+    # print("====================>>>>>>>>>>>>: ", user_profile_dict)
     # Return the modified serialized data
     return user_profile_dict
