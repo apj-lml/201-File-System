@@ -1,7 +1,8 @@
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app, send_file
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Real_Property, Personal_Property, Liability, Business_Interest, Relatives_In_Government, User, UserSchema
+from .models import Real_Property, Personal_Property, Liability, Business_Interest, Relatives_In_Government,\
+     User, UserSchema, PersonalPropertySchema, RealPropertySchema, LiabilitySchema, BusinessInterestSchema, RelativeInGovernmentSchema
 from . import db
 import datetime
 import time
@@ -23,8 +24,8 @@ admin_permission = Permission(RoleNeed('admin'))
 
 @saln.errorhandler(403)
 def page_not_found(e):
-	session['redirected_from'] = request.url
-	return redirect(url_for('auth.login'))
+    session['redirected_from'] = request.url
+    return redirect(url_for('auth.login'))
 
 
 # ---------------------------------------------------------------------------- #
@@ -230,3 +231,133 @@ def get_context(id, filing_date, filing_type):
     # print("====================>>>>>>>>>>>>: ", user_profile_dict)
     # Return the modified serialized data
     return user_profile_dict
+
+# ---------------------------------------------------------------------------- #
+#                          delete liability property                           #
+# ---------------------------------------------------------------------------- #
+@saln.route('delete', methods=['POST', 'GET'])
+@login_required
+def delete_saln():
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+
+        if formdata['type'] == "rp":
+            dbObject = Real_Property
+        if formdata['type'] == "pp":
+            dbObject = Personal_Property
+        if formdata['type'] == "liability":
+            dbObject = Liability
+        if formdata['type'] == "business":
+            dbObject = Business_Interest
+        if formdata['type'] == "relative":
+            dbObject = Relatives_In_Government
+
+        delete_saln = dbObject.query.get(formdata['id'])
+
+        db.session.delete(delete_saln)
+        db.session.commit()
+        return jsonify({})
+
+# ---------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------- #
+#                            edit liability property                           #
+# ---------------------------------------------------------------------------- #
+@saln.route('edit', methods=['POST', 'GET'])
+@login_required
+def edit_saln():
+    if request.method == "POST":
+        formdata  = json.loads(request.data)
+
+        if formdata['type'] == "rp":
+            dbObject = Real_Property
+            schema = RealPropertySchema()
+
+        if formdata['type'] == "pp":
+            dbObject = Personal_Property
+            schema = PersonalPropertySchema()
+
+        if formdata['type'] == "liability":
+            dbObject = Liability
+            schema = LiabilitySchema()
+        
+        if formdata['type'] == "business":
+            dbObject = Business_Interest
+            schema = BusinessInterestSchema()
+
+        if formdata['type'] == "relative":
+            dbObject = Relatives_In_Government
+            schema = RelativeInGovernmentSchema()
+
+
+        get_DATA = dbObject.query.get(formdata['id'])
+
+        db.session.commit()
+        data = schema.dump(get_DATA)
+        return jsonify(data)
+
+# ---------------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------------- #
+#                          update liability property                           #
+# ---------------------------------------------------------------------------- #
+@saln.route('test', methods=['POST', 'GET'])
+@login_required
+def saln_test():
+    if request.method == "POST":
+        formdata = json.loads(request.data)
+
+        if formdata['type'] == "rp":
+            dbObject = Real_Property
+        if formdata['type'] == "pp":
+            dbObject = Personal_Property
+        if formdata['type'] == "liability":
+            dbObject = Liability
+        if formdata['type'] == "business":
+            dbObject = Business_Interest
+        if formdata['type'] == "relative":
+            dbObject = Relatives_In_Government
+
+        get_DATA = dbObject.query.get(formdata['id'])
+
+        for key, value in formdata.items():
+            setattr(get_DATA, key, value)
+
+        db.session.commit()
+
+    return jsonify('success')
+
+# ---------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------- #
+#                                     get data                                 #
+# ---------------------------------------------------------------------------- #
+@saln.route('get-data/<saln_type>', methods=['POST', 'GET'])
+@login_required
+def get_data(saln_type):
+    if saln_type == "rp":
+        dbObject = Real_Property
+        schema = RealPropertySchema()
+
+    if saln_type == "pp":
+        dbObject = Personal_Property
+        schema = PersonalPropertySchema()
+
+    if saln_type == "liability":
+        dbObject = Liability
+        schema = LiabilitySchema()
+    
+    if saln_type == "business":
+        dbObject = Business_Interest
+        schema = BusinessInterestSchema()
+    
+    if saln_type == "relative":
+        dbObject = Relatives_In_Government
+        schema = RelativeInGovernmentSchema()
+
+    get_DATA = dbObject.query.all()
+    data = schema.dump(get_DATA, many=True)
+
+    return jsonify(data)
+# ---------------------------------------------------------------------------- #

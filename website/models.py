@@ -726,11 +726,12 @@ class RealPropertySchema(ma.SQLAlchemyAutoSchema):
         model = Real_Property
         # load_instance = True
         # include_fk = True
-    rp_description = ma.auto_field()
+    # rp_description = ma.auto_field()
 
 class PersonalPropertySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Personal_Property
+        # only = ("rp_kind")
         # load_instance = True
         # include_fk = True
     # pp_description = ma.auto_field()
