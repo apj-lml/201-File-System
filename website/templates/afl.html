@@ -562,9 +562,65 @@
 		return `${year}-${month}-${day}`;
 	}
 
+	function validateInclusiveDatesNew(dates, leave) {
+		var date_of_filing = document.getElementById('date_of_filing');
+		var submitBtn = document.getElementById('submitBtn');
+		var $leaveVal = "";
+	
+		var date_filing = new Date(date_of_filing.value);
+		
+		var firstDatePicked = flatpickr.parseDate(dates[0][0], "m/d/Y");
+		var lastDatePicked = flatpickr.parseDate(dates[dates.length - 1][0], "m/d/Y");
+		
+		console.log(dates[0][0])
+		console.log(date_filing)
+		console.log(firstDatePicked)
+		console.log(lastDatePicked)
+
+		num = getCalendarDays(
+			firstDatePicked,
+			lastDatePicked
+							 )
+		console.log(num)
+
+		// Check if parsing was successful
+		if (!date_filing || !firstDatePicked || !lastDatePicked) {
+			console.error("Date parsing error");
+			return;
+		}
+		
+		// Calculate the difference in days
+		var diffTime = Math.abs(date_filing - lastDatePicked);
+		var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+		console.log(diffDays)
+		if (leave == 2) {
+			$leaveVal = "Mandatory/Forced Leave";
+		} else if (leave == 99) {
+			$leaveVal = "Compensatory Time-Off (CTO)";
+		}
+	
+		if (diffDays < 5) {
+			submitBtn.disabled = true;
+			Swal.fire({
+				title: 'NOTICE!',
+				text: `Please be advised that the application for ${$leaveVal} shall be filed five (5) days in advance of the effective date of such leave.`,
+				icon: 'warning',
+				allowOutsideClick: false,
+				showCancelButton: false,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'I understand'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					fp.clear();
+				}
+			});
+		} else {
+			submitBtn.disabled = false;
+		}
+	}
+
 	function validateInclusiveDates(dates, leave){
-
-
 		var num = 0;
 
 		var date_of_filing = document.getElementById('date_of_filing');
@@ -572,16 +628,19 @@
 		var $leaveVal = "";
 
 		var date_filing = new Date(date_of_filing.value);
-		var firstDatePicked = new Date(formatDate(flatpickr.parseDate(dates[0][0], "d/m/Y")));
+		var firstDatePicked = new Date(formatDate(flatpickr.parseDate(dates[0][0], "m/d/Y")));
 
 		var formatteddate_filing = date_filing.toLocaleDateString("en-US");
 		var formattedfirstDatePicked = firstDatePicked.toLocaleDateString("en-US");
 
 		num = getCalendarDays(
+			
 			formatteddate_filing,
 			formattedfirstDatePicked
-							 )+1;
-							 console.log(num)
+			
+							 );
+
+		console.log("NUM OF DAYS: ", num)
 
 		if(leave == 2){
 			$leaveVal = "Mandatory/Forced Leave";
@@ -589,7 +648,7 @@
 			$leaveVal = "Compesatory Time-Off (CTO)";
 		}
 
-		if(num <= 5){
+		if(num < 5){
 			submitBtn.disabled = true;
 			Swal.fire({
 				title: 'NOTICE!',
