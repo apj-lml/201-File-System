@@ -153,7 +153,7 @@ td{
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                        <input type="number" class="form-control" id="rp_acquisition_year" name="rp_acquisition_year" placeholder="" form="saln_rp_form" oninput="year_only(this)" required>
+                        <input type="number" class="form-control" id="rp_acquisition_year" name="rp_acquisition_year" placeholder="" form="saln_rp_form" oninput="year_only_2(this)" required>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
 
                       </div>
@@ -199,7 +199,7 @@ td{
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="pp_year_acquired">YEAR ACQUIRED</label>
-                        <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" onchange="year_only(this)" required>
+                        <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
                         <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="various_years" name="various_years" onchange="variousYears(this)">
@@ -1556,6 +1556,9 @@ function year_only (el) {
 }
 
 function year_only_2(el) {
+  if (isNaN(el.value)) {
+    el.value = "";
+  }
   if (el.value.length > 4) {
       el.value = el.value.slice(0,4); 
       triggerToast('Please input year only!', 'warning');

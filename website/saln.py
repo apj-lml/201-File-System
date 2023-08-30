@@ -39,6 +39,12 @@ def add_rp(emp_id):
 
         formdata["user_id"] = emp_id
 
+        for k,v in formdata.items():
+            if type(v) is str and k != 'comments_remarks':
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         add_rp = Real_Property(**formdata)
 
         db.session.add(add_rp)
