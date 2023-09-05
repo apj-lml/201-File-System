@@ -23,6 +23,7 @@
   <link href="{{ url_for('static', filename='reset.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='spinner.css') }}" rel="stylesheet">
 
+  <link href="{{ url_for('static', filename='css-sidebar/style.css') }}" rel="stylesheet">
 
   <!-- <link href="{{ url_for('static', filename='bootstrap-icons-1.7.0/bootstrap-icons.css') }}" rel="stylesheet"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -166,182 +167,144 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 
 
-<body class="area" onload="">
+<body class="area">
   <!-- <div class="area" > -->
-
-  <!-- </div > -->
-  {% if current_user.is_authenticated%}
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/dashboard">
-        <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="50px" height="50px" class="d-inline-block align-text-center">
-        PIMO
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <!-- <a class="nav-link" href="/dashboard" tabindex="-1" aria-disabled="true"><i class="bi bi-house-fill"></i> Home</a> -->
-            <a class="nav-link" href="/dashboard" tabindex="-1" aria-disabled="true"><i class="bi bi-house-fill"></i> Home</a>
+    <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar" style="z-index: 4080;">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Toggle Menu</span>
+        </button>
+      </div>
+      <div class="p-4 pt-5">
+        <h1><a href="/dashboard" class="logo">PIMO</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li>
+            <a href="/dashboard"><i class="bi bi-house-fill"></i> Home</a>
           </li>
-          <ul class="navbar-nav navbar-right me-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-rolodex"></i> Employee Profile
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> My Profile</a></li>
-                <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-people-fill"></i> Family Background</a></li>
-                <li><a class="dropdown-item" href="/work-experience/{{current_user.id}}"><i class="bi bi-journals"></i> Work Experience</a></li>
-                <li><a class="dropdown-item" href="/voluntary-work/{{current_user.id}}"><i class="bi bi-person-workspace"></i> Voluntary Work</a></li>
-                <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i>  Learning & Development</a></li>
-                <li><a class="dropdown-item" href="/other-information/{{current_user.id}}"><i class="bi bi-pen"></i> Other Information</a></li>
-                <li><a class="dropdown-item" href="/questions/{{current_user.id}}"><i class="bi bi-question-octagon"></i> Questions</a></li>
-                <li><a class="dropdown-item" href="/character-reference/{{current_user.id}}"><i class="bi bi-person-video2"></i> Character References</a></li>
-                <!-- <li><a class="dropdown-item" href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a></li> -->
-
-                <!-- <li><a class="dropdown-item" href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a></li> -->
-                <!-- <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"><i class="bi-bandaid"></i> COVID-19 Vaccination</a></li> -->
-                
-
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item {{'' if current_user.type_of_user == 'user'}}" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> PDS Print Preview</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a>
-          </li>
-
-          <li class="nav-item">
-            <!-- <a class="nav-link {{'disabled' if current_user.type_of_user == 'user'}}" href="/employees/service-record/{{current_user.id}}" tabindex="-1" aria-disabled="true"><i class="bi bi-card-list"></i> Service Record</a> -->
-            <a class="nav-link" href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/learning-development/{{current_user.id}}"> <i class="bi bi-lightbulb"></i> Learning & Development</a>
-          </li> -->
-
-          <ul class="navbar-nav navbar-right me-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-printer"></i> Print PDS & WES
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li>
-                  <a class="dropdown-item" href="/print-preview/{{current_user.id}}"><i class="bi bi-printer"></i> Print PDS</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/wes/{{current_user.id}}"> <i class="bi bi-file-earmark-text"></i> Print WES</a>
-                </li>
-              </ul>
-
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li>
-                  <a class="dropdown-item" href="/coe/with-compensation/{{current_user.id}}"><i class="bi bi-printer"></i> Print COE (with compensation)</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/coe/certification/{{current_user.id}}"> <i class="bi bi-file-earmark-text"></i> Print COE</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/afl/{{current_user.id}}"> <i class="bi bi-calendar-week"></i> Print Application for Leave</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/rol/{{current_user.id}}"> <i class="bi bi-journals"></i> Earned Leaves</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/coe-menu/{{current_user.id}}"> <i class="bi bi-file-earmark-text"></i> Certification of Employment</a>
-          </li>
-          <ul class="navbar-nav navbar-right me-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-box-seam"></i> Others
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/forms"><i class="bi bi-stickies-fill"></i> Downloadable Forms</a></li>
-                <li><a class="dropdown-item" href="/covid-vaccine/{{current_user.id}}"> <i class="fas fa-syringe"></i> Vaccinations</a></li>
-                <li><a class="dropdown-item" href="/tshirt-sizes/{{current_user.id}}"><i class="fas fa-tshirt"></i> Shirt Sizes</a></li>
-                <li><a class="dropdown-item" href="/emergency-contact/{{current_user.id}}"><i class="bi bi-telephone"></i> Emergency Contact Details</a></li>
-                <li><a class="dropdown-item" href="/other-questions/{{current_user.id}}"><i class="bi bi-question-diamond"></i> Other Questions</a></li>
-                <!-- <li><a class="dropdown-item" href="/saln/{{current_user.id}}"><i class="fas fa-book"></i> SALN</a></li> -->
-                 <!-- <li><hr class="dropdown-divider"></li> -->
-                <!-- <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li> -->
-              </ul>
-            </li>
-          </ul>
-          
-          <!-- <ul class="navbar-nav navbar-right me-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-key"></i> Admin Access
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
-                <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li>
-                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/others/{{current_user.id}}"><i class="bi bi-box-seam"></i> Others</a></li>
-              </ul>
-            </li>
-          </ul> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/admin/dashboard"> <i class="bi bi-table"></i> List of Employees</a>
-          </li> -->
-        </ul>
-        
-        <ul class="navbar-nav navbar-right me-3">
-
-          {% if current_user.type_of_user == 'admin' %}
-          <ul class="navbar-nav navbar-right me-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-key"></i> Admin Access
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-table"></i> List of Employees</a></li>
-                <li><a class="dropdown-item" href="/listOfExpiry/"><i class="bi bi-credit-card-2-front"></i> List of Expiring Licenses/IDs</a></li>
-                <li><a class="dropdown-item" href="/listOfLoyaltyAwardees/"><i class="bi bi-award"></i> List of Loyalty Awardees</a></li>
-                <li><a class="dropdown-item" href="/listOfRetirees/"><i class="bi bi-people-fill"></i> List of Retirees</a></li>
-                <!-- <li><a class="dropdown-item" href="/family-background/{{current_user.id}}"><i class="bi bi-code"></i> Tokens</a></li> -->
-                <li><a class="dropdown-item" href="/signup"><i class="bi bi-person-plus-fill"></i> Register User</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/systemSettings/sys-settings"><i class="bi bi-gear"></i> System Settings</a></li>
-              </ul>
-            </li>
-          </ul>
-          {% endif %}
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <!-- <img src="https://github.com/apj-lml.png" alt="" width="32" height="32" class="rounded-circle me-2"> -->
-              <strong>{{current_user.first_name.0}}{{current_user.middle_name.0}}{{current_user.last_name.0}}</strong>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark animate slideIn" aria-labelledby="navbarDarkDropdownMenuLink">
-              <li><a class="dropdown-item" href="/change-password/{{current_user.id}}"><i class="bi bi-shield-lock"></i> Change Password</a></li>
-              <li><a class="dropdown-item" href="#" onclick="clearCache(); return false;" ><i class="bi bi-trash2-fill"></i> Clear Cache</a></li>
-              <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+          <li>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-person-rolodex"></i> Profile</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+              <li>
+                  <a href="/employees/my-profile/{{current_user.id}}"><i class="bi bi-person-lines-fill"></i> My Profile</a>
+              </li>
+              <li>
+                  <a href="/family-background/{{current_user.id}}"><i class="bi bi-people-fill"></i> Family Background</a>
+              </li>
+              <li>
+                  <a href="/work-experience/{{current_user.id}}"><i class="bi bi-journals"></i> Work Experience</a>
+              </li>
+              <li>
+                <a href="/voluntary-work/{{current_user.id}}"><i class="bi bi-person-workspace"></i> Voluntary Work</a>
+              </li>
+              <li>
+                  <a href="/learning-development/{{current_user.id}}"><i class="bi bi-lightbulb"></i> Learning & Development</a>
+              </li>
+              <li>
+                <a href="/other-information/{{current_user.id}}"><i class="bi bi-pen"></i> Other Information</a>
+              </li>
+              <li>
+                <a href="/questions/{{current_user.id}}"><i class="bi bi-question-octagon"></i> Questions</a>
+              </li>
+              <li>
+                <a href="/character-reference/{{current_user.id}}"><i class="bi bi-person-video2"></i> Character References </a>
+              </li>
             </ul>
           </li>
-
+          <li>
+            <a href="/employees/service-record/{{current_user.id}}"> <i class="bi bi-card-list"></i> Service Record</a>
+          </li>
+          <li>
+            <a href="/appointment/{{current_user.id}}"><i class="bi bi-card-heading"></i> Appointments</a>
+          </li>
+          <li>
+            <a href="/rol/{{current_user.id}}"><i class="bi bi-journals"></i> Earned Leaves</a>
+          </li>
+          <li>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-printer"></i> Print</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                  <a href="/print-preview/{{current_user.id}}">PDS</a>
+              </li>
+              <li>
+                  <a href="/wes/{{current_user.id}}">WES</a>
+              </li>
+              <li>
+                  <a href="/afl/{{current_user.id}}">Application for Leave</a>
+              </li>
+              <li>
+                <a href="/coe-menu/{{current_user.id}}">Certificate of Employment</a>
+            </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#otherSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-box-seam"></i> Others</a>
+            <ul class="collapse list-unstyled" id="otherSubmenu">
+              <li>
+                  <a href="/print-preview/{{current_user.id}}">Downloadable Forms</a>
+              </li>
+              <li>
+                  <a href="/wes/{{current_user.id}}">Vaccinations</a>
+              </li>
+              <li>
+                  <a href="/afl/{{current_user.id}}">Shirt Sizes</a>
+              </li>
+              <li>
+                <a href="/coe-menu/{{current_user.id}}">Emergency Contact</a>
+              </li>
+              <li>
+                <a href="/coe-menu/{{current_user.id}}">Other Questions</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-key"></i> Admin Access</a>
+            <ul class="collapse list-unstyled" id="adminSubmenu">
+              <li>
+                  <a href="/admin/dashboard">List of Employees</a>
+              </li>
+              <li>
+                  <a href="/listOfExpiry">List of Expiring Eligibilities</a>
+              </li>
+              <li>
+                  <a href="/listOfLoyaltyAwardees">List of Loyalty Awardees</a>
+              </li>
+              <li>
+                <a href="/listOfRetirees">List of Retirees</a>
+              </li>
+              <li>
+                <a href="/signup">Register User</a>
+              </li>
+            </ul>
+          </li>
         </ul>
-      {% endif %}
 
+        <div class="mb-5">
+          <h3 class="h6">Search</h3>
+          <form action="#" class="colorlib-subscribe-form">
+            <div class="form-group d-flex">
+              <div class="icon"><span class="icon-paper-plane"></span></div>
+              <input type="text" class="form-control" placeholder="Enter Email Address">
+            </div>
+          </form>
+        </div>
+        <hr class="dropdown-divider">
+
+        <div class="footer">
+          <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+        </div>
 
       </div>
-    </div>
-  </nav>
+      </nav>
+  <!-- </div > -->
+
 
 
   {% block content %}{% endblock %}
-
+</div>
 <div class="loading" id="loading">Loading&#8230;</div>
 <!-- <div id="loading">
   <div class="d-flex justify-content-center" id="loading-section">
@@ -403,6 +366,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 
 <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<!-- <script src="{{ url_for('static', filename='js-sidebar/jquery.min.js') }}"></script> -->
+<!-- <script src="js/jquery.min.js"></script> -->
+
+<script src="{{ url_for('static', filename='js-sidebar/popper.js') }}"></script>
+<!-- <script src="js/popper.js"></script> -->
+
+<script src="{{ url_for('static', filename='js-sidebar/bootstrap.min.js') }}"></script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
+
+<script src="{{ url_for('static', filename='js-sidebar/main.js') }}"></script>
 
 <script type="text/javascript">
 

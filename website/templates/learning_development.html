@@ -31,14 +31,12 @@
 		<div class="card container">
 			<div class="card-body">
 				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
-				<div class="card text-white bg-blue shadow-sm mb-3" >
-					<div class="card-header">
-						<h3 class="card-title"><i class="bi bi-lightbulb"></i> Learning & Development</h3>
-					</div>
+				<div class="card bg-blue shadow-sm mb-3" >
+					<div class="card-header"><h3 class="card-title text-white mb-0"><i class="bi bi-lightbulb"></i> LEARNING & DEVELOPMENT</h3> </div>
 					<div class="card-body">
-					  <ul>
-						<li><p class="card-text">Please fill out all necessary fields.</p></li>
-						<li><p class="card-text">Take note that updating your file attachment will overwirte the old attachment.</p></li>
+					  <ul >
+						<li><p class="card-text text-white">Please fill out all necessary fields.</p></li>
+						<li><p class="card-text text-white">Take note that updating your file attachment will overwirte the old attachment.</p></li>
 					  </ul>
 					</div>
 				</div>
@@ -59,6 +57,8 @@
 								<input type="date" class="form-control" name ="ld_date_to" placeholder="Inclusive Date of Attendance To" form="add_ld_form" max="5000-12-31" required>
 								<label for="ld_date_to[1]">Inclusive Date of Attendance To</label>
 							</div>
+						</div>
+						<div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
 								<input type="number" class="form-control" name ="ld_no_hours" placeholder="Rating" form="add_ld_form" required step="any" min="1">
 								<label for="ld_no_hours[1]">Number of Hours</label>

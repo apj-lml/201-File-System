@@ -21,6 +21,11 @@ def page_not_found(e):
 	session['redirected_from'] = request.url
 	return redirect(url_for('auth.login'))
 
+@auth.route('/sidebar', methods=['GET', 'POST'])
+def test():
+	return render_template('mysidebar.html')
+
+
 @auth.route('/', methods=['GET', 'POST'])
 def login():
 	logout_user()
