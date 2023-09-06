@@ -233,10 +233,103 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict["filing_type"] = filing_type
     user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
 
+    # Fetch the real properties associated with the user
 
-    # print("====================>>>>>>>>>>>>: ", user_profile_dict)
+
+    user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 4)
+    user_profile_dict['total_pp_acquisition_cost_p1'] = getPpAcquisitionCostSubTotal(user, 0, 7)
+    user_profile_dict['total_liability_outstanding_balance_p1'] = getLiabilityOutstandingBalance(user, 0, 4)
+    
+    user_profile_dict['total_assets_p1'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 0, 4), getPpAcquisitionCostSubTotal(user, 0, 7))
+
+    user_profile_dict['networth'] = getNetworth(user_profile_dict['total_assets_p1'], user_profile_dict['total_liability_outstanding_balance_p1'])
+
+    user_profile_dict['addtl_page'] = False
+    
+
+    # print("====================>>>>>>>>>>>>: ", total_acquisition_cost)
     # Return the modified serialized data
     return user_profile_dict
+
+def getNetworth(total_assets_p1 = '0.00', total_liability_p1 = '0.00', total_assets_p2 = '0.00', total_liability_p2 = '0.00' ):
+    floatAssetsP1 = float(total_assets_p1.replace(',', ''))
+    floatAssetsP2 = float(total_assets_p2.replace(',', ''))
+    floatLiabilityP1 = float(total_liability_p1.replace(',', ''))
+    floatLiabilityP2 = float(total_liability_p2.replace(',', ''))
+
+    floatNetworth = (floatAssetsP1 + floatAssetsP2) - (floatLiabilityP1 + floatLiabilityP2)
+    formatted_networth = "{:,.2f}".format(floatNetworth)
+    return formatted_networth
+
+def getTotalAssets(subtotal1, subtotal2):
+    floatSubtotal1 = float(subtotal1.replace(',', ''))
+    floatSubtotal2 = float(subtotal2.replace(',', ''))
+    total = floatSubtotal1 + floatSubtotal2
+    formatted_total = "{:,.2f}".format(total)
+
+    return formatted_total
+
+def getLiabilityOutstandingBalance(user, d_start, d_end):
+    # Extract the acquisition_cost values from the first four real properties (if available)
+    outstanding_balances = []
+    liabilities = user.user_liability
+    if liabilities:
+        for liability in liabilities[d_start:d_end]:
+            liability_str = liability.liability_outstanding_balance
+            if liability_str:
+                # Remove commas and convert to a float
+                outstanding_balance = float(liability_str.replace(',', ''))
+                outstanding_balances.append(outstanding_balance)
+
+        # Calculate the sum of the first four acquisition_cost values
+        total_outstanding_balance = sum(outstanding_balances)
+        formatted_total_outstanding_balance = "{:,.2f}".format(total_outstanding_balance)
+    else:
+        formatted_total_outstanding_balance = '0.00'
+    
+    return formatted_total_outstanding_balance
+
+
+def getRpAcquisitionCostSubTotal(user, d_start, d_end):
+    # Extract the acquisition_cost values from the first four real properties (if available)
+    acquisition_costs = []
+    real_properties = user.user_real_property
+    if real_properties:
+        for real_property in real_properties[d_start:d_end]:
+            acquisition_cost_str = real_property.rp_acquisition_cost
+            if acquisition_cost_str:
+                # Remove commas and convert to a float
+                acquisition_cost = float(acquisition_cost_str.replace(',', ''))
+                acquisition_costs.append(acquisition_cost)
+
+        # Calculate the sum of the first four acquisition_cost values
+        total_acquisition_cost = sum(acquisition_costs)
+        formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
+    else:
+        formatted_total_acquisition_cost = 0.00
+    
+    return formatted_total_acquisition_cost
+
+
+def getPpAcquisitionCostSubTotal(user, d_start, d_end):
+    # Extract the acquisition_cost values from the first four real properties (if available)
+    acquisition_costs = []
+    personal_properties = user.user_personal_property
+    if personal_properties:
+        for personal_property in personal_properties[d_start:d_end]:
+            acquisition_cost_str = personal_property.pp_acquisition_cost
+            if acquisition_cost_str:
+                # Remove commas and convert to a float
+                acquisition_cost = float(acquisition_cost_str.replace(',', ''))
+                acquisition_costs.append(acquisition_cost)
+
+        # Calculate the sum of the first four acquisition_cost values
+        total_acquisition_cost = sum(acquisition_costs)
+        formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
+    else:
+        formatted_total_acquisition_cost = 0.00
+    
+    return formatted_total_acquisition_cost
 
 # ---------------------------------------------------------------------------- #
 #                          delete liability property                           #

@@ -15,11 +15,7 @@
   text-overflow: ellipsis;
 }
 
-body{
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
-}
+
 
 th{
   text-align: center;
@@ -33,7 +29,7 @@ td{
 {% endblock %}
 
 {% block content %}
-<main class="mt-4 mb-5">
+<main class="container mt-3">
   <ul class="circles">
     <li></li>
     <li></li>
@@ -49,7 +45,7 @@ td{
   <!-- ----------------------------------------------------------------------- -->
   <!--                         WORK EXPERIENCE                                 -->
   <!-- ----------------------------------------------------------------------- -->
-  <div class="row mt-5 mb-5">
+  <div class="row mb-3">
     <div class="card">
         <div class="card-body">
           <!-- <div class="card text-white bg-blue shadow-sm mb-2" > -->
@@ -389,6 +385,7 @@ td{
         </div>
     </div>
 	</div>
+</div>
 
 
 </main>
@@ -1507,7 +1504,7 @@ function print_saln(){
     method: 'GET',
     }).then((res)=>{
       if (res.status == 200){
-        triggerToast("SALN is now downloading...", 'success')
+        triggerToast("Started downloading SALN!", 'success')
       }
       return res.blob()
     
