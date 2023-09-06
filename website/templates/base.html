@@ -81,9 +81,20 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endColorstr="#fcb045",GradientType=1);
 }
 
+
+
 .text-blue{
   color: rgb(51,10,113);
   color:linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+}
+
+
+.prussian-blue{
+  background-color: #023047;
+}
+
+.honey-yellow{
+  color: #ffb703;
 }
 
 .dropdown-submenu {
@@ -169,8 +180,8 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 <body class="area">
   <!-- <div class="area" > -->
-    <div class="wrapper d-flex align-items-stretch">
-    <nav id="sidebar" style="z-index: 4080;">
+    <div class="wrapper d-flex align-items-stretch position-relative" >
+    <nav id="sidebar" class="position-fixed  vh-100" style="z-index: 9999;">
       <div class="custom-menu">
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
           <i class="fa fa-bars"></i>
@@ -262,6 +273,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
             <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-key"></i> Admin Access</a>
             <ul class="collapse list-unstyled" id="adminSubmenu">
               <li>
+                <a href="/saln/{{current_user.id}}">SALN</a>
+              </li>
+              <li>
                   <a href="/admin/dashboard">List of Employees</a>
               </li>
               <li>
@@ -280,7 +294,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
           </li>
         </ul>
 
-        <div class="mb-5">
+        <!-- <div class="mb-5">
           <h3 class="h6">Search</h3>
           <form action="#" class="colorlib-subscribe-form">
             <div class="form-group d-flex">
@@ -288,12 +302,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
               <input type="text" class="form-control" placeholder="Enter Email Address">
             </div>
           </form>
-        </div>
+        </div> -->
         <hr class="dropdown-divider">
 
         <div class="footer">
           <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This webasite is made by <a href="#" target="_blank">NIA PIMO</a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
         </div>
 

@@ -47,6 +47,7 @@ class User(db.Model, UserMixin):
     desc_remarks = db.Column(db.String(999))
     comments_remarks = db.Column(db.String(999))
     employee_id = db.Column(db.Integer, unique=True, nullable=False)
+    employee_id_date_issued = db.Column(db.Date())
     email = db.Column(db.String(150), unique=False, nullable=True)
     password = db.Column(db.String(150), nullable=False)
     last_name = db.Column(db.String(150))
@@ -377,6 +378,7 @@ class Agency_Unit(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     unit_title = db.Column(db.String(150))
     unit_head = db.Column(db.String(150))
+    agency_address = db.Column(db.String(150))
     agency_section = db.Column(db.Integer, db.ForeignKey('agency__section.id'))
     user = db.relationship('User', backref='user_unit', lazy=True)
 
@@ -696,6 +698,8 @@ class Assignatory(db.Model, SerializerMixin):
     assignatory = db.Column(db.String(150), default='GERTRUDES A. VIADO')
     position_title = db.Column(db.String(150))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', backref='user_assignatory', lazy=True)
+
 
 # class Position(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)
@@ -724,6 +728,19 @@ class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
 class RealPropertySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Real_Property
+
+    def fields(self, *args, **kwargs):
+        fields_dict = super().fields(*args, **kwargs)
+
+        # Sort the real_properties by rp_acquisition_year in descending order
+        sorted_real_properties = sorted(self.instance, key=lambda x: x.rp_acquisition_year, reverse=True)
+
+        # Replace the 'user_real_property' field with the sorted list
+        fields_dict['user_real_property'] = ma.List(ma.Nested(RealPropertySchema)).serialize(
+            sorted_real_properties, many=True, allow_none=True
+        )
+        
+        return fields_dict
         # load_instance = True
         # include_fk = True
     # rp_description = ma.auto_field()
@@ -760,15 +777,14 @@ class RelativeInGovernmentSchema(ma.SQLAlchemyAutoSchema):
 class AgencyUnitSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Agency_Unit
-        # load_instance = True
-        # include_fk = True
-    unit_title = ma.auto_field()
 
 class FamilyBackgroundSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Family_Background
-        # include_fk = True
-    fb_last_name = ma.auto_field()
+
+class AssignatorySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Assignatory
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -781,6 +797,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     liability = ma.Nested(LiabilitySchema, attribute='user_liability', many=True)
     business_interest = ma.Nested(BusinessInterestSchema, attribute='user_business_interest', many=True)
     relative_in_government = ma.Nested(RelativeInGovernmentSchema, attribute='user_relative_in_government', many=True)
+    assignatory = ma.Nested(AssignatorySchema, attribute='user_assignatory')
 
 class WesDutiesAccomplishmentsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

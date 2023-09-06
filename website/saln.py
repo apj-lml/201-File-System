@@ -177,22 +177,35 @@ def from_template(template, emp_id, filing_date, filing_type):
 
 def get_context(id, filing_date, filing_type):
     user = db.session.query(User).get(id)
+    
     user_profile = user
 
-    # # Update the position_title to title case
-    # user_profile.position_title = user_profile.position_title.title()
-    # user_profile.employment_status = user_profile.employment_status.title()
+    # user_profile.employee_id_date_issued = user_profile.employee_id_date_issued.strftime("%B %d, %Y")
+
+    user_profile.user_real_property = sorted(user_profile.user_real_property, key=lambda x: x.rp_acquisition_year, reverse=True)
+    user_profile.user_personal_property = sorted(user_profile.user_personal_property, key=lambda x: x.pp_year_acquired, reverse=True)
 
     middle_name = user_profile.middle_name[:1] + "." if user_profile.middle_name and user_profile.middle_name != "N/A" else ""
     name_extn = user_profile.name_extn if user_profile.name_extn and user_profile.name_extn != "N/A" else ""
 
-    # Calculate and set the full_name field in the serialized JSON
+    bi_list = []
+    for bi in user_profile.user_business_interest:
+        bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%Y-%m-%d").date()
+        bi.business_acquisition = bi_acquistion_date_object.strftime("%B %d, %Y")
+        bi_list.append(bi)
+
+    user_profile.user_business_interest = bi_list
+
     user_profile_dict = UserSchema().dump(user_profile)
+
     user_profile_dict['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
     address = user_profile.p_house_block_lot + ", " + user_profile.p_street + ", " + user_profile.p_subdivision_village + ", " + user_profile.p_barangay + ", " + user_profile.p_city_municipality + ", "+ user_profile.p_province + ", "+ user_profile.p_zip_code
     final_address = address.replace('N/A,', '')
     user_profile_dict['address'] = " ".join(final_address.split())
     # user_profile_dict['spouse_last_name'] = user_profile.familyBg.filter_by(fb_relationship='SPOUSE').first()
+
+    print('===============>>>>>', user_profile_dict['agency_unit'])
+
 
     children_list = []
 
@@ -218,10 +231,17 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['spouse_full_name'] = spouse.fb_first_name + " " + spouse.fb_middle_name[0] + ". " + spouse.fb_last_name if spouse else "N/A"
     # user_profile_dict['spouse_last_name'] = user_profile.familyBg.filter_by(fb_relationship='SPOUSE').first().last_name if user_profile.familyBg else None
 
-
     user_profile_dict['spouse_position'] = spouse.fb_occupation if spouse else "N/A"
     user_profile_dict['spouse_agency'] = spouse.fb_employer_business_name if spouse else "N/A"
     user_profile_dict['spouse_office_address'] = spouse.fb_business_address if spouse else "N/A"
+
+    user_profile_dict['spouse_govt_issued_id'] = spouse.fb_id if spouse else "N/A"
+    user_profile_dict['spouse_govt_issued_id_no'] = spouse.fb_id_no if spouse else "N/A"
+
+    spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date()
+
+    user_profile_dict['spouse_govt_issued_id_date_issued'] = spouse_govt_issued_id_date_issued_date_obj.strftime("%B %d, %Y") if spouse else "N/A"
+
     user_profile_dict["checkmark"] = "✓"
 
     date_object = datetime.datetime.strptime(filing_date, "%Y-%m-%d")
@@ -237,18 +257,27 @@ def get_context(id, filing_date, filing_type):
 
 
     user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 4)
+    user_profile_dict['total_rp_acquisition_cost_p2'] = getRpAcquisitionCostSubTotal(user, 4, 9)
+
     user_profile_dict['total_pp_acquisition_cost_p1'] = getPpAcquisitionCostSubTotal(user, 0, 7)
+    user_profile_dict['total_pp_acquisition_cost_p2'] = getPpAcquisitionCostSubTotal(user, 7, 14)
+
     user_profile_dict['total_liability_outstanding_balance_p1'] = getLiabilityOutstandingBalance(user, 0, 4)
+    user_profile_dict['total_liability_outstanding_balance_p2'] = getLiabilityOutstandingBalance(user, 4, 8)
     
     user_profile_dict['total_assets_p1'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 0, 4), getPpAcquisitionCostSubTotal(user, 0, 7))
+    user_profile_dict['total_assets_p2'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 4, 9), getPpAcquisitionCostSubTotal(user, 7, 14))
 
-    user_profile_dict['networth'] = getNetworth(user_profile_dict['total_assets_p1'], user_profile_dict['total_liability_outstanding_balance_p1'])
+    user_profile_dict['networth'] = getNetworth(user_profile_dict['total_assets_p1'], user_profile_dict['total_liability_outstanding_balance_p1'], user_profile_dict['total_assets_p2'], user_profile_dict['total_liability_outstanding_balance_p2'])
 
-    user_profile_dict['addtl_page'] = False
-    
+    user_profile_dict['signatory'] = user.assignatory[0].assignatory
+    user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
-    # print("====================>>>>>>>>>>>>: ", total_acquisition_cost)
-    # Return the modified serialized data
+    if getRpAcquisitionCostSubTotal(user, 4, 9) != '0.00' or getPpAcquisitionCostSubTotal(user, 7, 14) != '0.00' or getLiabilityOutstandingBalance(user, 4, 9) != '0.00' or len(user_profile.user_business_interest) > 3:
+        user_profile_dict['addtl_page'] = True
+    else:
+        user_profile_dict['addtl_page'] = False
+
     return user_profile_dict
 
 def getNetworth(total_assets_p1 = '0.00', total_liability_p1 = '0.00', total_assets_p2 = '0.00', total_liability_p2 = '0.00' ):
@@ -280,6 +309,9 @@ def getLiabilityOutstandingBalance(user, d_start, d_end):
                 # Remove commas and convert to a float
                 outstanding_balance = float(liability_str.replace(',', ''))
                 outstanding_balances.append(outstanding_balance)
+            else:
+                formatted_total_outstanding_balance = '0.00'
+
 
         # Calculate the sum of the first four acquisition_cost values
         total_outstanding_balance = sum(outstanding_balances)
@@ -293,7 +325,9 @@ def getLiabilityOutstandingBalance(user, d_start, d_end):
 def getRpAcquisitionCostSubTotal(user, d_start, d_end):
     # Extract the acquisition_cost values from the first four real properties (if available)
     acquisition_costs = []
-    real_properties = user.user_real_property
+    # real_properties = user.user_real_property
+    real_properties = sorted(user.user_real_property, key=lambda x: x.rp_acquisition_year, reverse=True)
+
     if real_properties:
         for real_property in real_properties[d_start:d_end]:
             acquisition_cost_str = real_property.rp_acquisition_cost
@@ -301,12 +335,14 @@ def getRpAcquisitionCostSubTotal(user, d_start, d_end):
                 # Remove commas and convert to a float
                 acquisition_cost = float(acquisition_cost_str.replace(',', ''))
                 acquisition_costs.append(acquisition_cost)
+            else:
+                formatted_total_acquisition_cost = '0.00'
 
         # Calculate the sum of the first four acquisition_cost values
         total_acquisition_cost = sum(acquisition_costs)
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
     else:
-        formatted_total_acquisition_cost = 0.00
+        formatted_total_acquisition_cost = '0.00'
     
     return formatted_total_acquisition_cost
 
@@ -322,6 +358,8 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
                 # Remove commas and convert to a float
                 acquisition_cost = float(acquisition_cost_str.replace(',', ''))
                 acquisition_costs.append(acquisition_cost)
+            else:
+                formatted_total_acquisition_cost = '0.00'
 
         # Calculate the sum of the first four acquisition_cost values
         total_acquisition_cost = sum(acquisition_costs)

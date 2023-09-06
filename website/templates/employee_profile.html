@@ -230,9 +230,9 @@ button {
   
   <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example m-auto" tabindex="0">
     <div class="container-fluid-sm container-md w-100">
-            <div class="d-flex justify-content-center flex-row">
+            <div class="d-flex justify-content-center flex-row bg-blue">
               <!-- <img class="img-fluid" src="{{url_for('static', filename='img/employee_profile.png')}}" alt="" width="400"> -->
-              <h1>EMPLOYEE PROFILE</h1>
+              <h1 class="text-white fw-5">EMPLOYEE PROFILE</h1>
             </div>
                 <form id="add_cse_form" action="/cse/add-eligibility/{{user_profile.id}}" method="POST"></form>
                 <form id="add_vocational_form" action="/vocation/add-vocational/{{user_profile.id}}" method="POST" ></form>
