@@ -181,14 +181,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 <body class="area">
   <!-- <div class="area" > -->
     <div class="wrapper d-flex align-items-stretch position-relative" >
-    <nav id="sidebar" class="position-fixed  vh-100" style="z-index: 9999;">
+    <nav id="sidebar" class="position-fixed" style="z-index: 9999;">
       <div class="custom-menu">
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
           <i class="fa fa-bars"></i>
           <span class="sr-only">Toggle Menu</span>
         </button>
       </div>
-      <div class="p-4 pt-5">
+      <div class="p-4 pt-5 overflow-auto vh-100">
         <h1><a href="/dashboard" class="logo">PIMO</a></h1>
         <ul class="list-unstyled components mb-5">
           <li>
@@ -306,19 +306,19 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
         <hr class="dropdown-divider">
 
         <div class="footer">
-          <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This webasite is made by <a href="#" target="_blank">NIA PIMO</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This webasite is made by <a href="#" target="_blank">NIA PIMO</a></p>
         </div>
 
-      </div>
+      
+
+    </div>
       </nav>
   <!-- </div > -->
 
 
 
   {% block content %}{% endblock %}
-</div>
+    </div>
 <div class="loading" id="loading">Loading&#8230;</div>
 <!-- <div id="loading">
   <div class="d-flex justify-content-center" id="loading-section">
@@ -384,7 +384,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 <!-- <script src="{{ url_for('static', filename='js-sidebar/jquery.min.js') }}"></script> -->
 <!-- <script src="js/jquery.min.js"></script> -->
 
-<script src="{{ url_for('static', filename='js-sidebar/popper.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js-sidebar/popper.js') }}"></script> -->
 <!-- <script src="js/popper.js"></script> -->
 
 <script src="{{ url_for('static', filename='js-sidebar/bootstrap.min.js') }}"></script>

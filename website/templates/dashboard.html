@@ -28,125 +28,146 @@
         </nav> -->
 		
         <!-- Masthead-->
-        <header class="masthead pt-5">
-            <div class="container position-relative">
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="text-center text-white">
-                            <!-- Page heading-->
-                            <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
-                                                
-                            <h1 class="mb-5 mt-0 trajan"><span style="font-size: larger;">PANGASINAN</span> <br> IRRIGATION MANAGEMENT OFFICE</h1>
-                            <p><i id="quote"></i></p>
-                            <p class="text-center fs-6"><b id="qauthor"></b></p>
+        <div class="container-fluid vw-100 p-0 w-0">
+            <header class="masthead pt-5 col-sm-12 me-0 w-100">
+                <div class="container position-relative">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12">
+                            <div class="text-center text-white">
+                                <!-- Page heading-->
+                                <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
+                                                    
+                                <h1 class="mb-5 mt-0 trajan"><span style="font-size: larger;">PANGASINAN</span> <br> IRRIGATION MANAGEMENT OFFICE</h1>
+                                <p><i id="quote"></i></p>
+                                <p class="text-center fs-6"><b id="qauthor"></b></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
-        <!-- Icons Grid-->
-        <section class="features-icons bg-light text-center mt-0 pt-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-primary"></i></div>
-                            <h3>Forms </h3>
-                            <p class="lead mb-0">You can download forms here.</p>
+            </header>
+            <!-- Icons Grid-->
+            <div class="col-sm-12">
+                <section class="features-icons bg-light text-center pt-5 mt-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-primary"></i></div>
+                                    <h3>Forms </h3>
+                                    <p class="lead mb-0">You can download forms here.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><i class="bi bi-newspaper m-auto text-primary"></i></div>
+                                    <h3>Value Focus</h3>
+                                    <p class="lead mb-0">See whats up.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><i class="bi bi-calendar-event m-auto text-primary"></i></div>
+                                    <h3>Birthdays!</h3>
+                                    <p class="lead mb-0">See whose birthday today and greet them!</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi bi-newspaper m-auto text-primary"></i></div>
-                            <h3>Announcements</h3>
-                            <p class="lead mb-0">See whats up.</p>
+                </section>
+            </div> 
+
+            
+            <section class="showcase col-sm-12 w-100">
+                <div class="container-fluid p-0">
+                    <div class="row g-0">
+                        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
+                        <div class="col-lg-12 order-lg-1 showcase-text text-center">
+                            {{ blog_title[0] | safe }}
+                           <img src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
+                        </div>
+                        <div class="col-lg-12 order-lg-1 showcase-text">
+                            <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
+                            <p class="lead mb-0">Click on the link below to download the form.</p>
+                            <!-- <div class="list-group">
+                              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                First form
+                              </a>
+                              
+                              <a href="#" class="list-group-item list-group-item-action"> Second form</a>
+                              <a href="#" class="list-group-item list-group-item-action"> Third form</a>
+                              <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
+                              <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
+                            </div> -->
+                            <ol class="list-group list-group-numbered" id="myUL">
+                                
+                                {% for file in dforms %}
+                                <li class="list-group-item list-group-item-action"><a style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
+                                {% endfor %}
+                            </ol>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><i class="bi bi-calendar-event m-auto text-primary"></i></div>
-                            <h3>Birthdays!</h3>
-                            <p class="lead mb-0">See whose birthday today and greet them!</p>
-                        </div>
+    
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- Image Showcases-->
-        <!-- <section class="showcase">
-            <div class="container-fluid p-0">
-                <div class="row g-0">
-                    <div class="col-lg-6 my-auto showcase-text">
-                        <h2><i class="bi bi-megaphone"></i> Announcements</h2>
-                        <p class="lead mb-0">Some Announcements and Job Vacancies here.</p>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <section class="showcase">
-            <div class="container-fluid p-0">
-                <div class="row g-0">
-                    <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
-                    <div class="col-lg-12 order-lg-1 showcase-text">
-                        <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
-                        <h4>
-                           Month of 
-                            <select name="" id="birthday-select" value="{{ today_date.strftime('%m') }}" class="birthday-select">
-                                <option value="{{ today_date.strftime('%m') }}" selected hidden>{{ today_date.strftime('%B') }}</option>
-                                <option value="01">January</option>
-                                <option value="02">February</option>
-                                <option value="03">March</option>
-                                <option value="04">April</option>
-                                <option value="05">May</option>
-                                <option value="06">June</option>
-                                <option value="07">July</option>
-                                <option value="08">August</option>
-                                <option value="09">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                       </h4>
-                        <ul id="listOfBirthdayCelebrators">
-                            {% for celebs in bday_celebs %}
-                                <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.last_name}}, {{celebs.first_name}} {{ "" if celebs.name_extn is none or celebs.name_extn == "" or celebs.name_extn == "N/A" else celebs.name_extn }} {{ celebs.middle_name if celebs.middle_name is none or celebs.middle_name == "" or celebs.middle_name == "N/A" else celebs.middle_name }}</li>
-                            {% endfor %}
-                        </ul>
-                        
-                    </div>
-                    <div class="col-lg-12 order-lg-1 showcase-text">
-                        <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
-                        <p class="lead mb-0">Click on the link below to download the form.</p>
-                        <!-- <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            First form
-                          </a>
-                          
-                          <a href="#" class="list-group-item list-group-item-action"> Second form</a>
-                          <a href="#" class="list-group-item list-group-item-action"> Third form</a>
-                          <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
-                          <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
-                        </div> -->
-                        <ol class="list-group list-group-numbered" id="myUL">
+            </section>
+
+            <section class="showcase col-sm-12 w-100">
+                <div class="container-fluid p-0">
+                    <div class="row g-0">
+                        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
+                        <div class="col-lg-12 order-lg-1 showcase-text">
+                            <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
+                            <h4>
+                               Month of 
+                                <select name="" id="birthday-select" value="{{ today_date.strftime('%m') }}" class="birthday-select">
+                                    <option value="{{ today_date.strftime('%m') }}" selected hidden>{{ today_date.strftime('%B') }}</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                           </h4>
+                            <ul id="listOfBirthdayCelebrators">
+                                {% for celebs in bday_celebs %}
+                                    <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.last_name}}, {{celebs.first_name}} {{ "" if celebs.name_extn is none or celebs.name_extn == "" or celebs.name_extn == "N/A" else celebs.name_extn }} {{ celebs.middle_name if celebs.middle_name is none or celebs.middle_name == "" or celebs.middle_name == "N/A" else celebs.middle_name }}</li>
+                                {% endfor %}
+                            </ul>
                             
-                            {% for file in dforms %}
-                            <li class="list-group-item list-group-item-action"><a style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
-                            {% endfor %}
-                        </ol>
+                        </div>
+                        <div class="col-lg-12 order-lg-1 showcase-text">
+                            <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
+                            <p class="lead mb-0">Click on the link below to download the form.</p>
+                            <!-- <div class="list-group">
+                              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                First form
+                              </a>
+                              
+                              <a href="#" class="list-group-item list-group-item-action"> Second form</a>
+                              <a href="#" class="list-group-item list-group-item-action"> Third form</a>
+                              <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
+                              <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
+                            </div> -->
+                            <ol class="list-group list-group-numbered" id="myUL">
+                                
+                                {% for file in dforms %}
+                                <li class="list-group-item list-group-item-action"><a style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
+                                {% endfor %}
+                            </ol>
+                        </div>
                     </div>
-                </div>
+    
+                    </div>
+            </section>
 
-                </div>
-            </div>
-        </section>
-        <!-- Testimonials-->
-        <!-- <section class="testimonials text-center bg-light">
-            <div class="container">
-
-            </div>
-        </section> -->
-        <!-- Call to Action-->
-        <section class="call-to-action text-white text-center" id="signup">
+                    <!-- Call to Action-->
+        <section class="call-to-action text-white text-center col-sm-12 vw-100">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
@@ -159,41 +180,13 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                  <div class="col-lg-12 h-100 text-center text-lg-start my-auto">
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; All Rights Reserved.</p>
 
-                  </div>
-                    <!-- <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2021. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div> -->
-                </div>
-            </div>
-        </footer>
+
+        </div>
+     
+
+
+
 
 		{% endblock %}
 
@@ -259,4 +252,3 @@
                 });
         </script>
         {% endblock %}
-

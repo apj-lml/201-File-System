@@ -19,6 +19,8 @@ from .models import (College, Family_Background, Masteral, Other_Information,
                      Uploaded_File, User, Vocational_Course, Work_Experience,
                      WorkExperienceSchema, Doctoral, Vocational_Course, Voluntary_Work,
                      Learning_Development, Shirt, Career_Service, Emergency_Contact, UserSchema)
+from bs4 import BeautifulSoup 
+import requests
 
 
 UTC = pytz.utc
@@ -32,6 +34,11 @@ admin_permission = Permission(RoleNeed('admin'))
 def page_not_found(e):
     session['redirected_from'] = request.url
     return redirect(url_for('auth.login'))
+
+
+def getdata(url): 
+    r = requests.get(url) 
+    return r.text 
 
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
@@ -60,7 +67,21 @@ def dashboard():
     get_bday_celebs = User.query.filter_by(status_remarks = "ACTIVE").filter(extract("month", User.birthdate) == month).filter(extract("day", User.birthdate) <= 31).order_by(extract("day", User.birthdate)).all()
     db.session.commit()
 
-    return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs)
+    htmldata = getdata("https://www.crfv-cpu.org/resources/category/weekly-value-focus") 
+    soup = BeautifulSoup(htmldata, 'html.parser')
+    
+    for item in soup.find_all('img'):
+        print(item['src'])
+
+
+    
+    blog_title = soup.find_all("h2", {"class": "blog-title"})
+    blog_content = soup.find_all("div", {"class": "blog-content"})
+    for content in blog_content:
+        print("==================>>>>>>>>>>", content.find('img')['src'])
+        blog_image = content.find('img')
+
+    return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs, blog_title = blog_title, blog_image = blog_image)
 
 @views.route('/birthday-celebrators/<mydate>', methods=['GET', 'POST'])
 def birthday_celebrators(mydate):
