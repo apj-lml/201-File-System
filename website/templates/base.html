@@ -180,7 +180,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 <body class="area">
   <!-- <div class="area" > -->
+    {% if current_user.is_authenticated %}
     <div class="wrapper d-flex align-items-stretch position-relative" >
+    {% endif %}
     {% if current_user.is_authenticated %}
       <nav id="sidebar" class="position-fixed" style="z-index: 9999;">
       <div class="custom-menu">
@@ -338,7 +340,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 
   {% block content %}{% endblock %}
-    </div>
+  {% if current_user.is_authenticated %}
+</div>
+{% endif %}
 <div class="loading" id="loading">Loading&#8230;</div>
 <!-- <div id="loading">
   <div class="d-flex justify-content-center" id="loading-section">
