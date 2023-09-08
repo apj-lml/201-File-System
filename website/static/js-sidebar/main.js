@@ -8,8 +8,8 @@
 		$(window).resize(function(){
 			$('.js-fullheight').css('height', $(window).height());
 		});
-
 	};
+
 	fullHeight();
 
 	$('#sidebar').toggleClass('active');

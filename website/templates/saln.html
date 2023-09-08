@@ -54,7 +54,7 @@ td{
                 <div class="card-header bg-blue text-white">
                   <h5 class="mb-0">
                     <!-- <i class="fas fa-user-friends"></i> -->
-                    <h3 class="card-title text-white"><i class="bi bi-journals"></i> Statement of Assets, Liabilities, and Net Worth (SALN) <button onclick="print_saln()">print</button> </h3> 
+                    <h3 class="card-title text-white"><i class="bi bi-journals"></i> Statement of Assets, Liabilities, and Net Worth (SALN) </h3> 
                   </h5>
                 </div>
 
@@ -80,7 +80,7 @@ td{
                 </div>
               </div>
             <div class="col-md-12">
-            <form action="#" method="POST" name="saln_rp_form" id="saln_rp_form" enctype="multipart/form-data"></form>
+            <form action="#" method="POST" name="saln_rp_form" id="saln_rp_form" enctype="multipart/form-data">
               <div class="card shadow-sm mb-2">
                 <div class="card-header bg-blue text-white">
                   <h5 class="mb-0">
@@ -152,67 +152,69 @@ td{
                     </div>
 
                     <div class="col-sm-12 text-center">
-                      <button type="submit" class="btn btn-primary btn-sm mb-3 d-inline d-sm-inline-block w-100" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
-                      <button type="button" class="btn btn-primary btn-sm mb-3 d-inline d-sm-inline-block w-100" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button>
+                      <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
+                      <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button>
                     </div>
 
                   </div>
               </div>
+            </form>
             </div>
 
 
             <div class="col-md-12">
-              <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data"></form>
-              <div class="card shadow-sm mb-2">
-                <div class="card-header bg-blue text-white">
-                  <h5 class="mb-0">
-                    <i class="fas fa-luggage-cart"></i>
-                    PERSONAL PROPERTIES
-                  </h5>
-                </div>
-                  <div class="card-body">
-                    <div class="alert alert-warning" role="alert">
-                      <i class="fas fa-info-circle"></i> Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="pp_description">DESCRIPTION</label>
-                        <input type="text" class="form-control" id="pp_description" name="pp_description" placeholder="" form="saln_pp_form" required>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="pp_year_acquired">YEAR ACQUIRED</label>
-                        <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
-                        <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="various_years" name="various_years" onchange="variousYears(this)">
-                          <label class="form-check-label" for="various_years">
-                            VARIOUS YEARS
-                          </label>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
-                        <input type="text" class="form-control trailing-decimal-input" id="pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" form="saln_pp_form" required>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-12 text-center">
-                      <button type="submit" class="btn btn-primary btn-sm mb-3" form="saln_pp_form"><i class="fas fa-plus"></i> Add Personal Property</button>
-                      <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button>
-                    </div>
-
+              <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data">
+                <div class="card shadow-sm mb-2">
+                  <div class="card-header bg-blue text-white">
+                    <h5 class="mb-0">
+                      <i class="fas fa-luggage-cart"></i>
+                      PERSONAL PROPERTIES
+                    </h5>
                   </div>
-              </div>
+                    <div class="card-body">
+                      <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-info-circle"></i> Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="pp_description">DESCRIPTION</label>
+                          <input type="text" class="form-control" id="pp_description" name="pp_description" placeholder="" form="saln_pp_form" required>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="pp_year_acquired">YEAR ACQUIRED</label>
+                          <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
+                          <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="various_years" name="" onchange="variousYears(this)">
+                            <label class="form-check-label" for="various_years">
+                              VARIOUS YEARS
+                            </label>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
+                          <input type="text" class="form-control trailing-decimal-input" id="pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" form="saln_pp_form" required>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_pp_form"><i class="fas fa-plus"></i> Add Personal Property</button>
+                        <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button>
+                      </div>
+
+                    </div>
+                </div>
+              </form>
             </div>
           </div>
 
 
           <div class="col-md-12">
-          <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data"></form>
+          <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data">
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0">
@@ -246,17 +248,18 @@ td{
                     </div>
                   </div>
                   <div class="col-sm-12 text-center my-auto">
-                    <button type="submit" class="btn btn-primary btn-sm mb-3" form="saln_liability_form"><i class="fas fa-plus"></i> Add Liability</button>
-                    <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button>
+                    <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_liability_form"><i class="fas fa-plus"></i> Add Liability</button>
+                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button>
     
                   </div>
                 </div>
             </div>
+          </form>
           </div>
 
 
           <div class="col-md-12">
-          <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data"></form>
+          <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0">
@@ -300,16 +303,17 @@ td{
                   </div>
 
                   <div class="col-sm-12 text-center my-auto">
-                    <button type="submit" class="btn btn-primary btn-sm mb-3" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
-                    <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection
+                    <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
+                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection
 
                 </div>
             </div>
           </div>
-
+        </form>
+        </div>
 
           <div class="col-md-12">
-          <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data"></form>
+          <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data">
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0">
@@ -360,18 +364,28 @@ td{
                   </div>
 
                   <div class="col-sm-12 text-center my-auto">
-                    <button type="submit" class="btn btn-primary btn-sm mb-3" form="saln_relative_in_government_form"><i class="fas fa-plus"></i> Add Relative in the Gov't </button>
-                    <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#viewRelative"><i class="fas fa-eye"></i> View Relative in the Gov't </button>
+                    <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_relative_in_government_form"><i class="fas fa-plus"></i> Add Relative in the Gov't </button>
+                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRelative"><i class="fas fa-eye"></i> View Relative in the Gov't </button>
                 </div>
             </div>
           </div>
-
+        </form>
 
         </div>
 
 
         </div>
     </div>
+    
+  <footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0 mb-3 position-sticky">
+    <div class="container">
+      <div class="col-sm-12">
+          <div class="col text-center">
+            <button class="btn btn-primary" type="button" onclick="print_saln()"><i class="bi bi-printer-fill"></i> GENERATE SALN</button>
+          </div>
+      </div>
+      </div>
+  </footer>
 	</div>
 </div>
 
@@ -384,7 +398,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> View Real Properties</h5>
+        <h5 class="modal-title ms-auto" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> View Real Properties</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -453,7 +467,6 @@ td{
                   </div>
 
                   <div class="col-sm-12 text-center">
-                    <!-- <button type="submit" class="btn btn-primary btn-sm" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button> -->
                     <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
                     <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                   
@@ -512,7 +525,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title" id="viewPersonalPropertyModalLabel"><i class="fas fa-eye"></i> VIEW PERSONAL PROPERTIES</h5>
+        <h5 class="modal-title ms-auto" id="viewPersonalPropertyModalLabel"><i class="fas fa-eye"></i> VIEW PERSONAL PROPERTIES</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -539,8 +552,8 @@ td{
                     <input type="text" class="form-control" id="edit_pp_year_acquired" name="pp_year_acquired" placeholder="" onchange="year_only(this)" disabled required>
                     <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="edit_various_years" name="various_years" onchange="variousYears(this)">
-                      <label class="form-check-label" for="various_years">
+                      <input class="form-check-input" type="checkbox" id="edit_various_years" name="" onchange="variousYears(this)">
+                      <label class="form-check-label" for="edit_various_years">
                         VARIOUS YEARS
                       </label>
                       </div>
@@ -592,7 +605,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title" id="viewLiabilitiesModalLabel"><i class="fas fa-eye"></i> VIEW LIABILITIES</h5>
+        <h5 class="modal-title ms-auto" id="viewLiabilitiesModalLabel"><i class="fas fa-eye"></i> VIEW LIABILITIES</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -661,7 +674,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title" id="viewBusinessModalLabel"><i class="fas fa-eye"></i> VIEW BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</h5>
+        <h5 class="modal-title ms-auto" id="viewBusinessModalLabel"><i class="fas fa-eye"></i> VIEW BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -740,7 +753,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title" id="viewRelativeModalLabel"><i class="fas fa-eye"></i> VIEW RELATIVES IN THE GOVERNMENT SERVICE</h5>
+        <h5 class="modal-title  ms-auto" id="viewRelativeModalLabel"><i class="fas fa-eye"></i> VIEW RELATIVES IN THE GOVERNMENT SERVICE</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -829,6 +842,17 @@ td{
 
 <script type="text/javascript">
 
+  function clearFields(formId){
+    var form = document.getElementById(formId);
+    var formFields = form.querySelectorAll("input");
+    console.log("form: ", formFields)
+    
+    formFields.forEach(function(field) {
+      console.log('QWERTY');
+      field.value = "";
+    });
+  }
+
   (function() {
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -841,7 +865,7 @@ td{
 
 fetchData('rp')
   .then((data) => {
-    
+    console.log('DATAAAAAAAAAAAAAA: ',data)
     var rp_table_col = [
     { "data" : "id" },
     { "data" : "rp_description" },
@@ -856,10 +880,10 @@ fetchData('rp')
     searchable: false,
     render: function ( data, type, row ) {
         return `
-        <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
           <i class="far fa-edit"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
           <i class="far fa-trash-alt"></i>
         </button>`
       }
@@ -887,10 +911,10 @@ fetchData('liability')
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
         <i class="far fa-edit"></i>
       </button>
-      <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
+      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
         <i class="far fa-trash-alt"></i>
       </button>`
     }
@@ -918,10 +942,10 @@ var pp_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
         <i class="far fa-edit"></i>
       </button>
-      <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
         <i class="far fa-trash-alt"></i>
       </button>`
     }
@@ -951,10 +975,10 @@ var relative_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
         <i class="far fa-edit"></i>
       </button>
-      <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
         <i class="far fa-trash-alt"></i>
       </button>`
     }
@@ -980,10 +1004,10 @@ var business_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
         <i class="far fa-edit"></i>
       </button>
-      <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
         <i class="far fa-trash-alt"></i>
       </button>`
     }
@@ -1267,18 +1291,7 @@ function disableFields(formId, isDisabled){
   }
 }
 
-function clearFields(formId){
 
-  var form = document.getElementById(formId);
-
-  var formFields = form.querySelectorAll("input");
-  
-  formFields.forEach(function(field) {
-    field.value = "";
-  });
-
-
-}
 
 function deleteData(id, type){
 
@@ -1321,10 +1334,10 @@ function deleteData(id, type){
               searchable: false,
               render: function ( data, type, row ) {
                   return `
-                  <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                     <i class="far fa-edit"></i>
                   </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+                  <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
                     <i class="far fa-trash-alt"></i>
                   </button>`
                 }
@@ -1354,10 +1367,10 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
             }
@@ -1385,10 +1398,10 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
             }
@@ -1418,10 +1431,10 @@ function deleteData(id, type){
               searchable: false,
               render: function ( data, type, row ) {
                   return `
-                  <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                     <i class="far fa-edit"></i>
                   </button>
-                  <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+                  <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
                     <i class="far fa-trash-alt"></i>
                   </button>`
                 }
@@ -1454,10 +1467,10 @@ function deleteData(id, type){
             searchable: false,
             render: function ( data, type, row ) {
                 return `
-                <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+                <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
                   <i class="far fa-trash-alt"></i>
                 </button>`
               }
@@ -1565,6 +1578,44 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
     }).then((res)=>{
       if (res.status == 200){
         triggerToast("Successfully Added Real Property!", 'success');
+        
+        clearFields("saln_rp_form");
+
+        if ($.fn.DataTable.isDataTable('#rp_table')) {
+          $('#rp_table').DataTable().destroy();
+        }
+  
+        fetchData('rp')
+        .then((data) => {
+          
+          var rp_table_col = [
+          { "data" : "id" },
+          { "data" : "rp_acquisition_cost" },
+          { "data" : "rp_acquisition_mode" },
+          { "data" : "rp_acquisition_year" },
+          { "data" : "rp_assessed_value" },
+          { "data" : "rp_current_market_value" },
+          { "data" : "rp_description" },
+          { "data" : "rp_exact_location" },
+          { "data" : "rp_kind" },
+          { "data" : null,
+          "defaultContent": `
+                <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                  <i class="far fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+                  <i class="far fa-trash-alt"></i>
+                </button>`
+        }
+        ]
+  
+          loadTable('rp_table', rp_table_col, data);
+  
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+
       }
       return res.json()
     
@@ -1616,10 +1667,10 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
         { "data" : "rp_kind" },
         { "data" : null,
         "defaultContent": `
-              <button type="button" class="btn btn-sm btn-outline-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-outline-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
       }
@@ -1653,6 +1704,39 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
     }).then((res)=>{
       if (res.status == 200){
         triggerToast("Successfully Added Personal Property!", 'success')
+        clearFields("saln_pp_form");
+  
+        if ($.fn.DataTable.isDataTable('#pp_table')) {
+          $('#pp_table').DataTable().destroy();
+        }
+  
+        fetchData('pp')
+        .then((data) => {
+          console.log("====>>",data)
+        var pp_table_col = [
+        { "data" : "id" },
+        { "data" : "pp_description" },
+        { "data" : "pp_year_acquired" },
+        { "data" : "pp_acquisition_cost" },
+        { "data" : null,
+        searchable: false,
+        render: function ( data, type, row ) {
+            return `
+            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+              <i class="far fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+              <i class="far fa-trash-alt"></i>
+            </button>`
+          }
+        }];
+      
+          loadTable('pp_table', pp_table_col, data);
+      
+        })
+        .catch((error) => {
+          throw error;
+        });
 
       }
       return res.json()
@@ -1702,10 +1786,10 @@ document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
       searchable: false,
       render: function ( data, type, row ) {
           return `
-          <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
             <i class="far fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+          <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
             <i class="far fa-trash-alt"></i>
           </button>`
         }
@@ -1739,7 +1823,40 @@ document.getElementById('saln_liability_form').addEventListener("submit", (e)=>{
     }).then((res)=>{
       if (res.status == 200){
         triggerToast("Successfully Added Liability!", 'success')
-
+        clearFields("saln_liability_form");
+  
+        if ($.fn.DataTable.isDataTable('#liability_table')) {
+          $('#liability_table').DataTable().destroy();
+        }
+  
+        fetchData('liability')
+        .then((data) => {
+          
+          var liability_table_col = [
+          { "data" : "id" },
+          { "data" : "liability_nature" },
+          { "data" : "liability_creditor" },
+          { "data" : "liability_outstanding_balance" },
+          { "data" : null,
+            searchable: false,
+            render: function ( data, type, row ) {
+                return `
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+                  <i class="far fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
+                  <i class="far fa-trash-alt"></i>
+                </button>`
+              }
+          }];
+        
+            loadTable('liability_table', liability_table_col, data);
+      
+        })
+        .catch((error) => {
+          throw error;
+        });
+  
       }
       return res.json()
     
@@ -1785,10 +1902,10 @@ document.getElementById('saln_edit_liability_form').addEventListener("submit", (
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
             }
@@ -1822,6 +1939,40 @@ document.getElementById('saln_business_interest_form').addEventListener("submit"
     }).then((res)=>{
       if (res.status == 200){
         triggerToast("Successfully Added Business Interest & Financial Connection!", 'success')
+        clearFields("saln_business_interest_form");
+  
+        if ($.fn.DataTable.isDataTable('#business_table')) {
+          $('#business_table').DataTable().destroy();
+        }
+  
+        fetchData('business')
+        .then((data) => {
+  
+          var business_table_col = [
+          { "data" : "id" },
+          { "data" : "business" },
+          { "data" : "business_address" },
+          { "data" : "business_nature" },
+          { "data" : "business_acquisition" },
+          { "data" : null,
+            searchable: false,
+            render: function ( data, type, row ) {
+                return `
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                  <i class="far fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+                  <i class="far fa-trash-alt"></i>
+                </button>`
+              }
+          }];
+      
+          loadTable('business_table', business_table_col, data);
+      
+        })
+        .catch((error) => {
+          throw error;
+        });
       }
       return res.json()
     
@@ -1872,10 +2023,10 @@ document.getElementById('saln_edit_business_form').addEventListener("submit", (e
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
             }
@@ -1908,7 +2059,49 @@ document.getElementById('saln_relative_in_government_form').addEventListener("su
     body: formData1
     }).then((res)=>{
       if (res.status == 200){
-        triggerToast("Successfully Added Relative in Government!", 'success')
+
+        triggerToast("Successfully Added Relative in Government!", 'success');
+        clearFields("saln_relative_in_government_form");
+  
+        if ($.fn.DataTable.isDataTable('#relative_table')) {
+          $('#relative_table').DataTable().destroy();
+        }
+  
+        fetchData('relative')
+        .then((data) => {
+          
+        var relative_table_col = [
+        { "data" : "id" },
+        { "data" : "relative_name" },
+        { "data" : "relative_relationship" },
+        { "data" : "relative_position" },
+        { "data" : null,
+          render: function ( data, type, row ) {
+            return `${data.relative_agency_office} / ${data.relative_agency_office_address}`
+          }
+        },
+        { "data" : null,
+          searchable: false,
+          render: function ( data, type, row ) {
+              return `
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                <i class="far fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+                <i class="far fa-trash-alt"></i>
+              </button>`
+            }
+        }];
+  
+          
+          loadTable('relative_table', relative_table_col, data);
+  
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+  
+
       }
       return res.json()
     
@@ -1962,10 +2155,10 @@ document.getElementById('edit_saln_relative_in_government_form').addEventListene
         searchable: false,
         render: function ( data, type, row ) {
             return `
-            <button type="button" class="btn btn-sm btn-outline-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
               <i class="far fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-sm btn-outline-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+            <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
               <i class="far fa-trash-alt"></i>
             </button>`
           }

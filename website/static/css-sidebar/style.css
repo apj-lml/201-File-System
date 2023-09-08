@@ -606,14 +606,14 @@ button {
     #sidebar ul li.active > a {
       background: transparent;
       color: #fff; }
-  @media (max-width: 991.98px) {
+  /* @media (max-width: 991.98px) {
     #sidebar {
       margin-left: -250px; }
       #sidebar.active {
         margin-left: 0; }
       #sidebar .custom-menu {
         margin-right: -50px !important;
-        top: 10px !important; } }
+        top: 10px !important; } } */
   #sidebar .custom-menu {
     display: inline-block;
     position: absolute;

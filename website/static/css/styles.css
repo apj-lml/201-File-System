@@ -11335,16 +11335,16 @@ header.masthead h1, header.masthead .h1 {
 }
 
 .showcase .showcase-text {
-  padding: 3rem;
-  padding-top: 1rem;
+  padding: 2rem;
+  /* padding-top: 1rem; */
 }
 .showcase .showcase-img {
-  min-height: 30rem;
+  min-height: 20rem;
   background-size: cover;
 }
 @media (min-width: 768px) {
   .showcase .showcase-text {
-    padding: 7rem;
+    padding: 5rem;
     padding-top: 1rem;
 
   }

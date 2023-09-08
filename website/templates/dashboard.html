@@ -29,7 +29,7 @@
 		
         <!-- Masthead-->
         <div class="container-fluid vw-100 p-0 w-0">
-            <header class="masthead pt-5 col-sm-12 me-0 w-100">
+            <header class="masthead pt-5 col-sm-12 me-0 w-100 vh-100">
                 <div class="container position-relative">
                     <div class="row justify-content-center">
                         <div class="col-xl-12">
@@ -50,25 +50,32 @@
                 <section class="features-icons bg-light text-center pt-5 mt-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-primary"></i></div>
-                                    <h3>Forms </h3>
-                                    <p class="lead mb-0">You can download forms here.</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><i class="bi bi-newspaper m-auto text-primary"></i></div>
-                                    <h3>Value Focus</h3>
-                                    <p class="lead mb-0">See whats up.</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><i class="bi bi-calendar-event m-auto text-primary"></i></div>
-                                    <h3>Birthdays!</h3>
+                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto"><i class="bi bi-heart-fill m-auto text-blue"></i></a></div>
+                                    <h4>Value Focus</h4>
+                                    <p class="lead mb-0">Weekly value focus - anytime, anywhere.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#contactInformation" class="mx-auto"><i class="bi bi-telephone-fill m-auto text-blue"></i></a></div>
+                                    <h4>Contact Information</h4>
+                                    <p class="lead mb-0">Search for important Contact Information</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-calendar-event m-auto text-blue"></i></a></div>
+                                    <h4>Birthdays</h4>
                                     <p class="lead mb-0">See whose birthday today and greet them!</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#forms" class="mx-auto"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-blue"></i></a></div>
+                                    <h4>Forms</h4>
+                                    <p class="lead mb-0">You can download forms here.</p>
                                 </div>
                             </div>
                         </div>
@@ -80,41 +87,158 @@
             <section class="showcase col-sm-12 w-100">
                 <div class="container-fluid p-0">
                     <div class="row g-0">
-                        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
-                        <div class="col-lg-12 order-lg-1 showcase-text text-center">
+                        <div class="col-lg-12 order-lg-1 showcase-text text-center" id="valueFocus">
                             {{ blog_title[0] | safe }}
-                           <img src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
+                           <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
                         </div>
-                        <div class="col-lg-12 order-lg-1 showcase-text">
-                            <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
-                            <p class="lead mb-0">Click on the link below to download the form.</p>
-                            <!-- <div class="list-group">
-                              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                                First form
-                              </a>
-                              
-                              <a href="#" class="list-group-item list-group-item-action"> Second form</a>
-                              <a href="#" class="list-group-item list-group-item-action"> Third form</a>
-                              <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
-                              <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
-                            </div> -->
-                            <ol class="list-group list-group-numbered" id="myUL">
-                                
-                                {% for file in dforms %}
-                                <li class="list-group-item list-group-item-action"><a style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
-                                {% endfor %}
-                            </ol>
+                        <div class="col-lg-6 col-sm-12 order-lg-1 showcase-text" id="contactInformation">
+                            <h2><i class="bi bi-telephone-fill"></i> PIMO Telephone Directory</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped text-center nowrap" id="pimoTelephoneDirectory" width = "100%">
+                                      <thead class="">
+                                      <tr class="align-middle">
+                                        <th>Name</th>
+                                        <th>Emergency No.</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Office of the Irrigation Manager</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-2775">(075) 632-2775</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Administrative Unit</td>
+                                            <td class="text-start"><a href="tel:+(075) 505-1550">(075) 505-1550</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Finance Unit</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-5149">(075) 632-5149</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Property Unit</td>
+                                            <td class="text-start"><a href="tel:+(075) 615-2106">(075) 615-2106</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Institutional Development Unit</td>
+                                            <td class="text-start"><a href="tel:+(075) 540-1391">(075) 540-1391</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Agno-Sinocalan RIS (ASRIS)</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-1801">(075) 632-1801</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Ambayoan-Dipalo RIS (ADRIS)</td>
+                                            <td class="text-start"><a href="tel:+(075) 633-3341">(075) 633-3341</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] Lower Agno RIS (LARIS)</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-7702">(075) 632-7702</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[PIMO] San Fabian-Dumuloc RIS (SFDRIS)</td>
+                                            <td class="text-start"><a href="tel:+(075) 511-4300">(075) 511-4300</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Regional Irrigation Manager</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-2776">(075) 632-2776</a> | <a href="tel:+(075) 633-7130">(075) 633-7130</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Finance Section</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-2776">(075) 632-2776</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Administrative Section</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-7042">(075) 632-7042</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Institutional Development Section (IDS)</td>
+                                            <td class="text-start"><a href="tel:+(075) 568-7522">(075) 568-7522</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Engineering & Operations Division (EOD)</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-1435">(075) 632-1435</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Equipment Management Section (EMS)</td>
+                                            <td class="text-start"><a href="tel:+(075) 632-2582">(075) 632-2582</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[RO] Commission on Audit (COA)</td>
+                                            <td class="text-start"><a href="tel:+(075) 568-2114">(075) 568-2114</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[LUIMO] La Union IMO</td>
+                                            <td class="text-start"><a href="tel:+(072) 687-0703">(072) 687-0703</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[INIMO] Ilocos Norte IMO</td>
+                                            <td class="text-start"><a href="tel:+(077) 676-1979">(077) 676-1979</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[ISIMO] Ilocos Sur IMO</td>
+                                            <td class="text-start"><a href="tel:+(077) 604-0423">(077) 604-0423</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">[CO] OFFICE OF THE PUBLIC AFFAIRS AND INFORMATION STAFF (PAIS) </td>
+                                            <td class="text-start"><a href="tel:+(077) 604-0423">(077) 604-0423</a></td>
+                                        </tr> 
+                                      </tbody>
+                                    </table>
+                                  </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 order-lg-1 showcase-text">
+                            <h2><i class="bi bi-telephone-fill"></i> Emergency Hotlines</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped text-center nowrap" id="emergencyHotlineTable" width = "100%">
+                                      <thead class="">
+                                      <tr class="align-middle">
+                                        <th>Name</th>
+                                        <th>Contact No.</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                            <td class="text-start">PNP URDANETA CITY</td>
+                                            <td class="text-start"> GLOBE: <a href="tel:+0916-226-3641">0916-226-3641</a> <br>
+                                                 SMART: <a href="tel:+0998-598-5134">0998-598-5134</a>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-start">BFP URDANETA CITY</td>
+                                            <td class="text-start">GLOBE: <a href="tel:+0917-184-4611">0917-184-4611</a></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-start">URDANETA CITY HEALTH OFFICE</td>
+                                            <td class="text-start">SMART: <a href="tel:+0933-869-4961">0933-869-4961</a></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-start">EMERGENCY MEDICAL SERVICES</td>
+                                            <td class="text-start">GLOBE: <a href="tel:+0917-818-5374">0917-818-5374</a></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-start">SACRED HEART HOSPITAL</td>
+                                            <td class="text-start">TELEPHONE: <a href="tel:+(075) 568 2294">(075) 568 2294</a> | <a href="tel:+(075) 656 2296">(075) 656 2296</a></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="text-start">URDANETA EMERGENCY DISTRICT HOSPITAL</td>
+                                            <td class="text-start">GLOBE: <a href="tel:+0927-637-1446">0927-637-1446</a> | <a href="tel:+0917-702-9318">0917-702-9318</a> <br>
+                                                SMART: <a href="tel:+0933-874-2503">0933-874-2503</a> | <a href="tel:+0933-874-2503">0917-677-6007</a>
+                                            </td>
+                                          </tr>                           
+                                      </tbody>
+                                    </table>
+                                  </div>
                         </div>
                     </div>
     
                     </div>
             </section>
 
-            <section class="showcase col-sm-12 w-100">
+            <section class="showcase col-sm-12 w-100" id="birthdays">
                 <div class="container-fluid p-0">
                     <div class="row g-0">
                         <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
-                        <div class="col-lg-12 order-lg-1 showcase-text">
+                        <div class="col-lg-6 order-lg-1 showcase-text">
                             <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
                             <h4>
                                Month of 
@@ -139,32 +263,25 @@
                                     <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.last_name}}, {{celebs.first_name}} {{ "" if celebs.name_extn is none or celebs.name_extn == "" or celebs.name_extn == "N/A" else celebs.name_extn }} {{ celebs.middle_name if celebs.middle_name is none or celebs.middle_name == "" or celebs.middle_name == "N/A" else celebs.middle_name }}</li>
                                 {% endfor %}
                             </ul>
-                            
                         </div>
-                        <div class="col-lg-12 order-lg-1 showcase-text">
-                            <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download our forms</h2>
-                            <p class="lead mb-0">Click on the link below to download the form.</p>
-                            <!-- <div class="list-group">
-                              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                                First form
-                              </a>
-                              
-                              <a href="#" class="list-group-item list-group-item-action"> Second form</a>
-                              <a href="#" class="list-group-item list-group-item-action"> Third form</a>
-                              <a href="#" class="list-group-item list-group-item-action"> Fourth form</a>
-                              <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled form</a>
-                            </div> -->
-                            <ol class="list-group list-group-numbered" id="myUL">
+                        <div class="col-lg-6 col-sm-12 order-lg-1 showcase-text" id="forms">
+                            <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download Forms</h2>
+                            <p class="lead mb-0 rounded-0">
+                                <input class="form-control border rounded-0" id="searchFormsInput" type="text" placeholder="Search..">
+                                
+                            </p>
+                            <ul class="list-group" id="searchFormsList">
                                 
                                 {% for file in dforms %}
-                                <li class="list-group-item list-group-item-action"><a style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
+                                <li class="list-group-item list-group-item-action border rounded-0"><a class="text-truncate" style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
                                 {% endfor %}
-                            </ol>
+                            </ul>
                         </div>
                     </div>
     
                     </div>
             </section>
+
 
                     <!-- Call to Action-->
         <section class="call-to-action text-white text-center col-sm-12 vw-100">
@@ -227,6 +344,19 @@
             });
 
             window.addEventListener('load', (event) => {
+
+                $(document).ready(function(){
+                    $("#searchFormsInput").on("keyup", function() {
+                      var value = $(this).val().toLowerCase();
+                      $("#searchFormsList li").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                      });
+                    });
+                  });
+
+            new DataTable('#emergencyHotlineTable');
+            new DataTable('#pimoTelephoneDirectory');
+
                 fetch('https://api.quotable.io/random?tags=inspirational',{
                     method: 'GET',
                     //body: JSON.stringify({"tags" : "inspirational, famous-quotes"})

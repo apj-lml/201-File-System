@@ -728,19 +728,6 @@ class AgencySectionSchema(ma.SQLAlchemyAutoSchema):
 class RealPropertySchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Real_Property
-
-    def fields(self, *args, **kwargs):
-        fields_dict = super().fields(*args, **kwargs)
-
-        # Sort the real_properties by rp_acquisition_year in descending order
-        sorted_real_properties = sorted(self.instance, key=lambda x: x.rp_acquisition_year, reverse=True)
-
-        # Replace the 'user_real_property' field with the sorted list
-        fields_dict['user_real_property'] = ma.List(ma.Nested(RealPropertySchema)).serialize(
-            sorted_real_properties, many=True, allow_none=True
-        )
-        
-        return fields_dict
         # load_instance = True
         # include_fk = True
     # rp_description = ma.auto_field()
