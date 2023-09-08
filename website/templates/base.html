@@ -180,9 +180,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 <body class="area">
   <!-- <div class="area" > -->
-    {% if current_user.is_authenticated%}
     <div class="wrapper d-flex align-items-stretch position-relative" >
-    <nav id="sidebar" class="position-fixed" style="z-index: 9999;">
+    {% if current_user.is_authenticated %}
+      <nav id="sidebar" class="position-fixed" style="z-index: 9999;">
       <div class="custom-menu">
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
           <i class="fa fa-bars"></i>
@@ -331,13 +331,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
     </div>
       </nav>
+      {% endif %}
+    
   <!-- </div > -->
 
 
 
   {% block content %}{% endblock %}
     </div>
-    {% endif %}
 <div class="loading" id="loading">Loading&#8230;</div>
 <!-- <div id="loading">
   <div class="d-flex justify-content-center" id="loading-section">
