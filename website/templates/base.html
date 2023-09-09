@@ -420,6 +420,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endCo
 
 window.addEventListener('load', (event) => {
 
+  {% if current_user.familyBg %}
+    {% for family in current_user.familyBg %}
+        {% if family.fb_relationship == 'SPOUSE' %}
+          {% if family.fb_date_issued == "NONE" or family.fb_id_no == "NONE" or family.fb_id == "NONE" or family.fb_date_issued == "N/A" or family.fb_id_no == "N/A" or family.fb_id == "N/A" or family.fb_date_issued == "" or family.fb_id_no == "" or family.fb_id == "" %}
+            triggerPopup('warning', 'Fillout Spouse Information','Please fillout all spouse information. It is necessary for generating PDS and SALN.', '/family-background/{{current_user.id}}')
+          {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
@@ -487,6 +498,17 @@ const Toast = Swal.mixin({
   }
 })
 
+  function triggerPopup(icon, title, text, link){
+    Swal.fire({
+      icon: icon,
+      title: title,
+      text: text,
+      showConfirmButton:false,
+      showCloseButton: true,
+      // showCancelButton: true,
+      footer: `<a href="${link}">Click here to fillout!</a>`
+    })
+  }
 
   function loadingScreen(is_display){
     var loading = document.getElementById('loading');

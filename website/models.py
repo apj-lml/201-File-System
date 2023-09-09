@@ -556,6 +556,12 @@ class Family_Background(db.Model, SerializerMixin):
         fullname = str(self.fb_first_name + " " + self.fb_middle_name + " " + self.fb_last_name + " " + " "+ self.fb_name_ext).strip()
 
         return fullname
+    
+    def spouse(self):
+        if self.fb_relationship == 'SPOUSE':
+            # Assuming you have a foreign key relationship to the spouse in your User model
+            return self.user.spouse  # Replace 'spouse' with the actual relationship name in your User model
+        return None
 
 
 class College(db.Model, SerializerMixin):
