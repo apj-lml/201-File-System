@@ -39,7 +39,7 @@
 				<form id="family_bg_form" action="#" method="POST"></form>
 				<form id="family_bg_update_form" action="#" method="POST"></form>
 					<div class="card text-white bg-blue shadow-sm" >
-						<div class="card-header"><h3 class="card-title text-white mb-0"><i class="bi bi-people-fill"></i> Family Background</h3> </div>
+						<div class="card-header"><h3 class="card-title text-white fw-bolder mb-0"><i class="bi bi-people-fill"></i> FAMILY BACKGROUND</h3> </div>
 						<div class="card-body">
 							<ul>
 								<li>Please fill out all necessary fields.</li>
@@ -295,6 +295,9 @@
 					<div class="card shadow-sm mb-3">
 						<div class="card-body">
 						  <h5 class="card-title">Children's Information</h5>
+						  <div class="alert alert-warning" role="alert">
+							<i class="fas fa-info-circle"></i> No need to input "N/A" if you don't have children
+						  </div>
 						  {% set child_count = namespace(value=0) %}
 
 						  {% if user_profile.familyBg %}

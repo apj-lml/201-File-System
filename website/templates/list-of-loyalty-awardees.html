@@ -15,12 +15,6 @@
   text-overflow: ellipsis;
 }
 
-body{
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
-}
-
 th{
   text-align: center;
 }
@@ -33,7 +27,7 @@ td{
 {% endblock %}
 
 {% block content %}
-<main class="mt-4 mb-4">
+<main class="container mt-4">
   <ul class="circles">
     <li></li>
     <li></li>
@@ -49,12 +43,12 @@ td{
   <!-- ----------------------------------------------------------------------- -->
   <!--                         LIST OF awardeeS                                -->
   <!-- ----------------------------------------------------------------------- -->
-  <div class="row text-center d-flex justify-content-center">
+<div class="row">
+  <div class="d-flex justify-content-center">
         <div class="card shadow-sm mb-3 col-sm-11">
           <div class="card-body">
-
               <div class="card text-white bg-blue shadow-sm mb-3" >
-                <div class="card-header"><h3 class="card-title text-center"><i class="bi bi-journals"></i> List of Loyalty Awardees</h3> </div>
+                <div class="card-header"><h3 class="card-title text-white fw-bolder text-center"><i class="bi bi-journals"></i> LIST OF LOYALTY AWARDEES</h3> </div>
               </div>
               <div class="table-responsive">
                 <!-- <div id="userstable_filter"></div> -->
@@ -96,12 +90,10 @@ td{
                   </tbody>
                 </table>
               </div>
-
           </div>
         </div>
-
 	</div>
-
+</div>
 
 </main>
 

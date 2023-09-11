@@ -37,7 +37,7 @@
     <div class="card-body">
       <div class="card text-white bg-blue shadow-sm" >
         <div class="card-header">
-          <h3 class="card-title text-white m-0 p-0"><i class="bi bi-stickies-fill"></i> LIST OF EXPIRING IDs</h3>
+          <h3 class="card-title text-white fw-bolder m-0 p-0"><i class="bi bi-stickies-fill"></i> LIST OF EXPIRING IDs</h3>
          </div>
 
       </div>
@@ -54,12 +54,13 @@
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expiring Licenses/IDs (in 6 months)</h3>
                                     {% if expiring_ids is not none  %}
+                                    <ul class="list-group list-group-numbered list-group-flush">
                                       {% for expiring_ids in expiring_ids %}
-                                      <li>{{expiring_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
+                                      <li class="list-group-item">{{expiring_ids.Career_Service.date_of_validity|format_mydatetime_2 }} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}} {{expiring_ids.User.first_name}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
                                       {% endfor %}
-
+                                    </ul>
                                     {% else %}
-                                      <h3 class="text-muted fst-italic">Noting in here..</h3>
+                                      <h3 class="text-muted fst-italic">No records found..</h3>
                                     {% endif %}
                                     </div>
                                   </div>
@@ -69,11 +70,13 @@
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expired Licenses/IDs</h3>
                                   {% if expired_ids is not none  %}
+                                  <ul class="list-group list-group-numbered list-group-flush">
                                     {% for expired_ids in expired_ids %}
-                                    <li>{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
+                                    <li class="list-group-item">{{expired_ids.Career_Service.date_of_validity}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}} {{expired_ids.User.first_name}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
                                     {% endfor %}
+                                  </ul>
                                   {% else %}
-                                    <h3 class="text-muted fst-italic">Noting in here..</h3>
+                                    <h3 class="text-muted fst-italic">No records found..</h3>
                                   {% endif %}
                                     </div>
                                   </div>

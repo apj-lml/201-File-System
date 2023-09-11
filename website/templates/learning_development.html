@@ -32,7 +32,7 @@
 			<div class="card-body">
 				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<div class="card bg-blue shadow-sm mb-3" >
-					<div class="card-header"><h3 class="card-title text-white mb-0"><i class="bi bi-lightbulb"></i> LEARNING & DEVELOPMENT</h3> </div>
+					<div class="card-header"><h3 class="card-title text-white fw-bolder mb-0"><i class="bi bi-lightbulb"></i> LEARNING & DEVELOPMENT</h3> </div>
 					<div class="card-body">
 					  <ul >
 						<li><p class="card-text text-white">Please fill out all necessary fields.</p></li>
@@ -95,7 +95,7 @@
 							</div>
 						</div>
 						<div class="col-sm-12 text-center">
-							<button type="submit" class="btn btn-primary" form="add_ld_form">Submit</button>
+							<button type="submit" class="btn btn-primary" form="add_ld_form">Add</button>
 						</div>
 					</div>
 				</div>
@@ -384,10 +384,10 @@
               render: function ( data, type, row ) {
                 return `
 				<div class="d-sm-flex flex-row">
-					<a class="btn btn-primary btn-sm m-2" title="Edit" id="${data.id}"  data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "edit_ld(this)">
+					<a class="btn btn-primary btn-sm m-2 text-white" title="Edit" id="${data.id}"  data-bs-toggle="modal" data-bs-target="#viewExpModal" onclick = "edit_ld(this)">
 						<i class="bi bi-pencil"></i>
 					</a>
-					<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
+					<a class="btn btn-danger btn-sm m-2 text-white" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
 						<i class="bi bi-trash"></i>
 					</a>
 				</div>`;

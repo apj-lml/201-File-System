@@ -58,7 +58,7 @@
 {% endblock %}
 
 {% block content %}
-<main>
+<main class="container-fluid mt-3">
 
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="bootstrap" viewBox="0 0 118 94">
@@ -118,7 +118,6 @@
 		  <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
 		</symbol>
 	</svg>
-	  <div class="container-fluid">
 		<ul class="circles">
 			<li></li>
 			<li></li>
@@ -133,10 +132,18 @@
 		</ul>
 		<div class="col-sm-12 text-center">
 			<!-- <img class="img-fluid" src="{{url_for('static', filename='img/list_of_employees.png')}}" alt="" width="400"> -->
-			<h1>LIST OF EMPLOYEES</h1>
+			<div class="card text-white bg-blue shadow-sm" >
+				<div class="card-header"><h3 class="card-title text-white mb-0 fw-bolder"><i class="bi bi-people-fill"></i> LIST OF EMPLOYEES</h3> </div>
+				<!-- <div class="card-body">
+					<ul>
+						<li>Please fill out all necessary fields.</li>
+						<li><p>Please indicate in <strong>FIRST NAME </strong> if parents are deceased. Eg. "MARIA (DECEASED)".</p></li>
+					</ul>
+				</div> -->
+			  </div>
 		</div>
 		<div class="col-sm-12">
-			<div class="container-fluid">
+			<!-- <div class="container-fluid"> -->
 				<div class="card shadow-sm mb-3">
 					<div class="card-body">
 					<button class="btn btn-primary mb-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Generate List</button>
@@ -249,9 +256,8 @@
 					</div>		
 					</div>
 				</div>
-			</div>
+			<!-- </div> -->
 		</div>
-	  </div>
 	  
 	  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 		<div class="offcanvas-header">
@@ -902,30 +908,6 @@ $(document).ready(function() {
 			{ "data": "hs_period_of_attendance_to", visible: false },
 			{ "data": "hs_highest_level", visible: false },
 			{ "data": "hs_scholarship_academic_honor", visible: false },
-			// { "data": "v_school", visible: false },
-			// { "data": "vocational_trade_course", visible: false },
-			// { "data": "v_period_of_attendance_from", visible: false },
-			// { "data": "v_period_of_attendance_to", visible: false },
-			// { "data": "v_highest_level", visible: false },
-			// { "data": "v_scholarship_academic_honor", visible: false },
-			// { "data": "c_school", visible: false },
-			// { "data": "c_degree_course", visible: false },
-			// { "data": "c_period_of_attendance_from", visible: false },
-			// { "data": "c_period_of_attendance_to", visible: false },
-			// { "data": "c_highest_level_units_earned", visible: false },
-			// { "data": "c_scholarship_academic_honor", visible: false },
-			// { "data": "gs_school", visible: false },
-			// { "data": "gs_degree_course", visible: false },
-			// { "data": "gs_period_of_attendance_from", visible: false },
-			// { "data": "gs_period_of_attendance_to", visible: false },
-			// { "data": "gs_highest_level_units_earned", visible: false },
-			// { "data": "gs_scholarship_academic_honor", visible: false },
-			// { "data": "doc_school", visible: false },
-			// { "data": "doc_degree_course", visible: false },
-			// { "data": "doc_period_of_attendance_from", visible: false },
-			// { "data": "doc_period_of_attendance_to", visible: false },
-			// { "data": "doc_highest_level_units_earned", visible: false },
-			// { "data": "doc_scholarship_academic_honor", visible: false },
 			{ "data": "type_of_user", visible: false },
             {
               data: null,
@@ -934,7 +916,7 @@ $(document).ready(function() {
                 return `
 				<div class="dropdown">
 					<button
-							class="btn btn-secondary dropdown-toggle bg-transparent text-dark btn-sm ms-3"
+							class="btn btn-primary dropdown-toggle text-white"
 							type="button"
 							data-bs-toggle="dropdown"
 							data-bs-auto-close="outside"

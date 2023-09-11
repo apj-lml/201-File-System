@@ -204,9 +204,6 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['address'] = " ".join(final_address.split())
     # user_profile_dict['spouse_last_name'] = user_profile.familyBg.filter_by(fb_relationship='SPOUSE').first()
 
-    print('===============>>>>>', user_profile_dict['agency_unit'])
-
-
     children_list = []
 
     for child in user_profile.familyBg:
@@ -291,7 +288,7 @@ def getNetworth(total_assets_p1 = '0.00', total_liability_p1 = '0.00', total_ass
     formatted_networth = "{:,.2f}".format(floatNetworth)
     return formatted_networth
 
-def getTotalAssets(subtotal1, subtotal2):
+def getTotalAssets(subtotal1 = '0.00', subtotal2 = '0.00'):
     floatSubtotal1 = float(subtotal1.replace(',', ''))
     floatSubtotal2 = float(subtotal2.replace(',', ''))
     total = floatSubtotal1 + floatSubtotal2
@@ -366,7 +363,7 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
         total_acquisition_cost = sum(acquisition_costs)
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
     else:
-        formatted_total_acquisition_cost = 0.00
+        formatted_total_acquisition_cost = '0.00'
     
     return formatted_total_acquisition_cost
 
