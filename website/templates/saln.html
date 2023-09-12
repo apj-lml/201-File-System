@@ -187,7 +187,7 @@ td{
                           <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
                           <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="various_years" name="" onchange="variousYears(this)">
+                            <input class="form-check-input" type="checkbox" id="various_years" name="" onchange="variousYears(this, 'pp_year_acquired')">
                             <label class="form-check-label" for="various_years">
                               VARIOUS YEARS
                             </label>
@@ -398,7 +398,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title ms-auto" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> View Real Properties</h5>
+        <h5 class="modal-title ms-auto fw-bolder text-white" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> VIEW REAL PROPERTIES</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -406,9 +406,10 @@ td{
           <form action="#" method="POST" name="saln_edit_rp_form" id="saln_edit_rp_form">
             <input type="hidden" class="form-control" id="edit_rp_id" name="id" placeholder="" required>
 
-            <div class="card shadow-sm mb-2">
+
+            <!-- <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
-                <h5 class="mb-0">
+                <h5 class="mb-0 fw-bolder text-white">
                   <i class="fas fa-city"></i>
                   EDIT REAL PROPERTIES
                 </h5>
@@ -473,7 +474,83 @@ td{
                   </div>
 
                 </div>
+            </div> -->
+
+
+
+          <div class="accordion shadow-sm mb-3" id="accordionRp">
+            <div class="accordion-item ">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRp" aria-expanded="true" aria-controls="collapseOne">
+                  <!-- <i class="fas fa-city"></i>  -->
+                  EDIT REAL PROPERTIES
+                </button>
+              </h2>
+              <div id="collapseRp" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                <div class="accordion-body">
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill px-1">
+                      <label for="rp_description">DESCRIPTION</label>
+                      <input type="text" class="form-control" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
+                    
+                    </div>
+                    <div class="flex-fill px-1">
+                      <label for="rp_kind">KIND</label>
+                      <input type="text" class="form-control" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
+                    </div>
+                  </div>
+                  <div class="d-md-flex flex-row">
+                    <div class="mb-3 flex-fill px-1">
+                      <label for="rp_exact_location">EXACT LOCATION</label>
+                      <input type="text" class="form-control" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
+                    </div>
+                  </div>
+
+                  <div class="d-md-flex flex-row">
+                    <div class="mb-2 flex-fill px-1">
+                      <label for="rp_assessed_value">ASSESSED VALUE</label>
+                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+
+                    </div>
+                    <div class="mb-2 flex-fill px-1">
+                      <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
+                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+
+                    </div>
+                  </div>
+
+                  <div class="d-md-flex flex-row">
+                    <div class="flex-fill px-1">
+                      <label for="rp_acquisition_year">ACQUISITION YEAR</label>
+                      <input type="text" class="form-control" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
+                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
+
+                    </div>
+                    <div class="flex-fill px-1">
+                      <label for="rp_acquisition_mode">ACQUISITION MODE</label>
+                      <input type="text" class="form-control" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
+                    </div>
+                    <div class="flex-fill px-1">
+                      <label for="rp_acquisition_cost">ACQUISITION COST</label>
+                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 text-center">
+                    <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
+                  
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+
+
           </form>
           </div>
         <div class="col-sm-12">
@@ -525,7 +602,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title ms-auto" id="viewPersonalPropertyModalLabel"><i class="fas fa-eye"></i> VIEW PERSONAL PROPERTIES</h5>
+        <h5 class="modal-title ms-auto text-white fw-bolder" id="viewPersonalPropertyModalLabel"><i class="fas fa-eye"></i> VIEW PERSONAL PROPERTIES</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -534,7 +611,7 @@ td{
             <input type="hidden" class="form-control" id="edit_pp_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
-                <h5 class="mb-0">
+                <h5 class="mb-0  text-white fw-bolder">
                   <i class="fas fa-city"></i>
                   EDIT PERSONAL PROPERTIES
                 </h5>
@@ -552,7 +629,7 @@ td{
                     <input type="text" class="form-control" id="edit_pp_year_acquired" name="pp_year_acquired" placeholder="" onchange="year_only(this)" disabled required>
                     <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="edit_various_years" name="" onchange="variousYears(this)">
+                      <input class="form-check-input" type="checkbox" id="edit_various_years" name="" onchange="variousYears(this, 'edit_pp_year_acquired')">
                       <label class="form-check-label" for="edit_various_years">
                         VARIOUS YEARS
                       </label>
@@ -605,7 +682,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title ms-auto" id="viewLiabilitiesModalLabel"><i class="fas fa-eye"></i> VIEW LIABILITIES</h5>
+        <h5 class="modal-title ms-auto text-white fw-bolder" id="viewLiabilitiesModalLabel"><i class="fas fa-eye"></i> VIEW LIABILITIES</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -614,7 +691,7 @@ td{
             <input type="hidden" class="form-control" id="edit_liability_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
-                <h5 class="mb-0">
+                <h5 class="mb-0 text-white fw-bolder">
                   <i class="fas fa-city"></i>
                   EDIT LIABILITIES
                 </h5>
@@ -674,7 +751,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title ms-auto" id="viewBusinessModalLabel"><i class="fas fa-eye"></i> VIEW BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</h5>
+        <h5 class="modal-title ms-auto text-white fw-bolder" id="viewBusinessModalLabel"><i class="fas fa-eye"></i> VIEW BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -683,7 +760,7 @@ td{
             <input type="hidden" class="form-control" id="edit_business_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
-                <h5 class="mb-0">
+                <h5 class="mb-0 text-white fw-bolder">
                   <i class="fas fa-city"></i>
                   EDIT BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
                 </h5>
@@ -753,7 +830,7 @@ td{
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title  ms-auto" id="viewRelativeModalLabel"><i class="fas fa-eye"></i> VIEW RELATIVES IN THE GOVERNMENT SERVICE</h5>
+        <h5 class="modal-title ms-auto text-white fw-bolder" id="viewRelativeModalLabel"><i class="fas fa-eye"></i> VIEW RELATIVES IN THE GOVERNMENT SERVICE</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -762,7 +839,7 @@ td{
             <input type="hidden" class="form-control" id="edit_relative_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
-                <h5 class="mb-0">
+                <h5 class="mb-0 text-white fw-bolder">
                   <i class="fas fa-city"></i>
                   EDIT RELATIVES IN THE GOVERNMENT SERVICE
                 </h5>
@@ -848,7 +925,6 @@ td{
     console.log("form: ", formFields)
     
     formFields.forEach(function(field) {
-      console.log('QWERTY');
       field.value = "";
     });
   }
@@ -865,7 +941,6 @@ td{
 
 fetchData('rp')
   .then((data) => {
-    console.log('DATAAAAAAAAAAAAAA: ',data)
     var rp_table_col = [
     { "data" : "id" },
     { "data" : "rp_description" },
@@ -880,10 +955,10 @@ fetchData('rp')
     searchable: false,
     render: function ( data, type, row ) {
         return `
-        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp')"  title="<em>Edit</em> <u><b>Real Property</b></u>">
           <i class="far fa-edit"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" title="<em>Delete</em> <u><b>Real Property</b></u>">
           <i class="far fa-trash-alt"></i>
         </button>`
       }
@@ -1119,7 +1194,7 @@ function editRp(id, type){
 }
 
 function editPp(id, type){
-
+  document.getElementById('saln_edit_pp_form').reset();
   disableFields("saln_edit_pp_form", false);
   
   const requestData = {
@@ -1291,6 +1366,30 @@ function disableFields(formId, isDisabled){
   }
 }
 
+function scrollToTopOfModal() {
+  const modalContent = document.querySelector(".modal-body"); // Get the modal content
+  //modalContent.scrollTop = 0; // Scroll the modal content to the top
+  modalContent.scrollTo({
+    top : 0,
+    behavior : 'smooth'
+  }); // Scroll the modal content to the top
+  
+}
+
+
+function toggleAccordion(accord){
+  const specificAccordionPanel = document.querySelector('#'+accord);
+  //console.log(specificAccordionPanel)
+
+  scrollToTopOfModal();
+
+  if(!specificAccordionPanel.classList.contains('show')){
+   // specificAccordionPanel.classList.remove('show');
+    specificAccordionPanel.classList.add('show');
+  }else{
+    //specificAccordionPanel.classList.add('show');
+  }
+}
 
 
 function deleteData(id, type){
@@ -1528,8 +1627,8 @@ function print_saln(){
 
 }
 
-function variousYears(el){
-  var pp_year_acquired = document.getElementById('pp_year_acquired');
+function variousYears(el, targetInput){
+  var pp_year_acquired = document.getElementById(targetInput);
   if (el.checked){
     pp_year_acquired.value = "VARIOUS YEARS";
     pp_year_acquired.readOnly = true;
@@ -1538,7 +1637,6 @@ function variousYears(el){
     pp_year_acquired.readOnly = false;
   }
 }
-
 
 function year_only (el) {
   const inputString = el.value;

@@ -202,6 +202,10 @@ def get_context(id, filing_date, filing_type):
     address = user_profile.p_house_block_lot + ", " + user_profile.p_street + ", " + user_profile.p_subdivision_village + ", " + user_profile.p_barangay + ", " + user_profile.p_city_municipality + ", "+ user_profile.p_province + ", "+ user_profile.p_zip_code
     final_address = address.replace('N/A,', '')
     user_profile_dict['address'] = " ".join(final_address.split())
+
+    user_profile_dict_date_object = datetime.datetime.strptime(user_profile_dict['employee_id_date_issued'], "%Y-%m-%d").date()
+    user_profile_dict['employee_id_date_issued'] = user_profile_dict_date_object.strftime("%B %d, %Y")
+
     # user_profile_dict['spouse_last_name'] = user_profile.familyBg.filter_by(fb_relationship='SPOUSE').first()
 
     children_list = []
@@ -251,7 +255,7 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict["filing_type"] = filing_type
     user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
 
-    # Fetch the real properties associated with the user
+    
 
 
     user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 4)
@@ -491,7 +495,7 @@ def get_data(saln_type):
         dbObject = Relatives_In_Government
         schema = RelativeInGovernmentSchema()
 
-    get_DATA = dbObject.query.all()
+    get_DATA = dbObject.query.filter_by(user_id=current_user.id).all()
     data = schema.dump(get_DATA, many=True)
 
     return jsonify(data)
