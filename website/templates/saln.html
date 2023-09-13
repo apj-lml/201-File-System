@@ -53,28 +53,24 @@ td{
               <div class="card shadow-sm mb-2">
                 <div class="card-header bg-blue text-white">
                   <h5 class="mb-0">
-                    <!-- <i class="fas fa-user-friends"></i> -->
                     <h3 class="card-title text-white fw-bolder"><i class="bi bi-journals"></i> Statement of Assets, Liabilities, and Net Worth (SALN) </h3> 
                   </h5>
                 </div>
-
                   <div class="card-body">
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 col-sm-12 col-md-4 px-1">
                         <label for="filing_date">DATE OF FILING</label>
-                        <input type="date" class="form-control" id="filing_date" name="filing_date" placeholder="" form="" required>
+                        <input type="date" class="form-control form-control-sm" id="filing_date" name="filing_date" placeholder="" form="" required>
                       </div>
                       <div class="mb-2 col-sm-12 col-md-4 px-1">
                         <label for="filing_type">TYPE OF FILING</label>
-                        <select class="form-select" id="filing_type" name="filing_type" onchange="" value="" form="">
+                        <select class="form-select form-select-sm" id="filing_type" name="filing_type" onchange="" value="" form="">
                           <option value="not_applicable" selected>NOT APPLICABLE</option>
                           <option value="joint_filing">JOINT FILING</option>
                           <option value="separate_filing">SEPARATE FILING</option>
                         </select>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Husband and wife who are both public officials and employees may file the required statements jointly or separately.</p></small>
-
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -102,33 +98,33 @@ td{
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_description">DESCRIPTION</label>
-                        <input type="text" class="form-control" id="rp_description" name="rp_description" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm" id="rp_description" name="rp_description" placeholder="" form="saln_rp_form" required>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
                       
                       </div>
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_kind">KIND</label>
-                        <input type="text" class="form-control" id="rp_kind" name="rp_kind" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm" id="rp_kind" name="rp_kind" placeholder="" form="saln_rp_form" required>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_exact_location">EXACT LOCATION</label>
-                        <input type="text" class="form-control" id="rp_exact_location" name="rp_exact_location" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm" id="rp_exact_location" name="rp_exact_location" placeholder="" form="saln_rp_form" required>
                       </div>
                     </div>
 
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_assessed_value">ASSESSED VALUE</label>
-                        <input type="text" class="form-control trailing-decimal-input" id="rp_assessed_value" name="rp_assessed_value" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_assessed_value" name="rp_assessed_value" placeholder="" form="saln_rp_form" required>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
                       </div>
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                        <input type="text" class="form-control trailing-decimal-input" id="rp_current_market_value" name="rp_current_market_value" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_current_market_value" name="rp_current_market_value" placeholder="" form="saln_rp_form" required>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
                       </div>
@@ -137,21 +133,21 @@ td{
                     <div class="d-md-flex flex-row">
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                        <input type="number" class="form-control" id="rp_acquisition_year" name="rp_acquisition_year" placeholder="" form="saln_rp_form" oninput="year_only_2(this)" required>
+                        <input type="number" class="form-control form-control-sm" id="rp_acquisition_year" name="rp_acquisition_year" placeholder="" form="saln_rp_form" oninput="year_only_2(this)" required>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
 
                       </div>
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_acquisition_mode">ACQUISITION MODE</label>
-                        <input type="text" class="form-control" id="rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm" id="rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" form="saln_rp_form" required>
                       </div>
                       <div class="mb-2 flex-fill px-1">
                         <label for="rp_acquisition_cost">ACQUISITION COST</label>
-                        <input type="text" class="form-control trailing-decimal-input" id="rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" form="saln_rp_form" required>
+                        <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" form="saln_rp_form" required>
                       </div>
                     </div>
 
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center mt-2">
                       <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
                       <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button>
                     </div>
@@ -178,13 +174,13 @@ td{
                       <div class="d-md-flex flex-row">
                         <div class="mb-2 flex-fill px-1">
                           <label for="pp_description">DESCRIPTION</label>
-                          <input type="text" class="form-control" id="pp_description" name="pp_description" placeholder="" form="saln_pp_form" required>
+                          <input type="text" class="form-control form-control-sm" id="pp_description" name="pp_description" placeholder="" form="saln_pp_form" required>
                         </div>
                       </div>
                       <div class="d-md-flex flex-row">
                         <div class="mb-2 flex-fill px-1">
                           <label for="pp_year_acquired">YEAR ACQUIRED</label>
-                          <input type="text" class="form-control" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
+                          <input type="text" class="form-control form-control-sm" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
                           <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
                           <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="various_years" name="" onchange="variousYears(this, 'pp_year_acquired')">
@@ -197,7 +193,7 @@ td{
                       <div class="d-md-flex flex-row">
                         <div class="mb-2 flex-fill px-1">
                           <label for="pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
-                          <input type="text" class="form-control trailing-decimal-input" id="pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" form="saln_pp_form" required>
+                          <input type="text" class="form-control form-control-sm trailing-decimal-input" id="pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" form="saln_pp_form" required>
                         </div>
                       </div>
 
@@ -236,15 +232,15 @@ td{
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="liability_nature">NATURE</label>
-                      <input type="text" class="form-control" id="liability_nature" name="liability_nature" form="saln_liability_form" placeholder="" required>
+                      <input type="text" class="form-control form-control-sm" id="liability_nature" name="liability_nature" form="saln_liability_form" placeholder="" required>
                     </div>
                     <div class="mb-2 flex-fill px-1">
                       <label for="liability_creditor">NAME OF CREDITORS</label>
-                      <input type="text" class="form-control" id="liability_creditor" name="liability_creditor" form="saln_liability_form" placeholder="" required>
+                      <input type="text" class="form-control form-control-sm" id="liability_creditor" name="liability_creditor" form="saln_liability_form" placeholder="" required>
                     </div>
                     <div class="mb-2 flex-fill px-1">
                       <label for="liability_outstanding_balance">OUTSTANDING BALANCE</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="liability_outstanding_balance" name="liability_outstanding_balance" form="saln_liability_form" placeholder="" required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="liability_outstanding_balance" name="liability_outstanding_balance" form="saln_liability_form" placeholder="" required>
                     </div>
                   </div>
                   <div class="col-sm-12 text-center my-auto">
@@ -281,24 +277,24 @@ td{
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
-                      <input type="text" class="form-control" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
+                      <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="business_address">BUSINESS ADDRESS</label>
-                      <input type="text" class="form-control" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
+                      <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
                     </div>
                   </div>
 
                   <div class="d-md-flex flex-row flex-gap">
                     <div class="mb-2 flex-fill px-1">
                       <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
-                      <input type="text" class="form-control" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
+                      <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
                     </div>
                     <div class="mb-2 flex-fill px-1">
                       <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
-                      <input type="date" class="form-control" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
+                      <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
                     </div>
                   </div>
 
@@ -335,17 +331,17 @@ td{
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="relative_name">NAME OF RELATIVE</label>
-                      <input type="text" class="form-control" id="relative_name" name="relative_name" placeholder="" form="saln_relative_in_government_form" required>
+                      <input type="text" class="form-control form-control-sm" id="relative_name" name="relative_name" placeholder="" form="saln_relative_in_government_form" required>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="relative_relationship">RELATIONSHIP</label>
-                      <input type="text" class="form-control" id="relative_relationship" name="relative_relationship" placeholder="" form="saln_relative_in_government_form" required>
+                      <input type="text" class="form-control form-control-sm" id="relative_relationship" name="relative_relationship" placeholder="" form="saln_relative_in_government_form" required>
                     </div>
                     <div class="mb-2 flex-fill px-1">
                       <label for="relative_position">POSITION</label>
-                      <input type="text" class="form-control" id="relative_position" name="relative_position" placeholder="" form="saln_relative_in_government_form" required>
+                      <input type="text" class="form-control form-control-sm" id="relative_position" name="relative_position" placeholder="" form="saln_relative_in_government_form" required>
                     </div>
                   </div>
 
@@ -353,13 +349,13 @@ td{
 
                     <div class="mb-2 flex-fill px-1">
                       <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
-                      <input type="text" class="form-control" id="relative_agency_office" name="relative_agency_office" placeholder="" form="saln_relative_in_government_form" required>
+                      <input type="text" class="form-control form-control-sm" id="relative_agency_office" name="relative_agency_office" placeholder="" form="saln_relative_in_government_form" required>
                     </div>
                   </div>
                   <div class="mb-2 flex-fill px-1">
                     <div class="mb-2 flex-fill px-1">
                       <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
-                      <input type="text" class="form-control" id="relative_agency_office_address" name="relative_agency_office_address" placeholder="" form="saln_relative_in_government_form" required>
+                      <input type="text" class="form-control form-control-sm" id="relative_agency_office_address" name="relative_agency_office_address" placeholder="" form="saln_relative_in_government_form" required>
                     </div>
                   </div>
 
@@ -404,7 +400,7 @@ td{
       <div class="modal-body">
         <div class="col-md-12">
           <form action="#" method="POST" name="saln_edit_rp_form" id="saln_edit_rp_form">
-            <input type="hidden" class="form-control" id="edit_rp_id" name="id" placeholder="" required>
+            <input type="hidden" class="form-control form-control-sm" id="edit_rp_id" name="id" placeholder="" required>
 
 
             <!-- <div class="card shadow-sm mb-2">
@@ -418,33 +414,33 @@ td{
                   <div class="d-md-flex flex-row">
                     <div class="flex-fill px-1">
                       <label for="rp_description">DESCRIPTION</label>
-                      <input type="text" class="form-control" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
                     
                     </div>
                     <div class="flex-fill px-1">
                       <label for="rp_kind">KIND</label>
-                      <input type="text" class="form-control" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="mb-3 flex-fill px-1">
                       <label for="rp_exact_location">EXACT LOCATION</label>
-                      <input type="text" class="form-control" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
                     </div>
                   </div>
 
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="rp_assessed_value">ASSESSED VALUE</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
                     </div>
                     <div class="mb-2 flex-fill px-1">
                       <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
                     </div>
@@ -453,17 +449,17 @@ td{
                   <div class="d-md-flex flex-row">
                     <div class="flex-fill px-1">
                       <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                      <input type="text" class="form-control" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
 
                     </div>
                     <div class="flex-fill px-1">
                       <label for="rp_acquisition_mode">ACQUISITION MODE</label>
-                      <input type="text" class="form-control" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
                     </div>
                     <div class="flex-fill px-1">
                       <label for="rp_acquisition_cost">ACQUISITION COST</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
                     </div>
                   </div>
 
@@ -491,56 +487,57 @@ td{
                   <div class="d-md-flex flex-row">
                     <div class="flex-fill px-1">
                       <label for="rp_description">DESCRIPTION</label>
-                      <input type="text" class="form-control" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
                     
                     </div>
                     <div class="flex-fill px-1">
                       <label for="rp_kind">KIND</label>
-                      <input type="text" class="form-control" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="mb-3 flex-fill px-1">
+                    <div class="mb-2 flex-fill px-1">
                       <label for="rp_exact_location">EXACT LOCATION</label>
-                      <input type="text" class="form-control" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
                     </div>
                   </div>
 
                   <div class="d-md-flex flex-row">
                     <div class="mb-2 flex-fill px-1">
                       <label for="rp_assessed_value">ASSESSED VALUE</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
                     </div>
                     <div class="mb-2 flex-fill px-1">
                       <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
                     </div>
                   </div>
 
                   <div class="d-md-flex flex-row">
-                    <div class="flex-fill px-1">
+                    <div class="mb-2 flex-fill px-1">
                       <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                      <input type="text" class="form-control" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
                       <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
 
                     </div>
-                    <div class="flex-fill px-1">
+                    <div class="mb-2 flex-fill px-1">
                       <label for="rp_acquisition_mode">ACQUISITION MODE</label>
-                      <input type="text" class="form-control" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
                     </div>
-                    <div class="flex-fill px-1">
+                    
+                    <div class="mb-2 flex-fill px-1">
                       <label for="rp_acquisition_cost">ACQUISITION COST</label>
-                      <input type="text" class="form-control trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
+                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
                     </div>
                   </div>
 
-                  <div class="col-sm-12 text-center">
+                  <div class="col-sm-12 text-center mt-2">
                     <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
                     <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                   
@@ -606,9 +603,10 @@ td{
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="col-md-12">
+
+        <!-- <div class="col-md-12">
           <form action="#" method="POST" name="saln_edit_pp_form" id="saln_edit_pp_form">
-            <input type="hidden" class="form-control" id="edit_pp_id" name="id" placeholder="" required>
+            <input type="hidden" class="form-control form-control-sm" id="edit_pp_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0  text-white fw-bolder">
@@ -620,14 +618,13 @@ td{
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="edit_pp_description">DESCRIPTION</label>
-                    <input type="text" class="form-control" id="edit_pp_description" name="pp_description" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_pp_description" name="pp_description" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="edit_pp_year_acquired">YEAR ACQUIRED</label>
-                    <input type="text" class="form-control" id="edit_pp_year_acquired" name="pp_year_acquired" placeholder="" onchange="year_only(this)" disabled required>
-                    <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
+                    <input type="text" class="form-control form-control-sm" id="edit_pp_year_acquired" name="pp_year_acquired" placeholder="" onchange="year_only(this)" disabled required>
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" id="edit_various_years" name="" onchange="variousYears(this, 'edit_pp_year_acquired')">
                       <label class="form-check-label" for="edit_various_years">
@@ -639,7 +636,7 @@ td{
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="edit_pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
-                    <input type="text" class="form-control trailing-decimal-input" id="edit_pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -649,7 +646,66 @@ td{
               </div>
             </div>
           </form>
+          </div> -->
+
+
+
+          <div class="accordion shadow-sm mb-3" id="accordionRp">
+            <div class="accordion-item ">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRp" aria-expanded="true" aria-controls="collapseOne">
+                  <!-- <i class="fas fa-city"></i>  -->
+                  EDIT PERSONAL PROPERTIES
+                </button>
+              </h2>
+              <div id="collapseRp" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                <div class="accordion-body">
+             
+                  
+                    <form action="#" method="POST" name="saln_edit_pp_form" id="saln_edit_pp_form">
+                      <input type="hidden" class="form-control form-control-sm" id="edit_pp_id" name="id" placeholder="" required>
+         
+                          <div class="d-md-flex flex-row">
+                            <div class="mb-2 flex-fill px-1">
+                              <label for="edit_pp_description">DESCRIPTION</label>
+                              <input type="text" class="form-control form-control-sm" id="edit_pp_description" name="pp_description" placeholder="" disabled required>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="mb-2 flex-fill px-1">
+                              <label for="edit_pp_year_acquired">YEAR ACQUIRED</label>
+                              <input type="text" class="form-control form-control-sm" id="edit_pp_year_acquired" name="pp_year_acquired" placeholder="" onchange="year_only(this)" disabled required>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="edit_various_years" name="" onchange="variousYears(this, 'edit_pp_year_acquired')">
+                                <label class="form-check-label" for="edit_various_years">
+                                  VARIOUS YEARS
+                                </label>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="mb-2 flex-fill px-1">
+                              <label for="edit_pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
+                              <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" disabled required>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 text-center">
+                            <button type="save" class="btn btn-primary btn-sm" id="save_pp"><i class="far fa-save"></i> Save Personal Property</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_pp_form'); disableFields('saln_edit_pp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
+                          </div>
+                    </form>
+        
+                    
+
+
+                </div>
+              </div>
+            </div>
           </div>
+
+
+          
+
         <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-striped table-bordered text-left" id="pp_table" width = "100%">
@@ -686,9 +742,9 @@ td{
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <form action="#" method="POST" name="saln_edit_liability_form" id="saln_edit_liability_form">
-            <input type="hidden" class="form-control" id="edit_liability_id" name="id" placeholder="" required>
+            <input type="hidden" class="form-control form-control-sm" id="edit_liability_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0 text-white fw-bolder">
@@ -700,15 +756,15 @@ td{
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="liability_nature">NATURE</label>
-                    <input type="text" class="form-control" id="edit_liability_nature" name="liability_nature" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_liability_nature" name="liability_nature" placeholder="" disabled required>
                   </div>
                   <div class="mb-2 flex-fill px-1">
                     <label for="liability_creditor">NAME OF CREDITORS</label>
-                    <input type="text" class="form-control" id="edit_liability_creditor" name="liability_creditor" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_liability_creditor" name="liability_creditor" placeholder="" disabled required>
                   </div>
                   <div class="mb-2 flex-fill px-1">
                     <label for="liability_outstanding_balance">OUTSTANDING BALANCE</label>
-                    <input type="text" class="form-control trailing-decimal-input" id="edit_liability_outstanding_balance" name="liability_outstanding_balance" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_liability_outstanding_balance" name="liability_outstanding_balance" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -718,7 +774,52 @@ td{
               </div>
             </div>
           </form>
+          </div> -->
+
+          
+
+
+          <div class="accordion shadow-sm mb-3" id="accordionLiability">
+            <div class="accordion-item ">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLiability" aria-expanded="true" aria-controls="collapseOne">
+                  <!-- <i class="fas fa-city"></i>  -->
+                  EDIT LIABILITIES
+                </button>
+              </h2>
+              <div id="collapseLiability" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                <div class="accordion-body">
+             
+                  
+                  <form action="#" method="POST" name="saln_edit_liability_form" id="saln_edit_liability_form">
+                    <input type="hidden" class="form-control form-control-sm" id="edit_liability_id" name="id" placeholder="" required>
+                        <div class="d-md-flex flex-row">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="liability_nature">NATURE</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_liability_nature" name="liability_nature" placeholder="" disabled required>
+                          </div>
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="liability_creditor">NAME OF CREDITORS</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_liability_creditor" name="liability_creditor" placeholder="" disabled required>
+                          </div>
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="liability_outstanding_balance">OUTSTANDING BALANCE</label>
+                            <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_liability_outstanding_balance" name="liability_outstanding_balance" placeholder="" disabled required>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                          <button type="save" class="btn btn-primary btn-sm" id="save_pp"><i class="far fa-save"></i> Save Liability</button>
+                          <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_liability_form'); disableFields('saln_edit_liability_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
+                        </div>
+                  </form>
+                    
+
+                </div>
+              </div>
+            </div>
           </div>
+
+
         <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-striped table-bordered text-left" id="liability_table" width = "100%">
@@ -755,9 +856,9 @@ td{
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <form action="#" method="POST" name="saln_edit_business_form" id="saln_edit_business_form">
-            <input type="hidden" class="form-control" id="edit_business_id" name="id" placeholder="" required>
+            <input type="hidden" class="form-control form-control-sm" id="edit_business_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0 text-white fw-bolder">
@@ -769,24 +870,24 @@ td{
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
-                    <input type="text" class="form-control" id="edit_business" name="business" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_business" name="business" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="business_address">BUSINESS ADDRESS</label>
-                    <input type="text" class="form-control" id="edit_business_address" name="business_address" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_business_address" name="business_address" placeholder="" disabled required>
                   </div>
                 </div>
 
                 <div class="d-md-flex flex-row flex-gap">
                   <div class="mb-2 flex-fill px-1">
                     <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
-                    <input type="text" class="form-control" id="edit_business_nature" name="business_nature" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_business_nature" name="business_nature" placeholder="" disabled required>
                   </div>
                   <div class="mb-2 flex-fill px-1">
                     <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
-                    <input type="date" class="form-control" id="edit_business_acquisition" name="business_acquisition" placeholder="" disabled required>
+                    <input type="date" class="form-control form-control-sm" id="edit_business_acquisition" name="business_acquisition" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -796,7 +897,61 @@ td{
             </div>
             </div>
           </form>
+        </div> -->
+
+
+        <div class="accordion shadow-sm mb-3" id="accordionBusiness">
+          <div class="accordion-item ">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBusiness" aria-expanded="true" aria-controls="collapseOne">
+                <!-- <i class="fas fa-city"></i>  -->
+                    EDIT BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
+              </button>
+            </h2>
+            <div id="collapseBusiness" class="accordion-collapse collapse" aria-labelledby="headingOne">
+              <div class="accordion-body">
+           
+                
+                <form action="#" method="POST" name="saln_edit_business_form" id="saln_edit_business_form">
+                  <input type="hidden" class="form-control form-control-sm" id="edit_business_id" name="id" placeholder="" required>
+
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_business" name="business" placeholder="" disabled required>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="business_address">BUSINESS ADDRESS</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_business_address" name="business_address" placeholder="" disabled required>
+                        </div>
+                      </div>
+      
+                      <div class="d-md-flex flex-row flex-gap">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_business_nature" name="business_nature" placeholder="" disabled required>
+                        </div>
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
+                          <input type="date" class="form-control form-control-sm" id="edit_business_acquisition" name="business_acquisition" placeholder="" disabled required>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 text-center">
+                        <button type="save" class="btn btn-primary btn-sm" id="save_business"><i class="far fa-save"></i> Save Business Interest and Financial Connection</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="clear_business" onclick="clearFields('saln_edit_business_form'); disableFields('saln_edit_business_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
+                      </div>
+                </form>
+                  
+
+              </div>
+            </div>
           </div>
+        </div>
+
+
+
         <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
@@ -836,7 +991,7 @@ td{
       <div class="modal-body">
         <div class="col-md-12">
           <form action="#" method="POST" name="edit_saln_relative_in_government_form" id="edit_saln_relative_in_government_form">
-            <input type="hidden" class="form-control" id="edit_relative_id" name="id" placeholder="" required>
+            <input type="hidden" class="form-control form-control-sm" id="edit_relative_id" name="id" placeholder="" required>
             <div class="card shadow-sm mb-2">
               <div class="card-header bg-blue text-white">
                 <h5 class="mb-0 text-white fw-bolder">
@@ -848,17 +1003,17 @@ td{
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="relative_name">NAME OF RELATIVE</label>
-                    <input type="text" class="form-control" id="edit_relative_name" name="relative_name" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_relative_name" name="relative_name" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="d-md-flex flex-row">
                   <div class="mb-2 flex-fill px-1">
                     <label for="relative_relationship">RELATIONSHIP</label>
-                    <input type="text" class="form-control" id="edit_relative_relationship" name="relative_relationship" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_relative_relationship" name="relative_relationship" placeholder="" disabled required>
                   </div>
                   <div class="mb-2 flex-fill px-1">
                     <label for="relative_position">POSITION</label>
-                    <input type="text" class="form-control" id="edit_relative_position" name="relative_position" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_relative_position" name="relative_position" placeholder="" disabled required>
                   </div>
                 </div>
 
@@ -866,13 +1021,13 @@ td{
 
                   <div class="mb-2 flex-fill px-1">
                     <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
-                    <input type="text" class="form-control" id="edit_relative_agency_office" name="relative_agency_office" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_relative_agency_office" name="relative_agency_office" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="mb-2 flex-fill px-1">
                   <div class="mb-2 flex-fill px-1">
                     <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
-                    <input type="text" class="form-control" id="edit_relative_agency_office_address" name="relative_agency_office_address" placeholder="" disabled required>
+                    <input type="text" class="form-control form-control-sm" id="edit_relative_agency_office_address" name="relative_agency_office_address" placeholder="" disabled required>
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -883,6 +1038,67 @@ td{
             </div>
           </form>
           </div>
+
+
+
+          <div class="accordion shadow-sm mb-3" id="accordionRelative">
+            <div class="accordion-item ">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBusiness" aria-expanded="true" aria-controls="collapseOne">
+                  <!-- <i class="fas fa-city"></i>  -->
+                  EDIT RELATIVES IN THE GOVERNMENT SERVICE
+                </button>
+              </h2>
+              <div id="collapseBusiness" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                <div class="accordion-body">
+             
+                  <form action="#" method="POST" name="edit_saln_relative_in_government_form" id="edit_saln_relative_in_government_form">
+                    <input type="hidden" class="form-control form-control-sm" id="edit_relative_id" name="id" placeholder="" required>
+
+                        <div class="d-md-flex flex-row">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="relative_name">NAME OF RELATIVE</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_relative_name" name="relative_name" placeholder="" disabled required>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="relative_relationship">RELATIONSHIP</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_relative_relationship" name="relative_relationship" placeholder="" disabled required>
+                          </div>
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="relative_position">POSITION</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_relative_position" name="relative_position" placeholder="" disabled required>
+                          </div>
+                        </div>
+        
+                        <div class="d-md-flex flex-row flex-gap">
+        
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_relative_agency_office" name="relative_agency_office" placeholder="" disabled required>
+                          </div>
+                        </div>
+                        <div class="mb-2 flex-fill px-1">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
+                            <input type="text" class="form-control form-control-sm" id="edit_relative_agency_office_address" name="relative_agency_office_address" placeholder="" disabled required>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                          <button type="save" class="btn btn-primary btn-sm" id="save_relative"><i class="far fa-save"></i> Save</button>
+                          <button type="button" class="btn btn-primary btn-sm" id="clear_relative" onclick="clearFields('edit_saln_relative_in_government_form'); disableFields('edit_saln_relative_in_government_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
+                        </div>
+
+  
+                  </form>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-striped table-bordered text-left" id="relative_table" width = "100%">
@@ -955,7 +1171,7 @@ fetchData('rp')
     searchable: false,
     render: function ( data, type, row ) {
         return `
-        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp')"  title="<em>Edit</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');"  title="<em>Edit</em> <u><b>Real Property</b></u>">
           <i class="far fa-edit"></i>
         </button>
         <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -986,7 +1202,7 @@ fetchData('liability')
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
         <i class="far fa-edit"></i>
       </button>
       <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -1017,7 +1233,7 @@ var pp_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
         <i class="far fa-edit"></i>
       </button>
       <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1074,12 +1290,19 @@ var business_table_col = [
 { "data" : "business" },
 { "data" : "business_address" },
 { "data" : "business_nature" },
-{ "data" : "business_acquisition" },
+//{ "data" : "business_acquisition" },
+{ "data" : null,
+  searchable: false,
+  render: function ( data, type, row ) {
+    console.log(data)
+      return new Date(data.business_acquisition).toLocaleDateString()
+    }
+},
 { "data" : null,
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
         <i class="far fa-edit"></i>
       </button>
       <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -1433,7 +1656,7 @@ function deleteData(id, type){
               searchable: false,
               render: function ( data, type, row ) {
                   return `
-                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                     <i class="far fa-edit"></i>
                   </button>
                   <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1466,7 +1689,7 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1497,7 +1720,7 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -1530,7 +1753,7 @@ function deleteData(id, type){
               searchable: false,
               render: function ( data, type, row ) {
                   return `
-                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                     <i class="far fa-edit"></i>
                   </button>
                   <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -1698,7 +1921,7 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
           { "data" : "rp_kind" },
           { "data" : null,
           "defaultContent": `
-                <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1765,7 +1988,7 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
         { "data" : "rp_kind" },
         { "data" : null,
         "defaultContent": `
-              <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1820,7 +2043,7 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
         searchable: false,
         render: function ( data, type, row ) {
             return `
-            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
               <i class="far fa-edit"></i>
             </button>
             <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1884,7 +2107,7 @@ document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
       searchable: false,
       render: function ( data, type, row ) {
           return `
-          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
             <i class="far fa-edit"></i>
           </button>
           <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1939,7 +2162,7 @@ document.getElementById('saln_liability_form').addEventListener("submit", (e)=>{
             searchable: false,
             render: function ( data, type, row ) {
                 return `
-                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -2000,7 +2223,7 @@ document.getElementById('saln_edit_liability_form').addEventListener("submit", (
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -2056,7 +2279,7 @@ document.getElementById('saln_business_interest_form').addEventListener("submit"
             searchable: false,
             render: function ( data, type, row ) {
                 return `
-                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -2121,7 +2344,7 @@ document.getElementById('saln_edit_business_form').addEventListener("submit", (e
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">

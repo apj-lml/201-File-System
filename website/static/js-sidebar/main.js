@@ -14,7 +14,7 @@
 
 	fullHeight();
 
-	$('#sidebar').toggleClass('active');
+	// $('#sidebar').toggleClass('active');
 
 
 	$('#sidebarCollapse').on('click', function () {
