@@ -4,9 +4,34 @@
 
 {%block cssperfile %} 
 <style type="text/css">
-	div.dtsb-searchBuilder div.dtsb-titleRow {
+
+.scroll-container {
+	position: relative;
+	height: 500px;
+	overflow-y: scroll;
+	scroll-behavior: smooth;
+}
+.highlight {
+	box-shadow: 0 0 8px 1px #48abe0,
+				0 0 9px 2px #ff1493;
+	}
+div.dtsb-searchBuilder div.dtsb-titleRow {
     	display: none;
 }
+@media (max-width: 768px) {
+	/* CSS styles for mobile devices */
+	.main-card{
+		padding: 5px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	.main-card .card-body{
+		padding: 8px;
+		margin: 0;
+	}
+
+  }
+
 </style>
 
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
@@ -28,8 +53,8 @@
 		<li></li>
 	  </ul>
 	<div class="row mb-3">
-		<div class="card container">
-			<div class="card-body">
+		<div class="card ">
+			<div class="card-body row">
 				<form id="add_ld_form" action="#" method="POST" enctype="multipart/form-data"></form>
 				<div class="card bg-blue shadow-sm mb-3" >
 					<div class="card-header"><h3 class="card-title text-white fw-bolder mb-0"><i class="bi bi-lightbulb"></i> LEARNING & DEVELOPMENT</h3> </div>
@@ -40,7 +65,7 @@
 					  </ul>
 					</div>
 				</div>
-				<div class="card shadow-sm mb-3">
+				<div class="card mb-3 col-md-8 col-sm-12 main-card">
 					<div class="card-body">
 						<div class="d-md-flex flex-row">
 							<div class="form-floating flex-fill mb-3 p-1">
@@ -64,7 +89,8 @@
 								<label for="ld_no_hours[1]">Number of Hours</label>
 							</div>
 							<div class="form-floating flex-fill mb-3 p-1">
-								<select class="form-select" id="ld_type" name="ld_type" form="add_ld_form">
+								<select class="form-select" id="ld_type" name="ld_type" form="add_ld_form" onchange="scrollToDiv(this.value)">
+									<option value="" hidden>-</option>
 									<option value="TECHNICAL">TECHNICAL</option>
 									<option value="MANAGERIAL">MANAGERIAL</option>
 									<option value="SUPERVISORY">SUPERVISORY</option>
@@ -97,6 +123,58 @@
 						<div class="col-sm-12 text-center">
 							<button type="submit" class="btn btn-primary" form="add_ld_form">Add</button>
 						</div>
+					</div>
+				</div>
+
+				<div class="card col-md-4 col-sm-12 m-0 p-0" style="height: 514px;">
+					<div class="card-body m-0 p-0">
+						<div class="scroll-container p-3" id="scrolling_div">
+							<div id="scrollspyHeadingTECHNICAL" class="rounded p-3 animate__animated">
+								<h4 id="">1. TECHNICAL</h4>
+								<p class="mb-0">
+									Refers to substantive programs in specific professional/technical/scientific/areas for enhancement of skills and knowledge of second level personnel in the career service.
+								</p>
+							</div>
+							<div id="scrollspyHeadingMANAGERIAL" class="rounded p-3 animate__animated">
+								<h4 id="">2. MANAGERIAL</h4>
+								<p class="mb-0">Trainings that are in the Executive/Managerial type includes professional, technical and scientific positions, the functions of which are managerial in character</p>
+								<p class="mb-0">Specifically, it is about exercising management over people, resource, and/or policy and exercising functions such as planning, organizing, directing, coordinating, controlling and overseeing the activities of an organization, a unit thereof or of a group, requiring some degree of professional, technical or scientific knowledge and experience, application of managerial skills required to carry out basic duties and responsibilities involving leadership, functional guidance and control.</p>
+								<p class="mb-0">These positions require intensive and through knowledge of a specialized field.</p>
+							</div>
+		
+							<div id="scrollspyHeadingSUPERVISORY" class="rounded p-3 animate__animated">
+							<h4 id="">3. SUPERVISORY</h4>
+								<p>Trainings that are in the Supervisory type are professional, technical and scientific trainings which have the responsibility of overseeing the work of an organizational unit charged with a major and specialized activity.</p>
+								<p>This includes tasks of a supervisor that plans, programs, delegates tasks and evaluates performance of employees; monitors work outputs; maintains moral and discipline among employees; develops cooperation and ensure a well-coordinated workforce; and coordinates and cooperates with other organizational units.</p>
+							</div>
+		
+							<div id="scrollspyHeadingFOUNDATION" class="rounded p-3 animate__animated">
+								<h4 id="">4. FOUNDATION</h4>
+								<p class="mb-0">
+									Foundation trainings are Learning and development interventions that includes the induction program, orientation program or value development program.
+								</p>
+							</div>
+		
+							<!-- <div id="scrollspyHeadingLEADERSHIP" class="rounded p-3 animate__animated">
+								<h4 id="">5. LEADERSHIP</h4>
+								<p class="mb-0">
+									Proof of child’s delivery e.g. birth certificate, medical certificate and marriage contract.
+								</p>
+							</div> -->
+							<!-- <div id="scrollspyHeadingLEADERSHIPANDMANAGEMENT" class="rounded p-3 animate__animated">
+								<h4 id="">6. LEADERSHIP AND MANAGEMENT</h4>
+								<p class="mb-0">
+									It shall be filed/approved for at least one (1) week prior to availment, except on emergency cases. Special privilege leave within the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
+								</p>
+							</div> -->
+		
+							<!-- <div id="scrollspyHeadingHUMANRESOURCEMANAGEMENT" class="rounded p-3 animate__animated">
+								<h4 id="">7. HUMAN RESOURCE MANAGEMENT</h4>
+								<p class="mb-0">
+									It shall be filed in advance or whenever possible five (5) days before going on such leave with updated Solo Parent Identification Card.
+								</p>
+							</div> -->
+						  </div>
 					</div>
 				</div>
 				
@@ -140,6 +218,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </main>
 
@@ -232,6 +311,56 @@
 
 {%block scripts%}
 <script type="text/javascript">
+
+	function scrollToDiv(elemId){
+		elemId = elemId.replace(/ /g,'');
+		// Select all elements with the class
+		var elements = document.querySelectorAll(".highlight");
+	
+		// Loop through each element and remove the CSS class
+		elements.forEach(function(element) {
+			element.classList.remove("highlight");
+		});
+	
+	
+		//if(elemId == 99){
+		//	elemId = 1;
+		//	var myElement = document.getElementById('scrollspyHeading'+elemId);
+	
+		//	myElement.classList.remove('fade-out');
+		//	myElement.classList.remove('highlight');
+	
+		//	var topPos = myElement.offsetTop;
+		
+		//	document.getElementById('scrolling_div').scrollTop = topPos;
+		//}else{
+			var myElement = document.getElementById('scrollspyHeading'+elemId);
+
+	
+			myElement.classList.remove('fade-out');
+			myElement.classList.remove('highlight');
+			myElement.classList.remove('animate__pulse');
+	
+			var topPos = myElement.offsetTop;
+
+			console.log(topPos)
+			console.log(myElement.offsetTop)
+		
+			//document.getElementById('scrolling_div').scrollTo({
+			//	top: 0,
+			//	left: 0,
+			//	behavior: 'smooth',
+			//});
+	
+			document.getElementById('scrolling_div').scrollTop = topPos - 20;
+			
+			myElement.classList.add('highlight'); // add the highlight class
+			myElement.classList.add('animate__pulse'); // add the highlight class
+
+		//}
+	
+	  }
+
 	///ld/add-learning-and-development/{{emp_id}}
 	document.getElementById('add_ld_form').addEventListener('submit', (e)=>{
 		e.preventDefault();

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} List of Expiring IDs {% endblock %}
+{% block title %} Downloaded File Logs {% endblock %}
 
 {%block cssperfile %}
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
     <!-- <div class="card-body"> -->
       <div class="card text-white bg-blue shadow-sm" >
         <div class="card-header">
-          <h3 class="card-title text-white fw-bolder m-0 p-0"><i class="bi bi-stickies-fill"></i> LIST OF EXPIRING IDs</h3>
+          <h3 class="card-title text-white fw-bolder m-0 p-0"><i class="bi bi-stickies-fill"></i> LIST OF YOUR DOWNLOADED/GENERATED FILES</h3>
          </div>
 
       </div>
@@ -53,19 +53,38 @@
                                 <div class="card shadow-sm" >
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expiring Licenses/IDs (in 6 months)</h3>
-                                    {% if expiring_ids is not none  %}
-                                    <ul class="list-group list-group-numbered list-group-flush">
-                                      {% for expiring_ids in expiring_ids %}
-                                      <li class="list-group-item">{{expiring_ids.Career_Service.date_of_validity|format_mydatetime_2 }} - <a href="/employees/my-profile/{{expiring_ids.User.id}}">{{expiring_ids.User.last_name}}, {{expiring_ids.User.first_name}} {{expiring_ids.User.middle_name}} {{expiring_ids.User.name_extn if expiring_ids.User.name_extn != 'N/A'}}</a> / {{expiring_ids.Career_Service.cs_eligibility}}</li>
-                                      {% endfor %}
-                                    </ul>
-                                    {% else %}
-                                      <h3 class="text-muted fst-italic">No records found..</h3>
-                                    {% endif %}
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered table-striped text-center nowrap" id="pimoTelephoneDirectory" width = "100%">
+                                      <thead class="">
+                                      <tr class="align-middle">
+                                        <th>File Name</th>
+                                        <th>File Tag</th>
+                                        <th>File</th>
+                                        <th>Timestamp</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                              
+                                        {% if files %}
+                                          {% for file in files %}
+                                          <tr>
+                                            <td class="text-start">{{ file.file_name }}</td>
+                                            <td class="text-start">{{ file.file_tag }}</td>
+                                            <td class="text-start"><a href="{{ url_for('FileLogs.download_blob', id=file.id) }}">Download</a></td>
+                                            <td class="text-start">{{ file.timestamp }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                        {% else %}
+                                          <h3 class="text-muted fst-italic">No records found..</h3>
+                                        {% endif %}
+                               
+                                      </tbody>
+                                    </table>
+                                  </div>
                                     </div>
                                   </div>
                               </div>
-                              <div class="col-md-12">
+                              <!-- <div class="col-md-12">
                                 <div class="card shadow-sm">
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expired Licenses/IDs</h3>
@@ -80,7 +99,7 @@
                                   {% endif %}
                                     </div>
                                   </div>
-                              </div>
+                              </div> -->
 
                             </div>
                         </div>

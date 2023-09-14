@@ -29,6 +29,7 @@ DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
+FILE_LOGS_FOLDER = os.path.join(APP_ROOT, 'static', 'file_logs_folder')
 
 # def page_not_found(e):
 #   return render_template('500.html'), 500
@@ -50,6 +51,7 @@ def create_app():
 	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+	app.config['FILE_LOGS_FOLDER'] = FILE_LOGS_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
 
 	# app.config.from_pyfile('mysettings.cfg')
@@ -148,6 +150,7 @@ def create_app():
 	from .listOfLoyaltyAwardees import listOfLoyaltyAwardees
 	from .listOfRetirees import listOfRetirees
 	from .saln import saln
+	from .fileLogs import FileLogs
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -183,6 +186,7 @@ def create_app():
 	app.register_blueprint(listOfLoyaltyAwardees, url_prefix = '/listOfLoyaltyAwardees')
 	app.register_blueprint(listOfRetirees, url_prefix = '/listOfRetirees')
 	app.register_blueprint(saln, url_prefix = '/saln')
+	app.register_blueprint(FileLogs, url_prefix = '/fileLogs')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

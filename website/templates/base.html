@@ -311,10 +311,13 @@ body{
             </a>
             <ul class="collapse list-unstyled" id="userSubmenu">
               <li>
+                <a href="/file-log/{{current_user.id}}"><i class="fas fa-cloud-download-alt"></i> Downloaded File Logs</a>
+              </li>
+              <li>
                 <a href="/change-password/{{current_user.id}}"><i class="bi bi-shield-lock"></i> Change Password</a>
               </li>
               <li>
-                  <a href="#" onclick="clearCache(); return false;"><i class="bi bi-trash2-fill"></i> Clear Cache</a>
+                <a href="#" onclick="clearCache(); return false;"><i class="bi bi-trash2-fill"></i> Clear Cache</a>
               </li>
               <li>
                   <a href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>

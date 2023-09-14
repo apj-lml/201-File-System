@@ -104,7 +104,7 @@
 			
 				<div class="d-flex flex-column">
 					<div class="d-md-flex flex-md-row flex-sm-column">
-						<div class="card shadow-sm mb-3 col-sm-12 col-md-6 m-1">
+						<div class="card shadow-sm mb-3 col-sm-12 col-md-6">
 							<!-- {{ today_date.strftime('%Y-%m-%d') }} -->
 							<div class="card-body">
 								{% if current_user.type_of_user != 'user' %}
@@ -124,7 +124,7 @@
 
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value)">
+										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value);">
 											<option value="13">Adoption Leave</option>
 											<option value="2">Mandatory/Forced Leave</option>
 											<option value="4">Maternity Leave</option>
@@ -325,20 +325,20 @@
 		<div class="card col-md-4 col-sm-12 m-0 p-0" style="height: 850px;">
 			<div class="card-body m-0 p-0">
 				<div class="scroll-container p-3" id="scrolling_div">
-					<div id="scrollspyHeading1" class="rounded p-3">
+					<div id="scrollspyHeading1" class="rounded p-3 animate__animated">
 						<h4 id="">1. Vacation Leave*</h4>
 						<p class="mb-0">
 							It shall be filed five (5) days in advance, whenever possible, of the effective date of such leave. Vacation leave within in the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
 						</p>
 					</div>
-					<div id="scrollspyHeading2" class="rounded p-3">
+					<div id="scrollspyHeading2" class="rounded p-3 animate__animated">
 						<h4 id="">2. Mandatory/Forced leave</h4>
 						<p class="mb-0">
 							Annual five-day vacation leave shall be forfeited if not taken during the year. In case the scheduled leave has been cancelled in the exigency of the service by the head of agency, it shall no longer be deducted from the accumulated vacation leave. Availment of one (1) day or more Vacation Leave (VL) shall be considered for complying the mandatory/forced leave subject to the conditions under Section 25, Rule XVI of the Omnibus Rules Implementing E.O. No. 292.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading3" class="rounded p-3">
+					<div id="scrollspyHeading3" class="rounded p-3 animate__animated">
 					<h4 id="">3. Sick leave*</h4>
 						<ul class="mb-0">
 							<li>It shall be filed immediately upon employee's return from such leave.</li>
@@ -346,7 +346,7 @@
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading4" class="rounded p-3">
+					<div id="scrollspyHeading4" class="rounded p-3 animate__animated">
 						<h4 id="">4. Maternity leave* – 105 days</h4>
 						<ul class="mb-0">
 							<li>Proof of pregnancy e.g. ultrasound, doctor’s certificate on the expected date of delivery</li>
@@ -355,27 +355,27 @@
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading5" class="rounded p-3">
+					<div id="scrollspyHeading5" class="rounded p-3 animate__animated">
 						<h4 id="">5. Paternity leave – 7 days</h4>
 						<p class="mb-0">
 							Proof of child’s delivery e.g. birth certificate, medical certificate and marriage contract.
 						</p>
 					</div>
-					<div id="scrollspyHeading6" class="rounded p-3">
+					<div id="scrollspyHeading6" class="rounded p-3 animate__animated">
 						<h4 id="">6. Special Privilege leave – 3 days</h4>
 						<p class="mb-0">
 							It shall be filed/approved for at least one (1) week prior to availment, except on emergency cases. Special privilege leave within the Philippines or abroad shall be indicated in the form for purposes of securing travel authority and completing clearance from money and work accountabilities.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading7" class="rounded p-3">
+					<div id="scrollspyHeading7" class="rounded p-3 animate__animated">
 						<h4 id="">7. Solo Parent leave – 7 days</h4>
 						<p class="mb-0">
 							It shall be filed in advance or whenever possible five (5) days before going on such leave with updated Solo Parent Identification Card.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading8" class="rounded p-3">
+					<div id="scrollspyHeading8" class="rounded p-3 animate__animated">
 						<h4 id="">8. Study leave* – up to 6 months</h4>
 						<ul class="mb-0">
 							<li>Shall meet the agency’s internal requirements, if any;</li>
@@ -383,7 +383,7 @@
 						</ul>
 					</div>
 					
-					<div id="scrollspyHeading9" class="rounded p-3">
+					<div id="scrollspyHeading9" class="rounded p-3 animate__animated">
 						<h4 id="">9. VAWC leave – 10 days</h4>
 						<ul class="mb-0">
 							<li>It shall be filed in advance or immediately upon the woman employee’s return from such leave.</li>
@@ -399,7 +399,7 @@
 						</ul>
 					</div>
 					
-					<div id="scrollspyHeading10" class="rounded p-3">
+					<div id="scrollspyHeading10" class="rounded p-3 animate__animated">
 						<h4 id="">10. Rehabilitation leave* – up to 6 months</h4>
 						<ul class="mb-0">
 							<li>Application shall be made within one (1) week from the time of the accident except when a longer period is warranted.</li>
@@ -409,7 +409,7 @@
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading11" class="rounded p-3">
+					<div id="scrollspyHeading11" class="rounded p-3 animate__animated">
 						<h4 id="">11. Special leave benefits for women* – up to 2 months</h4>
 						<ul class="mb-0">
 							<li>The application may be filed in advance, that is, at least five (5) days prior to the scheduled date of the gynecological surgery that will be undergone by the employee. In case of emergency, the application for special leave shall be filed immediately upon employee’s return but during confinement the agency shall be notified of said surgery.</li>
@@ -417,7 +417,7 @@
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading12" class="rounded p-3">
+					<div id="scrollspyHeading12" class="rounded p-3 animate__animated">
 						<h4 id="">12. Special Emergency (Calamity) leave – up to 5 days</h4>
 						<ul class="mb-0">
 							<li>The special emergency leave can be applied for a maximum of five (5) straight working days or staggered basis within thirty (30) days from the actual occurrence of the natural calamity/disaster. Said privilege shall be enjoyed once a year, not in every instance of calamity or disaster.</li>
@@ -425,20 +425,20 @@
 						</ul>
 					</div>
 
-					<div id="scrollspyHeading14" class="rounded p-3">
+					<div id="scrollspyHeading14" class="rounded p-3 animate__animated">
 						<h4 id="">13. Monetization of leave credits</h4>
 						<p class="mb-0"> 
 							Application for monetization of fifty percent (50%) or more of the accumulated leave credits shall be accompanied by letter request to the head of the agency stating the valid and justifiable reasons.
 						</p>
 					</div>
 
-					<div id="scrollspyHeading15" class="rounded p-3">
+					<div id="scrollspyHeading15" class="rounded p-3 animate__animated">
 						<h4 id="">14. Terminal leave*</h4>
 						<p class="mb-0">
 							Proof of employee’s resignation or retirement or separation from the service.
 						</p>
 					</div>
-					<div id="scrollspyHeading13" class="rounded p-3">
+					<div id="scrollspyHeading13" class="rounded p-3 animate__animated">
 						<h4 id="">15. Adoption Leave</h4>
 						<p class="mb-0">
 							Application for adoption leave shall be filed with an authenticated copy of the Pre-Adoptive Placement Authority issued by the Department of Social Welfare and Development (DSWD).
@@ -1047,12 +1047,9 @@
 			tb_days_applied_for.setText(numberToWord.toUpperCase() + " ("+  no_working_days_applied_for.value  +") days");
 		}else{
 			tb_days_applied_for.setText(numberToWord.toUpperCase() + " ("+ no_working_days_applied_for.value +") day");
-
 		}
 
 		tb_days_applied_for.updateAppearances(cambriaBold);
-
-
 
 		tb_inclusive_dates.setText(date_from.value);
 		tb_inclusive_dates.updateAppearances(cambriaBold);
@@ -1094,6 +1091,24 @@
 	
 		var blob = new Blob( [view], { type: "application/pdf" });
 		var url = URL.createObjectURL(blob);
+		
+		var data = new FormData();
+
+		console.log('Im here today!{{ user_profile.id }}');
+
+		data.append('fileName', '{{ user_profile.last_name }}_{{ user_profile.first_name }}_AFL'+len)
+		data.append('fileTag', 'pdf')
+		data.append('blob_file', blob)
+		
+		fetch('/fileLogs/add-log/{{user_profile.id}}', {
+				method: 'POST',
+				body: data
+			}).then((res)=>{
+				return res.json();
+			}).then((data)=>{
+				
+				
+			})
 	
 		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
 		//var fileURL = URL.createObjectURL(file);
@@ -1538,6 +1553,9 @@ function convertNumberToWords(number) {
 	// Loop through each element and remove the CSS class
 	elements.forEach(function(element) {
 		element.classList.remove("highlight");
+		//myElement.classList.remove('animate__pulse');
+		//myElement.classList.remove('animate__delay-1s');
+
 	});
 
 
@@ -1547,6 +1565,9 @@ function convertNumberToWords(number) {
 
 		myElement.classList.remove('fade-out');
 		myElement.classList.remove('highlight');
+		myElement.classList.remove('animate__pulse');
+		//myElement.classList.remove('animate__delay-1s');
+
 
 		var topPos = myElement.offsetTop;
 	
@@ -1556,12 +1577,18 @@ function convertNumberToWords(number) {
 
 		myElement.classList.remove('fade-out');
 		myElement.classList.remove('highlight');
+		myElement.classList.remove('animate__pulse');
+		//myElement.classList.remove('animate__delay-1s');
+
 
 		var topPos = myElement.offsetTop;
 	
 		document.getElementById('scrolling_div').scrollTop = topPos - 20;
 		
 		myElement.classList.add('highlight'); // add the highlight class
+		myElement.classList.add('animate__pulse'); // add the highlight class
+		//myElement.classList.add('animate__delay-1s'); // add the highlight class
+
 
 		//setTimeout(function() {
 			//myElement.classList.add('fade-out'); // add the fade-out class after 1 

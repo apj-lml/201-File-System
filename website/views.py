@@ -18,7 +18,7 @@ from . import db, generateWes
 from .models import (College, Family_Background, Masteral, Other_Information,
                      Uploaded_File, User, Vocational_Course, Work_Experience,
                      WorkExperienceSchema, Doctoral, Vocational_Course, Voluntary_Work,
-                     Learning_Development, Shirt, Career_Service, Emergency_Contact, UserSchema)
+                     Learning_Development, Shirt, Career_Service, Emergency_Contact, File_Logs, UserSchema)
 from bs4 import BeautifulSoup 
 import requests
 
@@ -471,6 +471,23 @@ def saln(emp_id):
             db.session.commit()
 
             return render_template('saln.html', emp_id = emp_id, user_profile = UserSchema().dump(user))
+            # return render_template('saln.html', emp_id = emp_id, user_profile = user)
+
+
+@views.route('/file-log/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def file_logs(emp_id):
+    if request.method == 'GET':
+        if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+            return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+        else:
+            user = db.session.query(User).get(emp_id)
+            files = File_Logs.query.filter_by(user_id=emp_id).all()
+
+            db.session.commit()
+
+            return render_template('file_logs.html', emp_id = emp_id, user_profile = UserSchema().dump(user), files = files)
             # return render_template('saln.html', emp_id = emp_id, user_profile = user)
 
 

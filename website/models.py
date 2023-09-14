@@ -281,6 +281,15 @@ class User(db.Model, UserMixin):
 
     # emergency_contact = db.relationship('Emergency_Contact')
 
+class File_Logs(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    file_name = db.Column(db.String(150))
+    file_path = db.Column(db.String(150))
+    file_tag = db.Column(db.String(150))
+    blob_file = db.Column(db.LargeBinary(length=1000000))
+    timestamp = db.Column(db.DateTime(timezone=True), default=func.now())
+    user = db.relationship('User', backref='user_file_logs', lazy=True)
 
 
 class Real_Property(db.Model, SerializerMixin):
