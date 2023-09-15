@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} NIA {% endblock %}
+{% block title %} NIA PIMO {% endblock %}
 
 {% block cssperfile %} 
     <style rel="stylesheet">
@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-calendar-event m-auto text-blue"></i></a></div>
+                                    <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-cake text-blue"></i></a></div>
                                     <h4>Birthdays</h4>
                                     <p class="lead mb-0">See whose birthday today and greet them!</p>
                                 </div>
@@ -82,6 +82,76 @@
                     </div>
                 </section>
             </div> 
+
+            <div class="col-sm-12">
+                <section class="features-icons bg-light text-center pt-5 mt-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h1>TITLE HERE</h1>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto"><i class="bi bi-heart-fill m-auto text-blue"></i></a></div>
+                                    <h4>{{ blog_title[0] | safe }}</h4>
+                                    <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#contactInformation" class="mx-auto"><i class="bi bi-telephone-fill m-auto text-blue"></i></a></div>
+                                    <h4>Mision</h4>
+                                    <p class="lead mb-0">Search for important Contact Information</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-bullseye text-blue"></i></a></div>
+                                    <h4>Vision</h4>
+                                    <p class="lead mb-0">See whose birthday today and greet them!</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#forms" class="mx-auto"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-blue"></i></a></div>
+                                    <h4>7 Point Agenda</h4>
+                                    <p class="lead mb-0">You can download forms here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div> 
+
+            <section class="showcase">
+                <div class="container-fluid p-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6 order-lg-2 text-white showcase-img text-center">
+                            <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
+                            <!-- <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}" width="450px;" height="450px;"/> -->
+                        </div>
+                        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                            <h2>{{ blog_title[0] | safe }}</h2>
+                            <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it's a phone, tablet, or desktop the page will behave responsively!</p>
+
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-lg-6 text-white showcase-img" style="background-image: url('https://www.crfv-cpu.org{{ blog_image['src'] }}')"></div>
+                        <div class="col-lg-6 my-auto showcase-text">
+                            <h2>Updated For Bootstrap 5</h2>
+                            <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 5 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 5!</p>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div>
+                        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                            <h2>Easy to Use & Customize</h2>
+                            <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             
             <section class="showcase col-sm-12 w-100">
@@ -289,7 +359,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="150px" height="150px" class="d-inline-block align-text-center mb-2">
-                        <h2 class="mb-4 trajan">PANGASINAN <br> IRRIGATION MANAGEMENT OFFICE</h2>
+                        <h2 class="mb-4 trajan text-white">PANGASINAN <br> IRRIGATION MANAGEMENT OFFICE</h2>
                         <!-- <p>"<i id="quote"></i>"</p>
                         <p class="text-end fs-6">-<b id="qauthor"></b></p> -->
                     </div>

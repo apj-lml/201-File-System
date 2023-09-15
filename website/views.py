@@ -75,10 +75,12 @@ def dashboard():
 
 
     
-    blog_title = soup.find_all("h2", {"class": "blog-title"})
+    blog_title = soup.find_all("a", {"class": "blog-title-link"})
     blog_content = soup.find_all("div", {"class": "blog-content"})
+
     for content in blog_content:
         print("==================>>>>>>>>>>", content.find('img')['src'])
+        print("==================>>>>>>>>>>", content.find('a'))
         blog_image = content.find('img')
 
     return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs, blog_title = blog_title, blog_image = blog_image)

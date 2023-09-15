@@ -53,6 +53,7 @@
                                 <div class="card shadow-sm" >
                                   <div class="card-body">
                                   <h3 class="card-title">List of Expiring Licenses/IDs (in 6 months)</h3>
+                                  {% if files %}
                                   <div class="table-responsive">
                                     <table class="table table-bordered table-striped text-center nowrap" id="pimoTelephoneDirectory" width = "100%">
                                       <thead class="">
@@ -65,7 +66,6 @@
                                       </thead>
                                       <tbody>
                               
-                                        {% if files %}
                                           {% for file in files %}
                                           <tr>
                                             <td class="text-start">{{ file.file_name }}</td>
@@ -74,13 +74,14 @@
                                             <td class="text-start">{{ file.timestamp }}</td>
                                           </tr>
                                           {% endfor %}
-                                        {% else %}
-                                          <h3 class="text-muted fst-italic">No records found..</h3>
-                                        {% endif %}
+                       
                                
                                       </tbody>
                                     </table>
                                   </div>
+                                {% else %}
+                                  <h3 class="text-muted fst-italic">No records found..</h3>
+                                {% endif %}
                                     </div>
                                   </div>
                               </div>
