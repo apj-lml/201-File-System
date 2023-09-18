@@ -79,11 +79,11 @@ def dashboard():
     blog_content = soup.find_all("div", {"class": "blog-content"})
 
     for content in blog_content:
-        print("==================>>>>>>>>>>", content.find('img')['src'])
-        print("==================>>>>>>>>>>", content.find('a'))
+        print("==================>>>>>>>>>>", content.find('div', {"class":"paragraph"}))
+        blog_paragraph = content.find('div', {"class":"paragraph"})
         blog_image = content.find('img')
 
-    return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs, blog_title = blog_title, blog_image = blog_image)
+    return render_template('dashboard.html', dforms = rows_dic, bday_celebs = get_bday_celebs, blog_title = blog_title, blog_image = blog_image, blog_paragraph = blog_paragraph)
 
 @views.route('/birthday-celebrators/<mydate>', methods=['GET', 'POST'])
 def birthday_celebrators(mydate):
