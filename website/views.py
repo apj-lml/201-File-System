@@ -79,7 +79,6 @@ def dashboard():
     blog_content = soup.find_all("div", {"class": "blog-content"})
 
     for content in blog_content:
-        print("==================>>>>>>>>>>", content.find('div', {"class":"paragraph"}))
         blog_paragraph = content.find('div', {"class":"paragraph"})
         blog_image = content.find('img')
 

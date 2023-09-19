@@ -14,6 +14,21 @@
             color: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
             /* width: auto; */
         }
+
+        .paragraph {
+            overflow: hidden;
+            max-height: 300px;
+            transition: max-height 0.3s ease-out;
+        }
+
+        #read-more-btn,
+        #read-less-btn {
+            display: none;
+            cursor: pointer;
+            color: rgb(51,10,113);
+            color: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+            /* width: auto; */
+        }
         
     </style>
 {% endblock %}
@@ -52,7 +67,7 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto"><i class="bi bi-heart-fill m-auto text-blue"></i></a></div>
+                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto" id="valueFocusBtn"><i class="bi bi-heart-fill m-auto text-blue"></i></a></div>
                                     <h4>Value Focus</h4>
                                     <p class="lead mb-0">Weekly value focus - anytime, anywhere.</p>
                                 </div>
@@ -78,89 +93,97 @@
                                     <p class="lead mb-0">See whose birthday today and greet them!</p>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-2">
-                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#forms" class="mx-auto"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-blue"></i></a></div>
-                                    <h4>Forms</h4>
-                                    <p class="lead mb-0">You can download forms here.</p>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </section>
             </div> 
 
-            <!-- <div class="col-sm-12">
-                <section class="features-icons bg-light text-center pt-5 mt-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1>TITLE HERE</h1>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto"><i class="bi bi-heart-fill m-auto text-blue"></i></a></div>
-                                    <h4>{{ blog_title[0] | safe }}</h4>
-                                    <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#contactInformation" class="mx-auto"><i class="bi bi-telephone-fill m-auto text-blue"></i></a></div>
-                                    <h4>Mision</h4>
-                                    <p class="lead mb-0">Search for important Contact Information</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-bullseye text-blue"></i></a></div>
-                                    <h4>Vision</h4>
-                                    <p class="lead mb-0">See whose birthday today and greet them!</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#forms" class="mx-auto"><i class="bi bi-file-earmark-arrow-down-fill m-auto text-blue"></i></a></div>
-                                    <h4>7 Point Agenda</h4>
-                                    <p class="lead mb-0">You can download forms here.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>  -->
 
             <section class="showcase">
                 <div class="container-fluid p-0">
-                    <div class="row g-0">
+                    <div class="row g-0"  id="valueFocus">
                         <div class="col-lg-6 order-lg-2 text-white showcase-img text-center">
                             <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}"/>
                             <!-- <img class="img-fluid" src="https://www.crfv-cpu.org{{ blog_image['src'] }}" width="450px;" height="450px;"/> -->
                         </div>
                         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                             <h2>{{ blog_title[0] | safe }}</h2>
-                            <p class="lead mb-0">{{ blog_paragraph | safe}}</p>
+                            {{ blog_paragraph | safe}}
+                            <div class="lead mb-0" id="blog-content"></div>
+                            <span id="dots">
+                                <p id="read-more-btn" onclick="toggleReadMore()">...Read More</p>
+                                <p id="read-less-btn" onclick="toggleReadMore()">Read Less...</p>
+                            </span>
 
                         </div>
+
                     </div>
-                    <div class="row g-0">
-                        <!-- <div class="col-lg-6 text-white showcase-img" style="background-image: url('{{ url_for('static', filename='img/mission.png') }}')"> -->
+                    <div class="row g-0" id="mission">
                             <div class="col-lg-6 text-white showcase-img">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/mission.jpg') }}"/>
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/mission.jpg') }}" loading="lazy" alt="mission" />
                         </div>
                         <div class="col-lg-6 my-auto showcase-text">
                             <h2>Mission</h2>
                             <p class="lead mb-0">To plan, construct, operate and maintain irrigation systems consistent with integrated water resource management principles to improve agricultural productivity and increase farmers' income.</p>
                         </div>
                     </div>
-                    <div class="row g-0">
+                    <div class="row g-0" id="vision">
                         <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div> -->
                         <div class="col-lg-6 order-lg-2 text-white showcase-img">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/vision.png') }}"/>
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/vision.png') }}" loading="lazy" alt="vision"/>
                         </div>
                         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
                             <h2>Vision</h2>
                             <p class="lead mb-0">By 2022, NIA is a professional and efficient irrigation agency contributing to the inclusive growth of the country and in the improvement of the farmers' quality of life.</p>
+                        </div>
+                    </div>
+                    <div class="row g-0" id="birthdays" >
+                        <!-- <div class="col-lg-6 text-white showcase-img" style="background-image: url('{{ url_for('static', filename='img/mission.png') }}')"> -->
+                            <div class="col-lg-6 text-white showcase-img">
+                            <!-- <img class="img-fluid" src="{{ url_for('static', filename='img/mission.jpg') }}"/> -->
+                              <div id="carouselExampleControls" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" >
+                                <div class="carousel-inner">
+                                    {% for celebs in bday_celebs %}
+                                    <div class="carousel-item {{ 'active' if loop.index == 1 }}">
+                                      <img src="{{ url_for('static', filename='img/birthday/' + loop.index|string + '.png') }}" class="d-block w-100" loading="lazy" alt="birthdays">
+                                    </div>
+                                  {% endfor %}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Next</span>
+                                </button>
+                              </div>
+                        </div>
+                        <div class="col-lg-6 showcase-text">
+                            <h2>Birtday Celebrators</h2>
+                            <h4>
+                                Month of 
+                                 <select name="" id="birthday-select" value="{{ today_date.strftime('%m') }}" class="birthday-select">
+                                     <option value="{{ today_date.strftime('%m') }}" selected hidden>{{ today_date.strftime('%B') }}</option>
+                                     <option value="01">January</option>
+                                     <option value="02">February</option>
+                                     <option value="03">March</option>
+                                     <option value="04">April</option>
+                                     <option value="05">May</option>
+                                     <option value="06">June</option>
+                                     <option value="07">July</option>
+                                     <option value="08">August</option>
+                                     <option value="09">September</option>
+                                     <option value="10">October</option>
+                                     <option value="11">November</option>
+                                     <option value="12">December</option>
+                                 </select>
+                            </h4>
+                             <ul id="listOfBirthdayCelebrators">
+                                 {% for celebs in bday_celebs %}
+                                     <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.last_name}}, {{celebs.first_name}} {{ "" if celebs.name_extn is none or celebs.name_extn == "" or celebs.name_extn == "N/A" else celebs.name_extn }} {{ celebs.middle_name if celebs.middle_name is none or celebs.middle_name == "" or celebs.middle_name == "N/A" else celebs.middle_name }}</li>
+                                 {% endfor %}
+                             </ul>
                         </div>
                     </div>
                 </div>
@@ -312,66 +335,19 @@
                     </div>
     
                     </div>
-            </section> -->
+            </section> 
 
-            <section class="showcase col-sm-12 w-100" id="birthdays">
-                <div class="container-fluid p-0">
-                    <div class="row g-0">
-                        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/img/bg-showcase-3.jpg')"></div> -->
-                        <div class="col-lg-6 order-lg-1 showcase-text">
-                            <h2><i class="bi bi-calendar-event m-auto"></i> Birthday Celebrators</h2>
-                            <h4>
-                               Month of 
-                                <select name="" id="birthday-select" value="{{ today_date.strftime('%m') }}" class="birthday-select">
-                                    <option value="{{ today_date.strftime('%m') }}" selected hidden>{{ today_date.strftime('%B') }}</option>
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
-                                </select>
-                           </h4>
-                            <ul id="listOfBirthdayCelebrators">
-                                {% for celebs in bday_celebs %}
-                                    <li>{{celebs.birthdate.strftime('%d')}} &#8212; {{celebs.last_name}}, {{celebs.first_name}} {{ "" if celebs.name_extn is none or celebs.name_extn == "" or celebs.name_extn == "N/A" else celebs.name_extn }} {{ celebs.middle_name if celebs.middle_name is none or celebs.middle_name == "" or celebs.middle_name == "N/A" else celebs.middle_name }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <div class="col-lg-6 col-sm-12 order-lg-1 showcase-text" id="forms">
-                            <h2><i class="bi bi-file-earmark-arrow-down-fill m-auto"></i> Download Forms</h2>
-                            <p class="lead mb-0 rounded-0">
-                                <input class="form-control border rounded-0" id="searchFormsInput" type="text" placeholder="Search..">
-                                
-                            </p>
-                            <ul class="list-group" id="searchFormsList">
-                                
-                                {% for file in dforms %}
-                                <li class="list-group-item list-group-item-action border rounded-0 text-truncate"><a class="text-truncate" style="font-size: 12px;" href="{{file.file_path}}\{{file.file_name}}" download aria-current="true"><i class="bi bi-file-earmark-arrow-down-fill"></i> {{file.file_name}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-    
-                    </div>
-            </section>
+>-->
 
 
-                    <!-- Call to Action-->
-        <section class="call-to-action text-white text-center col-sm-12 vw-100">
+        <!-- Call to Action-->
+        <section class="call-to-action text-white text-center col-sm-12">
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="150px" height="150px" class="d-inline-block align-text-center mb-2">
                         <h2 class="mb-4 trajan text-white">PANGASINAN <br> IRRIGATION MANAGEMENT OFFICE</h2>
-                        <!-- <p>"<i id="quote"></i>"</p>
-                        <p class="text-end fs-6">-<b id="qauthor"></b></p> -->
+                        
                     </div>
                 </div>
             </div>
@@ -422,6 +398,43 @@
                         // document.getElementById("update_contact_no").value = data[0].contact_no;
                     });
             });
+
+
+            function countWords(text) {
+                return text.split(/\s+/).filter(Boolean).length;
+            }
+
+            function toggleReadMore() {
+                //var content = document.getElementById('blog-content');
+                var content = document.getElementsByClassName("paragraph");
+                var readMoreBtn = document.getElementById('read-more-btn');
+                var readLessBtn = document.getElementById('read-less-btn');
+                var valueFocus = document.getElementById('valueFocusBtn');
+
+             if(content[0].style.maxHeight == '100%'){
+                    content[0].style.maxHeight = '300px';
+                    readMoreBtn.style.display = 'block';
+                    readLessBtn.style.display = 'none';
+                    valueFocus.click();
+
+                
+                } else {
+                    content[0].style.maxHeight = '100%';
+                    readMoreBtn.style.display = 'none';
+                    readLessBtn.style.display = 'block';
+                }
+            }
+
+        // Check if content has more than 100 words
+        // var content = document.getElementById('content');
+        var content = document.getElementsByClassName("paragraph");
+
+        var readMoreBtn = document.getElementById('read-more-btn');
+        if (countWords(content[0].textContent) > 40) {
+            content[0].style.maxHeight = '300px';
+            readMoreBtn.style.display = 'block';
+        }
+
 
             window.addEventListener('load', (event) => {
 
