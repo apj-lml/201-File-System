@@ -35,7 +35,7 @@ def download_blob(id):
     content_type_word = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
     response.headers['Content-Type'] = 'application/octet-stream'
-    response.headers['Content-Disposition'] = f'attachment; filename={my_model.file_name}.{my_model.file_tag}'  # Set the filename
+    response.headers['Content-Disposition'] = f'attachment; filename={my_model.file_name}.{my_model.file_type}'  # Set the filename
 
     return response
 
@@ -49,7 +49,7 @@ def add_log(emp_id):
 #                              UPLOADING OF FILE                               #
 # ---------------------------------------------------------------------------- #
     formdata = request.form.to_dict()
-    
+
     try:
         # Get the BLOB data from the request
         blob_data = request.files['blob_file'].read()
