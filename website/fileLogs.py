@@ -49,15 +49,13 @@ def add_log(emp_id):
 #                              UPLOADING OF FILE                               #
 # ---------------------------------------------------------------------------- #
     formdata = request.form.to_dict()
-    print(formdata['fileTag'])
-    # blob_file = request.files
     
     try:
         # Get the BLOB data from the request
         blob_data = request.files['blob_file'].read()
 
         # Create a new FileLog object and set the BLOB data
-        new_file_log = File_Logs(user_id=emp_id, file_name=formdata['fileName'], file_tag=formdata['fileTag'], blob_file=blob_data, file_path='N/A')
+        new_file_log = File_Logs(user_id=emp_id, file_name=formdata['fileName'], file_tag='AFL', file_type=formdata['fileTag'], blob_file=blob_data, file_path='N/A')
 
         # Add and commit the new FileLog object to the database
         db.session.add(new_file_log)

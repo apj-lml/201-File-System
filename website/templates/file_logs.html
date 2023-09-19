@@ -60,22 +60,21 @@
                                       <tr class="align-middle">
                                         <th>File Name</th>
                                         <th>File Tag</th>
+                                        <th>File Type</th>
                                         <th>File</th>
                                         <th>Timestamp</th>
                                       </tr>
                                       </thead>
                                       <tbody>
-                              
                                           {% for file in files %}
                                           <tr>
                                             <td class="text-start">{{ file.file_name }}</td>
                                             <td class="text-start">{{ file.file_tag }}</td>
+                                            <td class="text-start">{{ file.file_type }}</td>
                                             <td class="text-start"><a href="{{ url_for('FileLogs.download_blob', id=file.id) }}">Download</a></td>
-                                            <td class="text-start">{{ file.timestamp }}</td>
+                                            <td class="text-start">{{ file.timestamp.strftime('%B %d, %Y - %I:%M %p') }}</td>
                                           </tr>
                                           {% endfor %}
-                       
-                               
                                       </tbody>
                                     </table>
                                   </div>

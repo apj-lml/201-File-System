@@ -287,6 +287,7 @@ class File_Logs(db.Model, SerializerMixin):
     file_name = db.Column(db.String(150))
     file_path = db.Column(db.String(150))
     file_tag = db.Column(db.String(150))
+    file_type = db.Column(db.String(150))
     blob_file = db.Column(db.LargeBinary(length=1000000))
     timestamp = db.Column(db.DateTime(timezone=True), default=func.now())
     user = db.relationship('User', backref='user_file_logs', lazy=True)
@@ -374,6 +375,7 @@ class Afl(db.Model, SerializerMixin):
     approval = db.Column(db.Integer)
     disapproval_remarks = db.Column(db.String(150))
     commutation = db.Column(db.Integer)
+    blob_file = db.Column(db.LargeBinary(length=1000000))
 
 class Agency_Section(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)

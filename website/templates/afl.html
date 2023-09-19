@@ -95,11 +95,6 @@
 					<div class="card-header">
 						<h3 class="card-title text-white fw-bolder"><i class="bi bi-calendar-week"></i> APPLICATION FOR LEAVE</h3>
 					</div>
-					<!-- <div class="card-body">
-					  <ul>
-						<li><p class="card-text">Please fill out all necessary fields.</p></li>
-					  </ul>
-					</div> -->
 				</div>
 			
 				<div class="d-flex flex-column">
@@ -143,18 +138,7 @@
 										<label for="leave_id">Type of Leave <span class="is-required">*</span></label>
 									</div>
 								</div>
-
-								<!-- <div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="dateRangeSelection" onchange="changeCalendarMode()">
-									<label class="form-check-label" for="dateRangeSelection">Date Range Selection</label>
-								  </div> -->
-
 								<div class="d-md-flex flex-row">
-									<!-- <div class="input-group mb-3">
-										<span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-week"></i></span>
-										<input type="text" class="form-control" placeholder="Inclusive Date/s" aria-label="Inclusive Date/s" aria-describedby="basic-addon1" name ="date_from" id="date_from" required >
-									  </div> -->
-
 									  <div class="col-sm-12 mb-3 has-validation">
 										<label for="date_from" class="form-label">Inclusive Date/s<span class="is-required">*</span></label>
 										<input type="date" class="form-control" id="date_from" name ="date_from" placeholder="Select date..." form="add_afl_form" required>
@@ -162,18 +146,7 @@
 											Please provide inclusive date/s.
 										  </div>
 									</div>
-
-									<!-- <div class="form-floating flex-fill mb-3 p-1">
-										<input type="text" class="form-control" name ="date_from" id="date_from" placeholder="Inclusive Date/s" form="add_afl_form" max="5000-12-31" required>
-										<label for="date_from">Inclusive Date/s<span class="is-required">*</span></label>
-									</div> -->
 								</div>
-								<!-- <div class="d-md-flex flex-row">
-									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Inclusive Date of Attendance To" form="add_afl_form" max="5000-12-31" onchange="getBusinessDays(document.getElementById('date_from').value, this.value)" required>
-										<label for="date_to">Inclusive Date To<span class="is-required">*</span></label>
-									</div>
-								</div> -->
 								<div class="d-md-flex flex-column mb-0">
 									<div class="form-floating flex-fill col-sm-12 pb-0 p-1 has-validation">
 										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1" max="999">
@@ -184,15 +157,43 @@
 									</div>
 									
 								</div>
-							<div class="col-sm-12 text-center mt-5 mb-5 flex-fill">
+							<div class="col-sm-12 text-center mt-2 mb-5 flex-fill">
 								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" onclick="" disabled>
 									<span id="mySpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   									Loading...
 								</button>
-							</div> 
 							</div>
-						</div>
 
+<!-- 
+							<div class="card shadow-sm mb-3 col-sm-12 col-md-12">
+									<div class="card-body">
+										<div class="ms-auto">
+											<h4 class="fs-5">As of {{ today_date.strftime('%Y-%m-%d')|format_mydatetime_2 }}</h4>
+										</div>
+										<div class="table-responsive">
+											<table class="table table-bordered table-striped text-center nowrap" id="emailListTable" width = "100%">
+											  <thead class="">
+											  <tr class="align-middle">
+												<th>Leave Type</th>
+												<th>File</th>
+											  </tr>
+											  </thead>
+											  <tbody>
+												{% for file in files %}
+												<tr>
+												  <td class="text-start">{{ file.file_name }}</td>
+												  <td class="text-start"><a href="{{ url_for('FileLogs.download_blob', id=file.id) }}">Download</a></td>
+												</tr>
+												{% endfor %}
+											  </tbody>
+											</table>
+										  </div>
+									</div>
+								</div> -->
+
+							</div>
+
+						</div>
 						<div class="card shadow-sm mb-3 col-sm-12 col-md-6">
 							<div class="card-body">
 								<div class="d-md-flex flex-row">

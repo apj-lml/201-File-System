@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+
+{% block title %} Downloadable Forms {% endblock %}
+
+{%block cssperfile %}
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+
+<!-- <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet"> -->
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<ul class="circles">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<main class="container mt-3">
+	<div class="row mb-3 ms-auto">
+      <!-- <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul> -->
+      <!-- ----------------------------------------------------------------------- -->
+      <!--                                  FORMS                                  -->
+      <!-- ----------------------------------------------------------------------- -->
+
+      <div class="card mb-3">
+          <div class="card-body">
+            <div class="card text-white bg-blue shadow-sm mb-3" >
+              <div class="card-header">
+                <h3 class="card-title text-white fw-bolder"><i class="fas fa-book"></i> DIRECTORIES</h3>
+              </div>
+              <!-- <div class="card-body">
+                <ul>
+                  <li><p class="card-text">You can click on the link to download the forms.</p></li>
+                </ul>
+              </div> -->
+            </div>
+            
+            <div class="card shadow-sm col-md-12 mb-3" >
+              <!-- <div class="card-header">
+                <h3 class="card-title"><i class="bi bi-stickies-fill"></i> Click on the link to Download the Form</h3>
+              </div> -->
+                <div class="card-body">
+                  <div class="row g-3">
+                      <div class="col-lg-6 col-sm-12 showcase-text">
+                          <h2> Telephone Directory</h2>
+                              <div class="table-responsive">
+                                  <table class="table table-bordered table-striped text-center nowrap" id="pimoTelephoneDirectory" width = "100%">
+                                    <thead class="">
+                                    <tr class="align-middle">
+                                      <th>Name</th>
+                                      <th>Emergency No.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Office of the Irrigation Manager</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-2775">(075) 632-2775</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Administrative Unit</td>
+                                          <td class="text-start"><a href="tel:+(075) 505-1550">(075) 505-1550</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Finance Unit</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-5149">(075) 632-5149</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Property Unit</td>
+                                          <td class="text-start"><a href="tel:+(075) 615-2106">(075) 615-2106</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Institutional Development Unit</td>
+                                          <td class="text-start"><a href="tel:+(075) 540-1391">(075) 540-1391</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Agno-Sinocalan RIS (ASRIS)</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-1801">(075) 632-1801</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Ambayoan-Dipalo RIS (ADRIS)</td>
+                                          <td class="text-start"><a href="tel:+(075) 633-3341">(075) 633-3341</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] Lower Agno RIS (LARIS)</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-7702">(075) 632-7702</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[PIMO] San Fabian-Dumuloc RIS (SFDRIS)</td>
+                                          <td class="text-start"><a href="tel:+(075) 511-4300">(075) 511-4300</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Regional Irrigation Manager</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-2776">(075) 632-2776</a> | <a href="tel:+(075) 633-7130">(075) 633-7130</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Finance Section</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-2776">(075) 632-2776</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Administrative Section</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-7042">(075) 632-7042</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Institutional Development Section (IDS)</td>
+                                          <td class="text-start"><a href="tel:+(075) 568-7522">(075) 568-7522</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Engineering & Operations Division (EOD)</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-1435">(075) 632-1435</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Equipment Management Section (EMS)</td>
+                                          <td class="text-start"><a href="tel:+(075) 632-2582">(075) 632-2582</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[RO] Commission on Audit (COA)</td>
+                                          <td class="text-start"><a href="tel:+(075) 568-2114">(075) 568-2114</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[LUIMO] La Union IMO</td>
+                                          <td class="text-start"><a href="tel:+(072) 687-0703">(072) 687-0703</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[INIMO] Ilocos Norte IMO</td>
+                                          <td class="text-start"><a href="tel:+(077) 676-1979">(077) 676-1979</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[ISIMO] Ilocos Sur IMO</td>
+                                          <td class="text-start"><a href="tel:+(077) 604-0423">(077) 604-0423</a></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-start">[CO] OFFICE OF THE PUBLIC AFFAIRS AND INFORMATION STAFF (PAIS) </td>
+                                          <td class="text-start"><a href="tel:+(077) 604-0423">(077) 604-0423</a></td>
+                                      </tr> 
+                                    </tbody>
+                                  </table>
+                                </div>
+                      </div>
+                      <div class="col-lg-6 col-sm-12 showcase-text">
+                          <h2> Emergency Hotlines</h2>
+                              <div class="table-responsive">
+                                  <table class="table table-bordered table-striped text-center nowrap" id="emergencyHotlineTable" width = "100%">
+                                    <thead class="">
+                                    <tr class="align-middle">
+                                      <th>Name</th>
+                                      <th>Contact No.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                          <td class="text-start">PNP URDANETA CITY</td>
+                                          <td class="text-start"> GLOBE: <a href="tel:+0916-226-3641">0916-226-3641</a> <br>
+                                              SMART: <a href="tel:+0998-598-5134">0998-598-5134</a>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="text-start">BFP URDANETA CITY</td>
+                                          <td class="text-start">GLOBE: <a href="tel:+0917-184-4611">0917-184-4611</a></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="text-start">URDANETA CITY HEALTH OFFICE</td>
+                                          <td class="text-start">SMART: <a href="tel:+0933-869-4961">0933-869-4961</a></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="text-start">EMERGENCY MEDICAL SERVICES</td>
+                                          <td class="text-start">GLOBE: <a href="tel:+0917-818-5374">0917-818-5374</a></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="text-start">SACRED HEART HOSPITAL</td>
+                                          <td class="text-start">TELEPHONE: <a href="tel:+(075) 568 2294">(075) 568 2294</a> | <a href="tel:+(075) 656 2296">(075) 656 2296</a></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="text-start">URDANETA EMERGENCY DISTRICT HOSPITAL</td>
+                                          <td class="text-start">GLOBE: <a href="tel:+0927-637-1446">0927-637-1446</a> | <a href="tel:+0917-702-9318">0917-702-9318</a> <br>
+                                              SMART: <a href="tel:+0933-874-2503">0933-874-2503</a> | <a href="tel:+0933-874-2503">0917-677-6007</a>
+                                          </td>
+                                        </tr>                           
+                                    </tbody>
+                                  </table>
+                                </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <h2>Email List</h2>
+                              <div class="table-responsive">
+                                  <table class="table table-bordered table-striped text-center nowrap" id="emailListTable" width = "100%">
+                                    <thead class="">
+                                    <tr class="align-middle">
+                                      <th>Name</th>
+                                      <th>Contact No.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Dumoloc SRIP</td>
+                                        <td class="text-start"><a href="mailto: pimo.srip02@gmail.com">pimo.srip02@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Equipment Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.equipment@gmail.com">pimo.equipment@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[ADRIS] Ambayoan-Dipalo RIS</td>
+                                        <td class="text-start"><a href="mailto: pimo.adris@gmail.com">pimo.adris@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Planning Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.planning@gmail.com">pimo.planning@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Construction Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.constructionunit@gmail.com">pimo.constructionunit@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Finance Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.finance@gmail.com">pimo.finance@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Engineering Section</td>
+                                        <td class="text-start"><a href="mailto: pimo.engineeringsection@gmail.com">pimo.engineeringsection@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[LARIS] Lower-Agno RIS</td>
+                                        <td class="text-start"><a href="mailto: pimo.laris@gmail.com">pimo.laris@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Cashiering Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.cashiering@gmail.com">pimo.cashiering@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Agno-Sinocalan RIS</td>
+                                        <td class="text-start"><a href="mailto: pimo.asris@gmail.com">pimo.asris@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Office of the Irrigation Manager</td>
+                                        <td class="text-start"><a href="mailto: pimo.oimofficial@gmail.com">pimo.oimofficial@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Institutional Development Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.institutional@gmail.com">pimo.institutional@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Property Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.property@gmail.com">pimo.property@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-start">[PIMO] Design Unit</td>
+                                        <td class="text-start"><a href="mailto: pimo.designunit@gmail.com">pimo.designunit@gmail.com</a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+      </div>
+  </div>
+</main>
+
+    <!-- Modal -->
+<div class="modal fade" id="uploadFormModal" tabindex="-1" aria-labelledby="uploadFormModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadFormModalLabel">Upload Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/forms/add-form" method="POST" name="uploadForm_form" id="uploadForm_form" enctype="multipart/form-data" onsubmit="loadingScreen('block')">
+        <!-- 
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="form_name" placeholder="Form Name">
+            <label for="form_name">Form Name</label>
+          </div> -->
+
+          <div class="mb-3">
+            <label for="form_file" class="form-label">You can upload multiple files</label>
+            <input class="form-control" type="file" id="dform" name="dform" multiple required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="uploadForm_form">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+
+  new DataTable('#emergencyHotlineTable');
+  new DataTable('#pimoTelephoneDirectory');
+  new DataTable('#emailListTable');
+
+  function deleteForm(id) {
+    const swalWithBootstrapButtons = Swal.mixin()
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure you?',
+      text: "Are you sure you want to delete this? You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        //loadingScreen("block")
+        fetch('/employees/delete-file',{
+          method: 'POST',
+          body: JSON.stringify({"file_id" : id})
+        })
+        .then(response => response.json())
+        .then((data)=>{
+          console.log(data)
+        })
+
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Form has been deleted.',
+          'success'
+        ).then((result)=>{
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        })
+
+      }else{
+
+
+      }
+      
+    })
+  }
+
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+   
+</script>
+{%endblock%}

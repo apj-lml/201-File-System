@@ -145,7 +145,7 @@
                                 <div class="carousel-inner">
                                     {% for celebs in bday_celebs %}
                                     <div class="carousel-item {{ 'active' if loop.index == 1 }}">
-                                      <img src="{{ url_for('static', filename='img/birthday/' + loop.index|string + '.png') }}" class="d-block w-100" loading="lazy" alt="birthdays">
+                                      <img src="{{ url_for('static', filename='img/birthday/' + loop.index|string + '.png') }}" class="d-block w-100 h-90" alt="birthdays">
                                     </div>
                                   {% endfor %}
                                 </div>
@@ -160,7 +160,7 @@
                               </div>
                         </div>
                         <div class="col-lg-6 showcase-text">
-                            <h2>Birtday Celebrators</h2>
+                            <h2 class="mt-3">Birtday Celebrators</h2>
                             <h4>
                                 Month of 
                                  <select name="" id="birthday-select" value="{{ today_date.strftime('%m') }}" class="birthday-select">
@@ -188,157 +188,6 @@
                     </div>
                 </div>
             </section>
-
-<!--             
-            <section class="showcase col-sm-12 w-100">
-                <div class="container-fluid p-0">
-                    <div class="row g-0">
-
-                        <div class="col-lg-6 col-sm-12 order-lg-1 showcase-text" id="contactInformation">
-                            <h2><i class="bi bi-telephone-fill"></i> PIMO Telephone Directory</h2>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped text-center nowrap" id="pimoTelephoneDirectory" width = "100%">
-                                      <thead class="">
-                                      <tr class="align-middle">
-                                        <th>Name</th>
-                                        <th>Emergency No.</th>
-                                      </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Office of the Irrigation Manager</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-2775">(075) 632-2775</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Administrative Unit</td>
-                                            <td class="text-start"><a href="tel:+(075) 505-1550">(075) 505-1550</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Finance Unit</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-5149">(075) 632-5149</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Property Unit</td>
-                                            <td class="text-start"><a href="tel:+(075) 615-2106">(075) 615-2106</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Institutional Development Unit</td>
-                                            <td class="text-start"><a href="tel:+(075) 540-1391">(075) 540-1391</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Agno-Sinocalan RIS (ASRIS)</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-1801">(075) 632-1801</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Ambayoan-Dipalo RIS (ADRIS)</td>
-                                            <td class="text-start"><a href="tel:+(075) 633-3341">(075) 633-3341</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] Lower Agno RIS (LARIS)</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-7702">(075) 632-7702</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[PIMO] San Fabian-Dumuloc RIS (SFDRIS)</td>
-                                            <td class="text-start"><a href="tel:+(075) 511-4300">(075) 511-4300</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Regional Irrigation Manager</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-2776">(075) 632-2776</a> | <a href="tel:+(075) 633-7130">(075) 633-7130</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Finance Section</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-2776">(075) 632-2776</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Administrative Section</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-7042">(075) 632-7042</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Institutional Development Section (IDS)</td>
-                                            <td class="text-start"><a href="tel:+(075) 568-7522">(075) 568-7522</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Engineering & Operations Division (EOD)</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-1435">(075) 632-1435</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Equipment Management Section (EMS)</td>
-                                            <td class="text-start"><a href="tel:+(075) 632-2582">(075) 632-2582</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[RO] Commission on Audit (COA)</td>
-                                            <td class="text-start"><a href="tel:+(075) 568-2114">(075) 568-2114</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[LUIMO] La Union IMO</td>
-                                            <td class="text-start"><a href="tel:+(072) 687-0703">(072) 687-0703</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[INIMO] Ilocos Norte IMO</td>
-                                            <td class="text-start"><a href="tel:+(077) 676-1979">(077) 676-1979</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[ISIMO] Ilocos Sur IMO</td>
-                                            <td class="text-start"><a href="tel:+(077) 604-0423">(077) 604-0423</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">[CO] OFFICE OF THE PUBLIC AFFAIRS AND INFORMATION STAFF (PAIS) </td>
-                                            <td class="text-start"><a href="tel:+(077) 604-0423">(077) 604-0423</a></td>
-                                        </tr> 
-                                      </tbody>
-                                    </table>
-                                  </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-12 order-lg-1 showcase-text">
-                            <h2><i class="bi bi-telephone-fill"></i> Emergency Hotlines</h2>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped text-center nowrap" id="emergencyHotlineTable" width = "100%">
-                                      <thead class="">
-                                      <tr class="align-middle">
-                                        <th>Name</th>
-                                        <th>Contact No.</th>
-                                      </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                            <td class="text-start">PNP URDANETA CITY</td>
-                                            <td class="text-start"> GLOBE: <a href="tel:+0916-226-3641">0916-226-3641</a> <br>
-                                                 SMART: <a href="tel:+0998-598-5134">0998-598-5134</a>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-start">BFP URDANETA CITY</td>
-                                            <td class="text-start">GLOBE: <a href="tel:+0917-184-4611">0917-184-4611</a></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-start">URDANETA CITY HEALTH OFFICE</td>
-                                            <td class="text-start">SMART: <a href="tel:+0933-869-4961">0933-869-4961</a></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-start">EMERGENCY MEDICAL SERVICES</td>
-                                            <td class="text-start">GLOBE: <a href="tel:+0917-818-5374">0917-818-5374</a></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-start">SACRED HEART HOSPITAL</td>
-                                            <td class="text-start">TELEPHONE: <a href="tel:+(075) 568 2294">(075) 568 2294</a> | <a href="tel:+(075) 656 2296">(075) 656 2296</a></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-start">URDANETA EMERGENCY DISTRICT HOSPITAL</td>
-                                            <td class="text-start">GLOBE: <a href="tel:+0927-637-1446">0927-637-1446</a> | <a href="tel:+0917-702-9318">0917-702-9318</a> <br>
-                                                SMART: <a href="tel:+0933-874-2503">0933-874-2503</a> | <a href="tel:+0933-874-2503">0917-677-6007</a>
-                                            </td>
-                                          </tr>                           
-                                      </tbody>
-                                    </table>
-                                  </div>
-                        </div>
-                    </div>
-    
-                    </div>
-            </section> 
-
->-->
-
 
         <!-- Call to Action-->
         <section class="call-to-action text-white text-center col-sm-12">
@@ -447,8 +296,7 @@
                     });
                   });
 
-            new DataTable('#emergencyHotlineTable');
-            new DataTable('#pimoTelephoneDirectory');
+
 
                 fetch('https://api.quotable.io/random?tags=inspirational',{
                     method: 'GET',

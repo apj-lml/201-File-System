@@ -430,8 +430,9 @@ def afl(emp_id):
             user = db.session.query(User).get(int(emp_id))
             primary_certifier = db.session.query(User).filter_by(is_primary_afl_certifier = 1).all()
             secondary_certifier = db.session.query(User).filter_by(is_secondary_afl_certifier = 1).all()
+            files = File_Logs.query.filter_by(user_id=emp_id).all()
 
-            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier)
+            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier,  files = files)
 
 @views.route('/rol/<emp_id>', methods=['GET', 'POST'])
 @login_required
@@ -484,7 +485,7 @@ def file_logs(emp_id):
             return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
         else:
             user = db.session.query(User).get(emp_id)
-            files = File_Logs.query.filter_by(user_id=emp_id).all()
+            files = File_Logs.query.filter_by(user_id=emp_id, file_tag='AFL').all()
 
             db.session.commit()
 
@@ -505,6 +506,13 @@ def get500page():
 def getClearCache():
     if request.method == 'GET':
         return render_template('clear-cache.html')
+
+@views.route('/directories', methods=['GET'])
+# @login_required
+# @admin_permission.require(http_exception=403)
+def directories():
+    if request.method == 'GET':
+        return render_template('directories.html')
 
 @views.context_processor
 def inject_today_date():

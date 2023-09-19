@@ -263,6 +263,9 @@ body{
             </ul>
           </li>
           <li>
+            <a href="/directories"><i class="fas fa-book"></i> Directories</a>
+          </li>
+          <li>
             <a href="#otherSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-box-seam"></i> Others</a>
             <ul class="collapse list-unstyled" id="otherSubmenu">
               <li>
@@ -281,9 +284,6 @@ body{
                 <a href="/other-questions/{{current_user.id}}"><i class="fas fa-question"></i> Other Questions</a>
               </li>
             </ul>
-          </li>
-          <li>
-            <a href="/rol/{{current_user.id}}"><i class="fas fa-book"></i> Directories</a>
           </li>
           {% if current_user.type_of_user == 'admin' %}
           <li>
