@@ -105,14 +105,14 @@
 								{% if current_user.type_of_user != 'user' %}
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
+										<input type="date" class="form-control" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}" onchange="validateDateFiling(this)">
 										<label for="date_of_filing">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								</div>
 								{% else %}
 									<input type="date" class="form-control d-none" name ="date_of_filing" id="date_of_filing" form="add_afl_form" max="9999-12-31" value="{{ today_date_formatted }}">
 									<div class="form-floating flex-fill mb-3 p-1">
-										<input type="date" class="form-control" name="" id="date_of_filing_display" value="{{ today_date_formatted }}" max="9999-12-31" disabled >
+										<input type="date" class="form-control" name="" id="date_of_filing_display" value="{{ today_date_formatted }}" max="9999-12-31" onchange="validateDateFiling(this)" disabled >
 										<label for="date_of_filing_display">Date of Filing<span class="is-required">*</span></label>
 									</div>
 								{% endif %}
@@ -191,7 +191,7 @@
 									</div>
 								</div> -->
 
-							</div>
+							</div>ll
 
 						</div>
 						<div class="card shadow-sm mb-3 col-sm-12 col-md-6">
@@ -478,14 +478,7 @@
 		})
 
 		drawCalendar('range');
-	  
-		//document.getElementById('date_of_filing').valueAsDate = new Date();
-	  
-		{% if current_user.type_of_user == 'user' %}
-		//document.getElementById('date_of_filing_display').valueAsDate = new Date();
-		{% endif %}
-	  
-
+	
 		var forms = document.querySelectorAll('.needs-validation')
 		// Loop over them and prevent submission
 		Array.prototype.slice.call(forms)
@@ -555,6 +548,63 @@
 		  var forms = document.querySelectorAll('.needs-validation')
 	  
 
+	function validateDateFiling(el){
+		var leave_type = document.getElementById('leave_id');
+		if(leave_type.value == 2){
+
+
+			var date_filing = new Date(el.value);
+
+			// Create a Date object for November 15 of the current year
+			const november15 = new Date(new Date().getFullYear(), 10, 15); // Months are zero-indexed, so 10 represents November
+
+			// Set the time component of both dates to midnight
+			date_filing.setHours(0, 0, 0, 0);
+			november15.setHours(0, 0, 0, 0);
+
+			// Compare the current date with November 15
+			if (date_filing > november15) {
+				Swal.fire({
+					title: 'NOTICE!',
+					// text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
+					text: `Please be advised that you can not file Mandatory/Forced Leave beyond November 15 of the current year.`,
+					icon: 'warning',
+					allowOutsideClick: false,
+					showCancelButton: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'I understand'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						fp.clear();
+						reset_date_native();
+
+					}
+				})
+			} else {
+				console.log("The current date is on or before November 15.");
+			}
+			//document.getElementById('submitBtn').disabled = true;
+		}else{
+			document.getElementById('submitBtn').disabled = false;
+
+		}
+	}
+
+	function reset_date_native() {
+		var date_input = document.getElementById('date_of_filing');
+	  
+		//erase the input value
+		date_input.value = '';
+	  
+		//prevent error on older browsers (aka IE8)
+		if (date_input.type === 'date') {
+		  //update the input content (visually)
+		  date_input.type = 'text';
+		  date_input.type = 'date';
+		}
+	  }
+
 	function formatDate(date) {
 		date = new Date(date);
 		var year = date.getFullYear();
@@ -573,16 +623,16 @@
 		var firstDatePicked = flatpickr.parseDate(dates[0][0], "m/d/Y");
 		var lastDatePicked = flatpickr.parseDate(dates[dates.length - 1][0], "m/d/Y");
 		
-		console.log(dates[0][0])
-		console.log(date_filing)
-		console.log(firstDatePicked)
-		console.log(lastDatePicked)
+		//console.log(dates[0][0])
+		//console.log(date_filing)
+		//console.log(firstDatePicked)
+		//console.log(lastDatePicked)
 
 		num = getCalendarDays(
 			firstDatePicked,
 			lastDatePicked
 							 )
-		console.log(num)
+		//console.log(num)
 
 		// Check if parsing was successful
 		if (!date_filing || !firstDatePicked || !lastDatePicked) {
@@ -593,7 +643,7 @@
 		// Calculate the difference in days
 		var diffTime = Math.abs(date_filing - lastDatePicked);
 		var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-		console.log(diffDays)
+		//console.log(diffDays)
 		if (leave == 2) {
 			$leaveVal = "Mandatory/Forced Leave";
 		} else if (leave == 99) {
@@ -641,8 +691,6 @@
 			
 							 );
 
-		console.log("NUM OF DAYS: ", num)
-
 		if(leave == 2){
 			$leaveVal = "Mandatory/Forced Leave";
 		}else if(leave == 99){
@@ -688,10 +736,9 @@
 			}).then((res)=>{
 				return res.json();
 			}).then((data)=>{
+			
 				
-				///setTimeout(loadingScreen('none'), 2000);
-				
-			})
+			});
 	}
 
 	function numberWithCommas(x) {
@@ -1187,14 +1234,38 @@
 			  var leave = document.getElementById('leave_id').value;
 
 			  if(leave == 2){
-				validateInclusiveDates(dateRanges, leave);
+				console.log("SELECTED DATES::::>> ", selectedDates)
+				if (selectedDates.some(date => new Date(date).getMonth() > 10 || (new Date(date).getMonth() === 10 && new Date(date).getDate() > 15))) {
+					
+					Swal.fire({
+						title: 'NOTICE!',
+						// text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
+						text: `Please be advised that you can not file Mandatory/Forced Leave beyond November 15 of the current year.`,
+						icon: 'warning',
+						allowOutsideClick: false,
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'I understand'
+					  }).then((result) => {
+						if (result.isConfirmed) {
+							fp.clear();
+							//date_filing.valueAsDate = null;
+
+						}
+					  })
+
+				  } else {
+					validateInclusiveDates(dateRanges, leave);
+				  }
 			  }
+
+
 
 			var cto = document.getElementById('cto');
 
 			  if(leave == 99 && cto.checked){
 				validateInclusiveDates(dateRanges, leave);
-
 			  }
 			  //document.getElementById("no_working_days_applied_for").focus();
 			}
@@ -1472,7 +1543,42 @@ function leave_type(leave_type){
 		terminal.checked = false;
 
 		if(leave_type.value == 2){
-			document.getElementById('submitBtn').disabled = true;
+
+			var date_of_filing = document.getElementById('date_of_filing');
+	
+			var date_filing = new Date(date_of_filing.value);
+			// Create a Date object for November 15 of the current year
+			const november15 = new Date(new Date().getFullYear(), 10, 15); // Months are zero-indexed, so 10 represents November
+
+			// Get the current date
+			const currentDate = new Date();
+
+			currentDate.setHours(0, 0, 0, 0);
+			november15.setHours(0, 0, 0, 0);
+
+			// Compare the current date with November 15
+			if (date_filing > november15) {
+				Swal.fire({
+					title: 'NOTICE!',
+					// text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
+					text: `Please be advised that you can not file Mandatory/Forced Leave beyond November 15 of the current year.`,
+					icon: 'warning',
+					allowOutsideClick: false,
+					showCancelButton: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'I understand'
+				  }).then((result) => {
+					if (result.isConfirmed) {
+						fp.clear();
+						reset_date_native();
+
+					}
+				  })
+			} else {
+			console.log("The current date is on or before November 15.");
+			}
+			//document.getElementById('submitBtn').disabled = true;
 		}else{
 			document.getElementById('submitBtn').disabled = false;
 

@@ -476,6 +476,7 @@ def saln(emp_id):
             # return render_template('saln.html', emp_id = emp_id, user_profile = user)
 
 
+
 @views.route('/file-log/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
