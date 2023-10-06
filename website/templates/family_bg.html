@@ -56,8 +56,8 @@
 							<div class="d-md-flex flex-row">
 								<div class="form-floating mb-3 p-1 col-sm-4">
 									<select class="form-select" id="is_spouse" onchange="activate_spouse(this.value)">
-										<option value="YES" {{ 'selected' if spouse[0] is defined and spouse[0].fb_last_name != '' else '' }}>YES</option>
-										<option value="NO" {{ 'selected' if spouse[0] is not defined or spouse[0].fb_last_name is none or spouse[0].fb_last_name == '' else '' }}>NO</option>
+										<option value="YES" {{ 'selected' if spouse[0] and spouse[0].fb_last_name != '' and spouse[0].fb_last_name != 'NONE' else '' }}>YES</option>
+										<option value="NO" {{ 'selected' if not spouse[0] or spouse[0].fb_last_name is none or spouse[0].fb_last_name == '' or spouse[0].fb_last_name == 'NONE' else '' }}>NO</option>
 									  </select>
 									<label for="is_spouse">Do you have a spouse?</label>
 								</div>

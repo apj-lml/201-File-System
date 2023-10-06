@@ -240,9 +240,9 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['spouse_govt_issued_id'] = spouse.fb_id if spouse and spouse.fb_id != "" else "N/A"
     user_profile_dict['spouse_govt_issued_id_no'] = spouse.fb_id_no if spouse and spouse.fb_id_no != "" else "N/A"
 
-    spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date() if spouse and spouse.fb_date_issued != "" else "N/A"
+    spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date() if spouse.fb_date_issued != "" and spouse.fb_date_issued is not None else "N/A"
 
-    user_profile_dict['spouse_govt_issued_id_date_issued'] = spouse_govt_issued_id_date_issued_date_obj.strftime("%B %d, %Y") if spouse and spouse.fb_date_issued != "" else "N/A"
+    user_profile_dict['spouse_govt_issued_id_date_issued'] = spouse_govt_issued_id_date_issued_date_obj.strftime("%B %d, %Y") if spouse.fb_date_issued != "" and spouse.fb_date_issued is not None else "N/A"
 
     user_profile_dict["checkmark"] = "✓"
 
