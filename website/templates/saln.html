@@ -653,12 +653,12 @@ td{
           <div class="accordion shadow-sm mb-3" id="accordionRp">
             <div class="accordion-item ">
               <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRp" aria-expanded="true" aria-controls="collapseOne">
+                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePp" aria-expanded="true" aria-controls="collapseOne">
                   <!-- <i class="fas fa-city"></i>  -->
                   EDIT PERSONAL PROPERTIES
                 </button>
               </h2>
-              <div id="collapseRp" class="accordion-collapse collapse" aria-labelledby="headingOne">
+              <div id="collapsePp" class="accordion-collapse collapse" aria-labelledby="headingOne">
                 <div class="accordion-body">
              
                   
@@ -1138,7 +1138,6 @@ td{
   function clearFields(formId){
     var form = document.getElementById(formId);
     var formFields = form.querySelectorAll("input");
-    console.log("form: ", formFields)
     
     formFields.forEach(function(field) {
       field.value = "";
@@ -1888,6 +1887,8 @@ function year_only_2(el) {
 document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
   e.preventDefault();
 
+  loadingScreen('block');
+
   let formData1 = new FormData(e.target);
 
   const data1 = {}
@@ -1898,6 +1899,8 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
     body: formData1
     }).then((res)=>{
       if (res.status == 200){
+		    loadingScreen('none');
+
         triggerToast("Successfully Added Real Property!", 'success');
         
         clearFields("saln_rp_form");
@@ -1949,6 +1952,7 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
 
 document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
   e.preventDefault();
+  loadingScreen('block');
 
   let formData1 = new FormData(e.target);
 
@@ -1965,6 +1969,8 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
   }).then(response => {
     //handle response            
     if(response.ok){
+		  loadingScreen('none');
+
       clearFields("saln_edit_rp_form");
       disableFields("saln_edit_rp_form", true);
 
@@ -1978,14 +1984,14 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
         
         var rp_table_col = [
         { "data" : "id" },
-        { "data" : "rp_acquisition_cost" },
-        { "data" : "rp_acquisition_mode" },
-        { "data" : "rp_acquisition_year" },
+        { "data" : "rp_description" },
+        { "data" : "rp_kind" },
+        { "data" : "rp_exact_location" },
         { "data" : "rp_assessed_value" },
         { "data" : "rp_current_market_value" },
-        { "data" : "rp_description" },
-        { "data" : "rp_exact_location" },
-        { "data" : "rp_kind" },
+        { "data" : "rp_acquisition_year" },
+        { "data" : "rp_acquisition_mode" },
+        { "data" : "rp_acquisition_cost" },
         { "data" : null,
         "defaultContent": `
               <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
@@ -2013,6 +2019,7 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
 
 document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
   e.preventDefault();
+  loadingScreen('block');
 
   let formData1 = new FormData(e.target);
 
@@ -2024,6 +2031,8 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
     body: formData1
     }).then((res)=>{
       if (res.status == 200){
+		    loadingScreen('none');
+
         triggerToast("Successfully Added Personal Property!", 'success')
         clearFields("saln_pp_form");
   
@@ -2071,6 +2080,7 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
 
 document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
   e.preventDefault();
+  loadingScreen('block');
 
   let formData1 = new FormData(e.target);
 
@@ -2087,6 +2097,7 @@ document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
   }).then(response => {
     //handle response            
     if(response.ok){
+		  loadingScreen('none');
       clearFields("saln_edit_pp_form");
       disableFields("saln_edit_pp_form", true);
 
@@ -2132,6 +2143,7 @@ document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
 
 document.getElementById('saln_liability_form').addEventListener("submit", (e)=>{
   e.preventDefault();
+  loadingScreen('block');
 
   let formData1 = new FormData(e.target);
 
@@ -2143,6 +2155,8 @@ document.getElementById('saln_liability_form').addEventListener("submit", (e)=>{
     body: formData1
     }).then((res)=>{
       if (res.status == 200){
+		    loadingScreen('none');
+
         triggerToast("Successfully Added Liability!", 'success')
         clearFields("saln_liability_form");
   
@@ -2190,6 +2204,7 @@ document.getElementById('saln_liability_form').addEventListener("submit", (e)=>{
 
 document.getElementById('saln_edit_liability_form').addEventListener("submit", (e)=>{
   e.preventDefault();
+  loadingScreen('block');
 
   let formData1 = new FormData(e.target);
 
@@ -2204,6 +2219,7 @@ document.getElementById('saln_edit_liability_form').addEventListener("submit", (
   }).then(response => {
     //handle response            
     if(response.ok){
+		  loadingScreen('none');
       clearFields("saln_edit_liability_form");
       disableFields("saln_edit_liability_form", true);
 
@@ -2249,6 +2265,9 @@ document.getElementById('saln_edit_liability_form').addEventListener("submit", (
 document.getElementById('saln_business_interest_form').addEventListener("submit", (e)=>{
   e.preventDefault();
 
+  loadingScreen('block');
+
+
   let formData1 = new FormData(e.target);
 
   const data1 = {}
@@ -2259,6 +2278,8 @@ document.getElementById('saln_business_interest_form').addEventListener("submit"
     body: formData1
     }).then((res)=>{
       if (res.status == 200){
+		    loadingScreen('none');
+
         triggerToast("Successfully Added Business Interest & Financial Connection!", 'success')
         clearFields("saln_business_interest_form");
   
@@ -2307,6 +2328,7 @@ document.getElementById('saln_business_interest_form').addEventListener("submit"
 
 document.getElementById('saln_edit_business_form').addEventListener("submit", (e)=>{
   e.preventDefault();
+  loadingScreen('block');
 
   let formData1 = new FormData(e.target);
 
@@ -2323,6 +2345,7 @@ document.getElementById('saln_edit_business_form').addEventListener("submit", (e
   }).then(response => {
     //handle response            
     if(response.ok){
+		  loadingScreen('none');
       clearFields("saln_edit_business_form");
       disableFields("saln_edit_business_form", true);
 
@@ -2370,6 +2393,9 @@ document.getElementById('saln_edit_business_form').addEventListener("submit", (e
 document.getElementById('saln_relative_in_government_form').addEventListener("submit", (e)=>{
   e.preventDefault();
 
+  loadingScreen('block');
+
+
   let formData1 = new FormData(e.target);
 
   const data1 = {}
@@ -2380,6 +2406,7 @@ document.getElementById('saln_relative_in_government_form').addEventListener("su
     body: formData1
     }).then((res)=>{
       if (res.status == 200){
+		    loadingScreen('none');
 
         triggerToast("Successfully Added Relative in Government!", 'success');
         clearFields("saln_relative_in_government_form");
@@ -2437,7 +2464,8 @@ document.getElementById('saln_relative_in_government_form').addEventListener("su
 document.getElementById('edit_saln_relative_in_government_form').addEventListener("submit", (e)=>{
   e.preventDefault();
 
-  let formData1 = new FormData(e.target);
+		loadingScreen('block');
+    let formData1 = new FormData(e.target);
 
   const data1 = {}
 
@@ -2452,6 +2480,7 @@ document.getElementById('edit_saln_relative_in_government_form').addEventListene
   }).then(response => {
     //handle response            
     if(response.ok){
+		  loadingScreen('none');
       clearFields("edit_saln_relative_in_government_form");
       disableFields("edit_saln_relative_in_government_form", true);
 
