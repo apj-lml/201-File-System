@@ -123,6 +123,7 @@
 											<option value="13">Adoption Leave</option>
 											<option value="2">Mandatory/Forced Leave</option>
 											<option value="4">Maternity Leave</option>
+											<option value="5">Paternity Leave</option>
 											<option value="10">Rehabilitation Privilege</option>
 											<option value="3">Sick Leave</option>
 											<option value="12">Special Emergency (Calamity) Leave</option>
@@ -691,8 +692,11 @@
 			
 							 );
 
+
 		if(leave == 2){
 			$leaveVal = "Mandatory/Forced Leave";
+		}else if(leave == 1){
+			$leaveVal = "Vacation Leave";
 		}else if(leave == 99){
 			$leaveVal = "Compesatory Time-Off (CTO)";
 		}
@@ -1234,7 +1238,6 @@
 			  var leave = document.getElementById('leave_id').value;
 
 			  if(leave == 2){
-				console.log("SELECTED DATES::::>> ", selectedDates)
 				if (selectedDates.some(date => new Date(date).getMonth() > 10 || (new Date(date).getMonth() === 10 && new Date(date).getDate() > 15))) {
 					
 					Swal.fire({
@@ -1258,6 +1261,10 @@
 				  } else {
 					validateInclusiveDates(dateRanges, leave);
 				  }
+			  }
+
+			  if(leave == 1){
+				validateInclusiveDates(dateRanges, leave);
 			  }
 
 
@@ -1740,10 +1747,6 @@ function convertNumberToWords(number) {
 
   function click_cto(elem){
 
-	//const dateRanges = [[new Date(fp.selectedDates[0]).toLocaleDateString()]];
-
-
-	//const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
 	var monetization = document.getElementById('monetization');
 	var terminal = document.getElementById('terminal');
 
