@@ -178,6 +178,7 @@ class User(db.Model, UserMixin):
     #last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
     last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
 
+    data_privacy = db.Column(db.String(45), default='unchecked')
     acknowledgement = db.Column(db.String(45), default='unchecked')
     
     uploaded_files = db.relationship('Uploaded_File')

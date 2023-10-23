@@ -9,10 +9,12 @@ from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
 from flask import (Blueprint, current_app, redirect, render_template,
                    request, send_file, session, url_for, jsonify)
-from flask_login import current_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required
+
 #from flask.ext.principal import Principal, Permission, RoleNeed
-from flask_principal import Permission, RoleNeed
+from flask_principal import Permission, RoleNeed, identity_changed, Identity
 from sqlalchemy import desc, extract
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db, generateWes
 from .models import (College, Family_Background, Masteral, Other_Information,
@@ -38,11 +40,44 @@ def page_not_found(e):
 
 def getdata(url): 
     r = requests.get(url) 
-    return r.text 
+    return r.text
+
+@views.route('/data-privacy-act', methods=['GET', 'POST'])
+# @login_required
+def dataPrivacyAct():
+    
+    employee_id = session.get('user_id')
+    user = User.query.get(employee_id)
+
+    if request.method == 'POST':
+        # user = User.query.get(employee_id)
+        if user:
+            login_user(user)
+                    # current_user.data_privacy = 0
+            if user.type_of_user == 'admin':
+                identity_changed.send(current_app._get_current_object(),
+                                identity=Identity(user.id))
+                return redirect(url_for('views.admin_dashboard'))
+            elif user.type_of_user == 'super admin':
+                return redirect(url_for('views.super_admin_dashboard'))
+            else: #user access only
+                return redirect(url_for('views.dashboard'))
+
+        else:
+                #session['error_msg'] = 'Employee ID number does not exist!'
+            return jsonify("id_does_not_exist")
+    elif request.method == 'GET':
+        # users = db.session.query(User).options(db.defer('acknowledgement')).all()
+
+        return render_template('data_privacy_act.html', user_profile = user,
+                                                        date_now = datetime.now(PST))
+
 
 @views.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    # print('current_user_data======+++++++========================================>>', user.data_privacy)
+
     new_uploaded_File = Uploaded_File.query.filter_by(file_tag = 'dform').all()
     column_keys = Uploaded_File.__table__.columns.keys()
     # Temporary dictionary to keep the return value from table

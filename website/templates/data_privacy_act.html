@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+
+{% block title %} NIA PIMO {% endblock %}
+
+{% block cssperfile %} 
+    <style rel="stylesheet">
+        select.birthday-select{
+            border: none;
+            background-color:transparent;
+            font-weight: bold;
+            /* font-style: italic; */
+            text-align: left;
+            color: rgb(51,10,113);
+            color: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+            /* width: auto; */
+        }
+
+        .paragraph {
+            overflow: hidden;
+            max-height: 300px;
+            transition: max-height 0.3s ease-out;
+        }
+
+        #read-more-btn,
+        #read-less-btn {
+            display: none;
+            cursor: pointer;
+            color: rgb(51,10,113);
+            color: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
+            /* width: auto; */
+        }
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+
+        <!-- Navigation-->
+        <!-- <nav class="navbar navbar-light bg-light static-top">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <a class="btn btn-primary" href="#signup">Sign Up</a>
+            </div>
+        </nav> -->
+		
+        <!-- Masthead-->
+        <div class="container-fluid vw-100 p-0 w-0">
+            <header class="masthead pt-5 col-sm-12 me-0 w-100 vh-100">
+                <div class="container position-relative">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12">
+                            <div class="text-center text-white">
+                                <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
+                                                    
+                                <h3 class="mb-3 mt-0 text-white"><span style="font-size: larger;">DATA PRIVACY ACT</span></h3>
+                                <p class="container fs-5"><i id="quote">
+
+                                    Before you continuing please take a moment to understand and acknowledge that we are committed to safeguarding your data privacy in 
+                                    accordance with the Data Privacy Act of the Philippines. We are dedicated to ensuring the security and confidentiality of your 
+                                    personal information. Please review our <a href="#" class="text-warning" onclick="fireDataPrivacy();">Privacy Policy </a> if you have any concerns about how we handle your data.
+
+                                </i></p>
+                                <p class="text-center" style="font-size: large;">
+                                    <button class="btn btn-success shadow" id="continue" {% if user_profile.data_privacy != "checked" %}disabled{% endif %} onclick="continueBtn()">Continue</button>
+                                    <a href="/" class="btn btn-secondary shadow">Go Back</a>
+                                </p>
+                                <p>
+                                    Read about our <u><a href="#" class="link-warning" onclick="fireDataPrivacy();">Privacy Policy </a></u>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Icons Grid-->
+
+
+
+
+        </div>
+     
+
+
+
+
+		{% endblock %}
+
+        {% block scripts %}
+
+
+        <script type="application/javascript">
+
+            
+           function continueBtn(){
+            loadingScreen('block');
+            let btnClick;
+            fetch('/data-privacy-act', {
+                method: 'POST',
+                body: JSON.stringify({ btnClick: 'true' })
+              }).then((res)=>{
+                if(res.status == 200){
+                    if (res.redirected) {
+                        // Redirect the user to the new location
+                        window.location.href = res.url;
+                      }
+                }
+              });
+             }
+
+    {% if request.path == "/data-privacy-act" and user_profile.data_privacy != "checked" %}
+
+             fireDataPrivacy();
+
+    {% endif %}
+
+    function fireDataPrivacy(){
+        Swal.fire({
+            title: '<strong>Privacy Policy</strong>',
+            icon: 'info',
+            width: 1200,
+            allowOutsideClick: false,
+            showCloseButton: false,
+            html:
+                     `
+    <p class='text-start fs-12'>
+    <b> Last Updated: October 22, 2023</b>
+    <br><br>
+    The Pangasinan Irrigation Management Office (PIMO) is dedicated to protecting the privacy and personal information of individuals using our Online 201 File System. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data. By accessing and using the Online 201 File System, you consent to the terms and practices described in this policy.
+    <br><br>
+    <b> 1. Information We Collect</b>
+    <br><br>
+    <b>1.1.</b> Personal Information: We may collect personal information, including but not limited to names, addresses, contact information, and identification details, from users who interact with the Online 201 File System.
+    <br><br>
+    <b>1.2.</b> Non-Personal Information: We may also collect non-personal information, such as IP addresses, browser type, and usage data, to enhance the functionality and security of our system.
+    <br><br>
+    <b>2. How We Use Your Information</b>
+    <br><br>
+    <b>2.1.</b> User Verification: We use your personal information to verify your identity and grant access to the Online 201 File System.
+    <br><br>
+    <b>2.2.</b> System Functionality: Your information may be used to ensure the proper operation and functionality of the system.
+    <br><br>
+    <b>2.3.</b> Communication: We may use your contact information to communicate important updates or information related to the Online 201 File System.
+    <br><br>
+    <b>3. Data Security</b>
+    <br><br>
+    <b>3.1.</b> Protection: We implement industry-standard security measures to safeguard your data against unauthorized access, disclosure, alteration, or destruction.
+    <br><br>
+    <b>3.2.</b> Access Control: Access to your personal information is restricted to authorized personnel only.
+    <br><br>
+    <b>4. Disclosure of Information</b>
+    <br><br>
+    <b>4.1.</b> Legal Obligations: We may disclose your information if required to comply with legal obligations or protect our rights and the safety of others.
+    <br><br>
+    <b>4.2.</b> Third Parties: We do not share your personal information with third parties without your explicit consent unless required by law.
+    <br><br>
+    <b>5. Access and Control of Your Information</b>
+    <br><br>
+    <b>5.1.</b> Data Access: You have the right to access, correct, or update your personal information stored in our system.
+    <br><br>
+    <b>6. Cookies</b>
+    <br><br>
+    <b>6.1.</b> We may use cookies to enhance your user experience. You can adjust your browser settings to control cookie preferences.
+    <br><br>
+    <b>7. Changes to this Privacy Policy</b>
+    <br><br>
+    <b>7.1.</b> We may update this Privacy Policy from time to time. Any changes will be posted on this page with the updated date. Please check periodically for any updates.
+    <br><br>
+    <b>8. Contact Information</b>
+    <br><br>
+    <b>8.1.</b> If you have questions, concerns, or requests related to this Privacy Policy, please contact us at:
+    <br><br>
+    pimo.adm02@gmail.com
+    <br><br>
+    
+    The Pangasinan Irrigation Management Office values your privacy and is committed to protecting your personal information. By using the Online 201 File System, you agree to the terms outlined in this Privacy Policy.
+    
+    </p>
+    
+      <div class="d-inline-flex justify-content-center">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="acknowledgement" {% if user_profile.data_privacy == "checked" %} checked {% endif %} onchange="acknowledge(this)">
+          <label class="form-check-label" for="acknowledgement">
+            I agree
+          </label>
+        </div>
+      </div>
+                     `,
+                    showCancelButton: true,
+                    focusConfirm: true,
+                    confirmButtonText:
+                      'Proceed',
+                    cancelButtonText:
+                      'Cancel',
+            preConfirm: ()=>{
+              let ack = document.getElementById("acknowledgement");
+              if(ack.checked){
+                return undefined;
+              }else{
+                Swal.fire('Failed to Agree on Privacy Policy!', 'You have not agreed to the Privacy Policy and therefore can not proceed.', 'warning')
+                return false;
+              }
+            }
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      let checkbox = document.getElementById('acknowledgement');
+                      let checkboxVal = 'checked';
+                      if(!checkbox.checked){
+                        checkboxVal = 'unchecked';
+                      }
+    
+                      fetch('/employees/update_data_privacy', {
+                        method: 'POST',
+                        body: JSON.stringify({ checkboxVal: checkboxVal })
+                      }).then((res)=>{
+                        if(res.status == 200){
+                            let continueBtn = document.getElementById('continue');
+                            continueBtn.disabled = false;
+    
+                        }
+                      });
+                    }
+                  });
+    }
+
+
+    window.onload = (event) => {
+        const confirmButton = Swal.getConfirmButton();
+        confirmButton.setAttribute('disabled', 'true');
+      };
+
+          
+
+
+            function acknowledge(el){
+                const confirmButton = Swal.getConfirmButton();
+        confirmButton.setAttribute('disabled', 'true');
+                console.log('button: ', confirmButton)
+                //const confirmButton = Swal.getConfirmButton();
+                //confirmButton.setAttribute('disabled', 'true');
+
+                if(el.checked){
+                    confirmButton.disabled = false;
+                }else{
+                    confirmButton.setAttribute('disabled', 'true');
+
+                }
+
+            }
+        </script>
+        {% endblock %}

@@ -23,7 +23,7 @@ ma = Marshmallow()
 #DB_NAME = 'employeeinformation.db'
 
 #mysql
-DB_NAME = 'employeeinformation'
+DB_NAME = 'aljohnjacinto$employeeinformation'
 DB_USERNAME = 'aljohnjacinto'
 DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 
@@ -45,10 +45,10 @@ def create_app():
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/{DB_NAME}'
 
 	#mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['FILE_LOGS_FOLDER'] = FILE_LOGS_FOLDER

@@ -193,7 +193,8 @@ body{
     {% if current_user.is_authenticated %}
     <div class="wrapper d-flex align-items-stretch position-relative" >
     {% endif %}
-    {% if current_user.is_authenticated %}
+
+    {% if current_user.is_authenticated and request.path != "/data-privacy-act" %}
       <nav id="sidebar" class="position-fixed" style="z-index: 9999;">
       <div class="custom-menu animate__animated animate__pulse animate__infinite animate__faster" >
         <button type="button" id="sidebarCollapse" class="btn bg-blue btn-primary">
@@ -439,7 +440,9 @@ body{
 
 window.addEventListener('load', (event) => {
 
-  {% if current_user.familyBg %}
+
+
+{% if current_user.familyBg and request.path != "/data-privacy-act"  %}
     {% for family in current_user.familyBg %}
         {% if family.fb_relationship == 'SPOUSE' %}
           {% if family.fb_date_issued == "NONE" or family.fb_id_no == "NONE" or family.fb_id == "NONE" or family.fb_date_issued == "N/A" or family.fb_id_no == "N/A" or family.fb_id == "N/A" or family.fb_date_issued == "" or family.fb_id_no == "" or family.fb_id == "" or family.fb_date_issued is none or family.fb_id_no is none or family.fb_id is none %}

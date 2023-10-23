@@ -181,10 +181,8 @@ document.getElementById("login_form").addEventListener("submit", function(e){
 		
 		if(res.response == 403){
 			triggerToast('Employee ID number does not exist!', 'error');
-
 		}
 		if (res.redirected) {
-			
 			triggerToast('Login Successful!', 'success');
 			window.location.href = res.url;
 		}else{

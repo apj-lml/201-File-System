@@ -188,6 +188,25 @@ def get_singular_employee(emp_id):
     return jsonify(output)
 
 
+@employees.route('update_data_privacy', methods=['POST', 'GET'])
+# @login_required
+# @admin_permission.require(http_exception=403)
+def update_data_privacy():
+    formdata = json.loads(request.data)
+    emp_id = session.get('user_id')
+    user = db.session.query(User).get(emp_id)
+    if user:
+        user.data_privacy = formdata['checkboxVal']
+        db.session.commit()  # Commit the changes to the database
+        return "Data privacy updated successfully"
+    else:
+        return "User not found", 404
+
+
+    # return render_template('employee_profile.html', user_profile=user_profile, agency_section=agency_section, agency_unit=agency_unit, last_updated=last_updated)
+
+
+
 @employees.route('update-employee/<emp_id>', methods=['POST', 'GET'])
 @login_required
 # @admin_permission.require(http_exception=403)

@@ -34,6 +34,7 @@
 {% endblock %}
 
 {% block content %}
+
         <!-- Navigation-->
         <!-- <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
@@ -65,28 +66,42 @@
                 <section class="features-icons bg-light text-center pt-5 mt-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                                     <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto" id="valueFocusBtn"><i class="bi bi-heart-fill m-auto text-blue"></i></a></div>
                                     <h4>Value Focus</h4>
                                     <p class="lead mb-0">Weekly value focus - anytime, anywhere.</p>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto" id="valueFocusBtn"><i class="bi bi-7-circle-fill text-blue"></i></a></div>
+                                    <h4>7 Point Agenda</h4>
+                                    <p class="lead mb-0">Look at the Administrator's Agenda.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                                    <div class="features-icons-icon d-flex"><a href="#valueFocus" class="mx-auto" id="valueFocusBtn"><i class="bi bi-7-circle-fill text-blue"></i></a></div>
+                                    <h4>Quality Policy</h4>
+                                    <p class="lead mb-0">Look at the Administrator's Agenda.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                                     <div class="features-icons-icon d-flex"><a href="#mission" class="mx-auto"><i class="bi bi-graph-up-arrow m-auto text-blue"></i></a></div>
                                     <h4>Mission</h4>
                                     <p class="lead mb-0">Look at NIA's mission.</p>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                                     <div class="features-icons-icon d-flex"><a href="#vision" class="mx-auto"><i class="bi bi-eye-fill m-auto text-blue"></i></a></div>
                                     <h4>Vision </h4>
                                     <p class="lead mb-0">Look at NIA's vision.</p>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                                     <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-cake text-blue"></i></a></div>
                                     <h4>Birthdays</h4>
@@ -217,7 +232,6 @@
 
 
         <script type="application/javascript">
-
             document.getElementById('birthday-select').addEventListener('change', (e) => {
                 document.getElementById("listOfBirthdayCelebrators").innerHTML = '';
                 var birthday_pics = document.getElementById('carouselExampleControls').getElementsByClassName('carousel-inner')[0];
