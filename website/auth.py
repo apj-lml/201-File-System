@@ -41,6 +41,8 @@ def login():
                 session['password'] = password
                 # print('sessio var===========>>>', session['user_id'])
                 return redirect(url_for('views.dataPrivacyAct'))
+            else:
+                return jsonify("incorrect_or_deactivated")
             
     return render_template('login.html', user=current_user)
     

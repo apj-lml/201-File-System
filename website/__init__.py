@@ -23,7 +23,7 @@ ma = Marshmallow()
 #DB_NAME = 'employeeinformation.db'
 
 #mysql
-DB_NAME = 'aljohnjacinto$employeeinformation'
+DB_NAME = 'employeeinformation'
 DB_USERNAME = 'aljohnjacinto'
 DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 
