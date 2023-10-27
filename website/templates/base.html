@@ -203,7 +203,13 @@ body{
         </button>
       </div>
       <div class="p-4 pt-5 overflow-auto vh-100 style-3">
-        <h1><a href="/dashboard" class="logo">PIMO</a></h1>
+        <div class="position-relative text-center mb-5">
+				  <img class="img-fluid" src="{{url_for('static', filename='img/nia-logo.png')}}" width="150" height="150">
+          <!-- <h1 class="mb-0"><a href="/dashboard" class="logo">PIMO</a></h1> -->
+        </div>
+
+
+        <!-- <h1><a href="/dashboard" class="logo">PIMO</a></h1> -->
         <ul class="list-unstyled components mb-5">
           <li>
             <a href="/dashboard"><i class="bi bi-house-fill"></i> Home</a>
