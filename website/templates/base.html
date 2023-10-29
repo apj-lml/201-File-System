@@ -203,9 +203,9 @@ body{
         </button>
       </div>
       <div class="p-4 pt-5 overflow-auto vh-100 style-3">
-        <div class="position-relative text-center mb-5">
-				  <img class="img-fluid" src="{{url_for('static', filename='img/nia-logo.png')}}" width="150" height="150">
-          <!-- <h1 class="mb-0"><a href="/dashboard" class="logo">PIMO</a></h1> -->
+        <div class="position-relative text-center mb-2">
+				  <img class="img-fluid" src="{{url_for('static', filename='img/nia-logo-mid-2.png')}}" width="150" height="150">
+          <h5 class="mb-0 text-white"><a href="/dashboard" class="logo text-white">PANGASINAN IMO</a></h5>
         </div>
 
 
@@ -321,7 +321,7 @@ body{
           </li>
           {% endif %}
           <li>
-            <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-person-circle"></i> <strong>{{current_user.first_name.0}}{{current_user.middle_name.0}}{{current_user.last_name.0}}</strong>
+            <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-person-circle"></i> <strong>{% for word in current_user.first_name.split(" ") %}{{ word[0] }}{% endfor %}{{current_user.middle_name.0}}{{current_user.last_name.0}}</strong>
             </a>
             <ul class="collapse list-unstyled" id="userSubmenu">
               <li>
