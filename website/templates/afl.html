@@ -164,6 +164,29 @@
   									Loading...
 								</button>
 							</div>
+							<!-- <div class="col-sm-12">
+								<table class="table">
+									<thead>
+									  <tr>
+										<th scope="col">Leave Type</th>
+										<th scope="col">Leaves Taken</th>
+										<th scope="col">Leaves Available</th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<th scope="row">1</th>
+										<td>@mdo</td>
+										<td>N/A</td>
+									  </tr>
+									  <tr>
+										<th scope="row">2</th>
+										<td>Jacob</td>
+										<td>3</td>
+									  </tr>
+									</tbody>
+								  </table>
+							</div> -->
 							</div>
 
 						</div>
@@ -524,10 +547,7 @@
 	function validateDateFiling(el){
 		var leave_type = document.getElementById('leave_id');
 		if(leave_type.value == 2){
-
-
 			var date_filing = new Date(el.value);
-
 			// Create a Date object for November 15 of the current year
 			const november15 = new Date(new Date().getFullYear(), 10, 15); // Months are zero-indexed, so 10 represents November
 
@@ -696,7 +716,10 @@
 		}
 	}
 
-	function addAflForm(){
+	function addAflForm(blobData){
+		//console.log("=========>>>>>>>> ",blobData);
+		//blobData.forEach((value, key) => (console.log(value)))
+
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
 
@@ -704,6 +727,11 @@
 
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
+		//data.append('fileName', '{{ user_profile.last_name }}_{{ user_profile.first_name }}_AFL'+len)
+		//formData.append('fileTag', 'pdf')
+		formData.append('blob_file', blobData)
+		
+
 		loadingScreen('block');
 		
 		fetch('/afl/add-afl/{{emp_id}}', {
@@ -1106,10 +1134,10 @@
 		
 		// decode base64 string, remove space for IE compatibility
 		var binary = atob(testPdfDataUri.replace(/\s/g, ''));
-		var len = binary.length;
-		var buffer = new ArrayBuffer(len);
+		var binlen = binary.length;
+		var buffer = new ArrayBuffer(binlen);
 		var view = new Uint8Array(buffer);
-		for (var i = 0; i < len; i++) {
+		for (var i = 0; i < binlen; i++) {
 			view[i] = binary.charCodeAt(i);
 		}
 	
@@ -1118,9 +1146,7 @@
 		
 		var data = new FormData();
 
-		console.log('Im here today!{{ user_profile.id }}');
-
-		data.append('fileName', '{{ user_profile.last_name }}_{{ user_profile.first_name }}_AFL'+len)
+		data.append('fileName', '{{ user_profile.last_name }}_{{ user_profile.first_name }}_AFL'+binlen)
 		data.append('fileTag', 'pdf')
 		data.append('blob_file', blob)
 		
@@ -1133,6 +1159,8 @@
 				
 				
 			})
+
+		addAflForm(blob);
 	
 		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
 		//var fileURL = URL.createObjectURL(file);

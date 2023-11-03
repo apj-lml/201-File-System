@@ -90,8 +90,10 @@ def edit_ld(id):
 @login_required
 def print_afl(emp_id):
     formdata = request.form.to_dict()
-    # if request.method == "POST":
-    #     print('DATA', formdata)
+    if request.method == "POST":
+        print('DATA ============>', formdata)
+        blob_data = request.files['blob_file'].read()
+        
     #     formdata['user_id'] = emp_id
 
     #     for k,v in formdata.items():
