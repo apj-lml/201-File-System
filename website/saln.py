@@ -37,6 +37,12 @@ def add_rp(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
 
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         formdata["user_id"] = emp_id
 
         for k,v in formdata.items():
@@ -65,6 +71,12 @@ def add_pp(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
 
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         formdata["user_id"] = emp_id
 
         add_rp = Personal_Property(**formdata)
@@ -86,6 +98,12 @@ def add_pp(emp_id):
 def add_liability(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
+
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
 
         formdata["user_id"] = emp_id
 
@@ -109,6 +127,12 @@ def add_business_interest(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
 
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
+
         formdata["user_id"] = emp_id
 
         new_business_interest = Business_Interest(**formdata)
@@ -123,13 +147,19 @@ def add_business_interest(emp_id):
  # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
-#                             add liability property                           #
+#                             add relative property                           #
 # ---------------------------------------------------------------------------- #
 @saln.route('add-relative-in-government/<emp_id>', methods=['POST', 'GET'])
 @login_required
 def add_relative_in_government(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
+
+        for k,v in formdata.items():
+            if type(v) is str:
+                formdata.update({k: v.upper()})
+            else:
+                formdata.update({k: v})
 
         formdata["user_id"] = emp_id
 
@@ -447,6 +477,12 @@ def saln_test():
     if request.method == "POST":
         formdata = json.loads(request.data)
 
+        # for k,v in formdata.items():
+        #     if type(v) is str:
+        #         formdata.update({k: v.upper()})
+        #     else:
+        #         formdata.update({k: v})
+
         if formdata['type'] == "rp":
             dbObject = Real_Property
         if formdata['type'] == "pp":
@@ -461,7 +497,11 @@ def saln_test():
         get_DATA = dbObject.query.get(formdata['id'])
 
         for key, value in formdata.items():
-            setattr(get_DATA, key, value)
+            if type(value) is str:
+                setattr(get_DATA, key, value.upper())
+            else:
+                setattr(get_DATA, key, value)
+
 
         db.session.commit()
 
