@@ -22,29 +22,6 @@ def page_not_found(e):
 	session['redirected_from'] = request.url
 	return redirect(url_for('auth.login'))
 
-# def get_context(id, salary):
-#     """ You can generate your context separately since you may deal with a lot 
-#         of documents. You can carry out computations, etc in here and make the
-#         context look like the sample below.
-#     """
-
-#     user = db.session.query(User).get(id)
-#     user_profile = user
-#     my_rows = json.loads(jsonify(UserSchema().dump(user)).get_data(True))
-
-#     user_profile.position_title = user_profile.position_title.title()
-
-#     middle_name = user_profile.middle_name[:1] + "." if user_profile.middle_name and user_profile.middle_name != "N/A" else ""
-#     name_extn = user_profile.name_extn if user_profile.name_extn and user_profile.name_extn != "N/A" else ""
-
-#     # user_profile.full_name = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
-
-#     my_rows['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
-#     my_rows['salary'] = salary
-
-#     return my_rows
-
-
 def add_comma(number):
     return ("{:,.2f}".format(number))
 
@@ -56,7 +33,6 @@ def format_current_date():
 
     # day = current_date.strftime("%d").lstrip("0").rstrip("0")
     day = current_date.strftime("%e")
-    print("==========================>>>>>", day)
 
     suffix = "th" if 11 <= int( get_day(current_date)) % 100 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(int( get_day(current_date)) % 10, "th")
     formatted_date = current_date.strftime(f"{day}{suffix} day of %B, %Y")

@@ -451,7 +451,7 @@ window.addEventListener('load', (event) => {
 {% if current_user.familyBg and request.path != "/data-privacy-act"  %}
     {% for family in current_user.familyBg %}
         {% if family.fb_relationship == 'SPOUSE' %}
-          {% if family.fb_date_issued == "NONE" or family.fb_id_no == "NONE" or family.fb_id == "NONE" or family.fb_date_issued == "N/A" or family.fb_id_no == "N/A" or family.fb_id == "N/A" or family.fb_date_issued == "" or family.fb_id_no == "" or family.fb_id == "" or family.fb_date_issued is none or family.fb_id_no is none or family.fb_id is none %}
+          {% if family.fb_id_no == "NONE" or family.fb_id == "NONE" or family.fb_id_no == "" or family.fb_id == "" or family.fb_id_no is none or family.fb_id is none %}
             triggerPopup('warning', 'Fill-out Spouse Information','Please fill-out all spouse information. It is necessary for generating PDS and SALN.', '/family-background/{{current_user.id}}')
           {% endif %}
         {% endif %}
