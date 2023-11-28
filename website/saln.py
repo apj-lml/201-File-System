@@ -285,9 +285,6 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict["filing_type"] = filing_type
     user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
 
-    
-
-
     user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 4)
     user_profile_dict['total_rp_acquisition_cost_p2'] = getRpAcquisitionCostSubTotal(user, 4, 9)
 
@@ -312,7 +309,7 @@ def get_context(id, filing_date, filing_type):
 
     return user_profile_dict
 
-def getNetworth(total_assets_p1 = '0.00', total_liability_p1 = '0.00', total_assets_p2 = '0.00', total_liability_p2 = '0.00' ):
+def getNetworth(total_assets_p1 = '0.00', total_liability_p1 = '0.00', total_assets_p2 = '0.00', total_liability_p2 = '0.00'):
     floatAssetsP1 = float(total_assets_p1.replace(',', ''))
     floatAssetsP2 = float(total_assets_p2.replace(',', ''))
     floatLiabilityP1 = float(total_liability_p1.replace(',', ''))
@@ -512,9 +509,9 @@ def saln_test():
 # ---------------------------------------------------------------------------- #
 #                                     get data                                 #
 # ---------------------------------------------------------------------------- #
-@saln.route('get-data/<saln_type>', methods=['POST', 'GET'])
+@saln.route('get-data/<saln_type>/<user_profile_id>', methods=['POST', 'GET'])
 @login_required
-def get_data(saln_type):
+def get_data(saln_type, user_profile_id):
     if saln_type == "rp":
         dbObject = Real_Property
         schema = RealPropertySchema()
@@ -535,7 +532,7 @@ def get_data(saln_type):
         dbObject = Relatives_In_Government
         schema = RelativeInGovernmentSchema()
 
-    get_DATA = dbObject.query.filter_by(user_id=current_user.id).all()
+    get_DATA = dbObject.query.filter_by(user_id=user_profile_id).all()
     data = schema.dump(get_DATA, many=True)
 
     return jsonify(data)

@@ -1146,10 +1146,23 @@
 		
 		var data = new FormData();
 
-		data.append('fileName', '{{ user_profile.last_name }}_{{ user_profile.first_name }}_AFL'+binlen)
+		data.append('fileName', '{{ user_profile.last_name }}_AFL'+binlen)
 		data.append('fileTag', 'pdf')
 		data.append('blob_file', blob)
 		
+		// const blob = new Blob([data['blob_file']], { type: "application/pdf" });
+
+		// Create a download link
+		const downloadLink = document.createElement("a");
+		downloadLink.href = URL.createObjectURL(blob);
+		downloadLink.download = "AFL_{{user_profile.last_name}}.pdf"; // Replace with your desired file name
+  
+		// Trigger a click event on the link to start the download
+		downloadLink.click();
+  
+		// Clean up the URL object after download
+		URL.revokeObjectURL(downloadLink.href);
+
 		fetch('/fileLogs/add-log/{{user_profile.id}}', {
 				method: 'POST',
 				body: data

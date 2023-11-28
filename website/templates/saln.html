@@ -1318,7 +1318,7 @@ var business_table_col = [
  })();
 
  function fetchData(saln_type){
-  var url = "/saln/get-data/"+saln_type;
+  var url = "/saln/get-data/"+saln_type+"/{{user_profile.id}}";
 
   return fetch(url, {
     method: 'GET',
@@ -1351,7 +1351,7 @@ if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).va
 });
 
 function loadTable(table, tableCol, data) {
-    console.log(table)
+    //console.log(table)
     var jsonString = JSON.stringify(data) //for testing
   
     //var oTblReport = $('#rp_table');
@@ -1834,7 +1834,7 @@ function print_saln(){
       // Create a download link
       const downloadLink = document.createElement("a");
       downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = "document.docx"; // Replace with your desired file name
+      downloadLink.download = "SALN_{{user_profile.last_name}}.docx"; // Replace with your desired file name
 
       // Trigger a click event on the link to start the download
       downloadLink.click();
