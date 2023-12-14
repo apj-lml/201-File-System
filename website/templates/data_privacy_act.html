@@ -21,12 +21,12 @@
 		
         <!-- Masthead-->
         <div class="">
-            <header class="masthead pt-5 col-sm-12">
+            <header class="masthead pt-5 col-sm-12 vh-100">
                 <div class="container position-relative ">
                     <div class="row justify-content-center overflow-auto">
                         <div class="col-xl-12">
                             <div class="text-center text-white">
-                                <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="250px" height="250px" class="d-inline-block align-text-center mb-5">
+                                <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="175px" height="175px" class="d-inline-block align-text-center mb-5">
                                                     
                                 <h3 class="mb-3 mt-0 text-white"><span style="font-size: larger;">DATA PRIVACY ACT</span></h3>
                                 <p class="container fs-5"><i>
@@ -199,7 +199,12 @@
         </div>
       </div>
                      `,
+                     {% if request.path == "/data-privacy-act" and user_profile.data_privacy != "checked" %}
                     showCancelButton: true,
+                    {% else %}
+                    showCancelButton: false,
+
+                    {% endif %}
                     focusConfirm: true,
                     confirmButtonText:
                       'Proceed',

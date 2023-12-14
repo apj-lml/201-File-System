@@ -20,10 +20,11 @@ from . import db, generateWes
 from .models import (College, Family_Background, Masteral, Other_Information,
                      Uploaded_File, User, Vocational_Course, Work_Experience,
                      WorkExperienceSchema, Doctoral, Vocational_Course, Voluntary_Work,
-                     Learning_Development, Shirt, Career_Service, Emergency_Contact, File_Logs, UserSchema)
+                     Learning_Development, Shirt, Career_Service, Emergency_Contact, File_Logs, Afl, UserSchema)
 from bs4 import BeautifulSoup 
 import requests
 
+from collections import defaultdict
 
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
@@ -467,7 +468,61 @@ def afl(emp_id):
             secondary_certifier = db.session.query(User).filter_by(is_secondary_afl_certifier = 1).all()
             files = File_Logs.query.filter_by(user_id=emp_id).all()
 
-            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier,  files = files)
+            current_year = datetime.now().year
+            # Fetch AFL data
+
+            # get_afl = Afl.query.filter_by(user_id=emp_id).all()
+            get_afl = Afl.query.filter(
+                db.extract('year', Afl.date_start) == current_year,
+                db.extract('year', Afl.date_end) == current_year,
+                Afl.user_id == emp_id
+            ).all()
+
+            # Group AFLs by leave_id
+            grouped_afls = defaultdict(list)
+            for afl in get_afl:
+                grouped_afls[afl.leave_id].append(afl)
+
+            # Convert defaultdict to a regular dictionary
+            grouped_afls_dict = dict(grouped_afls)
+
+
+            # Group AFLs by leave_id and calculate the sum of no_working_days_applied_for
+            grouped_afls2 = defaultdict(int)
+            for afl2 in get_afl:
+                grouped_afls2[afl2.leave_id] += int(afl2.no_working_days_applied_for) if afl2.no_working_days_applied_for else 0
+
+            # Convert defaultdict to a regular dictionary
+            grouped_afls_dict2 = dict(grouped_afls2)
+
+
+            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier, files = files, grouped_afls_dict = grouped_afls_dict, grouped_afls_dict2 = grouped_afls_dict2)
+
+@views.route('/afl-logs/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def afl_logs(emp_id):
+    if request.method == 'GET':
+        if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+            return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+        else:
+            user = db.session.query(User).get(int(emp_id))
+
+            current_year = datetime.now().year
+            # Fetch AFL data
+
+            get_afl = Afl.query.filter_by(user_id=emp_id).all()
+            get_afl = Afl.query.filter_by(user_id=emp_id).order_by(desc(Afl.id)).all()
+
+            # get_afl = Afl.query.filter(
+            #     db.extract('year', Afl.date_start) == current_year,
+            #     db.extract('year', Afl.date_end) == current_year,
+            #     Afl.user_id == emp_id
+            # ).all()
+
+            db.session.commit()
+
+            return render_template('afl-logs.html', emp_id = emp_id, user_profile = user, get_afl = get_afl)
 
 @views.route('/rol/<emp_id>', methods=['GET', 'POST'])
 @login_required

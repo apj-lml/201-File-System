@@ -45,10 +45,10 @@ def create_app():
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/aljohnjacinto${DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/aljohnjacinto${DB_NAME}'
 
 	#mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['FILE_LOGS_FOLDER'] = FILE_LOGS_FOLDER
@@ -108,6 +108,29 @@ def create_app():
 			mydatetime = datetime.strptime(value, '%Y-%m-%d')
 			return mydatetime.strftime("%B %d, %Y")
 
+
+	@app.template_filter('aflDesc')
+	def afl_description(value):
+		aflDescription = [
+			'Vacation Leave (VL)',
+			'Mandatory/Forced Leave (FL)',
+			'Sick Leave (SL)',
+			'Maternity Leave',
+			'Paternity Leave',
+			'Special Privilege Leave (SPL)',
+			'Solo Parent Leave',
+			'Study Leave',
+			'10-Day VAWC Leave',
+			'Rehabilitation Privilege',
+			'Special Leave Benefits for Women',
+			'Special Emergency (Calamity) Leave',
+			'Adoption Leave'
+		]
+
+		if value != 99:
+			return aflDescription[value - 1]
+		else:
+			return 'CTO'
 
 
 	app.jinja_env.filters['escapejs'] = escapejs

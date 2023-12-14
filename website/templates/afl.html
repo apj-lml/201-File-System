@@ -11,6 +11,13 @@
 		overflow-y: scroll;
 		scroll-behavior: smooth;
 	}
+	.scroll-container-2 {
+		position: relative;
+		height: 260px;
+		overflow-y: scroll;
+		scroll-behavior: smooth;
+		padding: 0;
+	}
 	.highlight2 {
 		background-color: rgba(166, 240, 243, 0.8); /* set the highlight color */
 		transition: background-color 1s ease-out; /* add a transition */
@@ -52,8 +59,9 @@
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">
+
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
 
 {% endblock %}
 
@@ -120,21 +128,22 @@
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value);">
-											<option value="13">Adoption Leave</option>
-											<option value="2">Mandatory/Forced Leave</option>
-											<option value="4">Maternity Leave</option>
-											<option value="5">Paternity Leave</option>
-											<option value="10">Rehabilitation Privilege</option>
-											<option value="3">Sick Leave</option>
-											<option value="12">Special Emergency (Calamity) Leave</option>
-											<option value="11">Special Leave Benefits for Women</option>
-											<option value="6">Special Privilege Leave</option>
-											<option value="7">Solo Parent Leave</option>
-											<option value="8">Study Leave </option>
-											<option value="1">Vacation Leave</option>
-											<option value="9">10-Day VAWC Leave</option>
-											<option value="99">Others</option>
-
+											{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+												<option value="13">Adoption Leave</option>
+												<option value="2">Mandatory/Forced Leave</option>
+												<option value="4">Maternity Leave</option>
+												<option value="5">Paternity Leave</option>
+												<option value="10">Rehabilitation Privilege</option>
+												<option value="3">Sick Leave</option>
+												<option value="12">Special Emergency (Calamity) Leave</option>
+												<option value="11">Special Leave Benefits for Women</option>
+												<option value="6">Special Privilege Leave</option>
+												<option value="7">Solo Parent Leave</option>
+												<option value="8">Study Leave</option>
+												<option value="1">Vacation Leave</option>
+												<option value="9">10-Day VAWC Leave</option>
+												<option value="99">Others</option>
+											{% endfor %}
 										</select>
 										<label for="leave_id">Type of Leave <span class="is-required">*</span></label>
 									</div>
@@ -158,36 +167,35 @@
 									</div>
 									
 								</div>
-							<div class="col-sm-12 text-center mt-2 mb-5 flex-fill">
+							<div class="col-sm-12 text-center mt-2 mb-3 flex-fill">
 								<button type="submit" id="submitBtn" class="btn btn-primary" form="add_afl_form" onclick="" disabled>
 									<span id="mySpinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   									Loading...
 								</button>
 							</div>
-							<!-- <div class="col-sm-12">
-								<table class="table">
-									<thead>
-									  <tr>
+
+							<div class="col-sm-12">
+								<a href="/afl-logs/{{user_profile.id}}" target="_blank" class="text-decoration-underline">VIEW AFL LOGS</a>
+								<table class="table" id="leave_summary_table" >
+									<thead class="sticky-top top-0 bg-secondary">
+									<tr>
 										<th scope="col">Leave Type</th>
 										<th scope="col">Leaves Taken</th>
-										<th scope="col">Leaves Available</th>
-									  </tr>
+										<!-- <th scope="col">Leaves Available</th> -->
+									</tr>
 									</thead>
 									<tbody>
-									  <tr>
-										<th scope="row">1</th>
-										<td>@mdo</td>
-										<td>N/A</td>
-									  </tr>
-									  <tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>3</td>
-									  </tr>
+										{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+											<tr>
+												<th scope="row">{{ leave_id|aflDesc }}</th>
+												<td>{{ sum_days }} day/s</td>
+												<!-- <td>N/A</td> -->
+											</tr>
+										{% endfor %}
 									</tbody>
-								  </table>
-							</div> -->
+								</table>
 							</div>
+						</div>
 
 						</div>
 						<div class="card shadow-sm mb-3 col-sm-12 col-md-6">
@@ -457,9 +465,17 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="{{ url_for('static', filename='sgjg.js') }}"></script>
 <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
-<script src="https://unpkg.com/downloadjs@1.4.7"></script>
+<!-- <script src="https://unpkg.com/downloadjs@1.4.7"></script> -->
 
 <script type="text/javascript">
+
+		$(document).ready(function () {
+			var table = $('#leave_summary_table').DataTable({ 
+				order: [[0, 'asc']], 
+				lengthMenu: [[3, 10, 20, -1], [3, 10, 20, "All"]]
+				});
+		});
+
 
 		var fp;
 		fp = document.querySelector("#date_from")._flatpickr;
@@ -570,7 +586,9 @@
 				}).then((result) => {
 					if (result.isConfirmed) {
 						fp.clear();
-						reset_date_native();
+						leave_id.value = 13;
+
+						//reset_date_native();
 
 					}
 				})
@@ -717,8 +735,11 @@
 	}
 
 	function addAflForm(blobData){
-		//console.log("=========>>>>>>>> ",blobData);
-		//blobData.forEach((value, key) => (console.log(value)))
+
+		let start = document.querySelector('#date_from')._flatpickr.selectedDates[0];
+		let end = document.querySelector('#date_from')._flatpickr.selectedDates[1];
+        
+		console.log(end);
 
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
@@ -727,9 +748,9 @@
 
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
-		//data.append('fileName', '{{ user_profile.last_name }}_{{ user_profile.first_name }}_AFL'+len)
-		//formData.append('fileTag', 'pdf')
 		formData.append('blob_file', blobData)
+		formData.append('date_start', start)
+		formData.append('date_end', end)
 		
 
 		loadingScreen('block');
@@ -1181,6 +1202,7 @@
 		loadingScreen('none')
 		window.open(url);
 
+		//location.reload();
 		//loadPdf();
 		const myform = document.querySelector('#add_afl_form');
 		myform.classList.remove('was-validated');
@@ -1591,7 +1613,8 @@ function leave_type(leave_type){
 				  }).then((result) => {
 					if (result.isConfirmed) {
 						fp.clear();
-						reset_date_native();
+						leave_id.value = 13;
+						//reset_date_native();
 
 					}
 				  })
