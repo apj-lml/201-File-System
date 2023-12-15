@@ -128,7 +128,6 @@
 								<div class="d-md-flex flex-row">
 									<div class="form-floating flex-fill mb-3 p-1">
 										<select class="form-select" id="leave_id" name="leave_id" form="add_afl_form" onchange="leave_type(this);scrollToDiv(this.value);">
-											{% for leave_id, sum_days in grouped_afls_dict2.items() %}
 												<option value="13">Adoption Leave</option>
 												<option value="2">Mandatory/Forced Leave</option>
 												<option value="4">Maternity Leave</option>
@@ -143,7 +142,7 @@
 												<option value="1">Vacation Leave</option>
 												<option value="9">10-Day VAWC Leave</option>
 												<option value="99">Others</option>
-											{% endfor %}
+										
 										</select>
 										<label for="leave_id">Type of Leave <span class="is-required">*</span></label>
 									</div>
@@ -173,7 +172,7 @@
   									Loading...
 								</button>
 							</div>
-
+<!-- 
 							<div class="col-sm-12">
 								<a href="/afl-logs/{{user_profile.id}}" target="_blank" class="text-decoration-underline">VIEW AFL LOGS</a>
 								<table class="table" id="leave_summary_table" >
@@ -181,7 +180,6 @@
 									<tr>
 										<th scope="col">Leave Type</th>
 										<th scope="col">Leaves Taken</th>
-										<!-- <th scope="col">Leaves Available</th> -->
 									</tr>
 									</thead>
 									<tbody>
@@ -189,12 +187,11 @@
 											<tr>
 												<th scope="row">{{ leave_id|aflDesc }}</th>
 												<td>{{ sum_days }} day/s</td>
-												<!-- <td>N/A</td> -->
 											</tr>
 										{% endfor %}
 									</tbody>
 								</table>
-							</div>
+							</div> -->
 						</div>
 
 						</div>
