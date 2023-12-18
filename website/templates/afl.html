@@ -631,8 +631,6 @@
 		var firstDatePicked = flatpickr.parseDate(dates[0][0], "m/d/Y");
 		var lastDatePicked = flatpickr.parseDate(dates[dates.length - 1][0], "m/d/Y");
 		
-		//console.log(dates[0][0])
-		//console.log(date_filing)
 		//console.log(firstDatePicked)
 		//console.log(lastDatePicked)
 
@@ -679,6 +677,15 @@
 		}
 	}
 
+	function validateYear(dates){
+		var firstDatePicked = new Date(formatDate(flatpickr.parseDate(dates[0][0], "m/d/Y")));
+		var lastDatePicked = flatpickr.parseDate(dates[dates.length - 1][0], "m/d/Y");
+
+
+		console.log("first: ", firstDatePicked);
+		console.log("second: ", lastDatePicked);
+	}
+
 	function validateInclusiveDates(dates, leave){
 		var num = 0;
 
@@ -688,9 +695,15 @@
 
 		var date_filing = new Date(date_of_filing.value);
 		var firstDatePicked = new Date(formatDate(flatpickr.parseDate(dates[0][0], "m/d/Y")));
+		var lastDatePicked = flatpickr.parseDate(dates[dates.length - 1][0], "m/d/Y");
 
 		var formatteddate_filing = date_filing.toLocaleDateString("en-US");
 		var formattedfirstDatePicked = firstDatePicked.toLocaleDateString("en-US");
+
+		alert(123123);
+		console.log(firstDatePicked);
+		console.log(lastDatePicked);
+
 
 		num = getCalendarDays(
 			
@@ -1252,10 +1265,15 @@
 				el.style.backgroundColor = 'f7f7f7'; // prevent bg color change on focus
 			},
 			onValueUpdate: function(selectedDates, dateStr, instance) {
+
 			  const sortedDates = selectedDates.sort((a, b) => a - b);
 			  const dateRanges = [[new Date(sortedDates[0]).toLocaleDateString()]];
 			  let lastRange = 0;
-		  
+				
+			  if(validateYear(dateRanges)){
+
+			  }
+
 			  for (let i = 1; i < sortedDates.length; i++) {
 				const diffInMs = sortedDates[i] - sortedDates[i - 1];
 				const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
@@ -1306,7 +1324,10 @@
 			  if(leave == 99 && cto.checked){
 				validateInclusiveDates(dateRanges, leave);
 			  }
-			  //document.getElementById("no_working_days_applied_for").focus();
+			  
+
+
+
 			}
 		  });
 		  //fp.destroy();
