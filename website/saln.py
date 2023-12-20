@@ -302,10 +302,15 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['signatory'] = user.assignatory[0].assignatory
     user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
-    if getRpAcquisitionCostSubTotal(user, 4, 9) != '0.00' or getPpAcquisitionCostSubTotal(user, 7, 14) != '0.00' or getLiabilityOutstandingBalance(user, 4, 9) != '0.00' or len(user_profile.user_business_interest) > 3:
+    if getRpAcquisitionCostSubTotal(user, 4, 6) != '0.00' or getPpAcquisitionCostSubTotal(user, 7, 12) != '0.00' or getLiabilityOutstandingBalance(user, 4, 7) != '0.00' or len(user_profile.user_business_interest) > 2:
         user_profile_dict['addtl_page'] = True
     else:
         user_profile_dict['addtl_page'] = False
+
+    # if getRpAcquisitionCostSubTotal(user, 4, 9) != '0.00' or getPpAcquisitionCostSubTotal(user, 7, 14) != '0.00' or getLiabilityOutstandingBalance(user, 4, 9) != '0.00' or len(user_profile.user_business_interest) > 3:
+    #     user_profile_dict['addtl_page'] = True
+    # else:
+    #     user_profile_dict['addtl_page'] = False
 
     return user_profile_dict
 

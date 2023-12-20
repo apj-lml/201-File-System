@@ -1194,15 +1194,16 @@
 		// Clean up the URL object after download
 		URL.revokeObjectURL(downloadLink.href);
 
-		fetch('/fileLogs/add-log/{{user_profile.id}}', {
-				method: 'POST',
-				body: data
-			}).then((res)=>{
-				return res.json();
-			}).then((data)=>{
+		//ADD AFL TO FILE LOGS
+		//fetch('/fileLogs/add-log/{{user_profile.id}}', {
+		//		method: 'POST',
+		//		body: data
+		//	}).then((res)=>{
+		//		return res.json();
+		//	}).then((data)=>{
 				
 				
-			})
+		//	})
 
 		addAflForm(blob);
 	
