@@ -285,17 +285,17 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict["filing_type"] = filing_type
     user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
 
-    user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 4)
-    user_profile_dict['total_rp_acquisition_cost_p2'] = getRpAcquisitionCostSubTotal(user, 4, 9)
+    user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 3)
+    user_profile_dict['total_rp_acquisition_cost_p2'] = getRpAcquisitionCostSubTotal(user, 3, 6)
 
     user_profile_dict['total_pp_acquisition_cost_p1'] = getPpAcquisitionCostSubTotal(user, 0, 7)
-    user_profile_dict['total_pp_acquisition_cost_p2'] = getPpAcquisitionCostSubTotal(user, 7, 14)
+    user_profile_dict['total_pp_acquisition_cost_p2'] = getPpAcquisitionCostSubTotal(user, 7, 12)
 
     user_profile_dict['total_liability_outstanding_balance_p1'] = getLiabilityOutstandingBalance(user, 0, 4)
-    user_profile_dict['total_liability_outstanding_balance_p2'] = getLiabilityOutstandingBalance(user, 4, 8)
+    user_profile_dict['total_liability_outstanding_balance_p2'] = getLiabilityOutstandingBalance(user, 4, 7)
     
-    user_profile_dict['total_assets_p1'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 0, 4), getPpAcquisitionCostSubTotal(user, 0, 7))
-    user_profile_dict['total_assets_p2'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 4, 9), getPpAcquisitionCostSubTotal(user, 7, 14))
+    user_profile_dict['total_assets_p1'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 0, 3), getPpAcquisitionCostSubTotal(user, 0, 6))
+    user_profile_dict['total_assets_p2'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 4, 7), getPpAcquisitionCostSubTotal(user, 7, 12))
 
     user_profile_dict['networth'] = getNetworth(user_profile_dict['total_assets_p1'], user_profile_dict['total_liability_outstanding_balance_p1'], user_profile_dict['total_assets_p2'], user_profile_dict['total_liability_outstanding_balance_p2'])
 
