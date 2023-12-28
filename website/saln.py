@@ -285,14 +285,14 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict["filing_type"] = filing_type
     user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
 
-    user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 3)
-    user_profile_dict['total_rp_acquisition_cost_p2'] = getRpAcquisitionCostSubTotal(user, 3, 7)
+    user_profile_dict['total_rp_acquisition_cost_p1'] = getRpAcquisitionCostSubTotal(user, 0, 3) if getRpAcquisitionCostSubTotal(user, 0, 3) is not None else '0.00'
+    user_profile_dict['total_rp_acquisition_cost_p2'] = getRpAcquisitionCostSubTotal(user, 3, 7) if getRpAcquisitionCostSubTotal(user, 3, 7) is not None else '0.00'
 
-    user_profile_dict['total_pp_acquisition_cost_p1'] = getPpAcquisitionCostSubTotal(user, 0, 6)
-    user_profile_dict['total_pp_acquisition_cost_p2'] = getPpAcquisitionCostSubTotal(user, 6, 12)
+    user_profile_dict['total_pp_acquisition_cost_p1'] = getPpAcquisitionCostSubTotal(user, 0, 6) if getPpAcquisitionCostSubTotal(user, 0, 6) is not None else '0.00'
+    user_profile_dict['total_pp_acquisition_cost_p2'] = getPpAcquisitionCostSubTotal(user, 6, 12) if getPpAcquisitionCostSubTotal(user, 6, 12) is not None else '0.00'
 
-    user_profile_dict['total_liability_outstanding_balance_p1'] = getLiabilityOutstandingBalance(user, 0, 3)
-    user_profile_dict['total_liability_outstanding_balance_p2'] = getLiabilityOutstandingBalance(user, 3, 8)
+    user_profile_dict['total_liability_outstanding_balance_p1'] = getLiabilityOutstandingBalance(user, 0, 3) if getLiabilityOutstandingBalance(user, 0, 3) is not None else '0.00'
+    user_profile_dict['total_liability_outstanding_balance_p2'] = getLiabilityOutstandingBalance(user, 3, 8) if getLiabilityOutstandingBalance(user, 3, 8) is not None else '0.00'
     
     user_profile_dict['total_assets_p1'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 0, 3), getPpAcquisitionCostSubTotal(user, 0, 6))
     user_profile_dict['total_assets_p2'] = getTotalAssets(getRpAcquisitionCostSubTotal(user, 3, 7), getPpAcquisitionCostSubTotal(user, 6, 12))
@@ -302,7 +302,8 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['signatory'] = user.assignatory[0].assignatory
     user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
-    if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != '0.00' or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
+    
+    if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != None or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
         user_profile_dict['addtl_page'] = True
     else:
         user_profile_dict['addtl_page'] = False
@@ -315,18 +316,41 @@ def get_context(id, filing_date, filing_type):
     return user_profile_dict
 
 def getNetworth(total_assets_p1 = '0.00', total_liability_p1 = '0.00', total_assets_p2 = '0.00', total_liability_p2 = '0.00'):
-    floatAssetsP1 = float(total_assets_p1.replace(',', ''))
-    floatAssetsP2 = float(total_assets_p2.replace(',', ''))
-    floatLiabilityP1 = float(total_liability_p1.replace(',', ''))
-    floatLiabilityP2 = float(total_liability_p2.replace(',', ''))
+    if total_assets_p1:
+        floatAssetsP1 = float(total_assets_p1.replace(',', ''))
+    else:
+        floatAssetsP1 = 0.00
+
+    if total_assets_p2:
+        floatAssetsP2 = float(total_assets_p2.replace(',', ''))
+    else:
+        floatAssetsP2 = 0.00
+
+    if total_liability_p1:
+        floatLiabilityP1 = float(total_liability_p1.replace(',', ''))
+    else:
+        floatLiabilityP1 = 0.00
+
+    if total_liability_p2:
+        floatLiabilityP2 = float(total_liability_p2.replace(',', ''))
+    else:
+        floatLiabilityP2 = 0.00
 
     floatNetworth = (floatAssetsP1 + floatAssetsP2) - (floatLiabilityP1 + floatLiabilityP2)
     formatted_networth = "{:,.2f}".format(floatNetworth)
     return formatted_networth
 
 def getTotalAssets(subtotal1 = '0.00', subtotal2 = '0.00'):
-    floatSubtotal1 = float(subtotal1.replace(',', ''))
-    floatSubtotal2 = float(subtotal2.replace(',', ''))
+    if subtotal1:
+        floatSubtotal1 = float(subtotal1.replace(',', ''))
+    else:
+        floatSubtotal1 = 0.00
+
+    if subtotal2:
+        floatSubtotal2 = float(subtotal2.replace(',', ''))
+    else:
+        floatSubtotal2 = 0.00
+
     total = floatSubtotal1 + floatSubtotal2
     formatted_total = "{:,.2f}".format(total)
 
@@ -344,14 +368,14 @@ def getLiabilityOutstandingBalance(user, d_start, d_end):
                 outstanding_balance = float(liability_str.replace(',', ''))
                 outstanding_balances.append(outstanding_balance)
             else:
-                formatted_total_outstanding_balance = '0.00'
+                formatted_total_outstanding_balance = None
 
 
         # Calculate the sum of the first four acquisition_cost values
         total_outstanding_balance = sum(outstanding_balances)
         formatted_total_outstanding_balance = "{:,.2f}".format(total_outstanding_balance)
     else:
-        formatted_total_outstanding_balance = '0.00'
+        formatted_total_outstanding_balance = None
     
     return formatted_total_outstanding_balance
 
