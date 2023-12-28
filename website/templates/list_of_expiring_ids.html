@@ -72,7 +72,7 @@
                                   {% if expired_ids is not none  %}
                                   <ul class="list-group list-group-numbered list-group-flush">
                                     {% for expired_ids in expired_ids %}
-                                    <li class="list-group-item">{{expired_ids.Career_Service.date_of_validity|format_mydatetime_2}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}}, {{expired_ids.User.first_name}} {{expired_ids.User.middle_name}} {{expired_ids.User.name_extn if expired_ids.User.name_extn != 'N/A'}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</li>
+                                    <li class="list-group-item">{{expired_ids.Career_Service.date_of_validity|format_mydatetime_2}} - <a href="/employees/my-profile/{{expired_ids.User.id}}">{{expired_ids.User.last_name}}, {{expired_ids.User.first_name}} {{expired_ids.User.middle_name}} {{expired_ids.User.name_extn if expired_ids.User.name_extn != 'N/A'}}</a> / {{expired_ids.Career_Service.cs_eligibility}}</a></li>
                                     {% endfor %}
                                   </ul>
                                   {% else %}

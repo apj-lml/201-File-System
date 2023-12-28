@@ -244,9 +244,14 @@ def get_context(id, filing_date, filing_type):
         if child.fb_relationship == 'CHILD':
             filing_date_object = datetime.datetime.strptime(filing_date, "%Y-%m-%d").date()
             dob_object = datetime.datetime.strptime(child.fb_date_of_birth, "%Y-%m-%d").date()
-            ageBasedOnInput = relativedelta(filing_date_object, dob_object).years
-            if ageBasedOnInput < 18:
-                child.childAge = ageBasedOnInput
+            age_based_on_input  = relativedelta(filing_date_object, dob_object)
+            if age_based_on_input.years < 18:
+                if age_based_on_input.years <= 0:
+                    child.childAge = age_based_on_input.months
+                else:
+                    child.childAge = age_based_on_input.years
+
+
                 child.formattedBirthDate = dob_object.strftime("%B %d, %Y")
                 children_list.append(child)
 
@@ -302,8 +307,6 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['signatory'] = user.assignatory[0].assignatory
     user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
-    print("==========>>>>",getPpAcquisitionCostSubTotal(user, 6, 12))
-    
     if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != None or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
         user_profile_dict['addtl_page'] = True
     else:
