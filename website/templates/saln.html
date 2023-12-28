@@ -1166,7 +1166,7 @@ fetchData('rp')
     searchable: false,
     render: function ( data, type, row ) {
         return `
-        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');"  title="<em>Edit</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" title="<em>Edit</em> <u><b>Real Property</b></u>">
           <i class="far fa-edit"></i>
         </button>
         <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1576,10 +1576,12 @@ function disableFields(formId, isDisabled){
   if(isDisabled){
     formFields.forEach(function(field) {
       field.setAttribute("disabled", "disabled");
+      field.setAttribute("readonly", "readonly");
     });
   }else{
     formFields.forEach(function(field) {
       field.removeAttribute("disabled");
+      field.removeAttribute("readonly");
     });
   }
 }
@@ -1684,10 +1686,10 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Personal Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Personal Property</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
             }
@@ -1989,7 +1991,9 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
         { "data" : "rp_acquisition_mode" },
         { "data" : "rp_acquisition_cost" },
         { "data" : null,
-        "defaultContent": `
+        searchable: false,
+    render: function ( data, type, row ) {
+        return `
               <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
@@ -1997,6 +2001,7 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
                 <i class="far fa-trash-alt"></i>
               </button>`
       }
+    }
       ]
 
         loadTable('rp_table', rp_table_col, data);

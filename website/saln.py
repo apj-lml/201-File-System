@@ -302,7 +302,7 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['signatory'] = user.assignatory[0].assignatory
     user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
-    if getRpAcquisitionCostSubTotal(user, 3, 7) != '0.00' or getPpAcquisitionCostSubTotal(user, 6, 12) != '0.00' or getLiabilityOutstandingBalance(user, 3, 8) != '0.00' or len(user_profile.user_business_interest) > 2:
+    if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != '0.00' or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
         user_profile_dict['addtl_page'] = True
     else:
         user_profile_dict['addtl_page'] = False
@@ -370,13 +370,13 @@ def getRpAcquisitionCostSubTotal(user, d_start, d_end):
                 acquisition_cost = float(acquisition_cost_str.replace(',', ''))
                 acquisition_costs.append(acquisition_cost)
             else:
-                formatted_total_acquisition_cost = '0.00'
+                formatted_total_acquisition_cost = None
 
         # Calculate the sum of the first four acquisition_cost values
         total_acquisition_cost = sum(acquisition_costs)
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
     else:
-        formatted_total_acquisition_cost = '0.00'
+        formatted_total_acquisition_cost = None
     
     return formatted_total_acquisition_cost
 
@@ -393,13 +393,13 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
                 acquisition_cost = float(acquisition_cost_str.replace(',', ''))
                 acquisition_costs.append(acquisition_cost)
             else:
-                formatted_total_acquisition_cost = '0.00'
+                formatted_total_acquisition_cost = None
 
         # Calculate the sum of the first four acquisition_cost values
         total_acquisition_cost = sum(acquisition_costs)
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
     else:
-        formatted_total_acquisition_cost = '0.00'
+        formatted_total_acquisition_cost = None
     
     return formatted_total_acquisition_cost
 
