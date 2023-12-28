@@ -302,16 +302,12 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['signatory'] = user.assignatory[0].assignatory
     user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
+    print("==========>>>>",getPpAcquisitionCostSubTotal(user, 6, 12))
     
     if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != None or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
         user_profile_dict['addtl_page'] = True
     else:
         user_profile_dict['addtl_page'] = False
-
-    # if getRpAcquisitionCostSubTotal(user, 4, 9) != '0.00' or getPpAcquisitionCostSubTotal(user, 7, 14) != '0.00' or getLiabilityOutstandingBalance(user, 4, 9) != '0.00' or len(user_profile.user_business_interest) > 3:
-    #     user_profile_dict['addtl_page'] = True
-    # else:
-    #     user_profile_dict['addtl_page'] = False
 
     return user_profile_dict
 
@@ -373,7 +369,7 @@ def getLiabilityOutstandingBalance(user, d_start, d_end):
 
         # Calculate the sum of the first four acquisition_cost values
         total_outstanding_balance = sum(outstanding_balances)
-        formatted_total_outstanding_balance = "{:,.2f}".format(total_outstanding_balance)
+        formatted_total_outstanding_balance = "{:,.2f}".format(total_outstanding_balance) if sum(outstanding_balances) > 0 else None
     else:
         formatted_total_outstanding_balance = None
     
@@ -398,7 +394,7 @@ def getRpAcquisitionCostSubTotal(user, d_start, d_end):
 
         # Calculate the sum of the first four acquisition_cost values
         total_acquisition_cost = sum(acquisition_costs)
-        formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
+        formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost) if sum(acquisition_costs) > 0 else None
     else:
         formatted_total_acquisition_cost = None
     
@@ -409,6 +405,8 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
     # Extract the acquisition_cost values from the first four real properties (if available)
     acquisition_costs = []
     personal_properties = user.user_personal_property
+    # personal_properties = sorted(user.user_personal_property, key=lambda x: x.pp_year_acquired, reverse=True)
+
     if personal_properties:
         for personal_property in personal_properties[d_start:d_end]:
             acquisition_cost_str = personal_property.pp_acquisition_cost
@@ -421,7 +419,7 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
 
         # Calculate the sum of the first four acquisition_cost values
         total_acquisition_cost = sum(acquisition_costs)
-        formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost)
+        formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost) if sum(acquisition_costs) > 0 else None
     else:
         formatted_total_acquisition_cost = None
     

@@ -1136,7 +1136,13 @@ td{
     var formFields = form.querySelectorAll("input");
     
     formFields.forEach(function(field) {
-      field.value = "";
+      if (field.type === "checkbox") {
+        // Uncheck checkboxes
+        field.checked = false;
+      } else {
+        // Clear input fields
+        field.value = "";
+      }
     });
   }
 
