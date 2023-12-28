@@ -1152,9 +1152,7 @@ td{
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-
     document.getElementById('filing_date').valueAsDate = new Date();
-
 
 fetchData('rp')
   .then((data) => {
@@ -2039,7 +2037,7 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
     }).then((res)=>{
       if (res.status == 200){
 		    loadingScreen('none');
-
+        document.getElementById("pp_year_acquired").readOnly = false;
         triggerToast("Successfully Added Personal Property!", 'success')
         clearFields("saln_pp_form");
   
