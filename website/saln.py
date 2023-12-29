@@ -244,13 +244,13 @@ def get_context(id, filing_date, filing_type):
         if child.fb_relationship == 'CHILD':
             filing_date_object = datetime.datetime.strptime(filing_date, "%Y-%m-%d").date()
             dob_object = datetime.datetime.strptime(child.fb_date_of_birth, "%Y-%m-%d").date()
-            age_based_on_input  = relativedelta(filing_date_object, dob_object)
+            age_based_on_input = relativedelta(filing_date_object, dob_object)
+
             if age_based_on_input.years < 18:
                 if age_based_on_input.years <= 0:
-                    child.childAge = age_based_on_input.months
+                    child.childAge = str(age_based_on_input.months) + " MONTH/S OLD"
                 else:
-                    child.childAge = age_based_on_input.years
-
+                    child.childAge = str(age_based_on_input.years) + " YEAR/S OLD"
 
                 child.formattedBirthDate = dob_object.strftime("%B %d, %Y")
                 children_list.append(child)
