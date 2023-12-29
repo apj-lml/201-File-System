@@ -226,6 +226,14 @@ def get_context(id, filing_date, filing_type):
 
     user_profile.user_business_interest = bi_list
 
+    rg_list = []
+    for rg in user_profile.user_relative_in_government:
+        # rg_acquistion_date_object = datetime.datetime.strptime(rg.business_acquisition, "%Y-%m-%d").date()
+        # rg.business_acquisition = rg_acquistion_date_object.strftime("%B %d, %Y")
+        rg_list.append(rg)
+
+    user_profile.user_relative_in_government = rg_list
+
     user_profile_dict = UserSchema().dump(user_profile)
 
     user_profile_dict['full_name'] = user_profile.first_name + " " + middle_name + " " + user_profile.last_name + " " + name_extn
@@ -307,10 +315,16 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['signatory'] = user.assignatory[0].assignatory
     user_profile_dict['signatory_position_title'] = user.assignatory[0].position_title
 
-    if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != None or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
+    # if getRpAcquisitionCostSubTotal(user, 3, 7) != None or getPpAcquisitionCostSubTotal(user, 6, 12) != None or getLiabilityOutstandingBalance(user, 3, 8) != None or len(user_profile.user_business_interest) > 2:
+    if getRpAcquisitionCostSubTotal(user, 3, 8) != None or getPpAcquisitionCostSubTotal(user, 6, 13) != None or getLiabilityOutstandingBalance(user, 3, 9) != None:
         user_profile_dict['addtl_page'] = True
     else:
         user_profile_dict['addtl_page'] = False
+
+    if len(user_profile.user_business_interest) > 2 or len(user_profile.user_relative_in_government) > 5:
+        user_profile_dict['addtl_page_3'] = True
+    else:
+        user_profile_dict['addtl_page_3'] = False
 
     return user_profile_dict
 
