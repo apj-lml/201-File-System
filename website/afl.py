@@ -111,9 +111,11 @@ def print_afl(emp_id):
     formdata = request.form.to_dict()
     if request.method == "POST":
         blob_data = request.files['blob_file'].read()
-
-        formatted_date_start = datetime.strptime(formdata['date_start'], '%a %b %d %Y %H:%M:%S GMT%z (%Z)')
-        formatted_date_end = datetime.strptime(formdata['date_end'], '%a %b %d %Y %H:%M:%S GMT%z (%Z)')
+        
+        formatted_date_start = datetime.strptime(formdata['date_start'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        # formatted_date_start = datetime.strptime(formdata['date_start'], '%a %b %d %Y %H:%M:%S GMT%z (%Z)')
+        # formatted_date_end = datetime.strptime(formdata['date_end'], '%a %b %d %Y %H:%M:%S GMT%z (%Z)')
+        formatted_date_end = datetime.strptime(formdata['date_end'], '%Y-%m-%dT%H:%M:%S.%fZ')
         afl = Afl(
                     user_id = emp_id,
                     leave_id = formdata['leave_id'],

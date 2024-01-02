@@ -747,13 +747,21 @@
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
 
+		// Format the dates before sending them to the backend
+		const formatDate = (date) => {
+			return date.toISOString();  // This will give you the date in the format 'YYYY-MM-DDTHH:mm:ss.sssZ'
+		};
+
+		let formattedStartDate = formatDate(start);
+		let formattedEndDate = formatDate(end);
+
 		//loadPdf()
 
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
 		formData.append('blob_file', blobData)
-		formData.append('date_start', start)
-		formData.append('date_end', end)
+		formData.append('date_start', formattedStartDate)
+		formData.append('date_end', formattedEndDate)
 		
 
 		loadingScreen('block');
