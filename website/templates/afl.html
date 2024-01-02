@@ -1198,7 +1198,7 @@
 				
 		//	})
 
-		//<!-- addAflForm(blob); -->
+		addAflForm(blob);
 	
 		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
 		//var fileURL = URL.createObjectURL(file);
@@ -1278,6 +1278,28 @@
 				// Get the current year in the timezone of the Philippines
 				var currentYearInPH = new Intl.DateTimeFormat('en-US', { year: 'numeric', timeZone: 'Asia/Manila' }).format(currentDate);
 
+			  	if(firstDatePickedForValidation.getFullYear() != currentYearInPH || lastDatePickedForValidation.getFullYear() != currentYearInPH){
+					if( firstDatePickedForValidation.getFullYear() > currentYearInPH ){
+						Swal.fire({
+							title: 'NOTICE!',
+							text: `Please be advised that you have to file your leave separately if the inclusive dates are with different years.`,
+							icon: 'warning',
+							allowOutsideClick: false,
+							showCancelButton: false,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'I understand'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								fp.clear();
+
+							}
+						});
+					}
+
+				}
+
+			
 
 			  for (let i = 1; i < sortedDates.length; i++) {
 				const diffInMs = sortedDates[i] - sortedDates[i - 1];
@@ -1322,16 +1344,93 @@
 				validateInclusiveDates(dateRanges, leave);
 			  }
 
+			  if(leave == 6){
+				var spl = 0;
 
+				{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+					{% if leave_id == 6 %}
+
+						spl = {{ sum_days }};
+
+					{% endif %}
+				{% endfor %}
+
+				if( spl > 3 ){
+					Swal.fire({
+						title: 'NOTICE!',
+						text: `Please be advised that you have already exhausted all your Special Privilege Leave (SPL). If you have questions or clarifications, please contact the Administrative Unit.`,
+						icon: 'warning',
+						allowOutsideClick: false,
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'I understand'
+					  }).then((result) => {
+						if (result.isConfirmed) {
+							fp.clear();
+							//date_filing.valueAsDate = null;
+	
+						}
+					  });
+				}
+
+
+			  	if(firstDatePickedForValidation.getFullYear() != currentYearInPH || lastDatePickedForValidation.getFullYear() != currentYearInPH){
+					Swal.fire({
+						title: 'NOTICE!',
+						text: `Please be advised that Special Privilege Leave (SPL) can only be filed within the same year of inclusive dates. If you have questions or clarifications, please contact the Administrative Unit.`,
+						icon: 'warning',
+						allowOutsideClick: false,
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'I understand'
+					  }).then((result) => {
+						if (result.isConfirmed) {
+							fp.clear();
+							//date_filing.valueAsDate = null;
+	
+						}
+					  });
+				}
+
+			  }
 
 			var cto = document.getElementById('cto');
 
 			  if(leave == 99 && cto.checked){
+				var cto = 0;
+				{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+					{% if leave_id == 99 %}
+
+						cto = {{ sum_days }};
+
+					{% endif %}
+				{% endfor %}
+
+				
+				if( cto > 15 ){
+					Swal.fire({
+						title: 'NOTICE!',
+						text: `Please be advised that you have exceeded the annual limit of Fifteen (15) days Compensatoty Time-Off (CTO). If you have questions or clarifications, please contact the Administrative Unit.`,
+						icon: 'warning',
+						allowOutsideClick: false,
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'I understand'
+					  }).then((result) => {
+						if (result.isConfirmed) {
+							fp.clear();
+							//date_filing.valueAsDate = null;
+	
+						}
+					  });
+				}
+
 				validateInclusiveDates(dateRanges, leave);
 			  }
 			  
-
-
 
 			}
 		  });
@@ -1821,8 +1920,6 @@ function convertNumberToWords(number) {
 		});
 	
 		validateInclusiveDates(dateRanges, elem.value)
-
-		console.log(dateRanges);
 		
 	}else{
 		elem.checked = true;

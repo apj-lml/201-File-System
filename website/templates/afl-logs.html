@@ -59,7 +59,10 @@
 						<th scope="col">Inclusive Dates </th>
 						<th scope="col">Date of Filing </th>
 						<th scope="col">PDF File </th>
+						{% if current_user.type_of_user == 'admin' %}
 						<th scope="col">Control </th>
+						{% endif %}
+						
 						<!-- <th scope="col">Leaves Available</th> -->
 					</tr>
 					</thead>
@@ -72,16 +75,21 @@
 								<td>{{ afl.date_range }}</td>
 								<td>{{ afl.filing_date|format_mydatetime_2 }}</td>
                                 <td class="text-start"><a href="{{ url_for('afl.download_blob', id=afl.id) }}">Download</a></td>
+								
+								{% if current_user.type_of_user == 'admin' %}
 								<td>
 									<div class="d-sm-flex flex-row">
 										<!-- <a class="btn btn-primary btn-sm me-2 text-white" title="Edit" id="{{afl.id}}" data-bs-toggle="modal" data-bs-target="#editLogModal" onclick="edit_log(this)">
 											<i class="bi bi-pencil"></i>
 										</a> -->
-										<a class="btn btn-danger btn-sm text-white" title="Remove" id="{{afl.id}}" onclick = "delete_log(this)">
-											<i class="bi bi-trash"></i>
-										</a>
+									
+											<a class="btn btn-danger btn-sm text-white" title="Remove" id="{{afl.id}}" onclick = "delete_log(this)">
+												<i class="bi bi-trash"></i>
+											</a>
 									</div>
 								</td>
+								{% endif %}
+
 							</tr>
 						{% endfor %}
 					</tbody>

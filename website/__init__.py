@@ -57,7 +57,7 @@ def create_app():
 	# app.config.from_pyfile('mysettings.cfg')
 	
 	# babel.init_app(babel)
-	#app.config["CACHE_TYPE"] = "null"
+	# app.config["CACHE_TYPE"] = "null"
 	# change to "redis" and restart to cache again
 
 	db.init_app(app)
