@@ -545,8 +545,6 @@
 			}, false)
 		  })
 
-
-
 		  const spinnerElement = document.getElementById('mySpinner');
 		  spinnerElement.style.display = 'none';
 		  var submitBtn = document.getElementById('submitBtn');
@@ -1280,28 +1278,6 @@
 				// Get the current year in the timezone of the Philippines
 				var currentYearInPH = new Intl.DateTimeFormat('en-US', { year: 'numeric', timeZone: 'Asia/Manila' }).format(currentDate);
 
-			  	if(firstDatePickedForValidation.getFullYear() != currentYearInPH || lastDatePickedForValidation.getFullYear() != currentYearInPH){
-					Swal.fire({
-						title: 'NOTICE!',
-						// text: "Please be advised that your date of filing is deemed invalid as it does not meet the minimum requirement of five (5) days.",
-						text: `Please be advised that you have to file your leave separately if the inclusive dates are with different years.`,
-						icon: 'warning',
-						allowOutsideClick: false,
-						showCancelButton: false,
-						confirmButtonColor: '#3085d6',	
-						cancelButtonColor: '#d33',
-						confirmButtonText: 'I understand'
-					}).then((result) => {
-						if (result.isConfirmed) {
-							fp.clear();
-							//date_filing.valueAsDate = null;
-
-						}
-					});
-				}else{
-					//alert(213123)
-				}
-			//}
 
 			  for (let i = 1; i < sortedDates.length; i++) {
 				const diffInMs = sortedDates[i] - sortedDates[i - 1];
