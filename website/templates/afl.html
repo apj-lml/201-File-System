@@ -765,6 +765,7 @@
 				return res.json();
 			}).then((data)=>{
 			
+				window.location.reload();
 				
 			});
 	}
@@ -1206,6 +1207,7 @@
 		loadingScreen('none')
 		window.open(url);
 
+
 		//location.reload();
 		//loadPdf();
 		const myform = document.querySelector('#add_afl_form');
@@ -1355,7 +1357,7 @@
 					{% endif %}
 				{% endfor %}
 
-				if( spl > 3 ){
+				if( spl >= 3 ){
 					Swal.fire({
 						title: 'NOTICE!',
 						text: `Please be advised that you have already exhausted all your Special Privilege Leave (SPL). If you have questions or clarifications, please contact the Administrative Unit.`,
@@ -1409,7 +1411,7 @@
 				{% endfor %}
 
 				
-				if( cto > 15 ){
+				if( cto >= 15 ){
 					Swal.fire({
 						title: 'NOTICE!',
 						text: `Please be advised that you have exceeded the annual limit of Fifteen (15) days Compensatoty Time-Off (CTO). If you have questions or clarifications, please contact the Administrative Unit.`,
