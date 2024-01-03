@@ -304,7 +304,7 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['total_pp_acquisition_cost_p2'] = formatNumber(getPpAcquisitionCostSubTotal(user, 6, 12)) if getPpAcquisitionCostSubTotal(user, 6, 12) != 0 else 0.00
 
     user_profile_dict['total_liability_outstanding_balance_p1'] = formatNumber(getLiabilityOutstandingBalance(user, 0, 3) + getLiabilityOutstandingBalance(user, 3, 8)) if getLiabilityOutstandingBalance(user, 0, 3) != 0 else formatNumber(0.00)
-    user_profile_dict['total_liability_outstanding_balance_p2'] = formatNumber(getLiabilityOutstandingBalance(user, 3, 8)) if getLiabilityOutstandingBalance(user, 3, 8) != 0 else 0.00
+    user_profile_dict['total_liability_outstanding_balance_p2'] = formatNumber(getLiabilityOutstandingBalance(user, 3, 8)) if getLiabilityOutstandingBalance(user, 3, 8) != 0 else formatNumber(0.00)
     
     user_profile_dict['total_assets_p1'] = formatNumber(getTotalAssets(getRpAcquisitionCostSubTotal(user, 0, 3), getPpAcquisitionCostSubTotal(user, 0, 6)) + getTotalAssets(getRpAcquisitionCostSubTotal(user, 3, 7), getPpAcquisitionCostSubTotal(user, 6, 12)))
     user_profile_dict['total_assets_p2'] = formatNumber(getTotalAssets(getRpAcquisitionCostSubTotal(user, 3, 7), getPpAcquisitionCostSubTotal(user, 6, 12)))
