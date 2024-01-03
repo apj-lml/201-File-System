@@ -279,7 +279,18 @@ def get_context(id, filing_date, filing_type):
 
     user_profile_dict['spouse_govt_issued_id'] = spouse.fb_id if spouse and spouse.fb_id != "" else "N/A"
     user_profile_dict['spouse_govt_issued_id_no'] = spouse.fb_id_no if spouse and spouse.fb_id_no != "" else "N/A"
-    user_profile_dict['spouse_deceased'] = spouse.fb_deceased if spouse and spouse.fb_deceased != "checked" else "checked"
+
+    if spouse is not None:
+        if spouse.fb_deceased == "unchecked":
+            user_profile_dict['spouse_deceased'] = "unchecked"
+        elif spouse.fb_deceased == "checked":
+            user_profile_dict['spouse_deceased'] = "checked"
+    else:
+        user_profile_dict['spouse_deceased'] = "unchecked"
+
+    # user_profile_dict['spouse_deceased'] = spouse.fb_deceased if spouse and spouse.fb_deceased != "checked" else "checked"
+
+    print(spouse)
     print(user_profile_dict['spouse_deceased'])
 
     spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date() if spouse and spouse.fb_date_issued != "" and spouse.fb_date_issued is not None else "N/A"
