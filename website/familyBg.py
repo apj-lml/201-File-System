@@ -48,7 +48,6 @@ def add_family_background(emp_id):
             formdata = request.form.to_dict()
 
             for xy in range(1, int(formdata['family_count']) + 1):
-                # try:
 
                 if 'fb_last_name['+str(xy)+']' in formdata:
                     fb_last_name = formdata['fb_last_name['+str(xy)+']']
@@ -102,10 +101,15 @@ def add_family_background(emp_id):
                     fb_id_no = formdata['fb_id_no['+str(xy)+']']
                 else:
                     fb_id_no = None
+                if 'fb_deceased['+str(xy)+']' in formdata:
+                    fb_deceased = formdata['fb_deceased['+str(xy)+']']
+                else:
+                    fb_deceased = None
                 if 'fb_date_issued['+str(xy)+']' in formdata:
                     fb_date_issued = formdata['fb_date_issued['+str(xy)+']']
                 else:
                     fb_date_issued = None
+                
 
 
                 new_family_bg = Family_Background(
@@ -123,6 +127,7 @@ def add_family_background(emp_id):
                 fb_id = str(fb_id).upper(),
                 fb_id_no = str(fb_id_no).upper(),
                 fb_date_issued = str(fb_date_issued).upper(),
+                fb_deceased = str(fb_deceased),
                 user_id = emp_id
                     )
 
@@ -205,7 +210,12 @@ def update_family_background(emp_id):
         if 'fb_id_no['+str(xy)+']' in formdata:
             fb_id_no = formdata['fb_id_no['+str(xy)+']']
         else:
-            fb_id_no = None
+            fb_deceased = None
+        if 'fb_deceased['+str(xy)+']' in formdata:
+            if formdata['fb_deceased['+str(xy)+']']:
+                fb_deceased = formdata['fb_deceased['+str(xy)+']']
+        else:
+            fb_deceased = 'unchecked' 
         if 'fb_date_issued['+str(xy)+']' in formdata:
             fb_date_issued = formdata['fb_date_issued['+str(xy)+']']
         else:
@@ -226,6 +236,7 @@ def update_family_background(emp_id):
                         fb_relationship = str(fb_relationship).upper(),
                         fb_id = str(fb_id).upper(),
                         fb_id_no = str(fb_id_no).upper(),
+                        fb_deceased = str(fb_deceased),
                         fb_date_issued = str(fb_date_issued).upper(),
                         ))
 

@@ -74,9 +74,17 @@
 									<input type="text" class="form-control" name ="fb_last_name[1]" id="spouse_ln" placeholder="Last Name" form="family_bg_update_form" value="{{spouse[0].fb_last_name if spouse[0].fb_last_name is not none and spouse[0].fb_last_name != 'NONE' else '' }}" required>
 									<label for="fb_last_name[1]">Last Name</label>
 								</div>
-								<div class="form-floating flex-fill mb-3 p-1">
+								<div class="form-floating flex-fill mb-1 p-1">
 									<input type="text" class="form-control" name ="fb_first_name[1]" id="spouse_fn" placeholder="First Name" form="family_bg_update_form" value="{{spouse[0].fb_first_name if spouse[0].fb_first_name is not none and spouse[0].fb_first_name != 'NONE' else ''}}" required>
 									<label for="fb_first_name[1]">First Name</label>
+									<div class="d-inline-flex justify-content-center">
+										<div class="form-check">
+										  <input class="form-check-input" name="fb_deceased[1]" id="spouse_deceased" type="checkbox" form="family_bg_update_form" value="checked" {{spouse[0].fb_deceased}}>
+										  <label class="form-check-label" for="spouse_deceased">
+											DECEASED
+										  </label>
+										</div>
+									  </div>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
 									<input type="text" class="form-control" name ="fb_middle_name[1]" id="spouse_mn" placeholder="Middle Name" form="family_bg_update_form" value="{{spouse[0].fb_middle_name if spouse[0].fb_middle_name is not none and spouse[0].fb_middle_name != 'NONE' else ''}}" required>
@@ -453,6 +461,7 @@
 		var spouse_id = document.getElementById('spouse_id');
 		var spouse_id_no = document.getElementById('spouse_id_no');
 		var spouse_date_issued = document.getElementById('spouse_date_issued');
+		var spouse_deceased = document.getElementById('spouse_deceased');
 		if(value == 'NO'){
 			spouse_ln.disabled = true;
 			spouse_fn.disabled = true;
@@ -465,6 +474,8 @@
 			spouse_id.disabled = true;
 			spouse_id_no.disabled = true;
 			spouse_date_issued.disabled = true;
+			spouse_deceased.disabled = true;
+			spouse_deceased.checked = false;
 		}else{
 			spouse_ln.disabled = false;
 			spouse_fn.disabled = false;
@@ -477,6 +488,8 @@
 			spouse_id.disabled = false;
 			spouse_id_no.disabled = false;
 			spouse_date_issued.disabled = false;
+			spouse_deceased.disabled = false;
+
 		}
 
 	}

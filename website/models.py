@@ -544,6 +544,7 @@ class Family_Background(db.Model, SerializerMixin):
     fb_id = db.Column(db.String(150))
     fb_id_no = db.Column(db.String(150))
     fb_date_issued = db.Column(db.String(150))
+    fb_deceased = db.Column(db.String(50), default="unchecked")
     user = db.relationship('User', backref='user_family_background', lazy=True)
     # user = db.relationship('User', backref='user_family_background', lazy=True)
 
