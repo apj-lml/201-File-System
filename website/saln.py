@@ -391,6 +391,7 @@ def getLiabilityOutstandingBalance(user, d_start, d_end):
         formatted_total_outstanding_balance = "{:,.2f}".format(total_outstanding_balance) if sum(outstanding_balances) > 0 else None
     else:
         formatted_total_outstanding_balance = None
+        total_outstanding_balance = 0.00
     
     return total_outstanding_balance
     # return formatted_total_outstanding_balance
@@ -419,6 +420,7 @@ def getRpAcquisitionCostSubTotal(user, d_start, d_end):
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost) if sum(acquisition_costs) > 0 else None
     else:
         formatted_total_acquisition_cost = 0
+        total_acquisition_cost = 0.00
     
     return total_acquisition_cost
     # return formatted_total_acquisition_cost
@@ -445,6 +447,7 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost) if sum(acquisition_costs) > 0 else None
     else:
         formatted_total_acquisition_cost = None
+        total_acquisition_cost = 0.00
     
     # return formatted_total_acquisition_cost
     return total_acquisition_cost
