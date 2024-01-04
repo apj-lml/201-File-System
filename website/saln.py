@@ -257,11 +257,12 @@ def get_context(id, filing_date, filing_type):
                 else:
                     child.childAge = str(age_based_on_input.years)
 
+
                 child.formattedBirthDate = dob_object.strftime("%B %d, %Y")
                 children_list.append(child)
 
     # Sort children_list in descending order based on child's age
-    children_list = sorted(children_list, key=lambda x: x.childAge, reverse=True)
+    # children_list = sorted(children_list, key=lambda x: x.childAge, reverse=True)
 
     spouse = None
     for relative in user_profile.familyBg:
@@ -305,7 +306,7 @@ def get_context(id, filing_date, filing_type):
 
     user_profile_dict["filing_date"] = formatted_date
     user_profile_dict["filing_type"] = filing_type
-    user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.childAge, reverse=True)
+    user_profile_dict["children_list"] = sorted(children_list, key=lambda x: x.fb_date_of_birth, reverse=False)
 
     user_profile_dict['total_rp_acquisition_cost_p1'] = formatNumber(getRpAcquisitionCostSubTotal(user, 0, 3) + getRpAcquisitionCostSubTotal(user, 3, 7)) if getRpAcquisitionCostSubTotal(user, 0, 3) != 0 else formatNumber(0.00)
     user_profile_dict['total_rp_acquisition_cost_p2'] = formatNumber(getRpAcquisitionCostSubTotal(user, 3, 7)) if getRpAcquisitionCostSubTotal(user, 3, 7) != 0 else formatNumber(0.00)

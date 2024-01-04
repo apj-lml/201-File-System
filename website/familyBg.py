@@ -210,7 +210,7 @@ def update_family_background(emp_id):
         if 'fb_id_no['+str(xy)+']' in formdata:
             fb_id_no = formdata['fb_id_no['+str(xy)+']']
         else:
-            fb_deceased = None
+            fb_id_no = None
         if 'fb_deceased['+str(xy)+']' in formdata:
             if formdata['fb_deceased['+str(xy)+']']:
                 fb_deceased = formdata['fb_deceased['+str(xy)+']']
