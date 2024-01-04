@@ -260,6 +260,9 @@ def get_context(id, filing_date, filing_type):
                 child.formattedBirthDate = dob_object.strftime("%B %d, %Y")
                 children_list.append(child)
 
+    # Sort children_list in descending order based on child's age
+    children_list = sorted(children_list, key=lambda x: x.childAge, reverse=True)
+    
     spouse = None
     for relative in user_profile.familyBg:
         if relative.fb_relationship == 'SPOUSE':
@@ -398,7 +401,7 @@ def getLiabilityOutstandingBalance(user, d_start, d_end):
 
 
         # Calculate the sum of the first four acquisition_cost values
-        total_outstanding_balance = sum(outstanding_balances) if sum(outstanding_balances) > 0 else 0
+        total_outstanding_balance = sum(outstanding_balances) if sum(outstanding_balances) > 0 else 0.00001
         formatted_total_outstanding_balance = "{:,.2f}".format(total_outstanding_balance) if sum(outstanding_balances) > 0 else None
     else:
         formatted_total_outstanding_balance = None
@@ -427,11 +430,11 @@ def getRpAcquisitionCostSubTotal(user, d_start, d_end):
                 formatted_total_acquisition_cost = 0
 
         # Calculate the sum of the first four acquisition_cost values
-        total_acquisition_cost = sum(acquisition_costs) if sum(acquisition_costs) > 0 else 0
+        total_acquisition_cost = sum(acquisition_costs) if sum(acquisition_costs) > 0 else 0.00001
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost) if sum(acquisition_costs) > 0 else None
     else:
         formatted_total_acquisition_cost = 0
-        total_acquisition_cost = 0.00
+        total_acquisition_cost = 0
     
     return total_acquisition_cost
     # return formatted_total_acquisition_cost
@@ -454,7 +457,7 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
                 formatted_total_acquisition_cost = None
 
         # Calculate the sum of the first four acquisition_cost values
-        total_acquisition_cost = sum(acquisition_costs) if sum(acquisition_costs) > 0 else 0
+        total_acquisition_cost = sum(acquisition_costs) if sum(acquisition_costs) > 0 else 0.00001
         formatted_total_acquisition_cost = "{:,.2f}".format(total_acquisition_cost) if sum(acquisition_costs) > 0 else None
     else:
         formatted_total_acquisition_cost = None
