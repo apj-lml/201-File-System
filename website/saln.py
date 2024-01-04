@@ -261,8 +261,8 @@ def get_context(id, filing_date, filing_type):
                 children_list.append(child)
 
     # Sort children_list in descending order based on child's age
-    children_list = sorted(children_list, key=lambda x: x.childAge, reverse=True)
-    
+    children_list = sorted(children_list, key=lambda x: x.childAge, reverse=False)
+
     spouse = None
     for relative in user_profile.familyBg:
         if relative.fb_relationship == 'SPOUSE':
