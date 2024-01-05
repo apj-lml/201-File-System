@@ -215,7 +215,12 @@ def update_family_background(emp_id):
             if formdata['fb_deceased['+str(xy)+']']:
                 fb_deceased = formdata['fb_deceased['+str(xy)+']']
         else:
-            fb_deceased = 'unchecked' 
+            fb_deceased = 'unchecked'
+        if 'fb_abroad['+str(xy)+']' in formdata:
+            if formdata['fb_abroad['+str(xy)+']']:
+                fb_abroad = formdata['fb_abroad['+str(xy)+']']
+        else:
+            fb_abroad = 'unchecked'
         if 'fb_date_issued['+str(xy)+']' in formdata:
             fb_date_issued = formdata['fb_date_issued['+str(xy)+']']
         else:
@@ -237,6 +242,7 @@ def update_family_background(emp_id):
                         fb_id = str(fb_id).upper(),
                         fb_id_no = str(fb_id_no).upper(),
                         fb_deceased = str(fb_deceased),
+                        fb_abroad = str(fb_abroad),
                         fb_date_issued = str(fb_date_issued).upper(),
                         ))
 

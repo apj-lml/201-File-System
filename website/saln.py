@@ -289,8 +289,14 @@ def get_context(id, filing_date, filing_type):
             user_profile_dict['spouse_deceased'] = "unchecked"
         elif spouse.fb_deceased == "checked":
             user_profile_dict['spouse_deceased'] = "checked"
+
+        if spouse.fb_abroad == "unchecked":
+            user_profile_dict['spouse_abroad'] = "unchecked"
+        elif spouse.fb_abroad == "checked":
+            user_profile_dict['spouse_abroad'] = "checked"
     else:
         user_profile_dict['spouse_deceased'] = "unchecked"
+        user_profile_dict['spouse_abroad'] = "unchecked"
 
 
     spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date() if spouse and spouse.fb_date_issued != "" and spouse.fb_date_issued is not None else "N/A"

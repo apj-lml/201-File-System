@@ -43,7 +43,7 @@
 						<div class="card-body">
 							<ul>
 								<li>Please fill out all necessary fields.</li>
-								<li><p>Please <strong> tick the checkbox </strong> if spouse is deceased.</p></li>
+								<li><p>Please <strong> tick the appropriate checkbox </strong> if spouse is deceased or in abroad.</p></li>
 							</ul>
 						  <!-- <h5 class="card-title">Description</h5> -->
 						  
@@ -78,12 +78,18 @@
 									<input type="text" class="form-control" name ="fb_first_name[1]" id="spouse_fn" placeholder="First Name" form="family_bg_update_form" value="{{spouse[0].fb_first_name if spouse[0].fb_first_name is not none and spouse[0].fb_first_name != 'NONE' else ''}}" required>
 									<label for="fb_first_name[1]">First Name</label>
 									<div class="d-inline-flex justify-content-center">
-										<div class="form-check">
-										  <input class="form-check-input" name="fb_deceased[1]" id="spouse_deceased" type="checkbox" form="family_bg_update_form" value="checked" {{spouse[0].fb_deceased}}>
+										<div class="form-check form-check-inline">
+										  <input class="form-check-input" name="fb_deceased[1]" id="spouse_deceased" type="checkbox" form="family_bg_update_form" value="checked" {{spouse[0].fb_deceased}} onclick="uncheck(this)">
 										  <label class="form-check-label" for="spouse_deceased">
 											DECEASED
 										  </label>
 										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" name="fb_abroad[1]" id="spouse_abroad" type="checkbox" form="family_bg_update_form" value="checked" {{spouse[0].fb_abroad}} onclick="uncheck(this)">
+											<label class="form-check-label" for="spouse_abroad">
+											  ABROAD
+											</label>
+										  </div>
 									  </div>
 								</div>
 								<div class="form-floating flex-fill mb-3 p-1">
@@ -435,6 +441,17 @@
 	// document.addEventListener("load",()=>{
 	// 	activate_spouse(document.getElementById('is_spouse'.value));
 	// })
+
+	function uncheck(el){
+		if(el.id == "spouse_deceased"){
+			document.getElementById("spouse_abroad").checked = false;
+			//document.getElementById("spouse_deceased").checked = true;
+
+		}else{
+			document.getElementById("spouse_deceased").checked = false;
+			//document.getElementById("spouse_abroad").checked = true;
+		}
+	}
 	function delete_child(id){
 		fetch('/familyBg/delete-familyBg/{{user_profile.id}}', {
 				method: 'POST',
