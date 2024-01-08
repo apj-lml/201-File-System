@@ -32,21 +32,6 @@ td{
 
 {% block content %}
 <main class="container-fluid mt-3">
-  <!-- <ul class="circles">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li> 
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul> -->
-  <!-- ----------------------------------------------------------------------- -->
-  <!--                         WORK EXPERIENCE                                 -->
-  <!-- ----------------------------------------------------------------------- -->
   <div class="row mb-3">
     <!-- <div class="card"> -->
         <div class="card-body">
@@ -55,7 +40,7 @@ td{
               <div class="card shadow-sm mb-2">
                 <div class="card-header bg-blue text-white">
                   <h5 class="mb-0">
-                    <h3 class="card-title text-white fw-bolder">SWORN STATEMENT OF ASSETS, LIABILITIES, AND NETWORTH (SALN) </h3> 
+                    <h3 class="card-title text-white fw-bolder text-center">SWORN STATEMENT OF ASSETS, LIABILITIES, AND NETWORTH (SALN) </h3> 
                   </h5>
                 </div>
                   <div class="card-body">
@@ -91,20 +76,12 @@ td{
 
                     <h5 class="fw-bolder">1. ASSETS</h5>
                     <div class="row">
-                      <div class="col-md-7">
+                      <div class="col-md-5">
                         <form action="#" method="POST" name="saln_rp_form" id="saln_rp_form" enctype="multipart/form-data">
                           <div class="card shadow-sm mb-2">
                             <div class="card-header bg-blue text-white">
                               <h5 class="mb-0 text-white">
-                                <!-- <i class="fas fa-city"></i> -->
                                 a. Real Properties
-                                <!-- <i class="fas fa-info-circle" 
-                                    style="font-size: 15px;"
-                                    data-bs-toggle="popover" 
-                                    title="Notice!" 
-                                    data-bs-trigger="hover focus" 
-                                    data-bs-content="Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household">
-                                </i> -->
                               </h5>
                             </div>
                               <div class="card-body">
@@ -170,58 +147,37 @@ td{
                           </div>
                         </form>
                       </div>
-                      <div class="col-md-5">
-                        <div class="card shadow-sm mb-2">
+                      <div class="col-md-7">
+                        <div class="card shadow-sm mb-2" style="min-height: 506px;">
                           <div class="card-header bg-blue text-white">
-                            <h5 class="mb-0 text-white fw-bolder">
-                              <!-- <i class="fas fa-city"></i> -->
-                              List of Personal Properties
-                              <!-- <i class="fas fa-info-circle" 
-                                  style="font-size: 15px;"
-                                  data-bs-toggle="popover" 
-                                  title="Notice!" 
-                                  data-bs-trigger="hover focus" 
-                                  data-bs-content="Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household">
-                              </i> -->
+                            <h5 class="mb-0 text-white">
+                              List of Real Properties
                             </h5>
                           </div>
                             <div class="card-body">
-  
-          <div class="col-sm-12">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered text-left" id="rp_table" width = "100%">
-              <!-- <colgroup>
-                <col style="width: 5%" />
-                <col style="width: 30%" />
-                <col style="width: 14.28%" />
-                <col style="width: 14.28%" />
-                <col style="width: 10%" />
-                <col style="width: 14.28%" />
-                <col style="width: 20%" />
-                <col style="width: 14.28%" />
-                <col style="width: 14.28%" />
-                <col style="width: 14.28%" />
-              </colgroup> -->
-              <thead class="">
-              <tr class="align-middle">
-                <th scope="col">ID</th>
-                <th scope="col">DESCRIPTION</th>
-                <th scope="col">KIND</th>
-                <th scope="col">EXACT LOCATION</th>
-                <th scope="col">ASSESSED VALUE</th>
-                <th scope="col">CURRENT FAIR <br> MARKET VALUE</th>
-                <th scope="col">ACQUISITION YEAR</th>
-                <th scope="col">ACQUISITION MODE</th>
-                <th scope="col">ACQUISITION COST</th>
-                <th scope="col">CONTROLS</th>
-              </tr>
-              </thead>
-              <tbody>
+                                  <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                      <table class="table table-striped table-bordered text-left" id="rp_table" width = "100%">
+                                        <thead class="">
+                                        <tr class="align-middle">
+                                          <th scope="col">ID</th>
+                                          <th scope="col">DESCRIPTION</th>
+                                          <th scope="col">KIND</th>
+                                          <th scope="col">EXACT LOCATION</th>
+                                          <th scope="col">ASSESSED VALUE</th>
+                                          <th scope="col">CURRENT FAIR MARKET VALUE</th>
+                                          <th scope="col">ACQUISITION YEAR</th>
+                                          <th scope="col">ACQUISITION MODE</th>
+                                          <th scope="col">ACQUISITION COST</th>
+                                          <th scope="col">CONTROLS</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
-              </tbody>
-            </table>
-          </div>
-      </div>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
           
                             </div>
   
@@ -229,153 +185,193 @@ td{
                       </div>
                     </div>
 
-
-                    <div class="col-md-12">
-                      <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data">
-                        <div class="card shadow-sm mb-2">
-                          <div class="card-header bg-blue text-white">
-                            <h5 class="mb-0 text-white">
-                              <!-- <i class="fas fa-luggage-cart"></i> -->
-                              b. Personal Properties
-                            </h5>
-                          </div>
-                            <div class="card-body">
-                              <div class="d-md-flex flex-row">
-                                <div class="mb-2 flex-fill px-1">
-                                  <label for="pp_description">DESCRIPTION</label>
-                                  <input type="text" class="form-control form-control-sm" id="pp_description" name="pp_description" placeholder="" form="saln_pp_form" required>
-                                </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                          <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data">
+                            <div class="card shadow-sm mb-2" style="min-height: 390px;">
+                              <div class="card-header bg-blue text-white">
+                                <h5 class="mb-0 text-white">
+                                  <!-- <i class="fas fa-luggage-cart"></i> -->
+                                  b. Personal Properties
+                                </h5>
                               </div>
-                              <div class="d-md-flex flex-row">
-                                <div class="mb-2 flex-fill px-1">
-                                  <label for="pp_year_acquired">YEAR ACQUIRED</label>
-                                  <input type="text" class="form-control form-control-sm" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
-                                  <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="various_years" name="" onchange="variousYears(this, 'pp_year_acquired')">
-                                    <label class="form-check-label" for="various_years">
-                                      VARIOUS YEARS
-                                    </label>
+                                <div class="card-body">
+                                  <div class="d-md-flex flex-row">
+                                    <div class="mb-2 flex-fill px-1">
+                                      <label for="pp_description">DESCRIPTION</label>
+                                      <input type="text" class="form-control form-control-sm" id="pp_description" name="pp_description" placeholder="" form="saln_pp_form" required>
                                     </div>
+                                  </div>
+                                  <div class="d-md-flex flex-row">
+                                    <div class="mb-2 flex-fill px-1">
+                                      <label for="pp_year_acquired">YEAR ACQUIRED</label>
+                                      <input type="text" class="form-control form-control-sm" id="pp_year_acquired" name="pp_year_acquired" placeholder="" form="saln_pp_form" oninput="year_only_2(this)" required>
+                                      <!-- <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input "VARIOUS YEARS" or year only [eg. 2023]</p></small> -->
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="various_years" name="" onchange="variousYears(this, 'pp_year_acquired')">
+                                        <label class="form-check-label" for="various_years">
+                                          VARIOUS YEARS
+                                        </label>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="d-md-flex flex-row">
+                                    <div class="mb-2 flex-fill px-1">
+                                      <label for="pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
+                                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" form="saln_pp_form" required>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_pp_form"><i class="fas fa-plus"></i> Add Personal Property</button>
+                                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button>
+                                  </div>
                                 </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card shadow-sm mb-2" style="min-height: 390px;">
+                              <div class="card-header bg-blue text-white">
+                                <h5 class="mb-0 text-white">
+                                  List of Personal Properties
+                                </h5>
                               </div>
-                              <div class="d-md-flex flex-row">
-                                <div class="mb-2 flex-fill px-1">
-                                  <label for="pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
-                                  <input type="text" class="form-control form-control-sm trailing-decimal-input" id="pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" form="saln_pp_form" required>
+                              <div class="card-body">
+                                <div class="table-responsive">
+                                  <table class="table table-striped table-bordered text-left" id="pp_table" width = "100%">
+                                    <thead class="">
+                                    <tr class="align-middle">
+                                      <th scope="col">ID</th>
+                                      <th scope="col">DESCRIPTION</th>
+                                      <th scope="col">YEAR ACQUIRED</th>
+                                      <th scope="col">ACQUISITION COST/AMOUNT</th>
+                                      <th scope="col">CONTROLS</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                      
+                                    </tbody>
+                                  </table>
                                 </div>
-                              </div>
-        
-                              <div class="col-sm-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_pp_form"><i class="fas fa-plus"></i> Add Personal Property</button>
-                                <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button>
-                              </div>
-        
                             </div>
                         </div>
-                      </form>
+                      </div>
                     </div>
-
                     <h5 class="fw-bolder">2. LIABILITIES</h5>
-                    
-                    <div class="col-md-12">
-                      <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data">
-                        <div class="card shadow-sm mb-2">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data">
+                          <div class="card shadow-sm mb-2" style="min-height: 390px;">
+                            <div class="card-header bg-blue text-white">
+                              <h5 class="mb-0 text-white">
+                                <!-- <i class="fas fa-credit-card"></i> -->
+                                a. Liabilities
+                              </h5>
+                            </div>
+                              <div class="card-body">
+                                <div class="d-md-flex flex-row">
+                                  <div class="mb-2 flex-fill px-1">
+                                    <label for="liability_nature">NATURE</label>
+                                    <input type="text" class="form-control form-control-sm" id="liability_nature" name="liability_nature" form="saln_liability_form" placeholder="" required>
+                                  </div>
+                                  <div class="mb-2 flex-fill px-1">
+                                    <label for="liability_creditor">NAME OF CREDITORS</label>
+                                    <input type="text" class="form-control form-control-sm" id="liability_creditor" name="liability_creditor" form="saln_liability_form" placeholder="" required>
+                                  </div>
+                                  <div class="mb-2 flex-fill px-1">
+                                    <label for="liability_outstanding_balance">OUTSTANDING BALANCE</label>
+                                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="liability_outstanding_balance" name="liability_outstanding_balance" form="saln_liability_form" placeholder="" required>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12 mt-5 text-center my-auto">
+                                  <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_liability_form"><i class="fas fa-plus"></i> Add Liability</button>
+                                  <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button>
+                                </div>
+                              </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-md-7">
+                        <div class="card shadow-sm mb-2" style="min-height: 390px;">
                           <div class="card-header bg-blue text-white">
                             <h5 class="mb-0 text-white">
-                              <!-- <i class="fas fa-credit-card"></i> -->
-                              a. Liabilities
+                              List of Liabilities
                             </h5>
                           </div>
-                            <div class="card-body">
-                              <div class="d-md-flex flex-row">
-                                <div class="mb-2 flex-fill px-1">
-                                  <label for="liability_nature">NATURE</label>
-                                  <input type="text" class="form-control form-control-sm" id="liability_nature" name="liability_nature" form="saln_liability_form" placeholder="" required>
-                                </div>
-                                <div class="mb-2 flex-fill px-1">
-                                  <label for="liability_creditor">NAME OF CREDITORS</label>
-                                  <input type="text" class="form-control form-control-sm" id="liability_creditor" name="liability_creditor" form="saln_liability_form" placeholder="" required>
-                                </div>
-                                <div class="mb-2 flex-fill px-1">
-                                  <label for="liability_outstanding_balance">OUTSTANDING BALANCE</label>
-                                  <input type="text" class="form-control form-control-sm trailing-decimal-input" id="liability_outstanding_balance" name="liability_outstanding_balance" form="saln_liability_form" placeholder="" required>
-                                </div>
+                          <div class="card-body">
+                            <div class="col-sm-12">
+                              <div class="table-responsive">
+                                <table class="table table-striped table-bordered text-left" id="liability_table" width = "100%">
+                                  <thead class="">
+                                  <tr class="align-middle">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">NATURE</th>
+                                    <th scope="col">NAME OF CREDITOR</th>
+                                    <th scope="col">OUTSTANDING BALANCE</th>
+                                    <th scope="col">CONTROLS</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                    
+                                  </tbody>
+                                </table>
                               </div>
-                              <div class="col-sm-12 text-center my-auto">
-                                <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_liability_form"><i class="fas fa-plus"></i> Add Liability</button>
-                                <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button>
-                
-                              </div>
-                            </div>
+                          </div>
+                          </div>
                         </div>
-                      </form>
                       </div>
-
+                    </div>
                   </div>
                 </div>
               </div>
-
-
-
           </div>
 
-
-
-
-
-          <div class="col-md-12">
-          <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
-            <div class="card shadow-sm mb-2">
-              <div class="card-header bg-blue text-white">
-                <h5 class="mb-0 fw-bolder text-white">
-                  <i class="fas fa-sitemap"></i>
-                  BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
-                  <!-- <i class="fas fa-info-circle" 
-                      style="font-size: 15px;"
-                      data-bs-toggle="popover" 
-                      title="Notice!" 
-                      data-bs-trigger="hover focus" 
-                      data-bs-content="Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household">
-                  </i> -->
-                </h5>
-              </div>
-                <div class="card-body">
-                  <div class="alert alert-warning" role="alert">
-                    <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
-                      <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
-                    </div>
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="business_address">BUSINESS ADDRESS</label>
-                      <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
-                    </div>
-                  </div>
-
-                  <div class="d-md-flex flex-row flex-gap">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
-                      <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
-                    </div>
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
-                      <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 text-center my-auto">
-                    <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
-                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection
-
+          <div class="col-md-6">
+            <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
+              <div class="card shadow-sm mb-2">
+                <div class="card-header bg-blue text-white">
+                  <h5 class="mb-0 fw-bolder text-white">
+                    <i class="fas fa-sitemap"></i>
+                    BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
+                  </h5>
                 </div>
+                  <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                      <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="mb-2 flex-fill px-1">
+                        <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
+                        <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
+                      </div>
+                    </div>
+                    <div class="d-md-flex flex-row">
+                      <div class="mb-2 flex-fill px-1">
+                        <label for="business_address">BUSINESS ADDRESS</label>
+                        <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
+                      </div>
+                    </div>
+
+                    <div class="d-md-flex flex-row flex-gap">
+                      <div class="mb-2 flex-fill px-1">
+                        <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
+                        <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
+                      </div>
+                      <div class="mb-2 flex-fill px-1">
+                        <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
+                        <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 text-center my-auto">
+                      <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
+                      <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection
+
+                  </div>
+              </div>
             </div>
-          </div>
-        </form>
+            </form>
         </div>
 
           <div class="col-md-12">
@@ -385,13 +381,6 @@ td{
                 <h5 class="mb-0 fw-bolder text-white">
                   <i class="fas fa-people-arrows"></i>
                   RELATIVES IN THE GOVERNMENT SERVICE
-                  <!-- <i class="fas fa-info-circle" 
-                      style="font-size: 15px;"
-                      data-bs-toggle="popover" 
-                      title="Notice!" 
-                      data-bs-trigger="hover focus" 
-                      data-bs-content="Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household">
-                  </i> -->
                 </h5>
               </div>
                 <div class="card-body">
@@ -461,200 +450,90 @@ td{
 
 <!-- Modal -->
 <div class="modal fade" id="viewRealProperty" tabindex="-1" aria-labelledby="viewRealPropertyModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
-        <h5 class="modal-title ms-auto fw-bolder text-white" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> VIEW REAL PROPERTIES</h5>
+        <h5 class="modal-title ms-auto fw-bolder text-white" id="viewRealPropertyModalLabel"><i class="fas fa-eye"></i> VIEW REAL PROPERTY</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="col-md-12">
           <form action="#" method="POST" name="saln_edit_rp_form" id="saln_edit_rp_form">
             <input type="hidden" class="form-control form-control-sm" id="edit_rp_id" name="id" placeholder="" required>
+              <div class="accordion shadow-sm mb-3" id="accordionRp">
+                <div class="accordion-item ">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRp" aria-expanded="true" aria-controls="collapseOne">
+                      <!-- <i class="fas fa-city"></i>  -->
+                      EDIT REAL PROPERTY
+                    </button>
+                  </h2>
+                  <div id="collapseRp" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                    <div class="accordion-body">
+                      <div class="d-md-flex flex-row">
+                        <div class="flex-fill px-1">
+                          <label for="rp_description">DESCRIPTION</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
+                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
+                        
+                        </div>
+                        <div class="flex-fill px-1">
+                          <label for="rp_kind">KIND</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
+                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
+                        </div>
+                      </div>
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="rp_exact_location">EXACT LOCATION</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
+                        </div>
+                      </div>
 
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="rp_assessed_value">ASSESSED VALUE</label>
+                          <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
+                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
 
-            <!-- <div class="card shadow-sm mb-2">
-              <div class="card-header bg-blue text-white">
-                <h5 class="mb-0 fw-bolder text-white">
-                  <i class="fas fa-city"></i>
-                  EDIT REAL PROPERTIES
-                </h5>
-              </div>
-                <div class="card-body">
-                  <div class="d-md-flex flex-row">
-                    <div class="flex-fill px-1">
-                      <label for="rp_description">DESCRIPTION</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
-                    
+                        </div>
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
+                          <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
+                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+
+                        </div>
+                      </div>
+
+                      <div class="d-md-flex flex-row">
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="rp_acquisition_year">ACQUISITION YEAR</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
+                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
+
+                        </div>
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="rp_acquisition_mode">ACQUISITION MODE</label>
+                          <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
+                        </div>
+                        
+                        <div class="mb-2 flex-fill px-1">
+                          <label for="rp_acquisition_cost">ACQUISITION COST</label>
+                          <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 text-center mt-2">
+                        <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
+                      
+                      </div>
                     </div>
-                    <div class="flex-fill px-1">
-                      <label for="rp_kind">KIND</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
-                    </div>
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-3 flex-fill px-1">
-                      <label for="rp_exact_location">EXACT LOCATION</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
-                    </div>
-                  </div>
-
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_assessed_value">ASSESSED VALUE</label>
-                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
-
-                    </div>
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
-
-                    </div>
-                  </div>
-
-                  <div class="d-md-flex flex-row">
-                    <div class="flex-fill px-1">
-                      <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
-
-                    </div>
-                    <div class="flex-fill px-1">
-                      <label for="rp_acquisition_mode">ACQUISITION MODE</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
-                    </div>
-                    <div class="flex-fill px-1">
-                      <label for="rp_acquisition_cost">ACQUISITION COST</label>
-                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 text-center">
-                    <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
-                  
-                  </div>
-
-                </div>
-            </div> -->
-
-
-
-          <div class="accordion shadow-sm mb-3" id="accordionRp">
-            <div class="accordion-item ">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRp" aria-expanded="true" aria-controls="collapseOne">
-                  <!-- <i class="fas fa-city"></i>  -->
-                  EDIT REAL PROPERTIES
-                </button>
-              </h2>
-              <div id="collapseRp" class="accordion-collapse collapse" aria-labelledby="headingOne">
-                <div class="accordion-body">
-                  <div class="d-md-flex flex-row">
-                    <div class="flex-fill px-1">
-                      <label for="rp_description">DESCRIPTION</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
-                    
-                    </div>
-                    <div class="flex-fill px-1">
-                      <label for="rp_kind">KIND</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_kind" name="rp_kind" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
-                    </div>
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_exact_location">EXACT LOCATION</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_exact_location" name="rp_exact_location" placeholder="" disabled required>
-                    </div>
-                  </div>
-
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_assessed_value">ASSESSED VALUE</label>
-                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_assessed_value" name="rp_assessed_value" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
-
-                    </div>
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_current_market_value" name="rp_current_market_value" placeholder="" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
-
-                    </div>
-                  </div>
-
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_year" name="rp_acquisition_year" placeholder="" oninput="year_only_2(this)" disabled required>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
-
-                    </div>
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_acquisition_mode">ACQUISITION MODE</label>
-                      <input type="text" class="form-control form-control-sm" id="edit_rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" disabled required>
-                    </div>
-                    
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="rp_acquisition_cost">ACQUISITION COST</label>
-                      <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" disabled required>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 text-center mt-2">
-                    <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
-                  
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-
           </form>
-          </div>
-        <div class="col-sm-12">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered text-left" id="rp_table" width = "100%">
-              <!-- <colgroup>
-                <col style="width: 5%" />
-                <col style="width: 30%" />
-                <col style="width: 14.28%" />
-                <col style="width: 14.28%" />
-                <col style="width: 10%" />
-                <col style="width: 14.28%" />
-                <col style="width: 20%" />
-                <col style="width: 14.28%" />
-                <col style="width: 14.28%" />
-                <col style="width: 14.28%" />
-              </colgroup> -->
-              <thead class="">
-              <tr class="align-middle">
-                <th scope="col">ID</th>
-                <th scope="col">DESCRIPTION</th>
-                <th scope="col">KIND</th>
-                <th scope="col">EXACT LOCATION</th>
-                <th scope="col">ASSESSED VALUE</th>
-                <th scope="col">CURRENT FAIR <br> MARKET VALUE</th>
-                <th scope="col">ACQUISITION YEAR</th>
-                <th scope="col">ACQUISITION MODE</th>
-                <th scope="col">ACQUISITION COST</th>
-                <th scope="col">CONTROLS</th>
-              </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-      </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -666,60 +545,13 @@ td{
 
 <!-- Modal -->
 <div class="modal fade" id="viewPersonalProperty" tabindex="-1" aria-labelledby="viewPersonalPropertyModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
         <h5 class="modal-title ms-auto text-white fw-bolder" id="viewPersonalPropertyModalLabel"><i class="fas fa-eye"></i> VIEW PERSONAL PROPERTIES</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
-        <!-- <div class="col-md-12">
-          <form action="#" method="POST" name="saln_edit_pp_form" id="saln_edit_pp_form">
-            <input type="hidden" class="form-control form-control-sm" id="edit_pp_id" name="id" placeholder="" required>
-            <div class="card shadow-sm mb-2">
-              <div class="card-header bg-blue text-white">
-                <h5 class="mb-0  text-white fw-bolder">
-                  <i class="fas fa-city"></i>
-                  EDIT PERSONAL PROPERTIES
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="d-md-flex flex-row">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="edit_pp_description">DESCRIPTION</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_pp_description" name="pp_description" placeholder="" disabled required>
-                  </div>
-                </div>
-                <div class="d-md-flex flex-row">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="edit_pp_year_acquired">YEAR ACQUIRED</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_pp_year_acquired" name="pp_year_acquired" placeholder="" onchange="year_only(this)" disabled required>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="edit_various_years" name="" onchange="variousYears(this, 'edit_pp_year_acquired')">
-                      <label class="form-check-label" for="edit_various_years">
-                        VARIOUS YEARS
-                      </label>
-                      </div>
-                  </div>
-                </div>
-                <div class="d-md-flex flex-row">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="edit_pp_acquisition_cost">ACQUISITION COST / AMOUNT</label>
-                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_pp_acquisition_cost" name="pp_acquisition_cost" placeholder="" disabled required>
-                  </div>
-                </div>
-                <div class="col-sm-12 text-center">
-                  <button type="save" class="btn btn-primary btn-sm" id="save_pp"><i class="far fa-save"></i> Save Personal Property</button>
-                  <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_pp_form'); disableFields('saln_edit_pp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
-                </div>
-              </div>
-            </div>
-          </form>
-          </div> -->
-
-
-
           <div class="accordion shadow-sm mb-3" id="accordionRp">
             <div class="accordion-item ">
               <h2 class="accordion-header" id="headingOne">
@@ -730,10 +562,8 @@ td{
               </h2>
               <div id="collapsePp" class="accordion-collapse collapse" aria-labelledby="headingOne">
                 <div class="accordion-body">
-                  
                     <form action="#" method="POST" name="saln_edit_pp_form" id="saln_edit_pp_form">
                       <input type="hidden" class="form-control form-control-sm" id="edit_pp_id" name="id" placeholder="" required>
-         
                           <div class="d-md-flex flex-row">
                             <div class="mb-2 flex-fill px-1">
                               <label for="edit_pp_description">DESCRIPTION</label>
@@ -763,33 +593,10 @@ td{
                             <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_pp_form'); disableFields('saln_edit_pp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                           </div>
                     </form>
-        
                 </div>
               </div>
             </div>
           </div>
-
-
-          
-
-        <div class="col-sm-12">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered text-left" id="pp_table" width = "100%">
-              <thead class="">
-              <tr class="align-middle">
-                <th scope="col">ID</th>
-                <th scope="col">DESCRIPTION</th>
-                <th scope="col">YEAR ACQUIRED</th>
-                <th scope="col">ACQUISITION COST/AMOUNT</th>
-                <th scope="col">CONTROLS</th>
-              </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -801,50 +608,13 @@ td{
 
 <!-- Modal -->
 <div class="modal fade" id="viewLiabilities" tabindex="-1" aria-labelledby="viewLiabilitiesModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
         <h5 class="modal-title ms-auto text-white fw-bolder" id="viewLiabilitiesModalLabel"><i class="fas fa-eye"></i> VIEW LIABILITIES</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- <div class="col-md-12">
-          <form action="#" method="POST" name="saln_edit_liability_form" id="saln_edit_liability_form">
-            <input type="hidden" class="form-control form-control-sm" id="edit_liability_id" name="id" placeholder="" required>
-            <div class="card shadow-sm mb-2">
-              <div class="card-header bg-blue text-white">
-                <h5 class="mb-0 text-white fw-bolder">
-                  <i class="fas fa-city"></i>
-                  EDIT LIABILITIES
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="d-md-flex flex-row">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="liability_nature">NATURE</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_liability_nature" name="liability_nature" placeholder="" disabled required>
-                  </div>
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="liability_creditor">NAME OF CREDITORS</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_liability_creditor" name="liability_creditor" placeholder="" disabled required>
-                  </div>
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="liability_outstanding_balance">OUTSTANDING BALANCE</label>
-                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="edit_liability_outstanding_balance" name="liability_outstanding_balance" placeholder="" disabled required>
-                  </div>
-                </div>
-                <div class="col-sm-12 text-center">
-                  <button type="save" class="btn btn-primary btn-sm" id="save_pp"><i class="far fa-save"></i> Save Liability</button>
-                  <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_liability_form'); disableFields('saln_edit_liability_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
-                </div>
-              </div>
-            </div>
-          </form>
-          </div> -->
-
-          
-
-
           <div class="accordion shadow-sm mb-3" id="accordionLiability">
             <div class="accordion-item ">
               <h2 class="accordion-header" id="headingOne">
@@ -878,32 +648,10 @@ td{
                           <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_liability_form'); disableFields('saln_edit_liability_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                         </div>
                   </form>
-                    
-
                 </div>
               </div>
             </div>
           </div>
-
-
-        <div class="col-sm-12">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered text-left" id="liability_table" width = "100%">
-              <thead class="">
-              <tr class="align-middle">
-                <th scope="col">ID</th>
-                <th scope="col">NATURE</th>
-                <th scope="col">NAME OF CREDITOR</th>
-                <th scope="col">OUTSTANDING BALANCE</th>
-                <th scope="col">CONTROLS</th>
-              </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -915,57 +663,13 @@ td{
 
 <!-- Modal -->
 <div class="modal fade" id="viewBusiness" tabindex="-1" aria-labelledby="viewBusinessModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
         <h5 class="modal-title ms-auto text-white fw-bolder" id="viewBusinessModalLabel"><i class="fas fa-eye"></i> VIEW BUSINESS INTERESTS AND FINANCIAL CONNECTIONS</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- <div class="col-md-12">
-          <form action="#" method="POST" name="saln_edit_business_form" id="saln_edit_business_form">
-            <input type="hidden" class="form-control form-control-sm" id="edit_business_id" name="id" placeholder="" required>
-            <div class="card shadow-sm mb-2">
-              <div class="card-header bg-blue text-white">
-                <h5 class="mb-0 text-white fw-bolder">
-                  <i class="fas fa-city"></i>
-                  EDIT BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="d-md-flex flex-row">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_business" name="business" placeholder="" disabled required>
-                  </div>
-                </div>
-                <div class="d-md-flex flex-row">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="business_address">BUSINESS ADDRESS</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_business_address" name="business_address" placeholder="" disabled required>
-                  </div>
-                </div>
-
-                <div class="d-md-flex flex-row flex-gap">
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
-                    <input type="text" class="form-control form-control-sm" id="edit_business_nature" name="business_nature" placeholder="" disabled required>
-                  </div>
-                  <div class="mb-2 flex-fill px-1">
-                    <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
-                    <input type="date" class="form-control form-control-sm" id="edit_business_acquisition" name="business_acquisition" placeholder="" disabled required>
-                  </div>
-                </div>
-                <div class="col-sm-12 text-center">
-                  <button type="save" class="btn btn-primary btn-sm" id="save_business"><i class="far fa-save"></i> Save Business Interest and Financial Connection</button>
-                  <button type="button" class="btn btn-primary btn-sm" id="clear_business" onclick="clearFields('saln_edit_business_form'); disableFields('saln_edit_business_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
-                </div>
-            </div>
-            </div>
-          </form>
-        </div> -->
-
-
         <div class="accordion shadow-sm mb-3" id="accordionBusiness">
           <div class="accordion-item ">
             <h2 class="accordion-header" id="headingOne">
@@ -1016,8 +720,6 @@ td{
           </div>
         </div>
 
-
-
         <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
@@ -1048,7 +750,7 @@ td{
 
 <!-- Modal -->
 <div class="modal fade" id="viewRelative" tabindex="-1" aria-labelledby="viewRelativeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-blue text-white">
         <h5 class="modal-title ms-auto text-white fw-bolder" id="viewRelativeModalLabel"><i class="fas fa-eye"></i> VIEW RELATIVES IN THE GOVERNMENT SERVICE</h5>
@@ -1240,7 +942,7 @@ fetchData('rp')
     searchable: false,
     render: function ( data, type, row ) {
         return `
-        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" title="<em>Edit</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewRealProperty" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" title="<em>Edit</em> <u><b>Real Property</b></u>">
           <i class="far fa-edit"></i>
         </button>
         <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1302,7 +1004,7 @@ var pp_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"  data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
         <i class="far fa-edit"></i>
       </button>
       <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1425,17 +1127,27 @@ if(intRegex.test($(this).val().replace(/,/gi, "")) || floatRegex.test($(this).va
 });
 
 function loadTable(table, tableCol, data) {
-    //console.log(table)
     var jsonString = JSON.stringify(data) //for testing
   
-    //var oTblReport = $('#rp_table');
-    var oTblReport = $('#'+table);
-  
+    var oTblReport = $('#' + table);
+    var pageLength = 0;
+    rowHeight = 0;
+    if(table == "rp_table"){
+      pageLength = 2;
+    }else if(table == "pp_table"){
+      pageLength = 3;
+    }else if(table == "liability_table"){
+      pageLength = 3;
+    }
     oTblReport.DataTable ({
         "data" : data,
-        "columns" : tableCol
-    });  
-
+        "columns" : tableCol,
+        "pageLength": pageLength,
+        //"scrollY": true,
+        //"scroller": {
+        //    "rowHeight": rowHeight
+        //}
+    });
 }
 
 function editRp(id, type){
@@ -1635,7 +1347,6 @@ function editRelative(id, type){
       edit_relative_position.value = data.relative_position;
       edit_relative_agency_office.value = data.relative_agency_office;
       edit_relative_agency_office_address.value = data.relative_agency_office_address;
-
 
     });//END
 }
@@ -1996,10 +1707,10 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
           { "data" : "rp_kind" },
           { "data" : null,
           "defaultContent": `
-                <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" data-bs-toggle="modal" data-bs-target="#viewRealProperty" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+                <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
                   <i class="far fa-trash-alt"></i>
                 </button>`
         }
@@ -2051,34 +1762,37 @@ document.getElementById('saln_edit_rp_form').addEventListener("submit", (e)=>{
         $('#rp_table').DataTable().destroy();
       }
 
+
       fetchData('rp')
-      .then((data) => {
-        
-        var rp_table_col = [
-        { "data" : "id" },
-        { "data" : "rp_description" },
-        { "data" : "rp_kind" },
-        { "data" : "rp_exact_location" },
-        { "data" : "rp_assessed_value" },
-        { "data" : "rp_current_market_value" },
-        { "data" : "rp_acquisition_year" },
-        { "data" : "rp_acquisition_mode" },
-        { "data" : "rp_acquisition_cost" },
-        { "data" : null,
-        searchable: false,
-    render: function ( data, type, row ) {
-        return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data[0].id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
-                <i class="far fa-edit"></i>
-              </button>
-              <button type="button" class="btn btn-sm btn-danger" id="${data[0].id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
-                <i class="far fa-trash-alt"></i>
-              </button>`
-      }
-    }
-      ]
+        .then((data) => {
+          var rp_table_col = [
+          { "data" : "id" },
+          { "data" : "rp_description" },
+          { "data" : "rp_kind" },
+          { "data" : "rp_exact_location" },
+          { "data" : "rp_assessed_value" },
+          { "data" : "rp_current_market_value" },
+          { "data" : "rp_acquisition_year" },
+          { "data" : "rp_acquisition_mode" },
+          { "data" : "rp_acquisition_cost" },
+          { "data" : null,
+          searchable: false,
+        render: function ( data, type, row ) {
+          //console.log(data.id)
+            return `
+                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" data-bs-toggle="modal" data-bs-target="#viewRealProperty" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                    <i class="far fa-edit"></i>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+                    <i class="far fa-trash-alt"></i>
+                  </button>`
+          }
+        }
+          ]
 
         loadTable('rp_table', rp_table_col, data);
+        triggerToast("Real Property updated successfully!", 'success');
+
 
       })
       .catch((error) => {
@@ -2127,10 +1841,10 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
         searchable: false,
         render: function ( data, type, row ) {
             return `
-            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
               <i class="far fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+            <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Personal Property</b></u>">
               <i class="far fa-trash-alt"></i>
             </button>`
           }
@@ -2193,7 +1907,7 @@ document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
       searchable: false,
       render: function ( data, type, row ) {
           return `
-          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');"  data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
             <i class="far fa-edit"></i>
           </button>
           <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
