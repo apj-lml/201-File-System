@@ -139,7 +139,7 @@ td{
             
                                 <div class="col-sm-12 text-center mt-2">
                                   <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
-                                  <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button>
+                                  <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button> -->
                                 </div>
             
                               </div>
@@ -224,7 +224,7 @@ td{
 
                                   <div class="col-sm-12 text-center">
                                     <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_pp_form"><i class="fas fa-plus"></i> Add Personal Property</button>
-                                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button>
+                                    <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button> -->
                                   </div>
                                 </div>
                             </div>
@@ -286,7 +286,7 @@ td{
                                 </div>
                                 <div class="col-sm-12 mt-5 text-center my-auto">
                                   <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_liability_form"><i class="fas fa-plus"></i> Add Liability</button>
-                                  <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button>
+                                  <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button> -->
                                 </div>
                               </div>
                           </div>
@@ -327,106 +327,185 @@ td{
               </div>
           </div>
 
-          <div class="col-md-6">
-            <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
-              <div class="card shadow-sm mb-2">
-                <div class="card-header bg-blue text-white">
-                  <h5 class="mb-0 fw-bolder text-white">
-                    <i class="fas fa-sitemap"></i>
-                    BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
-                  </h5>
-                </div>
-                  <div class="card-body">
-                    <div class="alert alert-warning" role="alert">
-                      <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
-                        <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
-                      </div>
-                    </div>
-                    <div class="d-md-flex flex-row">
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="business_address">BUSINESS ADDRESS</label>
-                        <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
-                      </div>
-                    </div>
 
-                    <div class="d-md-flex flex-row flex-gap">
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
-                        <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
-                      </div>
-                      <div class="mb-2 flex-fill px-1">
-                        <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
-                        <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-12 text-center my-auto">
-                      <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
-                      <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection
-
-                  </div>
-              </div>
+          <div class="card shadow-sm mb-2">
+            <div class="card-header bg-blue text-white">
+              <h4 class="mb-0 fw-bolder text-white">
+                <i class="fas fa-sitemap"></i>
+                BUSINESS INTERESTS AND FINANCIAL CONNECTIONS
+              </h4>
             </div>
-            </form>
-        </div>
-
-          <div class="col-md-12">
-          <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data">
-            <div class="card shadow-sm mb-2">
-              <div class="card-header bg-blue text-white">
-                <h5 class="mb-0 fw-bolder text-white">
-                  <i class="fas fa-people-arrows"></i>
-                  RELATIVES IN THE GOVERNMENT SERVICE
-                </h5>
+            <div class="card-body">
+              <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
               </div>
-                <div class="card-body">
-                  <div class="alert alert-warning" role="alert">
-                    <i class="fas fa-info-circle"></i> Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso
-                  </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="relative_name">NAME OF RELATIVE</label>
-                      <input type="text" class="form-control form-control-sm" id="relative_name" name="relative_name" placeholder="" form="saln_relative_in_government_form" required>
+                <div class="row">
+                  <div class="col-md-5">
+                    <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
+                      <div class="card shadow-sm mb-2" style="min-height: 520px;">
+                        <div class="card-header bg-blue text-white">
+                          <h5 class="mb-0 fw-bolder text-white">
+                            
+                          </h5>
+                        </div>
+                          <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
+                                <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="business_address">BUSINESS ADDRESS</label>
+                                <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
+                              </div>
+                            </div>
+        
+                            <div class="d-md-flex flex-row flex-gap">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
+                                <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
+                              </div>
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
+                                <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
+                              </div>
+                            </div>
+        
+                            <div class="col-sm-12 text-center my-auto mt-4">
+                              <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
+                              <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection -->
+        
+                          </div>
+                      </div>
+                    </div>
+                    </form>
+                </div>
+                  <div class="col-sm-7">
+                    <div class="card shadow-sm mb-2" style="min-height: 520px;">
+                      <div class="card-header bg-blue text-white">
+                        <h5 class="mb-0 text-white">
+                          List of Business Interests and Final Connections
+                        </h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
+                            <thead class="">
+                            <tr class="align-middle">
+                              <th scope="col">ID</th>
+                              <th scope="col">NAME OF ENTITY/BUSINESS ENTERPRISE</th>
+                              <th scope="col">BUSINESS ADDRESS</th>
+                              <th scope="col">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</th>
+                              <th scope="col">DATE OF ACQUISITION OF INTEREST OR CONNECTION</th>
+                              <th scope="col">CONTROLS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="d-md-flex flex-row">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="relative_relationship">RELATIONSHIP</label>
-                      <input type="text" class="form-control form-control-sm" id="relative_relationship" name="relative_relationship" placeholder="" form="saln_relative_in_government_form" required>
-                    </div>
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="relative_position">POSITION</label>
-                      <input type="text" class="form-control form-control-sm" id="relative_position" name="relative_position" placeholder="" form="saln_relative_in_government_form" required>
-                    </div>
-                  </div>
-
-                  <div class="d-md-flex flex-row flex-gap">
-
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
-                      <input type="text" class="form-control form-control-sm" id="relative_agency_office" name="relative_agency_office" placeholder="" form="saln_relative_in_government_form" required>
-                    </div>
-                  </div>
-                  <div class="mb-2 flex-fill px-1">
-                    <div class="mb-2 flex-fill px-1">
-                      <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
-                      <input type="text" class="form-control form-control-sm" id="relative_agency_office_address" name="relative_agency_office_address" placeholder="" form="saln_relative_in_government_form" required>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 text-center my-auto">
-                    <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_relative_in_government_form"><i class="fas fa-plus"></i> Add Relative in the Gov't </button>
-                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRelative"><i class="fas fa-eye"></i> View Relative in the Gov't </button>
                 </div>
             </div>
           </div>
-        </form>
+          
+            
+          <div class="card shadow-sm mb-2">
+            <div class="card-header bg-blue text-white">
+              <h4 class="mb-0 fw-bolder text-white">
+                <i class="bi bi-journals"></i> RELATIVES IN THE GOVERNMENT SERVICE
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle"></i> Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                    <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data">
+                      <div class="card shadow-sm mb-2"  style="min-height: 520px;">
+                        <div class="card-header bg-blue text-white">
+                        </div>
+                          <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="relative_name">NAME OF RELATIVE</label>
+                                <input type="text" class="form-control form-control-sm" id="relative_name" name="relative_name" placeholder="" form="saln_relative_in_government_form" required>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="relative_relationship">RELATIONSHIP</label>
+                                <input type="text" class="form-control form-control-sm" id="relative_relationship" name="relative_relationship" placeholder="" form="saln_relative_in_government_form" required>
+                              </div>
+                            </div>
+                            <div class="d-md-flex flex-row">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="relative_position">POSITION</label>
+                                <input type="text" class="form-control form-control-sm" id="relative_position" name="relative_position" placeholder="" form="saln_relative_in_government_form" required>
+                              </div>
+                            </div>
+          
+                            <div class="d-md-flex flex-row flex-gap">
+          
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
+                                <input type="text" class="form-control form-control-sm" id="relative_agency_office" name="relative_agency_office" placeholder="" form="saln_relative_in_government_form" required>
+                              </div>
+                            </div>
+                            <div class="mb-2 flex-fill px-1">
+                              <div class="mb-2 flex-fill px-1">
+                                <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
+                                <input type="text" class="form-control form-control-sm" id="relative_agency_office_address" name="relative_agency_office_address" placeholder="" form="saln_relative_in_government_form" required>
+                              </div>
+                            </div>
+          
+                            <div class="col-sm-12 text-center my-auto">
+                              <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_relative_in_government_form"><i class="fas fa-plus"></i> Add Relative in the Gov't </button>
+                              <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRelative"><i class="fas fa-eye"></i> View Relative in the Gov't </button> -->
+                          </div>
+                      </div>
+                    </div>
+                  </form>
+      
+                </div>
+                <div class="col-sm-7">
+                  <div class="card shadow-sm mb-2" style="min-height: 520px;">
+                    <div class="card-header bg-blue text-white">
+                      <h5 class="mb-0 text-white">
+                        List of Relatives in the Government Service
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-bordered text-left" id="relative_table" width = "100%">
+                          <thead class="">
+                          <tr class="align-middle">
+                            <th scope="col">ID</th>
+                            <th scope="col">NAME OF RELATIVE</th>
+                            <th scope="col">RELATIONSHIP</th>
+                            <th scope="col">POSITION</th>
+                            <th scope="col">NAME OF AGENCY/OFFICE AND ADDRESS</th>
+                            <th scope="col">CONTROLS</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        </div>
 
 
         </div>
@@ -524,7 +603,7 @@ td{
                       </div>
 
                       <div class="col-sm-12 text-center mt-2">
-                        <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Real Property</button>
+                        <button type="save" class="btn btn-primary btn-sm" id="save_rp"><i class="far fa-save"></i> Save Changes</button>
                         <button type="button" class="btn btn-primary btn-sm" id="clear_rp" onclick="clearFields('saln_edit_rp_form'); disableFields('saln_edit_rp_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                       
                       </div>
@@ -644,7 +723,7 @@ td{
                           </div>
                         </div>
                         <div class="col-sm-12 text-center">
-                          <button type="save" class="btn btn-primary btn-sm" id="save_pp"><i class="far fa-save"></i> Save Liability</button>
+                          <button type="save" class="btn btn-primary btn-sm" id="save_pp"><i class="far fa-save"></i> Save Changes</button>
                           <button type="button" class="btn btn-primary btn-sm" id="clear_pp" onclick="clearFields('saln_edit_liability_form'); disableFields('saln_edit_liability_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                         </div>
                   </form>
@@ -709,7 +788,7 @@ td{
                         </div>
                       </div>
                       <div class="col-sm-12 text-center">
-                        <button type="save" class="btn btn-primary btn-sm" id="save_business"><i class="far fa-save"></i> Save Business Interest and Financial Connection</button>
+                        <button type="save" class="btn btn-primary btn-sm" id="save_business"><i class="far fa-save"></i> Save Changes</button>
                         <button type="button" class="btn btn-primary btn-sm" id="clear_business" onclick="clearFields('saln_edit_business_form'); disableFields('saln_edit_business_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
                       </div>
                 </form>
@@ -719,26 +798,6 @@ td{
             </div>
           </div>
         </div>
-
-        <div class="col-sm-12">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
-              <thead class="">
-              <tr class="align-middle">
-                <th scope="col">ID</th>
-                <th scope="col">NAME OF ENTITY/BUSINESS ENTERPRISE</th>
-                <th scope="col">BUSINESS ADDRESS</th>
-                <th scope="col">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</th>
-                <th scope="col">DATE OF ACQUISITION OF INTEREST OR CONNECTION</th>
-                <th scope="col">CONTROLS</th>
-              </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -807,67 +866,10 @@ td{
           </form>
           </div>
 
+         
 
 
-          <div class="accordion shadow-sm mb-3" id="accordionRelative">
-            <div class="accordion-item ">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button bg-blue text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBusiness" aria-expanded="true" aria-controls="collapseOne">
-                  <!-- <i class="fas fa-city"></i>  -->
-                  EDIT RELATIVES IN THE GOVERNMENT SERVICE
-                </button>
-              </h2>
-              <div id="collapseBusiness" class="accordion-collapse collapse" aria-labelledby="headingOne">
-                <div class="accordion-body">
-             
-                  <form action="#" method="POST" name="edit_saln_relative_in_government_form" id="edit_saln_relative_in_government_form">
-                    <input type="hidden" class="form-control form-control-sm" id="edit_relative_id" name="id" placeholder="" required>
-
-                        <div class="d-md-flex flex-row">
-                          <div class="mb-2 flex-fill px-1">
-                            <label for="relative_name">NAME OF RELATIVE</label>
-                            <input type="text" class="form-control form-control-sm" id="edit_relative_name" name="relative_name" placeholder="" disabled required>
-                          </div>
-                        </div>
-                        <div class="d-md-flex flex-row">
-                          <div class="mb-2 flex-fill px-1">
-                            <label for="relative_relationship">RELATIONSHIP</label>
-                            <input type="text" class="form-control form-control-sm" id="edit_relative_relationship" name="relative_relationship" placeholder="" disabled required>
-                          </div>
-                          <div class="mb-2 flex-fill px-1">
-                            <label for="relative_position">POSITION</label>
-                            <input type="text" class="form-control form-control-sm" id="edit_relative_position" name="relative_position" placeholder="" disabled required>
-                          </div>
-                        </div>
-        
-                        <div class="d-md-flex flex-row flex-gap">
-        
-                          <div class="mb-2 flex-fill px-1">
-                            <label for="relative_agency_office">NAME OF AGENCY/OFFICE</label>
-                            <input type="text" class="form-control form-control-sm" id="edit_relative_agency_office" name="relative_agency_office" placeholder="" disabled required>
-                          </div>
-                        </div>
-                        <div class="mb-2 flex-fill px-1">
-                          <div class="mb-2 flex-fill px-1">
-                            <label for="relative_agency_office_address">AGENCY/OFFICE ADDRESS</label>
-                            <input type="text" class="form-control form-control-sm" id="edit_relative_agency_office_address" name="relative_agency_office_address" placeholder="" disabled required>
-                          </div>
-                        </div>
-                        <div class="col-sm-12 text-center">
-                          <button type="save" class="btn btn-primary btn-sm" id="save_relative"><i class="far fa-save"></i> Save</button>
-                          <button type="button" class="btn btn-primary btn-sm" id="clear_relative" onclick="clearFields('edit_saln_relative_in_government_form'); disableFields('edit_saln_relative_in_government_form', true);"><i class="fas fa-eraser"></i> Clear Inputs</button>
-                        </div>
-
-  
-                  </form>
-  
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        <div class="col-sm-12">
+        <!-- <div class="col-sm-12">
           <div class="table-responsive">
             <table class="table table-striped table-bordered text-left" id="relative_table" width = "100%">
               <thead class="">
@@ -885,7 +887,7 @@ td{
               </tbody>
             </table>
           </div>
-      </div>
+      </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -942,7 +944,7 @@ fetchData('rp')
     searchable: false,
     render: function ( data, type, row ) {
         return `
-        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewRealProperty" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" title="<em>Edit</em> <u><b>Real Property</b></u>">
+        <button type="button" class="btn btn-sm btn-primary" id="${data.id}" data-bs-toggle="modal" data-bs-target="#viewRealProperty" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" title="<em>Edit</em> <u><b>Real Property</b></u>">
           <i class="far fa-edit"></i>
         </button>
         <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -973,7 +975,7 @@ fetchData('liability')
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" data-bs-toggle="modal" data-bs-target="#viewLiabilities" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
         <i class="far fa-edit"></i>
       </button>
       <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -1004,10 +1006,10 @@ var pp_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"  data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Personal Property</b></u>">
         <i class="far fa-edit"></i>
       </button>
-      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Personal Property</b></u>">
         <i class="far fa-trash-alt"></i>
       </button>`
     }
@@ -1037,10 +1039,10 @@ var relative_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative'); toggleAccordion('collapseRp');" data-bs-toggle="modal" data-bs-target="#viewRelative" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Relative</b></u>">
         <i class="far fa-edit"></i>
       </button>
-      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Relative</b></u>">
         <i class="far fa-trash-alt"></i>
       </button>`
     }
@@ -1073,7 +1075,7 @@ var business_table_col = [
   searchable: false,
   render: function ( data, type, row ) {
       return `
-      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+      <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="modal" data-bs-target="#viewBusiness" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
         <i class="far fa-edit"></i>
       </button>
       <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -1138,7 +1140,12 @@ function loadTable(table, tableCol, data) {
       pageLength = 3;
     }else if(table == "liability_table"){
       pageLength = 3;
+    }else if(table == "business_table"){
+      pageLength = 3;
+    }else if(table == "relative_table"){
+      pageLength = 2;
     }
+
     oTblReport.DataTable ({
         "data" : data,
         "columns" : tableCol,
@@ -1438,7 +1445,7 @@ function deleteData(id, type){
               searchable: false,
               render: function ( data, type, row ) {
                   return `
-                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewRealProperty" id="${data.id}" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" title="<em>Edit</em> <u><b>Real Property</b></u>">
                     <i class="far fa-edit"></i>
                   </button>
                   <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'rp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
@@ -1471,7 +1478,7 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Personal Property</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Personal Property</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Personal Property</b></u>">
@@ -1502,7 +1509,7 @@ function deleteData(id, type){
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="modal" data-bs-target="#viewLiabilities" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -1535,7 +1542,7 @@ function deleteData(id, type){
               searchable: false,
               render: function ( data, type, row ) {
                   return `
-                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                  <button type="button" class="btn btn-sm btn-primary" id="${data.id}" data-bs-toggle="modal" data-bs-target="#viewBusiness" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                     <i class="far fa-edit"></i>
                   </button>
                   <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -1571,10 +1578,10 @@ function deleteData(id, type){
             searchable: false,
             render: function ( data, type, row ) {
                 return `
-                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}"  data-bs-toggle="modal" data-bs-target="#viewRelative" onclick="editRelative(this.id, 'relative'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Relative in the Government</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+                <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Relative in the Government</b></u>">
                   <i class="far fa-trash-alt"></i>
                 </button>`
               }
@@ -1706,7 +1713,9 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
           { "data" : "rp_exact_location" },
           { "data" : "rp_kind" },
           { "data" : null,
-          "defaultContent": `
+          searchable: false,
+          render: function ( data, type, row ) {
+            return `
                 <button type="button" class="btn btn-sm btn-primary" id="${data.id}" data-bs-toggle="modal" data-bs-target="#viewRealProperty" onclick="editRp(this.id, 'rp'); toggleAccordion('collapseRp');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
@@ -1714,7 +1723,7 @@ document.getElementById('saln_rp_form').addEventListener("submit", (e)=>{
                   <i class="far fa-trash-alt"></i>
                 </button>`
         }
-        ]
+      }];
   
           loadTable('rp_table', rp_table_col, data);
   
@@ -1841,7 +1850,7 @@ document.getElementById('saln_pp_form').addEventListener("submit", (e)=>{
         searchable: false,
         render: function ( data, type, row ) {
             return `
-            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="tooltip" data-bs-html="true" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" title="<em>Edit</em> <u><b>Personal Property</b></u>">
               <i class="far fa-edit"></i>
             </button>
             <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Personal Property</b></u>">
@@ -1907,10 +1916,10 @@ document.getElementById('saln_edit_pp_form').addEventListener("submit", (e)=>{
       searchable: false,
       render: function ( data, type, row ) {
           return `
-          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');"  data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Real Property</b></u>">
+          <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editPp(this.id, 'pp'); toggleAccordion('collapsePp');" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Personal Property</b></u>">
             <i class="far fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Real Property</b></u>">
+          <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'pp')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Personal Property</b></u>">
             <i class="far fa-trash-alt"></i>
           </button>`
         }
@@ -1965,7 +1974,7 @@ document.getElementById('saln_liability_form').addEventListener("submit", (e)=>{
             searchable: false,
             render: function ( data, type, row ) {
                 return `
-                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="modal" data-bs-target="#viewLiabilities" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -2028,7 +2037,7 @@ document.getElementById('saln_edit_liability_form').addEventListener("submit", (
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editLiability(this.id, 'liability'); toggleAccordion('collapseLiability');" data-bs-toggle="modal" data-bs-target="#viewLiabilities" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Liability</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'liability')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Liability</b></u>">
@@ -2089,7 +2098,7 @@ document.getElementById('saln_business_interest_form').addEventListener("submit"
             searchable: false,
             render: function ( data, type, row ) {
                 return `
-                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+                <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="modal" data-bs-target="#viewBusiness" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                   <i class="far fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -2156,7 +2165,7 @@ document.getElementById('saln_edit_business_form').addEventListener("submit", (e
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editBusiness(this.id, 'business'); toggleAccordion('collapseBusiness');" data-bs-toggle="modal" data-bs-target="#viewBusiness" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
                 <i class="far fa-edit"></i>
               </button>
               <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'business')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
@@ -2221,10 +2230,10 @@ document.getElementById('saln_relative_in_government_form').addEventListener("su
           searchable: false,
           render: function ( data, type, row ) {
               return `
-              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+              <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative'); toggleAccordion('collapseRp');" data-bs-toggle="modal" data-bs-target="#viewRelative" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Relative in the Government Service</b></u>">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+              <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Relative in the Government Service</b></u>">
                 <i class="far fa-trash-alt"></i>
               </button>`
             }
@@ -2294,10 +2303,10 @@ document.getElementById('edit_saln_relative_in_government_form').addEventListene
         searchable: false,
         render: function ( data, type, row ) {
             return `
-            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Business Interest</b></u>">
+            <button type="button" class="btn btn-sm btn-primary" id="${data.id}" onclick="editRelative(this.id, 'relative'); toggleAccordion('collapseRp');" data-bs-toggle="modal" data-bs-target="#viewRelative" data-bs-toggle="tooltip" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Edit</em> <u><b>Relative in the Government</b></u>">
               <i class="far fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Business Interest</b></u>">
+            <button type="button" class="btn btn-sm btn-danger" id="${data.id}" onclick="deleteData(this.id, 'relative')" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Delete</em> <u><b>Relative in the Government</b></u>">
               <i class="far fa-trash-alt"></i>
             </button>`
           }

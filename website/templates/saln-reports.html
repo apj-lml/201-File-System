@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %} SALN {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+
+.truncate {
+  max-width:150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card {
+  border: 0;
+}
+
+th{
+  text-align: center;
+}
+td{
+  text-align: left;
+}
+</style>
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid mt-3">
+  <div class="row mb-3">
+    <!-- <div class="card"> -->
+        <div class="card-body">
+
+        </div>
+    <!-- </div> -->
+    
+  <footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0 mb-3 position-sticky">
+    <div class="container">
+      <div class="col-sm-12">
+          <div class="col text-center">
+            <button class="btn btn-primary" type="button" onclick="print_saln()"><i class="bi bi-printer-fill"></i> GENERATE SALN</button>
+          </div>
+      </div>
+      </div>
+  </footer>
+	</div>
+</div>
+
+
+</main>
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+
+  function clearFields(formId){
+    var form = document.getElementById(formId);
+    var formFields = form.querySelectorAll("input");
+    
+    formFields.forEach(function(field) {
+      if (field.type === "checkbox") {
+        // Uncheck checkboxes
+        field.checked = false;
+      } else {
+        // Clear input fields
+        field.value = "";
+      }
+    });
+  }
+
+  (function() {
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+ })();
+
+ function fetchData(saln_type){
+  var url = "/saln/get-data/";
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+    }).then((res)=>{
+      if (res.status == 200){
+        return res.json();
+      }
+    })
+ }
+
+
+function loadTable(table, tableCol, data) {
+    var jsonString = JSON.stringify(data) //for testing
+  
+    var oTblReport = $('#' + table);
+    var pageLength = 0;
+    rowHeight = 0;
+    if(table == "rp_table"){
+      pageLength = 2;
+    }else if(table == "pp_table"){
+      pageLength = 3;
+    }else if(table == "liability_table"){
+      pageLength = 3;
+    }else if(table == "business_table"){
+      pageLength = 3;
+    }else if(table == "relative_table"){
+      pageLength = 2;
+    }
+
+    oTblReport.DataTable ({
+        "data" : data,
+        "columns" : tableCol,
+        "pageLength": pageLength,
+        //"scrollY": true,
+        //"scroller": {
+        //    "rowHeight": rowHeight
+        //}
+    });
+}
+
+</script>
+{%endblock%}

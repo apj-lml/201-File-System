@@ -566,6 +566,13 @@ def saln(emp_id):
             # return render_template('saln.html', emp_id = emp_id, user_profile = user)
 
 
+@views.route('/saln-reports', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def salnReports():
+    if request.method == 'GET':
+        return render_template('saln-reports.html')
+
 
 @views.route('/file-log/<emp_id>', methods=['GET', 'POST'])
 @login_required
