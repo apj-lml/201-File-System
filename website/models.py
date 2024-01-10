@@ -170,9 +170,7 @@ class User(db.Model, UserMixin):
     is_primary_sr_certifier = db.Column(db.Integer, default=0)
     is_secondary_sr_certifier = db.Column(db.Integer, default=0)
 
-
     service_record_remarks = db.Column(db.String(999), default='')
-
 
     type_of_user = db.Column(db.String(150), default='user')
     #last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=datetime.now(PST))
@@ -204,8 +202,8 @@ class User(db.Model, UserMixin):
     vaccine = db.relationship('Vaccine')
     afl = db.relationship('Afl')
     rol = db.relationship('Records_Of_Leave', backref='user')
-    # real_property = db.relationship('Real_Property', backref='user')
-
+    saln_summary = db.relationship('Saln_Summary')
+    
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
 
@@ -281,6 +279,18 @@ class User(db.Model, UserMixin):
             return claiming_years
 
     # emergency_contact = db.relationship('Emergency_Contact')
+
+class Saln_Summary(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    rp_total = db.Column(db.String(150))
+    pp_total = db.Column(db.String(150))
+    lia_total = db.Column(db.String(150))
+    networth = db.Column(db.String(150))
+    as_of = db.Column(db.String(150))
+    last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
+    user = db.relationship('User')
+
 
 class File_Logs(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)

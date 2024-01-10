@@ -76,7 +76,8 @@ td{
 
                     <h5 class="fw-bolder">1. ASSETS</h5>
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-sm-12">
+
                         <form action="#" method="POST" name="saln_rp_form" id="saln_rp_form" enctype="multipart/form-data">
                           <div class="card shadow-sm mb-2">
                             <div class="card-header bg-blue text-white">
@@ -85,108 +86,138 @@ td{
                               </h5>
                             </div>
                               <div class="card-body">
-                                <div class="d-md-flex flex-row">
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_description">DESCRIPTION</label>
-                                    <input type="text" class="form-control form-control-sm" id="rp_description" name="rp_description" placeholder="" form="saln_rp_form" required>
-                                    <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
-                                  
+                                <div class="row">
+                                  <div class="col-sm-8">
+                                    <div class="d-md-flex flex-row">
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_description">DESCRIPTION</label>
+                                        <input type="text" class="form-control form-control-sm" id="rp_description" name="rp_description" placeholder="" form="saln_rp_form" required>
+                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
+                                      
+                                      </div>
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_kind">KIND</label>
+                                        <input type="text" class="form-control form-control-sm" id="rp_kind" name="rp_kind" placeholder="" form="saln_rp_form" required>
+                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
+                                      </div>
+                                    </div>
+                                    <div class="d-md-flex flex-row">
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_exact_location">EXACT LOCATION</label>
+                                        <input type="text" class="form-control form-control-sm" id="rp_exact_location" name="rp_exact_location" placeholder="" form="saln_rp_form" required>
+                                      </div>
+                                    </div>
+                
+                                    <div class="d-md-flex flex-row">
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_assessed_value">ASSESSED VALUE</label>
+                                        <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_assessed_value" name="rp_assessed_value" placeholder="" form="saln_rp_form" required>
+                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+                
+                                      </div>
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
+                                        <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_current_market_value" name="rp_current_market_value" placeholder="" form="saln_rp_form" required>
+                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
+                
+                                      </div>
+                                    </div>
+                
+                                    <div class="d-md-flex flex-row">
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_acquisition_year">ACQUISITION YEAR</label>
+                                        <input type="number" class="form-control form-control-sm" id="rp_acquisition_year" name="rp_acquisition_year" placeholder="" form="saln_rp_form" oninput="year_only_2(this)" required>
+                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
+                
+                                      </div>
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_acquisition_mode">ACQUISITION MODE</label>
+                                        <input type="text" class="form-control form-control-sm" id="rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" form="saln_rp_form" required>
+                                      </div>
+                                      <div class="mb-2 flex-fill px-1">
+                                        <label for="rp_acquisition_cost">ACQUISITION COST</label>
+                                        <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" form="saln_rp_form" required>
+                                      </div>
+                                    </div>
+                
+                                    <div class="col-sm-12 text-center mt-2">
+                                      <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
+                                      <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button> -->
+                                    </div>
+                                      <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                          <table class="table table-striped table-bordered text-left" id="rp_table" width = "100%">
+                                            <thead class="">
+                                            <tr class="align-middle">
+                                              <th scope="col">ID</th>
+                                              <th scope="col">DESCRIPTION</th>
+                                              <th scope="col">KIND</th>
+                                              <th scope="col">EXACT LOCATION</th>
+                                              <th scope="col">ASSESSED VALUE</th>
+                                              <th scope="col">CURRENT FAIR MARKET VALUE</th>
+                                              <th scope="col">ACQUISITION YEAR</th>
+                                              <th scope="col">ACQUISITION MODE</th>
+                                              <th scope="col">ACQUISITION COST</th>
+                                              <th scope="col">CONTROLS</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+      
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
                                   </div>
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_kind">KIND</label>
-                                    <input type="text" class="form-control form-control-sm" id="rp_kind" name="rp_kind" placeholder="" form="saln_rp_form" required>
-                                    <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. residential, commercial, industrial, agricultural and mixed use</p></small>
+                                  <div class="col-md-4">
+                                    <div class="card shadow-sm mb-2 h-100">
+                                        <div class="card-header bg-blue text-white">
+                                          <h5 class="mb-0 text-white">
+                                            <i class="bi bi-info-square"></i> Read me!
+                                          </h5>
+                                        </div>
+                                        <div class="card-body">
+                                          <ol class="d-grid gap-3">
+                                            <li>
+                                              Please indicate the <b>DESCRIPTION</b>, <b>KIND</b>, and <b>EXACT LOCATION</b> of
+                                              the real property. <br><b>EXACT LOCATION</b> is defined as at least the
+                                              barangay, town/city and provincial address where the property is
+                                              located.
+                                            </li>
+                                            <li>
+                                              For the <u>mode of acquisition</u> of your property, please use the
+                                              following terms as to what is appropriate; <b>PURCHASE</b>, <b>DONATION</b>,
+                                              <b>INHERITANCE</b>, <b>CONSTRUCTION</b>, <b>TRUST</b>, <b>MORTGAGE</b> or <b>EXCHANGE</b>.
+                                            </li>
+                                            <li>
+                                              In case of purchase by installment of immovable properties and the
+                                              title is not yet in the name of the declarant, the total payments
+                                              made shall be reported as Equity in Installment Purchase under
+                                              PERSONAL PROPERTY. It is only when the title of Real Property is
+                                              transferred to the buyer that the property is declared as a REAL
+                                              PROPERTY in the SALN.
+
+                                            </li>
+                                          </ol>
+                                        </div>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="d-md-flex flex-row">
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_exact_location">EXACT LOCATION</label>
-                                    <input type="text" class="form-control form-control-sm" id="rp_exact_location" name="rp_exact_location" placeholder="" form="saln_rp_form" required>
-                                  </div>
-                                </div>
-            
-                                <div class="d-md-flex flex-row">
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_assessed_value">ASSESSED VALUE</label>
-                                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_assessed_value" name="rp_assessed_value" placeholder="" form="saln_rp_form" required>
-                                    <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
-            
-                                  </div>
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_current_makret_value">CURRENT FAIR MARKET VALUE</label>
-                                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_current_market_value" name="rp_current_market_value" placeholder="" form="saln_rp_form" required>
-                                    <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*As found in the Tax Declaration of Real Property.</p></small>
-            
-                                  </div>
-                                </div>
-            
-                                <div class="d-md-flex flex-row">
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_acquisition_year">ACQUISITION YEAR</label>
-                                    <input type="number" class="form-control form-control-sm" id="rp_acquisition_year" name="rp_acquisition_year" placeholder="" form="saln_rp_form" oninput="year_only_2(this)" required>
-                                    <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Input year only [eg. 2023]</p></small>
-            
-                                  </div>
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_acquisition_mode">ACQUISITION MODE</label>
-                                    <input type="text" class="form-control form-control-sm" id="rp_acquisition_mode" name="rp_acquisition_mode" placeholder="" form="saln_rp_form" required>
-                                  </div>
-                                  <div class="mb-2 flex-fill px-1">
-                                    <label for="rp_acquisition_cost">ACQUISITION COST</label>
-                                    <input type="text" class="form-control form-control-sm trailing-decimal-input" id="rp_acquisition_cost" name="rp_acquisition_cost" placeholder="" form="saln_rp_form" required>
-                                  </div>
-                                </div>
-            
-                                <div class="col-sm-12 text-center mt-2">
-                                  <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_rp_form"><i class="fas fa-plus"></i> Add Real Properties</button>
-                                  <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRealProperty"><i class="fas fa-eye"></i> View Real Property</button> -->
-                                </div>
-            
-                              </div>
+                                
+
+                            </div>
+
+                               
   
                           </div>
                         </form>
-                      </div>
-                      <div class="col-md-7">
-                        <div class="card shadow-sm mb-2" style="min-height: 506px;">
-                          <div class="card-header bg-blue text-white">
-                            <h5 class="mb-0 text-white">
-                              List of Real Properties
-                            </h5>
-                          </div>
-                            <div class="card-body">
-                                  <div class="col-sm-12">
-                                    <div class="table-responsive">
-                                      <table class="table table-striped table-bordered text-left" id="rp_table" width = "100%">
-                                        <thead class="">
-                                        <tr class="align-middle">
-                                          <th scope="col">ID</th>
-                                          <th scope="col">DESCRIPTION</th>
-                                          <th scope="col">KIND</th>
-                                          <th scope="col">EXACT LOCATION</th>
-                                          <th scope="col">ASSESSED VALUE</th>
-                                          <th scope="col">CURRENT FAIR MARKET VALUE</th>
-                                          <th scope="col">ACQUISITION YEAR</th>
-                                          <th scope="col">ACQUISITION MODE</th>
-                                          <th scope="col">ACQUISITION COST</th>
-                                          <th scope="col">CONTROLS</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                  </div>
-          
-                            </div>
-  
-                        </div>
+
+
                       </div>
                     </div>
 
                       <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-8">
                           <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data">
                             <div class="card shadow-sm mb-2" style="min-height: 390px;">
                               <div class="card-header bg-blue text-white">
@@ -226,18 +257,36 @@ td{
                                     <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_pp_form"><i class="fas fa-plus"></i> Add Personal Property</button>
                                     <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewPersonalProperty"><i class="fas fa-eye"></i> View Personal Properties</button> -->
                                   </div>
+
+                                    <div class="table-responsive">
+                                      <table class="table table-striped table-bordered text-left" id="pp_table" width = "100%">
+                                        <thead class="">
+                                        <tr class="align-middle">
+                                          <th scope="col">ID</th>
+                                          <th scope="col">DESCRIPTION</th>
+                                          <th scope="col">YEAR ACQUIRED</th>
+                                          <th scope="col">ACQUISITION COST/AMOUNT</th>
+                                          <th scope="col">CONTROLS</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                          
+                                        </tbody>
+                                      </table>
+                                    </div>
+          
                                 </div>
                             </div>
                           </form>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-4">
                             <div class="card shadow-sm mb-2" style="min-height: 390px;">
                               <div class="card-header bg-blue text-white">
                                 <h5 class="mb-0 text-white">
                                   List of Personal Properties
                                 </h5>
                               </div>
-                              <div class="card-body">
+                              <!-- <div class="card-body">
                                 <div class="table-responsive">
                                   <table class="table table-striped table-bordered text-left" id="pp_table" width = "100%">
                                     <thead class="">
@@ -254,13 +303,13 @@ td{
                                     </tbody>
                                   </table>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                       </div>
                     </div>
                     <h5 class="fw-bolder">2. LIABILITIES</h5>
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-md-8">
                         <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data">
                           <div class="card shadow-sm mb-2" style="min-height: 390px;">
                             <div class="card-header bg-blue text-white">
@@ -284,15 +333,33 @@ td{
                                     <input type="text" class="form-control form-control-sm trailing-decimal-input" id="liability_outstanding_balance" name="liability_outstanding_balance" form="saln_liability_form" placeholder="" required>
                                   </div>
                                 </div>
-                                <div class="col-sm-12 mt-5 text-center my-auto">
+                                <div class="col-sm-12 mt-3 text-center my-auto">
                                   <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_liability_form"><i class="fas fa-plus"></i> Add Liability</button>
                                   <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewLiabilities"><i class="fas fa-eye"></i> View Liabilities</button> -->
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="table-responsive">
+                                    <table class="table table-striped table-bordered text-left" id="liability_table" width = "100%">
+                                      <thead class="">
+                                      <tr class="align-middle">
+                                        <th scope="col">ID</th>
+                                        <th scope="col">NATURE</th>
+                                        <th scope="col">NAME OF CREDITOR</th>
+                                        <th scope="col">OUTSTANDING BALANCE</th>
+                                        <th scope="col">CONTROLS</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                        
+                                      </tbody>
+                                    </table>
+                                  </div>
                                 </div>
                               </div>
                           </div>
                         </form>
                       </div>
-                      <div class="col-md-7">
+                      <div class="col-md-4">
                         <div class="card shadow-sm mb-2" style="min-height: 390px;">
                           <div class="card-header bg-blue text-white">
                             <h5 class="mb-0 text-white">
@@ -300,24 +367,7 @@ td{
                             </h5>
                           </div>
                           <div class="card-body">
-                            <div class="col-sm-12">
-                              <div class="table-responsive">
-                                <table class="table table-striped table-bordered text-left" id="liability_table" width = "100%">
-                                  <thead class="">
-                                  <tr class="align-middle">
-                                    <th scope="col">ID</th>
-                                    <th scope="col">NATURE</th>
-                                    <th scope="col">NAME OF CREDITOR</th>
-                                    <th scope="col">OUTSTANDING BALANCE</th>
-                                    <th scope="col">CONTROLS</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                    
-                                  </tbody>
-                                </table>
-                              </div>
-                          </div>
+
                           </div>
                         </div>
                       </div>
@@ -340,7 +390,7 @@ td{
                 <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
               </div>
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-8">
                     <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
                       <div class="card shadow-sm mb-2" style="min-height: 520px;">
                         <div class="card-header bg-blue text-white">
@@ -373,40 +423,40 @@ td{
                               </div>
                             </div>
         
-                            <div class="col-sm-12 text-center my-auto mt-4">
+                            <div class="col-sm-12 text-center my-auto mt-3">
                               <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
                               <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection -->
-        
+                          </div>
+                          <div class="table-responsive">
+                            <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
+                              <thead class="">
+                              <tr class="align-middle">
+                                <th scope="col">ID</th>
+                                <th scope="col">NAME OF ENTITY/BUSINESS ENTERPRISE</th>
+                                <th scope="col">BUSINESS ADDRESS</th>
+                                <th scope="col">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</th>
+                                <th scope="col">DATE OF ACQUISITION OF INTEREST OR CONNECTION</th>
+                                <th scope="col">CONTROLS</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                
+                              </tbody>
+                            </table>
                           </div>
                       </div>
                     </div>
                     </form>
                 </div>
-                  <div class="col-sm-7">
-                    <div class="card shadow-sm mb-2" style="min-height: 520px;">
+                  <div class="col-sm-4">
+                    <div class="card shadow-sm mb-2" style="height: 528px;">
                       <div class="card-header bg-blue text-white">
                         <h5 class="mb-0 text-white">
                           List of Business Interests and Final Connections
                         </h5>
                       </div>
                       <div class="card-body">
-                        <div class="table-responsive">
-                          <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
-                            <thead class="">
-                            <tr class="align-middle">
-                              <th scope="col">ID</th>
-                              <th scope="col">NAME OF ENTITY/BUSINESS ENTERPRISE</th>
-                              <th scope="col">BUSINESS ADDRESS</th>
-                              <th scope="col">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</th>
-                              <th scope="col">DATE OF ACQUISITION OF INTEREST OR CONNECTION</th>
-                              <th scope="col">CONTROLS</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-              
-                            </tbody>
-                          </table>
-                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -426,7 +476,7 @@ td{
                 <i class="fas fa-info-circle"></i> Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso
               </div>
               <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-8">
                     <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data">
                       <div class="card shadow-sm mb-2"  style="min-height: 520px;">
                         <div class="card-header bg-blue text-white">
@@ -469,12 +519,30 @@ td{
                               <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_relative_in_government_form"><i class="fas fa-plus"></i> Add Relative in the Gov't </button>
                               <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewRelative"><i class="fas fa-eye"></i> View Relative in the Gov't </button> -->
                           </div>
+
+                          <div class="table-responsive">
+                            <table class="table table-striped table-bordered text-left" id="relative_table" width = "100%">
+                              <thead class="">
+                              <tr class="align-middle">
+                                <th scope="col">ID</th>
+                                <th scope="col">NAME OF RELATIVE</th>
+                                <th scope="col">RELATIONSHIP</th>
+                                <th scope="col">POSITION</th>
+                                <th scope="col">NAME OF AGENCY/OFFICE AND ADDRESS</th>
+                                <th scope="col">CONTROLS</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                
+                              </tbody>
+                            </table>
+                          </div>
                       </div>
                     </div>
                   </form>
       
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-4">
                   <div class="card shadow-sm mb-2" style="min-height: 520px;">
                     <div class="card-header bg-blue text-white">
                       <h5 class="mb-0 text-white">
@@ -482,23 +550,7 @@ td{
                       </h5>
                     </div>
                     <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table table-striped table-bordered text-left" id="relative_table" width = "100%">
-                          <thead class="">
-                          <tr class="align-middle">
-                            <th scope="col">ID</th>
-                            <th scope="col">NAME OF RELATIVE</th>
-                            <th scope="col">RELATIONSHIP</th>
-                            <th scope="col">POSITION</th>
-                            <th scope="col">NAME OF AGENCY/OFFICE AND ADDRESS</th>
-                            <th scope="col">CONTROLS</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-            
-                          </tbody>
-                        </table>
-                      </div>
+
                     </div>
                   </div>
                 </div>

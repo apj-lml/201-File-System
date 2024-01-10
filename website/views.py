@@ -469,22 +469,27 @@ def afl(emp_id):
             files = File_Logs.query.filter_by(user_id=emp_id).all()
 
             current_year = datetime.now().year
+            january_1 = datetime(current_year, 1, 1)
+            december_31 = datetime(current_year, 12, 31)
+            december_31_1 = datetime(current_year-1, 12, 31)
             # Fetch AFL data
-
             # get_afl = Afl.query.filter_by(user_id=emp_id).all()
             get_afl = Afl.query.filter(
-                db.extract('year', Afl.date_start) == current_year,
-                db.extract('year', Afl.date_end) == current_year,
+                # db.extract('year', Afl.date_start) <= current_year,
+                # db.extract('year', Afl.date_end) >= current_year,
+                Afl.date_start >= december_31_1,
+                Afl.date_end <= december_31,
                 Afl.user_id == emp_id
             ).all()
 
-            # Group AFLs by leave_id
-            grouped_afls = defaultdict(list)
-            for afl in get_afl:
-                grouped_afls[afl.leave_id].append(afl)
+            print("======>>>>>", get_afl)
 
-            # Convert defaultdict to a regular dictionary
-            grouped_afls_dict = dict(grouped_afls)
+            # Group AFLs by leave_id
+            # grouped_afls = defaultdict(list)
+            # for afl in get_afl:
+            #     grouped_afls[afl.leave_id].append(afl)
+
+            # grouped_afls_dict = dict(grouped_afls)
 
 
             # Group AFLs by leave_id and calculate the sum of no_working_days_applied_for
@@ -496,7 +501,7 @@ def afl(emp_id):
             grouped_afls_dict2 = dict(grouped_afls2)
 
 
-            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier, files = files, grouped_afls_dict = grouped_afls_dict, grouped_afls_dict2 = grouped_afls_dict2)
+            return render_template('afl.html', emp_id = emp_id, user_profile = user, primary_certifier = primary_certifier, secondary_certifier = secondary_certifier, files = files, grouped_afls_dict2 = grouped_afls_dict2)
 
 @views.route('/afl-logs/<emp_id>', methods=['GET', 'POST'])
 @login_required

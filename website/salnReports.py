@@ -2,7 +2,7 @@ from flask import Blueprint, request, redirect, url_for, session, jsonify, curre
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 from .models import Real_Property, Personal_Property, Liability, Business_Interest, Relatives_In_Government,\
-     User, UserSchema, PersonalPropertySchema, RealPropertySchema, LiabilitySchema, BusinessInterestSchema, RelativeInGovernmentSchema
+     User, UserSchema, PersonalPropertySchema, Real_Property, Personal_Property, Liability, RealPropertySchema, LiabilitySchema, BusinessInterestSchema, RelativeInGovernmentSchema
 from . import db
 import datetime
 import time
@@ -12,168 +12,31 @@ from io import BytesIO
 from docx.shared import Cm
 from docxtpl import DocxTemplate, InlineImage
 from dateutil.relativedelta import relativedelta
-
+from sqlalchemy import func
+from sqlalchemy.sql import label 
 import json
 import os, os.path
 
 
-saln = Blueprint('saln', __name__)
+salnReports = Blueprint('salnReports', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 
 admin_permission = Permission(RoleNeed('admin'))
 
-@saln.errorhandler(403)
+@salnReports.errorhandler(403)
 def page_not_found(e):
     session['redirected_from'] = request.url
     return redirect(url_for('auth.login'))
 
 
 # ---------------------------------------------------------------------------- #
-#                              add real property                               #
+#                                PRINT salnReports                                    #
 # ---------------------------------------------------------------------------- #
-@saln.route('add-rp/<emp_id>', methods=['POST', 'GET'])
+@salnReports.route('print/<emp_id>/<filing_date>/<filing_type>', methods=['POST', 'GET'])
 @login_required
-def add_rp(emp_id):
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
-
-        formdata["user_id"] = emp_id
-        
-        add_rp = Real_Property(**formdata)
-
-        db.session.add(add_rp)
-        db.session.commit()
-        db.session.flush()
-
-        print(formdata)
-        return jsonify(**formdata)
-
- # ---------------------------------------------------------------------------- #
-
-# ---------------------------------------------------------------------------- #
-#                              add personal property                           #
-# ---------------------------------------------------------------------------- #
-@saln.route('add-pp/<emp_id>', methods=['POST', 'GET'])
-@login_required
-def add_pp(emp_id):
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
-
-        formdata["user_id"] = emp_id
-
-        add_rp = Personal_Property(**formdata)
-
-        db.session.add(add_rp)
-        db.session.commit()
-        db.session.flush()
-
-        print(formdata)
-        return jsonify(**formdata)
-
- # ---------------------------------------------------------------------------- #
-
-# ---------------------------------------------------------------------------- #
-#                             add liability property                           #
-# ---------------------------------------------------------------------------- #
-@saln.route('add-liability/<emp_id>', methods=['POST', 'GET'])
-@login_required
-def add_liability(emp_id):
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
-
-        formdata["user_id"] = emp_id
-
-        new_liability = Liability(**formdata)
-
-        db.session.add(new_liability)
-        db.session.commit()
-        db.session.flush()
-
-        return jsonify(**formdata)
-
- # ---------------------------------------------------------------------------- #
-
- # ---------------------------------------------------------------------------- #
-#                             add liability property                           #
-# ---------------------------------------------------------------------------- #
-@saln.route('add-business-interest/<emp_id>', methods=['POST', 'GET'])
-@login_required
-def add_business_interest(emp_id):
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
-
-        formdata["user_id"] = emp_id
-
-        new_business_interest = Business_Interest(**formdata)
-
-        db.session.add(new_business_interest)
-        db.session.commit()
-        db.session.flush()
-
-        return jsonify(**formdata)
-
- # ---------------------------------------------------------------------------- #
-
-# ---------------------------------------------------------------------------- #
-#                             add relative property                           #
-# ---------------------------------------------------------------------------- #
-@saln.route('add-relative-in-government/<emp_id>', methods=['POST', 'GET'])
-@login_required
-def add_relative_in_government(emp_id):
-    if request.method == "POST":
-        formdata = request.form.to_dict()
-
-        for k,v in formdata.items():
-            if type(v) is str:
-                formdata.update({k: v.upper()})
-            else:
-                formdata.update({k: v})
-
-        formdata["user_id"] = emp_id
-
-        new_relative_in_government = Relatives_In_Government(**formdata)
-
-        db.session.add(new_relative_in_government)
-        db.session.commit()
-        db.session.flush()
-
-        return jsonify(**formdata)
-
-# ---------------------------------------------------------------------------- #
-
-
-# ---------------------------------------------------------------------------- #
-#                                PRINT SALN                                    #
-# ---------------------------------------------------------------------------- #
-@saln.route('print/<emp_id>/<filing_date>/<filing_type>', methods=['POST', 'GET'])
-@login_required
-def print_saln(emp_id, filing_date, filing_type):
+def print_salnReports(emp_id, filing_date, filing_type):
     # formdata  = json.loads(request.data)
-    template = os.path.join(current_app.root_path, 'static/templates', 'SALN_Form.docx')   
+    template = os.path.join(current_app.root_path, 'static/templates', 'salnReports_Form.docx')   
 
     document = from_template(template, emp_id, filing_date, filing_type)
     document.seek(0)
@@ -181,7 +44,7 @@ def print_saln(emp_id, filing_date, filing_type):
     return send_file(
         document, mimetype='application/vnd.openxmlformats-'
         'officedocument.wordprocessingml.document', as_attachment=True,
-        attachment_filename='SALN.docx')
+        attachment_filename='salnReports.docx')
 
  # ---------------------------------------------------------------------------- #
 
@@ -464,141 +327,84 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
     return total_acquisition_cost
 
 # ---------------------------------------------------------------------------- #
-#                          delete liability property                           #
+
 # ---------------------------------------------------------------------------- #
-@saln.route('delete', methods=['POST', 'GET'])
+#                                     get data                                 #
+# ---------------------------------------------------------------------------- #
+@salnReports.route('get-data', methods=['POST', 'GET'])
 @login_required
-def delete_saln():
-    if request.method == "POST":
-        formdata  = json.loads(request.data)
+def get_data():
+    user_profiles = User.query.all()
 
-        if formdata['type'] == "rp":
-            dbObject = Real_Property
-        if formdata['type'] == "pp":
-            dbObject = Personal_Property
-        if formdata['type'] == "liability":
-            dbObject = Liability
-        if formdata['type'] == "business":
-            dbObject = Business_Interest
-        if formdata['type'] == "relative":
-            dbObject = Relatives_In_Government
+    user_list = []
 
-        delete_saln = dbObject.query.get(formdata['id'])
+    for user_profile in user_profiles:
+        user_profile.user_real_property = sorted(user_profile.user_real_property, key=lambda x: x.rp_acquisition_year, reverse=True)
+        user_profile.user_personal_property = sorted(user_profile.user_personal_property, key=lambda x: x.pp_year_acquired, reverse=True)
 
-        db.session.delete(delete_saln)
-        db.session.commit()
-        return jsonify({})
+        middle_name = user_profile.middle_name[:1] + "." if user_profile.middle_name and user_profile.middle_name != "N/A" else ""
+        name_extn = user_profile.name_extn if user_profile.name_extn and user_profile.name_extn != "N/A" else ""
 
-# ---------------------------------------------------------------------------- #
+        bi_list = []
+        for bi in user_profile.user_business_interest:
+            bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%Y-%m-%d").date()
+            bi.business_acquisition = bi_acquistion_date_object.strftime("%B %d, %Y")
+            bi_list.append(bi)
 
-# ---------------------------------------------------------------------------- #
-#                            edit liability property                           #
-# ---------------------------------------------------------------------------- #
-@saln.route('edit', methods=['POST', 'GET'])
-@login_required
-def edit_saln():
-    if request.method == "POST":
-        formdata  = json.loads(request.data)
+        user_profile.user_business_interest = bi_list
 
-        if formdata['type'] == "rp":
-            dbObject = Real_Property
-            schema = RealPropertySchema()
+        rg_list = []
+        for rg in user_profile.user_relative_in_government:
+            rg_list.append(rg)
 
-        if formdata['type'] == "pp":
-            dbObject = Personal_Property
-            schema = PersonalPropertySchema()
+        user_profile.user_relative_in_government = rg_list
 
-        if formdata['type'] == "liability":
-            dbObject = Liability
-            schema = LiabilitySchema()
-        
-        if formdata['type'] == "business":
-            dbObject = Business_Interest
-            schema = BusinessInterestSchema()
+        user_profile_dict = UserSchema().dump(user_profile)
+        user_list.append(user_profile_dict)
 
-        if formdata['type'] == "relative":
-            dbObject = Relatives_In_Government
-            schema = RelativeInGovernmentSchema()
-
-
-        get_DATA = dbObject.query.get(formdata['id'])
-
-        db.session.commit()
-        data = schema.dump(get_DATA)
-        return jsonify(data)
-
-# ---------------------------------------------------------------------------- #
-
-
-# ---------------------------------------------------------------------------- #
-#                          update liability property                           #
-# ---------------------------------------------------------------------------- #
-@saln.route('test', methods=['POST', 'GET'])
-@login_required
-def saln_test():
-    if request.method == "POST":
-        formdata = json.loads(request.data)
-
-        # for k,v in formdata.items():
-        #     if type(v) is str:
-        #         formdata.update({k: v.upper()})
-        #     else:
-        #         formdata.update({k: v})
-
-        if formdata['type'] == "rp":
-            dbObject = Real_Property
-        if formdata['type'] == "pp":
-            dbObject = Personal_Property
-        if formdata['type'] == "liability":
-            dbObject = Liability
-        if formdata['type'] == "business":
-            dbObject = Business_Interest
-        if formdata['type'] == "relative":
-            dbObject = Relatives_In_Government
-
-        get_DATA = dbObject.query.get(formdata['id'])
-
-        for key, value in formdata.items():
-            if type(value) is str:
-                setattr(get_DATA, key, value.upper())
-            else:
-                setattr(get_DATA, key, value)
-
-
-        db.session.commit()
-
-    return jsonify('success')
-
+    return jsonify(user_list)
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
 #                                     get data                                 #
 # ---------------------------------------------------------------------------- #
-@saln.route('get-data/<saln_type>/<user_profile_id>', methods=['POST', 'GET'])
+@salnReports.route('get-data-test', methods=['POST', 'GET'])
 @login_required
-def get_data(saln_type, user_profile_id):
-    if saln_type == "rp":
-        dbObject = Real_Property
-        schema = RealPropertySchema()
+def get_data_test():
+    # Define aliases for the subqueries
+    rp_total = db.aliased(func.coalesce(Real_Property.rp_acquisition_cost, 0), name='rp_total')
+    pp_total = db.aliased(func.coalesce(Personal_Property.pp_acquisition_cost, 0), name='pp_total')
+    lia_total = db.aliased(func.coalesce(Liability.liability_outstanding_balance, 0), name='lia_total')
 
-    if saln_type == "pp":
-        dbObject = Personal_Property
-        schema = PersonalPropertySchema()
+    user_query = db.session.query(
+        User.id,
+        User.employee_id,
+        User.last_name,
+        User.first_name,
+        User.name_extn,
+        User.middle_name,
+        User.tin,
+        User.position_title,
+        User.employment_status,
+        User.salary_grade,
+        User.job_grade,
+        rp_total.with_labels().label('rp_total'),
+        pp_total.with_labels().label('pp_total'),
+        lia_total.with_labels().label('lia_total')
+    ).outerjoin(
+        rp_total, User.id == rp_total.columns.user_id
+    ).outerjoin(
+        pp_total, User.id == pp_total.columns.user_id
+    ).outerjoin(
+        lia_total, User.id == lia_total.columns.user_id
+    ).filter(User.status_remarks == 'ACTIVE').all()
 
-    if saln_type == "liability":
-        dbObject = Liability
-        schema = LiabilitySchema()
-    
-    if saln_type == "business":
-        dbObject = Business_Interest
-        schema = BusinessInterestSchema()
-    
-    if saln_type == "relative":
-        dbObject = Relatives_In_Government
-        schema = RelativeInGovernmentSchema()
+    result = []
 
-    get_DATA = dbObject.query.filter_by(user_id=user_profile_id).all()
-    data = schema.dump(get_DATA, many=True)
+    for user_data in user_query:
+        user_dict = dict(zip(user_query.keys(), user_data))
+        result.append(user_dict)
 
-    return jsonify(data)
+    return jsonify(result)
+
 # ---------------------------------------------------------------------------- #
