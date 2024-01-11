@@ -74,10 +74,7 @@ td{
                       <i class="fas fa-info-circle"></i> Including those of the spouse and unmarried children below eighteen (18) years of age living in declarant’s household
                     </div>
 
-                    <h5 class="fw-bolder">1. ASSETS</h5>
-                    <div class="row">
-                      <div class="col-sm-12">
-
+                      <h5 class="fw-bolder">1. ASSETS</h5>
                         <form action="#" method="POST" name="saln_rp_form" id="saln_rp_form" enctype="multipart/form-data">
                           <div class="card shadow-sm mb-2">
                             <div class="card-header bg-blue text-white">
@@ -92,7 +89,8 @@ td{
                                       <div class="mb-2 flex-fill px-1">
                                         <label for="rp_description">DESCRIPTION</label>
                                         <input type="text" class="form-control form-control-sm" id="rp_description" name="rp_description" placeholder="" form="saln_rp_form" required>
-                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
+                                        <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium or an improvement such as an extension or garage,
+                                          and the like.</p></small>
                                       
                                       </div>
                                       <div class="mb-2 flex-fill px-1">
@@ -184,49 +182,70 @@ td{
                                               located.
                                             </li>
                                             <li>
+                                              The declarant shall indicate a description of the real properties,
+                                              whether it is a land only or land with building, a house and lot,
+                                              condominium unit, or an improvement such as an extension or garage,
+                                              and the like.
+                                            </li>
+                                            <li>
+                                              Improvements refer to all works that are constructed or introduced to
+                                              the land, or repairs or improvements made to the land or building after
+                                              its initial acquisition.
+                                            </li>
+                                            <li>
                                               For the <u>mode of acquisition</u> of your property, please use the
                                               following terms as to what is appropriate; <b>PURCHASE</b>, <b>DONATION</b>,
                                               <b>INHERITANCE</b>, <b>CONSTRUCTION</b>, <b>TRUST</b>, <b>MORTGAGE</b> or <b>EXCHANGE</b>.
                                             </li>
                                             <li>
+                                              For the <b>CURRENT FAIR MARKET VALUE</b> and the <b>ASSESSED VALUE</b>,
+                                              please refer to the amount indicated in the tax declaration of the
+                                              properties concerned.
+                                            </li>
+                                            <li>
                                               In case of purchase by installment of immovable properties and the
                                               title is not yet in the name of the declarant, the total payments
-                                              made shall be reported as Equity in Installment Purchase under
-                                              PERSONAL PROPERTY. It is only when the title of Real Property is
+                                              made shall be reported as <b><i>Equity in Installment Purchase</i></b> under
+                                              <b>PERSONAL PROPERTY</b>. It is only when the title of Real Property is
                                               transferred to the buyer that the property is declared as a REAL
                                               PROPERTY in the SALN.
-
+                                            </li>
+                                            <li>
+                                              Excluded in the computation of real properties are:
+                                              <ul>
+                                                <li>Real properties of unmarried children below 18 years of age
+                                                  living in the declarant’s household.</li>
+                                                <li>Paraphernal property (exclusively owned by the wife) and
+                                                  Capital property (exclusively owned by the husband).</li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                              Included in the computation:
+                                              <ul>
+                                                <li>Community property</li>
+                                                <li>Conjugal property</li>
+                                              </ul>
                                             </li>
                                           </ol>
                                         </div>
                                     </div>
                                   </div>
                                 </div>
-                                
-
                             </div>
-
-                               
-  
                           </div>
                         </form>
-
-
-
-                      </div>
-                    </div>
-
-                      <div class="row">
-                        <div class="col-md-8">
-                          <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data">
-                            <div class="card shadow-sm mb-2" style="min-height: 390px;">
-                              <div class="card-header bg-blue text-white">
-                                <h5 class="mb-0 text-white">
-                                  <!-- <i class="fas fa-luggage-cart"></i> -->
-                                  b. Personal Properties
-                                </h5>
-                              </div>
-                                <div class="card-body">
+                  
+                        <form action="#" method="POST" name="saln_pp_form" id="saln_pp_form" enctype="multipart/form-data">
+                          <div class="card shadow-sm mb-2">
+                            <div class="card-header bg-blue text-white">
+                              <h5 class="mb-0 text-white">
+                                <!-- <i class="fas fa-luggage-cart"></i> -->
+                                b. Personal Properties
+                              </h5>
+                            </div>
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-md-8">
                                   <div class="d-md-flex flex-row">
                                     <div class="mb-2 flex-fill px-1">
                                       <label for="pp_description">DESCRIPTION</label>
@@ -274,51 +293,62 @@ td{
                                         </tbody>
                                       </table>
                                     </div>
-          
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="card shadow-sm mb-2 h-100">
+                                        <div class="card-header bg-blue text-white">
+                                          <h5 class="mb-0 text-white">
+                                            <i class="bi bi-info-square"></i> Read me!
+                                          </h5>
+                                        </div>
+                                        <div class="card-body">
+                                          <ol class="d-grid gap-3">
+                                            <li>
+                                              Please provide the <b>DESCRIPTION</b>, <b>YEAR ACQUIRED</b>, and <b>AMOUNT</b> of the personal property.
+                                            </li>
+                                            <li>
+                                              Personal properties refer to jewelry, appliances, furniture, motor
+                                              vehicles and other tangible/movable properties. This shall also include
+                                              investments or other assets, such as cash on hand or in bank,
+                                              negotiable instruments, securities, stocks, bonds, and the like.
+                                            </li>
+                                            <li>
+                                              In declaring your provident fund contributions, please provide the <b>gross corporate and personal shares</b>.
+                                            </li>
+                                            <li>
+                                              For insurance policies, only the premiums paid as of December 31, {{ today_date.year - 1 }} shall be disclosed.
+                                            </li>
+                                            <li>
+                                              For properties that are co-owned with other individuals, the declarant shall disclose the proportionate amount of his/her share in the property
+                                            </li>
+                                            <li>
+                                              Properties which are subject of either a chattel or real estate mortgage
+                                              shall be declared in the SALN Form. The acquisition cost to be
+                                              declared shall be the actual purchase price, and the liability to be
+                                              declared shall be the outstanding balance of the loan as of December
+                                              31 of the preceding year.
+                                            </li>
+                                          </ol>
+                                        </div>
+                                      </div>
+                                  </div>
                                 </div>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow-sm mb-2" style="min-height: 390px;">
-                              <div class="card-header bg-blue text-white">
-                                <h5 class="mb-0 text-white">
-                                  List of Personal Properties
-                                </h5>
                               </div>
-                              <!-- <div class="card-body">
-                                <div class="table-responsive">
-                                  <table class="table table-striped table-bordered text-left" id="pp_table" width = "100%">
-                                    <thead class="">
-                                    <tr class="align-middle">
-                                      <th scope="col">ID</th>
-                                      <th scope="col">DESCRIPTION</th>
-                                      <th scope="col">YEAR ACQUIRED</th>
-                                      <th scope="col">ACQUISITION COST/AMOUNT</th>
-                                      <th scope="col">CONTROLS</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                      
-                                    </tbody>
-                                  </table>
-                                </div>
-                            </div> -->
-                        </div>
-                      </div>
-                    </div>
+                          </div>
+                        </form>
+                        
                     <h5 class="fw-bolder">2. LIABILITIES</h5>
-                    <div class="row">
-                      <div class="col-md-8">
-                        <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data">
-                          <div class="card shadow-sm mb-2" style="min-height: 390px;">
-                            <div class="card-header bg-blue text-white">
-                              <h5 class="mb-0 text-white">
-                                <!-- <i class="fas fa-credit-card"></i> -->
-                                a. Liabilities
-                              </h5>
-                            </div>
-                              <div class="card-body">
+                    <form action="#" method="POST" name="saln_liability_form" id="saln_liability_form" enctype="multipart/form-data">
+                      <div class="card shadow-sm mb-2">
+                        <div class="card-header bg-blue text-white">
+                          <h5 class="mb-0 text-white">
+                            <!-- <i class="fas fa-credit-card"></i> -->
+                            a. Liabilities
+                          </h5>
+                        </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-8">
                                 <div class="d-md-flex flex-row">
                                   <div class="mb-2 flex-fill px-1">
                                     <label for="liability_nature">NATURE</label>
@@ -355,28 +385,45 @@ td{
                                     </table>
                                   </div>
                                 </div>
-                              </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="card shadow-sm mb-2" style="min-height: 390px;">
-                          <div class="card-header bg-blue text-white">
-                            <h5 class="mb-0 text-white">
-                              List of Liabilities
-                            </h5>
-                          </div>
-                          <div class="card-body">
 
+                              </div>
+                              <div class="col-md-4">
+                              <div class="card shadow-sm mb-2 h-100">
+                                <div class="card-header bg-blue text-white">
+                                  <h5 class="mb-0 text-white">
+                                    <i class="bi bi-info-square"></i> Read me!
+                                  </h5>
+                                </div>
+                                  <div class="card-body">
+                                    <ol class="d-grid gap-3">
+
+                                      <li>
+                                        Liability refers to financial liability or anything that can result to a
+                                        transfer or disposal of an asset. It includes not only those incurred by
+                                        the declarant but also those of his/her spouse and unmarried children
+                                        below eighteen (18) years of age living in his/her household.
+                                      </li>
+                                      <li>
+                                        Nature of liability refers to the type of loan obtained from banks,
+                                        financial institutions, GSIS, PAG-IBIG and others, such as personal,
+                                        multi-purpose, salary, calamity loan and the like.
+                                      </li>
+                                      <li>
+                                        Outstanding Balance shall refer to the balance that is still due as of December 31, {{ today_date.year - 1 }}.
+                                      </li>
+                                      
+                                    </ol>
+                                  </div>
+                                </div>
+                                </div>      
+                            </div>
                           </div>
-                        </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
           </div>
-
 
           <div class="card shadow-sm mb-2">
             <div class="card-header bg-blue text-white">
@@ -389,99 +436,115 @@ td{
               <div class="alert alert-warning" role="alert">
                 <i class="fas fa-info-circle"></i> Business Interest and Financial Connections of Declarant /Declarant’s spouse/ Unmarried Children Below Eighteen (18) years of Age Living in Declarant’s Household
               </div>
-                <div class="row">
-                  <div class="col-md-8">
-                    <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
-                      <div class="card shadow-sm mb-2" style="min-height: 520px;">
-                        <div class="card-header bg-blue text-white">
-                          <h5 class="mb-0 fw-bolder text-white">
-                            
-                          </h5>
+              <form action="#" method="POST" name="saln_business_interest_form" id="saln_business_interest_form" enctype="multipart/form-data">
+                <div class="card shadow-sm mb-2" style="min-height: 520px;">
+                  <div class="card-header bg-blue text-white">
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="d-md-flex flex-row">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
+                            <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
+                          </div>
                         </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="business_address">BUSINESS ADDRESS</label>
+                            <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
+                          </div>
+                        </div>
+    
+                        <div class="d-md-flex flex-row flex-gap">
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
+                            <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
+                          </div>
+                          <div class="mb-2 flex-fill px-1">
+                            <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
+                            <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
+                          </div>
+                        </div>
+    
+                        <div class="col-sm-12 text-center my-auto mt-3">
+                          <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
+                          <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection -->
+                        </div>
+                        <div class="table-responsive">
+                          <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
+                            <thead class="">
+                            <tr class="align-middle">
+                              <th scope="col">ID</th>
+                              <th scope="col">NAME OF ENTITY/BUSINESS ENTERPRISE</th>
+                              <th scope="col">BUSINESS ADDRESS</th>
+                              <th scope="col">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</th>
+                              <th scope="col">DATE OF ACQUISITION OF INTEREST OR CONNECTION</th>
+                              <th scope="col">CONTROLS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card shadow-sm mb-2 h-100">
+                          <div class="card-header bg-blue text-white">
+                            <h5 class="mb-0 text-white">
+                              <i class="bi bi-info-square"></i> Read me!
+                            </h5>
+                          </div>
                           <div class="card-body">
-                            <div class="d-md-flex flex-row">
-                              <div class="mb-2 flex-fill px-1">
-                                <label for="business">NAME OF ENTITY/BUSINESS ENTERPRISE</label>
-                                <input type="text" class="form-control form-control-sm" id="business" name="business" placeholder="" form="saln_business_interest_form" required>
-                              </div>
-                            </div>
-                            <div class="d-md-flex flex-row">
-                              <div class="mb-2 flex-fill px-1">
-                                <label for="business_address">BUSINESS ADDRESS</label>
-                                <input type="text" class="form-control form-control-sm" id="business_address" name="business_address" placeholder="" form="saln_business_interest_form" required>
-                              </div>
-                            </div>
-        
-                            <div class="d-md-flex flex-row flex-gap">
-                              <div class="mb-2 flex-fill px-1">
-                                <label for="business_nature">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</label>
-                                <input type="text" class="form-control form-control-sm" id="business_nature" name="business_nature" placeholder="" form="saln_business_interest_form" required>
-                              </div>
-                              <div class="mb-2 flex-fill px-1">
-                                <label for="creditor">DATE OF ACQUISITION OF INTEREST OR CONNECTION</label>
-                                <input type="date" class="form-control form-control-sm" id="business_acquisition" name="business_acquisition" placeholder="" form="saln_business_interest_form" required>
-                              </div>
-                            </div>
-        
-                            <div class="col-sm-12 text-center my-auto mt-3">
-                              <button type="submit" class="btn btn-primary btn-sm mb-2" form="saln_business_interest_form"><i class="fas fa-plus"></i> Add Business Interest and Financial Connection </button>
-                              <!-- <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#viewBusiness"><i class="fas fa-eye"></i> View Business Interest and Financial Connection -->
+                            <ol class="d-grid gap-3">
+                              <li>
+                                <b>Business interests</b> refer to declarant's existing interest in any business
+                                enterprise or entity, aside from his/her income from government,
+                                which shall also include those of his/her spouse and unmarried
+                                children below eighteen ( 18) years of age living in his/her household.
+                              </li>
+                              <li>
+                                <b>Financial connections</b> refer to declarant's existing connections with
+                                any business enterprise or entity, whether as a consultant, adviser and
+                                the like, with an expectation of remuneration for services rendered,
+                                including those of his/her spouse and unmarried children below
+                                eighteen (18) years of age living in his/her household.
+                              </li>
+                              <li>
+                                Nature of business interest and/or financial connection refers to
+                                existing interest or connection in any business enterprise, whether as
+                                <b>proprietor</b>, <b>investor</b>, <b>promoter</b>, <b>partner</b>, <b>shareholder</b>, <b>officer</b>, <b>managing
+                                  director</b>, <b>executive</b>, <b>creditor</b>, <b>lawyer</b>, <b>legal consultant</b> or <b>adviser</b>,
+                                <b>financial</b> or <b>business consultant</b>, and the like.
+                              </li>
+                            </ol>
                           </div>
-                          <div class="table-responsive">
-                            <table class="table table-striped table-bordered text-left" id="business_table" width = "100%">
-                              <thead class="">
-                              <tr class="align-middle">
-                                <th scope="col">ID</th>
-                                <th scope="col">NAME OF ENTITY/BUSINESS ENTERPRISE</th>
-                                <th scope="col">BUSINESS ADDRESS</th>
-                                <th scope="col">NATURE OF BUSINESS INTEREST OR FINANCIAL CONNECTION</th>
-                                <th scope="col">DATE OF ACQUISITION OF INTEREST OR CONNECTION</th>
-                                <th scope="col">CONTROLS</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                
-                              </tbody>
-                            </table>
-                          </div>
-                      </div>
-                    </div>
-                    </form>
-                </div>
-                  <div class="col-sm-4">
-                    <div class="card shadow-sm mb-2" style="height: 528px;">
-                      <div class="card-header bg-blue text-white">
-                        <h5 class="mb-0 text-white">
-                          List of Business Interests and Final Connections
-                        </h5>
-                      </div>
-                      <div class="card-body">
-
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </form>
             </div>
           </div>
-          
-            
-          <div class="card shadow-sm mb-2">
-            <div class="card-header bg-blue text-white">
-              <h4 class="mb-0 fw-bolder text-white">
-                <i class="bi bi-journals"></i> RELATIVES IN THE GOVERNMENT SERVICE
-              </h4>
-            </div>
-            <div class="card-body">
-              <div class="alert alert-warning" role="alert">
-                <i class="fas fa-info-circle"></i> Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso
+            <div class="card shadow-sm mb-2">
+              <div class="card-header bg-blue text-white">
+                <h4 class="mb-0 fw-bolder text-white">
+                  <i class="bi bi-journals"></i> RELATIVES IN THE GOVERNMENT SERVICE
+                </h4>
               </div>
-              <div class="row">
-                <div class="col-md-8">
-                    <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data">
-                      <div class="card shadow-sm mb-2"  style="min-height: 520px;">
-                        <div class="card-header bg-blue text-white">
-                        </div>
-                          <div class="card-body">
+              <div class="card-body">
+                <div class="alert alert-warning" role="alert">
+                  <i class="fas fa-info-circle"></i> Within the Fourth Degree of Consanguinity or Affinity. Include also Bilas, Balae and Inso
+                </div>
+                <form action="#" method="POST" name="saln_relative_in_government_form" id="saln_relative_in_government_form" enctype="multipart/form-data">
+                  <div class="card shadow-sm mb-2" style="min-height: 520px;">
+                    <div class="card-header bg-blue text-white">
+                    </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-8">
                             <div class="d-md-flex flex-row">
                               <div class="mb-2 flex-fill px-1">
                                 <label for="relative_name">NAME OF RELATIVE</label>
@@ -537,29 +600,65 @@ td{
                               </tbody>
                             </table>
                           </div>
-                      </div>
-                    </div>
-                  </form>
-      
-                </div>
-                <div class="col-sm-4">
-                  <div class="card shadow-sm mb-2" style="min-height: 520px;">
-                    <div class="card-header bg-blue text-white">
-                      <h5 class="mb-0 text-white">
-                        List of Relatives in the Government Service
-                      </h5>
-                    </div>
-                    <div class="card-body">
 
-                    </div>
-                  </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="card shadow-sm mb-2 h-100">
+                              <div class="card-header bg-blue text-white">
+                                <h5 class="mb-0 text-white">
+                                  <i class="bi bi-info-square"></i> Read me!
+                                </h5>
+                              </div>
+                              <div class="card-body">
+                                <ol class="d-grid gap-3">
+                                  <li> The extent of the fourth civil degree of affinity and consanguinity include:
+                                    <ul>
+                                      <li>
+                                        Relatives in the first degree of consanguinity include the declarant’s father, mother, son and daughter.
+                                      </li>
+                                      <li>
+                                        Relatives in the first degree of affinity include the declarant’s father-in-law and mother-in-law.
+                                      </li>
+                                      <li>
+                                        Relatives in the second degree of consanguinity include the declarant’s brother, sister, grandmother, grandfather,
+                                        grandson and granddaughter.
+                                      </li>
+                                      <li>
+                                        Relatives in the second degree of affinity include the declarant’s brother-in-law, sister-in-law,
+                                        grandmother-in-law, grandfather-in-law, granddaughter-in- law and grandson-in-law.
+                                      </li>
+                                      <li>
+                                        Relatives in the third degree of consanguinity include the declarant’s nephew, niece, uncle and aunt.
+                                      </li>
+                                      <li>
+                                        Relatives in the third degree of affinity include declarant’s nephew-in-law, niece-in-law, uncle-in-law, auntie-in-law.
+                                      </li>
+                                      <li>
+                                        Relatives in the fourth degree of consanguinity include the declarant’s first cousin.
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li>
+                                    Elected officials are considered to be part of the non-career service. Thus, they are included in the
+                                    declaration of relatives. The same applies to public officials and employees holding temporary,
+                                    coterminous, contractual, and casual appointments.
+                                  </li>
+                                  <li>
+                                    The rules require declarants to disclose their relatives up to the fourth degree of consanguinity or
+                                    affinity to the best of their knowledge.
+                                  </li>
+                                </ol>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+
+                      </div>
                 </div>
+              </form>
               </div>
             </div>
           </div>
-
-
-
         </div>
     <!-- </div> -->
     
@@ -605,7 +704,8 @@ td{
                         <div class="flex-fill px-1">
                           <label for="rp_description">DESCRIPTION</label>
                           <input type="text" class="form-control form-control-sm" id="edit_rp_description" name="rp_description" placeholder="" disabled required>
-                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium and improvements.</p></small>
+                          <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*e.g. lot, house and lot, condominium or an improvement such as an extension or garage,
+                            and the like.</p></small>
                         
                         </div>
                         <div class="flex-fill px-1">

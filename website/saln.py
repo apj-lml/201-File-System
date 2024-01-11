@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app, send_file
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import Real_Property, Personal_Property, Liability, Business_Interest, Relatives_In_Government,\
+from .models import Real_Property, Personal_Property, Liability, Business_Interest, Relatives_In_Government, Saln_Summary, \
      User, UserSchema, PersonalPropertySchema, RealPropertySchema, LiabilitySchema, BusinessInterestSchema, RelativeInGovernmentSchema
 from . import db
 import datetime
@@ -293,9 +293,9 @@ def get_context(id, filing_date, filing_type):
         user_profile_dict['spouse_abroad'] = "unchecked"
 
 
-    spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date() if spouse and spouse.fb_date_issued != "" and spouse.fb_date_issued is not None else "N/A"
+    spouse_govt_issued_id_date_issued_date_obj = datetime.datetime.strptime(spouse.fb_date_issued, "%Y-%m-%d").date() if spouse and spouse.fb_date_issued != "" and spouse.fb_date_issued != "NONE" and spouse.fb_date_issued is not None else "N/A"
 
-    user_profile_dict['spouse_govt_issued_id_date_issued'] = spouse_govt_issued_id_date_issued_date_obj.strftime("%B %d, %Y") if spouse and spouse.fb_date_issued != "" and spouse.fb_date_issued is not None else "N/A"
+    user_profile_dict['spouse_govt_issued_id_date_issued'] = spouse_govt_issued_id_date_issued_date_obj.strftime("%B %d, %Y") if spouse and spouse.fb_date_issued != "" and spouse.fb_date_issued != "NONE" and spouse.fb_date_issued is not None else "N/A"
 
     user_profile_dict["checkmark"] = "✓"
 
@@ -336,46 +336,38 @@ def get_context(id, filing_date, filing_type):
     else:
         user_profile_dict['addtl_page_3'] = False
 
+    # check_saln = Saln_Summary.query.filter(Saln_Summary.user_id = user_profile.id).first()
+    check_saln = Saln_Summary.query.filter(Saln_Summary.user_id == user_profile.id).first()
+    if check_saln:
+        check_saln.rp_total = user_profile_dict['total_rp_acquisition_cost_p1']
+        check_saln.pp_total = user_profile_dict['total_pp_acquisition_cost_p1']
+        check_saln.lia_total = user_profile_dict['total_liability_outstanding_balance_p1']
+        check_saln.networth = user_profile_dict['networth']
+        check_saln.as_of = date_object
+
+    else:
+        saln_summary = Saln_Summary(
+            user_id = user_profile.id,
+            rp_total = user_profile_dict['total_rp_acquisition_cost_p1'],
+            pp_total = user_profile_dict['total_pp_acquisition_cost_p1'],
+            lia_total = user_profile_dict['total_liability_outstanding_balance_p1'],
+            networth = user_profile_dict['networth'],
+            as_of = date_object
+        )
+        db.session.add(saln_summary)
+
+    db.session.commit()
+
     return user_profile_dict
 
 def getNetworth(total_assets_p1 = 0.00, total_liability_p1 = 0.00, total_assets_p2 = 0.00, total_liability_p2 = 0.00):
-    # if total_assets_p1:
-    #     floatAssetsP1 = float(total_assets_p1.replace(',', ''))
-    # else:
-    #     floatAssetsP1 = 0.00
-
-    # if total_assets_p2:
-    #     floatAssetsP2 = float(total_assets_p2.replace(',', ''))
-    # else:
-    #     floatAssetsP2 = 0.00
-
-    # if total_liability_p1:
-    #     floatLiabilityP1 = float(total_liability_p1.replace(',', ''))
-    # else:
-    #     floatLiabilityP1 = 0.00
-
-    # if total_liability_p2:
-    #     floatLiabilityP2 = float(total_liability_p2.replace(',', ''))
-    # else:
-    #     floatLiabilityP2 = 0.00
 
     floatNetworth = float(total_assets_p1.replace(',', '')) + float(total_assets_p2.replace(',', '')) - float(total_liability_p1.replace(',', '')) + float(total_liability_p2.replace(',', ''))
-    # floatNetworth = (floatAssetsP1 + floatAssetsP2) - (floatLiabilityP1 + floatLiabilityP2)
     formatted_networth = "{:,.2f}".format(floatNetworth)
     return floatNetworth
 
 def getTotalAssets(subtotal1 = 0.00, subtotal2 = 0.00):
-    # if subtotal1:
-    #     floatSubtotal1 = float(subtotal1.replace(',', ''))
-    # else:
-    #     floatSubtotal1 = 0.00
 
-    # if subtotal2:
-    #     floatSubtotal2 = float(subtotal2.replace(',', ''))
-    # else:
-    #     floatSubtotal2 = 0.00
-
-    # total = floatSubtotal1 + floatSubtotal2
     total = subtotal1 + subtotal2
     formatted_total = "{:,.2f}".format(total)
 
