@@ -173,7 +173,7 @@ def add_relative_in_government(emp_id):
 @login_required
 def print_saln(emp_id, filing_date, filing_type):
     # formdata  = json.loads(request.data)
-    template = os.path.join(current_app.root_path, 'static/templates', 'SALN_Form.docx')   
+    template = os.path.join(current_app.root_path, 'static/templates', 'SALN_Form.docx')  
 
     document = from_template(template, emp_id, filing_date, filing_type)
     document.seek(0)

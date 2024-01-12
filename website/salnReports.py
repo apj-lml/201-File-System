@@ -2,7 +2,7 @@ from flask import Blueprint, request, redirect, url_for, session, jsonify, curre
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
 from .models import Real_Property, Personal_Property, Liability, Business_Interest, Relatives_In_Government,\
-     User, UserSchema, PersonalPropertySchema, Real_Property, Personal_Property, Liability, RealPropertySchema, LiabilitySchema, BusinessInterestSchema, RelativeInGovernmentSchema
+     User, UserSchema, PersonalPropertySchema, Real_Property, Personal_Property, Saln_Summary, Liability, RealPropertySchema, LiabilitySchema, BusinessInterestSchema, RelativeInGovernmentSchema
 from . import db
 import datetime
 import time
@@ -16,7 +16,10 @@ from sqlalchemy import func
 from sqlalchemy.sql import label 
 import json
 import os, os.path
-
+from openpyxl import load_workbook
+from openpyxl.styles import Border, Side
+import editpyxl
+from openpyxl_templates import TemplatedWorkbook
 
 salnReports = Blueprint('salnReports', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -336,34 +339,100 @@ def getPpAcquisitionCostSubTotal(user, d_start, d_end):
 def get_data():
     user_profiles = User.query.all()
 
-    user_list = []
-
-    for user_profile in user_profiles:
-        user_profile.user_real_property = sorted(user_profile.user_real_property, key=lambda x: x.rp_acquisition_year, reverse=True)
-        user_profile.user_personal_property = sorted(user_profile.user_personal_property, key=lambda x: x.pp_year_acquired, reverse=True)
-
-        middle_name = user_profile.middle_name[:1] + "." if user_profile.middle_name and user_profile.middle_name != "N/A" else ""
-        name_extn = user_profile.name_extn if user_profile.name_extn and user_profile.name_extn != "N/A" else ""
-
-        bi_list = []
-        for bi in user_profile.user_business_interest:
-            bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%Y-%m-%d").date()
-            bi.business_acquisition = bi_acquistion_date_object.strftime("%B %d, %Y")
-            bi_list.append(bi)
-
-        user_profile.user_business_interest = bi_list
-
-        rg_list = []
-        for rg in user_profile.user_relative_in_government:
-            rg_list.append(rg)
-
-        user_profile.user_relative_in_government = rg_list
-
-        user_profile_dict = UserSchema().dump(user_profile)
-        user_list.append(user_profile_dict)
 
     return jsonify(user_list)
 # ---------------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------------- #
+#                                     get data                                 #
+# ---------------------------------------------------------------------------- #
+@salnReports.route('generate-summary-list', methods=['POST', 'GET'])
+@login_required
+def generate_summary_list():
+    users_with_saln = User.query.join(Saln_Summary).filter(User.saln_summary != None).all()
+
+    template = os.path.join(current_app.root_path, 'static/templates', 'summary_list_of_filers.xlsx')  
+    new_save_path = os.path.join(current_app.root_path, 'static/saln', 'modified_summary_list_of_filers.xlsx')  
+
+    # Create a BytesIO buffer to save the workbook
+    buffer = BytesIO()
+
+    # wb = load_workbook(template)
+
+    wb = editpyxl.Workbook()
+
+    wb.open(template)
+
+    # wb.open(template)
+
+    # wb = TemplatedWorkbook(template)
+
+    # ws = wb['Sheet1']  # or wb.active
+    ws = wb.active
+
+
+# --------------------------------EXCEL STYLES-------------------------------- #
+
+    border = Border(left=Side(style='thin'),
+                right=Side(style='thin'),
+                top=Side(style='thin'),
+                bottom=Side(style='thin'))
+
+# ---------------------------------------------------------------------------- #
+    
+    for index, user_with_saln in enumerate(users_with_saln, start=1):
+        # Check if the cell exists, editpyxl
+        cell_address = f'A{index+5}'
+        # if cell_address not in ws:
+        ws.create_named_range(cell_address, ws[cell_address])
+
+        ws.cell('A6').value = 3.14
+
+        # ws[f'A{index+5}'] = index
+    #     ws[f'B{index+5}'] = user_with_saln.last_name
+    #     ws[f'C{index+5}'] = f"{user_with_saln.first_name}, {user_with_saln.name_extn}" if user_with_saln.name_extn != 'N/A' else user_with_saln.first_name
+    #     ws[f'D{index+5}'] = user_with_saln.middle_name
+    #     ws[f'E{index+5}'] = user_with_saln.tin
+    #     ws[f'F{index+5}'] = user_with_saln.position_title
+    #     ws[f'G{index+5}'] = user_with_saln.saln_summary.networth
+
+        # ws[f'A{index+5}'].border = border
+        # ws[f'B{index+5}'].border = border
+        # ws[f'C{index+5}'].border = border
+        # ws[f'D{index+5}'].border = border
+        # ws[f'E{index+5}'].border = border
+        # ws[f'F{index+5}'].border = border
+        # ws[f'G{index+5}'].border = border
+
+    wb.save(new_save_path)
+    wb.close()
+    # wb.save(buffer)
+    # buffer.seek(0)  # Reset the buffer position to the beginning
+    
+    return ''
+    # return send_file(
+    #     buffer,
+    #     download_name='summary_list_of_filers_modified.xlsx',
+    #     as_attachment=True,
+    #     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    # )
+
+# ---------------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------------- #
+#                                 excel styles                                 #
+# ---------------------------------------------------------------------------- #
+# Adding a border to cell B6
+def excel_border():
+
+    border = Border(left=Side(style='thin'),
+                    right=Side(style='thin'),
+                    top=Side(style='thin'),
+                    bottom=Side(style='thin'))
+
+    return border
 
 # ---------------------------------------------------------------------------- #
 #                                     get data                                 #

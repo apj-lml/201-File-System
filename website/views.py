@@ -20,7 +20,7 @@ from . import db, generateWes
 from .models import (College, Family_Background, Masteral, Other_Information,
                      Uploaded_File, User, Vocational_Course, Work_Experience,
                      WorkExperienceSchema, Doctoral, Vocational_Course, Voluntary_Work,
-                     Learning_Development, Shirt, Career_Service, Emergency_Contact, File_Logs, Afl, UserSchema)
+                     Learning_Development, Shirt, Career_Service, Emergency_Contact, File_Logs, Afl, Saln_Summary, UserSchema)
 from bs4 import BeautifulSoup 
 import requests
 
@@ -576,7 +576,11 @@ def saln(emp_id):
 # @admin_permission.require(http_exception=403)
 def salnReports():
     if request.method == 'GET':
-        return render_template('saln-reports.html')
+        user = db.session.query(User).all()
+        users_with_saln = User.query.join(Saln_Summary).filter(User.saln_summary != None).all()
+        db.session.commit()
+
+        return render_template('saln-reports.html', user_profile = user, users_with_saln = users_with_saln)
 
 
 @views.route('/file-log/<emp_id>', methods=['GET', 'POST'])

@@ -202,8 +202,8 @@ class User(db.Model, UserMixin):
     vaccine = db.relationship('Vaccine')
     afl = db.relationship('Afl')
     rol = db.relationship('Records_Of_Leave', backref='user')
-    saln_summary = db.relationship('Saln_Summary')
-    
+    # saln_summary = db.relationship('Saln_Summary')
+    saln_summary = db.relationship('Saln_Summary', back_populates='user', uselist=False)
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     #section = db.relationship('Agency_Section')
 

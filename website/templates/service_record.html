@@ -236,7 +236,7 @@
 							<option value="Job Order">Job Order</option>
 							<option value="Permanent">Permanent</option>
 							<option value="Casual">Casual</option>
-							<option value="Co-Term.">Co-Term.</option>
+							<option value="Coterminous">Coterminous</option>
 							<!-- <option value="Separated">Separated</option> -->
 						</select>
 						<label for="middle_name">Employment Status</label>
@@ -373,7 +373,7 @@
 							<option value="Job Order">Job Order</option>
 							<option value="Permanent">Permanent</option>
 							<option value="Casual">Casual</option>
-							<option value="Co-Term.">Co-Term.</option>
+							<option value="Coterminous">Coterminous</option>
 							<!-- <option value="Separated">Separated</option> -->
 						</select>
 						<label for="update_status">Employment Status</label>
@@ -1217,7 +1217,7 @@ function generateTable() {
 		  const count = Object.keys(jsonData).length;
 	  
 		  if (count <= 20) {
-			formUrl = "{{ url_for('static', filename='service_record.pdf') }}";
+			formUrl = "{{ url_for('static', filename='service_record1.pdf') }}";
 		  } else if (count >= 21 && count <= 40) {
 			formUrl = "{{ url_for('static', filename='service_record2.pdf') }}";
 		  } else if (count >= 41 && count <= 60) {
@@ -1244,14 +1244,12 @@ function generateTable() {
 			if (response) {
 			  // If the file is in the cache, load it
 			  return loadPdfFromCache(response);
-
 			} else {
 			  // If the file is not in the cache, fetch and store it
 			  return fetchAndCachePdf(formUrl);
 			}
 		  })
 		  .then((resPdfDoc) => {
-
 			// PDF loaded successfully, you can access the `pdfDoc` object here
 			fillForm(jsonData, resPdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes);
 		  })
