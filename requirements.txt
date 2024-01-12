@@ -16,6 +16,7 @@ docopt==0.6.2
 docx==0.2.4
 docxcompose==1.3.6
 docxtpl==0.16.4
+editpyxl==0.1.10
 et-xmlfile==1.1.0
 Flask==2.0.1
 Flask-Babel==2.0.0
@@ -29,6 +30,8 @@ Flask-Script==2.0.6
 Flask-SQLAlchemy==2.5.1
 Flask-User==1.0.2.2
 Flask-WTF==0.15.1
+fortnum==0.0.9
+future==0.18.3
 greenlet==1.1.1
 idna==3.2
 itsdangerous==2.0.1
@@ -43,6 +46,7 @@ mysql-connector==2.2.9
 mysql-connector-python==8.0.28
 numpy==1.24.3
 openpyxl==3.0.9
+openpyxl-templates==0.2.5
 packaging==21.3
 pandas==2.0.1
 passlib==1.7.4
