@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} SALN {% endblock %}
+{% block title %} SALN Reports{% endblock %}
 
 {%block cssperfile %} 
 <style type="text/css">
@@ -79,16 +79,59 @@ td{
         </div>
       </div>
     </div>
-    
-  <!-- <footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0 mb-3 position-sticky">
-    <div class="container">
-      <div class="col-sm-12">
+	</div>
+  <div class="row mb-3">
+    <div class="card rounded p-0">
+      <div class="card-header bg-blue text-white">
+        <h5 class="mb-0 text-white fw-bolder">
+          REPORT ON SALN
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered text-left saln-summary" width = "100%">
+            <thead class="">
+            <tr class="align-middle">
+              <th scope="col">NO.</th>
+              <th scope="col">NAME OF EMPLOYEE</th>
+              <th scope="col">POSITION</th>
+              <th scope="col">JOB GRADE</th>
+              <th scope="col">REMARKS</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for user_with_saln in users_with_saln %}
+                  {% if user_with_saln.employment_status != "JOB ORDER" and user_with_saln.employment_status != "CONTRACT OF SERVICE" %}
+                    <tr>
+                      <td>{{ loop.index }}</td>
+                      <td>{{ user_with_saln.proper_fullname }}</td>
+                      <!-- <td>{{ user_with_saln.first_name }} {% if user_with_saln.name_extn != 'N/A' %}, {{ user_with_saln.name_extn }}{% endif %}</td>
+                      <td>{{ user_with_saln.middle_name }}</td>
+                      <td>{{ user_with_saln.tin }}</td> -->
+                      <td>{{ user_with_saln.position_title }}</td>
+                      <td>{{ user_with_saln.job_grade }}</td>
+                    {% if user_with_saln.is_spouse_saln_filer != "unchecked" %}
+                      <td>Spouse is the Filer</td>
+                    {% else %}
+                      <td></td>
+                    {% endif %}
+
+                    </tr>
+                  {% endif %}
+
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-12">
           <div class="col text-center">
-            <button class="btn btn-primary" type="button" onclick="print_saln()"><i class="bi bi-printer-fill"></i> GENERATE SUMMARY LIST OF FILERS</button>
+            <button class="btn btn-primary" type="button" onclick="generate_report_on_saln()"><i class="bi bi-printer-fill"></i> GENERATE REPORT ON SALN</button>
+            <button class="btn btn-primary" type="button" onclick="generate_officers_employees_submission()"><i class="bi bi-printer-fill"></i> GENERATE OFFICERS AND EMPLOYEES SUBMISSION OF SALN</button>
+            <button class="btn btn-primary" type="button" onclick="generate_transmittal()"><i class="bi bi-printer-fill"></i> GENERATE TRANSMITTAL</button>
           </div>
+        </div>
       </div>
-      </div>
-  </footer> -->
+    </div>
 	</div>
 </div>
 
@@ -100,24 +143,11 @@ td{
 
 <script type="text/javascript">
 
-  function clearFields(formId){
-    var form = document.getElementById(formId);
-    var formFields = form.querySelectorAll("input");
-    
-    formFields.forEach(function(field) {
-      if (field.type === "checkbox") {
-        // Uncheck checkboxes
-        field.checked = false;
-      } else {
-        // Clear input fields
-        field.value = "";
-      }
-    });
-  }
-
   (function() {
 
     var table = $('.saln-summary').DataTable();
+
+    
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -159,7 +189,59 @@ td{
     });
  }
  
+ function generate_report_on_saln(){
+  var url = "/salnReports/generate-report-on-saln";
 
+  fetch(url, {
+    method: 'GET',
+    }).then((res)=>{
+      if (res.status == 200){
+        return res.blob();
+      }
+    }).then((blob) => {
+      // Create a download link and trigger the download
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'report_on_saln.xlsx';
+      link.click();
+    });
+ }
+
+ function generate_officers_employees_submission(){
+  var url = "/salnReports/generate-officers-employees-submission";
+
+  fetch(url, {
+    method: 'GET',
+    }).then((res)=>{
+      if (res.status == 200){
+        return res.blob();
+      }
+    }).then((blob) => {
+      // Create a download link and trigger the download
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'officers_and_employees_submission_of_saln.xlsx';
+      link.click();
+    });
+ }
+
+ function generate_transmittal(){
+  var url = "/salnReports/generate-transmittal";
+
+  fetch(url, {
+    method: 'GET',
+    }).then((res)=>{
+      if (res.status == 200){
+        return res.blob();
+      }
+    }).then((blob) => {
+      // Create a download link and trigger the download
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'officers_and_employees_submission_of_saln.docx';
+      link.click();
+    });
+ }
 
 </script>
 {%endblock%}

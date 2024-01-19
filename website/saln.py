@@ -212,6 +212,7 @@ def get_context(id, filing_date, filing_type):
     bi_list = []
     for bi in user_profile.user_business_interest:
         bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%Y-%m-%d").date()
+        # bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%B %d, %Y").date()
         bi.business_acquisition = bi_acquistion_date_object.strftime("%B %d, %Y")
         bi_list.append(bi)
 
@@ -268,6 +269,7 @@ def get_context(id, filing_date, filing_type):
     user_profile_dict['spouse_first_name'] = spouse.fb_first_name if spouse else "N/A"
     user_profile_dict['spouse_middle_name'] = spouse.fb_middle_name if spouse else "N/A"
     user_profile_dict['spouse_middle_initial'] = spouse.fb_middle_name[0] + "." if spouse else "N/A"
+    user_profile_dict['spouse_name_extn'] = spouse.fb_name_ext if spouse and spouse.fb_name_ext != "N/A" and spouse.fb_name_ext != "NONE" and spouse.fb_name_ext != "" else "N/A"
     user_profile_dict['spouse_full_name'] = spouse.fb_first_name + " " + spouse.fb_middle_name[0] + ". " + spouse.fb_last_name if spouse else "N/A"
     # user_profile_dict['spouse_last_name'] = user_profile.familyBg.filter_by(fb_relationship='SPOUSE').first().last_name if user_profile.familyBg else None
 
@@ -346,6 +348,12 @@ def get_context(id, filing_date, filing_type):
         check_saln.as_of = date_object
 
     else:
+        for bi in user_profile.user_business_interest:
+            # bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%Y-%m-%d").date()
+            bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%B %d, %Y").date()
+            bi.business_acquisition = bi_acquistion_date_object.strftime("%Y-%m-%d")
+            bi_list.append(bi)
+
         saln_summary = Saln_Summary(
             user_id = user_profile.id,
             rp_total = user_profile_dict['total_rp_acquisition_cost_p1'],
@@ -356,7 +364,7 @@ def get_context(id, filing_date, filing_type):
         )
         db.session.add(saln_summary)
 
-    db.session.commit()
+        db.session.commit()
 
     return user_profile_dict
 
