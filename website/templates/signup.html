@@ -164,11 +164,23 @@
                 <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
 
                 <div class="d-md-flex flex-row mt-3"> 
-                  <div class="form-floating col-md-3 mb-3 p-1">
+                  <div class="form-floating p-1">
                     <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" form="signup_form" required>
                     <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
                   </div>
-
+                  <div class="form-floating col-md-2 col-sm-12 p-1">
+                    <input type="date" class="form-control" id="employee_id_date_issued" name ="employee_id_date_issued" placeholder="Birthdate" value="" form="signup_form" >
+                    <label for="birthdate">Employee ID Date Issued<span class="is-required">*</span></label>
+                  </div>
+                  <div class="form-floating p-1">
+                    <select class="form-select" id="status_remarks" name="status_remarks" value="" form="signup_form" required>
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="INACTIVE">INACTIVE</option>
+                    </select>
+                    <label for="status_remarks">Status<span class="is-required">*</span></label>
+                  </div>
+                </div>
+                <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating flex-fill mb-3 p-1">
                     <input type="password" class="form-control" id="password" name ="password" placeholder="Password" form="signup_form" required>
                     <label for="password">Password<span class="is-required">*</span></label>
@@ -179,13 +191,7 @@
                     <label for="floatingPassword2">Confirm Password<span class="is-required">*</span></label>
                   </div>
                   
-                  <div class="form-floating col-md-3 mb-3 p-1">
-                    <select class="form-select" id="status_remarks" name="status_remarks" value="" form="signup_form" required>
-                      <option value="ACTIVE">ACTIVE</option>
-                      <option value="INACTIVE">INACTIVE</option>
-                    </select>
-                    <label for="status_remarks">Status<span class="is-required">*</span></label>
-                  </div>
+
 
                 </div>
 
@@ -202,6 +208,10 @@
                       <input type="text" class="form-control" id="middle_name" name ="middle_name" placeholder="Middle Name" value="" form="signup_form" >
                       <label for="middle_name">Middle Name</label>
                     </div>
+                    <div class="form-floating flex-fill p-1">
+                      <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" form="signup_form" pattern="[/A-Za-z]+" title="Do not input special characters such as .*&$()[] and numbers" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                      <label for="middle_initial">Middle Initial</label>
+                    </div>
                     <div class="form-floating col-md-2 col-sm-12 p-1">
                       <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="" form="signup_form" >
                       <label for="name_extn">Name Extension</label>
@@ -216,7 +226,7 @@
                         <option value="PERMANENT">PERMANENT</option>
                         <option value="TEMPORARY">TEMPORARY</option>
                         <option value="CASUAL">CASUAL</option>
-                        <option value="COTERMINOUS">COTERMINOUS - CARP-IC</option>
+                        <option value="COTERMINOUS">COTERMINOUS</option>
                         <option value="CONTRACT OF SERVICE">CONTRACT OF SERVICE</option>
 
                         <!-- <option value="SEPARATED">SEPARATED</option> -->
@@ -470,7 +480,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="signup_form" required>
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="signup_form" maxlength="9" required>
                       <label for="name_extn">TIN<span class="is-required">*</span></label>
                     </div>
                     <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
@@ -1293,7 +1303,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
       //document.getElementById("desc_remarks2").value = JSON.stringify(editor.getContents());
 
       let formData = new FormData(formElem);
-      loadingScreen('block');
+      //loadingScreen('block');
       const data = {};
       formData.forEach((value, key) => (data[key] = value));
 
@@ -1309,7 +1319,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           loadingScreen('none')
           icon = "error"
         }
-        if (res.status == 200){}
+        if (res.status == 500){
+          
+        }
         return res.json();
       }).then((data)=>{
           //-- ----------------------------------------------------------------------- -->
@@ -1384,6 +1396,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                               }).then((res)=>{
                                 if(res.status == 200){
                                   window.location.reload();
+
                                   }
                                });
                             }
@@ -1425,7 +1438,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 
   function delete_school_record(id, route){
 	// alert(el.id)
-  loadingScreen('block');
+  //loadingScreen('block');
 	fetch(route,{
 		method: 'POST',
 		body: JSON.stringify({"id" : id})
@@ -1438,7 +1451,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 }
 
 function delete_file(e){
-  loadingScreen('block');
+  //loadingScreen('block');
   // alert(e.id)
   fetch('/employees/delete-file',{
     method: 'POST',

@@ -288,7 +288,7 @@ class Saln_Summary(db.Model, SerializerMixin):
     pp_total = db.Column(db.String(150))
     lia_total = db.Column(db.String(150))
     networth = db.Column(db.String(150))
-    as_of = db.Column(db.String(150))
+    as_of = db.Column(db.Date())
     last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
     user = db.relationship('User')
 

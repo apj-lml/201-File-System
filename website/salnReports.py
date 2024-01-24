@@ -352,7 +352,13 @@ def get_data():
 @salnReports.route('generate-summary-list', methods=['POST', 'GET'])
 @login_required
 def generate_summary_list():
-    users_with_saln = User.query.join(Saln_Summary).filter(User.saln_summary != None).filter(User.status_remarks == "ACTIVE").filter(User.employment_status != "JOB ORDER").filter(User.employment_status != "CONTRACT OF SERVICE").all()
+    users_with_saln = User.query.join(Saln_Summary).filter(
+                                                        User.saln_summary != None,
+                                                        User.status_remarks == "ACTIVE",
+                                                        User.employment_status != "JOB ORDER",
+                                                        User.employment_status != "CONTRACT OF SERVICE"
+                                                        ).all()
+                                                        
     jo_users_with_saln = User.query.join(Saln_Summary).filter(
                                                             User.saln_summary != None,
                                                             User.status_remarks == "ACTIVE",
@@ -376,7 +382,6 @@ def generate_summary_list():
     ws.set_margins(left=0.13, right=0.13, top=1.21, bottom=1.21)
 
     ws.repeat_rows(0, 4)
-
 
     ws.set_header('&L&G', {'image_left': os.path.join(current_app.root_path, 'static/saln', 'landscape-header-cropped.png')}, margin=0)
     ws.set_footer('&R&G', {'image_right': os.path.join(current_app.root_path, 'static/saln', 'landscape-footer-cropped.png')}, margin=0)
@@ -413,7 +418,6 @@ def generate_summary_list():
     ws.write("E5", "Middle Name", table_subheader_format)
     ws.merge_range("F4:F5", "TIN", table_header_format)
     ws.merge_range("G4:H5", "POSITION TITLE", table_header_format)
-    # ws.merge_range("G4:G5", "NET WORTH", table_header_format)
     ws.merge_range("I4:I5", "NET WORTH", table_header_format)
 
     ws.merge_range("A6:I6", "PERMANENT", employee_status)
@@ -499,7 +503,7 @@ def generate_summary_list():
     ws.write("C" + str(row+12), "Industrial Relations Management/Development Officer C", cell_format_cambria_contact)
     ws.write("C" + str(row+13), "pimo.adm02@gmail.com", cell_format_cambria_contact)
     ws.write("C" + str(row+14), "(075) 505-1550", cell_format_cambria_contact)
-    ws.write("C" + str(row+15), "January 11, 2023", cell_format_cambria_contact)
+    ws.write("C" + str(row+15), "January 11, 2024", cell_format_cambria_contact)
 
     ws.write("G" + str(row+5), "Noted By:", cell_format_cambria_italic)
     ws.merge_range("G"+str(row+9) +":H"+str(row+9), "ENGR. JOHN N. MOLANO", cell_format_cambria_bold_signatory)
@@ -511,16 +515,14 @@ def generate_summary_list():
     ws.write("G" + str(row+15), "Date:", cell_format_cambria_contact)
 
     ws.write("H" + str(row+12), "Acting Division Manager", cell_format_cambria_contact)
-    ws.write("H" + str(row+13), "pimo.oimofficial@gmail.com", cell_format_cambria_contact)
+    ws.write("H" + str(row+13), "r1.pangasinan-imo@nia.gov.ph", cell_format_cambria_contact)
     ws.write("H" + str(row+14), "(075) 632-2775", cell_format_cambria_contact)
-    ws.write("H" + str(row+15), "January 11, 2023", cell_format_cambria_contact)
+    ws.write("H" + str(row+15), "January 11, 2024", cell_format_cambria_contact)
 
     ws.set_row(row+12, 13)
     ws.set_row(row+13, 13)
     ws.set_row(row+14, 13)
     ws.set_row(row+15, 13)
-
-    
 
     ws = workbook.add_worksheet("JOB ORDER")
 
@@ -807,17 +809,21 @@ def generate_report_on_saln():
 
     cell_format_cambria_bold_signatory.set_border(0)
 
-    ws.write("B"+str(row+1), "Prepared by:", cell_format_cambria_italic)
-    ws.write("H"+str(row+1), "Certified Correct:", cell_format_cambria_italic)
+    ws.write("A"+str(row+1), "Prepared by:", cell_format_cambria_italic)
+    ws.write("G"+str(row+1), "Reviewed by:", cell_format_cambria_italic)
 
 
-    ws.write("B"+str(row+6), "FRANCIS CARLO L. ZACARIAS", cell_format_cambria_bold_signatory)
-    ws.write("H"+str(row+6), "ENGR. JOHN N. MOLANO", cell_format_cambria_bold_signatory)
-    ws.write("B"+str(row+7), "Industrial Relations Development/Management Officer C", cell_format_cambria_italic_signatory)
-    ws.write("H"+str(row+7), "Acting Division Manager", cell_format_cambria_italic_signatory)
+    ws.write("A"+str(row+6), "EDNA V. NANALES", cell_format_cambria_bold_signatory)
+    ws.write("G"+str(row+6), "FRANCIS CARLO L. ZACARIAS", cell_format_cambria_bold_signatory)
 
 
-    
+    ws.write("A"+str(row+7), "Data Encoder", cell_format_cambria_italic_signatory)
+    ws.write("G"+str(row+7), "Industrial Relations Development/Management Officer C", cell_format_cambria_italic_signatory)
+
+    ws.write("A"+str(row+10), "Approved by:", cell_format_cambria_italic)
+    ws.write("A"+str(row+14), "ENGR. JOHN N. MOLANO", cell_format_cambria_bold_signatory)
+    ws.write("A"+str(row+15), "Acting Division Manager, Pangasinan IMO", cell_format_cambria_italic_signatory)
+
     workbook.close()
 
     buffer.seek(0)
@@ -879,7 +885,7 @@ def generate_officers_employees_submission():
 
     ws.set_print_scale(92)
 
-    ws.repeat_rows(0)
+    ws.repeat_rows(0,1)
 
 
     cell_format = workbook.add_format({'bold': True, 'font_name':'Cambria', 'valign':'vcenter', 'font_size': 9})
@@ -908,7 +914,7 @@ def generate_officers_employees_submission():
 
     today = datetime.date.today()
 
-    ws.merge_range("A1:N1", "OFFICERS AND EMPLOYEES' SUBMISSION OF SALN", cell_header_format)
+    ws.merge_range("A1:N1", "OFFICERS AND EMPLOYEES' SUBMISSION OF SALN CY 2023", cell_header_format)
 
     ws.write("A2", "BUEREAU / ATTACHED AGENCY / DELIVERY UNIT", table_header_format)
     ws.write("B2", "Total Number of Employees Covered by RA6713", table_header_format)
@@ -1036,14 +1042,17 @@ def generate_officers_employees_submission():
     cell_format_cambria_bold_signatory.set_border(0)
 
     ws.write("B"+str(row+1), "Prepared by:", cell_format_cambria_italic)
-    ws.write("J"+str(row+1), "Certified Correct:", cell_format_cambria_italic)
-
-    ws.write("B"+str(row+6), "FRANCIS CARLO L. ZACARIAS", cell_format_cambria_bold_signatory)
-    ws.write("J"+str(row+6), "ENGR. JOHN N. MOLANO", cell_format_cambria_bold_signatory)
-    ws.write("B"+str(row+7), "Industrial Relations Development/Management Officer C", cell_format_cambria_italic_signatory)
-    ws.write("J"+str(row+7), "Acting Division Manager", cell_format_cambria_italic_signatory)
+    ws.write("B"+str(row+6), "EDNA V. NANALES", cell_format_cambria_bold_signatory)
+    ws.write("B"+str(row+7), "Data Encoder", cell_format_cambria_italic_signatory)
 
 
+    ws.write("F"+str(row+1), "Reviewed by:", cell_format_cambria_italic)
+    ws.write("F"+str(row+6), "FRANCIS CARLO L. ZACARIAS", cell_format_cambria_bold_signatory)
+    ws.write("F"+str(row+7), "Industrial Relations Development/Management Officer C", cell_format_cambria_italic_signatory)
+
+    ws.write("L"+str(row+1), "Approved by:", cell_format_cambria_italic)
+    ws.write("L"+str(row+6), "ENGR. JOHN N. MOLANO", cell_format_cambria_bold_signatory)
+    ws.write("L"+str(row+7), "Acting Division Manager, Pangasinan IMO", cell_format_cambria_italic_signatory)
     # ws.merge_range("E" + str(row) +":N" + str(row), "PERMANENT", employee_status)
 
     
@@ -1083,23 +1092,30 @@ def generate_transmittal():
 
 
 
-def get_context(id):
+def get_context():
     """ You can generate your context separately since you may deal with a lot 
         of documents. You can carry out computations, etc in here and make the
         context look like the sample below.
     """
 
-    users = db.session.query(User).all()
+    users_schema = UserSchema(many=True)
 
-    return users
+    # users = db.session.query(User).all()
+    users = User.query.join(Saln_Summary).filter(User.saln_summary != None).filter(User.status_remarks == "ACTIVE").filter(User.employment_status != "JOB ORDER").filter(User.employment_status != "CONTRACT OF SERVICE").all()
+    
+    my_rows = json.loads(jsonify(row_contents=users_schema.dump(users)).get_data(True))
+
+    # print(my_rows)
+
+    return my_rows
 
 def from_template(template):
     target_file = BytesIO()
 
     template = DocxTemplate(template)
-    context = get_context(emp_id)  # gets the context used to render the document
+    context = get_context()  # gets the context used to render the document
     
-    target_file = BytesIO()
+
     template.render(context, autoescape=True)
     template.save(target_file)
 
