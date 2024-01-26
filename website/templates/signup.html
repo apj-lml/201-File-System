@@ -1320,6 +1320,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           icon = "error"
         }
         if (res.status == 500){
+          loadingScreen('none')
+          triggerToast('Server Error! Please try again.', 'error');
+
           
         }
         return res.json();
@@ -1396,7 +1399,6 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                               }).then((res)=>{
                                 if(res.status == 200){
                                   window.location.reload();
-
                                   }
                                });
                             }

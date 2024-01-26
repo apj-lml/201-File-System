@@ -64,10 +64,8 @@
         {% block scripts %}
 
 
-        <script type="application/javascript">
-
-            
-           function continueBtn(){
+  <script type="application/javascript">
+        function continueBtn(){
             loadingScreen('block');
             let btnClick;
             fetch('/data-privacy-act', {
@@ -76,9 +74,13 @@
               }).then((res)=>{
                 if(res.status == 200){
                     if (res.redirected) {
-                        // Redirect the user to the new location
-                        window.location.href = res.url;
+                      loadingScreen('none');
+                      // Redirect the user to the new location
+                      window.location.href = res.url;
                       }
+                }else if(res.status == 500){
+			            loadingScreen('none');
+                  triggerToast('Server Error! Please try again.', 'error');
                 }
               });
              }

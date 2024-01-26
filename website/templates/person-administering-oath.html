@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+
+{% block title %} Character Reference {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+</style>
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+
+{% endblock %}
+
+{% block content %}
+<main class="container">
+	<ul class="circles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<div class="row mb-3 mt-3">
+		<div class="card mb-3">
+			<div class="card-body">
+				<!-- <h3 class="card-title">Learning & Development</h3> -->
+				<form id="add_character_reference_form" action="#" method="POST"></form>
+				<form id="update_character_reference_form" action="#" method="POST"></form>
+				<div class="card text-white bg-blue shadow-sm mb-3" >
+                    <div class="card-header">
+						<h3 class="card-title fw-bolder text-white"><i class="bi bi-person-video2"></i> Person Administering Oath</h3>
+                    </div>
+                  </div>
+
+				<form action="/characterReference/assignatory/{{emp_id}}" method="POST">
+					<div class="card shadow-sm mb-3">
+						<div class="card-body">
+						<!-- <h3 class="card-title"> <i class="bi bi-person-bounding-box"></i> Person Administering Oath</h3> -->
+							<div class="d-md-flex flex-row">
+								<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+									<input type="text" class="form-control" name ="assignatory" value="{{user_profile.assignatory[0].assignatory}}" {{ 'readonly' if current_user == 'user'  }}>
+									<label for="assignatory"> Name of Person Administering Oath</label>
+								</div>
+						</div>
+					  {% if current_user != 'user': %}
+						<div class="d-md-flex flex-row">
+							<button class="btn btn-sm btn-warning" type="submit">Update</button>
+						</div>
+					  {% endif %}
+					</form>	
+				</div>
+				  </div>
+
+			</div>
+		</div>
+	</div>
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                                 Modals                                  -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="modal fade" id="viewExpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewExpModal" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-fullscreen-sm-down">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="viewExpModal">Edit Emergency Contact Reference</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <div class="row mb-3 container">
+			<div class="card mb-3">
+				<div class="card-body">
+				  <h3 class="card-title"><i class="bi bi-journals"></i> Character Reference</h3>
+				  <div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1">
+						<input type="text" class="form-control" name ="fullname" placeholder="Full Name" form="add_emergency_contact_form" required>
+						<label for="fullname">Full Name</label>
+					</div>
+				  </div>
+				  <div class="d-md-flex flex-row">
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						<input type="text" class="form-control" name ="relationship" placeholder="Address" form="add_emergency_contact_form">
+						<label for="address">Relationship</label>
+					  </div>
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+					  <input type="text" class="form-control" name ="address" placeholder="Address" form="add_emergency_contact_form">
+					  <label for="address">Complete Address</label>
+					</div>
+					<div class="form-floating flex-fill mb-3 p-1 col-md-6">
+						<input type="tel" class="form-control" name ="contact_no" placeholder="09277799422" form="add_emergency_contact_form" pattern="[0-9]{11}" required>
+						<label for="contact_no">Contact No. (Eg. 09277799422)</label>
+					  </div>
+				  </div>
+
+				  <div class="col-sm-12 text-center">
+					<button type="submit" class="btn btn-primary" form="add_emergency_contact_form">Submit</button>
+				</div>
+	
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary" form="update_character_reference_form">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+<script type="text/javascript">
+
+function view_char_ref(el){
+    fetch('/characterReference/get/{{emp_id}}',{
+		method: 'POST',
+		body: JSON.stringify({"id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data)
+			document.getElementById("update_id").value = data[0].id;
+			document.getElementById("update_fullname").value = data[0].fullname;
+			document.getElementById("update_address").value = data[0].address;
+			document.getElementById("update_contact_no").value = data[0].contact_no;
+		});
+  }
+
+	document.getElementById('add_character_reference_form').addEventListener('submit', (e)=>{
+		e.preventDefault();
+		var formElem = document.getElementById("add_character_reference_form");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+		console.log(data)
+		fetch('/characterReference/add/{{emp_id}}', {
+				method: 'POST',
+				body: formData
+			}).then((res)=>{
+				return res.json();
+
+			}).then((data)=>{
+					window.location.reload();
+					// var table = $('#character_ref_table').DataTable();
+					// table.ajax.reload();
+			})
+
+	});
+
+
+
+(function () {
+  'use strict'
+
+  document.getElementById('update_character_reference_form').addEventListener('submit', (e)=>{
+		e.preventDefault();
+		var formElem = document.getElementById("update_character_reference_form");
+		let formData = new FormData(formElem);
+
+		const data = {}
+		formData.forEach((value, key) => (data[key] = value))
+		
+		console.log(data)
+		fetch('/characterReference/save', {
+				method: 'POST',
+				body: formData
+			}).then((res)=>{
+				return res.json();
+
+			}).then((data)=>{
+				window.location.reload();
+
+					// var table = $('#character_ref_table').DataTable();
+					// table.ajax.reload();
+					// var myModal = new bootstrap.Modal(document.getElementById('viewExpModal'))
+					// var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
+					// myModal.hide();
+			})
+
+	});
+
+
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+
+	var character_ref_table = $('#character_ref_table').DataTable( {
+		language: {
+            searchBuilder: {
+				add: `Add Filter`
+            }
+        },
+		bSortCellsTop: true,
+		// bLengthChange: true,
+		scrollX: true,
+		responsive: true,
+		// colReorder: true,
+        // dom: 'QBfrtip',
+		
+		dom: `<'row'<'col-sm-4 col-md-4'l><'col-sm-4 col-md-4'><'col-sm-4 col-md-4'f>>
+				<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>`,
+		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "ajax": {
+            "method" : "GET",
+            "url": "/characterReference/get/{{emp_id}}",
+            "dataSrc": ""
+        },
+
+        "columns": [
+			// {"data": null,
+            //     render: function ( data, type, row ) {
+			// 		console.log(data.middle_name)
+            //         if (!data.middle_name){
+            //             var middle_name = ''
+            //         }else{
+            //             var middle_name = data.middle_name[0]
+			// 			middle_name = middle_name.concat('.')
+            //         }
+            //     return `
+			// 	${data.first_name} ${ middle_name ?? ''} ${data.last_name} ${data.name_ext ?? ''}
+            //     `;
+            //   }
+            //  },
+			{ "data": "fullname"},
+			{ "data": "address"},
+			{ "data": "contact_no"},
+            {
+              data: null,
+			  searchable: false,
+              render: function ( data, type, row ) {
+                return `
+				<div class="d-sm-flex flex-row">
+					<a class="btn btn-primary btn-sm m-2" title="View Character Reference" id="${data.id}" onclick = "view_char_ref(this)"  data-bs-toggle="modal" data-bs-target="#viewExpModal">
+						<i class="bi bi-pencil"></i>
+					</a>
+					<a class="btn btn-danger btn-sm m-2" title="Remove" id="${data.id}" onclick = "delete_ld(this)">
+						<i class="bi bi-trash"></i>
+					</a>
+				</div>`;
+              }
+            }
+        ]
+    } );
+
+})()
+function delete_ld(el){
+	// alert(el.id)
+	fetch('/characterReference/delete',{
+		method: 'POST',
+		body: JSON.stringify({"id" : el.id})
+	})
+		.then(response => response.json())
+		.then(data => {
+			triggerToast(data)
+			var table = $('#character_ref_table').DataTable();
+			table.ajax.reload();
+		});
+}
+
+
+</script>
+{%endblock%}

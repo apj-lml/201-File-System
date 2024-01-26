@@ -308,6 +308,18 @@ def character_reference(emp_id):
             db.session.commit()
             return render_template('character_reference.html', emp_id = emp_id, user_profile = user)
 
+@views.route('/person-administering/<emp_id>', methods=['GET', 'POST'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def person_administering(emp_id):
+    if request.method == 'GET':
+        if str(current_user.id) != str(emp_id) and current_user.type_of_user == "user":
+            return "YOU DO NOT HAVE ACCESS TO THIS PAGE! :P ", 404
+        else:
+            user = db.session.query(User).get(int(emp_id))
+            db.session.commit()
+            return render_template('person-administering-oath.html', emp_id = emp_id, user_profile = user)
+
 @views.route('/print-preview/<emp_id>', methods=['GET', 'POST'])
 @login_required
 # @admin_permission.require(http_exception=403)
@@ -577,7 +589,7 @@ def saln(emp_id):
 def salnReports():
     if request.method == 'GET':
         user = db.session.query(User).all()
-        users_with_saln = User.query.join(Saln_Summary).filter(User.saln_summary != None).all()
+        users_with_saln = User.query.join(Saln_Summary).filter(User.saln_summary != None, User.status_remarks == 'ACTIVE').all()
         db.session.commit()
 
         return render_template('saln-reports.html', user_profile = user, users_with_saln = users_with_saln)

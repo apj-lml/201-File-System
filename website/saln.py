@@ -572,6 +572,27 @@ def saln_test():
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
+#                          update liability property                           #
+# ---------------------------------------------------------------------------- #
+@saln.route('update-spouse-filer/<user_id>', methods=['POST', 'GET'])
+@login_required
+def update_spouse_filer(user_id):
+    if request.method == "POST":
+        is_spouse_saln_filer = request.form.get('is_spouse_saln_filer')
+
+        get_user = User.query.get(user_id)
+        get_user.is_spouse_saln_filer = is_spouse_saln_filer
+
+        db.session.commit()
+
+        return jsonify({'status': 'success'})
+
+    return jsonify({'status': 'error', 'message': 'Invalid request method'})
+
+# ---------------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------------- #
 #                                     get data                                 #
 # ---------------------------------------------------------------------------- #
 @saln.route('get-data/<saln_type>/<user_profile_id>', methods=['POST', 'GET'])

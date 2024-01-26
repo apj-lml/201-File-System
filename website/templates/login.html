@@ -174,13 +174,17 @@ document.getElementById("login_form").addEventListener("submit", function(e){
   loadingScreen('block');
 	
   fetch('/', {
-		signal: AbortSignal.timeout(30000),
+		signal: AbortSignal.timeout(15000),
 		method: 'POST',
 		body: JSON.stringify(data),
 	}).then((res)=>{
 		
 		if(res.response == 403){
 			triggerToast('Employee ID number does not exist!', 'error');
+		}else if (res.response == 500){
+			triggerToast('Server Error! Please try again.', 'error');
+			loadingScreen('none');
+
 		}
 		if (res.redirected) {
 			triggerToast('Login Successful!', 'success');

@@ -839,7 +839,7 @@ def generate_report_on_saln():
     
     return send_file(
         buffer,
-        download_name='summary_list_of_filers_modified.xlsx',
+        download_name='report_on_saln.xlsx',
         as_attachment=True,
         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
@@ -1060,7 +1060,7 @@ def generate_officers_employees_submission():
 
     buffer.seek(0)
       # Save the workbook to the specified file path
-    file_path = os.path.join(current_app.root_path, 'static/saln', 'report_on_saln.xlsx')
+    file_path = os.path.join(current_app.root_path, 'static/saln', 'officers_and_employeess_submission.xlsx')
     with open(file_path, 'wb') as file:
         file.write(buffer.getvalue())
 
@@ -1071,7 +1071,7 @@ def generate_officers_employees_submission():
     
     return send_file(
         buffer,
-        download_name='summary_list_of_filers_modified.xlsx',
+        download_name='officers_and_employeess_submission.xlsx',
         as_attachment=True,
         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
@@ -1089,7 +1089,6 @@ def generate_transmittal():
         document, mimetype='application/vnd.openxmlformats-'
         'officedocument.wordprocessingml.document', as_attachment=True,
         attachment_filename='SALN_Transmittal.docx')
-
 
 
 def get_context():

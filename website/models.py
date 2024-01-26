@@ -727,7 +727,7 @@ class Emergency_Contact(db.Model, SerializerMixin):
 
 class Assignatory(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
-    assignatory = db.Column(db.String(150), default='GERTRUDES A. VIADO')
+    assignatory = db.Column(db.String(150), default='ENGR. JOHN N. MOLANO')
     position_title = db.Column(db.String(150))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref='user_assignatory', lazy=True)
