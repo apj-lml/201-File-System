@@ -787,6 +787,8 @@
 
 					window.location.reload();
 
+					loadingScreen('none');
+
 					return res.json();
 					
 				}else if(res.status == 500){
@@ -809,7 +811,7 @@
 					
 				}
 			}).then((data)=>{
-				loadingScreen('none');
+				//loadingScreen('none');
 
 			});
 	}
