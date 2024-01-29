@@ -784,7 +784,6 @@
 					// Clean up the URL object after download
 					URL.revokeObjectURL(downloadLink.href);
 					
-					loadingScreen('none');
 
 					window.location.reload();
 
@@ -810,6 +809,7 @@
 					
 				}
 			}).then((data)=>{
+				loadingScreen('none');
 
 			});
 	}
