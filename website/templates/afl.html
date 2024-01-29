@@ -742,7 +742,7 @@
 		let start = document.querySelector('#date_from')._flatpickr.selectedDates[0];
 		let end = document.querySelector('#date_from')._flatpickr.selectedDates[1];
         
-		console.log(end);
+		
 
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
@@ -770,11 +770,46 @@
 				method: 'POST',
 				body: formData
 			}).then((res)=>{
-				return res.json();
-			}).then((data)=>{
+				if(res.status == 200){
+
+					// Create a download link
+					const downloadLink = document.createElement("a");
+					downloadLink.href = URL.createObjectURL(blobData);
+					downloadLink.download = "AFL_{{user_profile.last_name}}.pdf"; // Replace with your desired file name
 			
-				window.location.reload();
-				
+					// Trigger a click event on the link to start the download
+					downloadLink.click();
+			
+					// Clean up the URL object after download
+					URL.revokeObjectURL(downloadLink.href);
+					
+					loadingScreen('none');
+
+					window.location.reload();
+
+					return res.json();
+					
+				}else if(res.status == 500){
+					loadingScreen('none');
+
+					Swal.fire({
+						title: 'NOTICE!',
+						text: `Server error, please try again! Thank you.`,
+						icon: 'error',
+						allowOutsideClick: false,
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'I understand'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							fp.clear();
+						}
+					});
+					
+				}
+			}).then((data)=>{
+
 			});
 	}
 
@@ -1185,42 +1220,11 @@
 		
 		// const blob = new Blob([data['blob_file']], { type: "application/pdf" });
 
-
 		addAflForm(blob);
 
-
-		// Create a download link
-		const downloadLink = document.createElement("a");
-		downloadLink.href = URL.createObjectURL(blob);
-		downloadLink.download = "AFL_{{user_profile.last_name}}.pdf"; // Replace with your desired file name
-  
-		// Trigger a click event on the link to start the download
-		downloadLink.click();
-  
-		// Clean up the URL object after download
-		URL.revokeObjectURL(downloadLink.href);
-
-		//ADD AFL TO FILE LOGS
-		//fetch('/fileLogs/add-log/{{user_profile.id}}', {
-		//		method: 'POST',
-		//		body: data
-		//	}).then((res)=>{
-		//		return res.json();
-		//	}).then((data)=>{
-				
-				
-		//	})
-
-	
-		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
-		//var fileURL = URL.createObjectURL(file);
-	
 		window.open(url);
 		loadingScreen('none')
 
-
-		//location.reload();
-		//loadPdf();
 		const myform = document.querySelector('#add_afl_form');
 		myform.classList.remove('was-validated');
 	}
