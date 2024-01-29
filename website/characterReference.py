@@ -144,6 +144,7 @@ def update_assignatory(emp_id):
         get_assig = Assignatory.query.filter_by(user_id = emp_id)
         get_assig.update(dict(
                 assignatory = formdata['assignatory'].upper(),
+                position_title = formdata['position_title'],
                 ))
         db.session.commit()
     return redirect(request.referrer)

@@ -1185,6 +1185,10 @@
 		
 		// const blob = new Blob([data['blob_file']], { type: "application/pdf" });
 
+
+		addAflForm(blob);
+
+
 		// Create a download link
 		const downloadLink = document.createElement("a");
 		downloadLink.href = URL.createObjectURL(blob);
@@ -1207,13 +1211,12 @@
 				
 		//	})
 
-		addAflForm(blob);
 	
 		//var file = new Blob([pdfDataUri], {type: 'application/pdf'});
 		//var fileURL = URL.createObjectURL(file);
 	
-		loadingScreen('none')
 		window.open(url);
+		loadingScreen('none')
 
 
 		//location.reload();
