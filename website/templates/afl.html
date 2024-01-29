@@ -737,13 +737,11 @@
 		}
 	}
 
-	function addAflForm(blobData){
+	function addAflForm(blobData, blobUrl){
 
 		let start = document.querySelector('#date_from')._flatpickr.selectedDates[0];
 		let end = document.querySelector('#date_from')._flatpickr.selectedDates[1];
         
-		
-
 		var formElem = document.getElementById("add_afl_form");
 		let formData = new FormData(formElem);
 
@@ -771,6 +769,9 @@
 				body: formData
 			}).then((res)=>{
 				if(res.status == 200){
+
+					window.open(blobUrl);
+
 
 					// Create a download link
 					const downloadLink = document.createElement("a");
@@ -1220,9 +1221,9 @@
 		
 		// const blob = new Blob([data['blob_file']], { type: "application/pdf" });
 
-		addAflForm(blob);
+		addAflForm(blob, url);
 
-		window.open(url);
+		//window.open(url);
 		loadingScreen('none')
 
 		const myform = document.querySelector('#add_afl_form');
