@@ -787,7 +787,7 @@
 
 					window.location.reload();
 
-					loadingScreen('none');
+					//loadingScreen('none');
 
 					return res.json();
 					
@@ -811,8 +811,7 @@
 					
 				}
 			}).then((data)=>{
-				//loadingScreen('none');
-
+				loadingScreen('none');
 			});
 	}
 
