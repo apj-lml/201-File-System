@@ -631,10 +631,10 @@ def generate_summary_list():
     workbook.close()
 
     buffer.seek(0)
-      # Save the workbook to the specified file path
-    file_path = os.path.join(current_app.root_path, 'static/saln', 'modified_summary_list_of_filers_test.xlsx')
-    with open(file_path, 'wb') as file:
-        file.write(buffer.getvalue())
+    # Save the workbook to the specified file path
+    # file_path = os.path.join(current_app.root_path, 'static/saln', 'modified_summary_list_of_filers_test.xlsx')
+    # with open(file_path, 'wb') as file:
+    #     file.write(buffer.getvalue())
 
 
     # wb.save(buffer)
