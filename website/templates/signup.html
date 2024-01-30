@@ -176,6 +176,7 @@
                     <select class="form-select" id="status_remarks" name="status_remarks" value="" form="signup_form" required>
                       <option value="ACTIVE">ACTIVE</option>
                       <option value="INACTIVE">INACTIVE</option>
+                      <option value="REASSIGNED">REASSIGNED</option>3
                     </select>
                     <label for="status_remarks">Status<span class="is-required">*</span></label>
                   </div>
@@ -1292,7 +1293,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 
 
     //------------------------------------//
-    //        SUBMIT OF UPDATE FORM       //
+    //        SUBMIT OF SIGN UP FORM      //
     //------------------------------------//
   var formElem = document.getElementById("signup_form");
       var icon = "";
@@ -1355,6 +1356,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 method: 'POST',
                 body: formData3
               }).then((res)=>{
+                 if(res.status == 500){
+                  triggerToast("Server Error! Please try to click the register button again. (V)", 'error');
+                }else{
                 //<!-- ----------------------------------------------------------------------- -->
                 //<!--                           SUBMIT COLLEGE FORM                           -->
                 //<!-- ----------------------------------------------------------------------- -->
@@ -1368,6 +1372,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 method: 'POST',
                 body: formData4
               }).then((res)=>{
+                if(res.status == 500){
+                  triggerToast("Server Error! Please try to click the register button again. (C)", 'error');
+                }else{
                 //<!-- ----------------------------------------------------------------------- -->
                 //<!--                          SUBMIT MASTERAL FORM                           -->
                 //<!-- ----------------------------------------------------------------------- -->
@@ -1380,6 +1387,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                       method: 'POST',
                       body: formData5
                     }).then((res)=>{
+                      if(res.status == 500){
+                        triggerToast("Server Error! Please try to click the register button again. (M)", 'error');
+                      }else{
                       // <!-- ----------------------------------------------------------------------- -->
                       // <!--                          SUBMIT DOCTORAL FORM                           -->
                       // <!-- ----------------------------------------------------------------------- -->
@@ -1398,18 +1408,33 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                                 body: ''
                               }).then((res)=>{
                                 if(res.status == 200){
+
                                   window.location.reload();
-                                  }
+
+                                }else if(res.status == 500){
+                                    triggerToast("Server Error! Please try to click the register button again. (Signatory)", 'error');
+                                }
                                });
+                            }else if(res.status == 500){
+                              triggerToast("Server Error! Please try to click the register button again. (D)", 'error');
                             }
                         });//END DOCTORAL FORM
 
+                      }//500 vocational
+
+
                     });//END MASTERAL FORM
+
+                  }//500 college
+
 
                 });//END COLLEGE FORM
 
+              }//500 vocational
 
               });//END VOCATIONAL
+            }else if(res.status == 500){
+              triggerToast("Server Error! Please try to click the register button again. (E)", 'error');
             }
             
           })//END CSE

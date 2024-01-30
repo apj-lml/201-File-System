@@ -346,7 +346,7 @@ def get_context(id, filing_date, filing_type):
         check_saln.lia_total = user_profile_dict['total_liability_outstanding_balance_p1']
         check_saln.networth = user_profile_dict['networth']
         check_saln.as_of = date_object
-        print("++++++++++++ I WAS HERE +++++++++++++")
+        # print("++++++++++++ I WAS HERE +++++++++++++")
     else:
         for bi in user_profile.user_business_interest:
             # bi_acquistion_date_object = datetime.datetime.strptime(bi.business_acquisition, "%Y-%m-%d").date()
