@@ -36,7 +36,7 @@ def login():
         user = User.query.filter_by(employee_id=employee_id).first()
 
         if user:
-            if check_password_hash(user.password, password) and user.status_remarks == 'ACTIVE':
+            if check_password_hash(user.password, password) and user.status_remarks != 'INACTIVE':
                 session['user_id'] = user.id
                 session['password'] = password
                 # print('sessio var===========>>>', session['user_id'])
