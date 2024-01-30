@@ -175,7 +175,8 @@ td{
 
  function generate_summary_list(){
   var url = "/salnReports/generate-summary-list";
-
+  loadingScreen('block');
+  
   fetch(url, {
     method: 'GET',
     }).then((res)=>{
@@ -188,11 +189,14 @@ td{
       link.href = URL.createObjectURL(blob);
       link.download = 'summary_list_of_filers_modified.xlsx';
       link.click();
+      loadingScreen('none');
+
     });
  }
  
  function generate_report_on_saln(){
   var url = "/salnReports/generate-report-on-saln";
+  loadingScreen('block');
 
   fetch(url, {
     method: 'GET',
@@ -206,11 +210,14 @@ td{
       link.href = URL.createObjectURL(blob);
       link.download = 'report_on_saln.xlsx';
       link.click();
+					loadingScreen('none');
+
     });
  }
 
  function generate_officers_employees_submission(){
   var url = "/salnReports/generate-officers-employees-submission";
+  loadingScreen('block');
 
   fetch(url, {
     method: 'GET',
@@ -224,11 +231,14 @@ td{
       link.href = URL.createObjectURL(blob);
       link.download = 'officers_and_employees_submission_of_saln.xlsx';
       link.click();
+        loadingScreen('none');
+
     });
  }
 
  function generate_transmittal(){
   var url = "/salnReports/generate-transmittal";
+  loadingScreen('block');
 
   fetch(url, {
     method: 'GET',
@@ -242,6 +252,8 @@ td{
       link.href = URL.createObjectURL(blob);
       link.download = 'saln_transmittal.docx';
       link.click();
+					loadingScreen('none');
+
     });
  }
 

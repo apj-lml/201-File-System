@@ -770,9 +770,6 @@
 			}).then((res)=>{
 				if(res.status == 200){
 
-					window.open(blobUrl);
-
-
 					// Create a download link
 					const downloadLink = document.createElement("a");
 					downloadLink.href = URL.createObjectURL(blobData);
@@ -784,6 +781,7 @@
 					// Clean up the URL object after download
 					URL.revokeObjectURL(downloadLink.href);
 					
+					window.open(blobUrl);
 
 					window.location.reload();
 
@@ -792,11 +790,10 @@
 					return res.json();
 					
 				}else if(res.status == 500){
-					loadingScreen('none');
 
 					Swal.fire({
 						title: 'NOTICE!',
-						text: `Server error, please try again! Thank you.`,
+						text: `Server error, please try again. Thank you!`,
 						icon: 'error',
 						allowOutsideClick: false,
 						showCancelButton: false,
@@ -806,12 +803,16 @@
 					}).then((result) => {
 						if (result.isConfirmed) {
 							fp.clear();
+							loadingScreen('none');
+
 						}
 					});
 					
 				}
 			}).then((data)=>{
-				loadingScreen('none');
+				setTimeout(function () {
+					loadingScreen('none');
+				}, 3500);
 			});
 	}
 

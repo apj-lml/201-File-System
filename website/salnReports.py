@@ -404,6 +404,7 @@ def generate_summary_list():
     table_subheader_format = workbook.add_format({'bold': True, 'italic' : True, 'font_name':'Cambria', 'align': 'center', 'valign': 'vcenter', 'border' : 1})
     table_body = workbook.add_format({'valign': 'left','font_name':'Cambria', 'border' : 1, 'font_size': 9})
     table_body_a = workbook.add_format({'valign': 'center','font_name':'Cambria', 'border' : 1, 'font_size': 9})
+    table_body_a_date = workbook.add_format({'valign': 'center','font_name':'Cambria', 'border' : 1, 'font_size': 9, 'num_format': 'mmm d, yyyy'})
 
     employee_status = workbook.add_format({'bold': True,'font_name':'Cambria', 'border' : 1, 'font_size': 9})
 
@@ -419,6 +420,7 @@ def generate_summary_list():
     ws.merge_range("F4:F5", "TIN", table_header_format)
     ws.merge_range("G4:H5", "POSITION TITLE", table_header_format)
     ws.merge_range("I4:I5", "NET WORTH", table_header_format)
+    ws.merge_range("J4:J5", "AS OF", table_header_format)
 
     ws.merge_range("A6:I6", "PERMANENT", employee_status)
 
@@ -436,6 +438,7 @@ def generate_summary_list():
     ws.set_column('G:G', 14.86, cell_format_cambria)
     ws.set_column('H:H', 40.43, cell_format_cambria)
     ws.set_column('I:I', 19.29, cell_format_cambria)
+    ws.set_column('J:J', 16.43, cell_format_cambria)
 
     row = 7
 
@@ -448,6 +451,7 @@ def generate_summary_list():
         ws.write(row-1, 5, user_with_saln.tin, table_body_a)
         ws.merge_range("G"+str(row) + ":H"+str(row), user_with_saln.position_title, table_body)
         ws.write(row-1, 8, user_with_saln.saln_summary.networth, table_body_a)
+        ws.write(row-1, 9, user_with_saln.saln_summary.as_of, table_body_a_date)
         
         row = row + 1
 
@@ -465,6 +469,7 @@ def generate_summary_list():
             ws.write(row-1, 5, user_with_saln.tin, table_body_a)
             ws.merge_range("G"+str(row) + ":H"+str(row), user_with_saln.position_title, table_body)
             ws.write(row-1, 8, user_with_saln.saln_summary.networth, table_body_a)
+            ws.write(row-1, 9, user_with_saln.saln_summary.as_of, table_body_a_date)
             
             row = row + 1
 
@@ -482,6 +487,8 @@ def generate_summary_list():
             ws.write(row-1, 5, user_with_saln.tin, table_body_a)
             ws.merge_range("G"+str(row) + ":H"+str(row), user_with_saln.position_title, table_body)
             ws.write(row-1, 8, user_with_saln.saln_summary.networth, table_body_a)
+            ws.write(row-1, 9, user_with_saln.saln_summary.as_of, table_body_a_date)
+
             
             row = row + 1
 
