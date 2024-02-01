@@ -492,7 +492,7 @@ button {
                       </div>
                       
                       <div class="form-floating col-md-6 mb-3 p-1">
-                        <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="{{user_profile.maiden_name if user_profile.maiden_name and user_profile.maiden_name is not none and user_profile.maiden_name != '' else 'N/A'}}" form="update_form" {{'readonly' if user_profile.sex == 'MALE' else 'required' }}>
+                        <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="{{user_profile.maiden_name if user_profile.maiden_name and user_profile.maiden_name is not none and user_profile.maiden_name != '' else 'N/A'}}" form="update_form" {{'' if user_profile.sex == 'MALE' else 'required' }}>
                         <label for="maiden_name">Maiden Name [Put N/A if not applicable]<span class="is-required">*</span></label>
                       </div>
 
