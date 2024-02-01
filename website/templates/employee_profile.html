@@ -41,6 +41,10 @@
       margin-bottom: 1;
     }
 
+    .disabled-dropdown{
+      pointer-events: none;
+    }
+
 /* .chat-btn {
     position: fixed;
     left: 95%;
@@ -1097,7 +1101,7 @@ button {
                                   <label for="c_degree_course[1]">Degree</label>
                                 </div>
                                 <div class="form-floating flex-fill col-lg-3 mb-3 p-1">
-                                  <select class="form-select" id="c_highest_level_units_earned[{{count_update_college.value}}]" name="c_highest_level_units_earned[{{count_update_college.value}}]" value="{{college.c_highest_level_units_earned if college.c_highest_level_units_earned is not none else ''}}" form="update_form" onchange="graduated(this, document.getElementById('c_highest_grade_year_units[{{count_update_college.value}}]'), document.getElementById('c_scholarship_academic_honor[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_from[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_to[{{count_update_college.value}}]'))" {{'disabled' if current_user.type_of_user == 'user'}}>
+                                  <select class="form-select {{'disabled-dropdown' if current_user.type_of_user == 'user'}}" id="c_highest_level_units_earned[{{count_update_college.value}}]" name="c_highest_level_units_earned[{{count_update_college.value}}]" value="{{college.c_highest_level_units_earned if college.c_highest_level_units_earned is not none else ''}}" form="update_form" onchange="graduated(this, document.getElementById('c_highest_grade_year_units[{{count_update_college.value}}]'), document.getElementById('c_scholarship_academic_honor[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_from[{{count_update_college.value}}]'), document.getElementById('c_period_of_attendance_to[{{count_update_college.value}}]'))">
                                     {% if user_profile.c_highest_level is not none %}
                                       <option class="" value="{{college.c_highest_level_units_earned}}" selected hidden>{{college.c_highest_level_units_earned}}</option>
                                     {% endif %}
@@ -1163,7 +1167,7 @@ button {
                                   <label for="c_degree_course[1]">Degree</label>
                                 </div>
                                 <div class="form-floating flex-fill col-lg-3 mb-3 p-1">
-                                  <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))" {{'disabled' if current_user.type_of_user == 'user'}}> 
+                                  <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))" {{'readOnly' if current_user.type_of_user == 'user'}}> 
                                     <option class="" value="" selected hidden></option>
                                     <option value="GRADUATED">GRADUATED</option>
                                     <option value="UNDERGRADUATE">UNDERGRADUATE</option>
@@ -1365,7 +1369,7 @@ button {
                                 <label for="doc_degree_course">Degree / Course</label>
                               </div>
                               <div class="form-floating flex-fill col-lg-3 mb-3 p-1">
-                                <select class="form-select" id="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" name="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" value="{{doctoral.doc_highest_level_units_earned}}" form="update_form" onchange="doc_graduated(this, document.getElementById('doc_highest_grade_year_units[{{count_update_doctoral.value}}]'), document.getElementById('doc_scholarship_academic_honor[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_from[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_to[{{count_update_doctoral.value}}]'))" {{'disabled' if current_user.type_of_user == 'user'}}>
+                                <select class="form-select {{'disabled-dropdown' if current_user.type_of_user == 'user'}}" id="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" name="doc_highest_level_units_earned[{{count_update_doctoral.value}}]" value="{{doctoral.doc_highest_level_units_earned}}" form="update_form" onchange="doc_graduated(this, document.getElementById('doc_highest_grade_year_units[{{count_update_doctoral.value}}]'), document.getElementById('doc_scholarship_academic_honor[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_from[{{count_update_doctoral.value}}]'), document.getElementById('doc_period_of_attendance_to[{{count_update_doctoral.value}}]'))">
                                   <option class="" value="{{doctoral.doc_highest_level_units_earned if doctoral.doc_highest_level_units_earned is not none else none}}" selected hidden>{{doctoral.doc_highest_level_units_earned if doctoral.doc_highest_level_units_earned is not none else ''}}</option>
                                   <option value="GRADUATED">GRADUATED</option>
                                   <!-- <option value="UNDERGRADUATE">UNDERGRADUATE</option> -->
@@ -1418,7 +1422,7 @@ button {
                               <label for="doc_degree_course">Degree / Course</label>
                             </div>
                             <div class="form-floating flex-fill col-lg-3 mb-3 p-1">
-                              <select class="form-select" id="doc_highest_level_units_earned[1]" name="doc_highest_level_units_earned[1]" form="add_doctoral_form" onchange="doc_graduated(this, document.getElementById('doc_highest_grade_year_units[1]'), document.getElementById('doc_scholarship_academic_honor[1]'), document.getElementById('doc_period_of_attendance_from[1]'), document.getElementById('doc_period_of_attendance_to[1]'))" {{'disabled' if current_user.type_of_user == 'user'}}>
+                              <select class="form-select {{'disabled-dropdown' if current_user.type_of_user == 'user'}}" id="doc_highest_level_units_earned[1]" name="doc_highest_level_units_earned[1]" form="add_doctoral_form" onchange="doc_graduated(this, document.getElementById('doc_highest_grade_year_units[1]'), document.getElementById('doc_scholarship_academic_honor[1]'), document.getElementById('doc_period_of_attendance_from[1]'), document.getElementById('doc_period_of_attendance_to[1]'))">
     
                                 <option class="" value="" selected hidden></option>
                                 <option value="GRADUATED">GRADUATED</option>
@@ -1481,22 +1485,27 @@ button {
 
                       {% set count_update_cse = namespace(value=1) %}
                         {% for cse in user_profile.career_service %}
-                          <div class="card shadow-sm mb-3">
+                          <div class="card shadow-sm mb-0">
                             <input type="hidden" id="cse_id[{{count_update_cse.value}}]" name="cse_id[{{count_update_cse.value}}]" value="{{cse.id}}" form="update_form">
                               <div class="card-body">
                               <div class="d-md-flex flex-row">
-                                <div class="form-floating flex-fill col-md-4 mb-3 p-1">
+                                <div class="form-floating flex-fill col-md-4 p-1">
                                   <input type="text" class="form-control" name ="cs_eligibility[{{count_update_cse.value}}]" placeholder="Eligibility" value="{{cse.cs_eligibility}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                                   <label for="cs_eligibility">Eligibility</label>
-                                  <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                                 </div>
-                                <div class="form-floating flex-fill mb-3 p-1">
+                                
+                                <div class="form-floating flex-fill p-1">
                                   <input type="date" class="form-control" name ="date_of_examination[{{count_update_cse.value}}]" value="{{cse.date_of_examination}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                                   <label for="date_of_examination">Date of Examination / Conferment From</label>
                                 </div>
-                                <div class="form-floating flex-fill mb-3 p-1">
+                                <div class="form-floating flex-fill p-1">
                                   <input type="date" class="form-control" name ="date_of_examination_to[{{count_update_cse.value}}]" value="{{cse.date_of_examination_to}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user'}}>
                                   <label for="date_of_examination_to">Date of Examination / Conferment To</label>
+                                </div>
+                              </div>
+                              <div class="d-md-flex flex-row">
+                                <div class="form-floating flex-fill mb-2 pt-0 mt-0">
+                                  <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                                 </div>
                               </div>
                               <div class="d-md-flex flex-row">

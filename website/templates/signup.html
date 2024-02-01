@@ -350,6 +350,10 @@
                       <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="" form="signup_form">
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
+                    <div class="form-floating col-md-4 mb-3 p-1">
+                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="" form="signup_form" max="9999-12-31">
+                      <label for="first_day_in_service">First Day in Service (No GAP)</label>
+                    </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 mb-3 p-1">
@@ -376,6 +380,10 @@
                       <input type="text" class="form-control" id="monthly_rate" name ="" placeholder="Monthly Rate (Php)" value="" form="signup_form" >
                       <input type="hidden" class="form-control" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="signup_form">
                       <label for="monthly_rate">Monthly Rate (Php)<span class="is-required">*</span></label>
+                    </div>
+                    <div class="form-floating col-md-6 mb-3 p-1">
+                      <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="" form="signup_form">
+                      <label for="maiden_name">Maiden Name [Put N/A if not applicable]<span class="is-required">*</span></label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -1065,7 +1073,6 @@
                           <div class="form-floating flex-fill mb-3 p-1">
                             <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" value="" form="add_cse_form" >
                             <label for="cs_eligibility">Eligibility</label>
-                            <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                           </div>
                           <div class="form-floating flex-fill mb-3 p-1">
                             <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="" form="add_cse_form" >
@@ -1074,6 +1081,11 @@
                           <div class="form-floating flex-fill mb-3 p-1">
                             <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="" form="add_cse_form" >
                             <label for="date_of_examination_to">Date of Examination To</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-2 pt-0 mt-0">
+                            <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
                           </div>
                         </div>
                         <div class="d-md-flex flex-row">
