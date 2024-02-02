@@ -385,6 +385,9 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 
 					// return res.json();
 					// do nothong
+				}else if (res.status == 500){
+					triggerToast("Server Error! Please try to save again.", 'error'); 
+					
 				}else{
 					document.getElementById('add_ld_form').reset();
 
