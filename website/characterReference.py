@@ -160,7 +160,7 @@ def add_assignatory(emp_id):
     if request.method == "POST":
         #formdata = request.form.to_dict()
 
-        new_assignatory = Assignatory(assignatory = 'ENGR. JOHN N. MOLANO', user_id = emp_id)
+        new_assignatory = Assignatory(assignatory = 'ENGR. JOHN N. MOLANO, MSME', user_id = emp_id)
         db.session.add(new_assignatory)
         db.session.commit()
 

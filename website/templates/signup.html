@@ -1352,7 +1352,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
           fetch(`/cse/add-eligibility/${data}`, {
             method: 'POST',
             body: formData2
-          }).then((res)=>{ 
+          }).then((res)=>{
      
             if (res.status == 200){
 
@@ -1369,7 +1369,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 body: formData3
               }).then((res)=>{
                  if(res.status == 500){
-                  triggerToast("Server Error! Please try to click the register button again. (V)", 'error');
+                  triggerToast("Server Error! Please try to click the register button again. (Vocational)", 'error');
                 }else{
                 //<!-- ----------------------------------------------------------------------- -->
                 //<!--                           SUBMIT COLLEGE FORM                           -->
@@ -1385,7 +1385,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                 body: formData4
               }).then((res)=>{
                 if(res.status == 500){
-                  triggerToast("Server Error! Please try to click the register button again. (C)", 'error');
+                  triggerToast("Server Error! Please try to click the register button again. (College)", 'error');
                 }else{
                 //<!-- ----------------------------------------------------------------------- -->
                 //<!--                          SUBMIT MASTERAL FORM                           -->
@@ -1400,7 +1400,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                       body: formData5
                     }).then((res)=>{
                       if(res.status == 500){
-                        triggerToast("Server Error! Please try to click the register button again. (M)", 'error');
+                        triggerToast("Server Error! Please try to click the register button again. (Masteral)", 'error');
                       }else{
                       // <!-- ----------------------------------------------------------------------- -->
                       // <!--                          SUBMIT DOCTORAL FORM                           -->
@@ -1428,7 +1428,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                                 }
                                });
                             }else if(res.status == 500){
-                              triggerToast("Server Error! Please try to click the register button again. (D)", 'error');
+                              triggerToast("Server Error! Please try to click the register button again. (Doctral)", 'error');
                             }
                         });//END DOCTORAL FORM
 
@@ -1446,7 +1446,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
 
               });//END VOCATIONAL
             }else if(res.status == 500){
-              triggerToast("Server Error! Please try to click the register button again. (E)", 'error');
+              triggerToast("Server Error! Please try to click the register button again. (Eligibility)", 'error');
             }
             
           })//END CSE
