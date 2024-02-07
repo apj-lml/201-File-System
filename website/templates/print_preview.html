@@ -591,7 +591,9 @@ async function fillForm() {
 
         c_year_graduated.setText('{{user_profile.college[0].c_period_of_attendance_to if user_profile.college[0].c_highest_level_units_earned == "GRADUATED" else "N/A"}}');
 
-        c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor|escapejs if user_profile.college[0].c_scholarship_academic_honor != "" else "N/A"}}');
+        //c_scholarship_academic_honor.setText('PROFICIENCY IN TEACHING OF THE ENGLISH LANGUAGE');
+        c_scholarship_academic_honor.setText('{{user_profile.college[0].c_scholarship_academic_honor if user_profile.college[0].c_scholarship_academic_honor != "" else "N/A"}}');
+       
 
     {% else %}
         c_highest_grade_year_units.setText("N/A");
