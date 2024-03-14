@@ -1719,7 +1719,7 @@ wes_agency_2[0].setText(`{{user_profile.work_experience[15].department_agency_of
 wes_salary_2[0].setText(`{{user_profile.work_experience[15].monthly_salary if user_profile.work_experience|length > 15 else 'N/A'}}`)
 
 {% if user_profile.work_experience[15] and user_profile.work_experience[15].sg != "N/A" %}
-    wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[0].step }}`)
+    wes_sg_step_2[0].setText(`{{ '%02d' % user_profile.work_experience[15].sg|int }} - {{ user_profile.work_experience[15].step }}`)
 {% elif user_profile.work_experience[15] and user_profile.work_experience[15].sg == "N/A" %}
     wes_sg_step_2[0].setText(`N/A`)
 {% else %}
