@@ -71,7 +71,7 @@ class User(db.Model, UserMixin):
     date_hired_in_nia = db.Column(db.String(150), nullable=True)
     date_hired_in_nia_pimo = db.Column(db.String(150), nullable=True)
     no_of_years_in_nia = db.Column(db.String(150), nullable=True)
-    first_day_in_service = db.Column(db.Date())
+    first_day_in_service = db.Column(db.Date(), nullable=True)
 
     date_of_last_step_increment = db.Column(db.String(150), nullable=True)
     date_of_original_appointment = db.Column(db.String(150), nullable=True)
