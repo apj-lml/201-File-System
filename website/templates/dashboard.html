@@ -63,7 +63,7 @@
             </header>
             <!-- Icons Grid-->
             <div class="col-sm-12">
-                <section class="features-icons bg-light text-center pt-5 mt-5">
+                <section class="features-icons bg-light text-center pt-5 mt-5 mb-0 pb-0">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg">
@@ -113,6 +113,18 @@
                 </section>
             </div> 
 
+            <div class="col-sm-12">
+                <section class="features-icons bg-light text-center pt-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg">
+                                <h1>Calendar of Activities</h1>
+                                <div id='calendar' class="w-75 h-75 mx-auto"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
             <section class="showcase">
                 <div class="container-fluid p-0">
@@ -254,18 +266,151 @@
         <!-- Footer-->
 
 
+
         </div>
      
 
+        <!-- Modal -->
 
 
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#calendarModal">
+    Launch demo modal
+  </button>
+   -->
+  <!-- Modal -->
+  <div class="modal fade" id="calendarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <form action="#" method="POST" id="add_event_form">
+                <div class="row">
+                    <div class="form-floating col-md-12 col-sm-12 p-1">
+                        <input type="text" class="form-control" id="e_description" name ="e_description" form="add_event_form" placeholder="Event Title" value="" required>
+                        <label for="e_description">Event Title<span class="is-required">*</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating col-md-6 col-sm-12 p-1">
+                        <input type="date" class="form-control" id="e_date_from" name ="e_date_from" form="add_event_form" placeholder="e_date_from" value="" min="1900-01-01" max="9999-12-31" required>
+                        <label for="e_date_from">Event Date (From)<span class="is-required">*</span></label>
+                    </div>
+                    <div class="form-floating col-md-6 col-sm-12 p-1">
+                        <input type="date" class="form-control" id="e_date_to" name ="e_date_to" form="add_event_form" placeholder="e_date_to" value="" min="1900-01-01" max="9999-12-31" required>
+                        <label for="e_date_to">Event Date (To)<span class="is-required">*</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating col-md-12 col-sm-12 mb-3 p-1">
+                        <select class="form-select" id="is_recurring" name="is_recurring" value="" form="add_event_form" required>
+                        <option value="YES" selected>Yes</option>
+                        <option value="NO">No</option>
+                        </select>
+                        <label for="is_recurring">Is this event recurring?<span class="is-required">*</span></label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary" onclick="calendarEvent()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 		{% endblock %}
 
         {% block scripts %}
 
-
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar/core/locales/es.global.js'></script>
         <script type="application/javascript">
+            //document.addEventListener('DOMContentLoaded', function() {
+                var myModal = new bootstrap.Modal(document.getElementById('calendarModal'), {
+                    //keyboard: false
+                    });
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    locale: 'ph',
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        center: 'addEventButton'
+                      },
+                    //selectable: true,
+                    editable: true,
+                    droppable: true,
+                    //dateClick: function(info) {
+                    //    alert('clicked ' + info.dateStr);
+                    //},
+                    customButtons: {
+                        addEventButton: {
+                          text: 'Add Event',
+                          click: function() {
+                            myModal.show();
+                          }
+                        }
+                      }
+                });
+
+                calendar.render();
+              //});
+            function closeModal(){
+                myModal.hide()
+             }
+
+             function calendarEvent() {   
+                var e_description = document.getElementById('e_description').value;
+                var dateStrt = document.getElementById('e_date_from').value;
+                var dateEnd = document.getElementById('e_date_to').value;
+                
+                calendar.addEvent({
+                    title: e_description,
+                    start: dateStrt,
+                    end: dateEnd,
+                    allDay: true
+                });
+            
+                // Get the form element
+                var add_event_form = document.getElementById("add_event_form");
+            
+                // Add event listener for form submission
+                add_event_form.addEventListener("submit", function(e) {
+                    // Prevent default form submission behavior
+                    e.preventDefault();
+                    
+            
+                    // Submit form data using FormData
+                    let formData2 = new FormData(add_event_form);
+            
+                    const data2 = {};
+                    formData2.forEach((value, key) => (data2[key] = value));
+            
+                    fetch(`/calendar/add-event`, {
+                        method: 'POST',
+                        body: formData2
+                    }).then((res) => {
+                        if (res.status == 200) {
+                            // Handle success if needed
+                        }
+                    });
+                });
+            
+                // Submit the form
+                add_event_form.submit();
+            
+                // Return false to prevent default link behavior
+                return false;
+            }
+
+
+
             document.getElementById('birthday-select').addEventListener('change', (e) => {
                 document.getElementById("listOfBirthdayCelebrators").innerHTML = '';
                 var birthday_pics = document.getElementById('carouselExampleControls').getElementsByClassName('carousel-inner')[0];
