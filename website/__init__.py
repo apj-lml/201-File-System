@@ -45,10 +45,10 @@ def create_app():
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/aljohnjacinto${DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/aljohnjacinto${DB_NAME}'
 
 	#mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 	app.config['FILE_LOGS_FOLDER'] = FILE_LOGS_FOLDER
@@ -175,6 +175,7 @@ def create_app():
 	from .saln import saln
 	from .salnReports import salnReports
 	from .fileLogs import FileLogs
+	from .CalendarEvent import calendarEvent
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -212,6 +213,7 @@ def create_app():
 	app.register_blueprint(saln, url_prefix = '/saln')
 	app.register_blueprint(salnReports, url_prefix = '/salnReports')
 	app.register_blueprint(FileLogs, url_prefix = '/fileLogs')
+	app.register_blueprint(calendarEvent, url_prefix = '/calendar')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #

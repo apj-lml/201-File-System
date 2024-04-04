@@ -768,7 +768,7 @@ def service_record_by_batch(emp_id):
 def get_service_record(emp_id):
     if request.method == "GET":
 
-        new_service_record = Service_Record.query.filter_by(user_id = emp_id).all()
+        new_service_record = Service_Record.query.filter(Service_Record.user_id == emp_id, ~Service_Record.status.in_(['Job Order', 'Contract of Service'])).all()
         column_keys = Service_Record.__table__.columns.keys()
     # Temporary dictionary to keep the return value from table
         rows_dic_temp = {}

@@ -313,8 +313,11 @@
 			<div class="mb-3 mt-3">
 				<textarea class="form-control" placeholder="Paste excel data here:" id="excel_data" name="excel_data" style="height: 250px"></textarea>
 			</div>
-			<button class="btn btn-primary mb-3" type="button" onclick="generateTable()">Generate Table</button>
-	
+			{% if current_user.employment_status != 'JOB ORDER' %}
+				<button class="btn btn-primary mb-3" type="button" onclick="generateTable()">Generate Table</button>
+			{% else %}
+				<button class="btn btn-primary mb-3" type="button" onclick="generateTableJo()">Generate Table</button>
+			{% endif %}
 			<div class="modal-body">
 			<form enctype="multipart/form-data" id="add_service_record_by_batch" action="/employees/service-record-by-batch/{{user.id}}" method="POST" autocomplete="off" class="needs-validation" novalidate>
 				<div id="excel_table" style="overflow-y:scroll;"></div>
@@ -752,6 +755,115 @@ function generateTable() {
 	$('#excel_table').html(table);
 
 	}
+
+
+	function generateTableJo() {
+		var data = $('textarea[name=excel_data]').val();
+		var rows = data.split("\n");
+	
+		var table = $(`
+			<table class="table table-striped table-bordered text-center">
+				<thead>
+					<tr class="align-middle">
+						<th colspan="2">SERVICE <i>(Inclusive Dates)</i></th>
+						<th colspan="4">RECORD OF APPOINTMENT</th>
+						<th rowspan="2">STATION/PLACE <br>OF ASSIGNMENT</th>
+						<th rowspan="2">LEAVE W/O PAY</th>
+						<th colspan="2">SEPARATION</th>
+					</tr>
+						<tr class="align-middle">
+						<th >FROM</th>
+						<th >TO</th>
+						<th >DESIGNATION</th>
+						<th >STATUS</th>
+						<th colspan="2">SALARY</th>
+						<th >DATE</th>
+						<th >CAUSE</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>`);
+	
+		for(var y in rows) {
+	
+			var cells = rows[y].split("\t");
+			var elName ="";
+			var row = $('<tr />');
+			var value = '';
+			for(var x in cells) {
+				if(x != 3) {
+					if(x == 0){
+						elName = "service_from";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[0].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					}
+					if(x == 1){
+						elName = "service_to";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[1].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+					}
+					if(x == 2){
+						elName = "designation";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[2].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					}
+					if(x == 4){
+						elName = "status";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[4].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					}
+					if(x == 5){
+						elName = "salary";
+						//cells[x].replace(/\s/g, '');
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[5].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					}
+					if(x == 6){
+						elName = "per";
+						//value = "/d"
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="/d" style="font-size:11px; width: auto;" readonly/></td>`);
+
+
+					}
+					if(x == 7){
+						elName = "station_place";
+						//value = cells[6].trim();
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[6].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					}
+
+					if(x == 8){
+						elName = "leave_wo_pay";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="None" style="font-size:11px; width: auto;" readonly/></td>`);
+						elName = "separation_date";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[7].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+						elName = "separation_cause";
+						row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[8].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+					}
+
+					//if(x == 9){
+						//elName = "separation_date";
+						//row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[7].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					//}
+
+					//if(x == 10){
+						//elName = "separation_cause";
+						//row.append(`<td class="p-0"><input type="text" name="${elName}" value="${cells[8].trim()}" style="font-size:11px; width: auto;" readonly/></td>`);
+
+					//}
+			
+				}
+			}
+			table.append(row);
+		}
+	
+		// Insert into DOM
+		$('#excel_table').html(table);
+	
+		}
+
+
 
 	async function fillForm(serviceRecord, pdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes) {
 

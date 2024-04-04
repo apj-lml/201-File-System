@@ -281,6 +281,24 @@ class User(db.Model, UserMixin):
 
     # emergency_contact = db.relationship('Emergency_Contact')
 
+class Calendar_Events(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    e_description = db.Column(db.String(150))
+    e_type = db.Column(db.String(150))
+    e_date_from = db.Column(db.Date())
+    e_date_to = db.Column(db.Date())
+    start_recuring_date = db.Column(db.Date())
+    end_recuring_date = db.Column(db.Date())
+
+    # rp_total = db.Column(db.String(150))
+    # pp_total = db.Column(db.String(150))
+    # lia_total = db.Column(db.String(150))
+    # networth = db.Column(db.String(150))
+    # as_of = db.Column(db.Date())
+    last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
+    # user = db.relationship('User')
+
 class Saln_Summary(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -451,7 +469,7 @@ class Service_Record(db.Model, SerializerMixin):
     salary = db.Column(db.String(50))
     per = db.Column(db.String(50))
     station_place = db.Column(db.String(150))
-    leave_wo_pay = db.Column(db.String(50))
+    leave_wo_pay = db.Column(db.String(50), nullable=True)
     separation_date = db.Column(db.String(150), nullable=True)
     separation_cause = db.Column(db.String(50), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
