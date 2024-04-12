@@ -124,7 +124,7 @@
           m_rate.value = "";
           d_rate.readOnly = true;
           sg.value = "N/A";
-          sg.disabled = true;
+          sg.disabled = false;
           job_grade.disabled = false;
           // job_grade.value = "2";
           // step.value = "1";
@@ -156,14 +156,15 @@
         var daily_rate =  document.getElementById('daily_rate');
         var emp_status = document.getElementById('employment_status').value;
         var job_grade = document.getElementById('job_grade').value;
+        var salary_grade = document.getElementById('salary_grade').value;
 
 
         if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" || emp_status == "TEMPORARY"){
-          monthly_rate.value = job_grade_monthly_salary[job_grade][step];
+          monthly_rate.value = job_grade_monthly_salary[salary_grade][step];
           var temp_m_rate = parseFloat(monthly_rate.value.replace(/,/g, ''));
           monthly_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
           daily_rate.value = "N/A";
-          document.getElementById('salary_grade').value = "";;
+          // salary_grade.value = "";
           disableStepCasual(false);
 
         }else if (emp_status == "JOB ORDER" || emp_status == "CONTRACT OF SERVICE"){

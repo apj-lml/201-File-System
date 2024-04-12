@@ -29,6 +29,9 @@
             color: linear-gradient(152deg, rgba(51,10,113,0.9192051820728291) 3%, rgba(0,5,121,0.8127626050420168) 37%, rgba(34,76,199,1) 98%);
             /* width: auto; */
         }
+
+          
+
         
     </style>
 {% endblock %}
@@ -119,7 +122,7 @@
                         <div class="row">
                             <div class="col-lg">
                                 <h1>Calendar of Activities</h1>
-                                <div id='calendar' class="w-75 h-75 mx-auto"></div>
+                                <div id='calendar' class="vh-75 vw-75 mx-auto"></div>
                             </div>
                         </div>
                     </div>
@@ -332,20 +335,42 @@
 
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar/core/locales/es.global.js'></script>
         <script type="application/javascript">
-            //document.addEventListener('DOMContentLoaded', function() {
+
+            // self executing function here
+            (function() {
+
                 var myModal = new bootstrap.Modal(document.getElementById('calendarModal'), {
                     //keyboard: false
                     });
+
+
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
+
+                    plugins: [ googleCalendarPlugin ],
+                    googleCalendarApiKey: 'AIzaSyAeC9OYPttokVOUk17VvuWyFtbEEk6gjCs',
+                    //events: {
+                    //  googleCalendarId: 'aljohnjacinto.aj@gmail.com'
+                    //},
+                    events: 'en.usa#holiday@group.v.calendar.google.com',
                     locale: 'ph',
+                    themeSystem: 'bootstrap5',
                     initialView: 'dayGridMonth',
+                    views:{
+                        dayGridMonth: {
+                           // eventLimit: 3
+                        }
+                    },
                     headerToolbar: {
-                        center: 'addEventButton'
+                        left: 'prev,next today',
+                        center: 'addEventButton',
+                        right: 'dayGridMonth,listYear'
                       },
+               
                     //selectable: true,
                     editable: true,
                     droppable: true,
+                    //displayEventTime: false,
                     //dateClick: function(info) {
                     //    alert('clicked ' + info.dateStr);
                     //},
@@ -356,15 +381,54 @@
                             myModal.show();
                           }
                         }
-                      }
+                      },
+
+                      //eventRender: function(info) {
+                       // if (info.event.start < info.event.end) {
+                       //     info.el.querySelector('.fc-time').style.display = 'none';
+                       // }
+                    //}
                 });
 
                 calendar.render();
-              //});
-            function closeModal(){
-                myModal.hide()
-             }
 
+                //fetchCalendarEvents(calendar);
+
+            
+                
+
+                 window.closeModal = function() {
+                    myModal.hide();
+                };
+    
+            })();
+
+            function fetchCalendarEvents(calendar){
+                fetch(`/calendar/get-all-events`, {
+                    method: 'GET',
+                }).then(response => response.json())
+                    .then(data => {
+                    data.forEach((v, k)=>{
+                        console.log(v);
+                        calendar.addEvent(v);
+
+                    });
+                    //calendar.addEvent({
+                     //   title: e_description,
+                      //  start: dateStrt,
+                       // end: dateEnd,
+                       // allDay: true
+                    //});
+
+                    })
+                    .catch(error => {
+                    console.log(error);
+                    });
+            }
+            //document.addEventListener('DOMContentLoaded', function() {
+
+              //});
+        
              function calendarEvent() {   
                 var e_description = document.getElementById('e_description').value;
                 var dateStrt = document.getElementById('e_date_from').value;

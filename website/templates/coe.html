@@ -58,28 +58,34 @@
       <div class="card-body">
         <div class="row text-center">
           <!-- <div class="row col-sm-12 mb-3"> -->
-            <div class="col-sm-12 col-md-8 mb-3 ">
+            <div class="col-sm-12 col-md-4 mb-3 ">
               <div class="form-floating has-validation">
                 <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.last_name }}, {{ user_profile.first_name }}{%if user_profile.name_extn != 'N/A'  %} {{ user_profile.name_extn }}, {% endif %} {%if user_profile.middle_name != 'N/A'  %}{{ user_profile.middle_name }} {% endif %}">
                 <label class="text-blue fw-bold" id="emp_name" for="emp_name">Name</label>
               </div>
             </div>
-            
-              <div class="col-sm-12 col-md-4 mb-3 ">
+            <div class="col-sm-12 col-md-8 mb-3">
+              <div class="form-floating has-validation">
+                <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
+                <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
+              </div>
+          </div>
+
+          <!-- </div> -->
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12 col-md-3 mb-3 ">
                 <div class="form-floating has-validation">
                   <input type="text" class="form-control" name ="emp_name" id="emp_name" placeholder="Name" disabled value="{{ user_profile.employment_status }}">
                   <label class="text-blue fw-bold" id="emp_name" for="emp_name">Employment Status</label>
                 </div>
               </div>
-          <!-- </div> -->
-          <div class="col-sm-12">
-            <div class="row">
-              <div class="col-sm-12 col-md-6 mb-3">
-                  <div class="form-floating has-validation">
-                    <input type="text" class="form-control" name ="position_title" id="position_title" placeholder="Position Title" disabled value="{{ user_profile.position_title }}">
-                    <label class="text-blue fw-bold" id="position_title" for="position_title">Position Title</label>
-                  </div>
-              </div>
+              <div class="col-sm-12 col-md-3 mb-3">
+                <div class="form-floating has-validation">
+                  <input type="text" class="form-control" name ="sg" id="sg" placeholder="Job Grade" disabled value="{{ user_profile.salary_grade }}">
+                  <label class="text-blue fw-bold" id="sg" for="sg">Salary Grade</label>
+                </div>
+            </div>
               <div class="col-sm-12 col-md-3 mb-3">
                   <div class="form-floating has-validation">
                     <input type="text" class="form-control" name ="jg" id="jg" placeholder="Job Grade" disabled value="{{ user_profile.job_grade }}">
@@ -229,7 +235,7 @@
 
     {% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
     //var salary = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
-    var salary = job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'];
+    var salary = job_grade_monthly_salary['{{ user_profile.salary_grade }}']['{{ user_profile.step }}'];
     {% elif user_profile.employment_status == 'CASUAL' %}
      // document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
      var salary = (casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])*22;
@@ -361,7 +367,7 @@ function getDaySuffix(day) {
   var monthly_daily = 0;
 
   {% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
-    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+    document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.salary_grade }}']['{{ user_profile.step }}'])));
     monthly_daily = job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'];
 	{% elif user_profile.employment_status == 'CASUAL' %}
     document.getElementById('monthly_daily_salary').value = (String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));

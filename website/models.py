@@ -284,10 +284,11 @@ class User(db.Model, UserMixin):
 class Calendar_Events(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    e_title = db.Column(db.String(150))
     e_description = db.Column(db.String(150))
     e_type = db.Column(db.String(150))
-    e_date_from = db.Column(db.Date())
-    e_date_to = db.Column(db.Date())
+    e_date_from = db.Column(db.DateTime())
+    e_date_to = db.Column(db.DateTime())
     start_recuring_date = db.Column(db.Date())
     end_recuring_date = db.Column(db.Date())
 
