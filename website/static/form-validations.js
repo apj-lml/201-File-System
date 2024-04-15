@@ -123,7 +123,7 @@
 
           m_rate.value = "";
           d_rate.readOnly = true;
-          sg.value = "N/A";
+          // sg.value = "N/A";
           sg.disabled = false;
           job_grade.disabled = false;
           // job_grade.value = "2";
