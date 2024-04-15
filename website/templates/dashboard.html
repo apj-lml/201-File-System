@@ -287,7 +287,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Create Event</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -295,27 +295,59 @@
                 <form action="#" method="POST" id="add_event_form">
                 <div class="row">
                     <div class="form-floating col-md-12 col-sm-12 p-1">
-                        <input type="text" class="form-control" id="e_description" name ="e_description" form="add_event_form" placeholder="Event Title" value="" required>
-                        <label for="e_description">Event Title<span class="is-required">*</span></label>
+                        <input type="text" class="form-control" id="e_title" name ="e_title" form="add_event_form" placeholder="Event Title" value="" required>
+                        <label for="e_title">Event Title<span class="is-required">*</span></label>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="form-floating col-md-12 col-sm-12 p-1">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="e_all_day" name="e_all_day" unchecked>
+                            <label class="form-check-label" for="e_all_day">All day</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="dateOnly">
                     <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <input type="date" class="form-control" id="e_date_from" name ="e_date_from" form="add_event_form" placeholder="e_date_from" value="" min="1900-01-01" max="9999-12-31" required>
+                        <input type="datetime-local" class="form-control" id="e_date_from" name ="e_date_from" form="add_event_form" placeholder="e_date_from" required>
                         <label for="e_date_from">Event Date (From)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <input type="date" class="form-control" id="e_date_to" name ="e_date_to" form="add_event_form" placeholder="e_date_to" value="" min="1900-01-01" max="9999-12-31" required>
+                        <input type="datetime-local" class="form-control" id="e_date_to" name ="e_date_to" form="add_event_form" placeholder="e_date_to" required>
                         <label for="e_date_to">Event Date (To)<span class="is-required">*</span></label>
                     </div>
                 </div>
+                
+                <!-- <div class="row" id="dateTimeOnly">
+                    <div class="form-floating col-md-6 col-sm-12 p-1">
+                        <input type="datetime-local" class="form-control" id="" name ="e_date_from" form="add_event_form" placeholder="e_date_from" required>
+                        <label for="e_date_from">Event Date (From)<span class="is-required">*</span></label>
+                    </div>
+                    <div class="form-floating col-md-6 col-sm-12 p-1">
+                        <input type="datetime-local" class="form-control" id="" name ="e_date_to" form="add_event_form" placeholder="e_date_to" required>
+                        <label for="e_date_to">Event Date (To)<span class="is-required">*</span></label>
+                    </div>
+                </div> -->
                 <div class="row">
-                    <div class="form-floating col-md-12 col-sm-12 mb-3 p-1">
-                        <select class="form-select" id="is_recurring" name="is_recurring" value="" form="add_event_form" required>
-                        <option value="YES" selected>Yes</option>
-                        <option value="NO">No</option>
+                    <div class="form-floating p-1 col-md-6 col-sm-12">
+                        <select class="form-select" id="e_type" name="e_type">
+                            <option value="MEETING">MEETING</option>
+                            <option value="HOLIDAY">HOLIDAY</option>
+                            <option value="CELEBRATION">CELEBRATION</option>
+                            <option value="DEADLINE">DEADLINE</option>
+                          </select>
+                        <label for="e_type">Event Type</label>
+                    </div>
+                    <div class="form-floating col-md-6 col-sm-12 p-1">
+                        <select class="form-select" id="e_repeat" name="e_repeat" value="" form="add_event_form" required>
+                        <option value="1" selected>Doesn't Repeat</option>
+                        <option value="2">Daily</option>
+                        <option value="3">Weekly</option>
+                        <option value="4">Monthly</option>
+                        <option value="5">Annually</option>
                         </select>
-                        <label for="is_recurring">Is this event recurring?<span class="is-required">*</span></label>
+                        <label for="repeat">Does this event repeat?</label>
+
                     </div>
                 </div>
             </div>
@@ -323,7 +355,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
-          <button type="button" class="btn btn-primary" onclick="calendarEvent()">Save changes</button>
+          <button type="submit" class="btn btn-primary" form="add_event_form">Save changes</button>
         </div>
       </div>
     </div>
@@ -343,24 +375,24 @@
                     //keyboard: false
                     });
 
-
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
 
-                    plugins: [ googleCalendarPlugin ],
-                    googleCalendarApiKey: 'AIzaSyAeC9OYPttokVOUk17VvuWyFtbEEk6gjCs',
+                    //plugins: [ googleCalendarPlugin ],
+                    //googleCalendarApiKey: 'AIzaSyAeC9OYPttokVOUk17VvuWyFtbEEk6gjCs',
                     //events: {
                     //  googleCalendarId: 'aljohnjacinto.aj@gmail.com'
                     //},
-                    events: 'en.usa#holiday@group.v.calendar.google.com',
-                    locale: 'ph',
-                    themeSystem: 'bootstrap5',
+                    //events: 'en.usa#holiday@group.v.calendar.google.com',
+                    //locale: 'ph',
+                    //themeSystem: 'bootstrap5',
                     initialView: 'dayGridMonth',
-                    views:{
-                        dayGridMonth: {
+                    //views:{
+                    //    dayGridMonth: {
                            // eventLimit: 3
-                        }
-                    },
+                    //    }
+                    //},
+                    dayMaxEvents: true,
                     headerToolbar: {
                         left: 'prev,next today',
                         center: 'addEventButton',
@@ -392,64 +424,51 @@
 
                 calendar.render();
 
-                //fetchCalendarEvents(calendar);
+                fetchCalendarEvents(calendar);
 
-            
-                
 
                  window.closeModal = function() {
                     myModal.hide();
                 };
-    
-            })();
 
-            function fetchCalendarEvents(calendar){
-                fetch(`/calendar/get-all-events`, {
-                    method: 'GET',
-                }).then(response => response.json())
-                    .then(data => {
-                    data.forEach((v, k)=>{
-                        console.log(v);
-                        calendar.addEvent(v);
+                document.getElementById('e_all_day').addEventListener('change', (e)=>{
+                    if(e.target.checked){
+                        document.getElementById('e_date_from').type = 'date';
+                        document.getElementById('e_date_to').type = 'date';
+                       // document.getElementById('dateOnly').classList.remove('d-none');
+                       // document.getElementById('dateTimeOnly').classList.add('d-none');
+                    }else{
+                        document.getElementById('e_date_from').type = 'datetime-local';
+                        document.getElementById('e_date_to').type = 'datetime-local';
 
-                    });
-                    //calendar.addEvent({
-                     //   title: e_description,
-                      //  start: dateStrt,
-                       // end: dateEnd,
-                       // allDay: true
-                    //});
 
-                    })
-                    .catch(error => {
-                    console.log(error);
-                    });
-            }
-            //document.addEventListener('DOMContentLoaded', function() {
-
-              //});
-        
-             function calendarEvent() {   
-                var e_description = document.getElementById('e_description').value;
-                var dateStrt = document.getElementById('e_date_from').value;
-                var dateEnd = document.getElementById('e_date_to').value;
-                
-                calendar.addEvent({
-                    title: e_description,
-                    start: dateStrt,
-                    end: dateEnd,
-                    allDay: true
+                       // document.getElementById('dateTimeOnly').classList.remove('d-none');
+                       // document.getElementById('dateOnly').classList.add('d-none');
+                    }
                 });
-            
-                // Get the form element
-                var add_event_form = document.getElementById("add_event_form");
-            
-                // Add event listener for form submission
-                add_event_form.addEventListener("submit", function(e) {
-                    // Prevent default form submission behavior
+
+                document.getElementById('add_event_form').addEventListener('submit',(e)=>{
                     e.preventDefault();
+    
+                    var e_title = document.getElementById('e_title').value;
+                    var e_all_day = document.getElementById('e_all_day');
+                    //var dateStrt = document.getElementById('e_date_from').value;
+                    //var dateEnd = document.getElementById('e_date_to').value;
+                    var dateStrt = document.getElementsByName('e_date_from').value;
+                    var dateEnd = document.getElementsByName('e_date_to').value;
+                    var e_repeat = document.getElementById('e_repeat').value;
                     
-            
+                    let allDay = false;
+                    if(e_all_day.checked){
+                        allDay = true;
+                    }
+                    //let allDay = false;
+                    //if(dateStrt === dateEnd ){
+                    //    allDay = true;
+                    //}
+                    
+                    let add_event_form = document.getElementById('add_event_form');
+                
                     // Submit form data using FormData
                     let formData2 = new FormData(add_event_form);
             
@@ -461,19 +480,39 @@
                         body: formData2
                     }).then((res) => {
                         if (res.status == 200) {
-                            // Handle success if needed
+                            return res.json();
                         }
+                    }).then((data)=>{;
+                        Object.entries(data).forEach(([key, value]) => {
+                            console.log(value);
+                            calendar.addEvent(value)
+                        });
+                        //calendar.addEvent(data)
+                        
+                        //calendar.addEvent(data);
+    
                     });
-                });
-            
-                // Submit the form
-                add_event_form.submit();
-            
-                // Return false to prevent default link behavior
-                return false;
+           
+    
+                  });
+    
+            })();
+
+            function fetchCalendarEvents(calendar){
+                fetch(`/calendar/get-all-events`, {
+                    method: 'GET',
+                }).then(response => response.json())
+                    .then(data => {
+                        data.forEach((v, k)=>{
+                            console.log(v);
+                            calendar.addEvent(v);
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
-
-
+           
 
             document.getElementById('birthday-select').addEventListener('change', (e) => {
                 document.getElementById("listOfBirthdayCelebrators").innerHTML = '';

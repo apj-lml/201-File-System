@@ -32,6 +32,18 @@ def add_event():
     if request.method == "POST":
         formdata = request.form.to_dict()
 
+        formattedEvents = []
+
+        # if formdata['e_all_day'] == 'on':
+        if 'e_all_day' in formdata:
+            formdata['e_all_day'] = True
+        else:
+            formdata['e_all_day'] = False
+
+        newCalendarEvent = Calendar_Events(
+            **formdata
+        )
+
         # new_family_bg = Family_Background(
         #     e_description = str(fb_last_name),
         #     e_type = str(fb_first_name).upper(),
@@ -41,12 +53,32 @@ def add_event():
         #     end_recurring_date = str(fb_employer_business_name).upper(),
         #     last_updated = str(fb_business_address).upper()
         #         )
-        # db.session.add(new_family_bg)
+        db.session.add(newCalendarEvent)
 
-        # db.session.commit()
+        db.session.commit()
+
+        date_to_string = formdata['e_date_to']
+
+        try:
+            # Try parsing with time component
+            date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%dT%H:%M').date()
+        except ValueError:
+            # Parsing failed, try parsing without time component
+            date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%d').date()
 
         
-        return jsonify('Successfully Saved Family Background - add')
+        # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
+        formattedEvents.append({
+                'title' : formdata['e_title'],
+                'description' : None,
+                'start' : formdata['e_date_from'],
+                'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+                'allDay': formdata['e_all_day'],
+            })
+
+        # return jsonify('Successfully Added Event')
+        return jsonify(formattedEvents)
+        # return jsonify(**formdata)
 
 
 # ---------------------------------------------------------------------------- #
@@ -63,16 +95,27 @@ def get_all_events():
 
         for ev in calendarEvents:
             if ev.e_date_from != ev.e_date_to:
-                allDay = True
+                # allDay = True
+                e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
             else:
-                allDay = False
-                formattedEvents.append({
-                    'title' : ev.e_title,
-                    'description' : ev.e_description,
-                    'start' : ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
-                    'end' : ev.e_date_to.strftime('%Y-%m-%d %H:%M:%S'),
-                    'allDay': allDay
-                })
+                # allDay = False
+                e_date_to_modified = ev.e_date_to
+
+            e_date_to_modified_final = e_date_to_modified.strftime('%Y-%m-%d %H:%M:%S')
+                
+            formattedEvents.append({
+                'title' : ev.e_title,
+                'description' : ev.e_description,
+                'start' : ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
+                'end' : e_date_to_modified_final,
+                'allDay': ev.e_all_day,
+                # 'rrule': {
+                #     'freq': 'yearly',
+                #     'dtstart': ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
+                #     'until': e_date_to_modified_final
+                #     # 'until': e_date_to_modified_final
+                # }
+            })
         
 
         print("=========>", formattedEvents)

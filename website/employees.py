@@ -126,7 +126,7 @@ def get_employees(emp_id):
         user_sgjg = {}  # Dictionary to store sgjg attribute for each user
 
         for user in users:
-            if user.employment_status == 'JOB ORDER':
+            if user.employment_status != 'CASUAL':
                 user_sgjg[user.id] = user.salary_grade
             else:
                 user_sgjg[user.id] = user.job_grade
