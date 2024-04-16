@@ -1034,7 +1034,7 @@
 		cb_comm_not_requested.check();
 
 		{% if user_profile.employment_status == 'PERMANENT' or user_profile.employment_status == 'COTERMINOUS' or user_profile.employment_status == 'TEMPORARY' %}
-			 tb_salary.setText(String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
+			 tb_salary.setText(String('Php '+numberWithCommas(job_grade_monthly_salary['{{ user_profile.salary_grade }}']['{{ user_profile.step }}'])));
 		{% elif user_profile.employment_status == 'CASUAL' %}
 			 tb_salary.setText(String('Php '+numberWithCommas(casual_job_grade_daily_salary['{{ user_profile.job_grade }}']['{{ user_profile.step }}'])));
 		{% elif user_profile.employment_status == 'JOB ORDER' %}
