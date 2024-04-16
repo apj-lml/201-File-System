@@ -44,18 +44,11 @@ def add_event():
             **formdata
         )
 
-        # new_family_bg = Family_Background(
-        #     e_description = str(fb_last_name),
-        #     e_type = str(fb_first_name).upper(),
-        #     e_date_from = str(fb_middle_name).upper(),
-        #     e_date_to = str(fb_name_ext).upper(),
-        #     start_recurring_date = str(fb_occupation).upper(),
-        #     end_recurring_date = str(fb_employer_business_name).upper(),
-        #     last_updated = str(fb_business_address).upper()
-        #         )
         db.session.add(newCalendarEvent)
 
         db.session.commit()
+
+        last_inserted_id = newCalendarEvent.id
 
         date_to_string = formdata['e_date_to']
 
@@ -69,6 +62,7 @@ def add_event():
         
         # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
         formattedEvents.append({
+                'id' : last_inserted_id,
                 'title' : formdata['e_title'],
                 'description' : None,
                 'start' : formdata['e_date_from'],
@@ -79,6 +73,37 @@ def add_event():
         # return jsonify('Successfully Added Event')
         return jsonify(formattedEvents)
         # return jsonify(**formdata)
+
+
+# ---------------------------------------------------------------------------- #
+#                           UPDATE CAL ACTIVITIES                              #
+# ---------------------------------------------------------------------------- #
+
+@calendarEvent.route('/update-event', methods=['POST'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def update_event():
+    if request.method == "POST":
+        # formdata = request.form.to_dict()
+        formdata = request.json  # Access JSON data from the request body
+        print('======>', formdata)
+        eventToUpdate = Calendar_Events().query.filter_by(id = formdata['id']).first()
+
+        # try:
+        # Try parsing with time component
+        # date_to = datetime.datetime.strptime(formdata['start'], '%Y-%m-%d %H:%M:%S').date()
+        # date_from = datetime.datetime.strptime(formdata['end'], '%Y-%m-%d %H:%M:%S').date()
+        # except ValueError:
+        #     # Parsing failed, try parsing without time component
+        #     date_to = datetime.datetime.strptime(formdata['start'], '%Y-%m-%d').date()
+        #     date_from = datetime.datetime.strptime(formdata['end'], '%Y-%m-%d').date()
+            
+
+        eventToUpdate.e_date_from = formdata['start']
+        eventToUpdate.e_date_to = formdata['end']
+        db.session.commit()
+        
+    return jsonify('Event Successfully Updated!'), 200
 
 
 # ---------------------------------------------------------------------------- #
@@ -94,16 +119,15 @@ def get_all_events():
         formattedEvents = []
 
         for ev in calendarEvents:
-            if ev.e_date_from != ev.e_date_to:
-                # allDay = True
+            if ev.e_all_day:
                 e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
             else:
-                # allDay = False
                 e_date_to_modified = ev.e_date_to
 
             e_date_to_modified_final = e_date_to_modified.strftime('%Y-%m-%d %H:%M:%S')
                 
             formattedEvents.append({
+                'id' : ev.id,
                 'title' : ev.e_title,
                 'description' : ev.e_description,
                 'start' : ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
@@ -118,7 +142,7 @@ def get_all_events():
             })
         
 
-        print("=========>", formattedEvents)
+        # print("=========>", formattedEvents)
 
               
         return jsonify(formattedEvents)

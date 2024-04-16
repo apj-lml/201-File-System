@@ -30,7 +30,19 @@
             /* width: auto; */
         }
 
-          
+        .removebtn {
+            color:black;
+              position: absolute;
+              top: 0;
+              right: 0;
+          width:13px;
+          height: 13px;
+          text-align:center;
+          border-radius:50%;
+          font-size: 10px;
+              cursor: pointer;
+              background-color: #FFF
+          }
 
         
     </style>
@@ -378,20 +390,14 @@
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
 
-                    //plugins: [ googleCalendarPlugin ],
-                    //googleCalendarApiKey: 'AIzaSyAeC9OYPttokVOUk17VvuWyFtbEEk6gjCs',
-                    //events: {
-                    //  googleCalendarId: 'aljohnjacinto.aj@gmail.com'
-                    //},
-                    //events: 'en.usa#holiday@group.v.calendar.google.com',
-                    //locale: 'ph',
-                    //themeSystem: 'bootstrap5',
+                    themeSystem: 'bootstrap5',
                     initialView: 'dayGridMonth',
-                    //views:{
-                    //    dayGridMonth: {
-                           // eventLimit: 3
-                    //    }
-                    //},
+                    views: {
+                        multiMonthFourMonth: {
+                          type: 'multiMonth',
+                          duration: { months: 4 }
+                        }
+                      },
                     dayMaxEvents: true,
                     headerToolbar: {
                         left: 'prev,next today',
@@ -402,10 +408,7 @@
                     //selectable: true,
                     editable: true,
                     droppable: true,
-                    //displayEventTime: false,
-                    //dateClick: function(info) {
-                    //    alert('clicked ' + info.dateStr);
-                    //},
+                    displayEventTime: true,
                     customButtons: {
                         addEventButton: {
                           text: 'Add Event',
@@ -415,11 +418,38 @@
                         }
                       },
 
-                      //eventRender: function(info) {
-                       // if (info.event.start < info.event.end) {
-                       //     info.el.querySelector('.fc-time').style.display = 'none';
-                       // }
-                    //}
+                      eventDrop: function(info){
+                        
+                        updateEvent(info);
+                        
+                       // .then((data)=>{
+                       //     Object.entries(data).forEach(([key, value]) => {
+                       //         calendar.addEvent(value)
+                       //     });
+                       // });
+
+                      },
+
+                      eventResize: function(info) {
+                        updateEvent(info);
+
+                        //alert(info.event.title + " end is now " + info.event.end.toISOString());
+                      },
+                      eventDidMount: function(info) {
+                        // Create close button
+                        var closeButton = document.createElement('button');
+                        closeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'fc-event-close');
+                        closeButton.innerHTML = 'X';
+                        closeButton.addEventListener('click', function(e) {
+                            e.stopPropagation(); // Prevent event propagation to avoid triggering eventClick
+                            calendar.getEventById(info.event.id).remove();
+                        });
+                        
+                        // Position close button within the event element
+                        var eventElement = info.el.querySelector('.fc-event');
+                        eventElement.appendChild(closeButton);
+                    }
+
                 });
 
                 calendar.render();
@@ -482,7 +512,7 @@
                         if (res.status == 200) {
                             return res.json();
                         }
-                    }).then((data)=>{;
+                    }).then((data)=>{
                         Object.entries(data).forEach(([key, value]) => {
                             console.log(value);
                             calendar.addEvent(value)
@@ -511,6 +541,48 @@
                     .catch(error => {
                         console.log(error);
                     });
+            }
+
+
+            function updateEvent(info){
+                var startDate = new Date(info.event.start);
+                var endDate = new Date(info.event.end);
+
+                if (startDate !== endDate) {
+                    endDate.setDate(endDate.getDate() - 1);
+                    //console.log('IM HERE ', endDate)
+                }
+
+                //var startDate = new Date(info.event.start);
+                //var endDate = new Date(info.event.end);
+
+                var formattedStartDate = startDate.getFullYear() + '-' +
+                    ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + startDate.getDate()).slice(-2) + ' ' +
+                    ('0' + startDate.getHours()).slice(-2) + ':' +
+                    ('0' + startDate.getMinutes()).slice(-2) + ':' +
+                    ('0' + startDate.getSeconds()).slice(-2);
+
+                var formattedEndDate = endDate.getFullYear() + '-' +
+                    ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + endDate.getDate()).slice(-2) + ' ' +
+                    ('0' + endDate.getHours()).slice(-2) + ':' +
+                    ('0' + endDate.getMinutes()).slice(-2) + ':' +
+                    ('0' + endDate.getSeconds()).slice(-2);
+
+                fetch(`/calendar/update-event`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({
+                        "id": info.event.id,
+                        "start": formattedStartDate,
+                        "end": formattedEndDate
+                    })
+                }).then((res) => {
+                    if (res.status == 200) {
+                        return res.json();
+                    }
+                })
             }
            
 
