@@ -14,6 +14,21 @@ from . import db
 calendarEvent = Blueprint('calendarEvent', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 
+color = {
+    'MEETING':'#A4E9D5',
+    'HOLIDAY':'#E4BE9E',
+    'CELEBRATION':'#CCCCFF',
+    'DEADLINE':'#FCCB06',
+}
+
+textColor = {
+    'MEETING':'#194015',
+    'HOLIDAY':'#ffffff',
+    'CELEBRATION':'#28283b',
+    'DEADLINE':'#917503',
+}
+
+
 admin_permission = Permission(RoleNeed('admin'))
 
 @calendarEvent.errorhandler(403)
@@ -68,6 +83,9 @@ def add_event():
                 'start' : formdata['e_date_from'],
                 'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
                 'allDay': formdata['e_all_day'],
+                'color' : color[formdata['e_type']],
+                'textColor' : textColor[formdata['e_type']]
+                
             })
 
         # return jsonify('Successfully Added Event')
@@ -117,6 +135,19 @@ def get_all_events():
         calendarEvents = db.session.query(Calendar_Events).all()
 
         formattedEvents = []
+        # color = {
+        #     'MEETING':'#A4E9D5',
+        #     'HOLIDAY':'#E4BE9E',
+        #     'CELEBRATION':'#CCCCFF',
+        #     'DEADLINE':'#FCCB06',
+        # }
+
+        # textColor = {
+        #     'MEETING':'#194015',
+        #     'HOLIDAY':'#ffffff',
+        #     'CELEBRATION':'#28283b',
+        #     'DEADLINE':'#917503',
+        # }
 
         for ev in calendarEvents:
             if ev.e_all_day:
@@ -125,6 +156,14 @@ def get_all_events():
                 e_date_to_modified = ev.e_date_to
 
             e_date_to_modified_final = e_date_to_modified.strftime('%Y-%m-%d %H:%M:%S')
+
+            rrule = None
+            if ev.e_repeat is not None and ev.e_repeat != "":
+                rrule = {
+                    'freq': ev.e_repeat,
+                    # 'byweekday': ["su", "mo", "tu", "we", "th", "fr"],
+                    'dtstart': ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S')
+                }
                 
             formattedEvents.append({
                 'id' : ev.id,
@@ -133,12 +172,9 @@ def get_all_events():
                 'start' : ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
                 'end' : e_date_to_modified_final,
                 'allDay': ev.e_all_day,
-                # 'rrule': {
-                #     'freq': 'yearly',
-                #     'dtstart': ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
-                #     'until': e_date_to_modified_final
-                #     # 'until': e_date_to_modified_final
-                # }
+                'color' : color[ev.e_type],
+                'textColor' : textColor[ev.e_type],
+                'rrule': rrule
             })
         
 
@@ -146,3 +182,20 @@ def get_all_events():
 
               
         return jsonify(formattedEvents)
+
+
+@calendarEvent.route('/remove-event', methods=['POST'])
+@login_required
+#@admin_permission.require(http_exception=403)
+def remove_event():
+    if request.method == "POST":
+        # formdata = request.form.to_dict()
+        formdata = request.json  # Access JSON data from the request body
+
+        eventToRemove = Calendar_Events.query.get(formdata['id'])
+
+        db.session.delete(eventToRemove)
+        db.session.commit()
+    
+        
+    return jsonify('Event Successfully Updated!'), 200

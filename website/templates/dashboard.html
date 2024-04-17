@@ -44,6 +44,9 @@
               background-color: #FFF
           }
 
+          #calendar {
+            width: 75%;
+          }
         
     </style>
 {% endblock %}
@@ -132,9 +135,22 @@
                 <section class="features-icons bg-light text-center pt-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg">
-                                <h1>Calendar of Activities</h1>
-                                <div id='calendar' class="vh-75 vw-75 mx-auto"></div>
+                            <div class="col-sm-12 row">
+                                <div class="col-sm-12">
+                                    <h1 id="calendar-title">Calendar of Activities</h1>
+                                </div>
+                                {% if current_user.type_of_user == 'admin' %}
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#calendarModal">
+                                        Add Event
+                                      </button>
+                                </div>
+                                {% endif %}
+                            </div>
+                                
+                            <div class="col-sm-12">
+                                <div id='calendar' class="mx-auto"></div>
+
                             </div>
                         </div>
                     </div>
@@ -314,18 +330,18 @@
                 <div class="row">
                     <div class="form-floating col-md-12 col-sm-12 p-1">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="e_all_day" name="e_all_day" unchecked>
+                            <input class="form-check-input" type="checkbox" id="e_all_day" name="e_all_day" onchange="validateDate()" unchecked>
                             <label class="form-check-label" for="e_all_day">All day</label>
                         </div>
                     </div>
                 </div>
                 <div class="row" id="dateOnly">
                     <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <input type="datetime-local" class="form-control" id="e_date_from" name ="e_date_from" form="add_event_form" placeholder="e_date_from" required>
+                        <input type="datetime-local" class="form-control" id="e_date_from" name ="e_date_from" form="add_event_form" placeholder="e_date_from" onchange="validateDate()" required>
                         <label for="e_date_from">Event Date (From)<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <input type="datetime-local" class="form-control" id="e_date_to" name ="e_date_to" form="add_event_form" placeholder="e_date_to" required>
+                        <input type="datetime-local" class="form-control" id="e_date_to" name ="e_date_to" form="add_event_form" placeholder="e_date_to" onchange="validateDate()" required>
                         <label for="e_date_to">Event Date (To)<span class="is-required">*</span></label>
                     </div>
                 </div>
@@ -351,15 +367,22 @@
                         <label for="e_type">Event Type</label>
                     </div>
                     <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <select class="form-select" id="e_repeat" name="e_repeat" value="" form="add_event_form" required>
-                        <option value="1" selected>Doesn't Repeat</option>
-                        <option value="2">Daily</option>
-                        <option value="3">Weekly</option>
-                        <option value="4">Monthly</option>
-                        <option value="5">Annually</option>
+                        <select class="form-select" id="e_repeat" name="e_repeat" value="" form="add_event_form">
+                        <option value="" selected>Doesn't Repeat</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearl">Annually</option>
                         </select>
                         <label for="repeat">Does this event repeat?</label>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="text-muted">
+                            *Please take note that you can not repeat events with multipe dates.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -393,7 +416,7 @@
                     themeSystem: 'bootstrap5',
                     initialView: 'dayGridMonth',
                     views: {
-                        multiMonthFourMonth: {
+                        fourMonth: {
                           type: 'multiMonth',
                           duration: { months: 4 }
                         }
@@ -401,10 +424,10 @@
                     dayMaxEvents: true,
                     headerToolbar: {
                         left: 'prev,next today',
-                        center: 'addEventButton',
-                        right: 'dayGridMonth,listYear'
+                        center: 'title',
+                        right: 'dayGridMonth,listYear,fourMonth'
                       },
-               
+
                     //selectable: true,
                     editable: true,
                     droppable: true,
@@ -415,40 +438,39 @@
                           click: function() {
                             myModal.show();
                           }
-                        }
-                      },
-
-                      eventDrop: function(info){
+                        },
                         
-                        updateEvent(info);
-                        
-                       // .then((data)=>{
-                       //     Object.entries(data).forEach(([key, value]) => {
-                       //         calendar.addEvent(value)
-                       //     });
-                       // });
-
                       },
 
-                      eventResize: function(info) {
-                        updateEvent(info);
+                    eventDrop: function(info){
+                    updateEvent(info);
+                    },
 
-                        //alert(info.event.title + " end is now " + info.event.end.toISOString());
-                      },
-                      eventDidMount: function(info) {
-                        // Create close button
-                        var closeButton = document.createElement('button');
-                        closeButton.classList.add('btn', 'btn-danger', 'btn-sm', 'fc-event-close');
-                        closeButton.innerHTML = 'X';
-                        closeButton.addEventListener('click', function(e) {
-                            e.stopPropagation(); // Prevent event propagation to avoid triggering eventClick
+                    eventResize: function(info) {
+                    updateEvent(info);
+                    },
+
+                    eventClick: function(info){
+                        if (confirm('Are you sure you want to remove this event?')) {
                             calendar.getEventById(info.event.id).remove();
+                          }
+                    },
+                    
+                    eventRemove: function(info) {
+                        console.log('Event removed:', info.event.id);
+                        fetch(`/calendar/remove-event`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'}, 
+                            body: JSON.stringify({
+                                "id": info.event.id
+                            })
+                        }).then((res) => {
+                            if (res.status == 200) {
+                                return res.json();
+                            }
                         });
-                        
-                        // Position close button within the event element
-                        var eventElement = info.el.querySelector('.fc-event');
-                        eventElement.appendChild(closeButton);
-                    }
+                    },
+
 
                 });
 
@@ -479,24 +501,18 @@
 
                 document.getElementById('add_event_form').addEventListener('submit',(e)=>{
                     e.preventDefault();
-    
-                    var e_title = document.getElementById('e_title').value;
+
+                    var e_title = document.getElementById('e_title');
                     var e_all_day = document.getElementById('e_all_day');
-                    //var dateStrt = document.getElementById('e_date_from').value;
-                    //var dateEnd = document.getElementById('e_date_to').value;
-                    var dateStrt = document.getElementsByName('e_date_from').value;
-                    var dateEnd = document.getElementsByName('e_date_to').value;
-                    var e_repeat = document.getElementById('e_repeat').value;
+                    var dateStrt = document.getElementsByName('e_date_from');
+                    var dateEnd = document.getElementsByName('e_date_to');
+                    var e_repeat = document.getElementById('e_repeat');
                     
                     let allDay = false;
                     if(e_all_day.checked){
                         allDay = true;
                     }
-                    //let allDay = false;
-                    //if(dateStrt === dateEnd ){
-                    //    allDay = true;
-                    //}
-                    
+
                     let add_event_form = document.getElementById('add_event_form');
                 
                     // Submit form data using FormData
@@ -517,16 +533,36 @@
                             console.log(value);
                             calendar.addEvent(value)
                         });
-                        //calendar.addEvent(data)
-                        
-                        //calendar.addEvent(data);
-    
                     });
-           
-    
                   });
     
             })();
+
+            function validateDate(){
+                var e_title = document.getElementById('e_title');
+                var e_all_day = document.getElementById('e_all_day');
+                var dateStrt = document.getElementById('e_date_from');
+                var dateEnd = document.getElementById('e_date_to');
+                var e_repeat = document.getElementById('e_repeat');
+                var e_repeat_opt = e_repeat.getElementsByTagName("option");
+                let dateObjStrt = new Date (dateStrt.value);
+                let dateObjEnd = new Date (dateEnd.value);
+                
+                //if(e_all_day.checked){
+
+                    if(dateObjStrt.toDateString() == dateObjEnd.toDateString()){
+                        for (var i = 1; i < e_repeat_opt.length; i++) {
+                            e_repeat_opt[i].disabled = false;
+                          }
+                    }else{
+                        e_repeat.value = "";
+
+                        for (var i = 1; i < e_repeat_opt.length; i++) {
+                                e_repeat_opt[i].disabled = true;
+                              }
+                    }
+                //}
+            }
 
             function fetchCalendarEvents(calendar){
                 fetch(`/calendar/get-all-events`, {
@@ -582,7 +618,7 @@
                     if (res.status == 200) {
                         return res.json();
                     }
-                })
+                });
             }
            
 
