@@ -139,19 +139,43 @@
                                 <div class="col-sm-12">
                                     <h1 id="calendar-title">Calendar of Activities</h1>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 col-sm-12 shadow shadow-md p-2">
+                                    <div id="calendar" class="w-100 mx-auto"></div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="contaniner-fluid h-100">
+                                        <div class="card h-100 w-100 shadow shadow-md border-0">
+                                            <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h3 id="eventDetailTitle" class="fw-bolder">Nothing to show here...</h3>
+                                                </div>
+                                                    <hr>
+
+                                            </div>
+                                            <div class="row overflow-auto h-100">
+                                                <div class="col-sm-12" id="eventDetailBody">
+
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
                                 {% if current_user.type_of_user == 'admin' %}
                                 <div class="col-sm-12">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#calendarModal">
-                                        Add Event
+                                        Add Event / Activity
                                       </button>
                                 </div>
                                 {% endif %}
                             </div>
-                                
-                            <div class="col-sm-12">
-                                <div id='calendar' class="mx-auto"></div>
 
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -315,16 +339,44 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create Event</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-calendar2-plus-fill"></i> Create Event / Activity </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="container">
                 <form action="#" method="POST" id="add_event_form">
+             
+                <div class="row">
+                    <div class="form-floating p-1 col-md-6 col-sm-12 p-1">
+                        <select class="form-select" id="e_type" name="e_type">
+                            <option value="DEADLINE">DEADLINE</option>
+                            <option value="HOLIDAY">HOLIDAY</option>
+                            <option value="MEETING">MEETING</option>
+                            <option value="OTHERS">OTHERS</option>
+                            <option value="TRAINING">TRAINING</option>
+                            <option value="WORK SUSPENSION">WORK SUSPENSION</option>
+                          </select>
+                        <label for="e_type">Event/Activity Type</label>
+                    </div>
+                    <div class="form-floating col-md-6 col-sm-12 p-1">
+                        <select class="form-select" id="e_repeat" name="e_repeat" value="" form="add_event_form">
+                        <option value="" selected>Doesn't Repeat</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearl">Annually</option>
+                        </select>
+                        <label for="repeat">Does this event / activity repeat?</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-floating col-md-12 col-sm-12 p-1">
-                        <input type="text" class="form-control" id="e_title" name ="e_title" form="add_event_form" placeholder="Event Title" value="" required>
-                        <label for="e_title">Event Title<span class="is-required">*</span></label>
+                        <input type="text" class="form-control" id="e_title" name ="e_title" form="add_event_form" placeholder="Event / Activity Title" value="" required>
+                        <label for="e_title">Event/Activity Title<span class="is-required">*</span></label>
+                    </div>
+                    <div class="form-floating col-md-12 col-sm-12 p-1">
+                        <input type="text" class="form-control" id="e_venue" name ="e_venue" form="add_event_form" placeholder="Event / Activity Venue" value="" required>
+                        <label for="e_venue">Event/Activity Venue<span class="is-required">*</span></label>
                     </div>
                 </div>
                 <div class="row">
@@ -346,43 +398,17 @@
                     </div>
                 </div>
                 
-                <!-- <div class="row" id="dateTimeOnly">
-                    <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <input type="datetime-local" class="form-control" id="" name ="e_date_from" form="add_event_form" placeholder="e_date_from" required>
-                        <label for="e_date_from">Event Date (From)<span class="is-required">*</span></label>
-                    </div>
-                    <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <input type="datetime-local" class="form-control" id="" name ="e_date_to" form="add_event_form" placeholder="e_date_to" required>
-                        <label for="e_date_to">Event Date (To)<span class="is-required">*</span></label>
-                    </div>
-                </div> -->
                 <div class="row">
-                    <div class="form-floating p-1 col-md-6 col-sm-12">
-                        <select class="form-select" id="e_type" name="e_type">
-                            <option value="MEETING">MEETING</option>
-                            <option value="HOLIDAY">HOLIDAY</option>
-                            <option value="CELEBRATION">CELEBRATION</option>
-                            <option value="DEADLINE">DEADLINE</option>
-                          </select>
-                        <label for="e_type">Event Type</label>
-                    </div>
-                    <div class="form-floating col-md-6 col-sm-12 p-1">
-                        <select class="form-select" id="e_repeat" name="e_repeat" value="" form="add_event_form">
-                        <option value="" selected>Doesn't Repeat</option>
-                        <option value="daily">Daily</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearl">Annually</option>
-                        </select>
-                        <label for="repeat">Does this event repeat?</label>
-
+                    <div class="col-sm-12">
+                        <p class="text-muted p-0 m-0">
+                            *Please take note that you can not repeat events with multipe dates.
+                        </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <p class="text-muted">
-                            *Please take note that you can not repeat events with multipe dates.
-                        </p>
+                    <div class="form-floating col-md-12 col-sm-12 p-1">
+                        <textarea type="text" class="form-control" id="e_description" name ="e_description" form="add_event_form" placeholder="Remarks / Reference" style="height: 100px"></textarea>
+                        <label for="e_description">Remarks / Reference</label>
                     </div>
                 </div>
             </div>
@@ -390,11 +416,99 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
-          <button type="submit" class="btn btn-primary" form="add_event_form">Save changes</button>
+          <button type="submit" class="btn btn-primary" form="add_event_form">Save Event / Activity</button>
         </div>
       </div>
     </div>
   </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="EditCalendarModal" tabindex="-1" aria-labelledby="EditCalendarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="EditCalendarModalLabel"><i class="bi bi-calendar2-plus-fill"></i> Create Event / Activity </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="#" method="POST" id="udpate_event_form">
+                        <input type="text" id="e_id" name="e_id">
+                    <div class="row">
+                        <div class="form-floating p-1 col-md-6 col-sm-12 p-1">
+                            <select class="form-select" id="update_e_type" name="e_type">
+                                <option value="DEADLINE">DEADLINE</option>
+                                <option value="HOLIDAY">HOLIDAY</option>
+                                <option value="MEETING">MEETING</option>
+                                <option value="OTHERS">OTHERS</option>
+                                <option value="TRAINING">TRAINING</option>
+                                <option value="WORK SUSPENSION">WORK SUSPENSION</option>
+                              </select>
+                            <label for="e_type">Event/Activity Type</label>
+                        </div>
+                        <div class="form-floating col-md-6 col-sm-12 p-1">
+                            <select class="form-select" id="update_e_repeat" name="e_repeat" value="" form="udpate_event_form">
+                            <option value="" selected>Doesn't Repeat</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearl">Annually</option>
+                            </select>
+                            <label for="repeat">Does this event / activity repeat?</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating col-md-12 col-sm-12 p-1">
+                            <input type="text" class="form-control" id="update_e_title" name ="e_title" form="udpate_event_form" placeholder="Event / Activity Title" value="" required>
+                            <label for="e_title">Event/Activity Title<span class="is-required">*</span></label>
+                        </div>
+                        <div class="form-floating col-md-12 col-sm-12 p-1">
+                            <input type="text" class="form-control" id="update_e_venue" name ="e_venue" form="udpate_event_form" placeholder="Event / Activity Venue" value="" required>
+                            <label for="e_venue">Event/Activity Venue<span class="is-required">*</span></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating col-md-12 col-sm-12 p-1">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="update_e_all_day" name="e_all_day" onchange="validateDate()" unchecked>
+                                <label class="form-check-label" for="e_all_day">All day</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="dateOnly">
+                        <div class="form-floating col-md-6 col-sm-12 p-1">
+                            <input type="datetime-local" class="form-control" id="update_e_date_from" name ="e_date_from" form="udpate_event_form" placeholder="e_date_from" onchange="validateDate()" required>
+                            <label for="e_date_from">Event Date (From)<span class="is-required">*</span></label>
+                        </div>
+                        <div class="form-floating col-md-6 col-sm-12 p-1">
+                            <input type="datetime-local" class="form-control" id="update_e_date_to" name ="e_date_to" form="udpate_event_form" placeholder="e_date_to" onchange="validateDate()" required>
+                            <label for="e_date_to">Event Date (To)<span class="is-required">*</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-muted p-0 m-0">
+                                *Please take note that you can not repeat events with multipe dates.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating col-md-12 col-sm-12 p-1">
+                            <textarea type="text" class="form-control" id="update_e_description" name ="e_description" form="udpate_event_form" placeholder="Remarks / Reference" style="height: 100px"></textarea>
+                            <label for="e_description">Remarks / Reference</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
+              <button type="submit" class="btn btn-primary" form="udpate_event_form">Save Event / Activity</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 		{% endblock %}
 
@@ -405,10 +519,11 @@
 
             // self executing function here
             (function() {
-
+                var prevClickedDayEl = null;
                 var myModal = new bootstrap.Modal(document.getElementById('calendarModal'), {
                     //keyboard: false
                     });
+                var myModalEdit = new bootstrap.Modal(document.getElementById('EditCalendarModal'));
 
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -423,9 +538,9 @@
                       },
                     dayMaxEvents: true,
                     headerToolbar: {
-                        left: 'prev,next today',
+                        left: 'addEventButton',
                         center: 'title',
-                        right: 'dayGridMonth,listYear,fourMonth'
+                        right: 'prev,next today dayGridMonth,listYear,fourMonth'
                       },
 
                     //selectable: true,
@@ -451,13 +566,64 @@
                     },
 
                     eventClick: function(info){
-                        if (confirm('Are you sure you want to remove this event?')) {
-                            calendar.getEventById(info.event.id).remove();
-                          }
+                        //if (confirm('Are you sure you want to remove this event?')) {
+                        //    calendar.getEventById(info.event.id).remove();
+                        //  }
+                        let e_id = document.getElementById('e_id');
+                        let update_e_type = document.getElementById('update_e_type');
+                        let update_e_repeat = document.getElementById('update_e_repeat');
+                        let update_e_title = document.getElementById('update_e_title');
+                        let update_e_venue = document.getElementById('update_e_venue');
+                        let update_e_all_day =  document.getElementById('update_e_all_day');
+                        let update_e_date_from = document.getElementById('update_e_date_from');
+                        let update_e_date_to = document.getElementById('update_e_date_to');
+                        let update_e_description = document.getElementById('update_e_description');
+
+                        e_id.value = info.event.id;
+                        update_e_type.value = info.event.extendedProps.e_type;
+                        update_e_repeat.value = info.event.extendedProps.repeat;
+                        update_e_title.value = info.event.title;
+                        update_e_venue.value = info.event.extendedProps.venue;
+                        update_e_all_day.value = info.event.allDay;
+
+
+                        var startDate = new Date(info.event.start);
+                        var endDate = new Date(info.event.end);
+
+                        if (startDate.toDateString() !== endDate.toDateString()) {
+                            endDate.setDate(endDate.getDate() - 1);
+                        }
+
+                        //var startDate = new Date(info.event.start);
+                        //var endDate = new Date(info.event.end);
+
+                        var formattedStartDate = startDate.getFullYear() + '-' +
+                            ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + startDate.getDate()).slice(-2) + ' ' +
+                            ('0' + startDate.getHours()).slice(-2) + ':' +
+                            ('0' + startDate.getMinutes()).slice(-2) + ':' +
+                            ('0' + startDate.getSeconds()).slice(-2);
+
+                        var formattedEndDate = endDate.getFullYear() + '-' +
+                            ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + endDate.getDate()).slice(-2) + ' ' +
+                            ('0' + endDate.getHours()).slice(-2) + ':' +
+                            ('0' + endDate.getMinutes()).slice(-2) + ':' +
+                            ('0' + endDate.getSeconds()).slice(-2);
+
+                        update_e_date_from.value = formattedStartDate;
+                        update_e_date_to.value = formattedEndDate;
+
+                        console.log(formattedStartDate);
+                        console.log(formattedEndDate);
+                        update_e_description.value = info.event.extendedProps.description;
+
+
+
+                        myModalEdit.show();
                     },
                     
                     eventRemove: function(info) {
-                        console.log('Event removed:', info.event.id);
                         fetch(`/calendar/remove-event`, {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'}, 
@@ -470,6 +636,133 @@
                             }
                         });
                     },
+                    dateClick: function(info) {
+                        if (prevClickedDayEl) {
+                            prevClickedDayEl.style.backgroundColor = '';
+                        }
+            
+                        // Check if the clicked day is the same as the previously clicked day
+                        var isSameDay = prevClickedDayEl === info.dayEl;
+
+                        // Reset background color of previously clicked day if it's not the same day
+                        if (prevClickedDayEl && !isSameDay) {
+                            prevClickedDayEl.style.backgroundColor = '';
+                        }
+
+                        // Toggle background color of currently clicked day
+                        if (!isSameDay || !prevClickedDayEl) {
+                            info.dayEl.style.backgroundColor = '#ebfffb';
+                        } else {
+                            info.dayEl.style.backgroundColor = '';
+                        }
+
+                        // Update prevClickedDayEl to current day
+                        prevClickedDayEl = info.dayEl;
+
+
+                        var clickedDate = new Date(info.dateStr);
+                        var formattedClickedDate = clickedDate.getFullYear() + '-' +
+                        ('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + clickedDate.getDate()).slice(-2);
+
+
+                        var eventsForDate = [];
+                        calendar.getEvents().forEach(function(event) {
+                            //if (event.start.toDateString() === clickedDate.toDateString()) {
+                             //   eventsForDate.push(event);
+                            //}
+                            if (clickedDate >= event.start && clickedDate <= event.end) {
+                                eventsForDate.push(event);
+                            }
+                        });
+
+
+                        var formattedClickedDate = clickedDate.getFullYear() + '-' +
+                        ('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + clickedDate.getDate()).slice(-2);
+                        //+ ' ' +
+                        //('0' + clickedDate.getHours()).slice(-2) + ':' +
+                        //('0' + clickedDate.getMinutes()).slice(-2) + ':' +
+                        //('0' + clickedDate.getSeconds()).slice(-2);
+
+
+                        var date = new Date(clickedDate);
+
+                        var options = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' };
+                        var formattedTitleDate = date.toLocaleDateString('en-US', options);
+
+                        let elEventDetailTitle = document.getElementById('eventDetailTitle');
+                        let eventDetailBody = document.getElementById('eventDetailBody');
+
+                        elEventDetailTitle.innerHTML = formattedTitleDate
+
+                        let html = '';
+
+                        eventsForDate.forEach(function(event) {
+
+                            let formattedDateRange = "";
+                            let formattedTimeRange = "";
+
+                            var startDate = new Date(event.start);
+                            var endDate = new Date(event.end);
+
+                            
+                            if (startDate !== endDate) {
+                                endDate.setDate(endDate.getDate() - 1);
+                            }
+    
+                            //var formattedStartDate = startDate.getFullYear() + '-' +
+                            //    ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                            //    ('0' + startDate.getDate()).slice(-2);
+    
+                            //var formattedEndDate = endDate.getFullYear() + '-' +
+                            //    ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                            //    ('0' + endDate.getDate()).slice(-2);
+
+                            var formattedStartDate = startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                            var formattedEndDate = endDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+
+                            var formattedStartTime = formatTimeWithAmPm(startDate);
+                            var formattedEndTime = formatTimeWithAmPm(endDate);
+
+                            
+                            if(formattedStartDate == formattedEndDate){
+                                formattedDateRange = formattedStartDate;
+                                formattedTimeRange = formattedStartTime;
+                            }else{
+                                formattedDateRange = formattedStartDate + ' to ' + formattedEndDate;
+                                formattedTimeRange = formattedStartTime + ' to ' + formattedEndTime;
+                            } 
+                            
+                            if(event.allDay){
+                                formattedTimeRange = "N/A";
+                            }
+
+                            html += `
+
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="card-title">${event.title}</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-start">
+                                        <b>DATE : </b>${ formattedDateRange } <br>
+                                        <b>TIME : </b>${ formattedTimeRange } <br>
+                                        <b>VENUE : </b>${ event.extendedProps.venue }
+                                    </p>
+                                    <p class="card-text text-start">
+                                        ${ event.extendedProps.description }
+                                    </p>
+                                  <button type="button" class="btn btn-primary" onclick="removeEvent(${event.id})">Delete Event / Activity</a>
+                                </div>
+                              </div>
+                            `;
+
+                        });
+
+                        eventDetailBody.innerHTML = html
+                      },
 
 
                 });
@@ -481,6 +774,7 @@
 
                  window.closeModal = function() {
                     myModal.hide();
+                    myModalEdit.hide();
                 };
 
                 document.getElementById('e_all_day').addEventListener('change', (e)=>{
@@ -530,13 +824,29 @@
                         }
                     }).then((data)=>{
                         Object.entries(data).forEach(([key, value]) => {
-                            console.log(value);
                             calendar.addEvent(value)
                         });
                     });
                   });
     
             })();
+
+            function removeEvent(event){
+                if (confirm('Are you sure you want to remove this event?')) {
+                    calendar.getEventById(event.id).remove();
+                  }
+            }
+
+            function formatTimeWithAmPm(date) {
+                var hours = date.getHours();
+                var period = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12; // Convert 0 to 12
+                var formattedTime = ('0' + hours).slice(-2) + ':' +
+                                    ('0' + date.getMinutes()).slice(-2) + ' ' + period;
+                                    //':' +
+                                    //('0' + date.getSeconds()).slice(-2) + ' ' + period;
+                return formattedTime;
+            }
 
             function validateDate(){
                 var e_title = document.getElementById('e_title');
@@ -570,7 +880,6 @@
                 }).then(response => response.json())
                     .then(data => {
                         data.forEach((v, k)=>{
-                            console.log(v);
                             calendar.addEvent(v);
                         });
                     })
@@ -586,7 +895,6 @@
 
                 if (startDate !== endDate) {
                     endDate.setDate(endDate.getDate() - 1);
-                    //console.log('IM HERE ', endDate)
                 }
 
                 //var startDate = new Date(info.event.start);

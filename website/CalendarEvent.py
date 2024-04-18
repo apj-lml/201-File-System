@@ -17,15 +17,19 @@ calendarEvent = Blueprint('calendarEvent', __name__)
 color = {
     'MEETING':'#A4E9D5',
     'HOLIDAY':'#E4BE9E',
-    'CELEBRATION':'#CCCCFF',
+    'OTHERS':'#CCCCFF',
     'DEADLINE':'#FCCB06',
+    'TRAINING':'#340336',
+    'WORK SUSPENSION':'#fccbc7',
 }
 
 textColor = {
     'MEETING':'#194015',
     'HOLIDAY':'#ffffff',
-    'CELEBRATION':'#28283b',
+    'OTHERS':'#28283b',
     'DEADLINE':'#917503',
+    'TRAINING':'#fdd6ff',
+    'WORK SUSPENSION':'#300400',
 }
 
 
@@ -74,17 +78,33 @@ def add_event():
             # Parsing failed, try parsing without time component
             date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%d').date()
 
+        rrule = None
+        if formdata['e_repeat'] is not None and formdata['e_repeat'] != "":
+            rrule = {
+                'freq': formdata['e_repeat'],
+                # 'byweekday': ["su", "mo", "tu", "we", "th", "fr"],
+                'dtstart': formdata['e_date_from'].strftime('%Y-%m-%d %H:%M:%S')
+            }
+
+        if formdata['e_type'] == 'WORK SUSPENSION':
+                background = 'background'
+        else:
+            background = ''
+
         
         # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
         formattedEvents.append({
                 'id' : last_inserted_id,
                 'title' : formdata['e_title'],
-                'description' : None,
+                'description' : formdata['e_description'],
+                'venue' : formdata['e_venue'],
                 'start' : formdata['e_date_from'],
                 'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
                 'allDay': formdata['e_all_day'],
                 'color' : color[formdata['e_type']],
-                'textColor' : textColor[formdata['e_type']]
+                'textColor' : textColor[formdata['e_type']],
+                'display': background,
+                'rrule': rrule
                 
             })
 
@@ -164,16 +184,25 @@ def get_all_events():
                     # 'byweekday': ["su", "mo", "tu", "we", "th", "fr"],
                     'dtstart': ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S')
                 }
+            if ev.e_type == 'WORK SUSPENSION':
+                background = 'background'
+            else:
+                background = ''
+
                 
             formattedEvents.append({
                 'id' : ev.id,
                 'title' : ev.e_title,
                 'description' : ev.e_description,
+                'e_type' : ev.e_type,
+                'repeat' : ev.e_repeat,
+                'venue' : ev.e_venue,
                 'start' : ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S'),
                 'end' : e_date_to_modified_final,
                 'allDay': ev.e_all_day,
                 'color' : color[ev.e_type],
                 'textColor' : textColor[ev.e_type],
+                'display': background,
                 'rrule': rrule
             })
         

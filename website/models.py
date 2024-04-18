@@ -285,14 +285,14 @@ class Calendar_Events(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     e_title = db.Column(db.String(150))
-    e_description = db.Column(db.String(150))
+    e_venue = db.Column(db.String(150))
     e_all_day = db.Column(db.Boolean(), default=False)
     e_type = db.Column(db.String(150))
     e_repeat = db.Column(db.String(150))
     e_date_from = db.Column(db.DateTime())
     e_date_to = db.Column(db.DateTime())
-    start_recuring_date = db.Column(db.Date())
-    end_recuring_date = db.Column(db.Date())
+    e_description = db.Column(db.String(150))
+
 
     # rp_total = db.Column(db.String(150))
     # pp_total = db.Column(db.String(150))
