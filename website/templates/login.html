@@ -174,7 +174,7 @@ document.getElementById("login_form").addEventListener("submit", function(e){
   loadingScreen('block');
 	
   fetch('/', {
-		signal: AbortSignal.timeout(15000),
+		//signal: AbortSignal.timeout(15000),
 		method: 'POST',
 		body: JSON.stringify(data),
 	}).then((res)=>{

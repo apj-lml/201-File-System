@@ -113,6 +113,87 @@ def add_event():
         # return jsonify(**formdata)
 
 
+
+# ---------------------------------------------------------------------------- #
+#                           ADD CALENDAR ACTIVITIES                            #
+# ---------------------------------------------------------------------------- #
+@calendarEvent.route('/update-event-all', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def update_event_all():
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+
+        formattedEvents = []
+
+        # if formdata['e_all_day'] == 'on':
+        if 'e_all_day' in formdata:
+            formdata['e_all_day'] = True
+        else:
+            formdata['e_all_day'] = False
+
+        updateEvent = Calendar_Events.query.filter_by(id = formdata['e_id'])
+        updateEvent.update(dict(
+                        e_title = formdata['e_title'], 
+                        e_venue = formdata['e_venue'], 
+                        e_all_day = formdata['e_all_day'],
+                        e_type = formdata['e_type'], 
+                        e_repeat = formdata['e_repeat'],
+                        e_date_from = formdata['e_date_from'],
+                        e_date_to = formdata['e_date_to'],
+                        e_description = formdata['e_description'],
+                        ))
+
+        db.session.commit()
+
+        date_to_string = formdata['e_date_to']
+        date_from_string = formdata['e_date_from']
+
+        try:
+            # Try parsing with time component
+            date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%dT%H:%M').date()
+            date_from = datetime.datetime.strptime(date_from_string, '%Y-%m-%dT%H:%M').date()
+        except ValueError:
+            # Parsing failed, try parsing without time component
+            date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%d').date()
+            date_from = datetime.datetime.strptime(date_from_string, '%Y-%m-%d').date()
+
+
+        rrule = None
+        if formdata['e_repeat'] is not None and formdata['e_repeat'] != "":
+            rrule = {
+                'freq': formdata['e_repeat'],
+                # 'byweekday': ["su", "mo", "tu", "we", "th", "fr"],
+                'dtstart': date_from.strftime('%Y-%m-%d %H:%M:%S')
+            }
+
+        if formdata['e_type'] == 'WORK SUSPENSION':
+                background = 'background'
+        else:
+            background = ''
+
+
+        # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
+        formattedEvents.append({
+                'id' : formdata['e_id'],
+                'title' : formdata['e_title'],
+                'description' : formdata['e_description'],
+                'venue' : formdata['e_venue'],
+                'start' : formdata['e_date_from'],
+                'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+                'allDay': formdata['e_all_day'],
+                'color' : color[formdata['e_type']],
+                'textColor' : textColor[formdata['e_type']],
+                'display': background,
+                'rrule': rrule
+                
+            })
+
+        # return jsonify('Successfully Added Event')
+        return jsonify(formattedEvents)
+
+
+
 # ---------------------------------------------------------------------------- #
 #                           UPDATE CAL ACTIVITIES                              #
 # ---------------------------------------------------------------------------- #
