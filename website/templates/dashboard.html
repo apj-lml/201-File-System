@@ -786,7 +786,7 @@
                         });
                     }else{
                         html += `
-                            <h5 class="fst-italic text-muted mt-auto">Click on a date to show details</h5>
+                            <h5 class="fst-italic text-muted mt-auto">No Event / Activity set to this date.</h5>
                         `;
 
                     }
@@ -805,6 +805,13 @@
                  window.closeModal = function() {
                     myModal.hide();
                     myModalEdit.hide();
+
+                    let add_event_form = document.getElementById('add_event_form');
+                    let update_event_form = document.getElementById('update_event_form');
+                    add_event_form.reset();
+                    update_event_form.reset();
+
+
                 };
 
                 document.getElementById('e_all_day').addEventListener('change', (e)=>{
@@ -861,6 +868,8 @@
                         Object.entries(data).forEach(([key, value]) => {
                             calendar.addEvent(value)
                         });
+                        closeModal();
+
                     });
                   });
 
@@ -914,10 +923,11 @@
                             updatedEvent.setExtendedProp('e_type', e_type);
                             updatedEvent.setExtendedProp('repeat', value.repeat);
                             updatedEvent.setExtendedProp('description', value.description);
+
                         });
 
                         //calendar.render();
-                  $('#updateEventModal').modal('hide');
+                        closeModal();
 
                     });
                   });
