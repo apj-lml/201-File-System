@@ -26,7 +26,7 @@ def login():
     logout_user()
     session.clear()
     if request.method == 'POST':
-        print("Received data:", request.data)  # Add this line to inspect the request data
+        # print("Received data:", request.data)  # Add this line to inspect the request data
         
         # try:
         formdata = json.loads(request.data)
@@ -43,6 +43,9 @@ def login():
                 return redirect(url_for('views.dataPrivacyAct'))
             else:
                 return jsonify("incorrect_or_deactivated")
+        else:
+                return jsonify("incorrect_or_deactivated")
+
             
     return render_template('login.html', user=current_user)
     # return render_template('500.html', user=current_user)

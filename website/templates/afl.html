@@ -1332,7 +1332,20 @@
 			  var leave = document.getElementById('leave_id').value;
 
 			  if(leave == 2){
+				var fl = 0;
+
+				{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+					{% if leave_id == 2 %}
+
+						fl = {{ sum_days }};
+
+					{% endif %}
+				{% endfor %}
+				console.log(fl);
+
+
 				if (selectedDates.some(date => new Date(date).getMonth() > 10 || (new Date(date).getMonth() === 10 && new Date(date).getDate() > 15))) {
+					
 					
 					Swal.fire({
 						title: 'NOTICE!',
@@ -1352,8 +1365,27 @@
 						}
 					  });
 
-				  } else {
-					validateInclusiveDates(dateRanges, leave);
+				  }else {
+					if(fl >= 5){
+						Swal.fire({
+							title: 'NOTICE!',
+							text: `Please be advised that you have already exhausted all your Mandatory/Forced Leave (FL). If you have questions or clarifications, you may contact the Administrative Unit at (075) 505-1550.`,
+							icon: 'warning',
+							allowOutsideClick: false,
+							showCancelButton: false,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'I understand'
+						  }).then((result) => {
+							if (result.isConfirmed) {
+								fp.clear();
+								//date_filing.valueAsDate = null;
+		
+							}
+						  });
+					}else{
+						validateInclusiveDates(dateRanges, leave);
+					}
 				  }
 			  }
 
