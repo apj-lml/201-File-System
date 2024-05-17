@@ -206,6 +206,7 @@ class User(db.Model, UserMixin):
     # saln_summary = db.relationship('Saln_Summary')
     saln_summary = db.relationship('Saln_Summary', back_populates='user', uselist=False)
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
+    payslip = db.relationship('Payslip', order_by="desc(Payslip.period_from)")
     #section = db.relationship('Agency_Section')
 
     @hybrid_property
@@ -280,6 +281,15 @@ class User(db.Model, UserMixin):
             return claiming_years
 
     # emergency_contact = db.relationship('Emergency_Contact')
+
+class Payslip(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    period_from = db.Column(db.Date())
+    period_to = db.Column(db.Date())
+    filename = db.Column(db.String(150), default=False)
+    user = db.relationship('User')
+
 
 class Calendar_Events(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)

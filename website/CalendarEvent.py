@@ -73,10 +73,12 @@ def add_event():
 
         try:
             # Try parsing with time component
-            date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%dT%H:%M').date()
+            date_to = date_to_string
+            # date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%dT%H:%M')
         except ValueError:
             # Parsing failed, try parsing without time component
-            date_to = datetime.datetime.strptime(date_to_string, '%Y-%m-%d').date()
+            date_to = (datetime.datetime.timedelta(days=1)).strptime(date_to_string, '%Y-%m-%d').date()
+            
 
         rrule = None
         if formdata['e_repeat'] is not None and formdata['e_repeat'] != "":
@@ -90,7 +92,6 @@ def add_event():
                 background = 'background'
         else:
             background = ''
-
         
         # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
         formattedEvents.append({
@@ -99,7 +100,8 @@ def add_event():
                 'description' : formdata['e_description'],
                 'venue' : formdata['e_venue'],
                 'start' : formdata['e_date_from'],
-                'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+                # 'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
+                'end' : date_to,
                 'allDay': formdata['e_all_day'],
                 'color' : color[formdata['e_type']],
                 'textColor' : textColor[formdata['e_type']],

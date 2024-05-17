@@ -145,7 +145,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 id="calendar-title">Calendar of Activities</h1> 
-                                    <!-- <button onclick="changeCalendarSize('max')"> maximize</button> <button onclick="printCalendar()"> Print</button> -->
+                                    <!-- <button id="changeSizeBtn" onclick="changeCalendarSize('max')"> maximize</button> <button onclick="printCalendar()"> Print</button> -->
                                 </div>
                             </div>
                             <div class="row mx-auto">
@@ -361,7 +361,7 @@
                             <option value="HOLIDAY">HOLIDAY</option>
                             <option value="MEETING">MEETING</option>
                             <option value="OTHERS">OTHERS</option>
-                            <option value="TRAINING">TRAINING</option>
+                            <option value="TRAINING" selected>TRAINING/SEMINAR</option>
                             <option value="WORK SUSPENSION">WORK SUSPENSION</option>
                           </select>
                         <label for="e_type">Event/Activity Type</label>
@@ -379,7 +379,7 @@
                 </div>
                 <div class="row">
                     <div class="form-floating col-md-12 col-sm-12 p-1">
-                        <input type="text" class="form-control" id="e_title" name ="e_title" form="add_event_form" placeholder="Event / Activity Title" value="" required>
+                        <textarea  style="height: 100px" class="form-control" id="e_title" name ="e_title" form="add_event_form" placeholder="Event / Activity Title" value="" required></textarea>
                         <label for="e_title">Event/Activity Title<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating col-md-12 col-sm-12 p-1">
@@ -391,7 +391,7 @@
                     <div class="form-floating col-md-12 col-sm-12 p-1">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="e_all_day" name="e_all_day" onchange="validateDate()" unchecked>
-                            <label class="form-check-label" for="e_all_day">All day</label>
+                            <label class="form-check-label" for="e_all_day">8:00 AM to 5:00 PM</label>
                         </div>
                     </div>
                 </div>
@@ -449,7 +449,7 @@
                                 <option value="HOLIDAY">HOLIDAY</option>
                                 <option value="MEETING">MEETING</option>
                                 <option value="OTHERS">OTHERS</option>
-                                <option value="TRAINING">TRAINING</option>
+                                <option value="TRAINING" selected>TRAINING/SEMINAR</option>
                                 <option value="WORK SUSPENSION">WORK SUSPENSION</option>
                               </select>
                             <label for="e_type">Event/Activity Type</label>
@@ -467,7 +467,7 @@
                     </div>
                     <div class="row">
                         <div class="form-floating col-md-12 col-sm-12 p-1">
-                            <input type="text" class="form-control" id="update_e_title" name ="e_title" form="update_event_form" placeholder="Event / Activity Title" value="" required>
+                            <textarea  style="height: 100px" class="form-control" id="update_e_title" name ="e_title" form="update_event_form" placeholder="Event / Activity Title" value="" required></textarea>
                             <label for="e_title">Event/Activity Title<span class="is-required">*</span></label>
                         </div>
                         <div class="form-floating col-md-12 col-sm-12 p-1">
@@ -479,7 +479,7 @@
                         <div class="form-floating col-md-12 col-sm-12 p-1">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="update_e_all_day" name="e_all_day" onchange="validateDateUpdateForm()" unchecked>
-                                <label class="form-check-label" for="e_all_day">All day</label>
+                                <label class="form-check-label" for="e_all_day">8:00 AM to 5:00 PM</label>
                             </div>
                         </div>
                     </div>
@@ -524,6 +524,7 @@
         <!-- <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script> -->
 
         <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar/core/locales/es.global.js'></script> -->
+        
         <script type="application/javascript">
 
             // self executing function here
@@ -549,8 +550,8 @@
                     dayMaxEvents: true,
                     headerToolbar: {
                         left: 'title',
-                        center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %}',
-                        right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listYear,fourMonth'
+                        center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %} changeSizeButton',
+                        right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listYear,listMonth,fourMonth'
                       },
 
                     //selectable: true,
@@ -565,6 +566,12 @@
                             myModal.show();
                           }
                         },
+                        changeSizeButton: {
+                            text: 'print',
+                            click: function() {
+                                changeCalendarSize();
+                            }
+                          }
                         
                       },
 
@@ -577,6 +584,7 @@
                     },
 
                     eventClick: function(info){
+
                         //if (confirm('Are you sure you want to remove this event?')) {
                         //    calendar.getEventById(info.event.id).remove();
                         //  }
@@ -662,8 +670,43 @@
                             }
                         });
                     },
+                    eventContent: function(arg) {
+                        // Customize the rendering of placeholder events if needed
+                        if (arg.event.title === 'No events') {
+                          return {
+                            html: '<div style="background-color: #f0f0f0; color: #999;">' + arg.event.title + '</div>'
+                          };
+                        }
+                        return {
+                          html: '<div>' + arg.event.title + '</div>'
+                        };
+                      },
+
+                      events: function(fetchInfo, successCallback, failureCallback) {
+                        var events = [
+                          // Your real events here
+                        ];
+              
+                        // Generate placeholder events for each day of the month
+                        var start = new Date(fetchInfo.start);
+                        var end = new Date(fetchInfo.end);
+                        while (start < end) {
+                          var dateStr = start.format('YYYY-MM-DD');
+                          if (!events.some(event => event.start === dateStr)) {
+                            events.push({
+                              title: 'No events',
+                              start: dateStr,
+                              allDay: true
+                            });
+                          }
+                          start.add(1, 'day');
+                        }
+              
+                        successCallback(events);
+                    },
 
                     dateClick: function(info) {
+
                         if (prevClickedDayEl) {
                             prevClickedDayEl.style.backgroundColor = '';
                         }
@@ -688,9 +731,9 @@
 
 
                         var clickedDate = new Date(info.dateStr);
-                        var formattedClickedDate = clickedDate.getFullYear() + '-' +
-                        ('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
-                        ('0' + clickedDate.getDate()).slice(-2);
+                        //var formattedClickedDate = clickedDate.getFullYear() + '-' +
+                        //('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
+                        //('0' + clickedDate.getDate()).slice(-2);
 
 
                         var eventsForDate = [];
@@ -698,15 +741,18 @@
                             //if (event.start.toDateString() === clickedDate.toDateString()) {
                              //   eventsForDate.push(event);
                             //}
-                            if (clickedDate >= event.start && clickedDate <= event.end) {
+                            console.log(clickedDate);
+                            console.log('==>', new Date(event.start).toLocaleDateString('en-US'));
+
+                            if (new Date(clickedDate).toLocaleDateString('en-US') >= new Date(event.start).toLocaleDateString('en-US') && new Date(clickedDate).toLocaleDateString('en-US') <= new Date(event.end).toLocaleDateString('en-US')) {
                                 eventsForDate.push(event);
                             }
                         });
 
 
-                        var formattedClickedDate = clickedDate.getFullYear() + '-' +
-                        ('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
-                        ('0' + clickedDate.getDate()).slice(-2);
+                        //formattedClickedDate = clickedDate.getFullYear() + '-' +
+                        //('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
+                        //('0' + clickedDate.getDate()).slice(-2);
                         //+ ' ' +
                         //('0' + clickedDate.getHours()).slice(-2) + ':' +
                         //('0' + clickedDate.getMinutes()).slice(-2) + ':' +
@@ -734,9 +780,8 @@
 
                             var startDate = new Date(event.start);
                             var endDate = new Date(event.end);
-
                             
-                            if (startDate !== endDate) {
+                            if (startDate.toLocaleDateString('en-US') !== endDate.toLocaleDateString('en-US')) {
                                 endDate.setDate(endDate.getDate() - 1);
                             }
     
@@ -758,7 +803,8 @@
                             
                             if(formattedStartDate == formattedEndDate){
                                 formattedDateRange = formattedStartDate;
-                                formattedTimeRange = formattedStartTime;
+                                formattedTimeRange = formattedStartTime + ' to ' + formattedEndTime;
+                                //formattedTimeRange = formattedStartTime;
                             }else{
                                 formattedDateRange = formattedStartDate + ' to ' + formattedEndDate;
                                 formattedTimeRange = formattedStartTime + ' to ' + formattedEndTime;
@@ -873,6 +919,7 @@
                         }
                     }).then((data)=>{
                         Object.entries(data).forEach(([key, value]) => {
+                            console.log(value);
                             calendar.addEvent(value)
                         });
                         closeModal();
@@ -945,14 +992,9 @@
           //  })();
 
           function printCalendar() {
-                // Hide all elements except the content within #calendar_content
-                var elementsToHide = document.querySelectorAll('body > *:not(#calendar_content)');
-                elementsToHide.forEach(function(element) {
-                    element.style.display = 'none';
-                });
-
+       
                 // Trigger the browser's print functionality
-                //window.print();
+                window.print();
 
                 // Restore the original styles after printing is done
                 //elementsToHide.forEach(function(element) {
@@ -960,38 +1002,60 @@
                 //});
             }
           
-           function changeCalendarSize(ssize){
+           function changeCalendarSize(){
+
                 let calendar_content = document.getElementById('calendar_content');
 
-                // Remove any existing classes that may affect the size and position
-                calendar_content.classList.remove('position-relative', 'p-3', 'mb-3');
-              
-                // Add classes to make it fill the screen
-                //screen.classList.add('position-fixed', 'top-0', 'left-0', 'vh-100', 'vw-100', 'bg-light');
-                
-                calendar_content.classList.add('bg-white', 'position-fixed', 'translate-middle', 'w-100', 'vh-100', 'top-50', 'start-50', 'd-flex', 'align-items-center', 'justify-content-center');
-              
-                // Optionally, you can remove the border and shadow to give a cleaner look
-                calendar_content.classList.remove('border', 'border-light', 'shadow');
-              
-                calendar_content.style.zIndex = '9999';
-              
-                // Update other child elements if needed
-                // Example: Set full height for child elements inside the screen
-                // screen.querySelectorAll('.row').forEach(function(row) {
-                //   row.classList.add('h-100');
-                // });
-              
-                // You may also want to update the button text to "Minimize" after maximizing
-                var maximizeButton = calendar_content.querySelector('button');
-                maximizeButton.innerText = 'Minimize';
+                var maximizeButton = document.getElementsByClassName('fc-changeSizeButton-button');
 
-                //calendar.setOption('height', 10);
-              
-                //calendar.render();
+
+                if(maximizeButton[0].innerText == 'Minimize'){
+                    restoreSize();
+                }else{
+                    // Remove any existing classes that may affect the size and position
+                    calendar_content.classList.remove('position-relative', 'p-3', 'mb-3');
+                
+                    // Add classes to make it fill the screen
+                    //screen.classList.add('position-fixed', 'top-0', 'left-0', 'vh-100', 'vw-100', 'bg-light');
+                    
+                    calendar_content.classList.add('bg-white', 'position-fixed', 'translate-middle', 'w-100', 'vh-100', 'top-50', 'start-50', 'd-flex', 'align-items-center', 'justify-content-center');
+                
+                    // Optionally, you can remove the border and shadow to give a cleaner look
+                    calendar_content.classList.remove('border', 'border-light', 'shadow');
+                
+                    calendar_content.style.zIndex = '9999';
+                
+                    // Ensure the button exists and update its text and onclick event
+                    if (maximizeButton.length > 0) {
+                        maximizeButton[0].innerText = 'Minimize';
+                        printCalendar();
+                    }
+
+                    calendar.updateSize();
+                }
+            }
+
+            // Function to restore the original size of the screen
+            function restoreSize() {
+                let calendar_content = document.getElementById('calendar_content');
+                var maximizeButton = document.getElementsByClassName('fc-changeSizeButton-button');
+
+                maximizeButton[0].innerText = 'Maximize';
+
+                // Remove classes added for maximizing
+                calendar_content.classList.remove('bg-white', 'position-fixed', 'translate-middle', 'w-100', 'vh-100', 'top-50', 'start-50', 'd-flex', 'align-items-center', 'justify-content-center');
+
+                calendar_content.classList.add('position-relative', 'p-3', 'mb-3');
+
+                calendar_content.classList.add('border', 'border-light', 'shadow');
+
+                calendar_content.style.zIndex = '10';
+
+
                 calendar.updateSize();
 
             }
+  
 
             function mobilecheck() {
                 var check = false;

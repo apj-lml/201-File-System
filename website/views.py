@@ -2,7 +2,7 @@ import calendar
 import json
 import os
 from datetime import date, datetime
-
+from collections import defaultdict
 
 import pytz
 from docx.shared import Cm
@@ -42,6 +42,31 @@ def page_not_found(e):
 def getdata(url): 
     r = requests.get(url) 
     return r.text
+
+@views.route('/payslips/<emp_id>', methods=['GET', 'POST'])
+# @login_required
+def payslip(emp_id):
+    
+    employee_id = session.get('user_id')
+    user = User.query.get(employee_id)
+
+    if request.method == 'POST':
+        # Handle POST request if needed
+        pass
+
+    elif request.method == 'GET':
+        payslips_by_year_month = defaultdict(lambda: defaultdict(list))
+
+        for payslip in user.payslip:
+            # Assuming 'period_from' is a datetime field
+            year = payslip.period_from.year
+            month = payslip.period_from.strftime('%B')  # Full month name
+
+            payslips_by_year_month[year][month].append(payslip)
+
+        return render_template('payslip.html', payslips_by_year_month=payslips_by_year_month, user_profile=user,
+                                               date_now=datetime.now(PST))
+
 
 @views.route('/data-privacy-act', methods=['GET', 'POST'])
 # @login_required
