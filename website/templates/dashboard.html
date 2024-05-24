@@ -537,7 +537,7 @@
 
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
-
+                    allDayText:'8:00am-5:00pm',
                     themeSystem: 'bootstrap5',
                     initialView: mobilecheck() ? "dayGridWeek" : "dayGridMonth",
                     views: {
@@ -551,7 +551,7 @@
                     headerToolbar: {
                         left: 'title',
                         center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %} changeSizeButton',
-                        right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listYear,listMonth,fourMonth'
+                        right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listMonth,fourMonth'
                       },
 
                     //selectable: true,
@@ -669,40 +669,6 @@
                                 return res.json();
                             }
                         });
-                    },
-                    eventContent: function(arg) {
-                        // Customize the rendering of placeholder events if needed
-                        if (arg.event.title === 'No events') {
-                          return {
-                            html: '<div style="background-color: #f0f0f0; color: #999;">' + arg.event.title + '</div>'
-                          };
-                        }
-                        return {
-                          html: '<div>' + arg.event.title + '</div>'
-                        };
-                      },
-
-                      events: function(fetchInfo, successCallback, failureCallback) {
-                        var events = [
-                          // Your real events here
-                        ];
-              
-                        // Generate placeholder events for each day of the month
-                        var start = new Date(fetchInfo.start);
-                        var end = new Date(fetchInfo.end);
-                        while (start < end) {
-                          var dateStr = start.format('YYYY-MM-DD');
-                          if (!events.some(event => event.start === dateStr)) {
-                            events.push({
-                              title: 'No events',
-                              start: dateStr,
-                              allDay: true
-                            });
-                          }
-                          start.add(1, 'day');
-                        }
-              
-                        successCallback(events);
                     },
 
                     dateClick: function(info) {
@@ -1163,18 +1129,56 @@
             }
 
             function fetchCalendarEvents(calendar){
+
                 fetch(`/calendar/get-all-events`, {
                     method: 'GET',
                 }).then(response => response.json())
                     .then(data => {
+
+                        dateStrtForNoEvent = new Date('2024-01-01');
+                        dateEndForNoEvent = new Date('2024-12-31');
+
                         data.forEach((v, k)=>{
                             calendar.addEvent(v);
-                        });
+                            console.log(v);
+                         });
+
+                        //console.log(new Date(data[0].start).toISOString())
+                        //console.log(new Date(dateStrtForNoEvent).toISOString())
+                        while (dateStrtForNoEvent < dateEndForNoEvent) {
+                            //console.log("<=====>", dateStrtForNoEvent);
+                            if (!(data.some(mydata => new Date(mydata.start).toISOString()) === new Date(dateStrtForNoEvent).toISOString())) {
+
+                                   // var test = new Date(v.start).toISOString().split('T')[0] === dateStrtForNoEvent.toISOString().split('T')[0];
+
+                                    if(test){
+                                        console.log('======test=======', test)
+
+                                    }
+                                    if(!test){
+                                        calendar.addEvent({
+                                            title: 'asd',
+                                            editable: false,
+                                            start: dateStrtForNoEvent,
+                                            allDay: true
+                                        });
+                                    }
+        
+                                
+
+                            }
+
+                            dateStrtForNoEvent.setDate(dateStrtForNoEvent.getDate() + 1);
+                        }
+
+
                     })
                     .catch(error => {
                         console.log(error);
                     });
-            }
+
+
+                }
 
 
             function updateEvent(info){

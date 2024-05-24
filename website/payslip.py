@@ -5,19 +5,48 @@ from flask_principal import Permission, RoleNeed
 from .models import Agency_Unit
 from . import db
 
-payslip = Blueprint('payslip', __name__)
+payslipControl = Blueprint('payslipControl', __name__)
 
 admin_permission = Permission(RoleNeed('admin'))
 
-@payslip.errorhandler(403)
+@payslipControl.errorhandler(403)
 def page_not_found(e):
 	session['redirected_from'] = request.url
 	return redirect(url_for('auth.login'))
 
+
 # ---------------------------------------------------------------------------- #
 #                         GET LIST OF UNITS IN SECTION                         #
 # ---------------------------------------------------------------------------- #
-@payslip.route('/payslips/<userId>', methods=['POST', 'GET'])
+@payslipControl.route('/upload-payslips/<userId>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def upload_payslips(userId):
+  
+    if request.method == "POST":
+        formdata = request.form.to_dict()
+        
+        # Use getlist to get all uploaded files
+        upload_payslips = request.files.getlist('payslipFile')
+
+        for payslipFile in upload_payslips:
+            if payslipFile.filename == '':
+                print('No selected file')
+                continue  # Skip to the next file
+
+            # Secure the filename and save the file
+            filename = secure_filename(payslipFile.filename)
+
+            payslipFile.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            print(payslipFile.filename)
+
+        return 'Files successfully uploaded'
+
+
+# ---------------------------------------------------------------------------- #
+#                         GET LIST OF UNITS IN SECTION                         #
+# ---------------------------------------------------------------------------- #
+@payslipControl.route('/payslips/<userId>', methods=['POST', 'GET'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def get_payslip(userId):
@@ -43,7 +72,7 @@ def get_payslip(userId):
 # ---------------------------------------------------------------------------- #
 #                         GET LIST OF UNITS IN SECTION                         #
 # ---------------------------------------------------------------------------- #
-@payslip.route('/get-all-payslip/', methods=['POST', 'GET'])
+@payslipControl.route('/get-all-payslip/', methods=['POST', 'GET'])
 @login_required
 # @admin_permission.require(http_exception=403)
 def get_all_payslip():

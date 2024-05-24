@@ -36,7 +36,6 @@
 		</div> -->
 		<div class="card mb-3">
 			<div class="card-body">
-				<form id="add_polo_form" action="#" method="POST"></form>
 				<div class="card text-white bg-blue shadow-sm mb-3" >
 					<div class="card-header">
 						<h3 class="card-title fw-bolder text-white m-0"><i class="bi bi-wallet2"></i> PAYSLIPS</h3>
@@ -81,7 +80,6 @@
 												  </div>
 												</div>
 											  </div>
-
 												
 											{% endfor %}
 										</div>
@@ -91,7 +89,12 @@
 				
 								{% endfor %}
 								<div class="col-sm-12 text-center mt-2">
-									<button type="submit" class="btn btn-primary" form="add_polo_form">SAVE</button>
+									<form id="upload_form" action="#" method="POST" enctype="multipart/form-data">
+										<input type="date" name="payroll_period_from" id="payroll_period_from">
+										<input type="date" name="payroll_period_to" id="payroll_period_to">
+										<input type="file" name="payslipFiles" id="payslipFiles" multiple>
+										<button type="submit" class="btn btn-primary">SAVE</button>
+									</form>
 								</div>
 							</div>
 
@@ -116,16 +119,16 @@
 {%block scripts%}
 <script type="text/javascript">
 	///ld/add-learning-and-development/{{emp_id}}
-	document.getElementById('add_polo_form').addEventListener('submit', (e)=>{
+	document.getElementById('upload_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
-		var formElem = document.getElementById("add_polo_form"); 
+		var formElem = document.getElementById("upload_form"); 
 		let formData = new FormData(formElem);
 
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
 		
 		console.log(data)
-		fetch('/shirt/add-shirt-size/{{user_profile.id}}', {
+		fetch('/payslipControl/upload-payslips/{{user_profile.id}}', {
 				method: 'POST',
 				body: formData
 			}).then((res)=>{

@@ -176,6 +176,7 @@ def create_app():
 	from .salnReports import salnReports
 	from .fileLogs import FileLogs
 	from .CalendarEvent import calendarEvent
+	from .payslip import payslipControl
 
 
 	app.register_blueprint(auth, url_prefix='/')
@@ -214,6 +215,7 @@ def create_app():
 	app.register_blueprint(salnReports, url_prefix = '/salnReports')
 	app.register_blueprint(FileLogs, url_prefix = '/fileLogs')
 	app.register_blueprint(calendarEvent, url_prefix = '/calendar')
+	app.register_blueprint(payslipControl, url_prefix = '/payslipControl')
 
 
 	# ---------------------------- END OF REGISTRATION --------------------------- #
