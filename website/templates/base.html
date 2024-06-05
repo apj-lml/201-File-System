@@ -276,9 +276,11 @@
           <li>
             <a href="/directories"><i class="fas fa-book"></i> Directories</a>
           </li>
+          {% if current_user.type_of_user == 'admin' %}
           <li>
             <a href="/payslips/{{current_user.id}}"><i class="bi bi-wallet2"></i> Payslips</a>
           </li>
+          {% endif %}
           <li>
             <a href="#otherSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-box-seam"></i> Others</a>
             <ul class="collapse list-unstyled" id="otherSubmenu">

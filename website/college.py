@@ -28,8 +28,6 @@ def add_college(emp_id):
         formdata = request.form.to_dict()
         college_no_fields = formdata["college_no_fields"]
         
-        print("this is the ID: " + emp_id)
-        pprint(formdata)
 # ---------------------------------------------------------------------------- #
 #                                CAPITALIZE DATA                               #
 # ---------------------------------------------------------------------------- #
@@ -42,24 +40,30 @@ def add_college(emp_id):
 
 # ---------------------------------------------------------------------------- #
         for x in range(1, int(college_no_fields)+1):
-            # print('IM HERE')
+
             c_school = formdata['c_school['+str(x)+']']
             c_degree_course = formdata['c_degree_course['+str(x)+']']
             c_period_of_attendance_from = formdata['c_period_of_attendance_from['+str(x)+']']
             c_period_of_attendance_to = formdata['c_period_of_attendance_to['+str(x)+']']
             c_highest_level_units_earned = formdata['c_highest_level_units_earned['+str(x)+']']
-            c_highest_grade_year_units = formdata['c_highest_grade_year_units['+str(x)+']']
-            c_scholarship_academic_honor = formdata['c_scholarship_academic_honor['+str(x)+']']
+            c_highest_grade_year_units = 'N/A'
+            c_scholarship_academic_honor = 'N/A'
+
+            if 'c_highest_grade_year_units['+str(x)+']' in formdata and formdata['c_highest_grade_year_units['+str(x)+']'] is not None and formdata['c_highest_grade_year_units['+str(x)+']'] != "":
+                c_highest_grade_year_units = formdata['c_highest_grade_year_units['+str(x)+']']
+
+            if 'c_scholarship_academic_honor['+str(x)+']' in formdata and formdata['c_scholarship_academic_honor['+str(x)+']'] is not None and formdata['c_scholarship_academic_honor['+str(x)+']'] != "":
+                c_scholarship_academic_honor = formdata['c_scholarship_academic_honor['+str(x)+']']
             
-            if(c_school != "" and c_degree_course != "" and c_period_of_attendance_from != "" and c_period_of_attendance_to != "" and c_highest_level_units_earned != "" and c_scholarship_academic_honor != ""):
+            if(c_school != "" and c_degree_course != "" and c_period_of_attendance_from != "" and c_period_of_attendance_to != ""):
                 new_college = College(
                     c_school = formdata['c_school['+str(x)+']'],
                     c_degree_course = formdata['c_degree_course['+str(x)+']'],
                     c_period_of_attendance_from = formdata['c_period_of_attendance_from['+str(x)+']'],
                     c_period_of_attendance_to = formdata['c_period_of_attendance_to['+str(x)+']'],
                     c_highest_level_units_earned = formdata['c_highest_level_units_earned['+str(x)+']'],
-                    c_highest_grade_year_units = formdata['c_highest_grade_year_units['+str(x)+']'],
-                    c_scholarship_academic_honor = formdata['c_scholarship_academic_honor['+str(x)+']'],
+                    c_highest_grade_year_units = c_highest_grade_year_units,
+                    c_scholarship_academic_honor = c_scholarship_academic_honor,
                     user_id = emp_id)
                 db.session.add(new_college)
                 db.session.commit()
