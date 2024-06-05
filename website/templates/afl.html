@@ -158,7 +158,7 @@
 								</div>
 								<div class="d-md-flex flex-column mb-0">
 									<div class="form-floating flex-fill col-sm-12 pb-0 p-1 has-validation">
-										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1" max="999">
+										<input type="number" class="form-control" name ="no_working_days_applied_for" id="no_working_days_applied_for" placeholder="Rating" form="add_afl_form" required step="any" min="1" max="999" onchange="validateNoDays(this)">
 										<label id="no_working_days_applied_for_label" for="no_working_days_applied_for">Number of Working Days Applied for<span class="is-required">*</span></label>
 										<div class="invalid-feedback">
 											Please provide a valid number of working days (min: 1 | max: 999)
@@ -554,6 +554,78 @@
 		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
 		  var forms = document.querySelectorAll('.needs-validation')
 	  
+	function validateNoDays(el){
+		var leave = document.getElementById('leave_id').value;
+		if(leave == 2){
+			var fl = 0;
+
+			{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+				{% if leave_id == 2 %}
+
+					fl = {{ sum_days }};
+
+				{% endif %}
+			{% endfor %}
+
+			if((parseInt(fl) + parseInt(el.value)) > 5){
+				Swal.fire({
+					title: 'NOTICE!',
+					html: `<p class="fs-5">Please be advised that your input for number of days will go above the maximum five (5) Mandatory/Forced Leave (FL).<p> <br>FL already used: ${fl}`,
+					icon: 'warning',
+					allowOutsideClick: false,
+					showCancelButton: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'I understand'
+				  }).then((result) => {
+					if (result.isConfirmed) {
+						fp.clear();
+						el.value = "";
+
+						//date_filing.valueAsDate = null;
+
+					}
+				  });
+			}
+		}
+
+
+			if(leave == 6){
+				var spl = 0;
+
+				{% for leave_id, sum_days in grouped_afls_dict2.items() %}
+					{% if leave_id == 6 %}
+
+						spl = {{ sum_days }};
+
+					{% endif %}
+				{% endfor %}
+
+				console.log("total "+parseInt(spl) + parseInt(el.value))
+				
+				if( (parseInt(spl) + parseInt(el.value)) > 3 ){
+					Swal.fire({
+						title: 'NOTICE!',
+						html: `<p class="fs-5">Please be advised that your input for number of days will go above the maximum three (3) Special Privilege Leave (SPL) allowed per year.</p><br>SPL already used: ${spl}`,
+						icon: 'warning',
+						allowOutsideClick: false,
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'I understand'
+					  }).then((result) => {
+						if (result.isConfirmed) {
+							fp.clear();
+							el.value = "";
+							//date_filing.valueAsDate = null;
+	
+						}
+					  });
+				}
+
+		}
+	}
+
 
 	function validateDateFiling(el){
 		var leave_type = document.getElementById('leave_id');
@@ -1341,11 +1413,8 @@
 
 					{% endif %}
 				{% endfor %}
-				console.log(fl);
-
 
 				if (selectedDates.some(date => new Date(date).getMonth() > 10 || (new Date(date).getMonth() === 10 && new Date(date).getDate() > 15))) {
-					
 					
 					Swal.fire({
 						title: 'NOTICE!',
