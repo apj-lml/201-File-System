@@ -72,10 +72,15 @@
 												  </h2>
 												  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
 													<div class="accordion-body">
-														{% for payslip in payslips %}
-														<strong>{{ payslip.filename }}</strong>
-
-														{% endfor %}
+														<ul>
+															{% for payslip in payslips %}
+															<li>
+																<a href="{{ url_for('payslipControl.download_payslip', filename=payslip.filename) }}">{{ payslip.filename }}</a>
+															</li>
+	
+															{% endfor %}
+														</ul>
+	
 													</div>
 												  </div>
 												</div>
@@ -89,11 +94,17 @@
 				
 								{% endfor %}
 								<div class="col-sm-12 text-center mt-2">
+
 									<form id="upload_form" action="#" method="POST" enctype="multipart/form-data">
-										<input type="date" name="payroll_period_from" id="payroll_period_from">
-										<input type="date" name="payroll_period_to" id="payroll_period_to">
+										<!-- <input type="date" name="payroll_period_from" id="payroll_period_from">
+										<input type="date" name="payroll_period_to" id="payroll_period_to"> -->
+										{% if current_user.type_of_user == 'admin' %}
+
 										<input type="file" name="payslipFiles" id="payslipFiles" multiple>
 										<button type="submit" class="btn btn-primary">SAVE</button>
+
+										{% endif %}
+
 									</form>
 								</div>
 							</div>
@@ -121,25 +132,33 @@
 	///ld/add-learning-and-development/{{emp_id}}
 	document.getElementById('upload_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
-		var formElem = document.getElementById("upload_form"); 
+		var formElem = document.getElementById("upload_form");
+		// Retrieve the file input element
+		var fileInput = document.getElementById('payslipFiles');
+
 		let formData = new FormData(formElem);
+
+
 
 		const data = {}
 		formData.forEach((value, key) => (data[key] = value))
 		
-		console.log(data)
+		loadingScreen('block');
 		fetch('/payslipControl/upload-payslips/{{user_profile.id}}', {
 				method: 'POST',
 				body: formData
 			}).then((res)=>{
 				if (res.status == 200){
 					// document.getElementById('add_polo_form').reset();
+				loadingScreen('none');
+
 				}
 				return res.json();
 
 			}).then((data)=>{
-					triggerToast(data); //this is the returned error message
-					window.location.reload();
+
+					 triggerToast("Finished uploading!"); //this is the returned error message
+					// window.location.reload();
 			})
 
 	});

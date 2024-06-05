@@ -44,11 +44,12 @@ def getdata(url):
     return r.text
 
 @views.route('/payslips/<emp_id>', methods=['GET', 'POST'])
-# @login_required
+@login_required
+@admin_permission.require(http_exception=403)
 def payslip(emp_id):
     
     employee_id = session.get('user_id')
-    user = User.query.get(employee_id)
+    user = User.query.get(emp_id)
 
     if request.method == 'POST':
         # Handle POST request if needed
@@ -64,8 +65,10 @@ def payslip(emp_id):
 
             payslips_by_year_month[year][month].append(payslip)
 
-        return render_template('payslip.html', payslips_by_year_month=payslips_by_year_month, user_profile=user,
-                                               date_now=datetime.now(PST))
+        return render_template('payslip.html',
+                                    payslips_by_year_month=payslips_by_year_month, 
+                                    user_profile=user,
+                                    date_now=datetime.now(PST))
 
 
 @views.route('/data-privacy-act', methods=['GET', 'POST'])

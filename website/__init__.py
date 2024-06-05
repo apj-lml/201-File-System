@@ -29,6 +29,7 @@ DB_HOST = 'aljohnjacinto.mysql.pythonanywhere-services.com'
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'files')
+UPLOAD_FOLDER_PAYSLIP = os.path.join(APP_ROOT, 'static', 'payslips')
 FILE_LOGS_FOLDER = os.path.join(APP_ROOT, 'static', 'file_logs_folder')
 
 # def page_not_found(e):
@@ -45,12 +46,13 @@ def create_app():
 	# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
 	#mysql database offline
-	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/aljohnjacinto${DB_NAME}'
+	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:rootpassword@localhost/aljohnjacinto${DB_NAME}'
 
 	#mysql database online
-	app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
+	# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{DB_USERNAME}:rootpassword@{DB_HOST}/aljohnjacinto${DB_NAME}'
 
 	app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+	app.config['UPLOAD_FOLDER_PAYSLIP'] = UPLOAD_FOLDER_PAYSLIP
 	app.config['FILE_LOGS_FOLDER'] = FILE_LOGS_FOLDER
 	app.config['MAX_CONTENT_LENGTH'] = 250 * 1024 * 1024    # 250 Mb limit
 
