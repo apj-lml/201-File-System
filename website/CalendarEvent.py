@@ -254,6 +254,7 @@ def get_all_events():
 
         for ev in calendarEvents:
             if ev.e_all_day:
+                # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
                 e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
             else:
                 e_date_to_modified = ev.e_date_to
@@ -272,7 +273,6 @@ def get_all_events():
             else:
                 background = ''
 
-                
             formattedEvents.append({
                 'id' : ev.id,
                 'title' : ev.e_title,
@@ -288,9 +288,6 @@ def get_all_events():
                 'display': background,
                 'rrule': rrule
             })
-        
-
-        # print("=========>", formattedEvents)
 
               
         return jsonify(formattedEvents)

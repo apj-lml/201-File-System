@@ -52,9 +52,8 @@
             max-width: 1100px;
            /* margin: 40px auto; */
           }
-        
+
     </style>
-<!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='print-js/print.min.css')}}"> -->
 
 {% endblock %}
 
@@ -144,8 +143,7 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h1 id="calendar-title">Calendar of Activities</h1> 
-                                    <!-- <button id="changeSizeBtn" onclick="changeCalendarSize('max')"> maximize</button> <button onclick="printCalendar()"> Print</button> -->
+                                    <h1 id="calendar-title">Calendar of Activities</h1> <button onclick="printCalendarList()">Print List</button> <button onclick="printCalendar()">Print Calendar</button>
                                 </div>
                             </div>
                             <div class="row mx-auto">
@@ -521,7 +519,6 @@
 		{% endblock %}
 
         {% block scripts %}
-        <!-- <script src="{{ url_for('static', filename='print-js/print.min.js') }}"></script> -->
 
         <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar/core/locales/es.global.js'></script> -->
         
@@ -550,7 +547,7 @@
                     dayMaxEvents: true,
                     headerToolbar: {
                         left: 'title',
-                        center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %} changeSizeButton',
+                        center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %}',
                         right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listMonth,fourMonth'
                       },
 
@@ -565,14 +562,7 @@
                           click: function() {
                             myModal.show();
                           }
-                        },
-                        changeSizeButton: {
-                            text: 'print',
-                            click: function() {
-                                changeCalendarSize();
-                            }
-                          }
-                        
+                        }, 
                       },
 
                     eventDrop: function(info){
@@ -697,33 +687,24 @@
 
 
                         var clickedDate = new Date(info.dateStr);
-                        //var formattedClickedDate = clickedDate.getFullYear() + '-' +
-                        //('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
-                        //('0' + clickedDate.getDate()).slice(-2);
-
 
                         var eventsForDate = [];
-                        calendar.getEvents().forEach(function(event) {
-                            //if (event.start.toDateString() === clickedDate.toDateString()) {
-                             //   eventsForDate.push(event);
-                            //}
-                            console.log(clickedDate);
-                            console.log('==>', new Date(event.start).toLocaleDateString('en-US'));
+                        
 
-                            if (new Date(clickedDate).toLocaleDateString('en-US') >= new Date(event.start).toLocaleDateString('en-US') && new Date(clickedDate).toLocaleDateString('en-US') <= new Date(event.end).toLocaleDateString('en-US')) {
+                        calendar.getEvents().forEach(function(event) {
+                            var startDate = new Date(event.start);
+                            var endDate = new Date(event.end);
+
+                            if (new Date(event.start).toLocaleDateString('en-US') !== new Date(event.end).toLocaleDateString('en-US')) {
+                                endDate.setDate(endDate.getDate() - 1);
+                                // console.log("event end: ", endDate.toLocaleDateString('en-US'));
+                            }
+
+                            if (new Date(clickedDate).toLocaleDateString('en-US') >= new Date(event.start).toLocaleDateString('en-US') && new Date(clickedDate).toLocaleDateString('en-US') <= endDate.toLocaleDateString('en-US')) {
                                 eventsForDate.push(event);
                             }
+
                         });
-
-
-                        //formattedClickedDate = clickedDate.getFullYear() + '-' +
-                        //('0' + (clickedDate.getMonth() + 1)).slice(-2) + '-' +
-                        //('0' + clickedDate.getDate()).slice(-2);
-                        //+ ' ' +
-                        //('0' + clickedDate.getHours()).slice(-2) + ':' +
-                        //('0' + clickedDate.getMinutes()).slice(-2) + ':' +
-                        //('0' + clickedDate.getSeconds()).slice(-2);
-
 
                         var date = new Date(clickedDate);
 
@@ -736,28 +717,21 @@
                         elEventDetailTitle.innerHTML = formattedTitleDate
 
                         let html = '';
+
                         if(eventsForDate.length > 0){
 
                         eventsForDate.forEach(function(event) {
-
-
                             let formattedDateRange = "";
                             let formattedTimeRange = "";
 
                             var startDate = new Date(event.start);
                             var endDate = new Date(event.end);
-                            
+
+
+                                                        
                             if (startDate.toLocaleDateString('en-US') !== endDate.toLocaleDateString('en-US')) {
                                 endDate.setDate(endDate.getDate() - 1);
                             }
-    
-                            //var formattedStartDate = startDate.getFullYear() + '-' +
-                            //    ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
-                            //    ('0' + startDate.getDate()).slice(-2);
-    
-                            //var formattedEndDate = endDate.getFullYear() + '-' +
-                            //    ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
-                            //    ('0' + endDate.getDate()).slice(-2);
 
                             var formattedStartDate = startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
                             var formattedEndDate = endDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
@@ -781,26 +755,25 @@
                             }
 
                             html += `
-
-                            <div class="card mb-3" id="cardId_${event.id}">
-                                <div class="card-header">
-                                    <h6 class="card-title">${event.title}</h6>
+                                <div class="card mb-3" id="cardId_${event.id}">
+                                    <div class="card-header">
+                                        <h6 class="card-title">${event.title}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text text-start">
+                                            <b>DATE : </b>${ formattedDateRange } <br>
+                                            <b>TIME : </b>${ formattedTimeRange } <br>
+                                            <b>VENUE : </b>${ event.extendedProps.venue }
+                                        </p>
+                                        <p class="card-text text-start">
+                                            ${ event.extendedProps.description }
+                                        </p>
+                                {% if current_user.type_of_user == 'admin' %}
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeEvent(${event.id})"><i class="bi bi-calendar-x-fill"></i> Delete Event / Activity</a>
+                                {% endif %}
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text text-start">
-                                        <b>DATE : </b>${ formattedDateRange } <br>
-                                        <b>TIME : </b>${ formattedTimeRange } <br>
-                                        <b>VENUE : </b>${ event.extendedProps.venue }
-                                    </p>
-                                    <p class="card-text text-start">
-                                        ${ event.extendedProps.description }
-                                    </p>
-                            {% if current_user.type_of_user == 'admin' %}
-                                  <button type="button" class="btn btn-danger btn-sm" onclick="removeEvent(${event.id})"><i class="bi bi-calendar-x-fill"></i> Delete Event / Activity</a>
-                            {% endif %}
-                                </div>
-                              </div>
-                            `;
+                                `;
                             
                         });
                     }else{
@@ -953,21 +926,336 @@
                   });
 
 
+                function printCalendarList() {
+                    // Get the current viewing month
+                    var currentView = calendar.view;
+                    var startDate = currentView.activeStart; // This will give the start date of the current view
+                    var currentMonth = startDate.getMonth() + 1; // Months are zero-indexed
+                    var currentYear = startDate.getFullYear();
+                
+                    console.log('Current viewing month:', currentMonth + 1, 'Current viewing year:', currentYear);
+                
+                    // Get all events from the calendar
+                    var events = calendar.getEvents();
+                
+                    // Generate the days of the month
+                    function generateDaysOfMonth(year, month) {
+                        var date = new Date(year, month, 1);
+                        var days = [];
+                        while (date.getMonth() === month) {
+                            days.push(new Date(date));
+                            date.setDate(date.getDate() + 1);
+                        }
+                        return days;
+                    }
+                
+                    var days = generateDaysOfMonth(currentYear, currentMonth);
+                
+                    // Helper function to format time
+                    function formatTime(date) {
+                        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                    }
+                
+                    // Generate the HTML for the days in table rows with full date, day names, and events
+                    function generateTableRows(days) {
+                        var rows = '';
+                        days.forEach(date => {
+                            var dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+                            var fullDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-    
-          //  })();
+                            // Generate HTML for events with time
+                            var eventList = calendar.getEvents().map(event => {
 
-          function printCalendar() {
-       
-                // Trigger the browser's print functionality
-                window.print();
+                                if (event.allDay) {
+                                    
+                                }
 
-                // Restore the original styles after printing is done
-                //elementsToHide.forEach(function(element) {
-                //    element.style.display = '';
-                //});
-            }
+                                if(date.toLocaleDateString('en-US') >= event.start.toLocaleDateString('en-US') && date.toLocaleDateString('en-US') <= event.end.toLocaleDateString('en-US')){
+                                    if (event.allDay) {
+                                        console.log('event.start', event.start)
+                                        var adjustedEndDate = new Date(event.end);
+                                        adjustedEndDate.setDate(adjustedEndDate.getDate() - 1);
+
+                                        console.log('event.end', adjustedEndDate);
+
+                                        if (event.start == adjustedEndDate) {
+                                            if(event.extendedProps.e_type == 'WORK SUSPENSION'){
+                                                return `<div><b>[${event.extendedProps.e_type}]</b> ${event.title} 11</div>`;
+                                            }
+                                        }else{
+                                            return `<div><b>[${event.extendedProps.e_type}]</b> 8:00 AM to 5:00 PM - <b>TITLE:</b> ${event.title}, <b>VENUE:</b> ${event.extendedProps.venue} 22</div>`;
+                                        }
+
+                                    } else {
+                                        var startTime = formatTime(new Date(event.start));
+                                        var endTime = formatTime(new Date(event.end));
+                                        return `<div><b>[${event.extendedProps.e_type}]</b> ${startTime} to ${endTime} - <b>TITLE:</b> ${event.title}, <b>VENUE:</b> ${event.extendedProps.venue}</div>`;
+                                    }
+                                }
+
+                            }).join('');
+                
+                            rows += `<tr>
+                                        <td>
+                                            <div style="display: flex; justify-content: space-between;">
+                                                <span style="text-align: left;">${fullDate}</span>
+                                                <span style="text-align: right;"><i>${dayName}</i></span>
+                                            </div>
+                                            <div>${eventList}</div>
+                                        </td>
+                                     </tr>`;
+                        });
+                        return rows;
+                    }
+                
+                    var tableRows = generateTableRows(days);
+                
+                    var customContent = `
+                        <html>
+                        <head>
+                            <title>Print Preview</title>
+                            <style>
+                                body {
+                                    font-family: Cambria, serif;
+                                    font-size: 8px; /* Adjust the font size here */
+                                }
+                                .content {
+                                    margin: 20px;
+                                }
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    font-size: 8px; /* Ensure font size is applied to the table */
+                                }
+                                table, th, td {
+                                    border: 1px solid black;
+                                }
+                                th, td {
+                                    padding: 5px;
+                                    text-align: left;
+                                    font-size: 8px; /* Ensure font size is applied to table cells */
+                                }
+                                th, td {
+                                    vertical-align: top;
+                                }
+                                .content div {
+                                    font-size: 8px; /* Adjust the font size for the table content here */
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="content">
+                                <h1>Perpetual Calendar</h1>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="font-size: 10px; text-align: center;">List of Events</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${tableRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                
+                    // Open a new window
+                    var newWindow = window.open("", "_blank");
+                    newWindow.document.write(customContent);
+                
+                    // Ensure the content is fully loaded before printing
+                    newWindow.document.close();
+                    newWindow.onload = function() {
+                        newWindow.print();
+                    };
+                }
+                
           
+                function printCalendar() {
+                    // Get the current viewing month
+                    var currentView = calendar.view;
+                    var startDate = currentView.activeStart; // This will give the start date of the current view
+                    var currentMonth = startDate.getMonth(); // Months are zero-indexed
+                    var currentYear = startDate.getFullYear();
+                    var monthName = startDate.toLocaleDateString('en-US', { month: 'long' });
+                    
+                    // currentMonth += 2;
+                    console.log('Current viewing month:', currentMonth, 'Current viewing year:', currentYear);
+                
+                    // Get all events from the calendar
+                    var events = calendar.getEvents();
+                
+                    // Generate the days of the month
+                    function generateDaysOfMonth(year, month) {
+                        var date = new Date(year, month, 1);
+                        var days = [];
+                        while (date.getMonth() === month) {
+                            days.push(new Date(date));
+                            date.setDate(date.getDate() + 1);
+                        }
+                        return days;
+                    }
+                
+                    var days = generateDaysOfMonth(currentYear, currentMonth);
+                
+                    // Get the day of the week of the first day of the month
+                    var firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+                
+                    // Helper function to format time
+                    function formatTime(date) {
+                        return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                    }
+                
+                    // Generate the HTML for the calendar layout
+                    function generateCalendarLayout(days) {
+                        var rows = '';
+                        var dayIndex = 0;
+                
+                        // Add empty cells for days before the start of the month
+                        rows += '<tr>';
+                        for (var i = 0; i < firstDayIndex; i++) {
+                            rows += '<td style="height: 80px;"></td>';
+                            dayIndex++;
+                        }
+                
+                        days.forEach(date => {
+                            if (dayIndex % 7 === 0 && dayIndex !== 0) {
+                                rows += '</tr><tr>';
+                            }
+                            var dayNumber = date.getDate();
+                
+                            // Generate HTML for events with time
+                            var eventList = '<ul style="padding-left: 15px; margin: 0;">'; // Start of the list
+                            events.forEach(event => {
+                                if (event.allDay) {
+                                    var adjustedEndDate = new Date(event.end);
+                                    adjustedEndDate.setDate(adjustedEndDate.getDate() - 1);
+                
+                                    if (date >= event.start && date <= adjustedEndDate) {
+                                        if (event.extendedProps.e_type === 'WORK SUSPENSION' || event.extendedProps.e_type === 'HOLIDAY') {
+                                            eventList += `<li><span style="color: #fc6d6d"><b>${event.extendedProps.e_type}</b></span><br>${event.title}</li>`;
+                                        } else {
+                                            eventList += `<li><span style="color: #fc6d6d"><b>${event.extendedProps.e_type} 8:00 AM to 5:00 PM</b></span> <br><b>[TITLE]</b>${event.title} <br><b>[VENUE]</b> ${event.extendedProps.venue}</li>`;
+                                        }
+                                    }
+                                } else {
+                                    if (date.toDateString() === new Date(event.start).toDateString()) {
+                                        var startTime = formatTime(new Date(event.start));
+                                        var endTime = formatTime(new Date(event.end));
+                                        eventList += `<li><span style="color: #fc6d6d"><b>${event.extendedProps.e_type} ${startTime} to ${endTime}</b></span><br><b>[TITLE]</b> ${event.title} <br><b>[VENUE]</b> ${event.extendedProps.venue}</li>`;
+                                    }
+                                }
+                            });
+                            eventList += '</ul>'; // End of the list
+                
+                            rows += `<td style="height: 155px; line-height: 1.2;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span style="text-align: left;">${dayNumber}</span>
+                                        </div>
+                                        <div>${eventList}</div>
+                                     </td>`;
+                            dayIndex++;
+                        });
+                
+                        // Add empty cells for days after the end of the month
+                        while (dayIndex % 7 !== 0) {
+                            rows += '<td style="height: 80px;"></td>';
+                            dayIndex++;
+                        }
+                
+                        rows += '</tr>';
+                        return rows;
+                    }
+                
+                    var calendarLayout = generateCalendarLayout(days);
+                
+                    var customContent = `
+                        <html>
+                        <head>
+                            <title>Print Preview</title>
+                            <style>
+                                body {
+                                    font-family: Cambria, serif;
+                                    font-size: 10px; /* Adjust the font size here */
+                                }
+                                .content {
+                                    margin: 20px;
+                                }
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+                                    table-layout: fixed;
+                                }
+                                table, th, td {
+                                    border: 1px solid black;
+                                }
+                                th, td {
+                                    padding: 5px;
+                                    text-align: left;
+                                    height: 80px; /* Ensure height of each cell */
+                                    width: 14.28%; /* Ensure width of each cell is equal */
+                                    vertical-align: top;
+                                    word-wrap: break-word; /* Ensure text wraps within the cell */
+                                }
+                                th {
+                                    text-align: center;
+                                    font-size: 12px; /* Ensure font size for headers */
+                                }
+                                th, td {
+                                    font-size: 10px; /* Ensure font size for table cells */
+                                }
+                                .content div {
+                                    font-size: 10px; /* Ensure font size for the table content */
+                                }
+                                ul {
+                                    padding-left: 15px;
+                                    margin: 0;
+                                }
+                                li {
+                                    margin-bottom: 5px;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="content">
+                                <h1 style="font-size: 16px;">Perpetual Calendar</h1>
+                                <table>
+                                    <thead>
+                                        <tr style="padding: 15px;">
+                                            <th colspan="7" style="font-size: 16px; height: auto;">${monthName} ${currentYear}</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="height: 5px;">Sunday</th>
+                                            <th style="height: 5px;">Monday</th>
+                                            <th style="height: 5px;">Tuesday</th>
+                                            <th style="height: 5px;">Wednesday</th>
+                                            <th style="height: 5px;">Thursday</th>
+                                            <th style="height: 5px;">Friday</th>
+                                            <th style="height: 5px;">Saturday</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${calendarLayout}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                
+                    // Open a new window
+                    var newWindow = window.open("", "_blank");
+                    newWindow.document.write(customContent);
+                
+                    // Ensure the content is fully loaded before printing
+                    newWindow.document.close();
+                    newWindow.onload = function() {
+                        newWindow.print();
+                    };
+                }
+
            function changeCalendarSize(){
 
                 let calendar_content = document.getElementById('calendar_content');
@@ -991,12 +1279,6 @@
                 
                     calendar_content.style.zIndex = '9999';
                 
-                    // Ensure the button exists and update its text and onclick event
-                    if (maximizeButton.length > 0) {
-                        maximizeButton[0].innerText = 'Minimize';
-                        printCalendar();
-                    }
-
                     calendar.updateSize();
                 }
             }
@@ -1135,42 +1417,10 @@
                 }).then(response => response.json())
                     .then(data => {
 
-                        dateStrtForNoEvent = new Date('2024-01-01');
-                        dateEndForNoEvent = new Date('2024-12-31');
-
                         data.forEach((v, k)=>{
                             calendar.addEvent(v);
                             console.log(v);
                          });
-
-                        //console.log(new Date(data[0].start).toISOString())
-                        //console.log(new Date(dateStrtForNoEvent).toISOString())
-                        while (dateStrtForNoEvent < dateEndForNoEvent) {
-                            //console.log("<=====>", dateStrtForNoEvent);
-                            if (!(data.some(mydata => new Date(mydata.start).toISOString()) === new Date(dateStrtForNoEvent).toISOString())) {
-
-                                   // var test = new Date(v.start).toISOString().split('T')[0] === dateStrtForNoEvent.toISOString().split('T')[0];
-
-                                    if(test){
-                                        console.log('======test=======', test)
-
-                                    }
-                                    if(!test){
-                                        calendar.addEvent({
-                                            title: 'asd',
-                                            editable: false,
-                                            start: dateStrtForNoEvent,
-                                            allDay: true
-                                        });
-                                    }
-        
-                                
-
-                            }
-
-                            dateStrtForNoEvent.setDate(dateStrtForNoEvent.getDate() + 1);
-                        }
-
 
                     })
                     .catch(error => {
