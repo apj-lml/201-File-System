@@ -20,7 +20,7 @@
 			/* font-family: 'Mistral', sans-serif; */
 			/*font-family: 'Cinzel Decorative', sans-serif;*/
 			font-family: 'Trajan Pro', sans-serif;
-			font-size: 30px;
+			font-size: 1.5rem;
 		}
 		.sub-title{
 			font-family: 'Dream Collection', sans-serif;
@@ -82,8 +82,8 @@
 
 {% block content %}
 
-<div class="container-fluid text-center vw-100 vh-100 overflow-hidden position-relative">
-	<main class="shadow-lg form-signin me-auto rounded position-absolute top-50 start-50 translate-middle">
+<div class="container-fluid text-center vw-100 vh-100 overflow-hidden position-relative p-4 m-4">
+	<main class="form-signin mt-3 me-auto rounded position-absolute top-50 start-50 translate-middle" style="max-width: 450px;">
 		<!-- <img class="img-fluid" id="login-nia-logo" alt="NIA LOGO" width="192" height="192"> -->
 		<!-- <img src="{{url_for('static', filename='img/nia-logo.png')}}" width="192" height="192"> -->
 		<div class="position-relative mb-4">
@@ -142,26 +142,10 @@
 <script type="text/javascript">
 
 
-	TweenMax.to('.outer', 5, {rotation:360, animationDelay: 0, ease:Linear.easeNone, repeat:-1});
+TweenMax.to('.outer', 5, {rotation:360, animationDelay: 0, ease:Linear.easeNone, repeat:-1});
 TweenMax.to('.inner', 5, {rotation:-360, animationDelay: 1, ease:Linear.easeNone, repeat:-1});
 TweenMax.to('.content', 5, {rotation:360, animationDelay: 2, ease:Linear.easeNone, repeat:-1});
 
-
-// Get the <img> element by its ID
-//const imgElement = document.getElementById('login-nia-logo');
-
-// URL of the image you want to load
-///const imageUrl = "{{url_for('static', filename='img/nia-logo.gif')}}";
-
-// Load the image from cache or network and set it as the src attribute of the <img> element
-//loadImageFromCacheOrNetwork(imageUrl).then(response => {
-  //if (response && response instanceof Response) {
-    //response.blob().then(blob => {
-    //  const objectURL = URL.createObjectURL(blob);
-    //  imgElement.src = objectURL;
-    //});
- //}
-//});
 
 document.getElementById("login_form").addEventListener("submit", function(e){
   e.preventDefault()
