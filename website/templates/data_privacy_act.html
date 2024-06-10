@@ -4,7 +4,21 @@
 
 {% block cssperfile %} 
     <style rel="stylesheet">
-      
+      .test-font{
+        font-size: 1.25rem;
+      }
+      @media (max-width: 576px) {
+        .masthead .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .test-font{
+            font-size: 12px; /* Adjust as necessary */
+        }
+        .masthead .fs-4 {
+            font-size: 1.5rem; /* Adjust as necessary */
+        }
+    }
         
     </style>
 {% endblock %}
@@ -20,34 +34,34 @@
         </nav> -->
 		
         <!-- Masthead-->
-        <div class="">
-            <header class="masthead pt-5 col-sm-12 vh-100">
-                <div class="container position-relative ">
-                    <div class="row justify-content-center overflow-auto">
-                        <div class="col-xl-12">
-                            <div class="text-center text-white">
-                                <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="" width="175px" height="175px" class="d-inline-block align-text-center mb-5">
-                                                    
-                                <h3 class="mb-3 mt-0 text-white"><span style="font-size: larger;">DATA PRIVACY ACT</span></h3>
-                                <p class="container fs-5"><i>
-
-                                    Before continuing, please take a moment to understand and acknowledge that we are committed to safeguarding your data privacy in 
-                                    accordance with the Republic Act No. 10173, Data Privacy Act of the Philippines. We are dedicated to ensuring the security and confidentiality of your 
-                                    personal information. Please review our <a href="#" class="text-warning" onclick="fireDataPrivacy();">Privacy Policy </a> if you have any concerns about how we handle your data.
-
-                                </i></p>
-                                <p class="text-center" style="font-size: large;">
-                                    <button class="btn btn-success shadow" id="continue" {% if user_profile.data_privacy != "checked" %}disabled{% endif %} onclick="continueBtn()">Continue</button>
-                                    <a href="/" class="btn btn-secondary shadow">Go Back</a>
-                                </p>
-                                <p>
-                                    Read about our <u><a href="#" class="link-warning" onclick="fireDataPrivacy();">Privacy Policy </a></u>
+        <div class="overflow-hidden">
+          <header class="masthead pt-5 col-sm-12 vh-100">
+            <div class="container position-relative">
+                <div class="row justify-content-center overflow-auto">
+                    <div class="col-xl-12">
+                        <div class="text-center text-white">
+                            <img src="{{url_for('static', filename='img/nia-logo.png')}}" alt="NIA Logo" width="175px" height="175px" class="d-inline-block align-text-center mb-5">
+                            
+                            <h3 class="mb-3 mt-0 text-white"><span class="fs-4">DATA PRIVACY ACT</span></h3>
+                            <div class="container px-3">
+                                <p class="test-font">
+                                    <i>
+                                        Before continuing, please take a moment to understand and acknowledge that we are committed to safeguarding your data privacy in accordance with the Republic Act No. 10173, Data Privacy Act of the Philippines. We are dedicated to ensuring the security and confidentiality of your personal information. Please review our <a href="#" class="text-warning" onclick="fireDataPrivacy();">Privacy Policy</a> if you have any concerns about how we handle your data.
+                                    </i>
                                 </p>
                             </div>
+                            <p class="text-center fs-4">
+                                <button class="btn btn-success shadow" id="continue" {% if user_profile.data_privacy != "checked" %}disabled{% endif %} onclick="continueBtn()">Continue</button>
+                                <a href="/" class="btn btn-secondary shadow">Go Back</a>
+                            </p>
+                            <p>
+                                Read about our <u><a href="#" class="link-warning" onclick="fireDataPrivacy();">Privacy Policy</a></u>
+                            </p>
                         </div>
                     </div>
                 </div>
-            </header>
+            </div>
+        </header>
             <!-- Icons Grid-->
 
 
@@ -161,7 +175,7 @@
       
       <i>5.1. Data Access:</i> The right to access the personal information stored in our system is exclusively granted to active employees of PIMO. Should you wish to inquire about the specifics of the information retained, we encourage you to contact us. Subsequently, we will provide comprehensive guidance on the procedure for accessing your information.<br><br>
       
-      <i>5.2. Control of Data:</i> In addition to data access, you, as an active employee, possess the capacity to rectify or update your personal information within our system. In the event you identify inaccuracies or changes in your data, we kindly request that you reach out to us. We are committed to aiding you in maintaining the accuracy and currency of your information.<br><br>
+      <i>5.2. Control of Data:</i> In addition to data access, you, as an active employee, possess the capacity to rectify or update your personal information within our system or through our authorized administrative personnel. In the event you identify inaccuracies or changes in your data, we kindly request that you reach out to us. We are committed to aiding you in maintaining the accuracy and currency of your information.<br><br>
       <br>
       
       <b>6. Cookies</b>
