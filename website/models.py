@@ -181,7 +181,8 @@ class User(db.Model, UserMixin):
     acknowledgement = db.Column(db.String(45), default='unchecked')
     
     uploaded_files = db.relationship('Uploaded_File')
-    service_record = db.relationship('Service_Record')
+    # service_record = db.relationship('Service_Record')
+    service_record = db.relationship('Service_Record', order_by=lambda: Service_Record.service_from)
     career_service = db.relationship('Career_Service', order_by="desc(Career_Service.date_of_examination)")
     vocational_course = db.relationship('Vocational_Course')
     learning_development = db.relationship('Learning_Development', order_by="desc(Learning_Development.ld_date_from)")

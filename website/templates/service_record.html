@@ -1028,7 +1028,7 @@ function generateTable() {
 			from[y].setText(String(formattedDateFrom));
 			from[y].updateAppearances(cambria);
 
-			to[y].setText(String(formattedDateTo))
+			to[y].setText(String(formattedDateTo));
 			to[y].updateAppearances(cambria);
 
 			designation[y].setText(value['designation']);
@@ -1061,7 +1061,7 @@ function generateTable() {
 
 		form.flatten();
 
-		const pdfBytes = pdfDoc.save()
+		const pdfBytes = pdfDoc.save();
 
 		const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 		const testPdfDataUri = await pdfDoc.saveAsBase64();
@@ -1094,7 +1094,7 @@ function generateTable() {
 				return res.json();
 			})
 			.then((jsonData) => {
-				loadPdf(jsonData)
+				loadPdf(jsonData);
 			});
 			
 	}
@@ -1107,7 +1107,7 @@ function generateTable() {
 		})
 			.then(response => response.json())
 			.then(data => {
-				triggerToast('Remarks Saved!','success')
+				triggerToast('Remarks Saved!','success');
 				service_record_table.ajax.reload();
 				loadingScreen("none");
 	
@@ -1362,6 +1362,12 @@ function generateTable() {
 			}
 		  })
 		  .then((resPdfDoc) => {
+
+			console.log(jsonData)
+			
+			jsonData.sort((a, b) => {
+				return new Date(a.service_from) - new Date(b.service_from);
+			});
 			// PDF loaded successfully, you can access the `pdfDoc` object here
 			fillForm(jsonData, resPdfDoc, cambriaFontBytes, cambriaBoldFontBytes, cambriaItalicFontBytes);
 		  })

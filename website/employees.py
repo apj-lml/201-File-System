@@ -431,9 +431,13 @@ def update_employee(emp_id):
 def insert_employee():
     formdata = request.form.to_dict()
 
+    print("===========>>>>>", formdata['first_day_in_service'])
     # user = db.session.query(User).get(emp_id)
 
     formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
+
+    if formdata['first_day_in_service'] == "":
+        formdata['first_day_in_service'] = None
 
     formdata = formdata.copy()
 

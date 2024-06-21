@@ -165,7 +165,7 @@
 
                 <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating p-1">
-                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" form="signup_form" required>
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" maxlength="6" form="signup_form" required>
                     <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
                   </div>
                   <div class="form-floating col-md-2 col-sm-12 p-1">
@@ -351,7 +351,7 @@
                       <label for="date_of_last_promotion">Date of Last Promotion</label>
                     </div>
                     <div class="form-floating col-md-4 mb-3 p-1">
-                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="" form="signup_form" min="1900-01-01" max="9999-12-31">
+                      <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" form="signup_form" min="1900-01-01" max="9999-12-31">
                       <label for="first_day_in_service">First Day in Service (No GAP)</label>
                     </div>
                   </div>
@@ -1164,6 +1164,7 @@
 <script src="{{ url_for('static', filename='updateprofile.js') }}"></script>
 
 {%  if current_user.type_of_user == 'admin'  %}
+<script src="{{ url_for('static', filename='sgjg.js') }}"></script>
 <script src="{{ url_for('static', filename='form-validations.js') }}"></script>
 {% endif %}
 

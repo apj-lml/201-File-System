@@ -96,6 +96,10 @@ def signup():
             formdata['password'] = generate_password_hash(password1)
             formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
+            if formdata['first_day_in_service'] == "":
+                formdata['first_day_in_service'] = None
+
+
             new_formdata = formdata.copy()
             # cs_no_fields = new_formdata['cs_no_fields']
             # vocational_no_fields = new_formdata['vocational_no_fields']
