@@ -295,7 +295,7 @@ button {
 
                     {% if current_user.type_of_user == 'admin' %}
                     <div class="form-floating flex-fill mb-3 p-1">
-                    <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                      <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                       <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
                     </div>
                     {% endif %}
