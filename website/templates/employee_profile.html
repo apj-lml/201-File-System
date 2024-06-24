@@ -272,7 +272,14 @@ button {
                   <div class="card-body">
                     <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
                     <i class="text-muted">Last updated on {{last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
-
+                    {% if current_user.type_of_user == 'admin' %}
+                    <div class="col-sm-12">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                        <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
+                      </div>
+                    </div>
+                  {% endif %}
                     <div class="d-md-flex flex-row mt-3"> 
                       <div class="form-floating col-md-2 mb-3 p-1">
                         <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
@@ -316,14 +323,7 @@ button {
                           <label for="date_of_separation">Date of Separation<span class="is-required">*</span></label>
                         </div>
                   </div>
-                  {% if current_user.type_of_user == 'admin' %}
-                    <div class="col-sm-12">
-                      <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                        <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
-                      </div>
-                    </div>
-                  {% endif %}
+
 
 
                     <div class="d-md-flex flex-row"> 
