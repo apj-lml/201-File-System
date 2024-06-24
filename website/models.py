@@ -288,7 +288,7 @@ class User(db.Model, UserMixin):
 
         if self.first_day_in_service:
                 
-            for x in range(10, 45+5, 5):
+            for x in range(15, 45+5, 5):
                 #checking if month is more than June
                 if self.first_day_in_service.month > 9:
                     updated_date = self.first_day_in_service + relativedelta(years=x) + one_year
