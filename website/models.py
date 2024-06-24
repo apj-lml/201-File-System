@@ -170,6 +170,9 @@ class User(db.Model, UserMixin):
     is_primary_sr_certifier = db.Column(db.Integer, default=0)
     is_secondary_sr_certifier = db.Column(db.Integer, default=0)
 
+    mode_of_separation = db.Column(db.String(100), default='')
+    date_of_separation = db.Column(db.Date(), nullable=True)
+
     service_record_remarks = db.Column(db.String(999), default='')
 
     type_of_user = db.Column(db.String(150), default='user')

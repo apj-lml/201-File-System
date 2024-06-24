@@ -219,6 +219,9 @@ def update_employee(emp_id):
 
     if formdata['first_day_in_service'] == '':
         formdata['first_day_in_service'] = None
+    
+    if formdata['date_of_separation'] == '':
+        formdata['date_of_separation'] = None
 
 # ---------------------------------------------------------------------------- #
 #                              UPLOADING OF FILE                               #
@@ -431,13 +434,16 @@ def update_employee(emp_id):
 def insert_employee():
     formdata = request.form.to_dict()
 
-    print("===========>>>>>", formdata['first_day_in_service'])
+    print("employees.py===========>>>>>", formdata['first_day_in_service'])
     # user = db.session.query(User).get(emp_id)
 
     formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 
     if formdata['first_day_in_service'] == "":
         formdata['first_day_in_service'] = None
+
+    if formdata['date_of_separation'] == '':
+        formdata['date_of_separation'] = None
 
     formdata = formdata.copy()
 

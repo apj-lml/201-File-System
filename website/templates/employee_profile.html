@@ -270,37 +270,61 @@ button {
                     99+
                   </span> -->
                   <div class="card-body">
-                  <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
-                  <i class="text-muted">Last updated on {{last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
+                    <h3 class="card-title mb-0">PERSONAL INFORMATION</h3> 
+                    <i class="text-muted">Last updated on {{last_updated.strftime('%B %d, %Y - %I:%M %p') }} </i>
 
-                  <div class="d-md-flex flex-row mt-3"> 
-                    <div class="form-floating col-md-2 mb-3 p-1">
-                      <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
-                      <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
-                    </div>
-                    <div class="form-floating col-md-2 col-sm-12 p-1">
-                      <input type="date" class="form-control" id="employee_id_date_issued" name ="employee_id_date_issued" placeholder="Birthdate" value="{{user_profile.employee_id_date_issued}}" form="update_form" min="1900-01-01" max="9999-12-31" required>
-                      <label for="birthdate">Employee ID Date Issued<span class="is-required">*</span></label>
-                    </div>
-                    <div class="form-floating col-md-2 mb-3 p-1">
-                      <!-- <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> -->
-                      <select class="form-select" id="status_remarks" name="status_remarks" value="{{user_profile.status_remarks}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user' else ''}} required>
-                        <option class="" value="{{user_profile.status_remarks}}" selected disabled hidden>{{user_profile.status_remarks}}</option>
-                        <option value="ACTIVE">ACTIVE</option>
-                        <option value="INACTIVE">INACTIVE</option>
-                        <option value="REASSIGNED">REASSIGNED</option>
-                      </select>
-                      <label for="status_remarks">Status<span class="is-required">*</span></label>
-                    </div>
+                    <div class="d-md-flex flex-row mt-3"> 
+                      <div class="form-floating col-md-2 mb-3 p-1">
+                        <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                        <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
+                      </div>
+                      <div class="form-floating col-md-2 col-sm-12 p-1">
+                        <input type="date" class="form-control" id="employee_id_date_issued" name ="employee_id_date_issued" placeholder="Birthdate" value="{{user_profile.employee_id_date_issued}}" form="update_form" min="1900-01-01" max="9999-12-31" required>
+                        <label for="birthdate">Employee ID Date Issued<span class="is-required">*</span></label>
+                      </div>
 
-                    {% if current_user.type_of_user == 'admin' %}
-                    <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
-                      <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
-                    </div>
-                    {% endif %}
+                      <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
+                        <!-- <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> -->
+                        <select class="form-select" id="status_remarks" name="status_remarks" value="{{user_profile.status_remarks}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user' else ''}} onchange="chageStatusRemarks(this);" required>
+                          <option class="" value="{{user_profile.status_remarks}}" selected disabled hidden>{{user_profile.status_remarks}}</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="INACTIVE">INACTIVE</option>
+                          <option value="REASSIGNED">REASSIGNED</option>
+                        </select>
+                        <label for="status_remarks">Status<span class="is-required">*</span></label>
+                      </div>
+
+                      <div class="form-floating col-md-3 col-sm-12 mb-3 p-1 separationContainer">
+                          <!-- <input type="text" class="form-control" id="status_remarks" name ="status_remarks" placeholder="Status" value="{{user_profile.status_remarks}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> -->
+                          <select class="form-select" id="mode_of_separation" name="mode_of_separation" value="{{user_profile.mode_of_separation}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user' else ''}}>
+                            <option class="" value="{{user_profile.mode_of_separation}}" selected disabled hidden>{{user_profile.mode_of_separation}}</option>
+                            <option value="APPOINTMENT NOT RENEWED">APPOINTMENT NOT RENEWED</option>
+                            <option value="DISMISSAL">DISMISSAL</option>
+                            <option value="DROPPING FROM THE ROLLS">DROPPING FROM THE ROLLS</option>
+                            <option value="RESIGNATION">RESIGNATION</option>
+                            <option value="COMPULSORY RETIREMENT">COMPULSORY RETIREMENT</option>
+                            <option value="OPTIONAL RETIREMENT">OPTIONAL RETIREMENT</option>
+                            <option value="OPTIONAL RETIREMENT">OPTIONAL RETIREMENT</option>
+                            <option value="SEPARATED FROM THE SERVICE">SEPARATED FROM THE SERVICE</option>
+                            <option value="TRANSFER">TRANSFER</option>
+                            <option value="OTHERS">OTHERS</option>
+                          </select>
+                          <label for="mode_of_separation">Mode of Separation<span class="is-required">*</span></label>
+                        </div>
+                        
+                        <div class="form-floating col-md-3 col-sm-12 p-1 separationContainer">
+                          <input type="date" class="form-control" id="date_of_separation" name ="date_of_separation" placeholder="Date of Separation" value="{{user_profile.date_of_separation}}" form="update_form" min="1900-01-01" max="9999-12-31" >
+                          <label for="date_of_separation">Date of Separation<span class="is-required">*</span></label>
+                        </div>
                   </div>
-
+                  {% if current_user.type_of_user == 'admin' %}
+                    <div class="col-sm-12">
+                      <div class="form-floating flex-fill mb-3 p-1">
+                        <input type="text" class="form-control-plaintext" style="font-style: italic; padding: 5px; color: rgb(0, 30, 255); font-size: 12px;" id="desc_remarks" name ="desc_remarks" placeholder="Add Remarks" value="{{user_profile.desc_remarks if user_profile.desc_remarks is not none }}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
+                        <!-- <label for="desc_remarks">Remarks<span class="is-required">*</span></label> -->
+                      </div>
+                    </div>
+                  {% endif %}
 
 
                     <div class="d-md-flex flex-row"> 
@@ -2072,7 +2096,9 @@ document.addEventListener('keydown', e => {
 
 window.addEventListener("load", function() {
 
-  validate_no_dependents(document.getElementById('date_hired_in_nia'))
+  chageStatusRemarks(document.getElementById('status_remarks'));
+
+  validate_no_dependents(document.getElementById('date_hired_in_nia'));
   load_units();
 
 {% if current_user.type_of_user == 'admin' %}
@@ -2133,6 +2159,26 @@ function validate_length(el){
       }
     }
   
+}
+
+function chageStatusRemarks(el){
+var separationContainer = Array.from(document.getElementsByClassName('separationContainer'));
+var mode_of_separation = document.getElementById('mode_of_separation');
+var date_of_separation = document.getElementById('date_of_separation');
+// Assuming `el` is defined and has a value
+if (el.value != 'INACTIVE') {
+    separationContainer.forEach((container) => {
+        container.classList.add('d-none');
+        mode_of_separation.value = '';
+        date_of_separation.value = '';
+    });
+} else {
+    separationContainer.forEach((container) => {
+        container.classList.remove('d-none');
+    });
+}
+
+console.log(el.value);
 }
 
 function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
