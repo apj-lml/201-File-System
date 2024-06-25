@@ -282,7 +282,7 @@ button {
                   {% endif %}
                     <div class="d-md-flex flex-row mt-3"> 
                       <div class="form-floating col-md-2 mb-3 p-1">
-                        <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                        <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="{{'%06d' % user_profile.employee_id}}" maxlength="6" pattern="^(\d{6})$" title="ID no. should be 6 digit long and should only contain number." form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
                         <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
                       </div>
                       <div class="form-floating col-md-2 col-sm-12 p-1">
@@ -324,8 +324,6 @@ button {
                         </div>
                   </div>
 
-
-
                     <div class="d-md-flex flex-row"> 
                       <div class="form-floating flex-fill mb-3 p-1">
                         <input type="text" class="form-control" id="last_name" name ="last_name" placeholder="Last Name" value="{{user_profile.last_name}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
@@ -340,15 +338,16 @@ button {
                         <label for="middle_name">Middle Name<span class="is-required">*</span></label>
                       </div>
                       <div class="form-floating col-md-2 col-sm-12 p-1">
-                        <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" value="{{user_profile.middle_initial if user_profile.middle_initial is not none}}" form="update_form" pattern="[/A-Za-z]+" title="Do not input special characters such as .*&$()[] and numbers" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                        <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" value="{{user_profile.middle_initial if user_profile.middle_initial is not none}}" form="update_form" pattern="[A-Za-z]+" title="Do not input special characters such as .*&$()[] and numbers" {{'readonly' if current_user.type_of_user == 'user'}} required>
                         <label for="middle_initial">Middle Initial</label>
                       </div>
                       <div class="form-floating col-md-2 col-sm-12 p-1">
-                        <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} pattern="[/A-Za-z]+" title="Do not input special characters such as .*&$()[] and numbers" >
+                        <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="{{user_profile.name_extn}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} >
                         <label for="name_extn">Name Extension</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. Jr. / Sr. / III</p></small>
                       </div>
                     </div>
+
                     <!-- TODO -->
                     <div class="d-md-flex flex-row"> 
                       <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
@@ -622,7 +621,7 @@ button {
                         <label for="name_extn">GSIS No.<span class="is-required">*</span></label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="{{user_profile.pagibig}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                        <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-IBIG" value="{{user_profile.pagibig}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required>
                         <label for="name_extn">Pag-IBIG No.<span class="is-required">*</span></label>
                       </div>
                       <div class="form-floating flex-fill mb-3 p-1">
@@ -630,29 +629,30 @@ button {
                         <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                       </div>
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" minlength="3" maxlength="10" {{'readonly' if current_user.type_of_user == 'user'}}>
+                        <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" pattern="^(N/A|\d{2}-\d{7}-\d{1})$" {{'readonly' if current_user.type_of_user == 'user'}}>
                         <label for="name_extn">SSS No.<span class="is-required">*</span></label>
-                        <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 0226413283</p></small>
+                        <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 02-2641328-3</p></small>
 
                       </div>
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} maxlength="9" required>
+                        <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}  pattern="^(N/A|\d{3}-\d{3}-\d{3}-\d{3})$" required>
                         <label for="name_extn">TIN<span class="is-required">*</span></label>
+                        <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 363-716-309-000</p></small>
                       </div>
                       <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
                         <input type="hidden" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="{{user_profile.atm}}" form="update_form">
                         <!-- <label for="name_extn">ATM Card No. (Optional)</label>
                       </div> -->
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" minlength="18" maxlength="18">
+                        <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" pattern="^(N/A|\bCRN-\d{4}-\d{7}-\d{1}\b)$">
                         <label for="name_extn">GSIS UMID No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. CRN-0111-9316875-2</p></small>
 
                       </div>
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" minlength="19" maxlength="19" form="update_form">
+                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" pattern="^(N/A|\bPSN-\d{4}-\d{3}-\d{4}-\d{1}\b)$" form="update_form">
                         <label for="name_extn">PhilSys</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. PSN-1234-567-8912-3</p></small>
 
@@ -660,11 +660,13 @@ button {
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="{{user_profile.solo_parent if user_profile.solo_parent is not none else ''}}" form="update_form">
+                        <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="{{user_profile.solo_parent if user_profile.solo_parent is not none else ''}}" pattern="^(N/A|\w{4}-\w{5}\b)$" form="update_form">
                         <label for="solo_parent">Solo Parent ID No.</label>
+                        <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 2016-13452</p></small>
+
                       </div>
                       <div class="form-floating flex-fil p-1">
-                        <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" minlength="24" maxlength="24" form="update_form">
+                        <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" pattern="^(N/A|\w{4}-\w{5}-\w{13})$" form="update_form">
                         <label for="voters_id_no">Voter's ID No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 3022-0201B-C0272ESA20000</p></small>
 
@@ -676,7 +678,7 @@ button {
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}" minlength="13" maxlength="13" form="update_form" >
+                        <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}" pattern="^(N/A|\w{3}-\w{2}-\w{6}\b)$" form="update_form" >
                         <label for="driver_license" >Driver's License No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. A14-22-000321</p></small>
 
@@ -696,7 +698,7 @@ button {
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating col-md-4 col-sm-12 p-1">
-                        <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="{{user_profile.passport_no if user_profile.passport_no is not none else '' }}" minlength="9" maxlength="9" form="update_form" >
+                        <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="{{user_profile.passport_no if user_profile.passport_no is not none else '' }}" pattern="^(N/A|\w{9}\b)$" form="update_form" >
                         <label for="passport_no">Passport No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. EB6684441</p></small>
                       </div>

@@ -165,7 +165,7 @@
 
                 <div class="d-md-flex flex-row mt-3"> 
                   <div class="form-floating p-1">
-                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" maxlength="6" pattern="^(\d{6})$" title="ID no. should be 6 digit long and should only contain number." form="signup_form" required>
+                    <input type="text" class="form-control" id="employee_id" name ="employee_id" placeholder="Employee ID Number" value="" maxlength="6" form="signup_form" required>
                     <label for="employee_id">Employee ID Number<span class="is-required">*</span></label>
                   </div>
                   <div class="form-floating col-md-2 col-sm-12 p-1">
@@ -191,6 +191,9 @@
                     <input type="password" class="form-control" id="confirm_password" name ="confirm_password" placeholder="Confirm Password" form="signup_form" required>
                     <label for="floatingPassword2">Confirm Password<span class="is-required">*</span></label>
                   </div>
+                  
+
+
                 </div>
 
                   <div class="d-md-flex flex-row"> 
@@ -207,11 +210,8 @@
                       <label for="middle_name">Middle Name</label>
                     </div>
                     <div class="form-floating flex-fill p-1">
-                      <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" form="signup_form" pattern="^(N/A|[A-Za-z0-9])$" title="Middle inital should be 1 letter long and does not contain special characters and numbers" {{'readonly' if current_user.type_of_user == 'user'}} required>
+                      <input type="text" class="form-control" id="middle_initial" name ="middle_initial" placeholder="Middle Initial" form="signup_form" pattern="[/A-Za-z]+" title="Do not input special characters such as .*&$()[] and numbers" {{'readonly' if current_user.type_of_user == 'user'}} required>
                       <label for="middle_initial">Middle Initial</label>
-                      <small style="font-size: 12px; color: rgb(0, 30, 255);">
-                        <p style="line-height: normal;" class="mb-0">* Put N/A if not applicable</p>
-                      </small>
                     </div>
                     <div class="form-floating col-md-2 col-sm-12 p-1">
                       <input type="text" class="form-control" id="name_extn" name ="name_extn" placeholder="Name Extension" value="" form="signup_form" >
@@ -373,22 +373,19 @@
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
-                    <div class="form-floating flex-fill p-1">
+                    <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="daily_rate" name ="" value="" oninput="" form="signup_form" >
                       <input type="hidden" class="form-control" name ="daily_rate" form="signup_form">
                       <label for="daily_rate">Daily Rate (Php)<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating flex-fill p-1">
+                    <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="monthly_rate" name ="" placeholder="Monthly Rate (Php)" value="" form="signup_form" >
                       <input type="hidden" class="form-control" name ="monthly_rate" placeholder="Monthly Rate (Php)" value="" form="signup_form">
                       <label for="monthly_rate">Monthly Rate (Php)<span class="is-required">*</span></label>
                     </div>
-                    <div class="form-floating col-md-6 p-1">
+                    <div class="form-floating col-md-6 mb-3 p-1">
                       <input type="text" class="form-control" id="maiden_name" name ="maiden_name" value="" form="signup_form">
-                      <label for="maiden_name">Maiden Name <span class="is-required">*</span></label>
-                      <small class="" style="font-size: 12px; color:rgb(0, 30, 255)">
-                        <p style="line-height: normal;">*Put N/A if not applicable</p>
-                      </small>
+                      <label for="maiden_name">Maiden Name [Put N/A if not applicable]<span class="is-required">*</span></label>
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
@@ -475,56 +472,52 @@
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="gsis" name ="gsis" placeholder="GSIS" value="" form="signup_form" >
-                      <label for="gsis">GSIS No.</label>
+                      <label for="name_extn">GSIS No.<!--<span class="is-required">*</span>--></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="pagibig" name ="pagibig" placeholder="Pag-ibig" value="" form="signup_form" required>
-                      <label for="pagibig">Pag-IBIG No.<span class="is-required">*</span></label>
+                      <label for="name_extn">Pag-IBIG No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill mb-3 p-1">
                       <input type="text" class="form-control" id="philhealth" name ="philhealth" placeholder="Philhealth" value="" form="signup_form" required>
-                      <label for="philhealth">Philhealth No.<span class="is-required">*</span></label>
+                      <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                     </div>
                     <div class="form-floating flex-fill p-1">
-                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="" form="signup_form" pattern="^(N/A|\d{2}-\d{7}-\d{1})$">
-                      <label for="sss">SSS No.</label>
-                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 02-2641328-3</p></small>
+                      <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="" form="signup_form" minlength="10" maxlength="10">
+                      <label for="name_extn">SSS No.</label>
+                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 0226413283</p></small>
 
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="signup_form" pattern="^(N/A|\d{3}-\d{3}-\d{3}-\d{3})$" required>
-                      <label for="tin">TIN<span class="is-required">*</span></label>
-                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 363-716-309-000</p></small>
-
+                      <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="" form="signup_form" maxlength="9" required>
+                      <label for="name_extn">TIN<span class="is-required">*</span></label>
                     </div>
                     <!-- <div class="form-floating flex-fill mb-3 p-1"> -->
                       <input type="hidden" class="form-control" id="atm" name ="atm" placeholder="ATM Card No." value="" form="signup_form">
                       <!-- <label for="name_extn">ATM Card No. (Optional)</label>
                     </div> -->
                     <div class="form-floating flex-fill p-1">
-                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="" form="signup_form" pattern="^(N/A|\bCRN-\d{4}-\d{7}-\d{1}\b)$">
-                      <label for="umid">GSIS UMID No.</label>
+                      <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="" form="signup_form" minlength="18" maxlength="18">
+                      <label for="name_extn">GSIS UMID No.</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. CRN-0111-9316875-2</p></small>
 
                     </div>
                     <div class="form-floating flex-fill p-1">
-                      <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="" pattern="^(N/A|\bPSN-\d{4}-\d{3}-\d{4}-\d{1}\b)$" form="signup_form">
-                      <label for="philsys">PhilSys</label>
+                      <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="" minlength="19" maxlength="19" form="signup_form">
+                      <label for="name_extn">PhilSys</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. PSN-1234-567-8912-3</p></small>
 
                     </div>
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill mb-3 p-1">
-                      <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="" pattern="^(N/A|\w{4}-\w{5}\b)$" form="signup_form">
+                      <input type="text" class="form-control" id="solo_parent" name ="solo_parent" placeholder="Solo Parent ID No." value="" form="signup_form">
                       <label for="solo_parent">Solo Parent ID No.</label>
-                      <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 2016-13452</p></small>
-
                     </div>
                     <div class="form-floating flex-fil p-1">
-                      <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="" pattern="^(N/A|\w{4}-\w{5}-\w{13})$" form="signup_form">
+                      <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="" minlength="24" maxlength="24" form="signup_form">
                       <label for="voters_id_no">Voter's ID No.</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 3022-0201B-C0272ESA20000</p></small>
 
@@ -536,7 +529,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating flex-fill p-1">
-                      <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="" pattern="^(N/A|\w{3}-\w{2}-\w{6}\b)$" form="signup_form" >
+                      <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="" minlength="13" maxlength="13" form="signup_form" >
                       <label for="driver_license" >Driver's License No.</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. A14-22-000321</p></small>
 
@@ -556,7 +549,7 @@
                   </div>
                   <div class="d-md-flex flex-row">
                     <div class="form-floating col-md-4 col-sm-12 p-1">
-                      <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="" pattern="^(N/A|\w{9}\b)$" form="signup_form" >
+                      <input type="text" class="form-control" id="passport_no" name ="passport_no" placeholder="Passport No." value="" minlength="9" maxlength="9" form="signup_form" >
                       <label for="passport_no">Passport No.</label>
                       <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. EB6684441</p></small>
                     </div>
@@ -673,13 +666,10 @@
                 </div>
               </div>
 
-              <div class="card mb-3 d-none">
+              <div class="card mb-3">
                 <div class="card-body">
                 <h3 class="card-title">EDUCATIONAL BACKGROUND</h3>
 
-                <!-- ----------------------------------------------------------------------- -->
-                <!--                               ELEMENTARY                                -->
-                <!-- ----------------------------------------------------------------------- -->
                 <div class="card mb-3">
                   <div class="card-body">
                   <h3 class="card-title">Elementary</h3>
@@ -732,10 +722,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- ----------------------------------------------------------------------- -->
-                <!--                               HIGH SCHOOL                               -->
-                <!-- ----------------------------------------------------------------------- -->
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">High School</h3>
@@ -792,11 +778,8 @@
                       </div>  
                   </div>
                     </div>
-                </div>
-
-                <!-- ----------------------------------------------------------------------- -->
-                <!--                         VOCATIONAL / TRADE COURSE                       -->
-                <!-- ----------------------------------------------------------------------- -->
+                  </div>
+  
                 <div class="card mb-3">
                   <div class="card-body">
 
@@ -868,78 +851,77 @@
                   </div>
                 </div>
   
-                <!-- ----------------------------------------------------------------------- -->
-                <!--                                 COLLEGE                                 -->
-                <!-- ----------------------------------------------------------------------- -->
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <h3 class="card-title">College</h3>
-                    <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if College is not applicable.</p>
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                                 COLLEGE                                 -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h3 class="card-title">College</h3>
+                      <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if College is not applicable.</p>
 
-                <!-- ----------------------------------------------------------------------- -->
-                <!--                  KUNG WALA PANG LAMAN ITO ANG LALABAS                   -->
-                <!-- ----------------------------------------------------------------------- -->
-                <input type="hidden" name="college_no_fields" id="college_no_fields" value="1" form="add_college_form">
-                      <div class="card shadow-sm mb-3" id=remove_vocational1>
-                        <div class="card-body">
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating col-sm-3 mb-3 p-1">
-                              <input type="text" class="form-control" id="c_school[1]" name ="c_school[1]" placeholder="c_school[1]" value="" form="add_college_form">
-                              <label for="c_school[1]">School</label>
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                  KUNG WALA PANG LAMAN ITO ANG LALABAS                   -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <input type="hidden" name="college_no_fields" id="college_no_fields" value="1" form="add_college_form">
+                        <div class="card shadow-sm mb-3" id=remove_vocational1>
+                          <div class="card-body">
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating col-sm-3 mb-3 p-1">
+                                <input type="text" class="form-control" id="c_school[1]" name ="c_school[1]" placeholder="c_school[1]" value="" form="add_college_form">
+                                <label for="c_school[1]">School</label>
+                              </div>
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_degree_course[1]" name ="c_degree_course[1]" placeholder="c_degree_course[1]" value="" form="add_college_form">
+                                <label for="c_degree_course[1]">Degree</label>
+                              </div>
+                              <div class="form-floating col-sm-3 mb-3 p-1">
+                                <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))"> 
+                                  <option class="" value="" selected hidden></option>
+                                  <option value="GRADUATED">GRADUATED</option>
+                                  <option value="UNDERGRADUATE">UNDERGRADUATE</option>
+                                  <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
+                                </select>
+                                <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                              </div>
+    
                             </div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" id="c_degree_course[1]" name ="c_degree_course[1]" placeholder="c_degree_course[1]" value="" form="add_college_form">
-                              <label for="c_degree_course[1]">Degree</label>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)">
+                                <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                              </div>
+                              <div class="form-floating flex-fill mb-2 p-1">
+                                <input type="number" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)">
+                                <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
+                                <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
+                              </div>
                             </div>
-                            <div class="form-floating col-sm-3 mb-3 p-1">
-                              <select class="form-select" id="c_highest_level_units_earned[1]" name="c_highest_level_units_earned[1]"  value="" form="add_college_form" required onchange="graduated(this, document.getElementById('c_highest_grade_year_units[1]'), document.getElementById('c_scholarship_academic_honor[1]'), document.getElementById('c_period_of_attendance_from[1]'), document.getElementById('c_period_of_attendance_to[1]'))"> 
-                                <option class="" value="" selected hidden></option>
-                                <option value="GRADUATED">GRADUATED</option>
-                                <option value="UNDERGRADUATE">UNDERGRADUATE</option>
-                                <option value="CURRENTLY ENROLLED">CURRENTLY ENROLLED</option>
-                              </select>
-                              <label for="c_highest_level_units_earned[1]">Highest Level Attained</label>
+                            <div class="d-md-flex flex-row">
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_highest_grade_year_units[1]" name ="c_highest_grade_year_units[1]" placeholder="Highest Level" value="" form="add_college_form">
+                                <label for="c_highest_grade_year_units[1]">Units Earned</label>
+                              </div>   
+                              <div class="form-floating flex-fill mb-3 p-1">
+                                <input type="text" class="form-control" id="c_scholarship_academic_honor[1]" name ="c_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="" form="add_college_form">
+                                <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
+                              </div>  
                             </div>
-  
-                          </div>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-2 p-1">
-                              <input type="number" class="form-control" id="c_period_of_attendance_from[1]" name ="c_period_of_attendance_from[1]" placeholder="Period of Attendance (From)" value="" form="add_college_form" oninput="year_only(this)">
-                              <label for="c_period_of_attendance_from[1]">Period of Attendance (From)</label>
-                              <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
-                            </div>
-                            <div class="form-floating flex-fill mb-2 p-1">
-                              <input type="number" class="form-control" id="c_period_of_attendance_to[1]" name ="c_period_of_attendance_to[1]" placeholder="Period of Attendance (To)" value="" form="add_college_form" oninput="year_only(this)">
-                              <label for="c_period_of_attendance_to[1]">Period of Attendance (To)</label>
-                              <small class="ps-2 mb-0 pb-0 text-muted">Input year only.</small>
-                            </div>
-                          </div>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" id="c_highest_grade_year_units[1]" name ="c_highest_grade_year_units[1]" placeholder="Highest Level" value="" form="add_college_form">
-                              <label for="c_highest_grade_year_units[1]">Units Earned</label>
-                            </div>   
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" id="c_scholarship_academic_honor[1]" name ="c_scholarship_academic_honor[1]" placeholder="Scholarship / Academic Honor" value="" form="add_college_form">
-                              <label for="c_scholarship_academic_honor[1]">Scholarship / Academic Honor</label>
-                            </div>  
-                          </div>
+                        </div>
                       </div>
-                    </div>
-                    
-                <div id="college_fields"></div>
-                    <div class="d-md-flex flex-row">
-                      <div class="flex-fill mb-3 mx-4 p-1">
-                        <button type="button" class="btn btn-success btn-sm" id="add_college_field" onclick="document.getElementById('college_no_fields').value++" >Add</button>
+                      
+                  <div id="college_fields"></div>
+                      <div class="d-md-flex flex-row">
+                        <div class="flex-fill mb-3 mx-4 p-1">
+                          <button type="button" class="btn btn-success btn-sm" id="add_college_field" onclick="document.getElementById('college_no_fields').value++" >Add</button>
+                        </div>
                       </div>
-                    </div>
-              </div>
                 </div>
-
-
+              </div>
                 <!-- ----------------------------------------------------------------------- -->
                 <!--                                MASTERAL                                 -->
                 <!-- ----------------------------------------------------------------------- -->
+  
                 <div class="card mb-3">
                   <div class="card-body">
                     <h3 class="card-title">Masteral Degree</h3>
@@ -1068,82 +1050,84 @@
                     </div>
                   </div>
                 </div>
-
                 </div>
-              </div>
+                </div>
+              
           
-                <!-- ----------------------------------------------------------------------- -->
-                <!--                                   CSE                                   -->
-                <!-- ----------------------------------------------------------------------- -->
-              <div class="card mb-3 d-none" id="cse_scroll">
-                <div class="card-body">
-                  <h3 class="card-title">Civil Service Eligibility</h3>
-                  <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Civil Service Eligibility is not applicable.</p>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                   CSE                                   -->
+<!-- ----------------------------------------------------------------------- -->
+            <!-- </form> -->
+          <!-- <form action="#" method="POST" name="add_eligibility_form_sign_up" id="add_eligibility_form_sign_up" enctype="multipart/form-data"> -->
+            <div class="card mb-3" id="cse_scroll">
+              <div class="card-body">
+                <h3 class="card-title">Civil Service Eligibility</h3>
+                <p class="is-required">Please note that you <b>DON'T</b> have to put "N/A" if Civil Service Eligibility is not applicable.</p>
 
-                    <!-- ----------------------------------------------------------------------- -->
-                    <!--                 DITO YUNG UNANG LALABAS PAG WALANG DATA                 -->
-                    <!-- ----------------------------------------------------------------------- -->
-                    <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_cse_form" value="">
+                  <!-- ----------------------------------------------------------------------- -->
+                  <!--                 DITO YUNG UNANG LALABAS PAG WALANG DATA                 -->
+                  <!-- ----------------------------------------------------------------------- -->
+                  <input type="hidden" class="form-control" id="cs_no_fields" name ="cs_no_fields" placeholder="No. of Fields" min="1" max="10" value="1" form="add_cse_form" value="">
 
-                      <div class="card shadow-sm mb-3">
-                          <div class="card-body">
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" value="" form="add_cse_form" >
-                              <label for="cs_eligibility">Eligibility</label>
-                            </div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="" form="add_cse_form" >
-                              <label for="date_of_examination">Date of Examination From</label>
-                            </div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="" form="add_cse_form" >
-                              <label for="date_of_examination_to">Date of Examination To</label>
-                            </div>
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="cs_eligibility[1]" placeholder="Eligibility" value="" form="add_cse_form" >
+                            <label for="cs_eligibility">Eligibility</label>
                           </div>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-2 pt-0 mt-0">
-                              <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
-                            </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_examination[1]" placeholder="Date of Examination" value="" form="add_cse_form" >
+                            <label for="date_of_examination">Date of Examination From</label>
                           </div>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" value="" form="add_cse_form" >
-                              <label for="cs_rating">Rating (if applicable)</label>
-                            </div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" value="" form="add_cse_form" >
-                              <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
-                            </div>
-                          </div>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                              <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number" value="" form="add_cse_form" >
-                              <label for="license_no">License Number</label>
-                            </div>
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" value="" form="add_cse_form" > 
-                              <label for="date_of_validity">Date of Validity</label>
-                            </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_examination_to[1]" placeholder="Date of Examination To" value="" form="add_cse_form" >
+                            <label for="date_of_examination_to">Date of Examination To</label>
                           </div>
                         </div>
-                    </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-2 pt-0 mt-0">
+                            <small class="text-muted" style="font-size: 12px;">*Career Service / RA 1080 (BOARD/BAR) Under Special Laws / CES / CSEE / Barangay Eligibility / Driver's License.</small>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="cs_rating[1]" placeholder="Rating" value="" form="add_cse_form" >
+                            <label for="cs_rating">Rating (if applicable)</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="text" class="form-control" name ="place_of_examination_conferment[1]" placeholder="Place of Examination / Conferment" value="" form="add_cse_form" >
+                            <label for="place_of_examination_conferment">Place of Examination / Conferment</label>
+                          </div>
+                        </div>
+                        <div class="d-md-flex flex-row">
+                          <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                            <input type="text" class="form-control" name ="license_no[1]" placeholder="License Number" value="" form="add_cse_form" >
+                            <label for="license_no">License Number</label>
+                          </div>
+                          <div class="form-floating flex-fill mb-3 p-1">
+                            <input type="date" class="form-control" name ="date_of_validity[1]" placeholder="Date of Validity" value="" form="add_cse_form" > 
+                            <label for="date_of_validity">Date of Validity</label>
+                          </div>
+                        </div>
+                      </div>
+                   </div>
 
-                <div id="cs_fields"></div>
+              <div id="cs_fields"></div>
 
 
-                </div>
-
-
-
-                <div class="d-md-flex flex-row">
-                  <div class="flex-fill mb-3 mx-4 p-1">
-                    <button type="button" class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++" >Add</button>
-                  </div>
-                </div>
               </div>
 
-          </div> 
+
+
+              <div class="d-md-flex flex-row">
+                <div class="flex-fill mb-3 mx-4 p-1">
+                  <button type="button" class="btn btn-success btn-sm" id="add_cse_field" onclick="document.getElementById('cs_no_fields').value++" >Add</button>
+                </div>
+              </div>
+            </div>
+
+          </div> <!--row-->
         </div>
   </div>
 </div>
@@ -1354,6 +1338,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
         if (res.status == 500){
           loadingScreen('none')
           triggerToast('Server Error! Please try again.', 'error');
+
           
         }
         return res.json();
@@ -1437,13 +1422,9 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                                 method: 'POST',
                                 body: ''
                               }).then((res)=>{
-                                
-
                                 if(res.status == 200){
 
-                                  // window.location.reload();
-                                  window.location.href = `/employees/my-profile/${data}`;
-                                  
+                                  window.location.reload();
 
                                 }else if(res.status == 500){
                                     triggerToast("Server Error! Please try to click the register button again. (Signatory)", 'error');

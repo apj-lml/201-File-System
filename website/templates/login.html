@@ -114,9 +114,10 @@
 	      <input type="text" name="email" class="form-control" id="floatingInput" inputmode="numeric" pattern="[0-9]+" maxlength="6" placeholder="Employee ID No.">
 	      <label for="floatingInput">Employee ID No.</label>
 	    </div>
-	    <div class="form-floating">
+	    <div class="form-floating mb-3 position-relative">
 	      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
 	      <label for="floatingPassword">Password</label>
+		  <i class="bi bi-eye position-absolute top-50 start-100 translate-middle pe-5" id="togglePassword"></i>
 	    </div>
 	    
 	    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
@@ -146,6 +147,19 @@ TweenMax.to('.outer', 5, {rotation:360, animationDelay: 0, ease:Linear.easeNone,
 TweenMax.to('.inner', 5, {rotation:-360, animationDelay: 1, ease:Linear.easeNone, repeat:-1});
 TweenMax.to('.content', 5, {rotation:360, animationDelay: 2, ease:Linear.easeNone, repeat:-1});
 
+const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#floatingPassword');
+
+togglePassword.addEventListener('click', function() {
+	console.log('hello');
+    // Toggle the type attribute using
+    // getAttribute() method
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // Toggle the eye and bi-eye icon
+    this.classList.toggle('bi-eye');
+    this.classList.add('bi-eye-slash');
+});
 
 document.getElementById("login_form").addEventListener("submit", function(e){
   e.preventDefault()

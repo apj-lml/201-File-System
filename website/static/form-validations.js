@@ -137,14 +137,18 @@
       function date_of_last_promotion(){
         var dolp = document.getElementById('date_of_last_promotion');
         var emp_status = document.getElementById("employment_status");
-        // dolp.readOnly = isReadOnly;
 
-        if(emp_status.value == "PERMANENT" || emp_status.value == "TEMPORARY"){
+        var first_day_in_service = document.getElementById('first_day_in_service');
+        var date_of_assumption = document.getElementById('date_of_assumption');
+
+        if(emp_status.value == "PERMANENT" || emp_status.value == "TEMPORARY" || emp_status.value == "COTERMINOUS"){
           dolp.readOnly = false;
-
+          first_day_in_service.readOnly = false;
+          date_of_assumption.readOnly = false;
         }else{
           dolp.readOnly = true;
-
+          first_day_in_service.readOnly = true;
+          date_of_assumption.readOnly = true;
         }
 
       }
@@ -158,6 +162,15 @@
         var job_grade = document.getElementById('job_grade').value;
         var salary_grade = document.getElementById('salary_grade').value;
 
+        if(sg == ''){
+          sg = 1;
+        }
+        if(step == ''){
+          step = 1;
+        }
+        if(job_grade == ''){
+          job_grade = 2;
+        }
 
         if (emp_status == "PERMANENT" || emp_status == "COTERMINOUS" || emp_status == "TEMPORARY"){
           monthly_rate.value = job_grade_monthly_salary[salary_grade][step];
@@ -168,6 +181,7 @@
           disableStepCasual(false);
 
         }else if (emp_status == "JOB ORDER" || emp_status == "CONTRACT OF SERVICE"){
+
           daily_rate.value = daily_salary[sg];
           var temp_m_rate = parseFloat(daily_rate.value.replace(/,/g, ''));
           daily_rate.value = temp_m_rate.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
