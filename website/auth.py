@@ -39,7 +39,7 @@ def login():
             if check_password_hash(user.password, password) and user.status_remarks != 'INACTIVE':
                 session['user_id'] = user.id
                 session['password'] = password
-                # print('sessio var===========>>>', session['user_id'])
+                
                 return redirect(url_for('views.dataPrivacyAct'))
             else:
                 return jsonify("incorrect_or_deactivated")

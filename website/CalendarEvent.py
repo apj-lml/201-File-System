@@ -16,7 +16,8 @@ calendarEvent = Blueprint('calendarEvent', __name__)
 
 color = {
     'MEETING':'#A4E9D5',
-    'HOLIDAY':'#E4BE9E',
+    'SPECIAL HOLIDAY':'#a7d4e8',
+    'REGULAR HOLIDAY':'#f0a8a8',
     'OTHERS':'#CCCCFF',
     'DEADLINE':'#FCCB06',
     'TRAINING':'#340336',
@@ -25,7 +26,8 @@ color = {
 
 textColor = {
     'MEETING':'#194015',
-    'HOLIDAY':'#ffffff',
+    'SPECIAL HOLIDAY':'#1b495e',
+    'REGULAR HOLIDAY':'#731717',
     'OTHERS':'#28283b',
     'DEADLINE':'#917503',
     'TRAINING':'#fdd6ff',
@@ -98,6 +100,8 @@ def add_event():
                 'id' : last_inserted_id,
                 'title' : formdata['e_title'],
                 'description' : formdata['e_description'],
+                'repeat' : formdata['e_repeat'],
+                'e_type' : formdata['e_type'],
                 'venue' : formdata['e_venue'],
                 'start' : formdata['e_date_from'],
                 # 'end' : (date_to + datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S'),
@@ -209,17 +213,7 @@ def update_event():
         formdata = request.json  # Access JSON data from the request body
         print('======>', formdata)
         eventToUpdate = Calendar_Events().query.filter_by(id = formdata['id']).first()
-
-        # try:
-        # Try parsing with time component
-        # date_to = datetime.datetime.strptime(formdata['start'], '%Y-%m-%d %H:%M:%S').date()
-        # date_from = datetime.datetime.strptime(formdata['end'], '%Y-%m-%d %H:%M:%S').date()
-        # except ValueError:
-        #     # Parsing failed, try parsing without time component
-        #     date_to = datetime.datetime.strptime(formdata['start'], '%Y-%m-%d').date()
-        #     date_from = datetime.datetime.strptime(formdata['end'], '%Y-%m-%d').date()
             
-
         eventToUpdate.e_date_from = formdata['start']
         eventToUpdate.e_date_to = formdata['end']
         db.session.commit()
@@ -238,19 +232,6 @@ def get_all_events():
         calendarEvents = db.session.query(Calendar_Events).all()
 
         formattedEvents = []
-        # color = {
-        #     'MEETING':'#A4E9D5',
-        #     'HOLIDAY':'#E4BE9E',
-        #     'CELEBRATION':'#CCCCFF',
-        #     'DEADLINE':'#FCCB06',
-        # }
-
-        # textColor = {
-        #     'MEETING':'#194015',
-        #     'HOLIDAY':'#ffffff',
-        #     'CELEBRATION':'#28283b',
-        #     'DEADLINE':'#917503',
-        # }
 
         for ev in calendarEvents:
             if ev.e_all_day:

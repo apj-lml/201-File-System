@@ -226,6 +226,7 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
 #                              UPLOADING OF FILE                               #
 # ---------------------------------------------------------------------------- #
+
     final_name = ''
 
     for afilex in request.files:
@@ -298,7 +299,7 @@ def update_employee(emp_id):
 #              popping unnecessary data before saving to database              #
 # ---------------------------------------------------------------------------- #
 
-    formdata.pop('employee_id')
+    # formdata.pop('employee_id')
 
 # ---------------------------------------------------------------------------- #
 #                                CAPITALIZE DATA                               #
