@@ -655,9 +655,9 @@ button {
 
                       </div>
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" pattern="^(N/A|\bPSN-\d{4}-\d{3}-\d{4}-\d{1}\b)$" form="update_form">
+                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" pattern="^(N/A|\d{4}-\d{4}-\d{4}-\d{4})$" form="update_form">
                         <label for="name_extn">PhilSys</label>
-                        <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. PSN-1234-567-8912-3</p></small>
+                        <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 1234-5627-8912-1333</p></small>
 
                       </div>
                     </div>
@@ -669,7 +669,7 @@ button {
 
                       </div>
                       <div class="form-floating flex-fil p-1">
-                        <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" pattern="^(N/A|\w{4}-\w{5}-\w{13})$" form="update_form">
+                        <input type="text" class="form-control" id="voters_id_no" name ="voters_id_no" placeholder="Solo Parent ID No." value="{{user_profile.voters_id_no if user_profile.voters_id_no is not none else ''}}" form="update_form">
                         <label for="voters_id_no">Voter's ID No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 3022-0201B-C0272ESA20000</p></small>
 
