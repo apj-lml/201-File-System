@@ -182,6 +182,9 @@ class User(db.Model, UserMixin):
     data_privacy = db.Column(db.String(45), default='unchecked')
     is_spouse_saln_filer = db.Column(db.String(45), default='unchecked')
     acknowledgement = db.Column(db.String(45), default='unchecked')
+
+    beneficiary = db.Column(db.String(100), nullable=True)
+    beneficiary_relationship = db.Column(db.String(100), nullable=True)
     
     uploaded_files = db.relationship('Uploaded_File')
     # service_record = db.relationship('Service_Record')

@@ -731,6 +731,22 @@ button {
                     </div>
                   </div>
                 </div>
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                  <h3 class="card-title">GSIS Personal Accident Insurance</h3>
+                    <div class="d-md-flex flex-row">
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="beneficiary" name ="beneficiary" placeholder="Beneficiary" onchange="sameAsPermanent()" value="{{user_profile.beneficiary if user_profile.beneficiary is not none else ''}}" form="update_form" required> 
+                          <label for="beneficiary">Beneficiary</label>
+                        </div>
+                        <div class="form-floating flex-fill mb-3 p-1">
+                          <input type="text" class="form-control" id="beneficiary_relationship" name ="beneficiary_relationship" placeholder="Street" onchange="sameAsPermanent()" value="{{user_profile.beneficiary_relationship if user_profile.beneficiary_relationship is not none else ''}}" form="update_form" required>
+                          <label for="beneficiary_relationship">Relationship</label>
+                        </div>
+                      </div>
+                  </div>
+                </div>
             
                 <div class="card mb-3">
                   <div class="card-body">
