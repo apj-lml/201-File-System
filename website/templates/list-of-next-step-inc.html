@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block title %} Loyalty Awardees {% endblock %}
+
+{%block cssperfile %} 
+<style type="text/css">
+	div.dtsb-searchBuilder div.dtsb-titleRow {
+    	display: none;
+}
+
+.truncate {
+  max-width:150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th{
+  text-align: center;
+}
+td{
+  text-align: left;
+}
+</style>
+<link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid mt-4">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                         LIST OF awardeeS                                -->
+  <!-- ----------------------------------------------------------------------- -->
+<div class="row">
+  <div class="d-flex justify-content-center">
+        <div class="card shadow-sm mb-3 col-sm-9">
+          <div class="card-body">
+              <div class="card text-white bg-blue shadow-sm mb-3" >
+                <div class="card-header"><h3 class="card-title text-white fw-bolder text-center"><i class="bi bi-journals"></i> LIST OF LOYALTY AWARDEES</h3> </div>
+              </div>
+              <div class="table-responsive">
+                <!-- <div id="userstable_filter"></div> -->
+                <!-- <select class="form-select" aria-label="Default select example" id="columnSelect">
+                  <option value="0">Name</option>
+                  <option value="1">First Day in Service</option>
+                  <option value="2">Number of Years in Service</option>
+                  <option value="3">Claiming Year</option>
+                </select> -->
+                <table class="table table-bordered table-striped" id="loyalty_awardees_table" width = "100%">
+                  <thead class="">
+                  <tr class="align-middle">
+                    <th width="200px">Name</th>
+                    <th width="50px">Position Title</th>
+                    <th>Employment Status</th>
+                    <th>First Day in Service <br>(No Gap)</th>
+                    <th>Number of Years in Service</th>
+                    <th>Claiming Year</th>
+                    <th>CSC Parangal - Pasasalamat Claiming Year</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {# if getListOfawardees is not none #}
+                      {% for awardee in getListOfawardees %}
+                        <tr>
+                          <td class="text-start align-middle">{{awardee.proper_fullname}}</td>
+                          <td class="text-start align-middle">{{awardee.position_title}}</td>
+                          <td class="text-center align-middle">{{awardee.employment_status}}</td>
+                          <td class="text-center align-middle">{{awardee.first_day_in_service.strftime('%B %d, %Y') if awardee.awardClaimingYear() is not none }}</td>
+                          <td class="text-center align-middle">{{awardee.getYearsInService() if awardee.getYearsInService() is not none }}</td>
+                          <td class="text-wrap align-middle">
+                            {% if awardee.awardClaimingYear() %}
+                                {% set claiming_years = awardee.awardClaimingYear() %}
+                                {{ claiming_years|join(' | ') }}
+                            {% endif %}
+                          </td>
+                          <td class="text-wrap align-middle">
+                            {% if awardee.CscAwardClaimingYear() %}
+                                {% set claiming_years = awardee.CscAwardClaimingYear() %}
+                                {{ claiming_years|join(' | ') }}
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    {# endif #}
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+	</div>
+</div>
+
+</main>
+
+{% endblock %}
+
+{%block scripts%}
+
+<script type="text/javascript">
+
+  window.addEventListener('load',()=>{
+
+    var table = $('#loyalty_awardees_table').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        {
+          extend: 'excel',
+          text: '<i class="bi bi-file-earmark-spreadsheet-fill"></i> Export Excel',
+          title: 'Loyalty Awardees'
+        }
+      ],
+      "oLanguage": {
+        "sSearch": ""
+      },
+      columnDefs: [{ targets: 3, className: "truncate" }],
+      createdRow: function(row) {
+        var td = $(row).find(".truncate");
+        td.attr("title", td.html());
+      },
+      responsive: false,
+      order: [],
+      dom: `<'row'<'col-sm-2'l><'col-sm-5 appendRegex'f><'col-sm-3 appendHere'><'col-sm-2'B>>
+            <'row'<'col-sm-12'tr>>
+            <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>`,
+            initComplete: function() {
+              var api = this.api();
+
+              var searchInput = $('div.dataTables_filter input[type="search"]');
+              var appendRegex = $(`
+              <div class="col-sm-6 ms-auto text-end"
+                <div class="form-check form-switch text-end">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+                  <label class="form-check-label" for="flexSwitchCheckChecked">Exact Match</label>
+                </div>
+              </div>
+              `).appendTo(('div.appendRegex'));
+
+              searchInput.attr('placeholder', 'Search...');
+
+              var columnSelect2 = $('<select class="form-select form-select-sm" id="columnSelect"><option value="">Search All</option></select>')
+                .appendTo($('div.appendHere'));
+                //.appendTo($('div.dataTables_filter'));
+        
+              api.columns().every(function() {
+                var column = this;
+        
+                columnSelect2.append('<option value="' + column.index() + '">' + column.header().textContent + '</option>');
+              });
+        
+              $('div.dataTables_filter input[type="search"]').on('keyup', function() {
+                var columnIndex = $('#columnSelect').val();
+                var searchValue = $(this).val();
+                var flexSwitchCheckChecked = $('#flexSwitchCheckChecked').prop('checked');
+                
+                console.log(flexSwitchCheckChecked);
+
+                api.columns().search('').draw(); // Reset search on all columns
+        
+                if (columnIndex !== '') {
+                  if (columnIndex === '3') {
+                    if(!flexSwitchCheckChecked){
+                      api.columns([columnIndex, 4]).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  } else {
+                    if(!flexSwitchCheckChecked){
+                      api.column(columnIndex).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  }
+                }
+
+              });
+
+              $('#columnSelect').on('change', function() {
+                var columnIndex = $('#columnSelect').val();
+                var searchValue = $(this).val();
+                var flexSwitchCheckChecked = $('#flexSwitchCheckChecked').prop('checked');
+                
+                console.log(flexSwitchCheckChecked);
+
+                api.columns().search('').draw(); // Reset search on all columns
+        
+                if (columnIndex !== '') {
+                  if (columnIndex === '3') {
+                    if(!flexSwitchCheckChecked){
+                      api.columns([columnIndex, 4]).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  } else {
+                    if(!flexSwitchCheckChecked){
+                      api.column(columnIndex).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  }
+                }
+
+              });
+
+              $('#flexSwitchCheckChecked').on('change', function() {
+                var columnIndex = $('#columnSelect').val();
+                var searchValue = $(this).val();
+                var flexSwitchCheckChecked = $('#flexSwitchCheckChecked').prop('checked');
+                
+                console.log(flexSwitchCheckChecked);
+
+                //api.columns().search('').draw(); // Reset search on all columns
+        
+                if (columnIndex !== '') {
+                  if (columnIndex === '3') {
+                    if(!flexSwitchCheckChecked){
+                      api.columns([columnIndex, 4]).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  } else {
+                    if(!flexSwitchCheckChecked){
+                      api.column(columnIndex).search(searchValue).draw();
+                    }else{
+                      regex = '^' + searchValue + '$';
+                      api.columns([columnIndex, 4]).search(regex, true, false).draw();
+                    }
+                  }
+                }
+
+              });
+
+
+
+            }
+    });
+  
+
+});
+
+
+
+</script>
+{%endblock%}

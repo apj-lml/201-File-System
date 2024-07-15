@@ -632,7 +632,7 @@ button {
                         <label for="name_extn">Philhealth No.<span class="is-required">*</span></label>
                       </div>
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" pattern="^(N/A|\d{2}-\d{7}-\d{1})$" {{'readonly' if current_user.type_of_user == 'user'}}>
+                        <input type="text" class="form-control" id="sss" name ="sss" placeholder="SSS" value="{{user_profile.sss}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}> <!--  pattern="^(N/A|\d{2}-\d{7}-\d{1})$" -->
                         <label for="name_extn">SSS No.<span class="is-required">*</span></label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 02-2641328-3</p></small>
 
@@ -640,7 +640,7 @@ button {
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill mb-3 p-1">
-                        <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}  pattern="^(N/A|\d{3}-\d{3}-\d{3}-\d{3})$" required>
+                        <input type="text" class="form-control" id="tin" name ="tin" placeholder="TIN" value="{{user_profile.tin}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}} required> <!-- pattern="^(N/A|\d{3}-\d{3}-\d{3}-\d{3})$" -->
                         <label for="name_extn">TIN<span class="is-required">*</span></label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 363-716-309-000</p></small>
                       </div>
@@ -649,13 +649,13 @@ button {
                         <!-- <label for="name_extn">ATM Card No. (Optional)</label>
                       </div> -->
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form" pattern="^(N/A|\bCRN-\d{4}-\d{7}-\d{1}\b)$">
+                        <input type="text" class="form-control" id="umid" name ="umid" placeholder="UMID" value="{{user_profile.umid}}" form="update_form"> <!-- pattern="^(N/A|\bCRN-\d{4}-\d{7}-\d{1}\b)$" -->
                         <label for="name_extn">GSIS UMID No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. CRN-0111-9316875-2</p></small>
 
                       </div>
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" pattern="^(N/A|\d{4}-\d{4}-\d{4}-\d{4})$" form="update_form">
+                        <input type="text" class="form-control" id="philsys" name ="philsys" placeholder="PhilSys" value="{{user_profile.philsys}}" form="update_form"> <!-- pattern="^(N/A|\d{4}-\d{4}-\d{4}-\d{4})$" -->
                         <label for="name_extn">PhilSys</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. 1234-5627-8912-1333</p></small>
 
@@ -681,7 +681,7 @@ button {
                     </div>
                     <div class="d-md-flex flex-row">
                       <div class="form-floating flex-fill p-1">
-                        <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}" pattern="^(N/A|\w{3}-\w{2}-\w{6}\b)$" form="update_form" >
+                        <input type="text" class="form-control" id="driver_license" name ="driver_license" placeholder="Driver's License No." value="{{user_profile.driver_license if user_profile.driver_license is not none else ''}}"> <!-- pattern="^(N/A|\w{3}-\w{2}-\w{6}\b)$" form="update_form"-->
                         <label for="driver_license" >Driver's License No.</label>
                         <small class="" style="font-size: 12px; color: rgb(0, 30, 255);"><p style="line-height: normal;">*Eg. A14-22-000321</p></small>
 
