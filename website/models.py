@@ -322,7 +322,7 @@ class User(db.Model, UserMixin):
                     updated_date = date_str + relativedelta(years=x)
                     claiming_years.append(updated_date.strftime('%Y'))
                 
-            return claiming_years
+        return claiming_years
 
     # emergency_contact = db.relationship('Emergency_Contact')
 
