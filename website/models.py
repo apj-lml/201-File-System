@@ -309,7 +309,7 @@ class User(db.Model, UserMixin):
         year_to_add = 0
         claiming_years = []
 
-        if self.date_of_assumption:
+        if self.date_of_assumption is not None:
             
             for x in range(10, 45+5, 5):
                 #checking if month is more than June
