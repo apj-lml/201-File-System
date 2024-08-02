@@ -77,7 +77,7 @@ td{
                           <td class="text-start align-middle">{{stepIncrement.proper_fullname}}</td>
                           <td class="text-start align-middle">{{stepIncrement.position_title}}</td>
                           <td class="text-center align-middle">{{stepIncrement.employment_status}}</td>
-                          <td class="text-center align-middle">{{stepIncrement.first_day_in_service.strftime('%B %d, %Y') if stepIncrement.NextStepIncrement() is not none }}</td>
+                          <td class="text-center align-middle">{{stepIncrement.first_day_in_service.strftime('%B %d, %Y') if stepIncrement.NextStepIncrement() is not none else 'N/A'}}</td>
                           <td class="text-center align-middle">{{stepIncrement.getYearsInService() if stepIncrement.getYearsInService() is not none }}</td>
                           <td class="text-wrap align-middle">
                             {% if stepIncrement.NextStepIncrement() %}
