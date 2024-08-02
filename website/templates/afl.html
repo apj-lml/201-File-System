@@ -1367,27 +1367,6 @@
 				// Get the current year in the timezone of the Philippines
 				var currentYearInPH = new Intl.DateTimeFormat('en-US', { year: 'numeric', timeZone: 'Asia/Manila' }).format(currentDate);
 
-			  	if(firstDatePickedForValidation.getFullYear() != currentYearInPH || lastDatePickedForValidation.getFullYear() != currentYearInPH){
-					if( firstDatePickedForValidation.getFullYear() > currentYearInPH ){
-						Swal.fire({
-							title: 'NOTICE!',
-							text: `Please be advised that you have to file your leave separately if the inclusive dates are with different years.`,
-							icon: 'warning',
-							allowOutsideClick: false,
-							showCancelButton: false,
-							confirmButtonColor: '#3085d6',
-							cancelButtonColor: '#d33',
-							confirmButtonText: 'I understand'
-						}).then((result) => {
-							if (result.isConfirmed) {
-								fp.clear();
-
-							}
-						});
-					}
-
-				}
-
 			
 
 			  for (let i = 1; i < sortedDates.length; i++) {
@@ -1401,7 +1380,34 @@
 				  dateRanges.push([new Date(sortedDates[i]).toLocaleDateString()]);
 				}
 			  }
+
 			  var leave = document.getElementById('leave_id').value;
+
+			  
+			  if(firstDatePickedForValidation.getFullYear() != currentYearInPH || lastDatePickedForValidation.getFullYear() != currentYearInPH){
+				if( firstDatePickedForValidation.getFullYear() > currentYearInPH ){
+					if(leave == 2 || leave == 6){
+						Swal.fire({
+							title: 'NOTICE!',
+							text: `Please be advised that you have to file your leave separately if the inclusive dates are within a different year than the current year.`,
+							icon: 'warning',
+							allowOutsideClick: false,
+							showCancelButton: false,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'I understand'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								fp.clear();
+	
+							}
+						});
+					}
+
+				}
+
+			}
+
 
 			  if(leave == 2){
 				var fl = 0;

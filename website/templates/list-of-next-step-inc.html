@@ -48,7 +48,7 @@ td{
         <div class="card shadow-sm mb-3 col-sm-9">
           <div class="card-body">
               <div class="card text-white bg-blue shadow-sm mb-3" >
-                <div class="card-header"><h3 class="card-title text-white fw-bolder text-center"><i class="bi bi-journals"></i> LIST OF LOYALTY AWARDEES</h3> </div>
+                <div class="card-header"><h3 class="card-title text-white fw-bolder text-center"><i class="bi bi-journals"></i> LIST OF STEP INCREMENT</h3> </div>
               </div>
               <div class="table-responsive">
                 <!-- <div id="userstable_filter"></div> -->
@@ -72,22 +72,22 @@ td{
                   </thead>
                   <tbody>
                     {# if getListOfawardees is not none #}
-                      {% for awardee in getListOfawardees %}
+                      {% for stepIncrement in getListOfStepIncrement %}
                         <tr>
-                          <td class="text-start align-middle">{{awardee.proper_fullname}}</td>
-                          <td class="text-start align-middle">{{awardee.position_title}}</td>
-                          <td class="text-center align-middle">{{awardee.employment_status}}</td>
-                          <td class="text-center align-middle">{{awardee.first_day_in_service.strftime('%B %d, %Y') if awardee.awardClaimingYear() is not none }}</td>
-                          <td class="text-center align-middle">{{awardee.getYearsInService() if awardee.getYearsInService() is not none }}</td>
+                          <td class="text-start align-middle">{{stepIncrement.proper_fullname}}</td>
+                          <td class="text-start align-middle">{{stepIncrement.position_title}}</td>
+                          <td class="text-center align-middle">{{stepIncrement.employment_status}}</td>
+                          <td class="text-center align-middle">{{stepIncrement.first_day_in_service.strftime('%B %d, %Y') if stepIncrement.NextStepIncrement() is not none }}</td>
+                          <td class="text-center align-middle">{{stepIncrement.getYearsInService() if stepIncrement.getYearsInService() is not none }}</td>
                           <td class="text-wrap align-middle">
-                            {% if awardee.awardClaimingYear() %}
-                                {% set claiming_years = awardee.awardClaimingYear() %}
+                            {% if stepIncrement.NextStepIncrement() %}
+                                {% set claiming_years = stepIncrement.NextStepIncrement() %}
                                 {{ claiming_years|join(' | ') }}
                             {% endif %}
                           </td>
                           <td class="text-wrap align-middle">
-                            {% if awardee.CscAwardClaimingYear() %}
-                                {% set claiming_years = awardee.CscAwardClaimingYear() %}
+                            {% if stepIncrement.NextStepIncrement() %}
+                                {% set claiming_years = stepIncrement.NextStepIncrement() %}
                                 {{ claiming_years|join(' | ') }}
                             {% endif %}
                           </td>

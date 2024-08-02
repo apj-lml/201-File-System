@@ -174,6 +174,7 @@ def create_app():
 	from .coe import coe
 	from .listOfLoyaltyAwardees import listOfLoyaltyAwardees
 	from .listOfRetirees import listOfRetirees
+	from .listOfStepIncrement import listOfStepIncrement
 	from .saln import saln
 	from .salnReports import salnReports
 	from .fileLogs import FileLogs
@@ -213,6 +214,7 @@ def create_app():
 	app.register_blueprint(coe, url_prefix = '/coe')
 	app.register_blueprint(listOfLoyaltyAwardees, url_prefix = '/listOfLoyaltyAwardees')
 	app.register_blueprint(listOfRetirees, url_prefix = '/listOfRetirees')
+	app.register_blueprint(listOfStepIncrement, url_prefix = '/listOfStepIncrement')
 	app.register_blueprint(saln, url_prefix = '/saln')
 	app.register_blueprint(salnReports, url_prefix = '/salnReports')
 	app.register_blueprint(FileLogs, url_prefix = '/fileLogs')

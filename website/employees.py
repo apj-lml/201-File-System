@@ -123,6 +123,7 @@ def get_employees(emp_id):
     if request.method == 'GET' and emp_id == "0" :
         users = User.query.all()
 
+
         user_sgjg = {}  # Dictionary to store sgjg attribute for each user
 
         for user in users:
@@ -130,6 +131,8 @@ def get_employees(emp_id):
                 user_sgjg[user.id] = user.salary_grade
             else:
                 user_sgjg[user.id] = user.job_grade
+
+
 
         user_schema = UserSchema(many=True)
 
@@ -434,9 +437,6 @@ def update_employee(emp_id):
 # @admin_permission.require(http_exception=403)
 def insert_employee():
     formdata = request.form.to_dict()
-
-    print("employees.py===========>>>>>", formdata['first_day_in_service'])
-    # user = db.session.query(User).get(emp_id)
 
     formdata['birthdate'] = datetime.datetime.strptime(formdata['birthdate'], '%Y-%m-%d').date()
 

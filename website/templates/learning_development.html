@@ -322,21 +322,8 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 			element.classList.remove("highlight");
 		});
 	
-	
-		//if(elemId == 99){
-		//	elemId = 1;
-		//	var myElement = document.getElementById('scrollspyHeading'+elemId);
-	
-		//	myElement.classList.remove('fade-out');
-		//	myElement.classList.remove('highlight');
-	
-		//	var topPos = myElement.offsetTop;
-		
-		//	document.getElementById('scrolling_div').scrollTop = topPos;
-		//}else{
 			var myElement = document.getElementById('scrollspyHeading'+elemId);
 
-	
 			myElement.classList.remove('fade-out');
 			myElement.classList.remove('highlight');
 			myElement.classList.remove('animate__pulse');
@@ -346,18 +333,11 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 			console.log(topPos)
 			console.log(myElement.offsetTop)
 		
-			//document.getElementById('scrolling_div').scrollTo({
-			//	top: 0,
-			//	left: 0,
-			//	behavior: 'smooth',
-			//});
-	
+
 			document.getElementById('scrolling_div').scrollTop = topPos - 20;
 			
 			myElement.classList.add('highlight'); // add the highlight class
 			myElement.classList.add('animate__pulse'); // add the highlight class
-
-		//}
 	
 	  }
 
@@ -365,49 +345,120 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 	document.getElementById('add_ld_form').addEventListener('submit', (e)=>{
 		e.preventDefault();
 
-		loadingScreen('block');
 
-		var formElem = document.getElementById("add_ld_form");
-		let formData = new FormData(formElem);
+		fireLndNotice().then((isConfirmed) => {
+			if (isConfirmed) {
+				// User confirmed the action
+				console.log("User confirmed the action");
 
-		const data = {}
-		formData.forEach((value, key) => (data[key] = value))
+				loadingScreen('block');
+
+				var formElem = document.getElementById("add_ld_form");
+				let formData = new FormData(formElem);
+	
+				const data = {}
+				formData.forEach((value, key) => (data[key] = value))
+				
+				// console.log(data)
+				fetch('/ld/add-learning-and-development/{{emp_id}}', {
+						method: 'POST',
+						body: formData
+					}).then((res)=>{
+						if (res.status == 413){
+							// triggerToast("The selected file exceeds maximum limit size of 50MB."); 
+						}else if (res.status == 406){
+							triggerToast("Invalid File Submitted.", 'error'); 
+	
+							// return res.json();
+							// do nothong
+						}else if (res.status == 500){
+							triggerToast("Server Error! Please try to save again.", 'error'); 
+							loadingScreen('none');
+	
+							
+						}else{
+							document.getElementById('add_ld_form').reset();
+							loadingScreen('none');
+	
+						}
+						return res.json();
+	
+					}).then((data)=>{
+							triggerToast(data, "success"); //this is the returned error message
+							var table = $('#ld_table').DataTable();
+							table.ajax.reload();
+							nia_pimo();
+							loadingScreen('none');
+	
+							// window.location.reload();
+					});
+				// Add your logic here
+			} else {
+				// User did not confirm the action
+				console.log("User canceled or did not confirm");
+				// Add your logic here
+			}
+		});
+
+
 		
-		// console.log(data)
-		fetch('/ld/add-learning-and-development/{{emp_id}}', {
-				method: 'POST',
-				body: formData
-			}).then((res)=>{
-				if (res.status == 413){
-					// triggerToast("The selected file exceeds maximum limit size of 50MB."); 
-				}else if (res.status == 406){
-					 triggerToast("Invalid File Submitted.", 'error'); 
+	
 
-					// return res.json();
-					// do nothong
-				}else if (res.status == 500){
-					triggerToast("Server Error! Please try to save again.", 'error'); 
-					loadingScreen('none');
 
-					
-				}else{
-					document.getElementById('add_ld_form').reset();
-					loadingScreen('none');
 
-				}
-				return res.json();
-
-			}).then((data)=>{
-					triggerToast(data, "success"); //this is the returned error message
-					var table = $('#ld_table').DataTable();
-					table.ajax.reload();
-					nia_pimo();
-					loadingScreen('none');
-
-					// window.location.reload();
-			})
+		
 
 	});
+
+
+	function fireLndNotice() {
+		return new Promise((resolve) => {
+			Swal.fire({
+				title: '<strong>Acknowledgement</strong>',
+				icon: 'info',
+				width: 600,
+				allowOutsideClick: false,
+				showCloseButton: false,
+				html: `
+					<p class="text-center">
+						Please verify that the uploaded file is authentic and accurate. Note that submitting false file/information will incur disciplinary actions.
+					</p>
+					<div class="d-inline-flex justify-content-center">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="acknowledgement">
+							<label class="form-check-label" for="acknowledgement">
+								I confirm that all information and the uploaded file is correct.
+							</label>
+						</div>
+					</div>
+				`,
+				showCancelButton: {{ 'true' if request_path == '/data-privacy-act' and not data_privacy_checked else 'false' }},
+				focusConfirm: true,
+				confirmButtonText: 'Proceed',
+				cancelButtonText: 'Cancel',
+				preConfirm: () => {
+					let ack = document.getElementById("acknowledgement");
+					if (ack.checked) {
+						return undefined;
+					} else {
+						Swal.fire('Verification Failed!', 'You have not agreed to verify that all the information and the uploaded file is authentic and correct; therefore, you cannot proceed to save.', 'warning');
+						return false;
+					}
+				}
+			}).then((result) => {
+				if (result.isConfirmed) {
+					resolve(true);
+				} else {
+					resolve(false);
+				}
+			});
+		});
+	}
+
+
+
+
+
 (function () {
   'use strict'
 

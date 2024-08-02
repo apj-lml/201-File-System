@@ -18,7 +18,11 @@ import math
 from dataclasses import dataclass
 
 from sqlalchemy.inspection import inspect
+
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
+from marshmallow import fields
 
 UTC = pytz.utc
 PST = pytz.timezone('Asia/Manila')
@@ -65,7 +69,8 @@ class User(db.Model, UserMixin):
 
     item_no = db.Column(db.String(150))
     item_location = db.Column(db.String(150))
-    date_of_assumption = db.Column(db.String(150))
+    # date_of_assumption = db.Column(db.String(150))
+    date_of_assumption = db.Column(db.Date(), nullable=True)
 
     # original_station = db.Column(db.String(150))
     date_hired_in_nia = db.Column(db.String(150), nullable=True)
@@ -270,12 +275,6 @@ class User(db.Model, UserMixin):
         claiming_years = []
 
         if self.first_day_in_service:
-            # if self.getYearsInService() <= 10:
-            #     year_to_add = relativedelta(years=10)
-            # else:
-            #     year_divided = math.ceil((self.getYearsInService() - 10) / 5) * 5
-            #     year_to_add = relativedelta(years=10) + relativedelta(years=year_divided)
-                
             for x in range(10, 45+5, 5):
                 #checking if month is more than June
                 if self.first_day_in_service.month > 6:
@@ -301,6 +300,26 @@ class User(db.Model, UserMixin):
                     claiming_years.append(updated_date.strftime('%Y'))
                 else:
                     updated_date = self.first_day_in_service + relativedelta(years=x)
+                    claiming_years.append(updated_date.strftime('%Y'))
+                
+            return claiming_years
+
+    def NextStepIncrement(self):
+        one_year = relativedelta(years=1)
+        year_to_add = 0
+        claiming_years = []
+
+        if self.date_of_assumption:
+            
+            for x in range(10, 45+5, 5):
+                #checking if month is more than June
+                date_str = self.date_of_assumption
+                # date_str = datetime.strptime(self.date_of_assumption, '%Y-%m-%d').date()
+                if date_str.month > 6:
+                    updated_date = date_str + relativedelta(years=x) + one_year
+                    claiming_years.append(updated_date.strftime('%Y'))
+                else:
+                    updated_date = date_str + relativedelta(years=x)
                     claiming_years.append(updated_date.strftime('%Y'))
                 
             return claiming_years
@@ -864,6 +883,8 @@ class AssignatorySchema(ma.SQLAlchemyAutoSchema):
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
+        # include_relationships = True
+        # load_instance = True
     agency_section = ma.Nested(AgencySectionSchema, attribute='user_section')
     agency_unit = ma.Nested(AgencyUnitSchema, attribute='user_unit')
     family_background = ma.Nested(FamilyBackgroundSchema, attribute='user_family_background', many=True)
@@ -873,6 +894,13 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     business_interest = ma.Nested(BusinessInterestSchema, attribute='user_business_interest', many=True)
     relative_in_government = ma.Nested(RelativeInGovernmentSchema, attribute='user_relative_in_government', many=True)
     assignatory = ma.Nested(AssignatorySchema, attribute='user_assignatory')
+
+    # Custom handling for date fields
+    # employee_id_date_issued = fields.Date()
+    # date_of_assumption = fields.Date()
+    # first_day_in_service = fields.Date()
+    # birthdate = fields.Date()
+    # date_of_separation = fields.Date()
 
 class WesDutiesAccomplishmentsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
