@@ -9,7 +9,6 @@ import json
 from dateutil.relativedelta import relativedelta
 from . import db
 
-# import pprint
 
 calendarEvent = Blueprint('calendarEvent', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}

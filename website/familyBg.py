@@ -1,4 +1,4 @@
-from pprint import pprint
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -10,7 +10,6 @@ from .myhelper import allowed_file
 from werkzeug.utils import secure_filename
 import json
 import os, os.path
-# import pprint
 
 familyBg = Blueprint('familyBg', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -152,8 +151,8 @@ def add_family_background(emp_id):
 def update_family_background(emp_id):
 
     formdata = request.form.to_dict()
-    # print('UPDATE FAMILY BG: ', formdata)
-    pprint(formdata)
+
+
     for xy in range(1, int(formdata['child_count'])+5):
         if 'id['+str(xy)+']' in formdata:
             id = formdata['id['+str(xy)+']']

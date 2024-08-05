@@ -74,29 +74,6 @@
 							<button type="submit" class="btn btn-primary mb-5" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }}>Save</button>
 						</div>
 					</div>
-				  <!-- <div class="card shadow-sm mb-3">
-					<div class="card-body">
-						<div class="col-sm-12">
-							<div class="table-responsive">
-								<table class="table table-striped" id="character_ref_table" width = "100%">
-									<thead class="">
-									<tr>
-										<th scope="col">Full Name</th>
-										<th scope="col">Complete Address</th>
-										<th scope="col">Contact Number</th>
-										<th scope="col">Controls</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div> -->
-
 			</div>
 		</div>
 	</div>
@@ -158,62 +135,51 @@
 {%block scripts%}
 <script type="text/javascript">
 	///ld/add-learning-and-development/{{emp_id}}
-	document.getElementById('add_emergency_contact_form').addEventListener('submit', (e)=>{
-		e.preventDefault();
-		loadingScreen("block");
-		var formElem = document.getElementById("add_emergency_contact_form");
-		let formData = new FormData(formElem);
+		document.getElementById('add_emergency_contact_form').addEventListener('submit', (e)=>{
+			e.preventDefault();
+			loadingScreen("block");
+			var formElem = document.getElementById("add_emergency_contact_form");
+			let formData = new FormData(formElem);
 
-		const data = {}
-		formData.forEach((value, key) => (data[key] = value))
-		
-		console.log(data)
-		fetch('/emergencyContact/add/{{emp_id}}', {
-				method: 'POST',
-				body: formData
-			}).then((res)=>{
-				return res.json();
+			const data = {}
+			formData.forEach((value, key) => (data[key] = value))
+			
+			console.log(data)
+			fetch('/emergencyContact/add/{{emp_id}}', {
+					method: 'POST',
+					body: formData
+				}).then((res)=>{
+					return res.json();
 
-			}).then((data)=>{
-					loadingScreen("none")
-					triggerToast("Successfully Added Emergency Contact!", "success");
-					//window.location.reload();
+				}).then((data)=>{
+						loadingScreen("none")
+						triggerToast("Successfully Added Emergency Contact!", "success");
+				})
 
-					// var table = $('#character_ref_table').DataTable();
-					// table.ajax.reload();
-                    // document.getElementById('add_emergency_contact_form').reset();
-			})
+		});
 
-	});
+		document.getElementById('update_emergency_contact_form').addEventListener('submit', (e)=>{
+			e.preventDefault();
+			loadingScreen("block");
+			var formElem = document.getElementById("update_emergency_contact_form");
+			let formData = new FormData(formElem);
 
-	document.getElementById('update_emergency_contact_form').addEventListener('submit', (e)=>{
-		e.preventDefault();
-		loadingScreen("block");
-		var formElem = document.getElementById("update_emergency_contact_form");
-		let formData = new FormData(formElem);
+			const data = {}
+			formData.forEach((value, key) => (data[key] = value))
+			
+			console.log(data)
+			fetch('/emergencyContact/update/{{emp_id}}', {
+					method: 'POST',
+					body: formData
+				}).then((res)=>{
+					return res.json();
 
-		const data = {}
-		formData.forEach((value, key) => (data[key] = value))
-		
-		console.log(data)
-		fetch('/emergencyContact/update/{{emp_id}}', {
-				method: 'POST',
-				body: formData
-			}).then((res)=>{
-				return res.json();
+				}).then((data)=>{
+						loadingScreen("none");
+						triggerToast(data);
+				})
 
-			}).then((data)=>{
-					loadingScreen("none");
-					 triggerToast(data);
-					// var table = $('#character_ref_table').DataTable();
-					// table.ajax.reload();
-					//window.location.reload();
-                    // document.getElementById('add_emergency_contact_form').reset();
-					// var myModal = bootstrap.Modal.getInstance(document.getElementById('viewExpModal'))
-					// myModal.hide();
-			})
-
-	});
+		});
 
 
 (function () {

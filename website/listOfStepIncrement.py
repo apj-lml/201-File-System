@@ -9,7 +9,7 @@ import json
 from dateutil.relativedelta import relativedelta
 from . import db
 
-# import pprint
+
 listOfStepIncrement = Blueprint('listOfStepIncrement', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 
@@ -30,6 +30,6 @@ def page_not_found(e):
 def get_list_of_expiry():
     if request.method == "GET":
 
-        getListOfStepIncrement = User.query.filter(User.status_remarks == "ACTIVE").filter(User.employment_status != "JOB ORDER").filter(User.employment_status != "CASUAL").all()
+        getListOfStepIncrement = User.query.filter(User.status_remarks == "ACTIVE").filter(User.employment_status != "JOB ORDER").filter(User.employment_status != "CONTRACT OF SERVICE").filter(User.employment_status != "CASUAL").all()
 
         return render_template('list-of-next-step-inc.html', getListOfStepIncrement = getListOfStepIncrement)

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Loyalty Awardees {% endblock %}
+{% block title %} List of Next Step Increment {% endblock %}
 
 {%block cssperfile %} 
 <style type="text/css">
@@ -62,12 +62,11 @@ td{
                   <thead class="">
                   <tr class="align-middle">
                     <th width="200px">Name</th>
-                    <th width="50px">Position Title</th>
-                    <th>Employment Status</th>
-                    <th>First Day in Service <br>(No Gap)</th>
-                    <th>Number of Years in Service</th>
-                    <th>Claiming Year</th>
-                    <th>CSC Parangal - Pasasalamat Claiming Year</th>
+                    <th width="300px">Position Title</th>
+                    <th width="60px">Employment Status</th>
+                    <th>Date of Assumption</th>
+                    <!-- <th width="60px">Number of Years in Service</th> -->
+                    <th width="160px">Next Step Increment</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -77,20 +76,22 @@ td{
                           <td class="text-start align-middle">{{stepIncrement.proper_fullname}}</td>
                           <td class="text-start align-middle">{{stepIncrement.position_title}}</td>
                           <td class="text-center align-middle">{{stepIncrement.employment_status}}</td>
-                          <td class="text-center align-middle">{{stepIncrement.first_day_in_service.strftime('%B %d, %Y') if stepIncrement.NextStepIncrement() is not none else 'N/A'}}</td>
-                          <td class="text-center align-middle">{{stepIncrement.getYearsInService() if stepIncrement.getYearsInService() is not none }}</td>
-                          <td class="text-wrap align-middle">
+                          {% if stepIncrement.date_of_assumption is not none  %}
+                          <td class="text-start align-middle">{{stepIncrement.date_of_assumption.strftime('%B %d, %Y') if stepIncrement.NextStepIncrement() is not none else 'N/A'}}</td>
+                          {% else %}
+                          <td class="text-start align-middle">N/A</td>
+
+                          {% endif %}
+
+                          <!-- <td class="text-center align-middle">{{stepIncrement.getYearsInService() if stepIncrement.getYearsInService() is not none }}</td> -->
+                          
+                          <td class="text-start align-middle">
                             {% if stepIncrement.NextStepIncrement() %}
                                 {% set claiming_years = stepIncrement.NextStepIncrement() %}
                                 {{ claiming_years|join(' | ') }}
                             {% endif %}
                           </td>
-                          <td class="text-wrap align-middle">
-                            {% if stepIncrement.NextStepIncrement() %}
-                                {% set claiming_years = stepIncrement.NextStepIncrement() %}
-                                {{ claiming_years|join(' | ') }}
-                            {% endif %}
-                          </td>
+
                         </tr>
                       {% endfor %}
                     {# endif #}

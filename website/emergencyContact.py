@@ -1,5 +1,4 @@
 from itertools import count
-from pprint import pprint
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -18,18 +17,9 @@ def page_not_found(e):
     session['redirected_from'] = request.url
     return redirect(url_for('auth.login'))
 
-# @emergencyContact.template_filter()
-# def format_datetime(value, format='medium'):
-#     if format == 'full':
-#         format="EEEE, d. MMMM y 'at' HH:mm"
-#     elif format == 'medium':
-#         format="EE dd.MM.y HH:mm"
-#     return babel.dates.format_datetime(value, format)
-
-
 
 # ---------------------------------------------------------------------------- #
-#                                    ADD CHAR REF                              #
+#                                ADD CHAR REF                                  #
 # ---------------------------------------------------------------------------- #
 @emergencyContact.route('add/<emp_id>', methods=['POST', 'GET'])
 @login_required
@@ -59,7 +49,7 @@ def add_emergency_contact(emp_id):
             
             return jsonify("Successfully Added Emergency Contact!"), 200
         else:
-            return jsonify("You can only add up to one Emergency Contact only!")
+            return jsonify("You can only add up to one Emergency Contact only!"), 200
 
 
  # ---------------------------------------------------------------------------- #
@@ -106,7 +96,7 @@ def view_emergency_contact(emp_id):
 def udpate_emergency_contact(id):
     if request.method == "POST":
         formdata = request.form.to_dict()
-        pprint(formdata)
+        print("ANDITO AKO")
         # get_we = Emergency_Contact.query.get(formdata['id'])
 
         # for xy in range(1, 4):

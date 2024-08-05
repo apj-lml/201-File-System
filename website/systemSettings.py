@@ -9,8 +9,6 @@ import json
 from dateutil.relativedelta import relativedelta
 from . import db
 
-# import pprint
-
 systemSettings = Blueprint('systemSettings', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 

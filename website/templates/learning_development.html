@@ -399,15 +399,6 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 				// Add your logic here
 			}
 		});
-
-
-		
-	
-
-
-
-		
-
 	});
 
 
@@ -421,13 +412,20 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 				showCloseButton: false,
 				html: `
 					<p class="text-center">
-						Please verify that the uploaded file is authentic and accurate. Note that submitting false file/information will incur disciplinary actions.
+						Please verify that the uploaded file is authentic and accurate. 
+						<br>
+						<i style="color:red;">Note that submitting false document/information will incur disciplinary actions</i>.
+
+						<br>
+						<br>
+						<b style="color:red;">CERTIFICATION OF AUTHENTICITY AND VERACITY OF INFORMATION AND DOCUMENTS</b>.
+
 					</p>
 					<div class="d-inline-flex justify-content-center">
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" id="acknowledgement">
 							<label class="form-check-label" for="acknowledgement">
-								I confirm that all information and the uploaded file is correct.
+								I hereby certify that all documents uploaded herewith are original.
 							</label>
 						</div>
 					</div>
@@ -441,7 +439,7 @@ div.dtsb-searchBuilder div.dtsb-titleRow {
 					if (ack.checked) {
 						return undefined;
 					} else {
-						Swal.fire('Verification Failed!', 'You have not agreed to verify that all the information and the uploaded file is authentic and correct; therefore, you cannot proceed to save.', 'warning');
+						Swal.fire('Certification Failed!', 'You have <b>not certified</b> that all the information and the file you are trying to upload are authentic and correct; therefore, you cannot proceed to save.', 'warning');
 						return false;
 					}
 				}

@@ -1,4 +1,4 @@
-from pprint import pprint
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, current_app, session
 from sqlalchemy import null
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -79,7 +79,7 @@ def signup():
         #logout_user()
         #formdata = json.loads(request.data) <-- use this if receiving json request
         formdata = request.form.to_dict()
-        #pprint(formdata)
+
 
         employee_id = formdata['employee_id']
         password1 = formdata['password']

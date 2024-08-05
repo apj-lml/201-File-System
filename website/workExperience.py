@@ -1,4 +1,4 @@
-from pprint import pprint
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -58,7 +58,6 @@ def add_work_experience(emp_id):
         else:
             get_we = Work_Experience.query.filter_by(user_id = emp_id).order_by(desc(Work_Experience.date_from)).all()
             for we in get_we:
-                # pprint(we.date_from)
                 
                 we_date_from = format_mydatetime(we.date_from)
                 date_from = format_mydatetime(formdata['date_from'])
@@ -131,7 +130,7 @@ def update_work_experience(emp_id):
             else:
                 formdata.update({k: v})
 
-        # pprint(formdata)
+
         # get_we = Work_Experience.query.get(formdata['id'])
 
         if 'sf_present' in formdata:

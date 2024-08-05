@@ -9,7 +9,7 @@ import json
 from dateutil.relativedelta import relativedelta
 from . import db
 
-# import pprint
+
 listOfLoyaltyAwardees = Blueprint('listOfLoyaltyAwardees', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 

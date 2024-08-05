@@ -1,4 +1,4 @@
-from pprint import pprint
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -88,7 +88,6 @@ def add_appointment(emp_id):
                             else:
                                 get_we = Appointment.query.filter_by(user_id = emp_id).order_by(desc(Appointment.service_from)).all()
                                 for we in get_we:
-                                    pprint(we)
                                     we_date_from = format_mydatetime(we.service_from)
                                     date_from = format_mydatetime(formdata['service_from'])
                                     date_to = format_mydatetime(formdata['service_to'])
@@ -183,8 +182,6 @@ def update_appointment(id, emp_id):
         # get_we = Appointment.query.get(id)
         formdata.pop('id')
 
-        # pprint(formdata)
-
         final_name = ''
         
         for afile in request.files:
@@ -220,7 +217,6 @@ def update_appointment(id, emp_id):
 
         get_we_all = Appointment.query.filter_by(user_id = emp_id).order_by(desc(Appointment.service_from)).all()
         get_we = Appointment.query.get(id)
-        # pprint(formdata)
         for we in get_we_all:
             if we.id != int(id):
                 if formdata['service_to'] == "PRESENT":

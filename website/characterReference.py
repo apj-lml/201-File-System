@@ -1,5 +1,4 @@
 from itertools import count
-from pprint import pprint
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -29,9 +28,7 @@ def add_character_reference(emp_id):
     if request.method == "POST":
 
         formdata = request.form.to_dict()
-        # for k,v in formdata.items():
-        #     formdata.update({k: v.upper()})
-        pprint(formdata)
+
         count_char_ref = Character_Reference.query.filter_by(user_id = emp_id).count()
         if count_char_ref < 3 :
             for xy in range(1, 4):

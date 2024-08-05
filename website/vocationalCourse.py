@@ -1,4 +1,4 @@
-from pprint import pprint
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, current_app
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -29,7 +29,7 @@ def add_vocational(emp_id):
     if request.method == "POST":
         formdata = request.form.to_dict()
         vocational_no_fields = formdata["vocational_no_fields"]
-        pprint(formdata)
+
         for x in range(1, int(vocational_no_fields)+1):
 
             v_school = formdata['v_school['+str(x)+']']

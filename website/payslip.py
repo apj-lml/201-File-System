@@ -1,4 +1,4 @@
-from pprint import pprint
+
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app, send_from_directory
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
@@ -82,8 +82,6 @@ def get_payslip(userId):
   
     if request.method == "GET":
         list_of_units = Agency_Unit.query.filter_by(agency_section = userId).order_by(Agency_Unit.unit_title.asc()).all()
-
-        pprint(list_of_units)
 
         column_keys = Agency_Unit.__table__.columns.keys()
 	# Temporary dictionary to keep the return value from table

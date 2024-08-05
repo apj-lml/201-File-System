@@ -9,8 +9,6 @@ import json
 from dateutil.relativedelta import relativedelta
 from . import db
 
-# import pprint
-
 listOfExpiry = Blueprint('listOfExpiry', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
 
