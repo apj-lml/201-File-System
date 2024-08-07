@@ -307,7 +307,7 @@ def update_employee(emp_id):
 #                                CAPITALIZE DATA                               #
 # ---------------------------------------------------------------------------- #
     for k,v in formdata.items():
-        if k == "date_of_assumption" or k == "birthdate" or k == "first_day_in_service" or k == "date_of_separation":
+        if k == "date_of_assumption" or k == "first_day_in_service" or k == "date_of_separation":
             if v == "":
                 formdata[k] = None  # Set empty strings to None
         elif isinstance(v, str) and k != 'comments_remarks':
