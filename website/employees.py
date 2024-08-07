@@ -308,7 +308,8 @@ def update_employee(emp_id):
 # ---------------------------------------------------------------------------- #
     for k,v in formdata.items():
         if k == "date_of_assumption" or k == "birthdate" or k == "first_day_in_service" or k == "date_of_separation":
-            formdata[k] = None  # Set empty strings to None
+            if v == "":
+                formdata[k] = None  # Set empty strings to None
         elif isinstance(v, str) and k != 'comments_remarks':
             formdata[k] = v.upper()
         else:

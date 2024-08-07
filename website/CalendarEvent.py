@@ -249,7 +249,8 @@ def get_all_events():
                     'dtstart': ev.e_date_from.strftime('%Y-%m-%d %H:%M:%S')
                 }
             if ev.e_type == 'WORK SUSPENSION':
-                background = 'background'
+                # background = 'background'
+                pass
             else:
                 background = ''
 
