@@ -311,7 +311,7 @@ class User(db.Model, UserMixin):
 
         if self.date_of_assumption is not None:
             
-            for x in range(10, 45+5, 5):
+            for x in range(3, 45+5, 3):
                 #checking if month is more than June
                 date_str = self.date_of_assumption
                 # date_str = datetime.strptime(self.date_of_assumption, '%Y-%m-%d').date()

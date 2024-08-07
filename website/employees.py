@@ -307,15 +307,12 @@ def update_employee(emp_id):
 #                                CAPITALIZE DATA                               #
 # ---------------------------------------------------------------------------- #
     for k,v in formdata.items():
-        # if v == "":
-        # 	print(k,v)
-        # 	# formdata.update({k: None})
-        # else:
-        if type(v) is str and k != 'comments_remarks':
-            formdata.update({k: v.upper()})
+        if k == "date_of_assumption" or k == "birthdate" or k == "first_day_in_service" or k == "date_of_separation":
+            formdata[k] = None  # Set empty strings to None
+        elif isinstance(v, str) and k != 'comments_remarks':
+            formdata[k] = v.upper()
         else:
-            formdata.update({k: v})
-        # print(k, v)
+            formdata[k] = v
 # ---------------------------------------------------------------------------- #
 #                         UPDATING OF EMPLOYEE PROFILE                         #
 # ---------------------------------------------------------------------------- #

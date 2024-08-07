@@ -733,6 +733,46 @@ button {
                 </div>
 
                 <div class="card mb-3">
+                  <!-- <div class="card-body"> -->
+                    <form id="add_emergency_contact_form" action="#" method="POST"></form>
+                    <form id="update_emergency_contact_form" action="#" method="POST"></form>
+            
+                      <div class="card shadow-sm">
+                        <!-- <span class="me-auto ms-3 mt-3">1. </span> -->
+                        <div class="card-body">
+                          <h3 class="card-title">Emergency Contact Details</h3>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1">
+                              <input type="hidden" class="form-control" name ="id[1]" id="emergency_contact_id" placeholder="ID" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "" }} value="{{ user_profile.emergency_contact[0].id if user_profile.emergency_contact[0] }}">
+                              <input type="text" class="form-control" name ="fullname[1]" placeholder="Full Name" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].fullname if user_profile.emergency_contact[0] else '' }}" required>
+                              <label for="fullname">Full Name</label>
+                            </div>
+                          </div>
+                          <div class="d-md-flex flex-row">
+                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                              <input type="text" class="form-control" name ="relationship[1]" placeholder="Address" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].relationship if user_profile.emergency_contact[0] else '' }}" required>
+                              <label for="address">Relationship</label>
+                              </div>
+                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                              <input type="text" class="form-control" name ="address[1]" placeholder="Address" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].address if user_profile.emergency_contact[0] else '' }}" required>
+                              <label for="address">Emergency Contact's Complete Address</label>
+                            </div>
+                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
+                              <input type="text" class="form-control" name ="contact_no[1]" placeholder="09277799422" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].contact_no if user_profile.emergency_contact[0] else '' }}" pattern="[0-9]{11}" required>
+                              <label for="contact_no">Contact No. (Eg. 09277799422)</label>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 
+                          <div class="col-sm-12 text-center">
+                            <button type="submit" id="emergency_contact_btn" class="btn btn-primary mb-3" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }}>Save Emergency Contact Details</button>
+                          </div> 
+                        -->
+                      </div>
+                  <!-- </div> -->
+              </div>
+
+                <div class="card mb-3">
                   <div class="card-body">
                   <h3 class="card-title">Permanent Address</h3>
                     <div class="d-md-flex flex-row">
@@ -819,45 +859,7 @@ button {
                 </div>
 
                 
-                <div class="card mb-3">
-                  <!-- <div class="card-body"> -->
-                    <form id="add_emergency_contact_form" action="#" method="POST"></form>
-                    <form id="update_emergency_contact_form" action="#" method="POST"></form>
-            
-                      <div class="card shadow-sm">
-                        <!-- <span class="me-auto ms-3 mt-3">1. </span> -->
-                        <div class="card-body">
-                          <h3 class="card-title">Emergency Contact Details</h3>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1">
-                              <input type="hidden" class="form-control" name ="id[1]" id="emergency_contact_id" placeholder="ID" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "" }} value="{{ user_profile.emergency_contact[0].id if user_profile.emergency_contact[0] }}">
-                              <input type="text" class="form-control" name ="fullname[1]" placeholder="Full Name" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].fullname if user_profile.emergency_contact[0] else '' }}" required>
-                              <label for="fullname">Full Name</label>
-                            </div>
-                          </div>
-                          <div class="d-md-flex flex-row">
-                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                              <input type="text" class="form-control" name ="relationship[1]" placeholder="Address" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].relationship if user_profile.emergency_contact[0] else '' }}" required>
-                              <label for="address">Relationship</label>
-                              </div>
-                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                              <input type="text" class="form-control" name ="address[1]" placeholder="Address" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].address if user_profile.emergency_contact[0] else '' }}" required>
-                              <label for="address">Emergency Contact's Complete Address</label>
-                            </div>
-                            <div class="form-floating flex-fill mb-3 p-1 col-md-6">
-                              <input type="text" class="form-control" name ="contact_no[1]" placeholder="09277799422" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }} value="{{ user_profile.emergency_contact[0].contact_no if user_profile.emergency_contact[0] else '' }}" pattern="[0-9]{11}" required>
-                              <label for="contact_no">Contact No. (Eg. 09277799422)</label>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- 
-                          <div class="col-sm-12 text-center">
-                            <button type="submit" id="emergency_contact_btn" class="btn btn-primary mb-3" {{ "form=update_emergency_contact_form" if user_profile.emergency_contact[0] else "form=add_emergency_contact_form" }}>Save Emergency Contact Details</button>
-                          </div> 
-                        -->
-                      </div>
-                  <!-- </div> -->
-              </div>
+
   <!--           
                 <div class="card mb-3">
                   <div class="card-body">
@@ -2238,7 +2240,6 @@ if (el.value != 'INACTIVE') {
     });
 }
 
-console.log(el.value);
 }
 
 function graduated(highest_level, highest_grade_year_units, scholarship_academic_honor, period_of_attendance_from, period_of_attendance_to){
@@ -2318,6 +2319,29 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
               document.getElementById('pres_zip_code').removeAttribute('readOnly');
       
           }
+      }
+
+      function validateEmergencyContact(){
+        let emergency_contact_id = document.getElementById('emergency_contact_id');
+
+        if(emergency_contact_id.value != ""){
+          formElem7 = document.getElementById("update_emergency_contact_form");
+        }else{
+          formElem7 = document.getElementById("add_emergency_contact_form");
+        }
+
+        let formData7 = new FormData(formElem7);
+        let isValid = true;
+
+        formData7.forEach((value, key) => {
+          if(value == ""){
+            isValid = false;
+
+            return false;
+          }
+        });
+
+        return isValid;
       }
 
 
@@ -2443,7 +2467,7 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                       body: formData5
                     }).then((res)=>{
 
-                        //<!-- ----------------------------------------------------------------------- -->
+                      // <!-- ----------------------------------------------------------------------- -->
                       // <!--                          SUBMIT DOCTORAL FORM                           -->
                       // <!-- ----------------------------------------------------------------------- -->
                         let formData6 = new FormData(document.getElementById("add_doctoral_form"));
@@ -2463,49 +2487,47 @@ function graduated(highest_level, highest_grade_year_units, scholarship_academic
                               //emergency_contact_btn.click();
 
                               //document.getElementById('update_emergency_contact_form').addEventListener('submit', (e)=>{
-                                e.preventDefault();
-                                loadingScreen("block");
-
-                                let emergency_contact_id = document.getElementById('emergency_contact_id');
-                                
-                                var link = "";
-                                var formElem7;
-                                if(emergency_contact_id.value != ""){
-                                  formElem7 = document.getElementById("update_emergency_contact_form");
-
-                                  link = '/emergencyContact/update/{{user_profile.id}}';
-                                }else{
-                                  formElem7 = document.getElementById("add_emergency_contact_form");
-
-                                  link = '/emergencyContact/add/{{user_profile.id}}';
-
-                                }
-
-                                let formData7 = new FormData(formElem7);
-                          
-                                const data7 = {}
-                                formData7.forEach((value, key) => (data7[key] = value))
-
-                                console.log(emergency_contact_id.value)
-
-
-                           
-                                fetch(link, {
-                                  method: 'POST',
-                                  body: formData7
-                                }).then((res)=>{
-
-                                  return res.json();
-                        
-                                }).then((data)=>{
-              
-                                  window.location.reload();
-
-                                })
-
-                          
+                              //  e.preventDefault();
                               //});
-
+                                //loadingScreen("block");
+                                if(validateEmergencyContact()){
+                                  let emergency_contact_id = document.getElementById('emergency_contact_id');
+                                
+                                  var link = "";
+                                  var formElem7;
+                                  if(emergency_contact_id.value != ""){
+                                    formElem7 = document.getElementById("update_emergency_contact_form");
+  
+                                    link = '/emergencyContact/update/{{user_profile.id}}';
+                                  }else{
+                                    formElem7 = document.getElementById("add_emergency_contact_form");
+  
+                                    link = '/emergencyContact/add/{{user_profile.id}}';
+  
+                                  }
+  
+  
+                                    let formData7 = new FormData(formElem7);
+                            
+                                    const data7 = {}
+                               
+                                    fetch(link, {
+                                      method: 'POST',
+                                      body: formData7
+                                    }).then((res)=>{
+    
+                                      return res.json();
+                            
+                                    }).then((data)=>{
+                  
+                                      window.location.reload();
+    
+                                    });
+                                }else{
+                                  loadingScreen('none');
+                                  
+                                  triggerToast('Emergency contact details are required', 'error')
+                                }
 
 
                             }
