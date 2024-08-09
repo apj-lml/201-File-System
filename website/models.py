@@ -315,12 +315,12 @@ class User(db.Model, UserMixin):
                 #checking if month is more than June
                 date_str = self.date_of_assumption
                 # date_str = datetime.strptime(self.date_of_assumption, '%Y-%m-%d').date()
-                if date_str.month > 6:
-                    updated_date = date_str + relativedelta(years=x) + one_year
-                    claiming_years.append(updated_date.strftime('%Y'))
-                else:
-                    updated_date = date_str + relativedelta(years=x)
-                    claiming_years.append(updated_date.strftime('%Y'))
+                # if date_str.month > 6:
+                #     updated_date = date_str + relativedelta(years=x) + one_year
+                #     claiming_years.append(updated_date.strftime('%Y'))
+                # else:
+                updated_date = date_str + relativedelta(years=x)
+                claiming_years.append(updated_date.strftime('%Y'))
                 
             return claiming_years
         else:

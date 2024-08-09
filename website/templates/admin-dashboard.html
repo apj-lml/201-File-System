@@ -154,7 +154,8 @@
 								<th scope="col">id</th>
 								<th scope="col">timestamp</th>
 								<th scope="col">employee_id</th>
-								<th scope="col">is_validated</th>
+								<!-- <th scope="col">is_validated</th> -->
+								<th scope="col">is_active</th>
 								<th scope="col">email</th>
 								<th scope="col">password</th>
 								<th scope="col">fullname</th>
@@ -838,7 +839,8 @@ $(document).ready(function() {
 			{ "data": "id"},
 			{ "data": "timestamp", visible: false },
 			{ "data": "employee_id", visible: true },
-			{ "data": "is_validated", visible: true },
+			//{ "data": "is_validated", visible: true },
+			{ "data": "status_remarks", visible: true },
 			{ "data": "email", visible: false },
 			{ "data": "password", visible: false },
 			
