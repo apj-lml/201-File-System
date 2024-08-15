@@ -65,6 +65,63 @@
             }
         }
 
+
+        
+        .card {
+            position: relative;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: visible; /* Allow the card-body to overflow */
+        }
+
+        .card-img-container {
+            overflow: hidden; /* Ensure the image doesn't overflow the container */
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .card-body {
+            position: absolute;
+            bottom: -20px; /* Push the text container up to overlap the image */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            width: 90%;
+            height: 180px; /* Fixed height for consistency */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align items at the top */
+            align-items: center;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 2; /* Ensure the card-body is above other elements */
+            opacity: 0.95;
+            padding: 10px; /* Optional: add padding if you want space around the content */
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .card-text {
+            color: #6c757d;
+            margin-bottom: 10px; /* Add space below text */
+            line-height: 17px;
+            font-size: 14px;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.1); /* Zoom out image on hover */
+        }
+
+
     </style>
 
 {% endblock %}
@@ -98,6 +155,58 @@
                 </div>
             </header>
 
+            <div class="container py-5">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col mb-2 animate__animated animate__fadeInUp animate__fast">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-container">
+                                <img src="{{ url_for('static', filename='img/agenda.jpg') }}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body overflow-visible">
+                                <h5 class="card-title my-0 py-0">7-Point Agenda</h5>
+                                <!-- <p class="card-text"> -->
+                                    <ul class="card-text text-start lh-2 my-0 py-0" style="margin-left: -15px;">
+                                        <li>Irrigation Infrastruction Development</li>
+                                        <li>Irrigators' Association Capacity Building</li>
+                                        <li>Climate Smart Irrigator's Association Farming System</li>
+                                        <li>Management Governance</li>
+                                        <li>Monitoring & Evaluation</li>
+                                        <li>Capability Building of the Human Resource</li>
+                                        <li>Strategic Communication and Advocacy</li>
+                                    </ul>
+                                <!-- </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col mb-2 animate__animated animate__fadeInUp animate__fast">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-container">
+                                <img src="{{ url_for('static', filename='img/mission.jpg') }}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body overflow-visible">
+                                <h5 class="card-title my-0 py-0">Vision</h5>
+                                <p class="card-text">By 2030, NIA is an advanced and innovative irrigation agency enabling highly competitive and sustainable Philippine farming communities.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col mb-2  animate__animated animate__fadeInUp  animate__fast">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-container">
+                                <img src="{{ url_for('static', filename='img/vision.jpg') }}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body overflow-visible">
+                                <h5 class="card-title my-0 py-0">Mission</h5>
+                                <p class="card-text">An efficient and well-managed government corporation developing and managing modern, resilient, and multipurpose irrigation Systems to improve agricultural productivity and increase farmers' income.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more cards as needed -->
+                </div>
+            </div>
+        
+
             <div class="col-sm-12">
                 <section class="features-icons bg-light text-center pb-3 pt-4">
                     <div class="container">
@@ -118,9 +227,9 @@
                                     <!-- <div class="contaniner-fluid"> -->
 
 
-                                    <!-- <div id="calendar2" class="w-100 h-100 mx-auto ms-auto"></div> -->
+                                    <div id="calendar2" class="w-100 h-100 mx-auto ms-auto shadow shadow-md border-0 p-2"></div>
 
-                                        <div class="card h-100 w-100 shadow shadow-md border-0 ">
+                                        <!-- <div class="card h-100 w-100 shadow shadow-md border-0 ">
                                             <div class="card-body">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -135,7 +244,7 @@
                                                 </div>
                                             </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         
                                     <!-- </div> -->
@@ -160,7 +269,7 @@
             <hr>
             
             <!-- Icons Grid-->
-            <div class="col-sm-12">
+            <!-- <div class="col-sm-12">
                 <section class="features-icons bg-light text-center mb-5 pb-0 pt-3">
                     <div class="container">
                         <div class="row">
@@ -192,13 +301,6 @@
                                     <p class="lead mb-0">Look at NIA's Mission & Vision.</p>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg">
-                                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                                    <div class="features-icons-icon d-flex"><a href="#vision" class="mx-auto"><i class="bi bi-eye-fill m-auto text-blue"></i></a></div>
-                                    <h4>Vision </h4>
-                                    <p class="lead mb-0">Look at NIA's vision.</p>
-                                </div>
-                            </div> -->
                             <div class="col-lg">
                                 <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                                     <div class="features-icons-icon d-flex"><a href="#birthdays" class="mx-auto"><i class="bi bi-cake text-blue"></i></a></div>
@@ -209,9 +311,10 @@
                         </div>
                     </div>
                 </section>
-            </div> 
+            </div>  -->
 
 
+        
 
             <section class="showcase">
                 <div class="container-fluid p-0">
@@ -232,20 +335,19 @@
                         </div>
 
                     </div>
-                    <div class="row g-0" id="mission">
+                    <!-- <div class="row g-0" id="mission">
                             <div class="col-lg-6 text-white showcase-img">
                             <img class="img-fluid" src="{{ url_for('static', filename='img/mission.jpg') }}" loading="lazy" alt="mission" />
                         </div>
                         <div class="col-lg-6 my-auto showcase-text">
                             <h2>Mission</h2>
-                            <p class="lead mb-0">To plan, construct, operate and maintain irrigation systems consistent with integrated water resource management principles to improve agricultural productivity and increase farmers' income.</p>
+                            <p class="lead mb-0">An efficient and well-managed government corporation developing and managing modern, resilient, and multipurpose irrigation Systems to improve agricultural productivity and increase farmers' income.</p>
                             <br>
                             <h2>Vision</h2>
-                            <p class="lead mb-0">By 2022, NIA is a professional and efficient irrigation agency contributing to the inclusive growth of the country and in the improvement of the farmers' quality of life.</p>
+                            <p class="lead mb-0">By 2030, NIA is an advanced and innovative irrigation agency enabling highly competitive and sustainable Philippine farming communities.</p>
                         </div>
-                    </div>
-                    <div class="row g-0" id="vision">
-                        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div> -->
+                    </div> -->
+                    <!-- <div class="row g-0" id="vision">
                         <div class="col-lg-6 order-lg-2 text-white showcase-img">
                             <img class="img-fluid" src="{{ url_for('static', filename='img/vision.png') }}" loading="lazy" alt="vision"/>
                         </div>
@@ -267,14 +369,13 @@
                                 We abide with applicable legal and international requirements and we remain dedicated to the core values of Commitment, Integrity and Professionalism, to continually improve the NIA’s Integrated Management System.
                             </p>
                         </div>
-                    </div>
-                    <div class="row g-0" id="mission">
+                    </div> -->
+                    <!-- <div class="row g-0" id="mission">
                         <div class="col-lg-6 text-white showcase-img">
                             <img class="img-fluid" src="{{ url_for('static', filename='img/agenda.png') }}" loading="lazy" alt="mission" />
                         </div>
                         <div class="col-lg-6 my-auto showcase-text">
                             <h2>7-Point Strategic Policy Agenda</h2>
-                            <!-- <p class="lead mb-0">To plan, construct, operate and maintain irrigation systems consistent with integrated water resource management principles to improve agricultural productivity and increase farmers' income.</p> -->
                             <ul class="fs-4">
                                 <li>Irrigation Infrastruction Development</li>
                                 <li>Irrigators' Association Capacity Building</li>
@@ -285,10 +386,9 @@
                                 <li>Strategic Communication and Advocacy</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row g-0" id="vision">
-                        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-3.jpg')"></div> -->
-                        <div class="col-lg-6 order-lg-2 text-white showcase-img">
+                        <div class="col-lg-6 order-lg-1 text-white showcase-img">
                             <div id="carouselExampleControls" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" >
                                 <div class="carousel-inner">
                                     {% for celebs in bday_celebs %}
@@ -307,7 +407,7 @@
                                 </button>
                               </div>
                         </div>
-                        <div class="col-lg-6 order-lg-1 my-auto showcase-text" id="birthdays">
+                        <div class="col-lg-6 order-lg-2 my-auto showcase-text" id="birthdays">
                             <h2 class="mt-3">Birthday Celebrators</h2>
                             <h4>
                                 Month of 
@@ -561,6 +661,9 @@
                 var myModalEdit = new bootstrap.Modal(document.getElementById('EditCalendarModal'));
 
                 var calendarEl = document.getElementById('calendar');
+                var calendarEl2 = document.getElementById('calendar2');
+
+
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     allDayText:'8:00am-5:00pm',
                     themeSystem: 'bootstrap5',
@@ -817,9 +920,264 @@
 
                 });
 
+
+                var calendar2 = new FullCalendar.Calendar(calendarEl2, {
+                    allDayText:'8:00am-5:00pm',
+                    themeSystem: 'bootstrap5',
+                    views: {
+                        listMonth: {
+                          type: 'listMonth',
+                          buttonText: 'Month'
+                        },
+                        listYear: {
+                            type: 'listYear',
+                            buttonText: 'Year'
+                        },
+                        
+                      },
+                    initialView: 'listMonth',
+                    dayMaxEvents: true,
+                    headerToolbar: {
+                        left: 'title',
+                        center: '',
+                        right:'prev,next listYear,listMonth'
+                      },
+
+                    //selectable: true,
+                    editable: false,
+                    displayEventTime: true,
+
+                    eventResize: function(info) {
+                    updateEvent(info);
+                    },
+
+                    eventClick: function(info){
+
+                        //if (confirm('Are you sure you want to remove this event?')) {
+                        //    calendar.getEventById(info.event.id).remove();
+                        //  }
+                        let e_id = document.getElementById('e_id');
+                        let update_e_type = document.getElementById('update_e_type');
+                        let update_e_repeat = document.getElementById('update_e_repeat');
+                        let update_e_title = document.getElementById('update_e_title');
+                        let update_e_venue = document.getElementById('update_e_venue');
+                        let update_e_all_day =  document.getElementById('update_e_all_day');
+                        let update_e_date_from = document.getElementById('update_e_date_from');
+                        let update_e_date_to = document.getElementById('update_e_date_to');
+                        let update_e_description = document.getElementById('update_e_description');
+
+                        
+                        e_id.value = info.event.id;
+                        update_e_type.value = info.event.extendedProps.e_type;
+                        update_e_repeat.value = info.event.extendedProps.repeat;
+                        update_e_title.value = info.event.title;
+                        update_e_venue.value = info.event.extendedProps.venue;
+                        update_e_all_day.checked = info.event.allDay;
+
+
+                        var startDate = new Date(info.event.start);
+                        var endDate = new Date(info.event.end);
+
+
+                        if (startDate.toDateString() !== endDate.toDateString()) {
+                            endDate.setDate(endDate.getDate() - 1);
+                        }
+
+                        if(info.event.allDay){
+                            update_e_date_from.type = 'date';
+                            update_e_date_to.type = 'date';
+
+                        var formattedStartDate = startDate.getFullYear() + '-' +
+                            ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + startDate.getDate()).slice(-2);
+
+                        var formattedEndDate = endDate.getFullYear() + '-' +
+                            ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + endDate.getDate()).slice(-2);
+
+                        }else{
+
+                            update_e_date_from.type = 'datetime-local';
+                            update_e_date_to.type = 'datetime-local';
+
+                            var formattedStartDate = startDate.getFullYear() + '-' +
+                            ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + startDate.getDate()).slice(-2) + ' ' +
+                            ('0' + startDate.getHours()).slice(-2) + ':' +
+                            ('0' + startDate.getMinutes()).slice(-2) + ':' +
+                            ('0' + startDate.getSeconds()).slice(-2);
+
+                            var formattedEndDate = endDate.getFullYear() + '-' +
+                            ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + endDate.getDate()).slice(-2) + ' ' +
+                            ('0' + endDate.getHours()).slice(-2) + ':' +
+                            ('0' + endDate.getMinutes()).slice(-2) + ':' +
+                            ('0' + endDate.getSeconds()).slice(-2);
+                        }
+
+
+                        update_e_date_from.value = formattedStartDate;
+                        update_e_date_to.value = formattedEndDate;
+                        update_e_description.value = info.event.extendedProps.description;
+
+                        {% if current_user.type_of_user == 'admin' %}
+                            myModalEdit.show();
+                        {% endif %}
+                    },
+                    
+                    eventRemove: function(info) {
+                        fetch(`/calendar/remove-event`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'}, 
+                            body: JSON.stringify({
+                                "id": info.event.id
+                            })
+                        }).then((res) => {
+                            if (res.status == 200) {
+                                return res.json();
+                            }
+                        });
+                    },
+
+                    dateClick: function(info) {
+
+                        if (prevClickedDayEl) {
+                            prevClickedDayEl.style.backgroundColor = '';
+                        }
+            
+                        // Check if the clicked day is the same as the previously clicked day
+                        var isSameDay = prevClickedDayEl === info.dayEl;
+
+                        // Reset background color of previously clicked day if it's not the same day
+                        if (prevClickedDayEl && !isSameDay) {
+                            prevClickedDayEl.style.backgroundColor = '';
+                        }
+
+                        // Toggle background color of currently clicked day
+                        if (!isSameDay || !prevClickedDayEl) {
+                            info.dayEl.style.backgroundColor = '#ebfffb';
+                        } else {
+                            info.dayEl.style.backgroundColor = '';
+                        }
+
+                        // Update prevClickedDayEl to current day
+                        prevClickedDayEl = info.dayEl;
+
+
+                        var clickedDate = new Date(info.dateStr);
+
+                        var eventsForDate = [];
+                        
+
+                        calendar.getEvents().forEach(function(event) {
+                            var startDate = new Date(event.start);
+                            var endDate = new Date(event.end);
+
+                            if (new Date(event.start).toLocaleDateString('en-US') !== new Date(event.end).toLocaleDateString('en-US')) {
+                                endDate.setDate(endDate.getDate() - 1);
+                            }
+
+                            if (new Date(clickedDate).toLocaleDateString('en-US') >= new Date(event.start).toLocaleDateString('en-US') && new Date(clickedDate).toLocaleDateString('en-US') <= endDate.toLocaleDateString('en-US')) {
+                                eventsForDate.push(event);
+                            }
+
+                        });
+
+                        var date = new Date(clickedDate);
+
+                        var options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+                        var formattedTitleDate = date.toLocaleDateString('en-US', options);
+
+                        let elEventDetailTitle = document.getElementById('eventDetailTitle');
+                        let eventDetailBody = document.getElementById('eventDetailBody');
+
+                        elEventDetailTitle.innerHTML = formattedTitleDate
+
+                        let html = '';
+
+                        if(eventsForDate.length > 0){
+
+                        eventsForDate.forEach(function(event) {
+                            let formattedDateRange = "";
+                            let formattedTimeRange = "";
+
+                            var startDate = new Date(event.start);
+                            var endDate = new Date(event.end);
+
+
+                                                        
+                            if (startDate.toLocaleDateString('en-US') !== endDate.toLocaleDateString('en-US')) {
+                                endDate.setDate(endDate.getDate() - 1);
+                            }
+
+                            var formattedStartDate = startDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                            var formattedEndDate = endDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+
+                            var formattedStartTime = formatTimeWithAmPm(startDate);
+                            var formattedEndTime = formatTimeWithAmPm(endDate);
+
+                            
+                            if(formattedStartDate == formattedEndDate){
+                                formattedDateRange = formattedStartDate;
+                                formattedTimeRange = formattedStartTime + ' to ' + formattedEndTime;
+                                //formattedTimeRange = formattedStartTime;
+                            }else{
+                                formattedDateRange = formattedStartDate + ' to ' + formattedEndDate;
+                                formattedTimeRange = formattedStartTime + ' to ' + formattedEndTime;
+                            } 
+                            
+                            if(event.allDay){
+                                formattedTimeRange = "N/A";
+                            }
+
+                            html += `
+                                <div class="card mb-3" id="cardId_${event.id}">
+                                    <div class="card-header">
+                                        <h6 class="card-title">${event.title}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text text-start">
+                                            <b>DATE : </b>${ formattedDateRange } <br>
+                                            <b>TIME : </b>${ formattedTimeRange } <br>
+                                            <b>VENUE : </b>${ event.extendedProps.venue }
+                                        </p>
+                                        <p class="card-text text-start">
+                                            ${ event.extendedProps.description }
+                                        </p>
+                                {% if current_user.type_of_user == 'admin' %}
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeEvent(${event.id})"><i class="bi bi-calendar-x-fill"></i> Delete Event / Activity</a>
+                                {% endif %}
+                                    </div>
+                                </div>
+                                `;
+                            
+                        });
+                    }else{
+                        html += `
+                            <h5 class="fst-italic text-muted mt-auto">No Event / Activity set to this date.</h5>
+                        `;
+
+                    }
+                        eventDetailBody.innerHTML = html
+                        
+                      },
+
+
+                });
+
+
+
+
+
+
+
+
                 calendar.render();
+                calendar2.render();
 
                 fetchCalendarEvents(calendar);
+                fetchCalendarEvents(calendar2);
 
 
                  window.closeModal = function() {
@@ -1383,8 +1741,22 @@
             readMoreBtn.style.display = 'block';
         }
 
+        
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+              }
+            });
+          });
+          
+          // Observe elements you want to animate
+          document.querySelectorAll('.your-target-class').forEach(el => {
+            observer.observe(el);
+          });
 
             window.addEventListener('load', (event) => {
+
 
                 $(document).ready(function(){
                     $("#searchFormsInput").on("keyup", function() {
