@@ -1352,9 +1352,9 @@ function generateTable() {
 		  if (count <= 20) {
 			formUrl = "{{ url_for('static', filename='service_record1-NEW.pdf') }}";
 		  } else if (count >= 21 && count <= 40) {
-			formUrl = "{{ url_for('static', filename='service_record2.pdf') }}";
+			formUrl = "{{ url_for('static', filename='service_record2-NEW.pdf') }}";
 		  } else if (count >= 41 && count <= 60) {
-			formUrl = "{{ url_for('static', filename='service_record3.pdf') }}";
+			formUrl = "{{ url_for('static', filename='service_record3-NEW.pdf') }}";
 		  }
 	  
 		  const cambriaFontUrl = "{{ url_for('static', filename='/fonts/Cambria.ttf') }}";
