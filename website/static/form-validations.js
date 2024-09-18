@@ -141,7 +141,7 @@
         var first_day_in_service = document.getElementById('first_day_in_service');
         var date_of_assumption = document.getElementById('date_of_assumption');
 
-        if(emp_status.value == "PERMANENT" || emp_status.value == "TEMPORARY" || emp_status.value == "COTERMINOUS"){
+        if(emp_status.value == "CASUAL" || emp_status.value == "PERMANENT" || emp_status.value == "TEMPORARY" || emp_status.value == "COTERMINOUS"){
           dolp.readOnly = false;
           first_day_in_service.readOnly = false;
           date_of_assumption.readOnly = false;
