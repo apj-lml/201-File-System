@@ -140,15 +140,18 @@
 
         var first_day_in_service = document.getElementById('first_day_in_service');
         var date_of_assumption = document.getElementById('date_of_assumption');
+        var date_of_original_appointment = document.getElementById('date_of_original_appointment');
 
         if(emp_status.value == "CASUAL" || emp_status.value == "PERMANENT" || emp_status.value == "TEMPORARY" || emp_status.value == "COTERMINOUS"){
           dolp.readOnly = false;
           first_day_in_service.readOnly = false;
           date_of_assumption.readOnly = false;
+          date_of_original_appointment.readOnly = false;
         }else{
           dolp.readOnly = true;
           first_day_in_service.readOnly = true;
           date_of_assumption.readOnly = true;
+          date_of_original_appointment.readOnly = true;
         }
 
       }
