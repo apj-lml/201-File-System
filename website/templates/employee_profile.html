@@ -45,6 +45,17 @@
       pointer-events: none;
     }
 
+  .form-select{
+    font-size: 13px;
+
+  }
+  option{
+    font-size: 13px;
+
+  }
+
+
+
 /* .chat-btn {
     position: fixed;
     left: 95%;
@@ -457,7 +468,7 @@ button {
                         <input type="text" class="form-control" id="item_no" name ="item_no" placeholder="Item No." value="{{user_profile.item_no if user_profile.item_no is not none else ''}}" form="update_form" {{'disabled' if current_user.type_of_user == 'user'}}>
                         <label for="item_no" >Item No.</label>
                       </div>
-                      <div class="form-floating col-md-2 col-sm-12 mb-3 p-1">
+                      <div class="form-floating col-md-3 col-sm-12 mb-3 p-1">
                         <input type="text" class="form-control" id="item_location" name ="item_location" placeholder="Item Location" value="{{user_profile.item_location if user_profile.item_location is not none else ''}}" form="update_form" {{'readonly' if current_user.type_of_user == 'user'}}>
                         <label for="item_no" style="font-size: 12px;">Item Location / Original Station</label>
                       </div>
@@ -476,24 +487,24 @@ button {
                         </select>
                         <label for="name_extn">Unit<span class="is-required">*</span></label>
                       </div>
-                      <div class="form-floating col-md-2 col-sm-12 p-1">
+                    </div>
+                    
+                    <div class="d-md-flex flex-row">
+                      <div class="form-floating col-md-3 col-sm-12 p-1">
                         <input type="date" class="form-control" id="date_of_assumption" name ="date_of_assumption" placeholder="Date of Assumption to Duty" value="{{user_profile.date_of_assumption}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }} required>
                         <label for="date_of_assumption" style="font-size: 12px;">Date of Assumption to Duty</label>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Refers to your current position.</p></small>
                       </div>
-                    </div>
-                    
-                    <div class="d-md-flex flex-row">
-                      <div class="form-floating col-md-4 p-1">
+                      <div class="form-floating col-md-3 mb-3 p-1">
+                        <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
+                        <label for="date_of_last_promotion">Date of Last Promotion</label>
+                      </div>
+                      <div class="form-floating col-md-3 p-1">
                         <input type="date" class="form-control" id="date_of_original_appointment" name ="date_of_original_appointment" value="{{user_profile.date_of_original_appointment}}" form="update_form" max="9999-12-31" {{'readOnly' if current_user.type_of_user == 'user' }} required>
                         <label for="date_of_original_appointment">*Date of Original Appointment</label>
                         <small class="" style="font-size: 12px; color:rgb(0, 30, 255);"><p style="line-height: normal;">*Refers to original appointment as permanent / casual / coterminous or first government service.</p></small>
                       </div>
-                      <div class="form-floating col-md-4 mb-3 p-1">
-                        <input type="date" class="form-control" id="date_of_last_promotion" name ="date_of_last_promotion" value="{{user_profile.date_of_last_promotion}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }}>
-                        <label for="date_of_last_promotion">Date of Last Promotion</label>
-                      </div>
-                      <div class="form-floating col-md-4 mb-3 p-1">
+                      <div class="form-floating col-md-3 mb-3 p-1">
                         <input type="date" class="form-control" id="first_day_in_service" name ="first_day_in_service" value="{{user_profile.first_day_in_service}}" form="update_form" max="9999-12-31" {{'readonly' if current_user.type_of_user == 'user' }} required>
                         <label for="first_day_in_service">First Day in Service (No GAP)</label>
                       </div>
