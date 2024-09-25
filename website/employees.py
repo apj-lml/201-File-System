@@ -164,10 +164,11 @@ def my_profile(emp_id):
 
             db.session.commit()
             
-            tz = pytz.timezone('Asia/Manila')  # timezone you want to convert to, from UTC is (Asia/Manila)
-            utc = pytz.timezone('UTC')
-            value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
-            local_dt = value.astimezone(tz)
+            # tz = pytz.timezone('Asia/Manila') 
+            # utc = pytz.timezone('UTC')
+            # value = utc.localize(user.last_updated, is_dst=None).astimezone(pytz.utc)
+            # local_dt = value.astimezone(tz)
+            local_dt = datetime.datetime.now()
 
             last_updated = local_dt
 

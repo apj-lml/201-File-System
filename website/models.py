@@ -337,6 +337,18 @@ class Payslip(db.Model, SerializerMixin):
     user = db.relationship('User')
 
 
+class Travel_Order(db.Model, SerializerMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date_from = db.Column(db.DateTime())
+    date_to = db.Column(db.DateTime())
+    location = db.Column(db.String(150))
+    purpose = db.Column(db.String(500))
+    is_outside_ilocos = db.Column(db.Boolean(), default=False)
+    creator = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date_created = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
+    # user = db.relationship('User')
+
 class Calendar_Events(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -348,13 +360,6 @@ class Calendar_Events(db.Model, SerializerMixin):
     e_date_from = db.Column(db.DateTime())
     e_date_to = db.Column(db.DateTime())
     e_description = db.Column(db.String(150))
-
-
-    # rp_total = db.Column(db.String(150))
-    # pp_total = db.Column(db.String(150))
-    # lia_total = db.Column(db.String(150))
-    # networth = db.Column(db.String(150))
-    # as_of = db.Column(db.Date())
     last_updated = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
     # user = db.relationship('User')
 

@@ -115,18 +115,3 @@ def coe_without_compensation(emp_id):
         document, mimetype='application/vnd.openxmlformats-'
         'officedocument.wordprocessingml.document', as_attachment=True,
         attachment_filename='WES_TEMPLATE_NEW.docx')
-
-
-@coe.route("/with-compensation/<emp_id>", methods=['GET', 'POST'])
-def coe_with_compensation(emp_id):
-
-    formdata  = json.loads(request.data)
-    template = os.path.join(current_app.root_path, 'static/templates', 'coe-with-compensation.docx')   
-
-    document = from_template(template, emp_id, formdata['monthly_daily_salary'])
-    document.seek(0)
-    
-    return send_file(
-        document, mimetype='application/vnd.openxmlformats-'
-        'officedocument.wordprocessingml.document', as_attachment=True,
-        attachment_filename='WES_TEMPLATE_NEW.docx')
