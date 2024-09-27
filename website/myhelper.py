@@ -25,6 +25,10 @@ def format_mydatetime(value):
         mydatetime = ""
     return mydatetime
 
+def proper_datetime(value):
+    mydatetime = datetime.strptime(value, '%Y-%m-%dT%H:%M')
+    return mydatetime.strftime('%B %d, %Y')
+
 def join_to_nested_dict(join_result):
     """
     Takes a sqlalchemy result and converts it to a dictionary.

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, url_for, session, jsonify, current_app, send_file
 from flask_login import current_user, login_required
 from flask_principal import Permission, RoleNeed
-from .models import User, UserSchema
+from .models import User, UserSchema, Travel_Order
 from . import db
 import os
 from io import BytesIO
@@ -12,6 +12,10 @@ import json
 from pprint import pprint
 
 from datetime import datetime, date
+from .myhelper import proper_datetime
+
+from sqlalchemy import func
+
 
 travelOrder = Blueprint('travelOrder', __name__)
 # ALLOWED_EXTENSIONS = {'pdf'}
@@ -40,6 +44,44 @@ def format_current_date():
     return formatted_date
 
 
+def addTravelOrder(creator_id, formdata):
+    ids = [int(id) for id in formdata['selectedIds']]
+
+    ids.append(creator_id)
+    is_outside_ilocos = formdata['is_outside_ilocos'] == '1'
+    date_from = formdata['date_from']
+    date_to = formdata['date_to']
+    location = formdata['location']
+    purpose = formdata['purpose']
+
+    for to_user_id in ids:
+        existing_to = Travel_Order.query.filter_by(user_id=to_user_id).first()  # Use .first() to get the record or None
+        
+        if existing_to:  # Check if a record was found
+            existing_to.user_id = to_user_id
+            existing_to.date_from = date_from
+            existing_to.date_to = date_to
+            existing_to.location = location
+            existing_to.purpose = purpose
+            existing_to.is_outside_ilocos = is_outside_ilocos
+            existing_to.creator = creator_id
+        else:
+            new_to = Travel_Order(
+                user_id=to_user_id,
+                date_from=date_from,
+                date_to=date_to,
+                location=location,
+                purpose=purpose,
+                is_outside_ilocos=is_outside_ilocos,
+                creator=creator_id,
+            )
+            db.session.add(new_to)
+
+    db.session.commit()
+
+    return jsonify('Successfully Added to database!'), 200
+
+
 def get_context(id, formdata):
     """ You can generate your context separately since you may deal with a lot 
         of documents. You can carry out computations, etc in here and make the
@@ -52,38 +94,30 @@ def get_context(id, formdata):
     ids = [int(id) for id in formdata['selectedIds']]
     
     is_outside_ilocos = formdata['is_outside_ilocos']
-    date_from = formdata['date_from']
-    date_to = formdata['date_to']
+    date_from = proper_datetime(formdata['date_from'])
+    date_to = proper_datetime(formdata['date_to'])
     location = formdata['location']
     purpose = formdata['purpose']
 
     # Query the users by their IDs
-    creators = db.session.query(User).filter(User.id.in_(ids)).all()
+    to_users = db.session.query(User).filter(User.id.in_(ids)).all()
 
-    my_rows = json.loads(jsonify(row_contents=user_schema.dump(creators)).get_data(True))
+    my_rows = json.loads(jsonify(row_contents=user_schema.dump(to_users)).get_data(True))
     for idx, item in enumerate(my_rows["row_contents"]):
         middle_name = item['middle_name'][:1]+"." if item['middle_name'] != "" or item['middle_name'] is not None or item['middle_name'] != "N/A" else ""
         name_extn = item['name_extn'] if item['name_extn'] != "" and item['name_extn'] is not None and item['name_extn'] != "N/A" else ""
 
         item['full_name'] = item['first_name'] + " " + middle_name + " " + item['last_name'] + " " + name_extn
+        item['position_title'] = item['position_title'].lower().title()
 
     creator = db.session.query(User).get(id)
 
     middle_name = creator.middle_name[:1] + "." if creator.middle_name not in ["", None, "N/A"] else ""
     name_extn = creator.name_extn if creator.name_extn not in ["", None, "N/A"] else ""
 
-    creator.myfullname = f"{creator.first_name} {middle_name} {creator.last_name} {name_extn}"
-
-    # creators = db.session.query(User).filter(User.id.in_(ids)).all()
-
-    # Update the position_title to title case
-
-    # for creator in creators:
-    #     creator.position_title = creator.position_title.title()
-    #     creator.employment_status = creator.employment_status.title()
-
     creator_dict = UserSchema().dump(creator)
     creator_dict['myfullname'] = f"{creator.first_name} {middle_name} {creator.last_name} {name_extn}"
+    creator_dict['position_title'] = creator.position_title.title()
 
     return {
         'row_contents': my_rows["row_contents"],
@@ -117,6 +151,8 @@ def printTravelOrder(creator_id):
 
     formdata = json.loads(request.data)
     template = os.path.join(current_app.root_path, 'static/templates', 'TRAVEL_ORDER_TEMPLATE.docx')   
+    
+    addTravelOrder(creator_id, formdata)
 
     document = from_template(template, creator_id, formdata)
     document.seek(0)
@@ -125,3 +161,100 @@ def printTravelOrder(creator_id):
         document, mimetype='application/vnd.openxmlformats-'
         'officedocument.wordprocessingml.document', as_attachment=True,
         attachment_filename='TRAVEL_ORDER_TEMPLATE.docx')
+
+
+# ---------------------------------------------------------------------------- #
+#                          GET CAL ACTIVITIES IDS                              #
+# ---------------------------------------------------------------------------- #
+@travelOrder.route('/get-all-to-events', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def get_all_to_events():
+    if request.method == "GET":
+        # calendarEvents = db.session.query(Travel_Order).all()
+
+        calendarEvents = db.session.query(
+            Travel_Order
+        ).group_by(
+            Travel_Order.creator, 
+            Travel_Order.date_from, 
+            Travel_Order.date_to
+        ).all()
+        
+        print('xx======xxxxx======xxx=====>', calendarEvents)
+        formattedEvents = []
+
+        calendarEvents
+
+        for ev in calendarEvents:
+            
+            # if True:
+            #     # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
+            #     e_date_to_modified = ev.date_to + datetime.timedelta(days=1)
+            # else:
+            #     e_date_to_modified = ev.date_to
+
+            # e_date_to_modified_final = e_date_to_modified.strftime('%Y-%m-%d %H:%M:%S')
+
+            rrule = None
+
+            if ev.is_outside_ilocos == 'WORK SUSPENSION':
+                # background = 'background'
+                pass
+            else:
+                background = ''
+
+            formattedEvents.append({
+                'id' : ev.id,
+                'title' : ev.user_id,
+                'location' : ev.location,
+                'is_outside_ilocos' : ev.is_outside_ilocos,
+                'purpose' : ev.purpose,
+                'creator' : ev.creator,
+                'start' : ev.date_from.strftime('%Y-%m-%d'),
+                'end' : ev.date_to.strftime('%Y-%m-%d'),
+                # 'end' : e_date_to_modified_final,
+                'allDay': True,
+                'date_created' : ev.date_created
+
+                # 'allDay': ev.e_all_day,
+                # 'color' : color[ev.e_type],
+                # 'textColor' : textColor[ev.e_type],
+                # 'display': background,
+   
+            })
+
+              
+        return jsonify(formattedEvents)
+
+@travelOrder.route('/get-specific-to-events/<date_from>/<date_to>/<creator>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def get_specific_to_events(date_from, date_to, creator):
+    if request.method == "GET":
+        # calendarEvents = db.session.query(Travel_Order).all()
+
+        travelOrders = Travel_Order.query.filter(
+            Travel_Order.date_from == date_from,
+            Travel_Order.date_to == date_to,
+            Travel_Order.creator == creator
+        ).all()
+        
+        formattedEvents = []
+ 
+
+        for ev in travelOrders:
+            formattedEvents.append({
+                'id' : ev.id,
+                'user_id' : ev.user_id,
+                'date_from' : ev.date_from.strftime('%Y-%m-%d %H:%M:%S'),
+                'date_to' : ev.date_to.strftime('%Y-%m-%d %H:%M:%S'),
+                'purpose' : ev.purpose,
+                'location' : ev.location,
+                'is_outside_ilocos' : ev.is_outside_ilocos,
+                'creator' : ev.creator,
+                'date_created' : ev.date_created,
+            })
+
+            
+        return jsonify(formattedEvents)

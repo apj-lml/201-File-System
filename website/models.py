@@ -220,6 +220,8 @@ class User(db.Model, UserMixin):
     other_vaccine = db.relationship('Other_Vaccine', order_by="desc(Other_Vaccine.vac_date)")
     payslip = db.relationship('Payslip', order_by="desc(Payslip.period_from)")
     #section = db.relationship('Agency_Section')
+    # travel_order = db.relationship('Travel_Order')
+
 
     @hybrid_property
     def fullname(self):
@@ -340,14 +342,15 @@ class Payslip(db.Model, SerializerMixin):
 class Travel_Order(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    date_from = db.Column(db.DateTime())
-    date_to = db.Column(db.DateTime())
+    date_from = db.Column(db.Date())
+    date_to = db.Column(db.Date())
     location = db.Column(db.String(150))
     purpose = db.Column(db.String(500))
     is_outside_ilocos = db.Column(db.Boolean(), default=False)
     creator = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.TIMESTAMP, server_default=func.now(), onupdate=func.current_timestamp())
-    # user = db.relationship('User')
+
+
 
 class Calendar_Events(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
