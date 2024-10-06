@@ -7,6 +7,23 @@ from flask.json import JSONEncoder
 
 #ALLOWED_EXTENSIONS = {'pdf'}
 
+def format_user_names(users):
+    # Check how many users are in the list
+    num_users = len(users)
+
+    if num_users == 1:
+        # Return the full name of the only user
+        return users[0]['fullname']
+    elif num_users == 2:
+        # Return both names separated by '&', with 'other' in singular
+        return f"{users[0]['fullname']} & {users[1]['fullname']}"
+    elif num_users > 2:
+        # Return the first name and count the others
+        return f"{users[0]['fullname']} & {num_users - 1} others"
+    else:
+        # Return an empty string if there are no users
+        return ""
+
 def allowed_file(filename, allowed_ext={'pdf'}):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in allowed_ext

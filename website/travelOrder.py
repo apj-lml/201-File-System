@@ -11,8 +11,8 @@ from flask_login import current_user, login_required
 import json
 from pprint import pprint
 
-from datetime import datetime, date
-from .myhelper import proper_datetime
+from datetime import datetime, timedelta
+from .myhelper import format_mydatetime, format_user_names
 
 from sqlalchemy import func
 
@@ -94,8 +94,8 @@ def get_context(id, formdata):
     ids = [int(id) for id in formdata['selectedIds']]
     
     is_outside_ilocos = formdata['is_outside_ilocos']
-    date_from = proper_datetime(formdata['date_from'])
-    date_to = proper_datetime(formdata['date_to'])
+    date_from = format_mydatetime(formdata['date_from'])
+    date_to = format_mydatetime(formdata['date_to'])
     location = formdata['location']
     purpose = formdata['purpose']
 
@@ -187,42 +187,51 @@ def get_all_to_events():
         calendarEvents
 
         for ev in calendarEvents:
-            
-            # if True:
-            #     # e_date_to_modified = ev.e_date_to + datetime.timedelta(days=1)
-            #     e_date_to_modified = ev.date_to + datetime.timedelta(days=1)
-            # else:
-            #     e_date_to_modified = ev.date_to
 
-            # e_date_to_modified_final = e_date_to_modified.strftime('%Y-%m-%d %H:%M:%S')
+            calendarEvents = db.session.query(
+                Travel_Order
+            ).group_by(
+                Travel_Order.creator, 
+                Travel_Order.date_from, 
+                Travel_Order.date_to
+            ).all()
 
-            rrule = None
+            calendarUsers = Travel_Order.query.filter(
+                Travel_Order.creator == ev.creator, 
+                Travel_Order.date_from == ev.date_from, 
+                Travel_Order.date_to == ev.date_to
+            ).all()
 
-            if ev.is_outside_ilocos == 'WORK SUSPENSION':
-                # background = 'background'
-                pass
-            else:
-                background = ''
+            formattedCalendarUsers = []
+            for calendarUser in calendarUsers:
+                selectedUser = User.query.filter(
+                    User.id == calendarUser.user_id
+                ).first()
+
+                formattedCalendarUsers.append({
+                    'id' : selectedUser.id,
+                    'fullname' : selectedUser.proper_fullname,
+                    })
+                
+            # Sort the array to make ev.creator the first element
+            formattedCalendarUsers.sort(key=lambda user: 0 if user['id'] == ev.creator else 1)
 
             formattedEvents.append({
                 'id' : ev.id,
-                'title' : ev.user_id,
+                'title' : format_user_names(formattedCalendarUsers),
                 'location' : ev.location,
                 'is_outside_ilocos' : ev.is_outside_ilocos,
                 'purpose' : ev.purpose,
                 'creator' : ev.creator,
                 'start' : ev.date_from.strftime('%Y-%m-%d'),
-                'end' : ev.date_to.strftime('%Y-%m-%d'),
-                # 'end' : e_date_to_modified_final,
+                # 'end' : ev.date_to.strftime('%Y-%m-%d'),
+                'end' : (ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d'),  # Add one day to include the full 'date_to' day
                 'allDay': True,
-                'date_created' : ev.date_created
-
-                # 'allDay': ev.e_all_day,
-                # 'color' : color[ev.e_type],
-                # 'textColor' : textColor[ev.e_type],
-                # 'display': background,
-   
+                'date_created' : ev.date_created,
+                'toUsers' : formattedCalendarUsers
             })
+
+            print(formattedEvents)
 
               
         return jsonify(formattedEvents)
@@ -247,8 +256,8 @@ def get_specific_to_events(date_from, date_to, creator):
             formattedEvents.append({
                 'id' : ev.id,
                 'user_id' : ev.user_id,
-                'date_from' : ev.date_from.strftime('%Y-%m-%d %H:%M:%S'),
-                'date_to' : ev.date_to.strftime('%Y-%m-%d %H:%M:%S'),
+                'date_from' : ev.date_from.strftime('%Y-%m-%d'),
+                'date_to' : ev.date_to.strftime('%Y-%m-%d'),
                 'purpose' : ev.purpose,
                 'location' : ev.location,
                 'is_outside_ilocos' : ev.is_outside_ilocos,
