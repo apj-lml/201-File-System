@@ -43,7 +43,7 @@ def format_mydatetime(value):
     return mydatetime
 
 def proper_datetime(value):
-    mydatetime = datetime.strptime(value, '%Y-%m-%dT%H:%M')
+    mydatetime = datetime.strptime(value, '%Y-%m-%d')
     return mydatetime.strftime('%B %d, %Y')
 
 def join_to_nested_dict(join_result):

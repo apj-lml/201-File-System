@@ -12,7 +12,7 @@ import json
 from pprint import pprint
 
 from datetime import datetime, timedelta
-from .myhelper import format_mydatetime, format_user_names
+from .myhelper import format_mydatetime, format_user_names, proper_datetime
 
 from sqlalchemy import func
 
@@ -94,8 +94,8 @@ def get_context(id, formdata):
     ids = [int(id) for id in formdata['selectedIds']]
     
     is_outside_ilocos = formdata['is_outside_ilocos']
-    date_from = format_mydatetime(formdata['date_from'])
-    date_to = format_mydatetime(formdata['date_to'])
+    date_from = proper_datetime(formdata['date_from'])
+    date_to = proper_datetime(formdata['date_to'])
     location = formdata['location']
     purpose = formdata['purpose']
 
@@ -181,7 +181,6 @@ def get_all_to_events():
             Travel_Order.date_to
         ).all()
         
-        print('xx======xxxxx======xxx=====>', calendarEvents)
         formattedEvents = []
 
         calendarEvents
@@ -225,13 +224,13 @@ def get_all_to_events():
                 'creator' : ev.creator,
                 'start' : ev.date_from.strftime('%Y-%m-%d'),
                 # 'end' : ev.date_to.strftime('%Y-%m-%d'),
-                'end' : (ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d'),  # Add one day to include the full 'date_to' day
+                'end': str((ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d')),
                 'allDay': True,
                 'date_created' : ev.date_created,
                 'toUsers' : formattedCalendarUsers
             })
 
-            print(formattedEvents)
+        # raise Exception(formattedEvents)
 
               
         return jsonify(formattedEvents)
@@ -243,9 +242,14 @@ def get_specific_to_events(date_from, date_to, creator):
     if request.method == "GET":
         # calendarEvents = db.session.query(Travel_Order).all()
 
+        date_to_datetime = datetime.strptime(date_to, '%Y-%m-%d')
+
+        # Subtract 1 day
+        adjusted_date_to = (date_to_datetime - timedelta(days=1)).strftime('%Y-%m-%d')
+
         travelOrders = Travel_Order.query.filter(
             Travel_Order.date_from == date_from,
-            Travel_Order.date_to == date_to,
+            Travel_Order.date_to == adjusted_date_to,
             Travel_Order.creator == creator
         ).all()
         
@@ -258,6 +262,7 @@ def get_specific_to_events(date_from, date_to, creator):
                 'user_id' : ev.user_id,
                 'date_from' : ev.date_from.strftime('%Y-%m-%d'),
                 'date_to' : ev.date_to.strftime('%Y-%m-%d'),
+                # 'date_to' : ev.date_to.strftime('%Y-%m-%d'),
                 'purpose' : ev.purpose,
                 'location' : ev.location,
                 'is_outside_ilocos' : ev.is_outside_ilocos,
