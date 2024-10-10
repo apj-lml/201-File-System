@@ -48,47 +48,73 @@ label span { pointer-events: none; }
              </div>
              <div class="card">
               <div class="card-body">
-                <div id="to-calendar" class="w-100 h-100 mx-auto ms-auto"></div>
-               </div>
-             </div>
-
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-    </main>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="viewTOModal" tabindex="-1" aria-labelledby="viewTOModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header bg-blue">
-                <h5 class="modal-title text-white" id="viewTOModalLabel"><i class="bi bi-calendar2-week-fill"></i> CREATE TRAVEL ORDER</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
                 <div class="card-body row">
                   <div class="col-sm-6">
-                    <div class="row text-center">
-                      <!-- <div class="row col-sm-12 mb-3"> -->
+                    <div class="card">
+                      <div class="card-body" >
+                        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                          <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search for names.." aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="container-fluid overflow-auto" style="max-height: 400px;">
+                          <ul id="myUL">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                {% for user in users %}
+                                  <li class="myLI">
+                                    <input type="checkbox" class="user-checkbox" id="checkbox_{{ user.id }}" onclick="updateSelectedIds()">
+                                    <label class="form-check-label" for="checkbox_{{ user.id }}">
+                                        <span id="span_{{ user.id }}" class="text-blue fw-bold d-inline">{{ user.proper_fullname }}</span>
+                                    </label>
+                                </li>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </ul>
+                          <a href="#" id="seeMoreBtn" onclick="seeMore()" style="display:none;">See more...</a>
+                          <a href="#" id="seeLessBtn" onclick="seeLess()" style="display:none;">See less...</a>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body row text-center" style="height: 391px;">
+                      <div class="col-sm-12">
+                        <h3 class="text-secondary">MEMO FOR:</h3>
+                        <ol id="memoFor">
+                          <li class="text-start">{{ user_profile.proper_fullname }}</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+  
+
+                </div>
+
+                <div class="col-sm-12 mt-1">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="col-sm-12">
+                      <div class="row">
                         <div class="col-sm-12 col-md-6 mb-3 ">
                           <div class="form-floating has-validation">
                             <input type="date" class="form-control" name ="date_created" id="date_created" placeholder="Date Created" disabled value="{{ today_date_formatted }}">
                             <label class="text-blue fw-bold" id="date_created" for="date_created">Date Prepared</label>
                           </div>
                         </div>
-                        <div class="form-floating col-sm-12 col-md-6 mb-3">
-                          <select class="form-select" id="is_outside_ilocos" name="is_outside_ilocos" value="">
-                            <option value="1">OUTSIDE ILOCOS REGION</option>
-                            <option value="0" selected>WITHIN ILOCOS REGION</option>
-                          </select>
-                          <label class="text-blue fw-bold">Coverage Area<span class="is-required">*</span></label>
+                        <div class="col-sm-12 col-md-6 mb-3">
+                          <div class="form-floating">
+                            <select class="form-select" id="is_outside_ilocos" name="is_outside_ilocos" value="">
+                              <option value="1">OUTSIDE ILOCOS REGION</option>
+                              <option value="0" selected>WITHIN ILOCOS REGION</option>
+                            </select>
+                            <label class="text-blue fw-bold">Coverage Area<span class="is-required">*</span></label>
+                          </div>
                         </div>
-                        
-                      <!-- </div> -->
+                      </div>
+                    </div>
                       <div class="col-sm-12">
                         <div class="row">
                           <div class="col-sm-12 col-md-6 mb-3 ">
@@ -115,55 +141,47 @@ label span { pointer-events: none; }
             
                       <div class="col-sm-12">
                         <div class="form-floating">
-                          <textarea class="form-control" placeholder="Purpose" id="purpose" style="height: 150px" required></textarea>
+                          <textarea class="form-control" placeholder="to..." id="purpose" style="height: 150px" required></textarea>
                           <label for="purpose" class="text-blue fw-bold">Purpose of Travel<span class="is-required">*</span></label>
                         </div>
                       </div>
-                      <div class="col-sm-12">
-                        <h3 class="text-secondary">MEMO FOR:</h3>
-                        <ol id="memoFor">
-                          <li class="text-start">{{ user_profile.proper_fullname }}</li>
-                        </ol>
-                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                          <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search for names.." aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-                        <!-- <div class="container-fluid"> -->
-                          <ul id="myUL">
-                            <div class="row">
-                              <div class="col-sm-12">
-                                {% for user in users %}
-                     
-                                  
-                                  <li class="myLI" for="checkbox_{{ user.id }}">
-                                    <input type="checkbox" class="user-checkbox" id="checkbox_{{ user.id }}" onclick="updateSelectedIds()">
-                                    <label class="form-check-label" for="checkbox_{{ user.id }} text-blue fw-bold">
-                                      <span href="#" id="span_{{ user.id }}" class="text-blue fw-bold d-inline">{{ user.proper_fullname }}</span>
-                                    </label>
-                                  </li>
-                    
-                                {% endfor %}
-                              </div>
-                            </div>
-                          </ul>
-                          <a href="#" id="seeMoreBtn" onclick="seeMore()" style="display:none;">See more...</a>
-                          <a href="#" id="seeLessBtn" onclick="seeLess()" style="display:none;">See less...</a>
-                        <!-- </div> -->
-                      </div>
-                  </div>
                 </div>
+
+              
+              
               </form>
               </div>
+
+
+
+              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
+              <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> VIEW TRAVEL CALENDAR</button>
+
+
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="viewTOModal" tabindex="-1" aria-labelledby="viewTOModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header bg-blue">
+                <h5 class="modal-title text-white" id="viewTOModalLabel"><i class="bi bi-calendar2-week-fill"></i> VIEW TRAVEL ORDER</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div id="to-calendar" class="w-100 h-100 mx-auto ms-auto"></div>
+                
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
-                <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
 
               </div>
             </div>
@@ -186,14 +204,18 @@ label span { pointer-events: none; }
 <script type="text/javascript">
 
   let allListItems = [];
-  const initialVisibleItems = 20;
+  const initialVisibleItems = 10;
   let currentlyVisibleItems = initialVisibleItems;
   let selectedIds = [];
 
   var viewTOModal = new bootstrap.Modal(document.getElementById('viewTOModal'));
+  var calendarEl = document.getElementById('to-calendar');
 
 
   function updateSelectedIds() {
+
+      selectedIds = [];
+
       // Clear the current selected IDs
       selectedNames = ['{{ user_profile.proper_fullname }}'];
 
@@ -306,6 +328,12 @@ label span { pointer-events: none; }
     myFunction(); // Call to ensure the first 100 items are shown initially
   });
 
+  function clickViewTOModal(){
+    viewTOModal.show();
+
+    setTimeout(function() { calendar.render(); }, 500);
+    //calendar.render();
+  }
 
   function printTO(){
     loadingScreen('block')
@@ -314,6 +342,7 @@ label span { pointer-events: none; }
     var date_to = document.getElementById('date_to');
     var location = document.getElementById('location');
     var purpose = document.getElementById('purpose');
+    var date_created = document.getElementById('date_created');
     
     fetch('/travelOrder/print-to/{{user_profile.id}}', {
       method: 'POST',
@@ -324,6 +353,7 @@ label span { pointer-events: none; }
                             'date_to' : date_to.value,
                             'location' : location.value,
                             'purpose' : purpose.value,
+                            'date_created' : date_created.value,
                                 })
     }).then((res) => res.blob())
       .then((blob) => URL.createObjectURL(blob))
@@ -338,7 +368,6 @@ label span { pointer-events: none; }
   }
 
 
-  var calendarEl = document.getElementById('to-calendar');
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     allDayText:'8:00am-5:00pm',
@@ -358,6 +387,7 @@ label span { pointer-events: none; }
         center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %}',
         right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listMonth,fourMonth'
       },
+      
 
     //selectable: true,
     editable: {% if current_user.type_of_user == 'admin' %} true {% else %} false {% endif %},
@@ -436,7 +466,7 @@ function fetchCalendarEvents(calendar){
   
     }
 
-calendar.render();
+//calendar.render();
 
 fetchCalendarEvents(calendar);
 

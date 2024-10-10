@@ -45,8 +45,8 @@ def format_current_date():
 
 
 def addTravelOrder(creator_id, formdata):
-    ids = [int(id) for id in formdata['selectedIds']]
 
+    ids = [int(id) for id in formdata['selectedIds']]
     ids.append(creator_id)
     is_outside_ilocos = formdata['is_outside_ilocos'] == '1'
     date_from = formdata['date_from']
@@ -98,6 +98,8 @@ def get_context(id, formdata):
     date_to = proper_datetime(formdata['date_to'])
     location = formdata['location']
     purpose = formdata['purpose']
+    date_created = formdata['date_created']
+
 
     # Query the users by their IDs
     to_users = db.session.query(User).filter(User.id.in_(ids)).all()
@@ -127,10 +129,9 @@ def get_context(id, formdata):
         'date_from' : date_from,
         'date_to' : date_to,
         'location' : location,
-        'purpose' : purpose
+        'purpose' : purpose,
+        'date_created' : proper_datetime(date_created)
     }
-
-
 
 def from_template(template, creator_id, formdata):
     target_file = BytesIO()
@@ -143,8 +144,6 @@ def from_template(template, creator_id, formdata):
     template.save(target_file)
 
     return target_file
-
-
 
 @travelOrder.route("/print-to/<creator_id>", methods=['GET', 'POST'])
 def printTravelOrder(creator_id):
