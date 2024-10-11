@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Certificate of Employment {% endblock %}
+{% block title %} Travel Order {% endblock %}
 
 {%block cssperfile %}
 <link href="{{ url_for('static', filename='movingBg.css') }}" rel="stylesheet">
@@ -39,33 +39,33 @@ label span { pointer-events: none; }
   <li></li>
 </ul>
 
-<main class="container-fluid mt-3 mx-5">
+<main class="container-fluid" style="max-width: 1200px;">
       <div class="card mb-3 mt-4">
         <div class="card-body">
-          <div class="card bg-blue shadow-sm mb-3" >
+          <div class="card bg-blue shadow-sm" >
             <div class="card-header">
-              <h3 class="card-title text-white fw-bolder"><i class="bi bi-journals"></i> TRAVEL ORDER CALENDAR</h3>
+              <h3 class="card-title text-white fw-bolder"><i class="bi bi-luggage"></i> TRAVEL ORDER</h3>
              </div>
              <div class="card">
               <div class="card-body">
-                <div class="card-body row">
+                <div class="row">
                   <div class="col-sm-6">
-                    <div class="card">
-                      <div class="card-body" >
-                        <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
+                    <div class="card"  style="display: flex;">
+                      <div class="card-body">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                           <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search for names.." aria-label="Username" aria-describedby="basic-addon1">
                         </div>
-                        <div class="container-fluid overflow-auto" style="max-height: 400px;">
+                        <!-- <div class="container-fluid overflow-auto" style="max-height: 295px;"> -->
+                        <div class="container-fluid overflow-auto" style="min-height: 636px; max-height: 636px;">
                           <ul id="myUL">
                             <div class="row">
                               <div class="col-sm-12">
                                 {% for user in users %}
                                   <li class="myLI">
                                     <input type="checkbox" class="user-checkbox" id="checkbox_{{ user.id }}" onclick="updateSelectedIds()">
-                                    <label class="form-check-label" for="checkbox_{{ user.id }}">
-                                        <span id="span_{{ user.id }}" class="text-blue fw-bold d-inline">{{ user.proper_fullname }}</span>
+                                    <label class="form-check-label text-dark" for="checkbox_{{ user.id }}">
+                                        <span id="span_{{ user.id }}" class="fw-bold d-inline">{{ user.proper_fullname }}</span>
                                     </label>
                                 </li>
                                 {% endfor %}
@@ -77,95 +77,119 @@ label span { pointer-events: none; }
                         </div>
                       </div>
                   </div>
+                  <!-- <div class="card">
+                    <div class="card-body text-center">
+                      <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-calendar3"></i> VIEW TRAVEL CALENDAR</button>
+                      <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
+                    </div>
+                  </div> -->
+              
                 </div>
+
                 <div class="col-sm-6">
                   <div class="card">
-                    <div class="card-body row text-center" style="height: 391px;">
+                    <div class="card-body row text-center overflow-auto" style="max-height: 329px; min-height:329px;">
                       <div class="col-sm-12">
-                        <h3 class="text-secondary">MEMO FOR:</h3>
+                        <div class="container me-5" style="width: fit-content;">
+                          <p class="m-0 p-0 text-dark" id="date_from_display">
+                            October 10, 2024
+                          </p>
+                          <hr class="m-0 p-0 text-dark">
+                          <p class="m-0 p-0 text-dark"><i>Date</i></p>
+                        </div>
+
+
+                        <h6 class="text-dark text-start">MEMORANDUM TO:</h6>
                         <ol id="memoFor">
-                          <li class="text-start">{{ user_profile.proper_fullname }}</li>
+                          <li class="text-dark text-start">{{ user_profile.proper_fullname }}</li>
                         </ol>
                       </div>
                     </div>
                   </div>
-  
-
-                </div>
-
-                <div class="col-sm-12 mt-1">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="col-sm-12">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-6 mb-3 ">
-                          <div class="form-floating has-validation">
-                            <input type="date" class="form-control" name ="date_created" id="date_created" placeholder="Date Created" disabled value="{{ today_date_formatted }}">
-                            <label class="text-blue fw-bold" id="date_created" for="date_created">Date Prepared</label>
-                          </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 mb-3">
-                          <div class="form-floating">
-                            <select class="form-select" id="is_outside_ilocos" name="is_outside_ilocos" value="">
-                              <option value="1">OUTSIDE ILOCOS REGION</option>
-                              <option value="0" selected>WITHIN ILOCOS REGION</option>
-                            </select>
-                            <label class="text-blue fw-bold">Coverage Area<span class="is-required">*</span></label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="card">
+                    <div class="card-body">
                       <div class="col-sm-12">
                         <div class="row">
                           <div class="col-sm-12 col-md-6 mb-3 ">
                             <div class="form-floating has-validation">
-                              <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Date From" value="" required>
-                              <label class="text-blue fw-bold" id="date_from" for="date_from">Date From<span class="is-required">*</span></label>
+                              <input type="date" class="form-control" name ="date_created" id="date_created" placeholder="Date Created" {{'readonly' if current_user.type_of_user == 'user'}} value="{{ today_date_formatted }}" onchange="date_from_display()">
+                              <label class="text-blue fw-bold" id="date_created" for="date_created">Date Prepared</label>
                             </div>
                           </div>
-                          <div class="col-sm-12 col-md-6 mb-3 ">
-                            <div class="form-floating has-validation">
-                              <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Date To" value="">
-                              <label class="text-blue fw-bold" id="date_to" for="date_to">Date To</label>
+                          <div class="col-sm-12 col-md-6 mb-3">
+                            <div class="form-floating">
+                              <select class="form-select" id="is_outside_ilocos" name="is_outside_ilocos" value="">
+                                <option value="1">OUTSIDE ILOCOS REGION</option>
+                                <option value="0" selected>WITHIN ILOCOS REGION</option>
+                              </select>
+                              <label class="text-blue fw-bold">Coverage Area<span class="is-required">*</span></label>
                             </div>
                           </div>
                         </div>
                       </div>
-            
-                        <div class="col-sm-12 col-md-12 mb-3">
-                          <div class="form-floating has-validation">
-                              <input type="text" class="form-control" name ="location" id="location" placeholder="Location" value="" required>
-                              <label class="text-blue fw-bold" id="location" for="location">Destination<span class="is-required">*</span></label>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <div class="col-sm-12 col-md-6 mb-3 ">
+                              <div class="form-floating has-validation">
+                                <input type="date" class="form-control" name ="date_from" id="date_from" placeholder="Date From" onchange="validateDate()" required>
+                                <label class="text-blue fw-bold" id="date_from" for="date_from">Date From<span class="is-required">*</span></label>
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 mb-3 ">
+                              <div class="form-floating has-validation">
+                                <input type="date" class="form-control" name ="date_to" id="date_to" placeholder="Date To" value="">
+                                <label class="text-blue fw-bold" id="date_to" for="date_to">Date To</label>
+                              </div>
+                            </div>
                           </div>
                         </div>
-            
-                      <div class="col-sm-12">
-                        <div class="form-floating">
-                          <textarea class="form-control" placeholder="to..." id="purpose" style="height: 150px" required></textarea>
-                          <label for="purpose" class="text-blue fw-bold">Purpose of Travel<span class="is-required">*</span></label>
+              
+                          <div class="col-sm-12 col-md-12 mb-3">
+                            <div class="form-floating has-validation">
+                                <input type="text" class="form-control" name ="location" id="location" placeholder="Location" value="" required>
+                                <label class="text-blue fw-bold" id="location" for="location">Destination<span class="is-required">*</span></label>
+                            </div>
+                          </div>
+              
+                        <div class="col-sm-12">
+                          <div class="form-floating">
+                            <textarea class="form-control" placeholder="to..." id="purpose" style="height: 150px" required></textarea>
+                            <label for="purpose" class="text-blue fw-bold">Purpose of Travel<span class="is-required">*</span></label>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 </div>
-
-              
-              
               </form>
               </div>
-
-
-
-              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
-              <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> VIEW TRAVEL CALENDAR</button>
-
 
                </div>
              </div>
           </div>
+          <div class="col-sm-12 text-center" id="deleteBtn">
+            <button class="btn btn-danger mt-3" onclick="deleteTravelOrder();"><i class="bi bi-trash3"></i> Delete Travel Order</button>
+          </div>
         </div>
       </div>
     </div>
+
+    <footer class="footer mt-auto py-3 bg-light fixed-bottom p-0 m-0 position-sticky" id="navbar-example2">
+      <div class="container">
+        <div class="col-sm-12">
+          <div class="row">
+
+            <div class="col text-end">
+              <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-calendar3"></i> VIEW TRAVEL CALENDAR</button>
+            </div>
+            <div class="col text-start">
+              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
+
+            </div>
+          </div>
+        </div>
+        </div>
+    </footer>
+
 </main>
 
 
@@ -175,7 +199,7 @@ label span { pointer-events: none; }
             <div class="modal-content">
               <div class="modal-header bg-blue">
                 <h5 class="modal-title text-white" id="viewTOModalLabel"><i class="bi bi-calendar2-week-fill"></i> VIEW TRAVEL ORDER</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div id="to-calendar" class="w-100 h-100 mx-auto ms-auto"></div>
@@ -203,21 +227,72 @@ label span { pointer-events: none; }
 
 <script type="text/javascript">
 
+
+(function() {
+    date_from_display();
+    user_profile_checkbox();
+ })();
+
   let allListItems = [];
-  const initialVisibleItems = 10;
+  const initialVisibleItems = 23;
   let currentlyVisibleItems = initialVisibleItems;
   let selectedIds = [];
+  let storedTravelOrderIds = []
 
   var viewTOModal = new bootstrap.Modal(document.getElementById('viewTOModal'));
   var calendarEl = document.getElementById('to-calendar');
 
+  function date_from_display(){
+    var date_from_display = document.getElementById("date_from_display");
+    var date_created = document.getElementById('date_created');
+
+    var date = new Date(date_created.value);
+
+    // Format the date to MMM dd, yyyy
+    var options = { year: 'numeric', month: 'long', day: '2-digit' };
+    var formattedDate = date.toLocaleDateString('en-US', options);
+
+    date_from_display.innerHTML = formattedDate;
+  }
+
+  function deleteTravelOrder(){
+    console.log(storedTravelOrderIds);
+    fetch(`/travelOrder/delete-events`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'  // Make sure to specify JSON
+      },
+      body: JSON.stringify({
+        'storedTravelOrderIds': storedTravelOrderIds
+            })
+    }).then(response => response.json())
+      .then(data => {
+
+        console.log(data)
+      })
+      .catch(error => {
+          console.log(error);
+      });
+
+  }
+
+  function user_profile_checkbox(){
+    var chckbx = document.getElementById(`checkbox_{{ user_profile.id }}`);
+      //chckbx.click();
+      // chckbx.checked = true;
+      chckbx.disabled = true;
+    
+  }
 
   function updateSelectedIds() {
 
       selectedIds = [];
 
+
       // Clear the current selected IDs
       selectedNames = ['{{ user_profile.proper_fullname }}'];
+      // selectedNames = [];
+      //selectedIds.push('{{ user_profile.id }}')
 
       //console.log(selectedIds);
       
@@ -227,15 +302,43 @@ label span { pointer-events: none; }
       // Loop through checkboxes and add checked ones to the array
       checkboxes.forEach((checkbox) => {
 
-      if (checkbox.checked) {
+        let uncheckedCheckboxes = [];
+
+        // Iterate over each checkbox
+        checkboxes.forEach(checkbox => {
+            if (!checkbox.checked) {
+              uncheckedCheckboxes.push(checkbox); // Add to checkedCheckboxes array
+            }
+          });
+
+      if(selectedIds.length < 7){
+        user_profile_checkbox();
+
+        if (checkbox.checked) {
+
+          uncheckedCheckboxes.forEach((uncheckbox)=>{
+            uncheckbox.disabled = false;
+          });
+
           selectedIds.push(checkbox.id.replace('checkbox_', '')); // Extract user ID from checkbox ID
           selectedNames.push(document.getElementById('span_' + checkbox.id.replace('checkbox_', '')).innerHTML); // Extract name from checkbox ID
+
         }
-      });
+      }else{
+        user_profile_checkbox();
+ 
+          // Array to store checked checkboxes
+          uncheckedCheckboxes.forEach((uncheckbox)=>{
+            uncheckbox.disabled = true;
+          });
+
+   
+      }
+    });
 
       let liHtml = '';
       selectedNames.forEach((name)=>{
-        liHtml += `<li class="text-start">${name}</li>`;
+        liHtml += `<li class="text-start text-dark">${name}</li>`;
       });
 
       // document.getElementById('memoFor').insertAdjacentHTML('beforeend', liHtml);
@@ -314,7 +417,7 @@ label span { pointer-events: none; }
   }
   
   function seeMore() {
-    currentlyVisibleItems += 100; // Increase the number of visible items
+    currentlyVisibleItems += 50; // Increase the number of visible items
     myFunction(); // Reapply the filter and display logic
   }
   
@@ -331,40 +434,63 @@ label span { pointer-events: none; }
   function clickViewTOModal(){
     viewTOModal.show();
 
-    setTimeout(function() { calendar.render(); }, 500);
+    setTimeout(function() { calendar.render(); }, 200);
     //calendar.render();
   }
 
+  function validateDate(){
+    var date_from = document.getElementById('date_from');
+    var date_to = document.getElementById('date_to');
+
+    date_to.value = "";
+    date_to.min = date_from.value;
+  }
+
   function printTO(){
-    loadingScreen('block')
+
     var is_outside_ilocos = document.getElementById('is_outside_ilocos');
     var date_from = document.getElementById('date_from');
     var date_to = document.getElementById('date_to');
     var location = document.getElementById('location');
     var purpose = document.getElementById('purpose');
     var date_created = document.getElementById('date_created');
-    
-    fetch('/travelOrder/print-to/{{user_profile.id}}', {
-      method: 'POST',
-      body: JSON.stringify({
-                            'selectedIds': selectedIds,
-                            'is_outside_ilocos' : is_outside_ilocos.value,
-                            'date_from' : date_from.value,
-                            'date_to' : date_to.value,
-                            'location' : location.value,
-                            'purpose' : purpose.value,
-                            'date_created' : date_created.value,
-                                })
-    }).then((res) => res.blob())
-      .then((blob) => URL.createObjectURL(blob))
-      .then((href) => {
-          Object.assign(document.createElement('a'), {
-            href,
-            download: 'travel_order_{{ user_profile.last_name }}.docx',
-          }).click();
-      setTimeout(loadingScreen('none'), 2000);
+
+    if(date_from.value == "" || location.value == "" || purpose.value == "" || date_created == ""){
+      triggerToast('Please fill out all required fields!', 'error' );
+    }else{
+      loadingScreen('block')
+
+      var date_to_value = "";
+
+      if(date_to.value == ""){
+        date_to_value = date_from.value;
+      }else{
+        date_to_value = date_to.value;
+      }
       
-    })
+      fetch('/travelOrder/print-to/{{user_profile.id}}', {
+        method: 'POST',
+        body: JSON.stringify({
+                              'selectedIds': selectedIds,
+                              'is_outside_ilocos' : is_outside_ilocos.value,
+                              'date_from' : date_from.value,
+                              'date_to' : date_to_value,
+                              'location' : location.value,
+                              'purpose' : purpose.value,
+                              'date_created' : date_created.value,
+                                  })
+      }).then((res) => res.blob())
+        .then((blob) => URL.createObjectURL(blob))
+        .then((href) => {
+            Object.assign(document.createElement('a'), {
+              href,
+              download: 'travel_order_{{ user_profile.last_name }}.docx',
+            }).click();
+        setTimeout(loadingScreen('none'), 2000);
+        
+      })
+    }
+
   }
 
 
@@ -404,12 +530,23 @@ label span { pointer-events: none; }
       },
 
     eventClick: function(info){
-      console.log(info);
       viewTOModal.show();
-      fetchCalendarSpecificEvent(info.event.startStr, info.event.endStr, info.event.extendedProps.location, info.event.extendedProps.creator)
-
+      fetchCalendarSpecificEvent(info.event.startStr, info.event.endStr, info.event.extendedProps.location, info.event.extendedProps.creator);
+      storedTravelOrderIds = storeTravelOrderIds(info.event.extendedProps.toUsers);
     }
   });
+
+
+  function storeTravelOrderIds(toUsers){
+    var toUsersIds = []
+
+    toUsers.forEach((v)=>{
+      toUsersIds.push(v.calendarId)
+    });
+
+    return toUsersIds;
+
+  }
 
   function mobilecheck() {
     var check = false;
@@ -433,6 +570,24 @@ function fetchCalendarEvents(calendar){
       });
 
   }
+
+  function fetchCalendarEventsForUsers(calendar){
+    fetch(`/travelOrder/get-all-to-events-user-view/{{ user_profile.id }}`, {
+        method: 'GET',
+    }).then(response => response.json())
+        .then(data => {
+          //console.log(data);
+  
+            data.forEach((v, k)=>{
+                calendar.addEvent(v);
+             });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+  
+    }
+    
 
   function fetchCalendarSpecificEvent(date_from, date_to, location, creator){
 
@@ -468,7 +623,8 @@ function fetchCalendarEvents(calendar){
 
 //calendar.render();
 
-fetchCalendarEvents(calendar);
+//fetchCalendarEvents(calendar);
+fetchCalendarEventsForUsers(calendar);
 
 window.closeModal = function() {
   viewTOModal.hide();

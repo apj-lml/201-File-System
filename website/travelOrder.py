@@ -100,9 +100,9 @@ def get_context(id, formdata):
     purpose = formdata['purpose']
     date_created = formdata['date_created']
 
-
     # Query the users by their IDs
     to_users = db.session.query(User).filter(User.id.in_(ids)).all()
+    dm = db.session.query(User).filter_by(is_division_manager = 1, status_remarks="ACTIVE").first()
 
     my_rows = json.loads(jsonify(row_contents=user_schema.dump(to_users)).get_data(True))
     for idx, item in enumerate(my_rows["row_contents"]):
@@ -121,6 +121,37 @@ def get_context(id, formdata):
     creator_dict['myfullname'] = f"{creator.first_name} {middle_name} {creator.last_name} {name_extn}"
     creator_dict['position_title'] = creator.position_title.title()
 
+    if creator.is_section_chief == 1 or creator.is_division_manager == 1:
+        creator_dict['recommeding_approval'] = 'N/A'
+        creator_dict['recommeding_approval_position'] = 'N/A'
+    else:
+        if creator.user_unit.id == 12 or creator.user_unit.id == 13 or creator.user_unit.id == 14 or creator.user_unit.id == 15 or creator.user_unit.id == 21:
+            creator_dict['recommeding_approval'] = creator.user_unit.unit_head
+            creator_dict['recommeding_approval_position'] = 'Section Chief concerned'
+
+        else:
+            creator_dict['recommeding_approval'] = creator.user_section.section_chief
+            creator_dict['recommeding_approval_position'] = 'Section Chief concerned'
+
+
+    if is_outside_ilocos == '1':
+        dmName = f"{dm.first_name} { dm.middle_initial}. {dm.last_name} {name_extn}"
+        creator_dict['recommeding_approval'] = f"ENGR. { dmName.rstrip() }, MSME"
+        creator_dict['recommeding_approval_position'] = 'Division Manager A, Pangasinan IMO'
+
+        creator_dict['approver'] = dm.assignatory[0].assignatory
+        creator_dict['approver_position'] = dm.assignatory[0].position_title
+    else:
+        creator_dict['approver'] = creator.assignatory[0].assignatory
+        creator_dict['approver_position'] = creator.assignatory[0].position_title
+
+    date_coverage = ""
+
+    if date_to == date_from:
+        date_coverage = f"{date_from}"
+    else:
+        date_coverage = f"{date_from} - {date_to}"
+
     return {
         'row_contents': my_rows["row_contents"],
         'creator': creator_dict,
@@ -128,6 +159,7 @@ def get_context(id, formdata):
         'is_outside_ilocos' : is_outside_ilocos,
         'date_from' : date_from,
         'date_to' : date_to,
+        'date_coverage' : date_coverage,
         'location' : location,
         'purpose' : purpose,
         'date_created' : proper_datetime(date_created)
@@ -182,8 +214,6 @@ def get_all_to_events():
         
         formattedEvents = []
 
-        calendarEvents
-
         for ev in calendarEvents:
 
             calendarEvents = db.session.query(
@@ -207,6 +237,7 @@ def get_all_to_events():
                 ).first()
 
                 formattedCalendarUsers.append({
+                    'calendarId' : calendarUser.id,
                     'id' : selectedUser.id,
                     'fullname' : selectedUser.proper_fullname,
                     })
@@ -228,11 +259,128 @@ def get_all_to_events():
                 'date_created' : ev.date_created,
                 'toUsers' : formattedCalendarUsers
             })
-
-        # raise Exception(formattedEvents)
-
               
         return jsonify(formattedEvents)
+
+
+# ---------------------------------------------------------------------------- #
+#                          GET CAL ACTIVITIES IDS                              #
+# ---------------------------------------------------------------------------- #
+@travelOrder.route('/get-all-to-events-user-view/<id>', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def get_all_to_events_user_view(id):
+    if request.method == "GET":
+
+        calendarEvents = db.session.query(
+            Travel_Order
+        ).group_by(
+            Travel_Order.creator, 
+            Travel_Order.date_from, 
+            Travel_Order.date_to
+        ).filter_by(user_id = id)
+
+        calendarEvents2 = db.session.query(
+            Travel_Order
+        ).group_by(
+            Travel_Order.creator, 
+            Travel_Order.date_from, 
+            Travel_Order.date_to
+        ).filter_by(creator = id)
+
+
+        formattedEvents = []
+        
+        formattedCalendarUsers = []
+
+        for ev in calendarEvents:
+
+            # calendarEvents = db.session.query(
+            #     Travel_Order
+            # ).group_by(
+            #     Travel_Order.creator, 
+            #     Travel_Order.date_from, 
+            #     Travel_Order.date_to
+            # ).all()
+
+            calendarUsers = Travel_Order.query.filter(
+                Travel_Order.creator == ev.creator, 
+                Travel_Order.date_from == ev.date_from, 
+                Travel_Order.date_to == ev.date_to
+            ).all()
+
+            for calendarUser in calendarUsers:
+                selectedUser = User.query.filter(
+                    User.id == calendarUser.user_id
+                ).first()
+
+        formattedCalendarUsers.append({
+            'calendarId' : calendarUser.id,
+            'id' : selectedUser.id,
+            'fullname' : selectedUser.proper_fullname,
+            })
+
+        formattedEvents.append({
+            'id' : ev.id,
+            'title' : format_user_names(formattedCalendarUsers),
+            'location' : ev.location,
+            'is_outside_ilocos' : ev.is_outside_ilocos,
+            'purpose' : ev.purpose,
+            'creator' : ev.creator,
+            'start' : ev.date_from.strftime('%Y-%m-%d'),
+            # 'end' : ev.date_to.strftime('%Y-%m-%d'),
+            'end': str((ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d')),
+            'allDay': True,
+            'date_created' : ev.date_created,
+            'toUsers' : formattedCalendarUsers
+        })
+              
+                    
+        for ev in calendarEvents2:
+
+            calendarUsers2 = Travel_Order.query.filter(
+                Travel_Order.creator == ev.creator, 
+                Travel_Order.date_from == ev.date_from, 
+                Travel_Order.date_to == ev.date_to
+            ).all()
+
+
+
+            for calendarUser2 in calendarUsers2:
+                selectedUser2 = User.query.filter(
+                    User.id == calendarUser2.user_id
+                ).first()
+
+                formattedCalendarUsers.append({
+                    'calendarId' : calendarUser2.id,
+                    'id' : selectedUser2.id,
+                    'fullname' : selectedUser2.proper_fullname,
+                    })
+
+        # Sort the array to make ev.creator the first element
+        formattedCalendarUsers.sort(key=lambda user: 0 if user['id'] == ev.creator else 1)
+
+        formattedEvents.append({
+            'id' : ev.id,
+            'title' : format_user_names(formattedCalendarUsers),
+            'location' : ev.location,
+            'is_outside_ilocos' : ev.is_outside_ilocos,
+            'purpose' : ev.purpose,
+            'creator' : ev.creator,
+            'start' : ev.date_from.strftime('%Y-%m-%d'),
+            # 'end' : ev.date_to.strftime('%Y-%m-%d'),
+            'end': str((ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d')),
+            'allDay': True,
+            'date_created' : ev.date_created,
+            'toUsers' : formattedCalendarUsers
+        })
+            
+
+
+
+        return jsonify(formattedEvents)
+
+
 
 @travelOrder.route('/get-specific-to-events/<date_from>/<date_to>/<creator>', methods=['POST', 'GET'])
 @login_required
@@ -271,3 +419,30 @@ def get_specific_to_events(date_from, date_to, creator):
 
             
         return jsonify(formattedEvents)
+
+@travelOrder.route('/delete-events', methods=['POST', 'GET'])
+@login_required
+# @admin_permission.require(http_exception=403)
+def delete_events():
+    if request.method == "POST":
+        formdata = request.get_json()  # Make sure to get the JSON body
+
+        if formdata is None:
+            return jsonify({'error': 'No data received'}), 400
+        
+        print("================>", formdata['storedTravelOrderIds'])
+
+
+        stored_travel_order_ids = formdata['storedTravelOrderIds']
+
+        # Perform the bulk delete
+        try:
+            # This will delete all rows where the id is in the stored_travel_order_ids list
+            Travel_Order.query.filter(Travel_Order.id.in_(stored_travel_order_ids)).delete(synchronize_session=False)
+            db.session.commit()
+            
+            return jsonify({'status': 'success', 'deleted_ids': stored_travel_order_ids})
+        
+        except Exception as e:
+            db.session.rollback()  # Rollback in case of any error
+            return jsonify({'status': 'error', 'message': str(e)}), 500
