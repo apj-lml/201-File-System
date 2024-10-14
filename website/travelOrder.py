@@ -48,34 +48,41 @@ def addTravelOrder(creator_id, formdata):
 
     ids = [int(id) for id in formdata['selectedIds']]
     ids.append(creator_id)
+
+
+    travelOrderIds = [int(id) for id in formdata['travelOrderIds']]
+    print("==============>", travelOrderIds)
+
     is_outside_ilocos = formdata['is_outside_ilocos'] == '1'
     date_from = formdata['date_from']
     date_to = formdata['date_to']
     location = formdata['location']
     purpose = formdata['purpose']
 
-    for to_user_id in ids:
-        existing_to = Travel_Order.query.filter_by(user_id=to_user_id).first()  # Use .first() to get the record or None
-        
-        if existing_to:  # Check if a record was found
-            existing_to.user_id = to_user_id
-            existing_to.date_from = date_from
-            existing_to.date_to = date_to
-            existing_to.location = location
-            existing_to.purpose = purpose
-            existing_to.is_outside_ilocos = is_outside_ilocos
-            existing_to.creator = creator_id
-        else:
-            new_to = Travel_Order(
-                user_id=to_user_id,
-                date_from=date_from,
-                date_to=date_to,
-                location=location,
-                purpose=purpose,
-                is_outside_ilocos=is_outside_ilocos,
-                creator=creator_id,
-            )
-            db.session.add(new_to)
+    if travelOrderIds:
+        for to_id in travelOrderIds:
+            existing_to = Travel_Order.query.filter_by(id=to_id).first()  # Use .first() to get the record or None
+            if existing_to:  # Check if a record was found
+                # existing_to.user_id = to_id
+                existing_to.date_from = date_from
+                existing_to.date_to = date_to
+                existing_to.location = location
+                existing_to.purpose = purpose
+                existing_to.is_outside_ilocos = is_outside_ilocos
+                existing_to.creator = creator_id
+    else:
+        if ids:
+            for user_id in ids:
+                new_to = Travel_Order(
+                    user_id=user_id,
+                    date_from=date_from,
+                    date_to=date_to,
+                    location=location,
+                    purpose=purpose,
+                    is_outside_ilocos=is_outside_ilocos,
+                    creator=creator_id,
+                )
+                db.session.add(new_to)
 
     db.session.commit()
 
@@ -314,48 +321,54 @@ def get_all_to_events_user_view(id):
                     User.id == calendarUser.user_id
                 ).first()
 
-        formattedCalendarUsers.append({
-            'calendarId' : calendarUser.id,
-            'id' : selectedUser.id,
-            'fullname' : selectedUser.proper_fullname,
-            })
+                if not any(user['calendarId'] == selectedUser.id for user in formattedCalendarUsers):
+                    formattedCalendarUsers.append({
+                        'calendarId' : calendarUser.id,
+                        'id' : selectedUser.id,
+                        'fullname' : selectedUser.proper_fullname,
+                        })
 
-        formattedEvents.append({
-            'id' : ev.id,
-            'title' : format_user_names(formattedCalendarUsers),
-            'location' : ev.location,
-            'is_outside_ilocos' : ev.is_outside_ilocos,
-            'purpose' : ev.purpose,
-            'creator' : ev.creator,
-            'start' : ev.date_from.strftime('%Y-%m-%d'),
-            # 'end' : ev.date_to.strftime('%Y-%m-%d'),
-            'end': str((ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d')),
-            'allDay': True,
-            'date_created' : ev.date_created,
-            'toUsers' : formattedCalendarUsers
-        })
-              
+        # formattedEvents.append({
+        #     'id' : ev.id,
+        #     'title' : format_user_names(formattedCalendarUsers),
+        #     'location' : ev.location,
+        #     'is_outside_ilocos' : ev.is_outside_ilocos,
+        #     'purpose' : ev.purpose,
+        #     'creator' : ev.creator,
+        #     'start' : ev.date_from.strftime('%Y-%m-%d'),
+        #     # 'end' : ev.date_to.strftime('%Y-%m-%d'),
+        #     'end': str((ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d')),
+        #     'allDay': True,
+        #     'date_created' : ev.date_created,
+        #     'toUsers' : formattedCalendarUsers
+        # })
                     
-        for ev in calendarEvents2:
+        # for ev in calendarEvents2:
 
-            calendarUsers2 = Travel_Order.query.filter(
-                Travel_Order.creator == ev.creator, 
-                Travel_Order.date_from == ev.date_from, 
-                Travel_Order.date_to == ev.date_to
-            ).all()
+        #     calendarUsers2 = Travel_Order.query.filter(
+        #         Travel_Order.creator == ev.creator, 
+        #         Travel_Order.date_from == ev.date_from, 
+        #         Travel_Order.date_to == ev.date_to
+        #     ).all()
 
+        #     for calendarUser2 in calendarUsers2:
+        #         selectedUser2 = User.query.filter(
+        #             User.id == calendarUser2.user_id
+        #         ).first()
 
+        #         # formattedCalendarUsers.append({
+        #         #     'calendarId' : calendarUser2.id,
+        #         #     'id' : selectedUser2.id,
+        #         #     'fullname' : selectedUser2.proper_fullname,
+        #         #     })
 
-            for calendarUser2 in calendarUsers2:
-                selectedUser2 = User.query.filter(
-                    User.id == calendarUser2.user_id
-                ).first()
-
-                formattedCalendarUsers.append({
-                    'calendarId' : calendarUser2.id,
-                    'id' : selectedUser2.id,
-                    'fullname' : selectedUser2.proper_fullname,
-                    })
+        #         # Check if 'calendarId' already exists before appending
+        #         if not any(user['calendarId'] != calendarUser2.id for user in formattedCalendarUsers):
+        #             formattedCalendarUsers.append({
+        #                 'calendarId' : calendarUser2.id,
+        #                 'id' : selectedUser2.id,
+        #                 'fullname' : selectedUser2.proper_fullname,
+        #             })
 
         # Sort the array to make ev.creator the first element
         formattedCalendarUsers.sort(key=lambda user: 0 if user['id'] == ev.creator else 1)
@@ -368,15 +381,12 @@ def get_all_to_events_user_view(id):
             'purpose' : ev.purpose,
             'creator' : ev.creator,
             'start' : ev.date_from.strftime('%Y-%m-%d'),
-            # 'end' : ev.date_to.strftime('%Y-%m-%d'),
             'end': str((ev.date_to + timedelta(days=1)).strftime('%Y-%m-%d')),
             'allDay': True,
             'date_created' : ev.date_created,
             'toUsers' : formattedCalendarUsers
-        })
+            })
             
-
-
 
         return jsonify(formattedEvents)
 

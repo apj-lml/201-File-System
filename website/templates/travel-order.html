@@ -52,12 +52,20 @@ label span { pointer-events: none; }
                   <div class="col-sm-6">
                     <div class="card"  style="display: flex;">
                       <div class="card-body">
+                        <div class="alert alert-warning bg-blue d-flex align-items-center" role="alert">
+                          <!-- <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg> -->
+                          <div class="text-white">
+                          <i class="bi bi-info-circle"></i>
+                              Please take note that you can select a maximum of eight (8) persons only.
+                          </div>
+                        </div>
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                           <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search for names.." aria-label="Username" aria-describedby="basic-addon1">
                         </div>
+
                         <!-- <div class="container-fluid overflow-auto" style="max-height: 295px;"> -->
-                        <div class="container-fluid overflow-auto" style="min-height: 636px; max-height: 636px;">
+                        <div class="container-fluid overflow-auto" style="min-height: 596px; max-height: 572px;">
                           <ul id="myUL">
                             <div class="row">
                               <div class="col-sm-12">
@@ -152,10 +160,11 @@ label span { pointer-events: none; }
                           </div>
               
                         <div class="col-sm-12">
-                          <div class="form-floating">
+                          <!-- <div class="form-floating"> -->
+                            <label for="purpose" class="text-blue fw-bold form-label">Purpose of Travel<span class="is-required">*</span></label>
+
                             <textarea class="form-control" placeholder="to..." id="purpose" style="height: 150px" required></textarea>
-                            <label for="purpose" class="text-blue fw-bold">Purpose of Travel<span class="is-required">*</span></label>
-                          </div>
+                          <!-- </div> -->
                         </div>
                       </div>
                     </div>
@@ -166,9 +175,7 @@ label span { pointer-events: none; }
                </div>
              </div>
           </div>
-          <div class="col-sm-12 text-center" id="deleteBtn">
-            <button class="btn btn-danger mt-3" onclick="deleteTravelOrder();"><i class="bi bi-trash3"></i> Delete Travel Order</button>
-          </div>
+
         </div>
       </div>
     </div>
@@ -181,9 +188,17 @@ label span { pointer-events: none; }
             <div class="col text-end">
               <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-calendar3"></i> VIEW TRAVEL CALENDAR</button>
             </div>
-            <div class="col text-start">
-              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
+            <div class="col text-center">
+              <button href="#" class="btn btn-primary" id="createTravelOrderBtn" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> CREATE TRAVEL ORDER</button>
+            </div>
 
+            {%  if current_user.type_of_user == 'admin'  %}
+            <div class="col text-start" id="deleteBtn">
+              <button class="btn btn-danger" onclick="deleteTravelOrder();"><i class="bi bi-trash3"></i> DELETE TRAVEL ORDER</button>
+            </div>
+            {% endif %}
+            <div class="col text-center" id="regenerateTravelOrder">
+              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-recycle"></i> REPRINT TRAVEL ORDER</button>
             </div>
           </div>
         </div>
@@ -234,10 +249,11 @@ label span { pointer-events: none; }
  })();
 
   let allListItems = [];
-  const initialVisibleItems = 23;
+  const initialVisibleItems = 22;
   let currentlyVisibleItems = initialVisibleItems;
   let selectedIds = [];
   let storedTravelOrderIds = []
+  let storedTravelOrderUsersIds = []
 
   var viewTOModal = new bootstrap.Modal(document.getElementById('viewTOModal'));
   var calendarEl = document.getElementById('to-calendar');
@@ -257,6 +273,9 @@ label span { pointer-events: none; }
 
   function deleteTravelOrder(){
     console.log(storedTravelOrderIds);
+
+    loadingScreen('block')
+
     fetch(`/travelOrder/delete-events`, {
       method: 'POST',
       headers: {
@@ -268,7 +287,8 @@ label span { pointer-events: none; }
     }).then(response => response.json())
       .then(data => {
 
-        console.log(data)
+        setTimeout(window.location.reload(), 2000);
+
       })
       .catch(error => {
           console.log(error);
@@ -282,6 +302,28 @@ label span { pointer-events: none; }
       // chckbx.checked = true;
       chckbx.disabled = true;
     
+  }
+
+  function disableInputsBoxes(){
+    // Get all checkboxes
+    const checkboxes = document.querySelectorAll('.user-checkbox');
+    var is_outside_ilocos_el = document.getElementById('is_outside_ilocos');
+    var date_from_el = document.getElementById('date_from');
+    var date_to_el = document.getElementById('date_to');
+    var location_el = document.getElementById('location');
+    var purpose_el = document.getElementById('purpose');
+
+    // Loop through checkboxes and add checked ones to the array
+      // Iterate over each checkbox
+      checkboxes.forEach(checkbox => {
+            checkbox.disabled = 'true';
+        });
+
+        is_outside_ilocos_el.disabled = 'true';
+        date_from_el.disabled = 'true';
+        date_to_el.disabled = 'true';
+        location_el.disabled = 'true';
+        purpose_el.disabled = 'true';
   }
 
   function updateSelectedIds() {
@@ -472,6 +514,7 @@ label span { pointer-events: none; }
         method: 'POST',
         body: JSON.stringify({
                               'selectedIds': selectedIds,
+                              'travelOrderIds' : storedTravelOrderIds,
                               'is_outside_ilocos' : is_outside_ilocos.value,
                               'date_from' : date_from.value,
                               'date_to' : date_to_value,
@@ -486,14 +529,14 @@ label span { pointer-events: none; }
               href,
               download: 'travel_order_{{ user_profile.last_name }}.docx',
             }).click();
-        setTimeout(loadingScreen('none'), 2000);
+
+        setTimeout(window.location.reload(), 2000);
+   
         
       })
     }
 
   }
-
-
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     allDayText:'8:00am-5:00pm',
@@ -510,7 +553,7 @@ label span { pointer-events: none; }
     dayMaxEvents: true,
     headerToolbar: {
         left: 'title',
-        center: '{% if current_user.type_of_user == 'admin' %}addEventButton{% endif %}',
+        //center: '{% if current_user.type_of_user == 'admin' %} addEventButton{% endif %}',
         right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listMonth,fourMonth'
       },
       
@@ -520,19 +563,16 @@ label span { pointer-events: none; }
     droppable: {% if current_user.type_of_user == 'admin' %} true {% else %} false {% endif %},
     
     displayEventTime: true,
-    customButtons: {
-        addEventButton: {
-          text: mobilecheck() ? 'Add' : 'Create Travel Order',
-          click: function() {
-            viewTOModal.show();
-          }
-        }, 
-      },
+
 
     eventClick: function(info){
-      viewTOModal.show();
       fetchCalendarSpecificEvent(info.event.startStr, info.event.endStr, info.event.extendedProps.location, info.event.extendedProps.creator);
       storedTravelOrderIds = storeTravelOrderIds(info.event.extendedProps.toUsers);
+
+     
+
+      viewTOModal.hide();
+
     }
   });
 
@@ -559,7 +599,7 @@ function fetchCalendarEvents(calendar){
       method: 'GET',
   }).then(response => response.json())
       .then(data => {
-        //console.log(data);
+        console.log(data);
 
           data.forEach((v, k)=>{
               calendar.addEvent(v);
@@ -604,14 +644,22 @@ function fetchCalendarEvents(calendar){
             data.forEach((v, k)=>{
 
               var chckbx = document.getElementById(`checkbox_${v.user_id}`);
-              if(v.user_id != creator){
-                chckbx.click();
-              }
+
               date_from_el.value = v.date_from;
               date_to_el.value = v.date_to;
               location_el.value = v.location;
               purpose_el.value = v.purpose;
+              if(v.user_id != creator){
+                chckbx.click();
+              }else{
 
+
+              }
+
+
+              //disableInputsBoxes();
+
+              
              });
   
         })
@@ -623,8 +671,8 @@ function fetchCalendarEvents(calendar){
 
 //calendar.render();
 
-//fetchCalendarEvents(calendar);
-fetchCalendarEventsForUsers(calendar);
+fetchCalendarEvents(calendar);
+//fetchCalendarEventsForUsers(calendar);
 
 window.closeModal = function() {
   viewTOModal.hide();
