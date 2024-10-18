@@ -40,9 +40,9 @@ def upload_payslips(userId):
 
                 user = db.session.query(User).filter_by(employee_id=id_part).first()
                 
-                if user:
+                #if user:
 
-                    payslipDupe = db.session.query(Payslip).filter_by(user_id=user.id, period_from=start_date, period_to=end_date).first()
+                payslipDupe = db.session.query(Payslip).filter_by(user_id=user.id, period_from=start_date, period_to=end_date).first()
                 
                 if payslipDupe:
                     existing_file_path = os.path.join(current_app.config['UPLOAD_FOLDER_PAYSLIP'], payslipDupe.filename)
