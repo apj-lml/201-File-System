@@ -189,7 +189,7 @@ label span { pointer-events: none; }
               <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-calendar3"></i> VIEW TRAVEL CALENDAR</button>
             </div>
             <div class="col text-center">
-              <button href="#" class="btn btn-primary" id="createTravelOrderBtn" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> CREATE TRAVEL ORDER</button>
+              <button href="#" class="btn btn-primary" id="createTravelOrderBtn" onclick="createTO()" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-plus"></i> CREATE TRAVEL ORDER</button>
             </div>
 
             {%  if current_user.type_of_user == 'admin'  %}
@@ -198,7 +198,7 @@ label span { pointer-events: none; }
             </div>
             {% endif %}
             <div class="col text-center" id="regenerateTravelOrder">
-              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-recycle"></i> REPRINT TRAVEL ORDER</button>
+              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i>  GENERATE TRAVEL ORDER</button>
             </div>
           </div>
         </div>
@@ -269,6 +269,33 @@ label span { pointer-events: none; }
     var formattedDate = date.toLocaleDateString('en-US', options);
 
     date_from_display.innerHTML = formattedDate;
+  }
+
+  function createTO(){
+    selectedIds = [];
+    storedTravelOrderIds = []
+    storedTravelOrderUsersIds = []
+
+    const checkboxes = document.querySelectorAll('.user-checkbox');
+    var is_outside_ilocos_el = document.getElementById('is_outside_ilocos');
+    var date_from_el = document.getElementById('date_from');
+    var date_to_el = document.getElementById('date_to');
+    var location_el = document.getElementById('location');
+    var purpose_el = document.getElementById('purpose');
+
+    // Loop through checkboxes and add checked ones to the array
+      // Iterate over each checkbox
+      checkboxes.forEach(checkbox => {
+            checkbox.disabled = 'false';
+            checkbox.check = 'true';
+        });
+
+        is_outside_ilocos_el.value = "";
+        date_from_el.value = "";
+        date_to_el.value = "";
+        location_el.value = "";
+        purpose_el.value = "";
+        
   }
 
   function deleteTravelOrder(){
@@ -497,6 +524,8 @@ label span { pointer-events: none; }
     var purpose = document.getElementById('purpose');
     var date_created = document.getElementById('date_created');
 
+    
+
     if(date_from.value == "" || location.value == "" || purpose.value == "" || date_created == ""){
       triggerToast('Please fill out all required fields!', 'error' );
     }else{
@@ -560,7 +589,7 @@ label span { pointer-events: none; }
 
     //selectable: true,
     editable: {% if current_user.type_of_user == 'admin' %} true {% else %} false {% endif %},
-    droppable: {% if current_user.type_of_user == 'admin' %} true {% else %} false {% endif %},
+    //droppable: {% if current_user.type_of_user == 'admin' %} true {% else %} false {% endif %},
     
     displayEventTime: true,
 
