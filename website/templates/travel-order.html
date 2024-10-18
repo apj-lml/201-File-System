@@ -85,13 +85,6 @@ label span { pointer-events: none; }
                         </div>
                       </div>
                   </div>
-                  <!-- <div class="card">
-                    <div class="card-body text-center">
-                      <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-calendar3"></i> VIEW TRAVEL CALENDAR</button>
-                      <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i> GENERATE TRAVEL ORDER</button>
-                    </div>
-                  </div> -->
-              
                 </div>
 
                 <div class="col-sm-6">
@@ -188,8 +181,8 @@ label span { pointer-events: none; }
             <div class="col text-end">
               <button href="#" class="btn btn-primary" onclick="clickViewTOModal();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-calendar3"></i> VIEW TRAVEL CALENDAR</button>
             </div>
-            <div class="col text-center">
-              <button href="#" class="btn btn-primary" id="createTravelOrderBtn" onclick="createTO()" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-plus"></i> CREATE TRAVEL ORDER</button>
+            <div class="col text-start">
+              <button href="#" class="btn btn-primary" id="createTravelOrderBtn" onclick="printTO()" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-plus-square"></i> CREATE TRAVEL ORDER</button>
             </div>
 
             {%  if current_user.type_of_user == 'admin'  %}
@@ -197,8 +190,8 @@ label span { pointer-events: none; }
               <button class="btn btn-danger" onclick="deleteTravelOrder();"><i class="bi bi-trash3"></i> DELETE TRAVEL ORDER</button>
             </div>
             {% endif %}
-            <div class="col text-center" id="regenerateTravelOrder">
-              <button href="#" class="btn btn-primary" onclick="printTO();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-printer"></i>  GENERATE TRAVEL ORDER</button>
+            <div class="col text-center d-none" id="closeBtnDiv">
+              <button href="#" class="btn btn-primary" onclick="closeTOBtn();" {{ '' if user_profile.employment_status == "JOB ORDER" }}><i class="bi bi-plus"></i> CREATE NEW TRAVEL ORDER</button>
             </div>
           </div>
         </div>
@@ -252,8 +245,8 @@ label span { pointer-events: none; }
   const initialVisibleItems = 22;
   let currentlyVisibleItems = initialVisibleItems;
   let selectedIds = [];
-  let storedTravelOrderIds = []
-  let storedTravelOrderUsersIds = []
+  let storedTravelOrderIds = [];
+  let storedTravelOrderUsersIds = [];
 
   var viewTOModal = new bootstrap.Modal(document.getElementById('viewTOModal'));
   var calendarEl = document.getElementById('to-calendar');
@@ -271,10 +264,14 @@ label span { pointer-events: none; }
     date_from_display.innerHTML = formattedDate;
   }
 
-  function createTO(){
+  function closeTO(){
+
     selectedIds = [];
-    storedTravelOrderIds = []
-    storedTravelOrderUsersIds = []
+    storedTravelOrderIds = [];
+    storedTravelOrderUsersIds = [];
+    allListItems = [];
+
+    disableInputsBoxes('');
 
     const checkboxes = document.querySelectorAll('.user-checkbox');
     var is_outside_ilocos_el = document.getElementById('is_outside_ilocos');
@@ -283,20 +280,37 @@ label span { pointer-events: none; }
     var location_el = document.getElementById('location');
     var purpose_el = document.getElementById('purpose');
 
-    // Loop through checkboxes and add checked ones to the array
-      // Iterate over each checkbox
-      checkboxes.forEach(checkbox => {
-            checkbox.disabled = 'false';
-            checkbox.check = 'true';
-        });
+    // Iterate over each checkbox
+    checkboxes.forEach(checkbox => {
+          checkbox.checked = '';
+          //checkbox.disabled = 'false';
+      });
 
-        is_outside_ilocos_el.value = "";
-        date_from_el.value = "";
-        date_to_el.value = "";
-        location_el.value = "";
-        purpose_el.value = "";
-        
+    user_profile_checkbox();
+    updateSelectedIds();
+
+    is_outside_ilocos_el.selectedIndex = 1;
+    date_from_el.value = "";
+    date_to_el.value = "";
+    location_el.value = "";
+    purpose_el.value = "";
+   
   }
+
+  function closeTOBtn(){
+
+    var closeBtnDiv = document.getElementById('closeBtnDiv');
+    var createTravelOrderBtn = document.getElementById('createTravelOrderBtn');
+
+    createTravelOrderBtn.innerHTML = "<i class='bi bi-printer'></i> PRINT TRAVEL ORDER";
+    createTravelOrderBtn.disabled = '';
+    closeBtnDiv.classList.add('d-none');
+
+    closeTO();
+
+  }
+
+
 
   function deleteTravelOrder(){
     console.log(storedTravelOrderIds);
@@ -326,12 +340,11 @@ label span { pointer-events: none; }
   function user_profile_checkbox(){
     var chckbx = document.getElementById(`checkbox_{{ user_profile.id }}`);
       //chckbx.click();
-      // chckbx.checked = true;
+      //chckbx.checked = true;
       chckbx.disabled = true;
-    
   }
 
-  function disableInputsBoxes(){
+  function disableInputsBoxes(isDisabled = 'true'){
     // Get all checkboxes
     const checkboxes = document.querySelectorAll('.user-checkbox');
     var is_outside_ilocos_el = document.getElementById('is_outside_ilocos');
@@ -339,33 +352,28 @@ label span { pointer-events: none; }
     var date_to_el = document.getElementById('date_to');
     var location_el = document.getElementById('location');
     var purpose_el = document.getElementById('purpose');
+    var createTravelOrderBtn = document.getElementById('createTravelOrderBtn');
 
     // Loop through checkboxes and add checked ones to the array
       // Iterate over each checkbox
       checkboxes.forEach(checkbox => {
-            checkbox.disabled = 'true';
+            checkbox.disabled = isDisabled;
         });
 
-        is_outside_ilocos_el.disabled = 'true';
-        date_from_el.disabled = 'true';
-        date_to_el.disabled = 'true';
-        location_el.disabled = 'true';
-        purpose_el.disabled = 'true';
+        is_outside_ilocos_el.disabled = isDisabled;
+        date_from_el.disabled = isDisabled;
+        date_to_el.disabled = isDisabled;
+        location_el.disabled = isDisabled;
+        purpose_el.disabled = isDisabled;
+        createTravelOrderBtn.disabled = isDisabled;
   }
 
   function updateSelectedIds() {
-
+      // Clear the current selected IDs
       selectedIds = [];
 
-
-      // Clear the current selected IDs
       selectedNames = ['{{ user_profile.proper_fullname }}'];
-      // selectedNames = [];
-      //selectedIds.push('{{ user_profile.id }}')
 
-      //console.log(selectedIds);
-      
-      // Get all checkboxes
       const checkboxes = document.querySelectorAll('.user-checkbox');
 
       // Loop through checkboxes and add checked ones to the array
@@ -395,8 +403,6 @@ label span { pointer-events: none; }
         }
       }else{
         user_profile_checkbox();
- 
-          // Array to store checked checkboxes
           uncheckedCheckboxes.forEach((uncheckbox)=>{
             uncheckbox.disabled = true;
           });
@@ -559,6 +565,7 @@ label span { pointer-events: none; }
               download: 'travel_order_{{ user_profile.last_name }}.docx',
             }).click();
 
+
         setTimeout(window.location.reload(), 2000);
    
         
@@ -585,7 +592,6 @@ label span { pointer-events: none; }
         //center: '{% if current_user.type_of_user == 'admin' %} addEventButton{% endif %}',
         right: mobilecheck() ? 'prev,next today dayGridWeek,listYear' : 'prev,next today dayGridMonth,listMonth,fourMonth'
       },
-      
 
     //selectable: true,
     editable: {% if current_user.type_of_user == 'admin' %} true {% else %} false {% endif %},
@@ -596,11 +602,17 @@ label span { pointer-events: none; }
 
     eventClick: function(info){
       fetchCalendarSpecificEvent(info.event.startStr, info.event.endStr, info.event.extendedProps.location, info.event.extendedProps.creator);
-      storedTravelOrderIds = storeTravelOrderIds(info.event.extendedProps.toUsers);
+      //storedTravelOrderIds = storeTravelOrderIds(info.event.extendedProps.toUsers);
 
-     
+      var createTravelOrderBtn = document.getElementById('createTravelOrderBtn');
+      var closeBtnDiv = document.getElementById('closeBtnDiv');
+      createTravelOrderBtn.innerHTML = "<i class='bi bi-printer'></i> REPRINT TRAVEL ORDER";
 
+      closeBtnDiv.classList.remove('d-none');
+      closeTO();
       viewTOModal.hide();
+
+      
 
     }
   });
@@ -678,18 +690,17 @@ function fetchCalendarEvents(calendar){
               date_to_el.value = v.date_to;
               location_el.value = v.location;
               purpose_el.value = v.purpose;
-              if(v.user_id != creator){
-                chckbx.click();
-              }else{
-
-
-              }
-
-
-              //disableInputsBoxes();
-
               
+              //if(v.user_id != creator){
+                chckbx.click();
+              //}
              });
+
+             if(creator != '{{ user_profile.id }}'){
+              disableInputsBoxes();
+             }
+             user_profile_checkbox();
+             
   
         })
         .catch(error => {

@@ -268,7 +268,7 @@
                   <a href="/wes/{{current_user.id}}"><i class="far fa-copy"></i> WES</a>
               </li>
               <li>
-                  <a href="/to-menu/{{current_user.id}}"><i class="fas fa-print"></i> Travel Order</a>
+                  <a href="/to-menu/{{current_user.id}}"><i class="bi bi-suitcase-lg"></i> Travel Order</a>
               </li>
               <li>
                 <a href="/saln/{{current_user.id}}"><i class="fas fa-file-contract"></i> SALN</a>
@@ -284,12 +284,11 @@
           <li>
             <a href="/directories"><i class="fas fa-book"></i> Directories</a>
           </li>
-          {% if current_user.type_of_user == 'admin' %}
-
+          <!-- {% if current_user.type_of_user == 'admin' %} -->
           <li>
             <a href="/payslips/{{current_user.id}}"><i class="bi bi-wallet2"></i> Payslips</a>
           </li>
-          {% endif %}
+          <!-- {% endif %} -->
           <li>
             <a href="#otherSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="bi bi-box-seam"></i> Others</a>
             <ul class="collapse list-unstyled" id="otherSubmenu">
